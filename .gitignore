@@ -13,3 +13,5 @@ website/build
 website/package.json
 packages/**/package-lock.json
 .history
+packages/build*
+packages/.build*
