@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../test/inner/mockSyberos.js"></script>
+<script src="../dist/syber.js"></script>
+<body>
+    <button style="height: 100px;width: 30%" onclick="start()">test</button>
+
+<button>test</button>
+</body>
+<script>
+
+    console.log(JSON.stringify(syber.os))
+    console.log(JSON.stringify(syber.Version))
+
+    function start(){
+        syber.Download.start({
+            url:'test',
+            name:'test',
+            success(call){
+                console.log(call);
+            }
+        })
+    }
+</script>
+</html>
