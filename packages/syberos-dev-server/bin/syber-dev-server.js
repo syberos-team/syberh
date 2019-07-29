@@ -25,7 +25,7 @@ function startServer() {
     socket.on('end', () => {
       console.log('TCP socket end')
     })
-    const filePath = '/home/lihejia/mock/syberos/syber-dev-server/www'
+    const filePath = '../www'
 
     //压缩并发送
     gzDir(filePath).then(ofile => {
