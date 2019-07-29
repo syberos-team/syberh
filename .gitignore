@@ -8,6 +8,7 @@ _book
 .idea
 .vscode
 temp
+.temp
 website/build
 website/package.json
 packages/**/package-lock.json

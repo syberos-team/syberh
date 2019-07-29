@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>demo</title>
+    <style type="text/css">
+        button{
+            font-size: 2em;
+            margin: 4em 2em;
+            height: 4em;
+            width: 10em;
+        }
+
+        .text{
+            font-size:2em;
+        }
+    </style>
+    <script src="dist/vconsole.min.js"></script>
+    <script src="dist/syber.js"></script>
+</head>
+<body>
+
+<button id="donwload" onclick="donwload()">donwload</button>
+
+<div class="text" id="content"></div>
+<script>
+        var vConsole = new VConsole();
+        console.log('Hello world');
+            syber.config();
+                  syber.ready(function() {
+                      document.getElementById("content").innerHTML = '注册成功';
+                  });
+        document.getElementById("content").innerHTML = JSON.stringify(syber.os);
+    function donwload(){
+        syber.Download.start({
+            url:"http://c.biancheng.net/uploads/allimg/181229/2-1Q22Z95914431.gif",
+            name:'test.gif',
+            success: function(result) {
+                console.log('success  ', JSON.stringify(result));
+                document.getElementById("content").innerHTML = 'success: ' + JSON.stringify(result);
+            },
+            error: function(error) {
+                console.log('error   ', '失败:' + JSON.stringify(error));
+                document.getElementById("content").innerHTML = 'error: ' + JSON.stringify(error);
+            }
+        })
+    }
+</script>
+</body>
+</html>

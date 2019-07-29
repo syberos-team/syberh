@@ -1,4 +1,9 @@
 {
+  "name": "@syberos/hybrid",
+  "private": true,
+  "description": "SYBER OS HTML5开发 APP框架",
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -7,39 +12,67 @@
     "publish-l": "lerna publish --conventional-commits --independent"
   },
   "devDependencies": {
-    "eslint": "^4.18.1",
-    "husky": "^0.15.0-rc.8",
-    "lerna": "^3.16.4",
-    "lint-staged": "^7.0.0",
-    "prettier": "^1.10.2",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.24.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-react-transform": "^3.0.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-do-expressions": "^6.22.0",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-plugin-transform-object-assign": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-latest": "^6.24.0",
-    "babel-preset-react": "^6.23.0",
-    "babel-preset-react-hmre": "^1.1.1",
-    "babel-preset-stage-0": "^6.22.0",
-    "babel-runtime": "^6.23.0",
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.42",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.42",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.44",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.41",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/preset-react": "^7.0.0",
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/config-conventional": "^7.1.2",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-preset-es2015": "^6.24.1",
     "conventional-changelog-cli": "^2.0.1",
-    "rimraf": "^2.6.2"
+    "css-loader": "^0.28.10",
+    "docusaurus": "^1.9.0",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-jsx": "^4.0.2",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "gh-pages": "^1.1.0",
+    "html-webpack-plugin": "^3.0.6",
+    "husky": "^1.2.0",
+    "jest-dom": "^1.3.1",
+    "lerna": "^2.10.0",
+    "lint-staged": "^8.1.0",
+    "nerv-markdown-loader": "0.0.1",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "ora": "^2.1.0",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.57.1",
+    "rollup-plugin-alias": "^1.4.0",
+    "rollup-plugin-babel": "^4.0.0-beta.2",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-postcss": "^1.6.1",
+    "sass-loader": "^6.0.7",
+    "shelljs": "^0.8.1",
+    "style-loader": "^0.20.3",
+    "typescript": "^3.0.1",
+    "webpack": "^3.11.0",
+    "webpack-cli": "^1.0.12"
   },
   "lint-staged": {
-    "packages/**/*.{js,jsx}": [
-      "prettier --write",
-      "eslint",
+    "*.{js,jsx}": [
+      "eslint --fix",
       "git add"
     ]
   },
-  "dependencies": {
-    "@xweb/xweb-tools": "^2.0.3"
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
   }
 }
