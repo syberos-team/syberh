@@ -1,0 +1,7 @@
+{
+  "projectName": "<%= projectName %>",
+  "appName": "<%= appName %>",
+  "target": "<%= target %>",
+  "targetSimulator": "<%= targetSimulator %>",
+  "sopid": "<%= sopid %>"
+}

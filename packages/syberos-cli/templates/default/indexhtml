@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no,address=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+  <title>Hello </title>
+  
+  <script type="text/javascript" src="lib/syber.js" ></script>
+</head>
+<body>
+  <div id="root">
+      <h1>Hello,SyberOS</h1>
+      <p id="os"></p>
+  </div>
+</body>
+<script>
+    document.getElementById("os").innerHTML= "当前环境:"+JSON.stringify(syber.os)
+</script>
+</html>

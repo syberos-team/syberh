@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sopconfig syberos:shareUserId="" syberos:versionName="1.0.0" xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1" syberos:sopid="<%=sopid %>" syberos:versionCode="1">
+    <uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_WIFI"/>
+    <uses-sdk syberos:minSdkVersion="" syberos:targetSdkVersion=""/>
+    <application syberos:debuggable="true" syberos:name="<%=appName%>" syberos:description="Brief introduction of your application here. " syberos:icon="res/app.png">
+        <uiapp syberos:launcher="true" syberos:id="<%=projectName%>" syberos:splash="" syberos:exec="bin/app" syberos:background="" syberos:name="" syberos:icon="res/app.png">
+            <doctype syberos:id=""/>
+        </uiapp>
+    </application>
+</sopconfig>
