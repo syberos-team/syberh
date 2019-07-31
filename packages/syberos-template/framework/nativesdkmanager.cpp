@@ -53,23 +53,28 @@ void NativeSdkManager::submit(QString typeID,QString callBackID,QString actionNa
     Q_UNUSED(dataRowList)
     Q_UNUSED(attachementes)
 }
-QObject * NativeSdkManager::getUiSource(QString className,QString actionName){
-    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(className);
+QObject * NativeSdkManager::getUiSource(QString typeID,QString actionName){
+    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(typeID);
     QObject * item = NULL;
     if(handler){
-        initHandlerConnect(className);
+        initHandlerConnect(typeID);
         item =  handler->getUiSource(actionName);
     }
     return item;
 }
 void NativeSdkManager::initHandlerConnect(QString typeID){
-    qDebug()<<"jidan======================"<<typeID;
     NativeSdkHandlerBase * handler = m_NativeSdkFactory.getAllHandlers().value(typeID);
     if(handler){
-        qDebug()<<"''''''''''''''''''''''";
         connect(handler,SIGNAL(sucess(long,QVariant)),this,SIGNAL(sucess(long,QVariant)));
         connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
         connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
+    }
+}
+void NativeSdkManager::loadQml(QString typeID,QString parentPageName, QString parentName, QString type){
+    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(typeID);
+    if(handler){
+        initHandlerConnect(typeID);
+        handler->loadQml(parentPageName,parentName,type);
 
     }
 }

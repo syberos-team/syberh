@@ -77,11 +77,32 @@ CPageStackWindow {
                     }
                 }
             }
+             //静态布局
             Test{
+                id:staticQml
                 anchors.top: webview.bottom
+                height:200
                 Component.onCompleted: {
                  console.log(RelativeTime.timeSince(new Date()) + " ago");
                 }
+            }
+            /// 动态布局 c++中加载qml
+            Item{
+                id:item
+                objectName:"objItem"
+                width: parent.width
+                height: 200
+                anchors.top :staticQml.bottom
+                anchors.topMargin: 10
+                Component.onCompleted: {
+                    timer.start()
+                 }
+            }
+            Timer{
+                id:timer
+                interval: 10
+                repeat: false
+                onTriggered:NativeSdkManager.loadQml("LoadQmlHandler*","","objItem","")
             }
 
         }
