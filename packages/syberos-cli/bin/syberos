@@ -15,4 +15,5 @@ program
   .command('convert', 'Convert weapp to taro')
   .command('info', 'Diagnostics Taro env info')
   .command('doctor', 'Diagnose taro project')
+  .command('simulator', 'Start the simulator')
   .parse(process.argv)
