@@ -18,7 +18,7 @@ export default class Build {
   constructor(appPath: string, config: AppBuildConfig) {
     this.appPath = appPath
     this.conf = { ...this.conf, ...config }
-    this.pdkRootPath = this.pdkPath()
+    this.pdkRootPath = helper.locatePdk()
     this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
   }
 
@@ -192,13 +192,6 @@ export default class Build {
   private buildPkgCommand() {
     const syberosPro = this.locateSyberosPro()
     return `buildpkg ${syberosPro}`
-  }
-
-  /**
-   * 查找PDK路径
-   */
-  private pdkPath() {
-    return helper.homeSubPath('Syberos-Pdk')
   }
 
   /**
