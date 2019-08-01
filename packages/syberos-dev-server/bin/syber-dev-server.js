@@ -6,6 +6,7 @@
 
 const Server = require('../dist/index').default
 const { gzDir } = require('../dist/util/gzip')
+const path = require('path')
 
 let server
 const data = { message: 'data' }
@@ -25,7 +26,9 @@ function startServer() {
     socket.on('end', () => {
       console.log('TCP socket end')
     })
-    const filePath = '../www'
+    const filePath = path.join(path.dirname(path.resolve(__dirname)), 'www')
+
+    console.log(filePath)
 
     //压缩并发送
     gzDir(filePath).then(ofile => {
