@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "precommit": "lint-staged",
+    "commit": "npx git-cz",
     "docs:serve": "cd website && yarn start",
     "docs": "cd website && yarn run build",
     "clear-all": "rimraf package-lock.json packages/*/node_modules packages/*/package-lock.json",
