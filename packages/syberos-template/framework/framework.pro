@@ -1,6 +1,5 @@
 include(../syberos.pri)
 QT -= gui
-
 TEMPLATE = lib
 
 TARGET = NativeSdkFrameWork
