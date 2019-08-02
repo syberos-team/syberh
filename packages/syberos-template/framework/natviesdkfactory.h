@@ -19,6 +19,7 @@ public:
      * @return 对应typeID的业务类实例指针
      */
     NativeSdkHandlerBase * getHandler(QString className);
+     QMap<QString,NativeSdkHandlerBase*>getAllHandlers();
 private :
     QMap<QString,NativeSdkHandlerBase*> m_sdkHandlerCache;
 

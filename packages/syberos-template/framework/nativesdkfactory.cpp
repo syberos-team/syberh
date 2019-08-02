@@ -19,3 +19,7 @@ NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString className){
     return instance;
 
 }
+QMap<QString,NativeSdkHandlerBase*> NativeSdkFactory::getAllHandlers(){
+    return m_sdkHandlerCache;
+}
+

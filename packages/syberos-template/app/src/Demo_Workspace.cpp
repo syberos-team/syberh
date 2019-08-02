@@ -6,10 +6,20 @@
 #include <QQmlContext>
 #include <QDebug>
 #include <qqml.h>
+#include "../framework/common/extendedconfig.h"
 
 Demo_Workspace::Demo_Workspace()
     : CWorkspace()
 {
+
+//    QVariant appName = ExtendedConfig::instance()->get("appName");
+//    if(appName.isValid()){
+//        qDebug() << "||||||||||||||| has appName" << appName << endl;
+//    }else{
+//        qDebug() << "||||||||||||||| no appName" << appName << endl;
+//    }
+
+
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     m_view->engine()->addImportPath("qrc:/");
     QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));

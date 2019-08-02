@@ -17,15 +17,12 @@ private:
     static NativeSdkManager *m_pNativeSdkManager;
     NativeSdkFactory m_NativeSdkFactory;
 
+
     /**
-     * 维护handler的列表
-    */
-    QList<NativeSdkHandlerBase *> m_List;
-    /**
-     * @brief insertHandlerBaseList 将NativeSdkHandlerBase实例插入到m_List
-     * @param handler 创建的NativeSdkHandlerBase的实例
+     * @brief 连接所有的handler 信号
+     * @param typeID 业务类的typeID,通过反射进行业务类实例化
      */
-    void insertHandlerBase2List(NativeSdkHandlerBase * handler);
+    void initHandlerConnect(QString typeID);
 public:
     ~NativeSdkManager();
     static NativeSdkManager * getInstance();
