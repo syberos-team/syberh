@@ -7,9 +7,11 @@ NativeSdkManager::NativeSdkManager(){
 
 }
 NativeSdkManager::~NativeSdkManager(){
-    int size = m_List.size();
-    for(int i = 0 ;i < size; i++){
-        NativeSdkHandlerBase * handler = m_List.at(i);
+    QMap<QString,NativeSdkHandlerBase*> handlers = m_NativeSdkFactory.getAllHandlers();
+    QMapIterator<QString,NativeSdkHandlerBase*> i(handlers);
+    while (i.hasNext()) {
+        i.next();
+        NativeSdkHandlerBase * handler = i.value();
         if(handler){
             disconnect(handler,SIGNAL(sucess(long,QVariant)),this,SIGNAL(sucess(long,QVariant)));
             disconnect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
@@ -18,7 +20,6 @@ NativeSdkManager::~NativeSdkManager(){
             handler = NULL;
         }
     }
-    m_List.clear();
     if(m_pNativeSdkManager){
         delete m_pNativeSdkManager;
         m_pNativeSdkManager = NULL;
@@ -38,7 +39,7 @@ NativeSdkManager * NativeSdkManager::getInstance(){
 void NativeSdkManager::request(QString className,QString callBackID,QString actionName,QVariantMap params){
     NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(className);
     if(handler){
-        insertHandlerBase2List(handler);
+        initHandlerConnect(className);
         handler->request(callBackID,actionName,params);
 
     }
@@ -46,24 +47,35 @@ void NativeSdkManager::request(QString className,QString callBackID,QString acti
 }
 void NativeSdkManager::submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes){
 
+    Q_UNUSED(typeID)
+    Q_UNUSED(callBackID)
+    Q_UNUSED(actionName)
+    Q_UNUSED(dataRowList)
+    Q_UNUSED(attachementes)
 }
-void NativeSdkManager::insertHandlerBase2List(NativeSdkHandlerBase *handler){
-    if(handler){
-        if(!m_List.contains(handler)){
-            m_List.append(handler);
-            connect(handler,SIGNAL(sucess(long,QVariant)),this,SIGNAL(sucess(long,QVariant)));
-            connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
-            connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
-
-        }
-    }
-}
-QObject * NativeSdkManager::getUiSource(QString className,QString actionName){
-    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(className);
+QObject * NativeSdkManager::getUiSource(QString typeID,QString actionName){
+    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(typeID);
     QObject * item = NULL;
     if(handler){
-        insertHandlerBase2List(handler);
+        initHandlerConnect(typeID);
         item =  handler->getUiSource(actionName);
     }
     return item;
 }
+void NativeSdkManager::initHandlerConnect(QString typeID){
+    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getAllHandlers().value(typeID);
+    if(handler){
+        connect(handler,SIGNAL(sucess(long,QVariant)),this,SIGNAL(sucess(long,QVariant)));
+        connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
+        connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
+    }
+}
+void NativeSdkManager::loadQml(QString typeID,QString parentPageName, QString parentName, QString type){
+    NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(typeID);
+    if(handler){
+        initHandlerConnect(typeID);
+        handler->loadQml(parentPageName,parentName,type);
+
+    }
+}
+

@@ -1,13 +1,11 @@
-import configValidator from './configValidator';
-import packageValidator from './packageValidator';
-import recommandValidator from './recommandValidator';
-import eslintValidator from './eslintValidator';
+import pdkSdkValidator from './pdkSdkValidator'
 
 export default {
   validators: [
-    configValidator,
-    packageValidator,
-    recommandValidator,
-    eslintValidator
+    // configValidator,
+    // packageValidator,
+    // recommandValidator,
+    // eslintValidator
+    pdkSdkValidator
   ]
 }
