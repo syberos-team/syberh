@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/com/syberos/core">
+        <file>qmldir</file>
+        <file>qml/swebview.qml</file>
+        <file>qml/dynamic-image.qml</file>
+        <file>js/logic.js</file>
+        <file>js/webview.js</file>
+        <file>qml/boby.qml</file>
+        <file>js/util.js</file>
+        <file>js/polyfill.js</file>
+    </qresource>
+</RCC>

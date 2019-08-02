@@ -5,6 +5,7 @@
 #-------------------------------------------------
 include (syberos.pri)
 TEMPLATE = subdirs
+
 SUBDIRS +=  framework app tests
 
 res.files = res

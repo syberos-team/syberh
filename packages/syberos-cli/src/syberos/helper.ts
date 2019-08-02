@@ -80,6 +80,17 @@ export const homeSubPath = (...subDirs: string[]): string => {
   return subDirPath
 }
 
+/**
+ * 查找pdk根目录路径 
+ */
+export const locatePdk = (): string => {
+  return homeSubPath('Syberos-Pdk')
+}
+
+export const locateSdk = (): string => {
+  return homeSubPath('SyberOS-SDK')
+}
+
 
 /**
  * 查找sh脚本路径
@@ -94,7 +105,7 @@ export const locateScripts = (shFilename: string): string => {
  * @param port  模拟器ssh端口，默认5555
  */
 export const startvm = async (port: number | string = 5555) => {
-  const emulatorPath = homeSubPath('SyberOS-SDK', 'emulator')
+  const emulatorPath = path.join(locateSdk(), 'emulator')
   console.log(`模拟器<${port}>：${emulatorPath}`)
 
   const pid = shelljs.exec('pgrep "emulator-x86"')

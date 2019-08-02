@@ -1,5 +1,6 @@
 include(../syberos.pri)
 include (../com/syberos/download/download.pri)
+include (../com/syberos/core/core.pri)
 
 QT += gui qml quick widgets webkit network multimedia
 
@@ -15,8 +16,7 @@ PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system
 
 QML_FILES = qml/*.qml
 
-OTHER_FILES += $$QML_FILES *.qm \
-    qml/logic.js
+OTHER_FILES += $$QML_FILES *.qm
 LIBS += -L../framework -lNativeSdkFrameWork
 QMAKE_LFLAGS += -Wl,-rpath,$$INSTALL_DIR/lib
 # The .cpp file which was generated for your project.
@@ -30,6 +30,7 @@ SOURCES += src/main.cpp \
 #    src/testhandler.cpp \
 #    src/camerahandler.cpp \
 #    src/qtcamera.cpp
+
 
 HEADERS += src/Demo_Workspace.h \
 #    src/helper.h \
@@ -53,5 +54,5 @@ web.path = $$INSTALL_DIR
 INSTALLS += target qm web
 
 DISTFILES += \
-    res/Demo.png
+    res/app.png
 
