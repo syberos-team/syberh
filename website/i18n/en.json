@@ -8,15 +8,6 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
-      "apis/about/env": {
-        "title": "环境判断"
-      },
-      "apis/about/events": {
-        "title": "消息机制"
-      },
-      "apis/about/tarocomponent": {
-        "title": "Taro.Component"
-      },
       "apis/device/accelerometer/onAccelerometerChange": {
         "title": "Taro.onAccelerometerChange(callback)",
         "sidebar_label": "onAccelerometerChange"
@@ -28,90 +19,6 @@
       "apis/device/accelerometer/stopAccelerometer": {
         "title": "Taro.stopAccelerometer(res)",
         "sidebar_label": "stopAccelerometer"
-      },
-      "apis/device/ble/closeBLEConnection": {
-        "title": "Taro.closeBLEConnection(OBJECT)",
-        "sidebar_label": "closeBLEConnection"
-      },
-      "apis/device/ble/createBLEConnection": {
-        "title": "Taro.createBLEConnection(OBJECT)",
-        "sidebar_label": "createBLEConnection"
-      },
-      "apis/device/ble/getBLEDeviceCharacteristics": {
-        "title": "Taro.getBLEDeviceCharacteristics(OBJECT)",
-        "sidebar_label": "getBLEDeviceCharacteristics"
-      },
-      "apis/device/ble/getBLEDeviceServices": {
-        "title": "Taro.getBLEDeviceServices(OBJECT)",
-        "sidebar_label": "getBLEDeviceServices"
-      },
-      "apis/device/ble/notifyBLECharacteristicValueChange": {
-        "title": "Taro.notifyBLECharacteristicValueChange(OBJECT)",
-        "sidebar_label": "notifyBLECharacteristicValueChange"
-      },
-      "apis/device/ble/onBLECharacteristicValueChange": {
-        "title": "Taro.onBLECharacteristicValueChange(CALLBACK)",
-        "sidebar_label": "onBLECharacteristicValueChange"
-      },
-      "apis/device/ble/onBLEConnectionStateChange": {
-        "title": "Taro.onBLEConnectionStateChange(CALLBACK)",
-        "sidebar_label": "onBLEConnectionStateChange"
-      },
-      "apis/device/ble/readBLECharacteristicValue": {
-        "title": "Taro.readBLECharacteristicValue(OBJECT)",
-        "sidebar_label": "readBLECharacteristicValue"
-      },
-      "apis/device/ble/writeBLECharacteristicValue": {
-        "title": "Taro.writeBLECharacteristicValue(OBJECT)",
-        "sidebar_label": "writeBLECharacteristicValue"
-      },
-      "apis/device/bluetooth/closeBluetoothAdapter": {
-        "title": "Taro.closeBluetoothAdapter(OBJECT)",
-        "sidebar_label": "closeBluetoothAdapter"
-      },
-      "apis/device/bluetooth/getBluetoothAdapterState": {
-        "title": "Taro.getBluetoothAdapterState(OBJECT)",
-        "sidebar_label": "getBluetoothAdapterState"
-      },
-      "apis/device/bluetooth/getBluetoothDevices": {
-        "title": "Taro.getBluetoothDevices(OBJECT)",
-        "sidebar_label": "getBluetoothDevices"
-      },
-      "apis/device/bluetooth/getConnectedBluetoothDevices": {
-        "title": "Taro.getConnectedBluetoothDevices(OBJECT)",
-        "sidebar_label": "getConnectedBluetoothDevices"
-      },
-      "apis/device/bluetooth/onBluetoothAdapterStateChange": {
-        "title": "Taro.onBluetoothAdapterStateChange(CALLBACK)",
-        "sidebar_label": "onBluetoothAdapterStateChange"
-      },
-      "apis/device/bluetooth/onBluetoothDeviceFound": {
-        "title": "Taro.onBluetoothDeviceFound(CALLBACK)",
-        "sidebar_label": "onBluetoothDeviceFound"
-      },
-      "apis/device/bluetooth/openBluetoothAdapter": {
-        "title": "Taro.openBluetoothAdapter(OBJECT)",
-        "sidebar_label": "openBluetoothAdapter"
-      },
-      "apis/device/bluetooth/startBluetoothDevicesDiscovery": {
-        "title": "Taro.startBluetoothDevicesDiscovery(OBJECT)",
-        "sidebar_label": "startBluetoothDevicesDiscovery"
-      },
-      "apis/device/bluetooth/stopBluetoothDevicesDiscovery": {
-        "title": "Taro.stopBluetoothDevicesDiscovery(OBJECT)",
-        "sidebar_label": "stopBluetoothDevicesDiscovery"
-      },
-      "apis/device/brightness/getScreenBrightness": {
-        "title": "Taro.getScreenBrightness(OBJECT)",
-        "sidebar_label": "getScreenBrightness"
-      },
-      "apis/device/brightness/setKeepScreenOn": {
-        "title": "Taro.setKeepScreenOn(OBJECT)",
-        "sidebar_label": "setKeepScreenOn"
-      },
-      "apis/device/brightness/setScreenBrightness": {
-        "title": "Taro.setScreenBrightness(OBJECT)",
-        "sidebar_label": "setScreenBrightness"
       },
       "apis/device/clipboard/getClipboardData": {
         "title": "Taro.getClipboardData(param)",
@@ -765,177 +672,25 @@
         "title": "更新管理",
         "sidebar_label": "更新管理"
       },
-      "async-await": {
-        "title": "异步编程"
-      },
-      "before-dev-remind": {
-        "title": "开发前注意"
-      },
-      "best-practice": {
-        "title": "最佳实践"
-      },
-      "children": {
-        "title": "Children 与组合"
-      },
-      "component-style": {
-        "title": "组件的外部样式和全局样式"
-      },
       "components-desc": {
         "title": "组件库说明"
       },
-      "components/base/icon": {
-        "title": "Icon",
-        "sidebar_label": "Icon"
-      },
-      "components/base/progress": {
-        "title": "Progress",
-        "sidebar_label": "Progress"
-      },
-      "components/base/rich-text": {
-        "title": "RichText",
-        "sidebar_label": "RichText"
-      },
-      "components/base/text": {
-        "title": "Text",
-        "sidebar_label": "Text"
-      },
-      "components/canvas/canvas": {
-        "title": "Canvas",
-        "sidebar_label": "Canvas"
-      },
-      "components/forms/button": {
-        "title": "Button",
-        "sidebar_label": "Button"
-      },
-      "components/forms/checkbox": {
-        "title": "Checkbox",
-        "sidebar_label": "Checkbox"
-      },
-      "components/forms/form": {
-        "title": "Form",
-        "sidebar_label": "Form"
-      },
-      "components/forms/input": {
-        "title": "Input",
-        "sidebar_label": "Input"
-      },
-      "components/forms/label": {
-        "title": "Label",
-        "sidebar_label": "Label"
-      },
-      "components/forms/picker-view": {
-        "title": "PickerView",
-        "sidebar_label": "PickerView"
-      },
-      "components/forms/picker": {
-        "title": "Picker",
-        "sidebar_label": "Picker"
-      },
-      "components/forms/radio": {
-        "title": "Radio",
-        "sidebar_label": "Radio"
-      },
-      "components/forms/slider": {
-        "title": "Slider",
-        "sidebar_label": "Slider"
-      },
-      "components/forms/switch": {
-        "title": "Switch",
-        "sidebar_label": "Switch"
-      },
-      "components/forms/textarea": {
-        "title": "Textarea",
-        "sidebar_label": "Textarea"
-      },
-      "components/maps/map": {
-        "title": "Map",
-        "sidebar_label": "Map"
-      },
-      "components/media/audio": {
-        "title": "Audio",
-        "sidebar_label": "Audio"
-      },
-      "components/media/camera": {
-        "title": "Camera",
-        "sidebar_label": "Camera"
-      },
-      "components/media/image": {
-        "title": "Image",
-        "sidebar_label": "Image"
-      },
-      "components/media/live-player": {
-        "title": "LivePlayer",
-        "sidebar_label": "LivePlayer"
-      },
-      "components/media/live-pusher": {
-        "title": "LivePusher",
-        "sidebar_label": "LivePusher"
-      },
-      "components/media/video": {
-        "title": "Video",
-        "sidebar_label": "Video"
+      "components/modal/modal": {
+        "title": "components/modal/modal"
       },
       "components/navig/navigator": {
-        "title": "Navigator",
-        "sidebar_label": "Navigator"
+        "title": "导航"
       },
-      "components/open/open-data": {
+      "components/webview/open-data": {
         "title": "其他",
         "sidebar_label": "其他"
       },
-      "components/open/web-view": {
+      "components/webview/web-view": {
         "title": "WebView",
         "sidebar_label": "WebView"
       },
-      "components/viewContainer/cover-view": {
-        "title": "CoverView",
-        "sidebar_label": "CoverView"
-      },
-      "components/viewContainer/movable-view": {
-        "title": "MovableView",
-        "sidebar_label": "MovableView"
-      },
-      "components/viewContainer/scroll-view": {
-        "title": "ScrollView",
-        "sidebar_label": "ScrollView"
-      },
-      "components/viewContainer/swiper": {
-        "title": "Swiper",
-        "sidebar_label": "Swiper"
-      },
-      "components/viewContainer/view": {
-        "title": "View",
-        "sidebar_label": "View"
-      },
-      "composition": {
-        "title": "Taro 组成"
-      },
-      "condition": {
-        "title": "条件渲染"
-      },
-      "config-detail": {
-        "title": "编译配置详情"
-      },
-      "config": {
-        "title": "编译配置"
-      },
-      "context": {
-        "title": "Context"
-      },
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
-      },
-      "css-modules": {
-        "title": "CSS Modules 的使用"
-      },
-      "debug": {
-        "title": "Debug 指南"
-      },
-      "envs": {
-        "title": "跨平台开发"
-      },
-      "event": {
-        "title": "事件处理"
       },
       "functional-component": {
         "title": "函数式组件"
@@ -943,92 +698,8 @@
       "GETTING-STARTED": {
         "title": "安装及使用"
       },
-      "hooks": {
-        "title": "Hooks"
-      },
-      "hybrid": {
-        "title": "Taro 代码与小程序代码混写"
-      },
-      "jsx": {
-        "title": "JSX 简介"
-      },
-      "list": {
-        "title": "列表渲染"
-      },
-      "mini-third-party": {
-        "title": "使用小程序原生第三方组件和插件"
-      },
-      "miniprogram-plugin": {
-        "title": "小程序插件开发"
-      },
-      "mobx": {
-        "title": "使用 MobX"
-      },
-      "native-api": {
-        "title": "端能力 API"
-      },
-      "optimized-practice": {
-        "title": "性能优化实践"
-      },
-      "project-config": {
-        "title": "项目配置"
-      },
-      "props": {
-        "title": "组件化 & Props"
-      },
-      "quick-app": {
-        "title": "快应用端开发流程"
-      },
-      "react-native": {
-        "title": "React Native 端开发流程"
-      },
       "README": {
-        "title": "Taro 介绍"
-      },
-      "redux": {
-        "title": "使用 Redux"
-      },
-      "ref": {
-        "title": "Refs 引用"
-      },
-      "relations": {
-        "title": "小程序原生作用域获取"
-      },
-      "router": {
-        "title": "路由功能"
-      },
-      "size": {
-        "title": "设计稿及尺寸单位"
-      },
-      "spec-for-taro": {
-        "title": "Taro 规范"
-      },
-      "specials": {
-        "title": "特殊问题的处理"
-      },
-      "state": {
-        "title": "生命周期 & State"
-      },
-      "static-reference": {
-        "title": "静态资源引用"
-      },
-      "SUMMARY": {
-        "title": "SUMMARY"
-      },
-      "taroize": {
-        "title": "微信小程序转 Taro"
-      },
-      "team": {
-        "title": "Taro 团队"
-      },
-      "tutorial": {
-        "title": "框架"
-      },
-      "ui-lib": {
-        "title": "基于 Taro 开发第三方多端 UI 库"
-      },
-      "wxcloud": {
-        "title": "小程序云开发模板"
+        "title": "SyberOS-Hybrid 介绍"
       }
     },
     "links": {
@@ -1043,8 +714,7 @@
       "教程": "教程",
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
-      "视图容器": "视图容器",
-      "基础内容": "基础内容",
+      "Modal": "Modal",
       "表单组件": "表单组件",
       "导航": "导航",
       "媒体组件": "媒体组件",
