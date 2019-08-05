@@ -100,6 +100,7 @@ DownloadTask* Download::findTaskByUrl(QString url){
     while(it != downloadTasks.end()){
         DownloadTask task = it.value();
         if(url == task.url){
+            downloadTasks.remove(task.downloadID);
             return new DownloadTask(task);
         }
     }

@@ -1,5 +1,6 @@
 Qt.include('polyfill.js')
 Qt.include('webview.js')
+Qt.include('config.js')
 //增加对ES6语法的支持
 polyfill()
 
@@ -12,13 +13,6 @@ var _helper = null
 var webviews = []
 
 var webView = null
-
-function init(parent) {
-  if (!root && !parent) {
-    throw new Error('root节点不存在或者未进行初始化')
-  }
-  _root = root || parent
-}
 
 /**
  *  创建body节点
@@ -52,7 +46,7 @@ function render(root) {
     if (!webView) {
       webView = new WebView(parent)
     }
-    webView.init()
+    //webView.init()
   })
 
   //var url = getIndexPath()
