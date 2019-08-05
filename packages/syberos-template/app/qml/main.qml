@@ -18,8 +18,20 @@ CPageStackWindow {
                  Logic.render(root)
             }
         }
+<<<<<<< HEAD
 
     }
        
+=======
+        Component.onCompleted: {
+            /// 通过获取Object的方式访问对象导出的接口
+          var status =  NativeSdkManager.getUiSource("CameraHandler*","").getCameraFlashMode();
+        }
+>>>>>>> Revert "docs: 修复文档内示例代码资源引用不正确 (#4014)"
 
+       
+        CButton {
+           x: root.width-100
+            y: 60
+        }
 }
