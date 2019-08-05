@@ -40,8 +40,9 @@ function WebView (parent) {
   // 初始化C++通讯绑定函数
   if (typeof this.initNativeSdkManager !== 'function') {
     WebView.prototype.initNativeSdkManager = function () {
-      // 创建失败和成功绑定函数
+      // 成功回调绑定函数
       NativeSdkManager.sucess.connect(this.onSuccess.bind(this))
+      // 错误回调绑定函数
       NativeSdkManager.failed.connect(this.onFailed.bind(this))
     }
   }
@@ -58,7 +59,6 @@ function WebView (parent) {
       for (var i = 0; i < this._webviews.length; i++) {
         print('------this._webviews',JSON.stringify(this._webviews[i].syberObject),'\n')
         if (this._webviews[i].syberObject.key === id) {
-
           rwebview = this._webviews[i]
           break
         }
@@ -120,8 +120,6 @@ function WebView (parent) {
    * @parasm {string} webviewId
    */
   if (typeof this.onMessageReceived !== 'function') {
-    WebView.prototype.onMessageReceived = function (message, webviewId) {
-
     WebView.prototype.onMessageReceived = function(message, webviewId) {
       console.log(
         '@@@ ',
