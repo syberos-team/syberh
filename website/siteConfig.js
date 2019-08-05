@@ -42,6 +42,7 @@ const siteConfig = {
     { doc: 'README', label: '文档' },
     { doc: 'components-desc', label: '组件库' },
     { doc: 'apis/about/desc', label: 'API' },
+    { doc: 'qt/desc', label: 'C++模块' },
     { href: 'https://github.com/syberos-team/syberos-hybrid', label: 'GitHub' },
     { search: true }
   ],
