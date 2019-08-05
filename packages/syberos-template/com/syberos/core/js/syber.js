@@ -1,12 +1,12 @@
 Qt.include('polyfill.js')
 Qt.include('webview.js')
 Qt.include('config.js')
-//增加对ES6语法的支持
+Qt.include('plugin.js')
+
+// 增加对ES6语法的支持
 polyfill()
 
-
-
-//根目录节点
+// 根目录节点
 var _root = null
 var _helper = null
 
@@ -19,12 +19,12 @@ var webView = null
  * @param {function} callback 返回父节点
  *
  */
-function bodyElement(callback) {
+function bodyElement (callback) {
   var component = Qt.createComponent('../qml/boby.qml')
   var boby = component.incubateObject(_root)
 
   if (boby.status !== Component.Ready) {
-    boby.onStatusChanged = function(status) {
+    boby.onStatusChanged = function (status) {
       if (status === Component.Ready) {
         boby.object.height = _root.height
         boby.object.width = _root.width
@@ -37,15 +37,14 @@ function bodyElement(callback) {
   }
 }
 
-function render(root) {
+function render (root) {
   if (root) {
     _root = root
   }
-  //先创建body节点，再创建其他
-  bodyElement(function(parent) {
+  // 先创建body节点，再创建其他
+  bodyElement(function (parent) {
     if (!webView) {
       webView = new WebView(parent)
     }
   })
-
- }
+}
