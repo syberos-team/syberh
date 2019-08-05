@@ -40,7 +40,7 @@ SyberPlugin.prototype.trigger = function (eventName, data) {
     this.eventList[eventName].call(this, data)
   } else {
     // registered by `.onXxx()` method
-    let method = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1)
+    var method = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1)
     if (typeof this[method] === 'function') {
       // eslint-disable-next-line no-useless-call
       this[method].call(this, data)

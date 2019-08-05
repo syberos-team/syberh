@@ -1,6 +1,7 @@
 Qt.include('polyfill.js')
 Qt.include('webview.js')
 Qt.include('config.js')
+Qt.include('core.js')
 Qt.include('plugin.js')
 
 // 增加对ES6语法的支持
@@ -47,4 +48,14 @@ function render (root) {
       webView = new WebView(parent)
     }
   })
+
+  var SyberOS = new Syber()
+  var myPlugin = new SyberPlugin('id-5', 'test', 'test')
+
+  print('-----------------------\n', myPlugin.id, '\n')
+  myPlugin.on('init', function () {
+    console.log('My plugin init')
+  })
+
+  SyberOS.addPlugin(myPlugin)
 }
