@@ -120,18 +120,10 @@ function WebView (parent) {
    * @parasm {string} webviewId
    */
   if (typeof this.onMessageReceived !== 'function') {
-<<<<<<< HEAD
-    WebView.prototype.onMessageReceived = function(message, webviewId) {
-      console.log(
-=======
-<<<<<<< HEAD
     WebView.prototype.onMessageReceived = function (message, webviewId) {
-      console.debug(
-=======
+
     WebView.prototype.onMessageReceived = function(message, webviewId) {
       console.log(
->>>>>>> Revert "docs: 修复文档内示例代码资源引用不正确 (#4014)"
->>>>>>> hanagm-master
         '@@@ ',
         'WebView received Message: ',
          webviewId,
