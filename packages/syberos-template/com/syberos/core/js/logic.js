@@ -46,5 +46,6 @@ function render(root) {
     if (!webView) {
       webView = new WebView(parent)
     }
-    //webView.init()
   })
+
+ }
