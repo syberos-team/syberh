@@ -116,7 +116,7 @@ function WebView(parent) {
    */
   if (typeof this.onMessageReceived !== 'function') {
     WebView.prototype.onMessageReceived = function(message, webviewId) {
-      console.debug(
+      console.log(
         '@@@ ',
         'WebView received Message: ',
         JSON.stringify(message),
