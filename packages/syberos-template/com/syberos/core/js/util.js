@@ -10,4 +10,5 @@ function uuid(_length) {
       .toString()
       .substr(3, leg) + Date.now()
   ).toString(36)
+  return uuid
 }

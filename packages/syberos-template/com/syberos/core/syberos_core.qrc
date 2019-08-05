@@ -8,6 +8,5 @@
         <file>qml/boby.qml</file>
         <file>js/util.js</file>
         <file>js/polyfill.js</file>
-        <file>js/config.js</file>
     </qresource>
 </RCC>
