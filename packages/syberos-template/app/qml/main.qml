@@ -18,10 +18,7 @@ CPageStackWindow {
                  Logic.render(root)
             }
         }
-        Component.onCompleted: {
-            /// 通过获取Object的方式访问对象导出的接口
-          var status =  NativeSdkManager.getUiSource("CameraHandler*","").getCameraFlashMode();
-        }
+
     }
        
 

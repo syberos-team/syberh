@@ -17,7 +17,7 @@
     "build": "lerna run build",
     "build:docs": "node ./build/docs.js",
     "prettier": "prettier --write \"src/**/*.jsx\" \"src/**/*.js\"",
-    "lint": "eslint src/**/*.js",
+    "lint": "eslint src/**/*.ts",
     "publish-l": "lerna publish --conventional-commits --independent"
   },
   "devDependencies": {
@@ -73,7 +73,7 @@
     "webpack-cli": "^1.0.12"
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{ts,jsx}": [
       "eslint --fix",
       "git add"
     ]

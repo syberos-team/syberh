@@ -2,7 +2,7 @@
  * 生成UUID
  */
 
-function uuid(_length) {
+function uuid (_length) {
   var leg = _length || 5
 
   return Number(

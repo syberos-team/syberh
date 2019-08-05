@@ -36,7 +36,7 @@
     <uses-permission syberos:name="syberos.permission.VIBRATE"/>
     <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
     <application syberos:description="Brief introduction of your application here. " syberos:icon="res/app.png" syberos:debuggable="true" syberos:name="demo">
-        <uiapp syberos:launcher="true" syberos:icon="res/app.png" syberos:id="app" syberos:background="" syberos:splash="" syberos:exec="bin/app" syberos:name="">
+        <uiapp syberos:launcher="true" syberos:icon="res/app.png" syberos:id="app" syberos:background="" syberos:splash="res/hybrid-team.png" syberos:exec="bin/app" syberos:name="">
             <doctype syberos:id=""/>
         </uiapp>
     </application>
