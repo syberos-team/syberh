@@ -31,6 +31,7 @@
 
     "导航": ["components/navig/navigator"]
   },
+
   "API": {
     "关于API": ["apis/about/desc"],
     "剪贴板": [
@@ -350,5 +351,17 @@
       "apis/storage/clearStorageSync"
     ],
     "更新": ["apis/updates/getUpdateManager"]
+  },
+
+  "C++模块": {
+    "关于组件库": ["components-desc"],
+    "Modal": [
+      "components/modal/icon",
+      "components/base/text",
+      "components/base/progress",
+      "components/base/rich-text"
+    ],
+
+    "导航": ["components/navig/navigator"]
   }
 }

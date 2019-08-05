@@ -698,6 +698,9 @@
       "GETTING-STARTED": {
         "title": "安装及使用"
       },
+      "qt/desc": {
+        "title": "qt/desc"
+      },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
       }
@@ -706,6 +709,7 @@
       "文档": "文档",
       "组件库": "组件库",
       "API": "API",
+      "C++模块": "C++模块",
       "GitHub": "GitHub"
     },
     "categories": {

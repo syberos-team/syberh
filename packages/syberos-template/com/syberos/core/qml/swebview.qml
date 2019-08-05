@@ -22,7 +22,6 @@ WebView {
     anchors.bottom: parent.bottom
     width: parent.width
 
-    //        experimental.userAgent:"Mozilla/5.0 (Linux; Android 4.0.3; HTC One X Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19"
     experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
     experimental.minimumScale: false
     experimental.preferredMinimumContentsWidth: 720
@@ -32,23 +31,7 @@ WebView {
     experimental.onMessageReceived: {
         console.log("----- ", "WebView received Message: ",
                     message.data, "\r\n")
-
         receiveMessage(message)
-        //                    var model = JSON.parse(message.data);
-
-        //                    var result;
-        //                    if(model.data){
-        //                        var keys = Object.keys(model.data);
-
-        //                        var funcArgs = {};
-        //                        for(var i in keys){
-        //                            console.log("@@@ ", "key: ", i, keys[i], "\r\n")
-        //                            console.log("@@@ value is",model.data[keys[i]]);
-        //                            funcArgs[keys[i]] = model.data[keys[i]];
-        //                        }
-
-        //                       // NativeSdkManager.request("TestHandler*",model.callbackId,model.handlerName,funcArgs);
-        //                    }
     }
 
 
@@ -177,8 +160,6 @@ WebView {
         console.log("$$$$$$$$$$$$$$$onNavigationRequested:",
                     request.navigationType)
     }
-    //html: "<script>window.qml.qmlCall();</script>"
-    //url: "http://172.16.160.34:8002/jiaqznew/login.html"
     url: "file://" + helper.getWebRootPath() + "/index.html"
     onUrlChanged: {
         console.log("url is:", url)

@@ -22,10 +22,7 @@ CPageStackWindow {
             /// 通过获取Object的方式访问对象导出的接口
           var status =  NativeSdkManager.getUiSource("CameraHandler*","").getCameraFlashMode();
         }
-
+    }
        
-        CButton {
-           x: root.width-100
-            y: 60
-        }
+
 }
