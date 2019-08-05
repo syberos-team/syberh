@@ -1,37 +1,14 @@
-# Get Started
+## 简介
 
-## 环境配置
+**SyberOS-Hybrid** 是一套提供 Syber 操作系统中使用混合开发模式的解决方案。。
 
-首先需要安装[Node.js](https://nodejs.org/en/)，并配置环境变量
+## 特性
 
-修改npm源
-```shell
-npm config set registry https://registry.npm.taobao.org
+#### 封装接口和组件
+
+代码示例
+
+```js
 ```
 
-本项目使用[Yarn](https://yarn.bootcss.com/)
-
-安装yarn
-```shell
-npm install -g yarn
-```
-
-本项目使用[lerna](https://github.com/lerna/lerna#readme)
-
-安装lerna
-```shell
-npm install lerna -g
-```
-
-## 安装依赖
-
-```shell
-lerna bootstrap
-```
-
-## 启动环境
-
-运行开发环境
-```shell
-lerna run dev
-```
+#### 快速开发 APP

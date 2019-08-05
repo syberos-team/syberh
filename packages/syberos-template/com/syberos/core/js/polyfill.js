@@ -1,7 +1,7 @@
 /**
  * 增加ES6的拓展支持
  */
-function polyfill() {
+function polyfill () {
   assignPolyfill()
 
   keysPolyfill()
@@ -10,16 +10,21 @@ function polyfill() {
 /**
  * 增加Es6 Object.assign的拓展支持
  */
-function assignPolyfill() {
+function assignPolyfill () {
   if (!Object.assign) {
     Object.defineProperty(Object, 'assign', {
       enumerable: false,
       configurable: true,
       writable: true,
+<<<<<<< HEAD
+      value: function (target, firstSource) {
+        if (target === undefined || target === null) { throw new TypeError('Cannot convert first argument to object') }
+=======
       value: function(target, firstSource) {
         'use strict'
         if (target === undefined || target === null)
           throw new TypeError('Cannot convert first argument to object')
+>>>>>>> Revert "docs: 修复文档内示例代码资源引用不正确 (#4014)"
         var to = Object(target)
         for (var i = 1; i < arguments.length; i++) {
           var nextSource = arguments[i]
@@ -32,8 +37,7 @@ function assignPolyfill() {
           ) {
             var nextKey = keysArray[nextIndex]
             var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey)
-            if (desc !== undefined && desc.enumerable)
-              to[nextKey] = nextSource[nextKey]
+            if (desc !== undefined && desc.enumerable) { to[nextKey] = nextSource[nextKey] }
           }
         }
         return to
@@ -45,9 +49,9 @@ function assignPolyfill() {
 /**
  * 旧环境中添加兼容的Object.keys
  */
-function keysPolyfill() {
+function keysPolyfill () {
   if (!Object.keys) {
-    Object.keys = (function() {
+    Object.keys = (function () {
       var hasOwnProperty = Object.prototype.hasOwnProperty,
         hasDontEnumBug = !{ toString: null }.propertyIsEnumerable('toString'),
         dontEnums = [
@@ -61,12 +65,11 @@ function keysPolyfill() {
         ],
         dontEnumsLength = dontEnums.length
 
-      return function(obj) {
+      return function (obj) {
         if (
           (typeof obj !== 'object' && typeof obj !== 'function') ||
           obj === null
-        )
-          throw new TypeError('Object.keys called on non-object')
+        ) { throw new TypeError('Object.keys called on non-object') }
 
         var result = []
 
@@ -76,8 +79,7 @@ function keysPolyfill() {
 
         if (hasDontEnumBug) {
           for (var i = 0; i < dontEnumsLength; i++) {
-            if (hasOwnProperty.call(obj, dontEnums[i]))
-              result.push(dontEnums[i])
+            if (hasOwnProperty.call(obj, dontEnums[i])) { result.push(dontEnums[i]) }
           }
         }
         return result
@@ -86,11 +88,10 @@ function keysPolyfill() {
   }
 }
 
-function valuesPolyfill() {
-  if (!Object.values)
-    Object.values = function(obj) {
-      if (obj !== Object(obj))
-        throw new TypeError('Object.values called on a non-object')
+function valuesPolyfill () {
+  if (!Object.values) {
+    Object.values = function (obj) {
+      if (obj !== Object(obj)) { throw new TypeError('Object.values called on a non-object') }
       var val = [],
         key
       for (key in obj) {
@@ -100,4 +101,5 @@ function valuesPolyfill() {
       }
       return val
     }
+  }
 }
