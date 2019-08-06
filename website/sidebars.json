@@ -32,7 +32,13 @@
     "导航": ["components/navig/navigator"]
   },
   "API": {
-    "关于API": ["apis/about/desc"],   
+    "关于API": ["apis/about/desc"],
+    "modal": [
+      "apis/modal/toast",
+      "apis/modal/alert",
+      "apis/modal/confirm",
+      "apis/modal/prompt"
+    ],
     "媒体": [
       {
         "type": "subcategory",
@@ -46,8 +52,15 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/runtime/runtime",
-          "apis/runtime/clipboard"
+          "apis/runtime/runtime"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "apis/clipboard/clipboard"
         ]
       }
     ],
@@ -58,6 +71,12 @@
           "apis/systeminfo/systeminfo"
         ]
       }
+    ],
+    "storage": [
+      "apis/storage/setItem",
+      "apis/storage/getItem",
+      "apis/storage/removeItem",
+      "apis/storage/getAllKeys"
     ]
   },
   "C++模块": {
@@ -75,8 +94,15 @@
       {
         "type": "subcategory",
         "ids": [
-          "qt/runtime/runtime",
-          "qt/runtime/clipboard"
+          "qt/runtime/runtime"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "qt/clipboard/clipboard"
         ]
       }
     ],
@@ -87,6 +113,20 @@
           "qt/systeminfo/systeminfo"
         ]
       }
+    ],
+    "更新": ["apis/updates/getUpdateManager"],
+    "导航栏": ["qt/navigator/navigator"],
+    "数据缓存": [
+      "qt/storage/setItem",
+      "qt/storage/getItem",
+      "qt/storage/removeItem",
+      "qt/storage/getAllKeys"
+    ],
+    "界面交互": [
+      "qt/modal/toast",
+      "qt/modal/alert",
+      "qt/modal/confirm",
+      "qt/modal/prompt"
     ]
   }
   
