@@ -26,11 +26,17 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/camera/capture": {
-        "title": "相机"
+      "apis/multimedia/camera/capturePhoto": {
+        "title": "capturePhoto"
+      },
+      "apis/multimedia/camera/captureVideoEnd": {
+        "title": "captureVideoEnd"
+      },
+      "apis/multimedia/camera/captureVideoStart": {
+        "title": "captureVideoStart"
       },
       "apis/multimedia/camera/scan": {
-        "title": "扫码"
+        "title": "scan"
       },
       "apis/navigator/navigator": {
         "title": "navigator"
