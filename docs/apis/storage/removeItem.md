@@ -4,7 +4,7 @@ title: removeItem
 
 传入一个键名将会删除本地存储中对应的键值, 支持`Promise` 化使用
 
-## removeItem(Object object)
+## syber.storage.removeItem(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型    | 是否必填 | 描述                         |
@@ -23,10 +23,10 @@ title: removeItem
 #### object.error回调函数
 #### 参数
 #### Object error
-| 属性 | 类型  | 是否必填 | 描述 |
+| 属性 | 类型  | 描述 |
 | -- | -- | -- | -- |
-| code | String  | 是 | 错误码 |
-| msg | String  | 是 | 错误信息 |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
 
 
 ### 代码示例

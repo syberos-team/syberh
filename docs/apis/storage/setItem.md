@@ -4,7 +4,7 @@ title: setItem
 
 该方法可以通过键值对的形式将数据存储到本地。同时可以通过该方法，更新已有的数据, 支持`Promise` 化使用
 
-## setItem(Object object)
+## syber.storage.setItem(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型    | 是否必填 | 描述                         |
@@ -24,10 +24,10 @@ title: setItem
 #### object.error回调函数
 #### 参数
 #### Object error
-| 属性 | 类型  | 是否必填 | 描述 |
+| 属性 | 类型  | 描述 |
 | -- | -- | -- | -- |
-| code | String  | 是 | 错误码 |
-| msg | String  | 是 | 错误信息 |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
 
 
 ### 代码示例
