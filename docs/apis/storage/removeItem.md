@@ -42,6 +42,7 @@ title: removeItem
     })
 ```
 
+#### Promise
 ``` javascript
     syber.storage.removeItem({
         key: 'name'

@@ -42,6 +42,7 @@ title: getItem
     })
 ```
 
+#### Promise
 ``` javascript
     syber.storage.getItem({
         key: 'name'

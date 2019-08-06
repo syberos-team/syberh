@@ -47,6 +47,7 @@ title: confirm
     })
 ```
 
+#### Promise
 ```javascript
     syber.modal.confirm({
         message: 'Do you confirm ?',

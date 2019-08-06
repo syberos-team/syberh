@@ -44,6 +44,7 @@ title: setItem
     })
 ```
 
+#### Promise
 ``` javascript
     syber.storage.setItem({
         key: 'name'

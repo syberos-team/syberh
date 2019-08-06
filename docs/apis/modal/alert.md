@@ -38,6 +38,7 @@ title: alert
     })
 ```
 
+#### Promise
 ```javascript
     syber.modal.alert({
         message: 'This is a alert',

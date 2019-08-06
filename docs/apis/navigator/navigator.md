@@ -52,7 +52,7 @@ title: navigator
     })
 ```
 
-
+#### Promise
 ```javascript
     syber.navigator.setNavigator({
         title: '导航栏',

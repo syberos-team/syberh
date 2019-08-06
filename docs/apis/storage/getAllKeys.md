@@ -40,6 +40,7 @@ title: getAllKeys
     })
 ```
 
+#### Promise
 ``` javascript
     syber.storage.getAllKeys()
         .then(function(res) {

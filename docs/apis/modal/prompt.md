@@ -47,6 +47,7 @@ title: prompt
     })
 ```
 
+#### Promise
 ```javascript
     syber.modal.prompt({
         message: 'This is a prompt',
