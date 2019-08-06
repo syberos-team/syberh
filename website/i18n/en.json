@@ -396,6 +396,18 @@
         "title": "Taro.openLocation(OBJECT)",
         "sidebar_label": "openLocation"
       },
+      "apis/modal/alert": {
+        "title": "alert"
+      },
+      "apis/modal/confirm": {
+        "title": "confirm"
+      },
+      "apis/modal/prompt": {
+        "title": "prompt"
+      },
+      "apis/modal/toast": {
+        "title": "toast"
+      },
       "apis/multimedia/audio/createAudioContext": {
         "title": "Taro.createAudioContext(audioId, componentInstance)",
         "sidebar_label": "createAudioContext"
@@ -624,45 +636,17 @@
         "title": "Taro.getWeRunData(OBJECT)",
         "sidebar_label": "getWeRunData"
       },
-      "apis/storage/clearStorage": {
-        "title": "Taro.clearStorage()",
-        "sidebar_label": "clearStorage"
+      "apis/storage/getAllKeys": {
+        "title": "getAllKeys"
       },
-      "apis/storage/clearStorageSync": {
-        "title": "Taro.clearStorageSync()",
-        "sidebar_label": "clearStorageSync"
+      "apis/storage/getItem": {
+        "title": "getItem"
       },
-      "apis/storage/getStorage": {
-        "title": "Taro.getStorage(OBJECT)",
-        "sidebar_label": "getStorage"
+      "apis/storage/removeItem": {
+        "title": "removeItem"
       },
-      "apis/storage/getStorageInfo": {
-        "title": "Taro.getStorageInfo(OBJECT)",
-        "sidebar_label": "getStorageInfo"
-      },
-      "apis/storage/getStorageInfoSync": {
-        "title": "Taro.getStorageInfoSync()",
-        "sidebar_label": "getStorageInfoSync"
-      },
-      "apis/storage/getStorageSync": {
-        "title": "Taro.getStorageSync(KEY)",
-        "sidebar_label": "getStorageSync"
-      },
-      "apis/storage/removeStorage": {
-        "title": "Taro.removeStorage(OBJECT)",
-        "sidebar_label": "removeStorage"
-      },
-      "apis/storage/removeStorageSync": {
-        "title": "Taro.removeStorageSync(KEY)",
-        "sidebar_label": "removeStorageSync"
-      },
-      "apis/storage/setStorage": {
-        "title": "Taro.setStorage(OBJECT)",
-        "sidebar_label": "setStorage"
-      },
-      "apis/storage/setStorageSync": {
-        "title": "Taro.setStorageSync(KEY, DATA)",
-        "sidebar_label": "setStorageSync"
+      "apis/storage/setItem": {
+        "title": "setItem"
       },
       "apis/updates/getUpdateManager": {
         "title": "Taro.getUpdateManager()",
@@ -679,7 +663,7 @@
         "title": "components/modal/modal"
       },
       "components/navig/navigator": {
-        "title": "导航"
+        "title": "navigator"
       },
       "components/webview/open-data": {
         "title": "其他",
@@ -698,6 +682,33 @@
       "GETTING-STARTED": {
         "title": "安装及使用"
       },
+      "qt/modal/alert": {
+        "title": "alert"
+      },
+      "qt/modal/confirm": {
+        "title": "confirm"
+      },
+      "qt/modal/prompt": {
+        "title": "promot"
+      },
+      "qt/modal/toast": {
+        "title": "toast"
+      },
+      "qt/navigator/navigator": {
+        "title": "navigator"
+      },
+      "qt/storage/getAllKeys": {
+        "title": "getAllKeys"
+      },
+      "qt/storage/getItem": {
+        "title": "getItem"
+      },
+      "qt/storage/removeItem": {
+        "title": "removeItem"
+      },
+      "qt/storage/setItem": {
+        "title": "setItem"
+      },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
       }
@@ -706,6 +717,7 @@
       "文档": "文档",
       "组件库": "组件库",
       "API": "API",
+      "C++": "C++",
       "GitHub": "GitHub"
     },
     "categories": {
@@ -716,6 +728,9 @@
       "关于组件库": "关于组件库",
       "Modal": "Modal",
       "导航": "导航",
+      "navigator": "navigator",
+      "storage": "storage",
+      "modal": "modal",
       "关于API": "关于API",
       "剪贴板": "剪贴板",
       "扩展API": "扩展API",

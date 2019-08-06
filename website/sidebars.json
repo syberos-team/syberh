@@ -31,8 +31,29 @@
 
     "导航": ["components/navig/navigator"]
   },
+  "C++模块": {
+    "navigator": ["qt/navigator/navigator"],
+    "storage": [
+      "qt/storage/setItem",
+      "qt/storage/getItem",
+      "qt/storage/removeItem",
+      "qt/storage/getAllKeys"
+    ],
+    "modal": [
+      "qt/modal/toast",
+      "qt/modal/alert",
+      "qt/modal/confirm",
+      "qt/modal/prompt"
+    ]
+  },
   "API": {
     "关于API": ["apis/about/desc"],
+    "modal": [
+      "apis/modal/toast",
+      "apis/modal/alert",
+      "apis/modal/confirm",
+      "apis/modal/prompt"
+    ],
     "剪贴板": [
       {
         "type": "subcategory",
@@ -338,16 +359,10 @@
       }
     ],
     "数据缓存": [
-      "apis/storage/setStorage",
-      "apis/storage/setStorageSync",
-      "apis/storage/getStorage",
-      "apis/storage/getStorageSync",
-      "apis/storage/getStorageInfo",
-      "apis/storage/getStorageInfoSync",
-      "apis/storage/removeStorage",
-      "apis/storage/removeStorageSync",
-      "apis/storage/clearStorage",
-      "apis/storage/clearStorageSync"
+      "apis/storage/setItem",
+      "apis/storage/getItem",
+      "apis/storage/removeItem",
+      "apis/storage/getAllKeys"
     ],
     "更新": ["apis/updates/getUpdateManager"]
   }
