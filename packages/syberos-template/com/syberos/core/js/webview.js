@@ -1,4 +1,4 @@
-Qt.include('util.js')
+Qt.include('tool.js')
 
 // 构造方法内部封装属性
 function WebView (parent) {
@@ -17,7 +17,6 @@ function WebView (parent) {
   this.responseCallbacks = {}
   // 长期存在的回调，调用后不会删除
   this.responseCallbacksLongTerm = {}
-
 
   if (typeof this.init !== 'function') {
     WebView.prototype.init = function () {
@@ -40,8 +39,9 @@ function WebView (parent) {
   // 初始化C++通讯绑定函数
   if (typeof this.initNativeSdkManager !== 'function') {
     WebView.prototype.initNativeSdkManager = function () {
-      // 创建失败和成功绑定函数
+      // 成功回调绑定函数
       NativeSdkManager.sucess.connect(this.onSuccess.bind(this))
+      // 错误回调绑定函数
       NativeSdkManager.failed.connect(this.onFailed.bind(this))
     }
   }
@@ -54,11 +54,13 @@ function WebView (parent) {
     WebView.prototype.getWebView = function (id) {
       var rwebview
 
-
       for (var i = 0; i < this._webviews.length; i++) {
-        print('------this._webviews',JSON.stringify(this._webviews[i].syberObject),'\n')
+        print(
+          '------this._webviews',
+          JSON.stringify(this._webviews[i].syberObject),
+          '\n'
+        )
         if (this._webviews[i].syberObject.key === id) {
-
           rwebview = this._webviews[i]
           break
         }
@@ -120,21 +122,11 @@ function WebView (parent) {
    * @parasm {string} webviewId
    */
   if (typeof this.onMessageReceived !== 'function') {
-<<<<<<< HEAD
-    WebView.prototype.onMessageReceived = function(message, webviewId) {
-      console.log(
-=======
-<<<<<<< HEAD
     WebView.prototype.onMessageReceived = function (message, webviewId) {
-      console.debug(
-=======
-    WebView.prototype.onMessageReceived = function(message, webviewId) {
       console.log(
->>>>>>> Revert "docs: 修复文档内示例代码资源引用不正确 (#4014)"
->>>>>>> hanagm-master
         '@@@ ',
         'WebView received Message: ',
-         webviewId,
+        webviewId,
         JSON.stringify(message),
         '\r\n'
       )
@@ -155,7 +147,7 @@ function WebView (parent) {
           this.responseCallbacksLongTerm[handlerId] = webviewId
         }
       }
-     var funcArgs = {}
+      var funcArgs = {}
       if (model.data) {
         var keys = Object.keys(model.data)
         // 关联callbackId和webview
@@ -198,18 +190,17 @@ function WebView (parent) {
     WebView.prototype.getWebViewIdByHandlerId = function (handlerId) {
       print(
         '\n ------getWebViewIdByHandlerId()-----',
-          handlerId,
+        handlerId,
         JSON.stringify(this.responseCallbacks)
       )
       var webviewId = this.responseCallbacks[handlerId]
 
-
       // 默认先短期再长期
       webviewId = webviewId || this.responseCallbacksLongTerm[handlerId]
       print('\n ------getWebViewIdByHandlerId()-----', webviewId)
-      if(!webviewId){
-         console.error('webview未找到')
-         return;
+      if (!webviewId) {
+        console.error('webview未找到')
+        return
       }
       delete this.responseCallbacks[handlerId]
       return webviewId
@@ -227,9 +218,9 @@ function WebView (parent) {
       var webviewId = this.getWebViewIdByHandlerId(handlerId)
       var webview = this.getWebView(webviewId)
 
-      if(!webview){
-        console.error("webview未找到")
-          return;
+      if (!webview) {
+        console.error('webview未找到')
+        return
       }
       print('request sucess ', result)
       print('responseID ', handlerId)
@@ -266,8 +257,8 @@ function WebView (parent) {
     }
   }
 
-  //默认初始化
- this.init();
+  // 默认初始化
+  this.init()
 }
 
 /**

@@ -16,15 +16,8 @@ function assignPolyfill () {
       enumerable: false,
       configurable: true,
       writable: true,
-<<<<<<< HEAD
       value: function (target, firstSource) {
         if (target === undefined || target === null) { throw new TypeError('Cannot convert first argument to object') }
-=======
-      value: function(target, firstSource) {
-        'use strict'
-        if (target === undefined || target === null)
-          throw new TypeError('Cannot convert first argument to object')
->>>>>>> Revert "docs: 修复文档内示例代码资源引用不正确 (#4014)"
         var to = Object(target)
         for (var i = 1; i < arguments.length; i++) {
           var nextSource = arguments[i]
