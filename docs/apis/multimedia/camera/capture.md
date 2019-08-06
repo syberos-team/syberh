@@ -1,5 +1,5 @@
 ---
-title: camera
+title: 相机
 ---
 
 # 概况

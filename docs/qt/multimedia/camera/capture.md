@@ -1,5 +1,5 @@
 ---
-title: camera
+title: 相机
 ---
 
 # 概况
@@ -18,15 +18,12 @@ title: camera
 
 ### 参数
 
+```
+void openCamera(QString callbackId,int camera)
+```
+
+- callbackId：  回调ID，用于标识每一次的调用
 - camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-
-
-
-### 示例
-
-```
-void openCamera(int camera)
-```
 
 
 
@@ -38,29 +35,31 @@ void openCamera(int camera)
 
 ### 参数
 
+```
+void capturePhoto(QString callbackId,int camera);
+```
+
+- callbackId：  回调ID，用于标识每一次的调用
+
 - camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-- success:  function(result) 拍照完成时调用，用于返回图片文件的路径
-  - result: Object 图片信息
-    - path:  String 图片文件的路径
-- error:  function(err) 失败时的回调
-  - err:  Object 错误信息
-    - code:  String 错误码
-    - msg:  String 错误消息
 
+  
 
-
-### 示例
+### 信号
 
 ```
-QJsonObject capturePhoto(int camera,QString callbackId);
-成功返回
+void success(long responseID, QVariant result);
+```
+
+- responseID:	回调ID，用于标识每一次的调用
+- result: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
+  - path:  String 图片文件的路径
+
+
+
+```
 {
 	path: "/doc/image"	
-}
-失败返回
-{
-	code: 500,
-	msg: "系统错误"
 }
 ```
 
@@ -74,15 +73,12 @@ QJsonObject capturePhoto(int camera,QString callbackId);
 
 ### 参数
 
+```
+void success(long responseID, QVariant result);
+```
+
+- callbackId：  回调ID，用于标识每一次的调用
 - camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-
-
-
-### 示例
-
-```
-void captureVideoStart(int camera);
-```
 
 
 
@@ -94,29 +90,53 @@ void captureVideoStart(int camera);
 
 ### 参数
 
+```
+void captureVideoEnd(QString callbackId,int camera);
+```
+
+- callbackId：  回调ID，用于标识每一次的调用
 - camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-- success:  function(result) 结束摄像操作完成时调用，用于返回视频文件的路径
-  - result: Object 视频信息
-    - path:  String 视频文件的路径
-- error:  function(err) 失败时的回调
-  - err:  Object 错误信息
-    - code:  String 错误码
-    - msg:  String 错误消息
 
 
 
-### 示例
+### 信号
 
 ```
-QJsonObject captureVideoEnd(int camera,QString callbackId);
-成功返回
+void success(long responseID, QVariant result);
+```
+
+- responseID:	回调ID，用于标识每一次的调用
+
+- result: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
+
+  - path:  String 视频文件的路径
+
+    
+
+```
 {
 	path: "/doc/video"	
 }
-失败返回
+```
+
+## 失败信号
+
+#### 参数
+
+```
+void failed(long responseID, QVariant long errorCode, QString errorMsg);
+```
+
+- callbackId:	回调ID，用于标识每一次的调用
+- code:	错误码
+- msg:	错误信息
+
+```
 {
 	code: 500,
-	msg: "系统错误"
+    msg: "系统错误"
 }
 ```
+
+
 

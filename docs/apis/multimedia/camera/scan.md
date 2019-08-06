@@ -1,5 +1,5 @@
 ---
-title: barcode
+title: 扫码
 ---
 
 # 概况
