@@ -85,11 +85,30 @@
       "apis/storage/removeItem",
       "apis/storage/getAllKeys"
     ],
-	"request": [
-      "apis/request/request"
+	"网络": [
+	  {
+        "type": "subcategory",
+        "ids": [
+          "apis/request/request"
+        ]
+      }
     ],
-	"download": [
-      "apis/download/download"
+	"下载": [
+	  {
+        "type": "subcategory",
+        "ids": [
+          "apis/download/download"
+        ]
+      }
+    ],
+	"文件": [
+	  {
+        "type": "subcategory",
+        "ids": [
+          "apis/fileInfo/getFileInfos"
+		  "apis/fileInfo/removeFileInfos"
+        ]
+      }
     ]
   },
   "C++模块": {
