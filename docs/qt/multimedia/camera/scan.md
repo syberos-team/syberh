@@ -11,17 +11,16 @@ title: 扫码
 
 ## scan
 
-开启摄像头扫描二维码
-
+扫描二维码，成功则返回条码类型及内容
 
 
 
 **参数**
 
-| PropertyType | Type    | Default | Description                               |
-| ------------ | ------- | ------- | ----------------------------------------- |
-| callbackId   | QString |         | 回调ID，用于标识每一次的调用              |
-| camera       | long    | 1       | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
+| 参数名     | 类型    | 是否必填 | 描述                                      |
+| ---------- | ------- | -------- | ----------------------------------------- |
+| callbackId | QString | 是       | 回调ID，用于标识每一次的调用              |
+| camera     | long    | 是       | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
 
 **示例代码**
 
@@ -31,26 +30,32 @@ void scan(QString callbackId,long camera);
 
 
 
-### 成功信号
+**成功信号**
 
-**参数**
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| responseID | long    | 是       | 回调ID，用于标识每一次的调用 |
+| result     | QString | 是       |                              |
 
-| PropertyType | Type    | Default | Description                  |
-| ------------ | ------- | ------- | ---------------------------- |
-| responseID   | long    |         | 回调ID，用于标识每一次的调用 |
-| result       | QString |         |                              |
-| type         | QString |         | 二维码的类型                 |
-| content      | QString |         | 二维码的内容                 |
+result:
+
+| 参数名  | 类型    | 是否必填 | 描述         |
+| ------- | ------- | -------- | ------------ |
+| type    | QString | 是       | 二维码的类型 |
+| content | QString | 是       | 二维码的内容 |
+
+
 
 **示例代码**
 
 ```
-void success(long responseID, QVariant result);
+emit success(long responseID, QVariant result);
 ```
 
 ```
+result：
 {
-	type: "/doc/video",
+	type: "video",
     content: "二维码内容"
 }
 ```
@@ -58,20 +63,21 @@ void success(long responseID, QVariant result);
 
 
 
-### 失败信号
+
+## 失败信号
 
 **参数**
 
-| PropertyType | Type    | Default | Description                  |
-| ------------ | ------- | ------- | ---------------------------- |
-| responseID   | long    |         | 回调ID，用于标识每一次的调用 |
-| code         | long    |         | 错误码                       |
-| msg          | QString |         | 错误信息                     |
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| responseID | long    | 是       | 回调ID，用于标识每一次的调用 |
+| code       | long    | 是       | 错误码                       |
+| msg        | QString | 是       | 错误信息                     |
 
 **示例代码**
 
 ```
-void failed(long responseID, long code, QString msg);
+emit failed(long responseID, long code, QString msg);
 ```
 
 ```
@@ -80,6 +86,4 @@ void failed(long responseID, long code, QString msg);
     msg: "系统错误"
 }
 ```
-
-
 

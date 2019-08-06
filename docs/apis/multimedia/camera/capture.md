@@ -12,17 +12,17 @@ title: 相机
 
 ## openCamera
 
-开启相机功能
+启动相机功能。可指定摄像头，默认显示主摄像头。
 
 
 
-### 参数
+**参数**
 
-- camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
+| 参数名 | 类型 | 是否必填 | 描述                                      |
+| ------ | ---- | -------- | ----------------------------------------- |
+| camera | long | 是       | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
 
-
-
-### 示例
+**示例代码**
 
 ```
 syber.camera.openCamera({
@@ -34,24 +34,32 @@ syber.camera.openCamera({
 
 ## capturePhoto
 
-进行拍照功能
+进行拍照功能，成功则返回图片文件路径
 
 
 
-### 参数
+**参数**
 
-- camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-- success:  function(result) 拍照操作完成时调用，用于返回图片文件的路径
-  - result: Object 图片信息
-    - path:  String 图片文件的路径
-- error:  function(err) 失败时的回调
-  - err:  Object 错误信息
-    - code:  String 错误码
-    - msg:  String 错误消息
+| 参数名 | 类型 | 是否必填 | 描述                                      |
+| ------ | ---- | -------- | ----------------------------------------- |
+| camera | long | 是       | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
+
+**success回调参数**
+
+| 参数名 | 类型   | 描述         |
+| ------ | ------ | ------------ |
+| path   | String | 图片文件路径 |
+
+**error回调参数**
+
+| 参数名 | 类型   | 描述     |
+| ------ | ------ | -------- |
+| code   | String | 错误码   |
+| msg    | String | 错误消息 |
 
 
 
-### 示例
+**示例代码**
 
 ```
 syber.camera.capturePhoto({
@@ -69,17 +77,19 @@ syber.camera.capturePhoto({
 
 ## captureVideoStart
 
-开始摄像
+开始摄像功能
 
 
 
-### 参数
+**参数**
 
-- camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
+| 参数名 | 类型 | 是否必填 | 描述                                      |
+| ------ | ---- | -------- | ----------------------------------------- |
+| camera | long | 1        | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
 
 
 
-### 示例
+**示例代码**
 
 ```
 syber.camera.captureVideoStart({
@@ -91,24 +101,32 @@ syber.camera.captureVideoStart({
 
 ## captureVideoEnd
 
-结束摄像
+结束摄像，成功则返回视频文件路径
 
 
 
-### 参数
+**参数**
 
-- camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-- success:  function(result) 结束摄像操作完成时调用，用于返回视频文件的路径
-  - result: Object 视频信息
-    - path:  String 视频文件的路径
-- error:  function(err) 失败时的回调
-  - err:  Object 错误信息
-    - code:  String 错误码
-    - msg:  String 错误消息
+| 参数名 | 类型 | 是否必填 | 描述                                      |
+| ------ | ---- | -------- | ----------------------------------------- |
+| camera | long | 1        | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
+
+**success回调参数**
+
+| 参数名 | 类型   | 描述         |
+| ------ | ------ | ------------ |
+| path   | String | 视频文件路径 |
+
+**error回调参数**
+
+| 参数名 | 类型   | 描述     |
+| ------ | ------ | -------- |
+| code   | String | 错误码   |
+| msg    | String | 错误消息 |
 
 
 
-### 示例
+**示例代码**
 
 ```
 syber.camera.captureVideoEnd({
