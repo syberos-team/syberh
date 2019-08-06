@@ -13,31 +13,40 @@ title: 扫码
 
 开启摄像头扫描二维码
 
-### 参数
+
+
+
+**参数**
+
+| PropertyType | Type    | Default | Description                               |
+| ------------ | ------- | ------- | ----------------------------------------- |
+| callbackId   | QString |         | 回调ID，用于标识每一次的调用              |
+| camera       | long    | 1       | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
+
+**示例代码**
 
 ```
-QJsonObject scan(QString callbackId,int camera);
+void scan(QString callbackId,long camera);
 ```
-
-- callbackId：  回调ID，用于标识每一次的调用
-- camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
 
 
 
 ### 成功信号
 
+**参数**
+
+| PropertyType | Type    | Default | Description                  |
+| ------------ | ------- | ------- | ---------------------------- |
+| responseID   | long    |         | 回调ID，用于标识每一次的调用 |
+| result       | QString |         |                              |
+| type         | QString |         | 二维码的类型                 |
+| content      | QString |         | 二维码的内容                 |
+
+**示例代码**
+
 ```
 void success(long responseID, QVariant result);
 ```
-
-- responseID:	回调ID，用于标识每一次的调用
-
-- result: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-
-  - type:  String 二维码的类型
-  - content: String 二维码的内容
-
-  
 
 ```
 {
@@ -47,16 +56,23 @@ void success(long responseID, QVariant result);
 ```
 
 
+
+
 ### 失败信号
 
+**参数**
+
+| PropertyType | Type    | Default | Description                  |
+| ------------ | ------- | ------- | ---------------------------- |
+| responseID   | long    |         | 回调ID，用于标识每一次的调用 |
+| code         | long    |         | 错误码                       |
+| msg          | QString |         | 错误信息                     |
+
+**示例代码**
 
 ```
-void failed(long responseID, QVariant long errorCode, QString errorMsg);
+void failed(long responseID, long code, QString msg);
 ```
-
-- callbackId:	回调ID，用于标识每一次的调用
-- code:	错误码
-- msg:	错误信息
 
 ```
 {
@@ -64,4 +80,6 @@ void failed(long responseID, QVariant long errorCode, QString errorMsg);
     msg: "系统错误"
 }
 ```
+
+
 
