@@ -7,7 +7,6 @@ title: captureVideoStart
 
 ## syber.camera.captureVideoStart（Object object）
 
-syber.camera.capturePhoto（Object object）
 
 开始摄像功能
 

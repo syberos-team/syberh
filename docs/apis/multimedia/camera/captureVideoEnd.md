@@ -17,15 +17,15 @@ title: captureVideoEnd
 | ------- | -------- | -------- | ----------------------------------------- |
 | camera  | number   | 是        | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
 | success | function | 否       | 接口调用成功的回调函数                    |
-| fail    | function | 否       | 接口调用失败的回调函数                    |
+| error   | function | 否       | 接口调用失败的回调函数                    |
 
-**success回调参数**
+**object.success回调参数**
 
 | 属性 | 类型   | 描述         |
 | ---- | ------ | ------------ |
 | path | String | 视频文件路径 |
 
-**error回调参数**
+**object.error回调参数**
 
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
@@ -47,4 +47,5 @@ syber.camera.captureVideoEnd({
 	}
 });
 ```
+
 
