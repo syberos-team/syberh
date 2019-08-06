@@ -41,6 +41,23 @@
           "apis/multimedia/camera/scan"
         ]
       }
+    ],
+    "runtime": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "apis/runtime/runtime",
+          "apis/runtime/clipboard"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "apis/systeminfo/systeminfo"
+        ]
+      }
     ]
   },
   "C++模块": {
@@ -51,6 +68,23 @@
         "ids": [
           "qt/multimedia/camera/capture",
           "qt/multimedia/camera/scan"
+        ]
+      }
+    ],
+    "runtime": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "qt/runtime/runtime",
+          "qt/runtime/clipboard"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "qt/systeminfo/systeminfo"
         ]
       }
     ]
