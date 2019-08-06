@@ -66,9 +66,6 @@
       "components/modal/modal": {
         "title": "components/modal/modal"
       },
-      "components/navig/navigator": {
-        "title": "navigator"
-      },
       "components/webview/open-data": {
         "title": "其他",
         "sidebar_label": "其他"
