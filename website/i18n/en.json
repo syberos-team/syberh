@@ -14,6 +14,9 @@
       "apis/clipboard/setString": {
         "title": "setString"
       },
+      "apis/download/download": {
+        "title": "apis/download/download"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -26,11 +29,23 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/camera/capture": {
-        "title": "相机"
+      "apis/multimedia/camera/capturePhoto": {
+        "title": "capturePhoto"
+      },
+      "apis/multimedia/camera/captureVideoEnd": {
+        "title": "captureVideoEnd"
+      },
+      "apis/multimedia/camera/captureVideoStart": {
+        "title": "captureVideoStart"
       },
       "apis/multimedia/camera/scan": {
-        "title": "扫码"
+        "title": "scan"
+      },
+      "apis/navigator/navigator": {
+        "title": "navigator"
+      },
+      "apis/request/request": {
+        "title": "apis/request/request"
       },
       "apis/runtime/launchApp": {
         "title": "launchApp"
@@ -72,9 +87,6 @@
       "components/modal/modal": {
         "title": "components/modal/modal"
       },
-      "components/navig/navigator": {
-        "title": "navigator"
-      },
       "components/webview/open-data": {
         "title": "其他",
         "sidebar_label": "其他"
@@ -98,6 +110,9 @@
       "qt/clipboard/clipboard": {
         "title": "剪贴板"
       },
+      "qt/download/download-c": {
+        "title": "qt/download/download-c"
+      },
       "qt/modal/alert": {
         "title": "alert"
       },
@@ -118,6 +133,9 @@
       },
       "qt/navigator/navigator": {
         "title": "navigator"
+      },
+      "qt/request/request-c": {
+        "title": "qt/request/request-c"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
@@ -155,19 +173,18 @@
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
       "Modal": "Modal",
-      "导航": "导航",
       "关于API": "关于API",
-      "modal": "modal",
+      "导航栏": "导航栏",
+      "界面交互": "界面交互",
       "媒体": "媒体",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
-      "storage": "storage",
-      "关于C++": "关于C++",
-      "更新": "更新",
-      "导航栏": "导航栏",
       "数据缓存": "数据缓存",
-      "界面交互": "界面交互"
+      "request": "request",
+      "download": "download",
+      "关于C++": "关于C++",
+      "更新": "更新"
     }
   },
   "pages-strings": {
