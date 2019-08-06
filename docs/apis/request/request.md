@@ -103,19 +103,3 @@ syber.network.request({
 
 ```
 
-### 返回值 RequestTask
-
-> 网络请求任务对象。调用syber.network.request(Object object)后返回的请求对象
-
-### RequestTask.abort()
-
-> 中断请求任务。
-
-### 示例代码
-
-```javascript
-// 返回 RequestTask，可以调用 abort 方法取消请求
-const task = syber.network.request({url: 'https://*'})
-task.abort();
-```
-
