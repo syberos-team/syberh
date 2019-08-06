@@ -1,11 +1,12 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: parent.width
+    width:parent.width
     height: 500
     color: "red"
+    property string strText:"static qml"
     Text{
-        text :"text"
+        text :strText
         anchors.verticalCenter: parent.verticalCenter
     }
 

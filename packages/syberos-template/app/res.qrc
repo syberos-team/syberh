@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-     </qresource>
+        <file>res/hybrid-team.png</file>
+    </qresource>
 </RCC>

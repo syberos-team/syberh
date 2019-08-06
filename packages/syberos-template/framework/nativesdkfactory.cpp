@@ -5,21 +5,28 @@ NativeSdkFactory::NativeSdkFactory(){
 
 }
 NativeSdkFactory::~NativeSdkFactory(){
+    m_sdkHandlerCache.clear();
 
 }
-NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString className){
-    if(m_sdkHandlerCache.contains(className)){
-        return m_sdkHandlerCache.value(className);
+NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString typeID){
+    if(m_sdkHandlerCache.contains(typeID)){
+        m_sdkInitConnectCache.insert(typeID,true);
+        return m_sdkHandlerCache.value(typeID);
+
     }
-    int type = QMetaType::type(className.toLatin1().data());
+    int type = QMetaType::type(typeID.toLatin1().data());
     const QMetaObject *metaObj = QMetaType::metaObjectForType(type);
     QObject *obj = metaObj->newInstance();
     NativeSdkHandlerBase * instance = qobject_cast<NativeSdkHandlerBase*>(obj);
-    m_sdkHandlerCache.insert(className,instance);
+    m_sdkHandlerCache.insert(typeID,instance);
+    m_sdkInitConnectCache.insert(typeID,false);
     return instance;
 
 }
 QMap<QString,NativeSdkHandlerBase*> NativeSdkFactory::getAllHandlers(){
     return m_sdkHandlerCache;
+}
+bool NativeSdkFactory::IsInitConnect(QString typeID){
+    return m_sdkInitConnectCache.value(typeID);
 }
 

@@ -14,6 +14,17 @@ export default class Build {
   private targetName: string
   // 定义编译目录
   private buildDir: string
+  // 设备网络配置
+  private adapterConfig = {
+    device: {
+      ip: '192.168.100.100',
+      port: 22
+    },
+    simulator: {
+      ip: 'localhost',
+      port: 5555
+    }
+  }
 
   constructor(appPath: string, config: AppBuildConfig) {
     this.appPath = appPath
@@ -97,16 +108,13 @@ export default class Build {
   private async installSop() {
     console.log(chalk.green('开始安装sop包...'))
     const { adapter } = this.conf
-    let ip: string
-    let port: number
-    let useSimulator: boolean = false
+
+    let adapterConfig: any
+
     if (DEVICES_TYPES.DEVICE === adapter) {
-      ip = '192.168.100.100'
-      port = 22
+      adapterConfig = this.adapterConfig.device
     } else if (DEVICES_TYPES.SIMULATOR === adapter) {
-      ip = 'localhost'
-      port = 5555
-      useSimulator = true;
+      adapterConfig = this.adapterConfig.simulator
     } else {
       throw new Error('adapter类型错误')
     }
@@ -115,17 +123,16 @@ export default class Build {
     const sopPath = stdout.trim()
 
     // 启动虚拟机
-    if (useSimulator) {
+    if (DEVICES_TYPES.SIMULATOR === adapter) {
       console.log(chalk.green('准备启动模拟器'))
       await helper.startvm()
     }
     // 发送
-    this.sendSop(ip, port, sopPath)
+    this.sendSop(adapterConfig.ip, adapterConfig.port, sopPath)
     // 安装
-    this.sshInstallSop(ip, port, path.basename(sopPath))
+    this.sshInstallSop(adapterConfig.ip, adapterConfig.port, path.basename(sopPath))
     // 启动
-    this.sshStartApp(ip, port)
-
+    this.sshStartApp(adapterConfig.ip, adapterConfig.port)
   }
 
 

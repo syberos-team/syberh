@@ -15,7 +15,14 @@ void NativeSdkHandlerBase::request(QString callBackID,QString actionName,QVarian
 void NativeSdkHandlerBase::submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes){}
 QObject * NativeSdkHandlerBase::getUiSource(QString actionName){
     Q_UNUSED(actionName)
+    return NULL;
 
+}
+void NativeSdkHandlerBase::loadQml(QString parentPageName, QString parentName, QString type)
+{
+    Q_UNUSED(parentPageName)
+    Q_UNUSED(parentName)
+    Q_UNUSED(type)
 }
 
 QString NativeSdkHandlerBase::getNetworkConnectStatus(){

@@ -15,13 +15,15 @@ public:
     ~NativeSdkFactory();
     /**
      * @brief getHandler
-     * @param className 业务类的typeID
+     * @param typeID 业务类的typeID
      * @return 对应typeID的业务类实例指针
      */
-    NativeSdkHandlerBase * getHandler(QString className);
+    NativeSdkHandlerBase * getHandler(QString typeID);
      QMap<QString,NativeSdkHandlerBase*>getAllHandlers();
+     bool IsInitConnect(QString typeID);
 private :
     QMap<QString,NativeSdkHandlerBase*> m_sdkHandlerCache;
+    QMap<QString,bool> m_sdkInitConnectCache;
 
 };
 

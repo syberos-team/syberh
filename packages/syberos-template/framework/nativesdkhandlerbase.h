@@ -23,6 +23,7 @@ public:
     virtual void request(QString callBackID,QString actionName,QVariantMap params);
     virtual void submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes);
     virtual QObject * getUiSource(QString actionName);
+    virtual void  loadQml(QString parentPageName, QString parentName, QString type);
 protected:
     QString getNetworkConnectStatus();
     bool netWorkConnected();
