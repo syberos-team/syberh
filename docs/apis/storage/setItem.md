@@ -10,4 +10,12 @@ title: setItem
 | -- | -- | -- |
 | key | 要存储的键，不允许是 "" 或 null | string  |
 | value | 要存储的值，不允许是 "" 或 null | string |
-| callback | 执行操作成功后的回调 e.result：表示设置是否成功，如果成功返回 "success" e.data：undefined 表示设置成功，invalid_param 表示 key/value 为 "" 或者 nulll | function(e) |
+| callback | 执行操作成功后的回调, res.result是true, 表示执行成功 | function(res) |
+
+
+### 代码示例
+``` javascript
+    syber.storage.getAllKeys('username', 'syber', function(res) {
+        console.log(res.result === true)
+    })
+```

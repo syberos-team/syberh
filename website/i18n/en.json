@@ -160,6 +160,18 @@
         "title": "Taro.stopWifi(OBJECT)",
         "sidebar_label": "stopWifi"
       },
+      "apis/modal/alert": {
+        "title": "alert"
+      },
+      "apis/modal/confirm": {
+        "title": "confirm"
+      },
+      "apis/modal/prompt": {
+        "title": "prompt"
+      },
+      "apis/modal/toast": {
+        "title": "toast"
+      },
       "apis/multimedia/camera/capture": {
         "title": "相机"
       },
@@ -220,6 +232,18 @@
       "apis/runtime/runtime": {
         "title": "runtime"
       },
+      "apis/storage/getAllKeys": {
+        "title": "getAllKeys"
+      },
+      "apis/storage/getItem": {
+        "title": "getItem"
+      },
+      "apis/storage/removeItem": {
+        "title": "removeItem"
+      },
+      "apis/storage/setItem": {
+        "title": "setItem"
+      },
       "apis/systeminfo/systeminfo": {
         "title": "系统信息"
       },
@@ -256,17 +280,44 @@
       "qt/about/desc": {
         "title": "C++ 说明"
       },
+      "qt/modal/alert": {
+        "title": "alert"
+      },
+      "qt/modal/confirm": {
+        "title": "confirm"
+      },
+      "qt/modal/prompt": {
+        "title": "promot"
+      },
+      "qt/modal/toast": {
+        "title": "toast"
+      },
       "qt/multimedia/camera/capture": {
         "title": "相机"
       },
       "qt/multimedia/camera/scan": {
         "title": "扫码"
       },
+      "qt/navigator/navigator": {
+        "title": "navigator"
+      },
       "qt/runtime/clipboard": {
         "title": "剪贴板"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
+      },
+      "qt/storage/getAllKeys": {
+        "title": "getAllKeys"
+      },
+      "qt/storage/getItem": {
+        "title": "getItem"
+      },
+      "qt/storage/removeItem": {
+        "title": "removeItem"
+      },
+      "qt/storage/setItem": {
+        "title": "setItem"
       },
       "qt/systeminfo/systeminfo": {
         "title": "系统信息"
@@ -290,14 +341,19 @@
       "关于组件库": "关于组件库",
       "Modal": "Modal",
       "导航": "导航",
-      "navigator": "navigator",
-      "storage": "storage",
-      "modal": "modal",
       "关于API": "关于API",
-      "媒体": "媒体",
+      "modal": "modal",
+      "剪贴板": "剪贴板",
       "runtime": "runtime",
       "系统信息": "系统信息",
-      "关于C++": "关于C++"
+      "navigator": "navigator",
+      "storage": "storage",
+      "关于C++": "关于C++",
+      "媒体": "媒体",
+      "更新": "更新",
+      "导航栏": "导航栏",
+      "数据缓存": "数据缓存",
+      "界面交互": "界面交互"
     }
   },
   "pages-strings": {

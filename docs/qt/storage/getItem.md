@@ -9,4 +9,5 @@ title: getItem
 ### 信号
 ### void success(long responseID, QVariant result)
 - responseID:	回调ID，用于标识每一次的调用
-- result:  返回给页面用的，默认为true
+- result: 
+    + result: QVariant 返回对应的键值

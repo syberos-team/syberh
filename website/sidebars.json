@@ -31,21 +31,6 @@
 
     "导航": ["components/navig/navigator"]
   },
-  "C++模块": {
-    "navigator": ["qt/navigator/navigator"],
-    "storage": [
-      "qt/storage/setItem",
-      "qt/storage/getItem",
-      "qt/storage/removeItem",
-      "qt/storage/getAllKeys"
-    ],
-    "modal": [
-      "qt/modal/toast",
-      "qt/modal/alert",
-      "qt/modal/confirm",
-      "qt/modal/prompt"
-    ]
-  },
   "API": {
     "关于API": ["apis/about/desc"],
     "modal": [
@@ -79,6 +64,13 @@
           "apis/systeminfo/systeminfo"
         ]
       }
+    ],
+    "navigator": ["apis/navigator/navigator"],
+    "storage": [
+      "apis/storage/setItem",
+      "apis/storage/getItem",
+      "apis/storage/removeItem",
+      "apis/storage/getAllKeys"
     ]
   },
   "C++模块": {
@@ -109,13 +101,20 @@
         ]
       }
     ],
+    "更新": ["apis/updates/getUpdateManager"],
+    "导航栏": ["qt/navigator/navigator"],
     "数据缓存": [
-      "apis/storage/setItem",
-      "apis/storage/getItem",
-      "apis/storage/removeItem",
-      "apis/storage/getAllKeys"
+      "qt/storage/setItem",
+      "qt/storage/getItem",
+      "qt/storage/removeItem",
+      "qt/storage/getAllKeys"
     ],
-    "更新": ["apis/updates/getUpdateManager"]
+    "界面交互": [
+      "qt/modal/toast",
+      "qt/modal/alert",
+      "qt/modal/confirm",
+      "qt/modal/prompt"
+    ]
   }
   
 }
