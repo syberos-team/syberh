@@ -452,9 +452,15 @@
         "title": "Taro.stopBackgroundAudio()",
         "sidebar_label": "stopBackgroundAudio"
       },
+      "apis/multimedia/camera/capture": {
+        "title": "camera"
+      },
       "apis/multimedia/camera/createCameraContext": {
         "title": "Taro.createCameraContext(this.$scope)",
         "sidebar_label": "createCameraContext"
+      },
+      "apis/multimedia/camera/scan": {
+        "title": "barcode"
       },
       "apis/multimedia/images/chooseImage": {
         "title": "Taro.chooseImage(OBJECT)",
@@ -698,6 +704,15 @@
       "GETTING-STARTED": {
         "title": "安装及使用"
       },
+      "qt/about/desc": {
+        "title": "C++ 说明"
+      },
+      "qt/multimedia/camera/capture": {
+        "title": "camera"
+      },
+      "qt/multimedia/camera/scan": {
+        "title": "barcode"
+      },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
       }
@@ -706,6 +721,7 @@
       "文档": "文档",
       "组件库": "组件库",
       "API": "API",
+      "C++模块": "C++模块",
       "GitHub": "GitHub"
     },
     "categories": {
@@ -726,7 +742,8 @@
       "网络": "网络",
       "开放接口": "开放接口",
       "数据缓存": "数据缓存",
-      "更新": "更新"
+      "更新": "更新",
+      "关于C++": "关于C++"
     }
   },
   "pages-strings": {
