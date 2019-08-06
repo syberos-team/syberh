@@ -20,8 +20,10 @@ public:
      */
     NativeSdkHandlerBase * getHandler(QString typeID);
      QMap<QString,NativeSdkHandlerBase*>getAllHandlers();
+     bool IsInitConnect(QString typeID);
 private :
     QMap<QString,NativeSdkHandlerBase*> m_sdkHandlerCache;
+    QMap<QString,bool> m_sdkInitConnectCache;
 
 };
 
