@@ -27,13 +27,12 @@
       "components/base/text",
       "components/base/progress",
       "components/base/rich-text"
-    ],
-
-    "导航": ["components/navig/navigator"]
+    ]
   },
   "API": {
     "关于API": ["apis/about/desc"],
-    "modal": [
+    "导航栏": ["apis/navigator/navigator"],
+    "界面交互": [
       "apis/modal/toast",
       "apis/modal/alert",
       "apis/modal/confirm",
@@ -72,7 +71,7 @@
         ]
       }
     ],
-    "storage": [
+    "数据缓存": [
       "apis/storage/setItem",
       "apis/storage/getItem",
       "apis/storage/removeItem",

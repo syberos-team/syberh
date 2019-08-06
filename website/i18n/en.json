@@ -29,6 +29,9 @@
       "apis/multimedia/camera/scan": {
         "title": "扫码"
       },
+      "apis/navigator/navigator": {
+        "title": "navigator"
+      },
       "apis/runtime/runtime": {
         "title": "runtime"
       },
@@ -140,8 +143,8 @@
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
       "Modal": "Modal",
-      "导航": "导航",
       "关于API": "关于API",
+      "导航栏": "导航栏",
       "modal": "modal",
       "媒体": "媒体",
       "runtime": "runtime",
@@ -150,7 +153,6 @@
       "storage": "storage",
       "关于C++": "关于C++",
       "更新": "更新",
-      "导航栏": "导航栏",
       "数据缓存": "数据缓存",
       "界面交互": "界面交互"
     }
