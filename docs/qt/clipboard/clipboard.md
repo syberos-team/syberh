@@ -22,7 +22,7 @@ title: 剪贴板
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型    | 是否必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- |
@@ -41,7 +41,7 @@ title: 剪贴板
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型    | 是否必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- |
@@ -50,7 +50,7 @@ title: 剪贴板
 
 ## 失败信号
 
-### void failed(long responseID, QVariant long errorCode, QString errorMsg);
+### emit failed(long responseID, QVariant long errorCode, QString errorMsg);
 
 #### 参数
 

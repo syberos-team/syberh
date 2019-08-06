@@ -8,6 +8,9 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/clipboard/clipboard": {
+        "title": "剪贴板"
+      },
       "apis/device/accelerometer/onAccelerometerChange": {
         "title": "Taro.onAccelerometerChange(callback)",
         "sidebar_label": "onAccelerometerChange"
@@ -214,9 +217,6 @@
         "title": "Taro.getUserInfo(OBJECT)",
         "sidebar_label": "getUserInfo"
       },
-      "apis/runtime/clipboard": {
-        "title": "剪贴板"
-      },
       "apis/runtime/runtime": {
         "title": "runtime"
       },
@@ -256,14 +256,14 @@
       "qt/about/desc": {
         "title": "C++ 说明"
       },
+      "qt/clipboard/clipboard": {
+        "title": "剪贴板"
+      },
       "qt/multimedia/camera/capture": {
         "title": "相机"
       },
       "qt/multimedia/camera/scan": {
         "title": "扫码"
-      },
-      "qt/runtime/clipboard": {
-        "title": "剪贴板"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
@@ -293,6 +293,7 @@
       "关于API": "关于API",
       "媒体": "媒体",
       "runtime": "runtime",
+      "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "关于C++": "关于C++"
     }
