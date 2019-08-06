@@ -40,9 +40,17 @@
     ],
     "媒体": [
       {
+        "label":"相机",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/camera/capture",
+          "apis/multimedia/camera/capturePhoto",
+          "apis/multimedia/camera/captureVideoStart",
+          "apis/multimedia/camera/captureVideoEnd"
+        ]
+      },{
+        "label":"扫码",
+        "type": "subcategory",
+        "ids": [
           "apis/multimedia/camera/scan"
         ]
       }
