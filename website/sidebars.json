@@ -76,6 +76,12 @@
       "apis/storage/getItem",
       "apis/storage/removeItem",
       "apis/storage/getAllKeys"
+    ],
+	"request": [
+      "apis/request/request"
+    ],
+	"download": [
+      "apis/download/download"
     ]
   },
   "C++模块": {
@@ -120,6 +126,12 @@
       "qt/storage/getItem",
       "qt/storage/removeItem",
       "qt/storage/getAllKeys"
+    ],
+	"request": [
+      "qt/request/request-c"
+    ],
+	"download": [
+      "qt/download/download-c"
     ],
     "界面交互": [
       "qt/modal/toast",
