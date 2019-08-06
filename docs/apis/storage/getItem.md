@@ -5,11 +5,11 @@ title: getItem
 传入键名返回对应的键值。
 
 ### getItem(key, callback)
-
-| 参数 | 说明 | 类型 |
-| --  | -- | -- |
-| key | 要存储的键，不允许是 "" 或 null | string
-| callback | 执行操作成功后的回调, res.result是返回的键值 | function(res) |
+### 参数
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| key | string | 是       | 键名 |
+| callback | function(res) | 是       | 执行操作成功后的回调, res.result是true, 表示执行成功 |
 
 
 ### 代码示例

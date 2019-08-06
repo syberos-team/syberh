@@ -6,10 +6,12 @@ toast() 会在一个小浮层里展示关于某个操作的简单反馈。例如
 
 
 ### toast(options)
+### 参数
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| message | string | 是 | 展示的内容 |
 
-- @options
-    + <code><font color='#e96900'>message</font></code>, string, 展示的内容
-
+### 代码示例
 ```javascript
     syber.modal.toast({
         message: 'This is a toast'

@@ -39,7 +39,7 @@
       "apis/modal/confirm",
       "apis/modal/prompt"
     ],
-    "剪贴板": [
+    "媒体": [
       {
         "type": "subcategory",
         "ids": [
@@ -65,7 +65,6 @@
         ]
       }
     ],
-    "navigator": ["apis/navigator/navigator"],
     "storage": [
       "apis/storage/setItem",
       "apis/storage/getItem",

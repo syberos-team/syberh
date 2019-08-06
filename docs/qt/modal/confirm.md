@@ -4,16 +4,19 @@ title: confirm
 
 ### void confirm(QString callbackId, QVariant options)
 ### 参数
-| 参数名 | 说明 | 类型 | 默认值 |
-| -- | -- | -- | -- |
-| title | 标题 | QString | -
-| message | 内容 | QString | -
-| okTitle | 确认按钮上显示的文字信息 | QString | 确认 | 
-| cancelTitle | 确认按钮上显示的文字信息 | QString | 取消 |
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| callbackId   | QString | 是       | 回调ID，用于标识每一次的调用 |
+| title        | QString | 否       | 标题                     |
+| message      | QString | 是       | 内容                     |
+| okTitle      | QString | 否       | 确认按钮上显示的文字信息     |
+| cancelTitle  | QString | 否       | 取消按钮上显示的文字信息     |
 
 ### 信号
 ### void success(long responseID, QVariant result)
-- responseID:	回调ID，用于标识每一次的调用
-- result:  返回给页面用的
-    result: QString 用户按下的按钮上的文字信息
+### 参数
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| responseID   | QString | 是       | 回调ID，用于标识每一次的调用 |
+| result       | QVariant    | 是   | result: QString 用户按下的按钮上的文字信息  |
 

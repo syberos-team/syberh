@@ -6,14 +6,15 @@ title: confirm
 
 
 ### confirm(options, callback)
+### 参数
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| message | string | 是 | 警告框内显示的文字信息 |
+| okTitle | string | 否 | 确认按钮上显示的文字信息 |
+| cancelTitle | string | 否 | 取消按钮上显示的文字信息 |
+| callback | function(res) | 是 | 执行操作成功后的回调, res.result是用户按下的按钮文字信息 |
 
-- @options
-    + <code><font color='#e96900'>message</font></code>, string, 警告框内显示的文字信息
-    + <code><font color='#e96900'>okTitle</font></code>, string, 确认按钮上显示的文字信息
-    + <code><font color='#e96900'>cancelTitle</font></code>, string, 确认按钮上显示的文字信息
-- @callback, function，用户操作完成后的回调，参数是按下按钮上的文字信息
-    + <code><font color='#e96900'>result</font></code>, string, 用户按下的按钮文字信息
-
+### 代码示例
 ```javascript
     syber.modal.confirm({
         message: 'Do you confirm ?',
