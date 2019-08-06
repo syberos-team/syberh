@@ -6,12 +6,14 @@ title: alert
 
 
 ### alert(options, callback)
+### 参数
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| message | string | 是 | 警告框内显示的文字信息 |
+| okTitle | string | 否 | 确认按钮上显示的文字信息 |
+| callback | function() | 否 | 执行操作成功后的回调 |
 
-- @options
-    + <code><font color='#e96900'>message</font></code>, string, 警告框内显示的文字信息
-    + <code><font color='#e96900'>okTitle</font></code>, string, 确认按钮上显示的文字信息
-- @callback, function，用户操作完成后的回调
-
+### 代码示例
 ```javascript
     syber.modal.alert({
         message: 'This is a alert',

@@ -4,12 +4,15 @@ title: toast
 
 ### void toast(QString callbackId, QString message)
 ### 参数
-| 参数名 | 说明 | 类型 | 默认值 |
-| -- | -- | -- | -- |
-| message | 内容 | QString | -
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| callbackId   | QString | 是       | 回调ID，用于标识每一次的调用 |
+| message      | QString | 是       | 内容                     |
 
 ### 信号
 ### void success(long responseID, bool result)
-- responseID:	回调ID，用于标识每一次的调用
-- result:  返回给页面用的，默认为true
-
+### 参数
+| 参数名     | 类型    | 是否必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------------------- |
+| responseID   | QString | 是       | 回调ID，用于标识每一次的调用 |
+| result       | bool    | 是       | 告诉页面调用成功           |
