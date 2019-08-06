@@ -133,7 +133,7 @@
     ],
 	"download": [
       "qt/download/download-c"
-    ]
+    ],
     "界面交互": [
       "qt/modal/toast",
       "qt/modal/alert",
