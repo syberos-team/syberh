@@ -214,6 +214,15 @@
         "title": "Taro.getUserInfo(OBJECT)",
         "sidebar_label": "getUserInfo"
       },
+      "apis/runtime/clipboard": {
+        "title": "剪贴板"
+      },
+      "apis/runtime/runtime": {
+        "title": "runtime"
+      },
+      "apis/systeminfo/systeminfo": {
+        "title": "系统信息"
+      },
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
@@ -253,6 +262,15 @@
       "qt/multimedia/camera/scan": {
         "title": "扫码"
       },
+      "qt/runtime/clipboard": {
+        "title": "剪贴板"
+      },
+      "qt/runtime/runtime": {
+        "title": "runtime"
+      },
+      "qt/systeminfo/systeminfo": {
+        "title": "系统信息"
+      },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
       }
@@ -274,6 +292,8 @@
       "导航": "导航",
       "关于API": "关于API",
       "媒体": "媒体",
+      "runtime": "runtime",
+      "系统信息": "系统信息",
       "关于C++": "关于C++"
     }
   },
