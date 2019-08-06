@@ -8,8 +8,11 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
-      "apis/clipboard/clipboard": {
-        "title": "剪贴板"
+      "apis/clipboard/getString": {
+        "title": "getString"
+      },
+      "apis/clipboard/setString": {
+        "title": "setString"
       },
       "apis/download/download": {
         "title": "apis/download/download"
@@ -44,8 +47,8 @@
       "apis/request/request": {
         "title": "apis/request/request"
       },
-      "apis/runtime/runtime": {
-        "title": "runtime"
+      "apis/runtime/launchApp": {
+        "title": "launchApp"
       },
       "apis/storage/getAllKeys": {
         "title": "getAllKeys"
@@ -59,8 +62,20 @@
       "apis/storage/setItem": {
         "title": "setItem"
       },
-      "apis/systeminfo/systeminfo": {
-        "title": "系统信息"
+      "apis/systeminfo/aboutPhone": {
+        "title": "aboutPhone"
+      },
+      "apis/systeminfo/getCoreVersion": {
+        "title": "getCoreVersion"
+      },
+      "apis/systeminfo/getModel": {
+        "title": "getModel"
+      },
+      "apis/systeminfo/getResolution": {
+        "title": "getResolution"
+      },
+      "apis/systeminfo/getSysVersionID": {
+        "title": "getSysVersionID"
       },
       "apis/updates/manager": {
         "title": "更新管理",

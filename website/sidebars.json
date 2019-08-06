@@ -59,7 +59,7 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/runtime/runtime"
+          "apis/runtime/launchApp"
         ]
       }
     ],
@@ -67,7 +67,8 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/clipboard/clipboard"
+          "apis/clipboard/setString",
+          "apis/clipboard/getString"
         ]
       }
     ],
@@ -75,7 +76,11 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/systeminfo/systeminfo"
+          "apis/systeminfo/aboutPhone",
+          "apis/systeminfo/getCoreVersion",
+          "apis/systeminfo/getModel",
+          "apis/systeminfo/getResolution",
+          "apis/systeminfo/getSysVersionID"
         ]
       }
     ],
@@ -85,11 +90,30 @@
       "apis/storage/removeItem",
       "apis/storage/getAllKeys"
     ],
-	"request": [
-      "apis/request/request"
+	"网络": [
+	  {
+        "type": "subcategory",
+        "ids": [
+          "apis/request/request"
+        ]
+      }
     ],
-	"download": [
-      "apis/download/download"
+	"下载": [
+	  {
+        "type": "subcategory",
+        "ids": [
+          "apis/download/download"
+        ]
+      }
+    ],
+	"文件": [
+	  {
+        "type": "subcategory",
+        "ids": [
+          "apis/fileInfo/getFileInfos"
+		  "apis/fileInfo/removeFileInfos"
+        ]
+      }
     ]
   },
   "C++模块": {
