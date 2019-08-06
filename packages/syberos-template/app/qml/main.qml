@@ -16,6 +16,7 @@ CPageStackWindow {
                 console.log('\n -----------------root', root.width, '\n')
 
                 Syber.render(root)
+
             }
         }
     }
