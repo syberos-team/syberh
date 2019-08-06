@@ -11,157 +11,17 @@
       "apis/clipboard/clipboard": {
         "title": "剪贴板"
       },
-      "apis/device/accelerometer/onAccelerometerChange": {
-        "title": "Taro.onAccelerometerChange(callback)",
-        "sidebar_label": "onAccelerometerChange"
+      "apis/modal/alert": {
+        "title": "alert"
       },
-      "apis/device/accelerometer/startAccelerometer": {
-        "title": "Taro.startAccelerometer(res)",
-        "sidebar_label": "startAccelerometer"
+      "apis/modal/confirm": {
+        "title": "confirm"
       },
-      "apis/device/accelerometer/stopAccelerometer": {
-        "title": "Taro.stopAccelerometer(res)",
-        "sidebar_label": "stopAccelerometer"
+      "apis/modal/prompt": {
+        "title": "prompt"
       },
-      "apis/device/compass/onCompassChange": {
-        "title": "Taro.onCompassChange(callback)",
-        "sidebar_label": "onCompassChange"
-      },
-      "apis/device/compass/startCompass": {
-        "title": "Taro.startCompass(param)",
-        "sidebar_label": "startCompass"
-      },
-      "apis/device/compass/stopCompass": {
-        "title": "Taro.stopCompass(param)",
-        "sidebar_label": "stopCompass"
-      },
-      "apis/device/contacts/addPhoneContact": {
-        "title": "Taro.addPhoneContact(OBJECT)",
-        "sidebar_label": "addPhoneContact"
-      },
-      "apis/device/deviceMotion/onDeviceMotionChange": {
-        "title": "Taro.onDeviceMotionChange(callback)",
-        "sidebar_label": "onDeviceMotionChange"
-      },
-      "apis/device/deviceMotion/startDeviceMotionListening": {
-        "title": "Taro.startDeviceMotionListening(callback)",
-        "sidebar_label": "startDeviceMotionListening"
-      },
-      "apis/device/deviceMotion/stopDeviceMotionListening": {
-        "title": "Taro.stopDeviceMotionListening(callback)",
-        "sidebar_label": "stopDeviceMotionListening"
-      },
-      "apis/device/ibeacon/getBeacons": {
-        "title": "Taro.getBeacons(OBJECT)",
-        "sidebar_label": "getBeacons"
-      },
-      "apis/device/ibeacon/onBeaconServiceChange": {
-        "title": "Taro.onBeaconServiceChange(CALLBACK)",
-        "sidebar_label": "onBeaconServiceChange"
-      },
-      "apis/device/ibeacon/onBeaconUpdate": {
-        "title": "Taro.onBeaconUpdate(CALLBACK)",
-        "sidebar_label": "onBeaconUpdate"
-      },
-      "apis/device/ibeacon/startBeaconDiscovery": {
-        "title": "Taro.startBeaconDiscovery(OBJECT)",
-        "sidebar_label": "startBeaconDiscovery"
-      },
-      "apis/device/ibeacon/stopBeaconDiscovery": {
-        "title": "Taro.stopBeaconDiscovery(OBJECT)",
-        "sidebar_label": "stopBeaconDiscovery"
-      },
-      "apis/device/netstat/getNetworkType": {
-        "title": "Taro.getNetworkType(OBJECT)",
-        "sidebar_label": "getNetworkType"
-      },
-      "apis/device/netstat/onNetworkStatusChange": {
-        "title": "Taro.onNetworkStatusChange(CALLBACK)",
-        "sidebar_label": "onNetworkStatusChange"
-      },
-      "apis/device/nfc/getHCEState": {
-        "title": "Taro.getHCEState(OBJECT)",
-        "sidebar_label": "getHCEState"
-      },
-      "apis/device/nfc/onHCEMessage": {
-        "title": "Taro.onHCEMessage(CALLBACK)",
-        "sidebar_label": "onHCEMessage"
-      },
-      "apis/device/nfc/sendHCEMessage": {
-        "title": "Taro.sendHCEMessage(OBJECT)",
-        "sidebar_label": "sendHCEMessage"
-      },
-      "apis/device/nfc/startHCE": {
-        "title": "Taro.startHCE(OBJECT)",
-        "sidebar_label": "startHCE"
-      },
-      "apis/device/nfc/stopHCE": {
-        "title": "Taro.stopHCE(OBJECT)",
-        "sidebar_label": "stopHCE"
-      },
-      "apis/device/phone/makePhoneCall": {
-        "title": "Taro.makePhoneCall(OBJECT)",
-        "sidebar_label": "makePhoneCall"
-      },
-      "apis/device/scancode/scancode": {
-        "title": "Taro.scanCode(OBJECT)",
-        "sidebar_label": "scanCode"
-      },
-      "apis/device/screenshot/onUserCaptureScreen": {
-        "title": "Taro.onUserCaptureScreen(CALLBACK)",
-        "sidebar_label": "onUserCaptureScreen"
-      },
-      "apis/device/systeminfo/canIUse": {
-        "title": "Taro.canIUse(String)",
-        "sidebar_label": "canIUse"
-      },
-      "apis/device/systeminfo/getSystemInfo": {
-        "title": "Taro.getSystemInfo(OBJECT)",
-        "sidebar_label": "getSystemInfo"
-      },
-      "apis/device/systeminfo/getSystemInfoSync": {
-        "title": "Taro.getSystemInfoSync()",
-        "sidebar_label": "getSystemInfoSync"
-      },
-      "apis/device/vibrate/vibrateLong": {
-        "title": "Taro.vibrateLong(param)",
-        "sidebar_label": "vibrateLong"
-      },
-      "apis/device/vibrate/vibrateShort": {
-        "title": "Taro.vibrateShort(param)",
-        "sidebar_label": "vibrateShort"
-      },
-      "apis/device/wifi/connectWifi": {
-        "title": "Taro.connectWifi(OBJECT)",
-        "sidebar_label": "connectWifi"
-      },
-      "apis/device/wifi/getConnectedWifi": {
-        "title": "Taro.getConnectedWifi(OBJECT)",
-        "sidebar_label": "getConnectedWifi"
-      },
-      "apis/device/wifi/getWifiList": {
-        "title": "Taro.getWifiList(OBJECT)",
-        "sidebar_label": "getWifiList"
-      },
-      "apis/device/wifi/onGetWifiList": {
-        "title": "Taro.onGetWifiList(CALLBACK)",
-        "sidebar_label": "onGetWifiList"
-      },
-      "apis/device/wifi/onWifiConnected": {
-        "title": "Taro.onWifiConnected(CALLBACK)",
-        "sidebar_label": "onWifiConnected"
-      },
-      "apis/device/wifi/setWifiList": {
-        "title": "Taro.setWifiList(OBJECT)",
-        "sidebar_label": "setWifiList"
-      },
-      "apis/device/wifi/startWifi": {
-        "title": "Taro.startWifi(OBJECT)",
-        "sidebar_label": "startWifi"
-      },
-      "apis/device/wifi/stopWifi": {
-        "title": "Taro.stopWifi(OBJECT)",
-        "sidebar_label": "stopWifi"
+      "apis/modal/toast": {
+        "title": "toast"
       },
       "apis/multimedia/camera/capture": {
         "title": "相机"
@@ -169,56 +29,20 @@
       "apis/multimedia/camera/scan": {
         "title": "扫码"
       },
-      "apis/network/request/addInterceptor": {
-        "title": "Taro.addInterceptor(function func)",
-        "sidebar_label": "addInterceptor"
-      },
-      "apis/network/request/request": {
-        "title": "Taro.request(OBJECT)",
-        "sidebar_label": "request"
-      },
-      "apis/network/socket/closeSocket": {
-        "title": "Taro.closeSocket",
-        "sidebar_label": "closeSocket"
-      },
-      "apis/network/socket/connectSocket": {
-        "title": "Taro.connectSocket(OBJECT)",
-        "sidebar_label": "connectSocket"
-      },
-      "apis/network/socket/onSocketClose": {
-        "title": "Taro.onSocketClose",
-        "sidebar_label": "onSocketClose"
-      },
-      "apis/network/socket/onSocketError": {
-        "title": "Taro.onSocketError",
-        "sidebar_label": "onSocketError"
-      },
-      "apis/network/socket/onSocketMessage": {
-        "title": "Taro.onSocketMessage",
-        "sidebar_label": "onSocketMessage"
-      },
-      "apis/network/socket/onSocketOpen": {
-        "title": "Taro.onSocketOpen",
-        "sidebar_label": "onSocketOpen"
-      },
-      "apis/network/socket/sendSocketMessage": {
-        "title": "Taro.sendSocketMessage",
-        "sidebar_label": "sendSocketMessage"
-      },
-      "apis/network/socket/SocketTask": {
-        "title": "SocketTask",
-        "sidebar_label": "SocketTask"
-      },
-      "apis/open-api/card/card": {
-        "title": "卡券",
-        "sidebar_label": "卡券"
-      },
-      "apis/open-api/userinfo/getUserInfo": {
-        "title": "Taro.getUserInfo(OBJECT)",
-        "sidebar_label": "getUserInfo"
-      },
       "apis/runtime/runtime": {
         "title": "runtime"
+      },
+      "apis/storage/getAllKeys": {
+        "title": "getAllKeys"
+      },
+      "apis/storage/getItem": {
+        "title": "getItem"
+      },
+      "apis/storage/removeItem": {
+        "title": "removeItem"
+      },
+      "apis/storage/setItem": {
+        "title": "setItem"
       },
       "apis/systeminfo/systeminfo": {
         "title": "系统信息"
@@ -234,7 +58,7 @@
         "title": "components/modal/modal"
       },
       "components/navig/navigator": {
-        "title": "导航"
+        "title": "navigator"
       },
       "components/webview/open-data": {
         "title": "其他",
@@ -259,14 +83,41 @@
       "qt/clipboard/clipboard": {
         "title": "剪贴板"
       },
+      "qt/modal/alert": {
+        "title": "alert"
+      },
+      "qt/modal/confirm": {
+        "title": "confirm"
+      },
+      "qt/modal/prompt": {
+        "title": "promot"
+      },
+      "qt/modal/toast": {
+        "title": "toast"
+      },
       "qt/multimedia/camera/capture": {
         "title": "相机"
       },
       "qt/multimedia/camera/scan": {
         "title": "扫码"
       },
+      "qt/navigator/navigator": {
+        "title": "navigator"
+      },
       "qt/runtime/runtime": {
         "title": "runtime"
+      },
+      "qt/storage/getAllKeys": {
+        "title": "getAllKeys"
+      },
+      "qt/storage/getItem": {
+        "title": "getItem"
+      },
+      "qt/storage/removeItem": {
+        "title": "removeItem"
+      },
+      "qt/storage/setItem": {
+        "title": "setItem"
       },
       "qt/systeminfo/systeminfo": {
         "title": "系统信息"
@@ -291,11 +142,17 @@
       "Modal": "Modal",
       "导航": "导航",
       "关于API": "关于API",
+      "modal": "modal",
       "媒体": "媒体",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
-      "关于C++": "关于C++"
+      "storage": "storage",
+      "关于C++": "关于C++",
+      "更新": "更新",
+      "导航栏": "导航栏",
+      "数据缓存": "数据缓存",
+      "界面交互": "界面交互"
     }
   },
   "pages-strings": {
