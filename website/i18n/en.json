@@ -8,6 +8,9 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/clipboard/clipboard": {
+        "title": "剪贴板"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -25,9 +28,6 @@
       },
       "apis/multimedia/camera/scan": {
         "title": "扫码"
-      },
-      "apis/runtime/clipboard": {
-        "title": "剪贴板"
       },
       "apis/runtime/runtime": {
         "title": "runtime"
@@ -80,6 +80,9 @@
       "qt/about/desc": {
         "title": "C++ 说明"
       },
+      "qt/clipboard/clipboard": {
+        "title": "剪贴板"
+      },
       "qt/modal/alert": {
         "title": "alert"
       },
@@ -100,9 +103,6 @@
       },
       "qt/navigator/navigator": {
         "title": "navigator"
-      },
-      "qt/runtime/clipboard": {
-        "title": "剪贴板"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
@@ -145,6 +145,7 @@
       "modal": "modal",
       "媒体": "媒体",
       "runtime": "runtime",
+      "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "storage": "storage",
       "关于C++": "关于C++",

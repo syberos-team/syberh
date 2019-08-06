@@ -21,7 +21,7 @@ title: 系统信息
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型        | 是否必填 | 描述                         |
 | ---------- | ----------- | -------- | ---------------------------- |
@@ -68,7 +68,7 @@ title: 系统信息
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型    | 是否必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- |
@@ -87,7 +87,7 @@ title: 系统信息
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型        | 是否必填 | 描述                         |
 | ---------- | ----------- | -------- | ---------------------------- |
@@ -126,7 +126,7 @@ title: 系统信息
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型    | 是否必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- |
@@ -145,7 +145,7 @@ title: 系统信息
 
 #### 成功信号
 
-**void success(long responseID, QVariant result);**
+**emit success(long responseID, QVariant result);**
 
 | 参数名     | 类型    | 是否必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- |
@@ -154,7 +154,7 @@ title: 系统信息
 
 ## 失败信号
 
-### void failed(long responseID, QVariant errorCode, QString errorMsg);
+### emit failed(long responseID, QVariant errorCode, QString errorMsg);
 
 #### 参数
 

@@ -52,8 +52,15 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/runtime/runtime",
-          "apis/runtime/clipboard"
+          "apis/runtime/runtime"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "apis/clipboard/clipboard"
         ]
       }
     ],
@@ -87,8 +94,15 @@
       {
         "type": "subcategory",
         "ids": [
-          "qt/runtime/runtime",
-          "qt/runtime/clipboard"
+          "qt/runtime/runtime"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "qt/clipboard/clipboard"
         ]
       }
     ],
