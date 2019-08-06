@@ -52,7 +52,7 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/runtime/runtime"
+          "apis/runtime/launchApp"
         ]
       }
     ],
@@ -60,7 +60,8 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/clipboard/clipboard"
+          "apis/clipboard/setString",
+          "apis/clipboard/getString"
         ]
       }
     ],
@@ -68,7 +69,11 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/systeminfo/systeminfo"
+          "apis/systeminfo/aboutPhone",
+          "apis/systeminfo/getCoreVersion",
+          "apis/systeminfo/getModel",
+          "apis/systeminfo/getResolution",
+          "apis/systeminfo/getSysVersionID"
         ]
       }
     ],
