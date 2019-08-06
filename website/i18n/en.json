@@ -11,6 +11,9 @@
       "apis/clipboard/clipboard": {
         "title": "剪贴板"
       },
+      "apis/download/download": {
+        "title": "apis/download/download"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -34,6 +37,12 @@
       },
       "apis/multimedia/camera/scan": {
         "title": "scan"
+      },
+      "apis/navigator/navigator": {
+        "title": "navigator"
+      },
+      "apis/request/request": {
+        "title": "apis/request/request"
       },
       "apis/runtime/runtime": {
         "title": "runtime"
@@ -89,6 +98,9 @@
       "qt/clipboard/clipboard": {
         "title": "剪贴板"
       },
+      "qt/download/download-c": {
+        "title": "qt/download/download-c"
+      },
       "qt/modal/alert": {
         "title": "alert"
       },
@@ -109,6 +121,9 @@
       },
       "qt/navigator/navigator": {
         "title": "navigator"
+      },
+      "qt/request/request-c": {
+        "title": "qt/request/request-c"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
@@ -146,19 +161,18 @@
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
       "Modal": "Modal",
-      "导航": "导航",
       "关于API": "关于API",
-      "modal": "modal",
+      "导航栏": "导航栏",
+      "界面交互": "界面交互",
       "媒体": "媒体",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
-      "storage": "storage",
-      "关于C++": "关于C++",
-      "更新": "更新",
-      "导航栏": "导航栏",
       "数据缓存": "数据缓存",
-      "界面交互": "界面交互"
+      "request": "request",
+      "download": "download",
+      "关于C++": "关于C++",
+      "更新": "更新"
     }
   },
   "pages-strings": {
