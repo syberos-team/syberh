@@ -4,7 +4,7 @@ title: navigator
 
 导航栏组件，主要用于头部导航, 支持`Promise` 化使用
 
-## setNavigator(Object object)
+## syber.navigator.setNavigator(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型    | 是否必填 | 描述                            |
@@ -28,10 +28,10 @@ title: navigator
 #### object.error回调函数
 #### 参数
 #### Object error
-| 属性 | 类型  | 是否必填 | 描述 |
+| 属性 | 类型  | 描述 |
 | -- | -- | -- | -- |
-| code | String  | 是 | 错误码 |
-| msg | String  | 是 | 错误信息 |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
 
 
 
@@ -52,7 +52,7 @@ title: navigator
     })
 ```
 
-
+#### Promise
 ```javascript
     syber.navigator.setNavigator({
         title: '导航栏',

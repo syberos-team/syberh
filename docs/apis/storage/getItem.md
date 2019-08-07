@@ -4,7 +4,7 @@ title: getItem
 
 传入键名返回对应的键值, 支持`Promise` 化使用
 
-## getItem(Object object)
+## syber.storage.getItem(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型    | 是否必填 | 描述                         |
@@ -23,10 +23,10 @@ title: getItem
 #### object.error回调函数
 #### 参数
 #### Object error
-| 属性 | 类型  | 是否必填 | 描述 |
+| 属性 | 类型  | 描述 |
 | -- | -- | -- | -- |
-| code | String  | 是 | 错误码 |
-| msg | String  | 是 | 错误信息 |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
 
 
 ### 代码示例
@@ -42,6 +42,7 @@ title: getItem
     })
 ```
 
+#### Promise
 ``` javascript
     syber.storage.getItem({
         key: 'name'
