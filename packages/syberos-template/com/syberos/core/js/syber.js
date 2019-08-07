@@ -1,11 +1,13 @@
-Qt.include('polyfill.js')
-Qt.include('tool.js')
-Qt.include('lib/core.js')
-Qt.include('lib/plugin.js')
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+Qt.include('util/polyfill.js')
+Qt.include('util/tool.js')
+Qt.include('config.js')
+Qt.include('core/core.js')
+Qt.include('core/plugin.js')
 Qt.include('root/root.js')
 Qt.include('webview/webview.js')
-Qt.include('config.js')
-
+Qt.include('modal/alert.js')
 // 增加对ES6语法的支持
 polyfill()
 
@@ -45,14 +47,14 @@ function render (root) {
     _root = root
   }
   // 先创建body节点，再创建其他
-//  bodyElement(function (parent) {
-//    if (!webView) {
-//      webView = new WebView(parent)
-//    }
-//  })
+  //  bodyElement(function (parent) {
+  //    if (!webView) {
+  //      webView = new WebView(parent)
+  //    }
+  //  })
 
-  var SyberOS = new Syber()
+  var SyberOS = new Syber(root)
 
-
-  //SyberOS.addPlugin(RootItem)
+  SYBEROS = SyberOS
+  // SyberOS.addPlugin(RootItem)
 }

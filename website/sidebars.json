@@ -40,36 +40,30 @@
     ],
     "媒体": [
       {
-        "label":"相机",
+        "label": "相机",
         "type": "subcategory",
         "ids": [
           "apis/multimedia/camera/capturePhoto",
           "apis/multimedia/camera/captureVideoStart",
           "apis/multimedia/camera/captureVideoEnd"
         ]
-      },{
-        "label":"扫码",
+      },
+      {
+        "label": "扫码",
         "type": "subcategory",
-        "ids": [
-          "apis/multimedia/camera/scan"
-        ]
+        "ids": ["apis/multimedia/camera/scan"]
       }
     ],
     "runtime": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/runtime/launchApp"
-        ]
+        "ids": ["apis/runtime/launchApp"]
       }
     ],
     "剪贴板": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/clipboard/setString",
-          "apis/clipboard/getString"
-        ]
+        "ids": ["apis/clipboard/setString", "apis/clipboard/getString"]
       }
     ],
     "系统信息": [
@@ -90,29 +84,23 @@
       "apis/storage/removeItem",
       "apis/storage/getAllKeys"
     ],
-	"网络": [
-	  {
+    "网络": [
+      {
         "type": "subcategory",
-        "ids": [
-          "apis/request/request"
-        ]
+        "ids": ["apis/request/request"]
       }
     ],
-	"下载": [
-	  {
+    "下载": [
+      {
         "type": "subcategory",
-        "ids": [
-          "apis/download/download"
-        ]
+        "ids": ["apis/download/download"]
       }
     ],
-	"文件": [
-	  {
+    "文件": [
+      {
         "type": "subcategory",
-        "ids": [
-          "apis/fileInfo/getFileInfos",
-		      "apis/fileInfo/removeFileInfos"
-        ]
+        "ids": ["apis/fileInfo/getFileInfos", "apis/fileInfo/removeFileInfos"]
+
       }
     ]
   },
@@ -121,34 +109,25 @@
     "媒体": [
       {
         "type": "subcategory",
-        "ids": [
-          "qt/multimedia/camera/capture",
-          "qt/multimedia/camera/scan"
-        ]
+        "ids": ["qt/multimedia/camera/capture", "qt/multimedia/camera/scan"]
       }
     ],
     "runtime": [
       {
         "type": "subcategory",
-        "ids": [
-          "qt/runtime/runtime"
-        ]
+        "ids": ["qt/runtime/runtime"]
       }
     ],
     "剪贴板": [
       {
         "type": "subcategory",
-        "ids": [
-          "qt/clipboard/clipboard"
-        ]
+        "ids": ["qt/clipboard/clipboard"]
       }
     ],
     "系统信息": [
       {
         "type": "subcategory",
-        "ids": [
-          "qt/systeminfo/systeminfo"
-        ]
+        "ids": ["qt/systeminfo/systeminfo"]
       }
     ],
     "更新": ["apis/updates/getUpdateManager"],
@@ -159,12 +138,8 @@
       "qt/storage/removeItem",
       "qt/storage/getAllKeys"
     ],
-	"request": [
-      "qt/request/request-c"
-    ],
-	"download": [
-      "qt/download/download-c"
-    ],
+    "request": ["qt/request/request-c"],
+    "download": ["qt/download/download-c"],
     "界面交互": [
       "qt/modal/toast",
       "qt/modal/alert",
@@ -172,5 +147,4 @@
       "qt/modal/prompt"
     ]
   }
-  
 }

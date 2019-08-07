@@ -2,10 +2,10 @@
 //参数
 var opts = {
     id: 'rootItem',
-    module:'root',
     name:'root',
     source:'../qml/root.qml'
 }
+
 var RootItem = new SyberPlugin(opts)
 RootItem.on('init', function () {
     console.log('\n ----rootItem-init')
