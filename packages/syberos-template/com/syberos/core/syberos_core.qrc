@@ -4,12 +4,14 @@
         <file>qml/swebview.qml</file>
         <file>qml/dynamic-image.qml</file>
         <file>js/webview.js</file>
-        <file>qml/boby.qml</file>
         <file>js/polyfill.js</file>
         <file>js/config.js</file>
-        <file>js/plugin.js</file>
-        <file>js/syber.js</file>
-        <file>js/core.js</file>
         <file>js/tool.js</file>
+        <file>js/lib/core.js</file>
+        <file>js/lib/plugin.js</file>
+        <file>js/syber.js</file>
+        <file>js/root/root.js</file>
+        <file>qml/root.qml</file>
+        <file>js/webview/webview.js</file>
     </qresource>
 </RCC>
