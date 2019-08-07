@@ -110,8 +110,8 @@
 	  {
         "type": "subcategory",
         "ids": [
-          "apis/fileInfo/getFileInfos"
-		  "apis/fileInfo/removeFileInfos"
+          "apis/fileInfo/getFileInfos",
+		      "apis/fileInfo/removeFileInfos"
         ]
       }
     ]
