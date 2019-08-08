@@ -14,5 +14,8 @@
         <file>js/config.js</file>
         <file>js/modal/alert.js</file>
         <file>qml/alert.qml</file>
+        <file>js/modal/confirm.js</file>
+        <file>qml/confirm.qml</file>
+        <file>qml/sbutton.qml</file>
     </qresource>
 </RCC>

@@ -8,6 +8,7 @@ Qt.include('core/plugin.js')
 Qt.include('root/root.js')
 Qt.include('webview/webview.js')
 Qt.include('modal/alert.js')
+Qt.include('modal/confirm.js')
 // 增加对ES6语法的支持
 polyfill()
 

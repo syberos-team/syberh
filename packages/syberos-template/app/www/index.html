@@ -19,12 +19,15 @@
   </head>
   <body>
     <button id="donwload" onclick="donwload()">donwload</button>
-    <button id="donwload" onclick="alert()">alert</button>
+<!--    <button id="donwload" onclick="alert()">alert</button>-->
+    <button id="donwload" onclick="confirm()">confirm</button>
     <div class="text" id="content"></div>
     <script>
       var vConsole = new VConsole()
       console.log('Hello world')
-      syber.config()
+      syber.config({
+        jsApiList: ['confirm']
+    })
       syber.ready(function() {
         document.getElementById('content').innerHTML = '注册成功'
       })
@@ -60,6 +63,20 @@
           }
         })
       }
+
+    function confirm() {
+      syber.callApi({
+        name: 'confirm',
+        mudule: 'modal',
+        data: { title: 'xuejun', message: 'message' },
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
     </script>
   </body>
 </html>
