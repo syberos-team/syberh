@@ -57,17 +57,22 @@ Syber.prototype.create = function (pluginID, handlerId, param) {
   if (plugin.isReady) {
     console.log('plugin isReady', plugin.id)
     // 直接调用
-    plugin.onReady()
+    plugin.trigger('request')
     return
   }
-  this._initPlugin(plugin)
+
+  // 创建完成后发送request
+  this._initPlugin(plugin, function (object) {
+    plugin.trigger('request', object)
+  })
 }
 
 /**
  *@param plugin {Object} 插件
  *@param parent {Object} 挂载节点
+ *@param callback {function}
  */
-Syber.prototype._initPlugin = function (plugin, parent) {
+Syber.prototype._initPlugin = function (plugin, parent, callback) {
   var _parent = parent || this.body
   console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
   console.debug('\n ***********plugin.source', plugin.source, '\n')
@@ -85,6 +90,8 @@ Syber.prototype._initPlugin = function (plugin, parent) {
       plugin.isReady = true
       // data数据
       plugin.trigger('ready', incubator.object)
+
+      if (typeof callback === 'function') callback(incubator.object)
     }
   }
 }
