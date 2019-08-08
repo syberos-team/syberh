@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>demo</title>
+    <style type="text/css">
+      button {
+        font-size: 2em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 5em;
+      }
+
+      .text {
+        font-size: 2em;
+      }
+    </style>
+    <script src="lib/vconsole.min.js"></script>
+    <script src="lib/syber.min.js"></script>
+  </head>
+  <body>
+    <button id="reload" onclick="reload()">donwload</button>
+
+    <div class="text" id="content"></div>
+    <script>
+      var vConsole = new VConsole()
+      console.log('Hello world')
+
+      syber.ready(function() {
+        document.getElementById('content').innerHTML = '注册成功'
+      })
+      document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+
+      function reload() {
+        syber.callApi({
+          name: 'reload',
+          mudule: 'webview',
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+      }
+    </script>
+  </body>
+</html>

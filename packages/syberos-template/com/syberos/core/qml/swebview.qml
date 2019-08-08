@@ -12,8 +12,8 @@ WebView {
     property var syberObject
 
     signal receiveMessage(var message)
-
     signal downLoadConfirmRequest
+    signal reloadSuccess(var loadProgress)
 
     property var _contentY: 0
     property url curHoverUrl: ""
@@ -161,6 +161,9 @@ WebView {
 
     onLoadProgressChanged: {
         console.log("onLoadProgressChanged", loadProgress)
+       
+        reloadSuccess(loadProgress)
+       
     }
 
     Component.onCompleted: {
