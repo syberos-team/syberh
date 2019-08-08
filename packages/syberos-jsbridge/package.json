@@ -2,11 +2,11 @@
   "name": "@syberos/jsbridge",
   "version": "1.0.0",
   "description": "js-sdk for syberos",
-  "homepage": "https://github.com/syberos-team",
+  "homepage": "https://github.com/syberos-team/syberos-hybrid",
   "main": "dist/syber.js",
   "scripts": {
     "test": "mocha",
-    "dist": "webpack"
+    "dist": "webpack --watch"
   },
   "keywords": [
     "syberos",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/syberos-team"
+    "url": "git+https://github.com/syberos-team/syberos-hybrid"
   },
   "dependencies": {},
   "devDependencies": {
