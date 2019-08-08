@@ -8,5 +8,7 @@ var uiModules = {
   modal: true,
   navigator: true
 }
-
+// 全局syberos对象,在初始化完成有建立
 var SYBEROS = null
+// 全局WEBVIEW
+var WEBVIEWCORE = null
