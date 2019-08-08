@@ -44,6 +44,10 @@ void NativeSdkManager::request(QString className,QString callBackID,QString acti
         handler->request(callBackID,actionName,params);
 
     }else{
+        QString msg="不存在的模块["+className+"]";
+        long handlerId=callBackID.toLong();
+        long code=0;
+        emit failed(handlerId,code,msg);
         qDebug()<< "模块:"<<className<<"不存在";
     }
 
