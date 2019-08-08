@@ -1,13 +1,16 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-var defaultOpts = {
-  id: 'webview',
-  module: 'webview',
-  name: 'webview',
-  source: '../qml/swebview.qml'
-}
+var sybero = null
 
 function WebView (options) {
+  // 默认参数
+  var defaultOpts = {
+    id: 'webview',
+    name: 'webview',
+    source: '../qml/swebview.qml',
+    autoCreate: true
+  }
   if (options) {
     Object.assign(defaultOpts, options)
   }
@@ -24,8 +27,13 @@ function WebView (options) {
   this.responseCallbacksLongTerm = {}
 
   var that = this
+
   this.on('ready', function (webview) {
-    that._webviews[that.id]=webview;
+    // var webview = data.object
+    SYBEROS.body = webview
+    that._webviews[that.id] = webview
+    // sybero = sb
+    console.log('visible', webview.visible)
     // 成功回调绑定函数
     NativeSdkManager.sucess.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
@@ -38,20 +46,22 @@ function WebView (options) {
   })
 }
 
-WebView.prototype = new SyberPlugin(defaultOpts)
+WebView.prototype = SyberPlugin.prototype
 
 WebView.prototype.onMessageReceived = function (message, webviewId) {
   console.log(
     '@@@ ',
     'WebView received Message: ',
+    typeof message,
     webviewId,
     JSON.stringify(message),
     '\r\n'
   )
 
   var model = JSON.parse(message.data)
-
   var handlerId = model.callbackId
+  var method = model.handlerName
+  var module = model.module
 
   // print('\n  typeof handlerId', handlerId, typeof handlerId)
   // 如果有callbackId 则保存回调信息
@@ -67,22 +77,26 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   }
   var funcArgs = {}
   if (model.data) {
-    var keys = Object.keys(model.data)
-    // 关联callbackId和webview
+    funcArgs = model.data
+    //    var keys = Object.keys(model.data)
+    //    // 关联callbackId和webview
 
-    for (var i in keys) {
-      print('@@@ ', 'key: ', i, keys[i], '\r\n')
-      print('@@@ value is', model.data[keys[i]])
-      funcArgs[keys[i]] = model.data[keys[i]]
-    }
+    //    for (var i in keys) {
+    //      print('@@@ ', 'key: ', i, keys[i], '\r\n')
+    //      print('@@@ value is', model.data[keys[i]])
+    //      funcArgs[keys[i]] = model.data[keys[i]]
+    //    }
+  }
+  // 如果为ui模块
+  if (uiModules[module]) {
+    // 约定插件IDhandlerName
+    var pluginID = model.handlerName
+    SYBEROS.create(pluginID, model.data)
+    return
   }
 
-  NativeSdkManager.request(
-    'TestHandler*',
-    handlerId,
-    model.handlerName,
-    funcArgs
-  )
+  console.log('\n -------------------', handlerId, method, funcArgs)
+  NativeSdkManager.request('TestHandler*', handlerId, method, funcArgs)
 }
 
 WebView.prototype.onSuccess = function (handlerId, result) {
@@ -161,19 +175,6 @@ WebView.prototype.getAll = function () {
 }
 
 WebView.prototype.getWebView = function (id) {
-  var rwebview
-
-//  for (var i = 0; i < this._webviews.length; i++) {
-//    print(
-//      '------this._webviews',
-//      JSON.stringify(this._webviews[i].syberObject),
-//      '\n'
-//    )
-//    if (this._webviews[i].syberObject.key === id) {
-//      rwebview = this._webviews[i]
-//      break
-//    }
-//  }
   return this._webviews[id]
 }
 

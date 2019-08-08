@@ -15,7 +15,13 @@
         "title": "setString"
       },
       "apis/download/download": {
-        "title": "apis/download/download"
+        "title": "downloadFile"
+      },
+      "apis/fileInfo/getFileInfos": {
+        "title": "getFileInfos"
+      },
+      "apis/fileInfo/removeFileInfos": {
+        "title": "removeFileInfos"
       },
       "apis/modal/alert": {
         "title": "alert"
@@ -45,7 +51,7 @@
         "title": "navigator"
       },
       "apis/request/request": {
-        "title": "apis/request/request"
+        "title": "request"
       },
       "apis/runtime/launchApp": {
         "title": "launchApp"
@@ -181,10 +187,13 @@
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "数据缓存": "数据缓存",
-      "request": "request",
-      "download": "download",
+      "网络": "网络",
+      "下载": "下载",
+      "文件": "文件",
       "关于C++": "关于C++",
-      "更新": "更新"
+      "更新": "更新",
+      "request": "request",
+      "download": "download"
     }
   },
   "pages-strings": {
