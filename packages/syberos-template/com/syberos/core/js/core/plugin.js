@@ -16,6 +16,8 @@ function SyberPlugin (opts) {
   this.object = null
   // 插件需要的参数
   this.param = {}
+  // 请求ID
+  this.handlerId = {}
   this.eventList = {}
 }
 
@@ -23,8 +25,9 @@ function SyberPlugin (opts) {
  * 拓展参数
  * @param
  */
-SyberPlugin.prototype.extendParam = function (param) {
+SyberPlugin.prototype.setParam = function (handlerId, param) {
   if (param) {
+    this.handlerId = handlerId
     Object.assign(this.param, param)
   } else {
     console.error('SyberPlugin extendParam error,param is undefined')
@@ -49,16 +52,23 @@ SyberPlugin.prototype.on = function (eventName, callback) {
  * @param string
  * @param mixed
  */
-SyberPlugin.prototype.trigger = function (eventName, data) {
+SyberPlugin.prototype.trigger = function () {
+  var eventName = arguments[0]
+  var len = arguments.length
+  var funcArgs = []
+
+  for (var sum = 1; sum < len; sum += 1) {
+    funcArgs.push(arguments[sum])
+  }
   if (typeof this.eventList[eventName] === 'function') {
     // registered by `.on()` method
-    this.eventList[eventName].call(this, data)
+    this.eventList[eventName].apply(this, funcArgs)
   } else {
     // registered by `.onXxx()` method
     var method = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1)
     if (typeof this[method] === 'function') {
       // eslint-disable-next-line no-useless-call
-      this[method].call(this, data)
+      this[method].apply(this, funcArgs)
     }
   }
   return this

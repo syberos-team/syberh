@@ -1,9 +1,10 @@
+/* eslint-disable one-var */
+/* eslint-disable no-unused-vars */
 /**
  * 增加ES6的拓展支持
  */
 function polyfill () {
   assignPolyfill()
-
   keysPolyfill()
 }
 
@@ -17,7 +18,9 @@ function assignPolyfill () {
       configurable: true,
       writable: true,
       value: function (target, firstSource) {
-        if (target === undefined || target === null) { throw new TypeError('Cannot convert first argument to object') }
+        if (target === undefined || target === null) {
+          throw new TypeError('Cannot convert first argument to object')
+        }
         var to = Object(target)
         for (var i = 1; i < arguments.length; i++) {
           var nextSource = arguments[i]
@@ -30,7 +33,9 @@ function assignPolyfill () {
           ) {
             var nextKey = keysArray[nextIndex]
             var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey)
-            if (desc !== undefined && desc.enumerable) { to[nextKey] = nextSource[nextKey] }
+            if (desc !== undefined && desc.enumerable) {
+              to[nextKey] = nextSource[nextKey]
+            }
           }
         }
         return to
@@ -62,7 +67,9 @@ function keysPolyfill () {
         if (
           (typeof obj !== 'object' && typeof obj !== 'function') ||
           obj === null
-        ) { throw new TypeError('Object.keys called on non-object') }
+        ) {
+          throw new TypeError('Object.keys called on non-object')
+        }
 
         var result = []
 
@@ -72,7 +79,9 @@ function keysPolyfill () {
 
         if (hasDontEnumBug) {
           for (var i = 0; i < dontEnumsLength; i++) {
-            if (hasOwnProperty.call(obj, dontEnums[i])) { result.push(dontEnums[i]) }
+            if (hasOwnProperty.call(obj, dontEnums[i])) {
+              result.push(dontEnums[i])
+            }
           }
         }
         return result
@@ -84,7 +93,9 @@ function keysPolyfill () {
 function valuesPolyfill () {
   if (!Object.values) {
     Object.values = function (obj) {
-      if (obj !== Object(obj)) { throw new TypeError('Object.values called on a non-object') }
+      if (obj !== Object(obj)) {
+        throw new TypeError('Object.values called on a non-object')
+      }
       var val = [],
         key
       for (key in obj) {
