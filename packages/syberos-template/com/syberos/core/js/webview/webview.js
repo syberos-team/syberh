@@ -8,7 +8,9 @@ function WebView (options) {
   var defaultOpts = {
     id: 'webview',
     name: 'webview',
+    module: 'webview',
     source: '../qml/swebview.qml',
+    method: ['reload', 'goBack', 'redirectTo'],
     autoCreate: true
   }
   if (options) {
@@ -67,6 +69,56 @@ function WebView (options) {
     }
     that.onFailed.apply(this, funcArgs)
   })
+
+  /**
+   * request 请求
+   * @object qml实例化对象
+   * @handlerId 请求ID
+   * @param 请求参数
+   * @method 请求方法名称
+   */
+  this.on('request', function (object, handlerId, param, method) {
+    if (method === 'reload') {
+      that.reload(handlerId, param)
+      return
+    }
+
+    if (method === 'redirectTo') {
+      that.redirectTo(handlerId, param)
+      return
+    }
+
+    if (method === 'goBack') {
+      that.redirectTo(handlerId, param)
+      return
+    }
+    // 错误的回调
+    this.trigger('failed', handlerId, 0, '方法不存在')
+  })
+
+  // 重新加载
+  this.reload = function (handlerId, param) {
+    that.object.reload()
+    // 绑定进度事件
+    that.object.reloadSuccess(function (loadProgress) {
+      console.log('\n loadProgress', loadProgress)
+      if (loadProgress === 100) {
+        that.trigger('success', handlerId, 'ok')
+      }
+    })
+  }
+
+  this.goBack = function (handlerId, param) {}
+
+  this.redirectTo = function (handlerId, param) {}
+
+  // 重新加载
+  this.on('reload', function () {})
+  // 回退
+  this.on('goBack', function () {})
+
+  // 转向某个url
+  this.on('redirectTo', function () {})
 }
 
 WebView.prototype = SyberPlugin.prototype
@@ -106,12 +158,14 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   if (uiModules[module]) {
     // 约定插件IDhandlerName
     var pluginID = model.handlerName
-    SYBEROS.create(pluginID, handlerId, model.data)
+    SYBEROS.create(pluginID, handlerId, model.data, method)
     return
   }
 
   console.log('\n -------------------', handlerId, method, funcArgs)
-  NativeSdkManager.request(module, handlerId, method, funcArgs)
+  // 因为C++类都为大写开头,所以第一个字母转为大写
+  var moduleName = module.charAt(0).toUpperCase() + module.slice(1)
+  NativeSdkManager.request(moduleName, handlerId, method, funcArgs)
 }
 
 WebView.prototype.onSuccess = function (handlerId, result) {

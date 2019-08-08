@@ -8,31 +8,16 @@
       "specials"
     ],
     "教程": ["debug"],
-    "进阶指南": [
-      "config",
-      "config-detail",
-      "async-await",
-      "redux",
-      "mobx",
-      "mini-third-party",
-      "hybrid",
-      "css-modules",
-      "CONTRIBUTING"
-    ]
+    "进阶指南": ["config", "config-detail", "async-await", "CONTRIBUTING"]
   },
   "components": {
-    "关于组件库": ["components-desc"],
-    "Modal": [
-      "components/modal/icon",
-      "components/base/text",
-      "components/base/progress",
-      "components/base/rich-text"
-    ]
+    "关于组件库": ["components-desc"]
   },
   "API": {
     "关于API": ["apis/about/desc"],
+    "webview": ["apis/webview/webview"],
     "导航栏": ["apis/navigator/navigator"],
-    "界面交互": [
+    "modal": [
       "apis/modal/toast",
       "apis/modal/alert",
       "apis/modal/confirm",
@@ -100,7 +85,6 @@
       {
         "type": "subcategory",
         "ids": ["apis/fileInfo/getFileInfos", "apis/fileInfo/removeFileInfos"]
-
       }
     ]
   },

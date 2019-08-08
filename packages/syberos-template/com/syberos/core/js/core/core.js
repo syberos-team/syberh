@@ -43,31 +43,38 @@ Syber.prototype._render = function () {
 /**
  * 创建组件
  * @pluginID 插件ID
- * @param 参数
+ * @handlerId 请求ID
+ * @param 请求参数
+ * @method 请求方法名称
  */
-Syber.prototype.create = function (pluginID, handlerId, param) {
+Syber.prototype.create = function (pluginID, handlerId, param, method) {
   var plugin = this.pluginList[pluginID]
   if (!plugin) {
     console.error('Plugin ' + pluginID + ' 不存在.')
     return false
   }
   // 参数处理
-  plugin.setParam(handlerId, param)
+  plugin.setParam(handlerId, param, method)
 
   if (plugin.isReady) {
     console.log('plugin isReady', plugin.id)
     // 直接调用
-    plugin.onReady()
+    plugin.trigger('request', plugin.object, handlerId, param, method)
     return
   }
-  this._initPlugin(plugin)
+
+  // 创建完成后发送request
+  this._initPlugin(plugin, function (object) {
+    plugin.trigger('request', object, handlerId, param, method)
+  })
 }
 
 /**
  *@param plugin {Object} 插件
  *@param parent {Object} 挂载节点
+ *@param callback {function}
  */
-Syber.prototype._initPlugin = function (plugin, parent) {
+Syber.prototype._initPlugin = function (plugin, parent, callback) {
   var _parent = parent || this.body
   console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
   console.debug('\n ***********plugin.source', plugin.source, '\n')
@@ -85,6 +92,8 @@ Syber.prototype._initPlugin = function (plugin, parent) {
       plugin.isReady = true
       // data数据
       plugin.trigger('ready', incubator.object)
+
+      if (typeof callback === 'function') callback(incubator.object)
     }
   }
 }

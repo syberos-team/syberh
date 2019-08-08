@@ -20,6 +20,8 @@
   <body>
     <button id="donwload" onclick="donwload()">donwload</button>
     <button id="donwload" onclick="alert()">alert</button>
+    <button id="donwload" onclick="reload()">alert</button>
+    <a href="./pages/webview.html"> webview</a>
     <div class="text" id="content"></div>
     <script>
       var vConsole = new VConsole()
@@ -43,6 +45,19 @@
             console.log('error   ', '失败:' + JSON.stringify(error))
             document.getElementById('content').innerHTML =
               'error: ' + JSON.stringify(error)
+          }
+        })
+      }
+
+      function reload() {
+        syber.callApi({
+          name: 'reload',
+          mudule: 'webview',
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
           }
         })
       }
