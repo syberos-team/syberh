@@ -43,27 +43,29 @@ Syber.prototype._render = function () {
 /**
  * 创建组件
  * @pluginID 插件ID
- * @param 参数
+ * @handlerId 请求ID
+ * @param 请求参数
+ * @method 请求方法名称
  */
-Syber.prototype.create = function (pluginID, handlerId, param) {
+Syber.prototype.create = function (pluginID, handlerId, param, method) {
   var plugin = this.pluginList[pluginID]
   if (!plugin) {
     console.error('Plugin ' + pluginID + ' 不存在.')
     return false
   }
   // 参数处理
-  plugin.setParam(handlerId, param)
+  plugin.setParam(handlerId, param, method)
 
   if (plugin.isReady) {
     console.log('plugin isReady', plugin.id)
     // 直接调用
-    plugin.trigger('request')
+    plugin.trigger('request', plugin.object, handlerId, param, method)
     return
   }
 
   // 创建完成后发送request
   this._initPlugin(plugin, function (object) {
-    plugin.trigger('request', object)
+    plugin.trigger('request', object, handlerId, param, method)
   })
 }
 
