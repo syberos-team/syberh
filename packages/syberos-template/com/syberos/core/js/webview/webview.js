@@ -44,6 +44,29 @@ function WebView (options) {
     })
     console.log('--------\n   webview  \n')
   })
+
+  // 接受qml成功返回
+  this.on('success', function () {
+    var len = arguments.length
+    var funcArgs = []
+
+    for (var sum = 0; sum < len; sum += 1) {
+      funcArgs.push(arguments[sum])
+    }
+    console.log('--------\n   funcArgs  \n', JSON.stringify(funcArgs))
+
+    that.onSuccess.apply(this, funcArgs)
+  })
+  // 接受qml组件fail返回
+  this.on('failed', function () {
+    var len = arguments.length
+    var funcArgs = []
+
+    for (var sum = 0; sum < len; sum += 1) {
+      funcArgs.push(arguments[sum])
+    }
+    that.onFailed.apply(this, funcArgs)
+  })
 }
 
 WebView.prototype = SyberPlugin.prototype
@@ -78,28 +101,21 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   var funcArgs = {}
   if (model.data) {
     funcArgs = model.data
-    //    var keys = Object.keys(model.data)
-    //    // 关联callbackId和webview
-
-    //    for (var i in keys) {
-    //      print('@@@ ', 'key: ', i, keys[i], '\r\n')
-    //      print('@@@ value is', model.data[keys[i]])
-    //      funcArgs[keys[i]] = model.data[keys[i]]
-    //    }
   }
   // 如果为ui模块
   if (uiModules[module]) {
     // 约定插件IDhandlerName
     var pluginID = model.handlerName
-    SYBEROS.create(pluginID, model.data)
+    SYBEROS.create(pluginID, handlerId, model.data)
     return
   }
 
   console.log('\n -------------------', handlerId, method, funcArgs)
-  NativeSdkManager.request('TestHandler*', handlerId, method, funcArgs)
+  NativeSdkManager.request(module, handlerId, method, funcArgs)
 }
 
 WebView.prototype.onSuccess = function (handlerId, result) {
+  console.log('----handlerId \n', handlerId)
   if (!handlerId) {
     return
   }

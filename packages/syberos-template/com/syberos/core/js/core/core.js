@@ -45,14 +45,14 @@ Syber.prototype._render = function () {
  * @pluginID 插件ID
  * @param 参数
  */
-Syber.prototype.create = function (pluginID, param) {
+Syber.prototype.create = function (pluginID, handlerId, param) {
   var plugin = this.pluginList[pluginID]
   if (!plugin) {
     console.error('Plugin ' + pluginID + ' 不存在.')
     return false
   }
   // 参数处理
-  plugin.extendParam(param)
+  plugin.setParam(handlerId, param)
 
   if (plugin.isReady) {
     console.log('plugin isReady', plugin.id)
@@ -68,7 +68,6 @@ Syber.prototype.create = function (pluginID, param) {
  *@param parent {Object} 挂载节点
  */
 Syber.prototype._initPlugin = function (plugin, parent) {
-  var that = this
   var _parent = parent || this.body
   console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
   console.debug('\n ***********plugin.source', plugin.source, '\n')
@@ -85,7 +84,6 @@ Syber.prototype._initPlugin = function (plugin, parent) {
       plugin.object = incubator.object
       plugin.isReady = true
       // data数据
-      var data = { object: incubator.object }
       plugin.trigger('ready', incubator.object)
     }
   }
@@ -96,7 +94,11 @@ Syber.prototype._initPlugin = function (plugin, parent) {
  */
 Syber.prototype._addBuiltInPlugins = function () {
   // add default log plugin
-  this.addPlugin(new WebView())
+
+  // 建立全局webview
+  var vm = new WebView()
+  WEBVIEWCORE = vm
+  this.addPlugin(vm)
 
   // add other built-in plugins according to user's config
   var list = this.option.defaultPlugins
