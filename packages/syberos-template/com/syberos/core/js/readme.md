@@ -4,6 +4,12 @@
 
 > 请勿忘记引入文件 Qt.include('xxx.js')
 
+初始化(目前已自动初始化)
+
+```js
+var SyberOS = new Syber(root)
+```
+
 ## 1. 实例化插件
 
 方式一
@@ -73,10 +79,12 @@ myPlugin.on('ready', function() {
 最后一步，就是将写好的插件添加到 vConsole 中：
 
 ```javascript
-vConsole.addPlugin(pluginObject)
+syberOS.addPlugin(pluginObject)
 ```
 
-##插件返回
+## 其他
+
+### 插件返回
 
 统一通过 webview 的 success/failed 事件进行返回
 
