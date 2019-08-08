@@ -14,12 +14,12 @@
         font-size: 2em;
       }
     </style>
-    <script src="dist/vconsole.min.js"></script>
-    <script src="dist/syber.js"></script>
+    <script src="lib/vconsole.min.js"></script>
+    <script src="lib/syber.min.js"></script>
   </head>
   <body>
     <button id="donwload" onclick="donwload()">donwload</button>
-
+    <button id="donwload" onclick="alert()">alert</button>
     <div class="text" id="content"></div>
     <script>
       var vConsole = new VConsole()
@@ -43,6 +43,20 @@
             console.log('error   ', '失败:' + JSON.stringify(error))
             document.getElementById('content').innerHTML =
               'error: ' + JSON.stringify(error)
+          }
+        })
+      }
+
+      function alert() {
+        syber.callApi({
+          name: 'alert',
+          mudule: 'modal',
+          data: { title: 'alert test', message: 'message' },
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
           }
         })
       }

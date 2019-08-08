@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
   <title>Hello </title>
   
-  <script type="text/javascript" src="lib/syber.js" ></script>
+  <script type="text/javascript" src="lib/syber.min.js" ></script>
 </head>
 <body>
   <div id="root">

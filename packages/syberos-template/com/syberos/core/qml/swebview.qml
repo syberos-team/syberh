@@ -8,7 +8,6 @@ WebView {
     id: webview
 
     focus: true
-    anchors.top: parent.top
 
     property var syberObject
 
@@ -19,8 +18,8 @@ WebView {
     property var _contentY: 0
     property url curHoverUrl: ""
 
-    anchors.bottom: parent.bottom
-    width: parent.width
+    anchors.fill:parent
+
      experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
     experimental.minimumScale: false
     experimental.preferredMinimumContentsWidth: 720

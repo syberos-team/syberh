@@ -43,6 +43,8 @@ void NativeSdkManager::request(QString className,QString callBackID,QString acti
             initHandlerConnect(className);
         handler->request(callBackID,actionName,params);
 
+    }else{
+        qDebug()<< "模块:"<<className<<"不存在";
     }
 
 }
