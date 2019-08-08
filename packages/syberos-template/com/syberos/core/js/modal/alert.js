@@ -14,7 +14,7 @@ function Alert () {
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
-
+  this.onAlert = function () {}
   this.on('alert', function (object, handlerId, param) {
     var component = object || that.object
 

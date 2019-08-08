@@ -70,25 +70,6 @@ function WebView (options) {
     that.onFailed.apply(this, funcArgs)
   })
 
-  this.on('request', function (object, handlerId, param, method) {
-    if (method === 'reload') {
-      that.reload(handlerId, param)
-      return
-    }
-
-    if (method === 'redirectTo') {
-      that.redirectTo(handlerId, param)
-      return
-    }
-
-    if (method === 'goBack') {
-      that.redirectTo(handlerId, param)
-      return
-    }
-    // 错误的回调
-    this.trigger('failed', handlerId, 0, '方法不存在')
-  })
-
   /**
    * request 请求
    * @object qml实例化对象
@@ -96,37 +77,36 @@ function WebView (options) {
    * @param 请求参数
    * @method 请求方法名称
    */
-  this.reload = function (handlerId, param) {
-    that.object.reload()
+  this.on('reload', function (object, handlerId) {
+    object.reload()
     // 绑定进度事件
-    that.object.reloadSuccess(function (loadProgress) {
-      console.log('\n loadProgress', loadProgress)
-      if (loadProgress === 100) {
-        that.trigger('success', handlerId, 'ok')
-      }
-    })
-  }
-
-  this.goBack = function (handlerId, param) {}
-
-  this.redirectTo = function (handlerId, param) {}
-
-  // 重新加载
-  this.on('reload', function (object, handlerId, param, method) {
-    that.object.reload()
-    // 绑定进度事件
-    that.object.reloadSuccess(function (loadProgress) {
-      console.log('\n loadProgress', loadProgress)
+    object.reloadSuccess.connect(function (loadProgress) {
+      console.log('\n =========loadProgress', loadProgress)
       if (loadProgress === 100) {
         that.trigger('success', handlerId, 'ok')
       }
     })
   })
   // 回退
-  this.on('goBack', function () {})
+  this.on('goBack', function (object,handlerId) {
+       console.log('\n =========can goback', object.canGoBack)
+    if (object.canGoBack) {
+      object.goBack()
+      that.trigger('success', handlerId, 'ok')
+    } else {
+      that.trigger('failed', handlerId, 0, '')
+    }
+  })
 
   // 转向某个url
-  this.on('redirectTo', function () {})
+  this.on('redirectTo', function (object, handlerId, param) {
+    var url = getUrl(param.url)
+    console.log('\n =========url', url)
+
+    object.url = url
+
+    that.trigger('success', handlerId, 'ok')
+  })
 }
 
 WebView.prototype = SyberPlugin.prototype
@@ -191,7 +171,7 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   }
   print('request sucess ', result)
   print('responseID ', handlerId)
-  gToast.requestToast('request sucess ' + result)
+  gToast.requestToast('request sucess：' + JSON.stringify(result))
   // 返回内容
   var resObj = {
     responseId: Number(handlerId),
@@ -265,4 +245,19 @@ function getIndexPath () {
   var url = 'file://' + helper.getWebRootPath() + '/index.html'
   console.debug('\n url', url, '\n')
   return url
+}
+/**
+ * url地址转换
+ * @param {string} url
+ */
+function getUrl (url) {
+  if (!url) {
+    throw new Error('url不存在', url)
+  }
+  // 如果是网络地址,直接返回
+  if (url.indexOf('http') > 0 || url.indexOf('https') >= 0) {
+    return url
+  }
+  var rurl = 'file://' + helper.getWebRootPath() + '/' + url
+  return rurl
 }
