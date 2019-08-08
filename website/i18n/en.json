@@ -15,7 +15,13 @@
         "title": "setString"
       },
       "apis/download/download": {
-        "title": "apis/download/download"
+        "title": "downloadFile"
+      },
+      "apis/fileInfo/getFileInfos": {
+        "title": "getFileInfos"
+      },
+      "apis/fileInfo/removeFileInfos": {
+        "title": "removeFileInfos"
       },
       "apis/modal/alert": {
         "title": "alert"
@@ -45,7 +51,7 @@
         "title": "navigator"
       },
       "apis/request/request": {
-        "title": "apis/request/request"
+        "title": "request"
       },
       "apis/runtime/launchApp": {
         "title": "launchApp"
@@ -80,6 +86,9 @@
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
+      },
+      "apis/webview/webview": {
+        "title": "webview"
       },
       "components-desc": {
         "title": "组件库说明"
@@ -172,19 +181,23 @@
       "教程": "教程",
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
-      "Modal": "Modal",
       "关于API": "关于API",
+      "webview": "webview",
       "导航栏": "导航栏",
-      "界面交互": "界面交互",
+      "modal": "modal",
       "媒体": "媒体",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "数据缓存": "数据缓存",
+      "网络": "网络",
+      "下载": "下载",
+      "文件": "文件",
+      "关于C++": "关于C++",
+      "更新": "更新",
       "request": "request",
       "download": "download",
-      "关于C++": "关于C++",
-      "更新": "更新"
+      "界面交互": "界面交互"
     }
   },
   "pages-strings": {

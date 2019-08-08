@@ -15,5 +15,4 @@ packages/build*
 packages/syberos-template/*.pro.user
 packages/syberos-cli/dist
 packages/syberos-dev-server/dist
-packages/syberos-jsbridge/dist
 

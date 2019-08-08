@@ -8,7 +8,7 @@ title: prompt
 ## syber.modal.prompt(Object object)
 ### 参数
 #### Object object
-| 属性     | 类型    | 默认值 | 是否必填 | 描述                         |
+| 属性     | 类型    | 默认值 | 必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- | ---- |
 | title | string |  |否 | 确认按钮上显示的文字信息 |
 | titleIcon | string |       | 否 | 标题左侧的图标 |
@@ -18,8 +18,8 @@ title: prompt
 | confirmColor | string| '#576B95'  | 否 | 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
 | cancelTitle | string |  '取消' |否 | 取消按钮上显示的文字信息 |
 | cancelColor | string | '#000000' | 否 | 取消按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
-| success | function |  | 是       | 回调函数      |
-| error   | function |  | 是       | 回调函数      |
+| success | function |  |  是     | 接口调用成功的回调函数      |
+| error   | function |  |  是     | 接口调用失败的回调函数      |
 
 
 #### object.success回调函数参数
@@ -35,7 +35,7 @@ title: prompt
 #### 参数
 #### Object error
 | 属性 | 类型  | 描述 |
-| -- | -- | -- | -- |
+| -- | -- | -- |
 | code | String | 错误码 |
 | msg | String  | 错误信息 |
 
