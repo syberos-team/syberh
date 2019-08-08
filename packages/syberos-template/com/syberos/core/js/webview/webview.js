@@ -67,6 +67,14 @@ function WebView (options) {
     }
     that.onFailed.apply(this, funcArgs)
   })
+
+  // 重新加载
+  this.on('reload', function () {})
+  // 回退
+  this.on('goBack', function () {})
+
+  // 转向某个url
+  this.on('redirectTo', function () {})
 }
 
 WebView.prototype = SyberPlugin.prototype

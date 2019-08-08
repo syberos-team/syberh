@@ -14,11 +14,12 @@ function Alert () {
 
   var that = this
 
-  this.onReady = function (object) {
-    console.log('\n')
-    console.log('alert ready', object.z)
-    console.log('\n')
+  this.on('request', function (object) {
     var component = object || that.object
+
+    console.log('\n')
+    console.log('alert request', component.z)
+    console.log('\n')
     component.show()
 
     // 确认事件
@@ -33,7 +34,7 @@ function Alert () {
       WEBVIEWCORE.trigger('success', that.handlerId, { cancel: true })
       console.log('-----alert accepted')
     })
-  }
+  })
 }
 
 Alert.prototype = SyberPlugin.prototype
