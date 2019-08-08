@@ -10,7 +10,7 @@ function WebView (options) {
     name: 'webview',
     module: 'webview',
     source: '../qml/swebview.qml',
-    method: ['reload', 'goBack', 'redirectTo'],
+    methods: ['reload', 'goBack', 'redirectTo'],
     autoCreate: true
   }
   if (options) {
@@ -70,13 +70,6 @@ function WebView (options) {
     that.onFailed.apply(this, funcArgs)
   })
 
-  /**
-   * request 请求
-   * @object qml实例化对象
-   * @handlerId 请求ID
-   * @param 请求参数
-   * @method 请求方法名称
-   */
   this.on('request', function (object, handlerId, param, method) {
     if (method === 'reload') {
       that.reload(handlerId, param)
@@ -96,7 +89,13 @@ function WebView (options) {
     this.trigger('failed', handlerId, 0, '方法不存在')
   })
 
-  // 重新加载
+  /**
+   * request 请求
+   * @object qml实例化对象
+   * @handlerId 请求ID
+   * @param 请求参数
+   * @method 请求方法名称
+   */
   this.reload = function (handlerId, param) {
     that.object.reload()
     // 绑定进度事件
@@ -113,7 +112,16 @@ function WebView (options) {
   this.redirectTo = function (handlerId, param) {}
 
   // 重新加载
-  this.on('reload', function () {})
+  this.on('reload', function (object, handlerId, param, method) {
+    that.object.reload()
+    // 绑定进度事件
+    that.object.reloadSuccess(function (loadProgress) {
+      console.log('\n loadProgress', loadProgress)
+      if (loadProgress === 100) {
+        that.trigger('success', handlerId, 'ok')
+      }
+    })
+  })
   // 回退
   this.on('goBack', function () {})
 
@@ -158,7 +166,8 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   if (uiModules[module]) {
     // 约定插件IDhandlerName
     var pluginID = model.handlerName
-    SYBEROS.create(pluginID, handlerId, model.data, method)
+    // 请求qml动态模块
+    SYBEROS.request(module, handlerId, method, model.data)
     return
   }
 

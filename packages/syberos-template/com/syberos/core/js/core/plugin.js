@@ -9,7 +9,7 @@ function SyberPlugin (opts) {
   this.module = opts.module || 'ui'
   this.name = opts.name
   // 支持的方法
-  this.method = opts.method || []
+  this.methods = opts.methods || []
   this.source = opts.source
   this.isReady = false
   // Syber
@@ -20,7 +20,6 @@ function SyberPlugin (opts) {
   this.param = {}
   // 请求ID
   this.handlerId = null
-  this.methodName = null
   this.eventList = {}
 }
 
@@ -28,10 +27,9 @@ function SyberPlugin (opts) {
  * 拓展参数
  * @param
  */
-SyberPlugin.prototype.setParam = function (handlerId, param, method) {
+SyberPlugin.prototype.setParam = function (handlerId, param) {
   if (param) {
     this.handlerId = handlerId
-    this.methodName = method
     Object.assign(this.param, param)
   } else {
     console.error('SyberPlugin extendParam error,param is undefined')
