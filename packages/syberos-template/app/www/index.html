@@ -14,6 +14,10 @@
       .text {
         font-size: 2em;
       }
+
+      .link {
+        font-size: 3em;
+      }
     </style>
     <script src="lib/vconsole.min.js"></script>
     <script src="lib/syber.min.js"></script>
@@ -22,8 +26,8 @@
     <button id="donwload" onclick="donwload()">donwload</button>
     <button id="donwload" onclick="alert()">alert</button>
     <button onclick="goBack()">goBack()</button>
-    <a href="pages/webview.html"> webview</a>
-
+    <a class="link" href="pages/webview.html"> webview</a>
+    <a class="link" href="pages/clipboard.html"> clipboard</a>
     <div class="text" id="content"></div>
     <script>
       var vConsole = new VConsole()
