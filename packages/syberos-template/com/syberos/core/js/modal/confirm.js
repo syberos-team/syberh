@@ -14,19 +14,21 @@ function Confirm () {
 
   var that = this
 
-  this.onReady = function (object) {
+  this.on('request', function (object) {
+
     console.log('\n')
     console.log('confirm ready', object)
     console.log('\n')
     var component = object || that.object
-    component.titleText123 = that.param.title
+    component.titleText = that.param.title
     component.messageText = that.param.message
     component.show()
 
     component.accepted.connect(function () {
       console.log('-----confirm accepted')
     })
-  }
+  })
+
 }
 
 Confirm.prototype = SyberPlugin.prototype

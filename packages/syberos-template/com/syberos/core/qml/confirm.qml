@@ -165,6 +165,9 @@ CAbstractPopLayer{
    /*! 按钮区按钮的高度。*/
    property int buttonHeight: 90
 
+   /*! 模态框滑动到屏幕中间需要的距离 */
+   property int distance: contentBackground.contentHeight() / 2 + parent.height / 2
+
    /*!
        \qmlproperty Component CDialog::buttonAreaComponent
        按钮区组件。
@@ -221,14 +224,18 @@ CAbstractPopLayer{
        Loader{
            id: dialogContentAreaLoader
            anchors.fill: parent
-           sourceComponent: Item{
+           sourceComponent: Row{
+
                Rectangle{
+                   id: txt1
                    anchors.fill: parent
                    color: gUiConst.getValue("CB1")
                    radius: 50
                }
                Rectangle{
+                   id: txt2
                    height:60
+                   anchors.left: txt1.right
                    anchors.bottom: parent.bottom
                    color: gUiConst.getValue("CB1")
                    width:parent.width
@@ -266,13 +273,23 @@ CAbstractPopLayer{
        anchors.leftMargin: titleAreaLeftMargin
        anchors.right: parent.right
        anchors.rightMargin: titleAreaRightMargin
-       sourceComponent: Text{
-           font.pixelSize: cdialog.titleTextPixelSize
-           color:cdialog.titleTextColor
-           text:cdialog.titleText
-           horizontalAlignment: Text.AlignHCenter
-           verticalAlignment: Text.AlignVCenter
-           elide: Text.ElideRight
+       sourceComponent: Item{
+           Text{
+              font.pixelSize: cdialog.titleTextPixelSize
+              color:cdialog.titleTextColor
+              text:cdialog.titleText
+              horizontalAlignment: Text.AlignHCenter
+              verticalAlignment: Text.AlignVCenter
+              elide: Text.ElideRight
+          }
+           Text{
+              font.pixelSize: cdialog.titleTextPixelSize
+              color:cdialog.titleTextColor
+              text:cdialog.titleText
+              horizontalAlignment: Text.AlignHCenter
+              verticalAlignment: Text.AlignVCenter
+              elide: Text.ElideRight
+          }
        }
    }
 
@@ -355,33 +372,48 @@ CAbstractPopLayer{
            PauseAnimation { duration:  gSystemUtils.durationRatio*25 }
            NumberAnimation {
                target:contentBackground; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*300;
-               easing.type: Easing.OutCubic; to: -contentBackground.height
+               easing.type: Easing.OutCubic;
+               to: -contentBackground.height -200
+//               to: -contentBackground.height-distance
            }
-           ScriptAction{ script: contentBackground.anchors.topMargin = Qt.binding(function(){return -contentBackground.height}) }
+           ScriptAction{ script: contentBackground.anchors.topMargin = Qt.binding(function(){
+               return -contentBackground.height -200
+//               return -contentBackground.height - distance
+           }) }
        }
        SequentialAnimation{
            PauseAnimation { duration:  gSystemUtils.durationRatio*50 }
            NumberAnimation {
                target: titleAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
-               easing.type: Easing.OutCubic;  to: -(contentBackground.height - topSpacing)
+               easing.type: Easing.OutCubic;
+               to: -(contentBackground.height - topSpacing) - 200
+//               to: -(contentBackground.height - topSpacing)-distance
            }
-           ScriptAction{ script: titleAreaLoader.anchors.topMargin = Qt.binding(function(){return -(contentBackground.height - topSpacing)}) }
+           ScriptAction{ script: titleAreaLoader.anchors.topMargin = Qt.binding(function(){
+               return -(contentBackground.height - topSpacing)})-200
+//               return -(contentBackground.height - topSpacing)})-distance
+           }
        }
        SequentialAnimation{
            PauseAnimation { duration:  gSystemUtils.durationRatio*75}
            NumberAnimation { target: messageAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; easing.type: Easing.OutCubic; to: {
                    if(titleAreaEnabled) {
-                       return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)
+                       return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-200
+//                           return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-distance
                    } else {
-                       return -(contentBackground.height - topSpacing)
+                       return -(contentBackground.height - topSpacing)-200
+//                         return -(contentBackground.height - topSpacing)-distance
+
                    }
                }
            }
            ScriptAction{ script: messageAreaLoader.anchors.topMargin = Qt.binding(function(){
                if(titleAreaEnabled) {
-                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)
+                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -200
+//                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -distance
                } else {
-                   return -(contentBackground.height - topSpacing)
+                   return -(contentBackground.height - topSpacing)-200
+//                   return -(contentBackground.height - topSpacing)-distance
                }})
            }
        }
@@ -389,9 +421,15 @@ CAbstractPopLayer{
            PauseAnimation { duration:  gSystemUtils.durationRatio*100}
            NumberAnimation {
                target: buttonAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
-               easing.type: Easing.OutCubic; to: -(bottomSpacing +  buttonAreaLoader.height)
+               easing.type: Easing.OutCubic;
+                   to: -(bottomSpacing +  buttonAreaLoader.height) - 200
+//                   to: -(bottomSpacing +  buttonAreaLoader.height)-distance
            }
-           ScriptAction{ script: buttonAreaLoader.anchors.topMargin = Qt.binding(function(){return -(bottomSpacing +  buttonAreaLoader.height)}) }
+           ScriptAction{ script: buttonAreaLoader.anchors.topMargin = Qt.binding(function(){
+
+               return -(bottomSpacing +  buttonAreaLoader.height) -200
+//               return -(bottomSpacing +  buttonAreaLoader.height) -distance
+           }) }
        }
        onRunningChanged: {
            if(!running){
