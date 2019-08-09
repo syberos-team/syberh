@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>demo</title>
     <style type="text/css">
       button {
         font-size: 2em;
-        margin: 4em 2em;
-        height: 4em;
-        width: 10em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 7em;
       }
 
       .text {
@@ -20,7 +21,13 @@
   <body>
     <button id="donwload" onclick="donwload()">donwload</button>
     <button id="donwload" onclick="alert()">alert</button>
+
     <button id="donwload" onclick="confirm()">confirm</button>
+
+    <button onclick="goBack()">goBack()</button>
+    <a href="pages/webview.html"> webview</a>
+
+
     <div class="text" id="content"></div>
     <script>
       var vConsole = new VConsole()
@@ -44,6 +51,33 @@
             console.log('error   ', '失败:' + JSON.stringify(error))
             document.getElementById('content').innerHTML =
               'error: ' + JSON.stringify(error)
+          }
+        })
+      }
+
+      function goBack() {
+        syber.callApi({
+          name: 'goBack',
+          mudule: 'webview',
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+      }
+
+      function redirectTo() {
+        syber.callApi({
+          data: { url: 'pages/webview.html' },
+          name: 'redirectTo',
+          mudule: 'webview',
+          success: function(result) {
+            console.info('----result', result)
+          },
+          error: function(error) {
+            console.info(error)
           }
         })
       }
