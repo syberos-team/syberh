@@ -48,7 +48,10 @@
     "剪贴板": [
       {
         "type": "subcategory",
-        "ids": ["apis/clipboard/setString", "apis/clipboard/getString"]
+        "ids": [
+          "apis/clipboard/setClipboardData",
+          "apis/clipboard/getClipboardData"
+        ]
       }
     ],
     "系统信息": [

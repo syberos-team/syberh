@@ -8,11 +8,11 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
-      "apis/clipboard/getString": {
-        "title": "getString"
+      "apis/clipboard/getClipboardData": {
+        "title": "getClipboardData"
       },
-      "apis/clipboard/setString": {
-        "title": "setString"
+      "apis/clipboard/setClipboardData": {
+        "title": "setClipboardData"
       },
       "apis/download/download": {
         "title": "downloadFile"
