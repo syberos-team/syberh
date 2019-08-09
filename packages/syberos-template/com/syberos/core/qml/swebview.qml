@@ -10,9 +10,10 @@ WebView {
     focus: true
 
     property var syberObject
-
+    //接受消息信号
     signal receiveMessage(var message)
     signal downLoadConfirmRequest
+     //加载信号
     signal reloadSuccess(var loadProgress)
 
     property var _contentY: 0
@@ -20,7 +21,7 @@ WebView {
 
     anchors.fill:parent
 
-     experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
+    experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
     experimental.minimumScale: false
     experimental.preferredMinimumContentsWidth: 720
     experimental.objectName: 'qml'

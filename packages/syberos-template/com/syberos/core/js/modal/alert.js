@@ -8,18 +8,19 @@ function Alert () {
     id: 'alert',
     name: 'alert',
     module: 'modal',
+    methods: ['alert'],
     source: '../qml/alert.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
-
-  this.on('request', function (object) {
+  this.onAlert = function () {}
+  this.on('alert', function (object, handlerId, param) {
     var component = object || that.object
 
     console.log('\n')
     console.log('alert request', component.z)
-    console.log('\n')
+    console.log('\n', param)
     component.show()
 
     // 确认事件
