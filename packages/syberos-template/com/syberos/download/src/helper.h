@@ -15,7 +15,8 @@ public:
     Q_INVOKABLE QString getDataRootPath();
     Q_INVOKABLE QString getExternStorageRootPath();
     Q_INVOKABLE QString getInnerStorageRootPath();
-
+    //文件是否存在
+    Q_INVOKABLE bool exists(QString filePath);
 
     Q_INVOKABLE void downloadFile(QString id, QString url);
 
