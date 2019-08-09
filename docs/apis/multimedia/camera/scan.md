@@ -1,5 +1,5 @@
 ---
-title: 扫码
+title: scan
 ---
 
 # 概况
@@ -10,27 +10,39 @@ title: 扫码
 
 
 
-## scan
+## syber.barcode.scan（Object object）
 
-扫码（scan）识别图片中的条码
-
-### 参数
-
-- camera: String 指定要获取摄像头，默认使用主摄像头，`1` 表示主摄像头，`2` 表示辅摄像头
-- success:  function(result) 扫码操作完成时调用，用于返回扫码内容
-  - result: Object 扫码内容
-    - path:  String 二维码的类型
-    - content: String 二维码的内容
-- error:  function(err) 失败时的回调
-  - err:  Object 错误信息
-    - code:  String 错误码
-    - msg:  String 错误消息
+扫描二维码，成功则返回条码类型及内容
 
 
 
+### **参数**
+
+**Object object**
+
+| 属性    | 类型     | 是否必填 | 描述                                      |
+| ------- | -------- | -------- | ----------------------------------------- |
+| camera  | number   | 是        | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
+| success | function | 否       | 接口调用成功的回调函数                    |
+| error   | function | 否       | 接口调用失败的回调函数                    |
+
+**object.success回调参数**
+
+| 参数名  | 类型   | 描述         |
+| ------- | ------ | ------------ |
+| type    | String | 二维码的类型 |
+| content | String | 二维码的内容 |
+
+**object.error回调参数**
+
+| 属性 | 类型   | 描述     |
+| ---- | ------ | -------- |
+| code | String | 错误码   |
+| msg  | String | 错误消息 |
 
 
-### 示例
+
+### **示例代码**
 
 ```
 syber.barcode.scan({

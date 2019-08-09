@@ -8,8 +8,20 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
-      "apis/clipboard/clipboard": {
-        "title": "剪贴板"
+      "apis/clipboard/getClipboardData": {
+        "title": "getClipboardData"
+      },
+      "apis/clipboard/setClipboardData": {
+        "title": "setClipboardData"
+      },
+      "apis/download/download": {
+        "title": "downloadFile"
+      },
+      "apis/fileInfo/getFileInfos": {
+        "title": "getFileInfos"
+      },
+      "apis/fileInfo/removeFileInfos": {
+        "title": "removeFileInfos"
       },
       "apis/modal/alert": {
         "title": "alert"
@@ -23,14 +35,26 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/camera/capture": {
-        "title": "相机"
+      "apis/multimedia/camera/capturePhoto": {
+        "title": "capturePhoto"
+      },
+      "apis/multimedia/camera/captureVideoEnd": {
+        "title": "captureVideoEnd"
+      },
+      "apis/multimedia/camera/captureVideoStart": {
+        "title": "captureVideoStart"
       },
       "apis/multimedia/camera/scan": {
-        "title": "扫码"
+        "title": "scan"
       },
-      "apis/runtime/runtime": {
-        "title": "runtime"
+      "apis/navigator/navigator": {
+        "title": "navigator"
+      },
+      "apis/request/request": {
+        "title": "request"
+      },
+      "apis/runtime/launchApp": {
+        "title": "launchApp"
       },
       "apis/storage/getAllKeys": {
         "title": "getAllKeys"
@@ -44,21 +68,33 @@
       "apis/storage/setItem": {
         "title": "setItem"
       },
-      "apis/systeminfo/systeminfo": {
-        "title": "系统信息"
+      "apis/systeminfo/aboutPhone": {
+        "title": "aboutPhone"
+      },
+      "apis/systeminfo/getCoreVersion": {
+        "title": "getCoreVersion"
+      },
+      "apis/systeminfo/getModel": {
+        "title": "getModel"
+      },
+      "apis/systeminfo/getResolution": {
+        "title": "getResolution"
+      },
+      "apis/systeminfo/getSysVersionID": {
+        "title": "getSysVersionID"
       },
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
+      },
+      "apis/webview/webview": {
+        "title": "webview"
       },
       "components-desc": {
         "title": "组件库说明"
       },
       "components/modal/modal": {
         "title": "components/modal/modal"
-      },
-      "components/navig/navigator": {
-        "title": "navigator"
       },
       "components/webview/open-data": {
         "title": "其他",
@@ -83,6 +119,9 @@
       "qt/clipboard/clipboard": {
         "title": "剪贴板"
       },
+      "qt/download/download-c": {
+        "title": "qt/download/download-c"
+      },
       "qt/modal/alert": {
         "title": "alert"
       },
@@ -103,6 +142,9 @@
       },
       "qt/navigator/navigator": {
         "title": "navigator"
+      },
+      "qt/request/request-c": {
+        "title": "qt/request/request-c"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
@@ -139,19 +181,22 @@
       "教程": "教程",
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
-      "Modal": "Modal",
-      "导航": "导航",
       "关于API": "关于API",
+      "webview": "webview",
+      "导航栏": "导航栏",
       "modal": "modal",
       "媒体": "媒体",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
-      "storage": "storage",
+      "数据缓存": "数据缓存",
+      "网络": "网络",
+      "下载": "下载",
+      "文件": "文件",
       "关于C++": "关于C++",
       "更新": "更新",
-      "导航栏": "导航栏",
-      "数据缓存": "数据缓存",
+      "request": "request",
+      "download": "download",
       "界面交互": "界面交互"
     }
   },
