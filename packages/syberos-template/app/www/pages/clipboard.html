@@ -33,7 +33,7 @@
       setClipboardData
     </button>
 
-    <input />
+    <input id="text" class="button2" />
     <button onclick="goBack()">goBack()</button>
 
     <div class="text" id="content"></div>
@@ -80,6 +80,7 @@
           success: function(result) {
             console.info(result)
             print(result)
+            document.getElementById('text').value = result
           },
           error: function(error) {
             console.info(error)

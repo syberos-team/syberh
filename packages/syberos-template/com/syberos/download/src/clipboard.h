@@ -4,6 +4,7 @@
 #include <QClipboard>
 #include <QApplication>
 #include <QDebug>
+#include <QMap>
 #include "../framework/nativesdkhandlerbase.h"
 
 class Clipboard :  public NativeSdkHandlerBase{

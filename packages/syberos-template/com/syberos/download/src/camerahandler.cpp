@@ -25,5 +25,8 @@ QObject * CameraHandler::getUiSource(QString actionName){
     return QtCamera::getInstance();
 }
 void CameraHandler::saveImage(int id, QString filePath){
-    emit sucess(id,QVariant(filePath));
+
+    QVariantMap map;
+    map.insert("src",filePath);
+    emit success(id,map);
 }
