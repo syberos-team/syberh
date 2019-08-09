@@ -17,5 +17,7 @@
         <file>js/modal/confirm.js</file>
         <file>qml/confirm.qml</file>
         <file>qml/sbutton.qml</file>
+        <file>qml/test.qml</file>
+        <file>js/modal/test.js</file>
     </qresource>
 </RCC>

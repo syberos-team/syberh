@@ -23,6 +23,7 @@
     <button id="donwload" onclick="alert()">alert</button>
 
     <button id="donwload" onclick="confirm()">confirm</button>
+    <button id="donwload" onclick="test()">test</button>
 
     <button onclick="goBack()">goBack()</button>
     <a href="pages/webview.html"> webview</a>
@@ -99,6 +100,20 @@
     function confirm() {
       syber.callApi({
         name: 'confirm',
+        mudule: 'modal',
+        data: { title: 'xuejun', message: 'message' },
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
+
+    function test() {
+      syber.callApi({
+        name: 'test',
         mudule: 'modal',
         data: { title: 'xuejun', message: 'message' },
         success: function(result) {

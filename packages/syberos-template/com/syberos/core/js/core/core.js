@@ -16,7 +16,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm']
+    defaultPlugins: ['alert', 'confirm', 'test']
   }
 
   // add 内置 plugins
@@ -137,6 +137,7 @@ Syber.prototype._addBuiltInPlugins = function () {
   var list = this.option.defaultPlugins
   var plugins = {
     alert: { proto: Alert },
+    test: { proto: Test },
     confirm: { proto: Confirm }
   }
   if (!!list && isArray(list)) {

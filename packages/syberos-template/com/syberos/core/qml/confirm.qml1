@@ -86,9 +86,6 @@ CAbstractPopLayer{
    property int titleTextPixelSize: gUiConst.getValue("S1")
 
    /*! 标题区左侧边距。*/
-   property int titleAreaHeight: 100
-
-   /*! 标题区左侧边距。*/
    property int titleAreaLeftMargin: 40
 
    /*! 标题区右侧边距。*/
@@ -222,20 +219,14 @@ CAbstractPopLayer{
    /*! 对话框背景，不允许定制 */
    MouseArea{
        id:contentBackground
-       anchors.centerIn: parent
-       width: 840
+       anchors.top:parent.bottom
+       width:parent.width
        height:contentHeight()
 
        Loader{
            id: dialogContentAreaLoader
            anchors.fill: parent
            sourceComponent: Item{
-
-               ScaleAnimator on scale {
-                   from: 0;
-                   to: 1;
-                   duration: 500;
-               }
 
                Rectangle{
                    anchors.fill: parent
@@ -276,8 +267,7 @@ CAbstractPopLayer{
 
    Loader{
        id:titleAreaLoader
-       anchors.top:contentBackground.top
-       height: titleAreaHeight
+       anchors.top:parent.bottom
        anchors.left: parent.left
        anchors.leftMargin: titleAreaLeftMargin
        anchors.right: parent.right
@@ -294,24 +284,46 @@ CAbstractPopLayer{
 
    Loader{
        id:messageAreaLoader
-       anchors.top: titleAreaLoader.bottom
+       anchors.top:parent.bottom
        anchors.left: parent.left
        anchors.leftMargin: messageAreaLeftMargin
        anchors.right: parent.right
        anchors.rightMargin: messageAreaRightMargin
-       sourceComponent: Text{
-           font.pixelSize: cdialog.messageTextPixelSize
-           color:cdialog.messageTextColor
-           text:cdialog.messageText
-           wrapMode:Text.WrapAnywhere;
-           horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
+//       sourceComponent: Text{
+//           font.pixelSize: cdialog.messageTextPixelSize
+//           color:cdialog.messageTextColor
+//           text:cdialog.messageText
+//           wrapMode:Text.WrapAnywhere;
+//           horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
+//       }
+       sourceComponent: Item{
+           Rectangle {
+               width: 360
+               height: 640
+
+               Rectangle {
+                   id: image
+                width: 100
+                height: 100
+                color: 'red'
+               }
+
+               NumberAnimation {
+                   running: true
+                   loops: Animation.Infinite
+                   target: image
+                   from: 0
+                   to: 360
+                   property: "rotation"
+                   duration: 1000
+               }
+           }
        }
    }
 
    Loader{
        id:buttonAreaLoader
-       anchors.top:messageAreaLoader.bottom
-//       height: titleAreaHeight
+       anchors.top:parent.bottom
        anchors.left: parent.left
        anchors.leftMargin: buttonAreaLeftMargin
        anchors.right: parent.right
@@ -381,56 +393,56 @@ CAbstractPopLayer{
 //               return -contentBackground.height - distance
            }) }
        }
-//       SequentialAnimation{
-//           PauseAnimation { duration:  gSystemUtils.durationRatio*50 }
-//           NumberAnimation {
-//               target: titleAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
-//               easing.type: Easing.OutCubic;
-//               to: -(contentBackground.height - topSpacing)
-////               to: -(contentBackground.height - topSpacing)-distance
-//           }
-//           ScriptAction{ script: titleAreaLoader.anchors.topMargin = Qt.binding(function(){
-//               return -(contentBackground.height - topSpacing)})
-////               return -(contentBackground.height - topSpacing)})-distance
-//           }
-//       }
-//       SequentialAnimation{
-//           PauseAnimation { duration:  gSystemUtils.durationRatio*75}
-//           NumberAnimation { target: messageAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; easing.type: Easing.OutCubic; to: {
-//                   if(titleAreaEnabled) {
-//                       return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-200
-////                           return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-distance
-//                   } else {
-//                       return -(contentBackground.height - topSpacing)-200
-////                         return -(contentBackground.height - topSpacing)-distance
+       SequentialAnimation{
+           PauseAnimation { duration:  gSystemUtils.durationRatio*50 }
+           NumberAnimation {
+               target: titleAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
+               easing.type: Easing.OutCubic;
+               to: -(contentBackground.height - topSpacing) - 200
+//               to: -(contentBackground.height - topSpacing)-distance
+           }
+           ScriptAction{ script: titleAreaLoader.anchors.topMargin = Qt.binding(function(){
+               return -(contentBackground.height - topSpacing)})-200
+//               return -(contentBackground.height - topSpacing)})-distance
+           }
+       }
+       SequentialAnimation{
+           PauseAnimation { duration:  gSystemUtils.durationRatio*75}
+           NumberAnimation { target: messageAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; easing.type: Easing.OutCubic; to: {
+                   if(titleAreaEnabled) {
+                       return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-200
+//                           return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-distance
+                   } else {
+                       return -(contentBackground.height - topSpacing)-200
+//                         return -(contentBackground.height - topSpacing)-distance
 
-//                   }
-//               }
-//           }
-//           ScriptAction{ script: messageAreaLoader.anchors.topMargin = Qt.binding(function(){
-//               if(titleAreaEnabled) {
-//                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -200
-////                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -distance
-//               } else {
-//                   return -(contentBackground.height - topSpacing)-200
-////                   return -(contentBackground.height - topSpacing)-distance
-//               }})
-//           }
-//       }
-//       SequentialAnimation{
-//           PauseAnimation { duration:  gSystemUtils.durationRatio*100}
-//           NumberAnimation {
-//               target: buttonAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
-//               easing.type: Easing.OutCubic;
-//                   to: -(bottomSpacing +  buttonAreaLoader.height) - 200
-////                   to: -(bottomSpacing +  buttonAreaLoader.height)-distance
-//           }
-//           ScriptAction{ script: buttonAreaLoader.anchors.topMargin = Qt.binding(function(){
+                   }
+               }
+           }
+           ScriptAction{ script: messageAreaLoader.anchors.topMargin = Qt.binding(function(){
+               if(titleAreaEnabled) {
+                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -200
+//                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -distance
+               } else {
+                   return -(contentBackground.height - topSpacing)-200
+//                   return -(contentBackground.height - topSpacing)-distance
+               }})
+           }
+       }
+       SequentialAnimation{
+           PauseAnimation { duration:  gSystemUtils.durationRatio*100}
+           NumberAnimation {
+               target: buttonAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
+               easing.type: Easing.OutCubic;
+                   to: -(bottomSpacing +  buttonAreaLoader.height) - 200
+//                   to: -(bottomSpacing +  buttonAreaLoader.height)-distance
+           }
+           ScriptAction{ script: buttonAreaLoader.anchors.topMargin = Qt.binding(function(){
 
-//               return -(bottomSpacing +  buttonAreaLoader.height) -200
-////               return -(bottomSpacing +  buttonAreaLoader.height) -distance
-//           }) }
-//       }
+               return -(bottomSpacing +  buttonAreaLoader.height) -200
+//               return -(bottomSpacing +  buttonAreaLoader.height) -distance
+           }) }
+       }
        onRunningChanged: {
            if(!running){
                showFinished()

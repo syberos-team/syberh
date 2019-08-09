@@ -8,13 +8,14 @@ function Confirm () {
     id: 'confirm',
     name: 'confirm',
     module: 'modal',
+    methods: ['confirm'],
     source: '../qml/confirm.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
 
-  this.on('request', function (object) {
+  this.on('confirm', function (object) {
 
     console.log('\n')
     console.log('confirm ready', object)
