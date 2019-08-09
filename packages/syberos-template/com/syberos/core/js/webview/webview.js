@@ -8,7 +8,9 @@ function WebView (options) {
   var defaultOpts = {
     id: 'webview',
     name: 'webview',
+    module: 'webview',
     source: '../qml/swebview.qml',
+    methods: ['reload', 'goBack', 'redirectTo'],
     autoCreate: true
   }
   if (options) {
@@ -67,6 +69,44 @@ function WebView (options) {
     }
     that.onFailed.apply(this, funcArgs)
   })
+
+  /**
+   * request 请求
+   * @object qml实例化对象
+   * @handlerId 请求ID
+   * @param 请求参数
+   * @method 请求方法名称
+   */
+  this.on('reload', function (object, handlerId) {
+    object.reload()
+    // 绑定进度事件
+    object.reloadSuccess.connect(function (loadProgress) {
+      console.log('\n =========loadProgress', loadProgress)
+      if (loadProgress === 100) {
+        that.trigger('success', handlerId, 'ok')
+      }
+    })
+  })
+  // 回退
+  this.on('goBack', function (object,handlerId) {
+       console.log('\n =========can goback', object.canGoBack)
+    if (object.canGoBack) {
+      object.goBack()
+      that.trigger('success', handlerId, 'ok')
+    } else {
+      that.trigger('failed', handlerId, 0, '')
+    }
+  })
+
+  // 转向某个url
+  this.on('redirectTo', function (object, handlerId, param) {
+    var url = getUrl(param.url)
+    console.log('\n =========url', url)
+
+    object.url = url
+
+    that.trigger('success', handlerId, 'ok')
+  })
 }
 
 WebView.prototype = SyberPlugin.prototype
@@ -106,12 +146,15 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   if (uiModules[module]) {
     // 约定插件IDhandlerName
     var pluginID = model.handlerName
-    SYBEROS.create(pluginID, handlerId, model.data)
+    // 请求qml动态模块
+    SYBEROS.request(module, handlerId, method, model.data)
     return
   }
 
   console.log('\n -------------------', handlerId, method, funcArgs)
-  NativeSdkManager.request(module, handlerId, method, funcArgs)
+  // 因为C++类都为大写开头,所以第一个字母转为大写
+  var moduleName = module.charAt(0).toUpperCase() + module.slice(1)
+  NativeSdkManager.request(moduleName, handlerId, method, funcArgs)
 }
 
 WebView.prototype.onSuccess = function (handlerId, result) {
@@ -128,7 +171,7 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   }
   print('request sucess ', result)
   print('responseID ', handlerId)
-  gToast.requestToast('request sucess ' + result)
+  gToast.requestToast('request sucess：' + JSON.stringify(result))
   // 返回内容
   var resObj = {
     responseId: Number(handlerId),
@@ -202,4 +245,19 @@ function getIndexPath () {
   var url = 'file://' + helper.getWebRootPath() + '/index.html'
   console.debug('\n url', url, '\n')
   return url
+}
+/**
+ * url地址转换
+ * @param {string} url
+ */
+function getUrl (url) {
+  if (!url) {
+    throw new Error('url不存在', url)
+  }
+  // 如果是网络地址,直接返回
+  if (url.indexOf('http') > 0 || url.indexOf('https') >= 0) {
+    return url
+  }
+  var rurl = 'file://' + helper.getWebRootPath() + '/' + url
+  return rurl
 }

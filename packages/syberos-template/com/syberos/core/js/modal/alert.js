@@ -8,17 +8,19 @@ function Alert () {
     id: 'alert',
     name: 'alert',
     module: 'modal',
+    methods: ['alert'],
     source: '../qml/alert.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
-
-  this.onReady = function (object) {
-    console.log('\n')
-    console.log('alert ready', object.z)
-    console.log('\n')
+  this.onAlert = function () {}
+  this.on('alert', function (object, handlerId, param) {
     var component = object || that.object
+
+    console.log('\n')
+    console.log('alert request', component.z)
+    console.log('\n', param)
     component.show()
 
     // 确认事件
@@ -33,7 +35,7 @@ function Alert () {
       WEBVIEWCORE.trigger('success', that.handlerId, { cancel: true })
       console.log('-----alert accepted')
     })
-  }
+  })
 }
 
 Alert.prototype = SyberPlugin.prototype
