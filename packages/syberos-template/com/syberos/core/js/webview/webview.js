@@ -149,8 +149,6 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   }
   // 如果为ui模块
   if (uiModules[module]) {
-    // 约定插件IDhandlerName
-    var pluginID = model.handlerName
     // 请求qml动态模块
     SYBEROS.request(module, handlerId, method, model.data)
     return
