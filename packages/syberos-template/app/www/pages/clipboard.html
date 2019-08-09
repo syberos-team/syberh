@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>clipboard</title>
+    <style type="text/css">
+      button {
+        font-size: 2em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 7em;
+      }
+
+      .button2 {
+        font-size: 2em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 80%;
+      }
+
+      .text {
+        font-size: 2em;
+      }
+    </style>
+    <script src="../lib/vconsole.min.js"></script>
+    <script src="../lib/syber.min.js"></script>
+  </head>
+  <body>
+    <button id="setClipboardData" onclick="getClipboardData()">
+      getClipboardData
+    </button>
+    <button id="setClipboardData" onclick="setClipboardData()">
+      setClipboardData
+    </button>
+
+    <input id="text" class="button2" />
+    <button onclick="goBack()">goBack()</button>
+
+    <div class="text" id="content"></div>
+    <script>
+      var vConsole = new VConsole()
+      console.log('Hello world')
+      function print(str) {
+        document.getElementById('content').innerHTML = JSON.stringify(str)
+      }
+      syber.ready(function() {
+        document.getElementById('content').innerHTML = '注册成功'
+      })
+      document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+
+      function goBack() {
+        syber.webview.goBack({
+          success: function(result) {
+            console.info(result)
+          },
+          fail: function(error) {
+            console.info(error)
+          }
+        })
+      }
+      function setClipboardData() {
+        syber.callApi({
+          name: 'setClipboardData',
+          mudule: 'clipboard',
+          data: { data: 'lihejia text' },
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+      }
+
+      function getClipboardData() {
+        syber.callApi({
+          name: 'getClipboardData',
+          mudule: 'clipboard',
+          data: { data: 'lihejia text' },
+          success: function(result) {
+            console.info(result)
+            print(result)
+            document.getElementById('text').value = result
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+      }
+    </script>
+  </body>
+</html>
