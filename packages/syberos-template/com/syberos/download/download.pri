@@ -12,6 +12,7 @@ HEADERS += \
     $$PWD/src/loadqmlwidget.h \
     $$PWD/src/loadqmlhandler.h \
     $$PWD/src/telephony.h
+    $$PWD/src/clipboard.h
 
 SOURCES += \
     $$PWD/src/camerahandler.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
     $$PWD/src/loadqmlwidget.cpp \
     $$PWD/src/loadqmlhandler.cpp \
     $$PWD/src/telephony.cpp
+    $$PWD/src/clipboard.cpp
 
 DISTFILES +=
 
