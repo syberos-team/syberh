@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>demo</title>
-    <style type="text/css">
-      button {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 7em;
-      }
 
-      .text {
-        font-size: 2em;
-      }
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>demo</title>
+  <style type="text/css">
+    button {
+      font-size: 2em;
+      margin: 2em 2em;
+      height: 2em;
+      width: 7em;
+    }
 
-      .link {
-        font-size: 3em;
-      }
-    </style>
-    <script src="lib/vconsole.min.js"></script>
-    <script src="lib/syber.min.js"></script>
-  </head>
-  <body>
-    <button id="donwload" onclick="donwload()">donwload</button>
-    <button id="donwload" onclick="alert()">alert</button>
-    <button onclick="goBack()">goBack()</button>
-    <a class="link" href="pages/webview.html"> webview</a>
-    <a class="link" href="pages/clipboard.html"> clipboard</a>
-    <div class="text" id="content"></div>
-    <script>
-      var vConsole = new VConsole()
-      console.log('Hello world')
-      syber.config()
-      syber.ready(function() {
-        document.getElementById('content').innerHTML = '注册成功'
+    .text {
+      font-size: 2em;
+    }
+
+    .link {
+      font-size: 3em;
+    }
+  </style>
+  <script src="lib/vconsole.min.js"></script>
+  <script src="lib/syber.min.js"></script>
+</head>
+
+<body>
+  <button id="donwload" onclick="donwload()">donwload</button>
+  <button id="donwload" onclick="alert()">alert</button>
+  <button onclick="goBack()">goBack()</button>
+  <a class="link" href="pages/webview.html"> webview</a>
+  <a class="link" href="pages/clipboard.html"> clipboard</a><br />
+  <a class="link" href="pages/telephony.html"> telephony</a>
+  <div class="text" id="content"></div>
+  <script>
+    var vConsole = new VConsole()
+    console.log('Hello world')
+    syber.config()
+    syber.ready(function () {
+      document.getElementById('content').innerHTML = '注册成功'
+    })
+    document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+    function donwload() {
+      syber.Download.start({
+        url:
+          'http://c.biancheng.net/uploads/allimg/181229/2-1Q22Z95914431.gif',
+        name: 'test.gif',
+        success: function (result) {
+          console.log('success  ', JSON.stringify(result))
+          document.getElementById('content').innerHTML =
+            'success: ' + JSON.stringify(result)
+        },
+        error: function (error) {
+          console.log('error   ', '失败:' + JSON.stringify(error))
+          document.getElementById('content').innerHTML =
+            'error: ' + JSON.stringify(error)
+        }
       })
-      document.getElementById('content').innerHTML = JSON.stringify(syber.os)
-      function donwload() {
-        syber.Download.start({
-          url:
-            'http://c.biancheng.net/uploads/allimg/181229/2-1Q22Z95914431.gif',
-          name: 'test.gif',
-          success: function(result) {
-            console.log('success  ', JSON.stringify(result))
-            document.getElementById('content').innerHTML =
-              'success: ' + JSON.stringify(result)
-          },
-          error: function(error) {
-            console.log('error   ', '失败:' + JSON.stringify(error))
-            document.getElementById('content').innerHTML =
-              'error: ' + JSON.stringify(error)
-          }
-        })
-      }
+    }
 
-      function goBack() {
-        syber.callApi({
-          name: 'goBack',
-          mudule: 'webview',
-          success: function(result) {
-            console.info(result)
-          },
-          error: function(error) {
-            console.info(error)
-          }
-        })
-      }
+    function goBack() {
+      syber.callApi({
+        name: 'goBack',
+        mudule: 'webview',
+        success: function (result) {
+          console.info(result)
+        },
+        error: function (error) {
+          console.info(error)
+        }
+      })
+    }
 
-      function redirectTo() {
-        syber.callApi({
-          data: { url: 'pages/webview.html' },
-          name: 'redirectTo',
-          mudule: 'webview',
-          success: function(result) {
-            console.info('----result', result)
-          },
-          error: function(error) {
-            console.info(error)
-          }
-        })
-      }
+    function redirectTo() {
+      syber.callApi({
+        data: { url: 'pages/webview.html' },
+        name: 'redirectTo',
+        mudule: 'webview',
+        success: function (result) {
+          console.info('----result', result)
+        },
+        error: function (error) {
+          console.info(error)
+        }
+      })
+    }
 
-      function alert() {
-        syber.callApi({
-          name: 'alert',
-          mudule: 'modal',
-          data: { title: 'alert test', message: 'message' },
-          success: function(result) {
-            console.info(result)
-          },
-          error: function(error) {
-            console.info(error)
-          }
-        })
-      }
-    </script>
-  </body>
+    function alert() {
+      syber.callApi({
+        name: 'alert',
+        mudule: 'modal',
+        data: { title: 'alert test', message: 'message' },
+        success: function (result) {
+          console.info(result)
+        },
+        error: function (error) {
+          console.info(error)
+        }
+      })
+    }
+  </script>
+</body>
+
 </html>
