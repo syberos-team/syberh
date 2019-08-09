@@ -10,7 +10,8 @@ HEADERS += \
     $$PWD/src/qtcamera.h \
     $$PWD/src/testhandler.h \
     $$PWD/src/loadqmlwidget.h \
-    $$PWD/src/loadqmlhandler.h
+    $$PWD/src/loadqmlhandler.h \
+    $$PWD/src/clipboard.h
 
 SOURCES += \
     $$PWD/src/camerahandler.cpp \
@@ -20,7 +21,8 @@ SOURCES += \
     $$PWD/src/qtcamera.cpp \
     $$PWD/src/testhandler.cpp \
     $$PWD/src/loadqmlwidget.cpp \
-    $$PWD/src/loadqmlhandler.cpp
+    $$PWD/src/loadqmlhandler.cpp \
+    $$PWD/src/clipboard.cpp
 
 DISTFILES +=
 
