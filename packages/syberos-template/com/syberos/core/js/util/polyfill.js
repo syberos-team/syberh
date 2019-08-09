@@ -1,3 +1,4 @@
+/* eslint-disable no-extend-native */
 /* eslint-disable one-var */
 /* eslint-disable no-unused-vars */
 /**
@@ -6,6 +7,7 @@
 function polyfill () {
   assignPolyfill()
   keysPolyfill()
+  stringPolyfill()
 }
 
 /**
@@ -104,6 +106,68 @@ function valuesPolyfill () {
         }
       }
       return val
+    }
+  }
+}
+
+/**
+ * String 字符串polyfill
+ */
+function stringPolyfill () {
+  if (!String.prototype.startsWith) {
+    Object.defineProperty(String.prototype, 'startsWith', {
+      value: function (search, pos) {
+        pos = !pos || pos < 0 ? 0 : +pos
+        return this.substring(pos, pos + search.length) === search
+      }
+    })
+  }
+
+  if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function (search, thisLen) {
+      if (thisLen === undefined || thisLen > this.length) {
+        thisLen = this.length
+      }
+      return this.substring(thisLen - search.length, thisLen) === search
+    }
+  }
+
+  if (!String.prototype.includes) {
+    String.prototype.includes = function (search, start) {
+      'use strict'
+      if (typeof start !== 'number') {
+        start = 0
+      }
+
+      if (start + search.length > this.length) {
+        return false
+      } else {
+        return this.indexOf(search, start) !== -1
+      }
+    }
+  }
+  // only run when the substr function is broken
+  if ('ab'.substr(-1) !== 'b') {
+    /**
+     *  Get the substring of a string
+     *  @param  {integer}  start   where to start the substring
+     *  @param  {integer}  length  how many characters to return
+     *  @return {string}
+     */
+    String.prototype.substr = (function (substr) {
+      return function (start, length) {
+        // did we get a negative start, calculate how much it is
+        // from the beginning of the string
+        if (start < 0) start = this.length + start
+
+        // call the original function
+        return substr.call(this, start, length)
+      }
+    })(String.prototype.substr)
+  }
+  if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '')
     }
   }
 }
