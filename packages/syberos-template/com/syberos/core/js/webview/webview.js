@@ -88,8 +88,8 @@ function WebView (options) {
     })
   })
   // 回退
-  this.on('goBack', function (object,handlerId) {
-       console.log('\n =========can goback', object.canGoBack)
+  this.on('goBack', function (object, handlerId) {
+    console.log('\n =========can goback', object.canGoBack)
     if (object.canGoBack) {
       object.goBack()
       that.trigger('success', handlerId, 'ok')
@@ -100,12 +100,17 @@ function WebView (options) {
 
   // 转向某个url
   this.on('redirectTo', function (object, handlerId, param) {
-    var url = getUrl(param.url)
-    console.log('\n =========url', url)
+    try {
+      var url = getUrl(param.url)
+      console.log('\n =========url', url)
 
-    object.url = url
+      object.url = url
 
-    that.trigger('success', handlerId, 'ok')
+      that.trigger('success', handlerId, 'ok')
+    } catch (error) {
+      console.error(error.message)
+      that.trigger('failed', handlerId, 0, error.message)
+    }
   })
 }
 
@@ -153,7 +158,7 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
 
   console.log('\n -------------------', handlerId, method, funcArgs)
   // 因为C++类都为大写开头,所以第一个字母转为大写
-  var moduleName = module.charAt(0).toUpperCase() + module.slice(1)
+  var moduleName = module.charAt(0).toUpperCase() + module.slice(1) + '*'
   NativeSdkManager.request(moduleName, handlerId, method, funcArgs)
 }
 
@@ -255,9 +260,16 @@ function getUrl (url) {
     throw new Error('url不存在', url)
   }
   // 如果是网络地址,直接返回
-  if (url.indexOf('http') > 0 || url.indexOf('https') >= 0) {
+  if (url.startsWith('http') || url.startsWith('https')) {
     return url
   }
-  var rurl = 'file://' + helper.getWebRootPath() + '/' + url
-  return rurl
+
+  var filePath = helper.getWebRootPath() + '/' + url
+  console.log('--------filePath', filePath)
+  if (helper.exists(filePath)) {
+    var rurl = 'file://' + filePath
+    return rurl
+  } else {
+    throw new Error('页面不存在')
+  }
 }

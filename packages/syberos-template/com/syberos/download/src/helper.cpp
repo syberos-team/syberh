@@ -17,6 +17,11 @@ Helper* Helper::instance(){
     return &helper;
 }
 
+bool Helper::exists(QString filePath){
+    QFile file(filePath);
+    return file.exists();
+}
+
 
 QString Helper::getWebRootPath(){
     QDir dir(qApp->applicationDirPath());
