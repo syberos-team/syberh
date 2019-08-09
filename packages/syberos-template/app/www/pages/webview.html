@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>demo</title>
     <style type="text/css">
       button {
         font-size: 2em;
         margin: 2em 2em;
         height: 2em;
-        width: 5em;
+        width: 7em;
+      }
+
+      .button2 {
+        font-size: 2em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 80%;
       }
 
       .text {
         font-size: 2em;
       }
     </style>
-    <script src="lib/vconsole.min.js"></script>
-    <script src="lib/syber.min.js"></script>
+    <script src="../lib/vconsole.min.js"></script>
+    <script src="../lib/syber.min.js"></script>
   </head>
   <body>
-    <button id="reload" onclick="reload()">donwload</button>
-
+    <button id="reload" onclick="reload()">reload()</button>
+    <button onclick="goBack()">goBack()</button>
+    <button class="button2" onclick="redirectTo()">
+      redirectTo(url)返回首页
+    </button>
     <div class="text" id="content"></div>
     <script>
       var vConsole = new VConsole()
@@ -30,10 +41,31 @@
       })
       document.getElementById('content').innerHTML = JSON.stringify(syber.os)
 
+      function goBack() {
+        syber.webview.goBack({
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+      }
       function reload() {
-        syber.callApi({
-          name: 'reload',
-          mudule: 'webview',
+        syber.webview.reload({
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+      }
+
+      //跳转
+      function redirectTo() {
+        syber.webview.redirectTo({
+          url: 'index.html',
           success: function(result) {
             console.info(result)
           },
