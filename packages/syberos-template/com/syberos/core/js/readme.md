@@ -39,6 +39,7 @@ function Alert(opts){
     id: 'alert',
     name: 'alert',
     module: 'modal',
+    methods:['alert']
     source: '../qml/alert.qml'
   }
  SyberPlugin.call(this, defaultOpts)
