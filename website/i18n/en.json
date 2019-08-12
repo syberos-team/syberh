@@ -152,17 +152,8 @@
       "qt/runtime/runtime": {
         "title": "runtime"
       },
-      "qt/storage/getAllKeys": {
-        "title": "getAllKeys"
-      },
-      "qt/storage/getItem": {
-        "title": "getItem"
-      },
-      "qt/storage/removeItem": {
-        "title": "removeItem"
-      },
-      "qt/storage/setItem": {
-        "title": "setItem"
+      "qt/storage/storage": {
+        "title": "本地存储"
       },
       "qt/systeminfo/systeminfo": {
         "title": "系统信息"
@@ -196,7 +187,7 @@
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
-      "数据缓存": "数据缓存",
+      "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
       "文件": "文件",

@@ -21,8 +21,7 @@ void Telephony::request(QString callBackID,QString actionName,QVariantMap params
     if (actionName == "dial") {
         QString tel = params.value("tel").toString();
         qApp->openUrl("tel://" + tel);
-        QVariantMap map;
-        emit success(callBackID.toLong(), map);
+        emit success(callBackID.toLong(), "");
     }else{
         emit failed(callBackID.toLong(), 500, "Invalid call");
     }

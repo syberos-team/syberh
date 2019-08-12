@@ -7,6 +7,7 @@ import navigatorMixin from './native/navigator';
 import utilMixin from './native/util';
 import downloadMixin from './native/download';
 import telephonyMixin from './native/telephony'
+import storageMixin from './native/storage'
 
 // const hybridJs = window.syber;
 export default function allNative (hybridJs) {
@@ -20,4 +21,5 @@ export default function allNative (hybridJs) {
   navigatorMixin(hybridJs);
   utilMixin(hybridJs);
   telephonyMixin(hybridJs);
+  storageMixin(hybridJs);
 }
