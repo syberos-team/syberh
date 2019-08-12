@@ -6,6 +6,7 @@ import pageMixin from './native/page';
 import navigatorMixin from './native/navigator';
 import utilMixin from './native/util';
 import downloadMixin from './native/download';
+import systemMixin from './native/system';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -18,4 +19,5 @@ export default function allNative(hybridJs) {
     pageMixin(hybridJs);
     navigatorMixin(hybridJs);
     utilMixin(hybridJs);
+    systemMixin(hybridJs);
 }

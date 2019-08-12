@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>demo</title>
+    <style type="text/css">
+      button {
+        font-size: 2em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 7em;
+      }
+
+      .button2 {
+        font-size: 2em;
+        margin: 2em 2em;
+        height: 2em;
+        width: 80%;
+      }
+
+      .text {
+        font-size: 2em;
+      }
+    </style>
+    <script src="../lib/vconsole.min.js"></script>
+    <script src="../lib/syber.min.js"></script>
+  </head>
+  <body>
+    <button id="getCoreVersion" onclick="getCoreVersion()">内核版本号</button>
+    <button id="getCoreVersion" onclick="getSysVersionID()">系统版本号</button>
+    <button id="getCoreVersion" onclick="getResolution()">屏幕分辨率</button>
+    <button id="getCoreVersion" onclick="aboutPhone()">手机信息</button>
+    <div class="text" id="content"></div>
+    <div class="text" id="result"></div>
+    <script>
+        var vConsole = new VConsole()
+        console.log('Hello world')
+        function print(str){
+            document.getElementById('content').innerHTML=JSON.stringify(str)
+        }
+        syber.ready(function() {
+            document.getElementById('content').innerHTML = '注册成功'
+        })
+        document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+
+
+        function getCoreVersion() {
+            syber.callApi({
+              name: 'getCoreVersion',
+              mudule: 'system',
+              success: function(result) {
+                var retStr = "getCoreVersion: " + result;
+                console.info(retStr);
+                document.getElementById('result').innerHTML = retStr;
+              },
+              error: function(error) {
+                console.info(error)
+              }
+            })
+        }
+
+        function getSysVersionID() {
+            syber.callApi({
+              name: 'getSysVersionID',
+              mudule: 'system',
+              success: function(result) {
+                  var retStr = "getSysVersionID: " + result;
+                  console.info(retStr);
+                  document.getElementById('result').innerHTML = retStr;
+              },
+              error: function(error) {
+                console.info(error)
+              }
+            })
+        }
+
+        function aboutPhone() {
+            syber.callApi({
+              name: 'aboutPhone',
+              mudule: 'system',
+              success: function(result) {
+                  var retStr = "aboutPhone: " + JSON.stringify(result);
+                  console.info(retStr);
+                  document.getElementById('result').innerHTML = retStr;
+              },
+              error: function(error) {
+                console.info(error)
+              }
+            })
+        }
+
+        function getResolution() {
+            syber.callApi({
+              name: 'getResolution',
+              mudule: 'system',
+              success: function(result) {
+                  var retStr = "getResolution: " + JSON.stringify(result);
+                  console.info(retStr);
+                  document.getElementById('result').innerHTML = retStr;
+              },
+              error: function(error) {
+                console.info(error)
+              }
+            })
+        }
+
+    </script>
+  </body>
+</html>
