@@ -19,5 +19,6 @@
         <file>qml/sbutton.qml</file>
         <file>qml/test.qml</file>
         <file>js/modal/test.js</file>
+        <file>qml/SButton.qml</file>
     </qresource>
 </RCC>

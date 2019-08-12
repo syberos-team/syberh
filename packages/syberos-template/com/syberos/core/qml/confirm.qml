@@ -10,7 +10,7 @@
 
 import QtQuick 2.3
 import com.syberos.basewidgets 2.0
-
+import QtQuick.Controls 1.4
 /*!
    \qmltype CDialog
    \inqmlmodule com.syberos.basewidgets
@@ -64,6 +64,9 @@ CAbstractPopLayer{
    id:cdialog
    anchors.fill: parent
 
+   /*!模态框和页面的宽度比例。 */
+   property double proportion: 0.78
+
    /*! 标题区与对话框背景区上边沿之间的距离。 */
    property int topSpacing: 60
 
@@ -83,7 +86,7 @@ CAbstractPopLayer{
    property color titleTextColor: gUiConst.getValue("CT1")
 
    /*! 标题字体大小。 */
-   property int titleTextPixelSize: gUiConst.getValue("S1")
+   property double titleTextPixelSize: 52 * proportion
 
    /*! 标题区左侧边距。*/
    property int titleAreaHeight: 100
@@ -121,7 +124,7 @@ CAbstractPopLayer{
    property color messageTextColor: gUiConst.getValue("CT1")
 
    /*! 内容区文本字体大小。 */
-   property int messageTextPixelSize: gUiConst.getValue("S3")
+   property double messageTextPixelSize: 40 * proportion
 
    /*! 内容区左侧边距。 */
    property int messageAreaLeftMargin: 70
@@ -155,11 +158,14 @@ CAbstractPopLayer{
    /*! 确认按钮文本，默认为“确定”。 */
    property string acceptedButtonText: os.i18n.ctr(qsTr("Ok"))
 
+   /*! 取消按钮是否展示。 */
+   property bool rejectButtonVisible: true
+
    /*! 确认按钮是否启用。 */
-   property bool acceptButtonEnabled:true
+   property bool acceptButtonEnabled: true
 
    /*! 按钮区按钮之间的距离。*/
-   property int buttonAreaSpacing:40
+   property int buttonAreaSpacing: 2
 
    /*! 按钮区左侧边距。*/
    property int buttonAreaLeftMargin: 80
@@ -169,6 +175,9 @@ CAbstractPopLayer{
 
    /*! 按钮区按钮的高度。*/
    property int buttonHeight: 90
+
+   /*! 按钮区按钮的字体大小。 */
+   property double buttonTextPixelSize: 40 * proportion
 
    /*! 模态框滑动到屏幕中间需要的距离 */
    property int distance: contentBackground.contentHeight() / 2 + parent.height / 2
@@ -223,20 +232,13 @@ CAbstractPopLayer{
    MouseArea{
        id:contentBackground
        anchors.centerIn: parent
-       width: 840
+       width: proportion * parent.width
        height:contentHeight()
 
        Loader{
            id: dialogContentAreaLoader
            anchors.fill: parent
            sourceComponent: Item{
-
-               ScaleAnimator on scale {
-                   from: 0;
-                   to: 1;
-                   duration: 500;
-               }
-
                Rectangle{
                    anchors.fill: parent
                    color: gUiConst.getValue("CB1")
@@ -277,10 +279,10 @@ CAbstractPopLayer{
    Loader{
        id:titleAreaLoader
        anchors.top:contentBackground.top
-       height: titleAreaHeight
-       anchors.left: parent.left
+       anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
+       anchors.left: contentBackground.left
        anchors.leftMargin: titleAreaLeftMargin
-       anchors.right: parent.right
+       anchors.right: contentBackground.right
        anchors.rightMargin: titleAreaRightMargin
        sourceComponent: Text{
            font.pixelSize: cdialog.titleTextPixelSize
@@ -294,10 +296,11 @@ CAbstractPopLayer{
 
    Loader{
        id:messageAreaLoader
+       anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.top: titleAreaLoader.bottom
-       anchors.left: parent.left
+       anchors.left: contentBackground.left
        anchors.leftMargin: messageAreaLeftMargin
-       anchors.right: parent.right
+       anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
        sourceComponent: Text{
            font.pixelSize: cdialog.messageTextPixelSize
@@ -311,33 +314,44 @@ CAbstractPopLayer{
    Loader{
        id:buttonAreaLoader
        anchors.top:messageAreaLoader.bottom
-//       height: titleAreaHeight
-       anchors.left: parent.left
-       anchors.leftMargin: buttonAreaLeftMargin
-       anchors.right: parent.right
-       anchors.rightMargin: buttonAreaRightMargin
+       anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
+       anchors.left: contentBackground.left
+//       anchors.leftMargin: buttonAreaLeftMargin
+       anchors.right: contentBackground.right
+//       anchors.rightMargin: buttonAreaRightMargin
        sourceComponent:Item{
            implicitHeight:buttonsRow.implicitHeight
-           property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2
+           property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
+           Rectangle {
+                width: buttonAreaLoader.width
+                height: buttonAreaSpacing
+                color: 'red'
+           }
            Row{
                id:buttonsRow
                spacing: buttonAreaSpacing
                anchors.centerIn: parent
                enabled: !animating
-               CButton{
+               SButton{
                    id:rejectButton
+                   visible: cdialog.rejectButtonVisible
                    text:cdialog.rejectButtonText
-                   width:buttonWidth
+                   width:cdialog.buttonWidth
                    height: cdialog.buttonHeight
                    onClicked:{
                        hideAnimation.rejectedFlag = true
                        cdialog.hide()
                    }
                }
-               CButton{
+               Rectangle {
+                    width: buttonAreaSpacing
+                    height: buttonsRow.height
+                    color: 'red'
+               }
+               SButton{
                    id:acceptButton
                    text:cdialog.acceptedButtonText
-                   width:buttonWidth
+                   width:cdialog.buttonWidth
                    height: cdialog.buttonHeight
                    enabled: acceptButtonEnabled
                    onClicked:{
@@ -355,6 +369,7 @@ CAbstractPopLayer{
        alwaysRunToEnd: true
 
        function show(){
+
            if(hideAnimation.running){
                hideAnimation.stop()
            }
@@ -366,71 +381,14 @@ CAbstractPopLayer{
                start()
            }
        }
+//       ScaleAnimator{target :dialogContentAreaLoader.item;                from: 0;
+//           to: 1;
+//           duration: 1000;
+//           running: true;}
+
 
        NumberAnimation { target: background; property: "opacity"; duration: gSystemUtils.durationRatio*300; to: cdialog.__backGroundOpacity }
-       SequentialAnimation{
-           PauseAnimation { duration:  gSystemUtils.durationRatio*25 }
-           NumberAnimation {
-               target:contentBackground; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*300;
-               easing.type: Easing.OutCubic;
-               to: -contentBackground.height -200
-//               to: -contentBackground.height-distance
-           }
-           ScriptAction{ script: contentBackground.anchors.topMargin = Qt.binding(function(){
-               return -contentBackground.height -200
-//               return -contentBackground.height - distance
-           }) }
-       }
-//       SequentialAnimation{
-//           PauseAnimation { duration:  gSystemUtils.durationRatio*50 }
-//           NumberAnimation {
-//               target: titleAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
-//               easing.type: Easing.OutCubic;
-//               to: -(contentBackground.height - topSpacing)
-////               to: -(contentBackground.height - topSpacing)-distance
-//           }
-//           ScriptAction{ script: titleAreaLoader.anchors.topMargin = Qt.binding(function(){
-//               return -(contentBackground.height - topSpacing)})
-////               return -(contentBackground.height - topSpacing)})-distance
-//           }
-//       }
-//       SequentialAnimation{
-//           PauseAnimation { duration:  gSystemUtils.durationRatio*75}
-//           NumberAnimation { target: messageAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; easing.type: Easing.OutCubic; to: {
-//                   if(titleAreaEnabled) {
-//                       return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-200
-////                           return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea)-distance
-//                   } else {
-//                       return -(contentBackground.height - topSpacing)-200
-////                         return -(contentBackground.height - topSpacing)-distance
 
-//                   }
-//               }
-//           }
-//           ScriptAction{ script: messageAreaLoader.anchors.topMargin = Qt.binding(function(){
-//               if(titleAreaEnabled) {
-//                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -200
-////                   return -(contentBackground.height - topSpacing - titleAreaLoader.height - spacingBetweenTitleAreaAndMessageArea) -distance
-//               } else {
-//                   return -(contentBackground.height - topSpacing)-200
-////                   return -(contentBackground.height - topSpacing)-distance
-//               }})
-//           }
-//       }
-//       SequentialAnimation{
-//           PauseAnimation { duration:  gSystemUtils.durationRatio*100}
-//           NumberAnimation {
-//               target: buttonAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250;
-//               easing.type: Easing.OutCubic;
-//                   to: -(bottomSpacing +  buttonAreaLoader.height) - 200
-////                   to: -(bottomSpacing +  buttonAreaLoader.height)-distance
-//           }
-//           ScriptAction{ script: buttonAreaLoader.anchors.topMargin = Qt.binding(function(){
-
-//               return -(bottomSpacing +  buttonAreaLoader.height) -200
-////               return -(bottomSpacing +  buttonAreaLoader.height) -distance
-//           }) }
-//       }
        onRunningChanged: {
            if(!running){
                showFinished()
@@ -455,18 +413,7 @@ CAbstractPopLayer{
            }
        }
 
-       NumberAnimation { target: buttonAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; to: 0;  easing.type: Easing.OutCubic }
-       SequentialAnimation{
-           NumberAnimation { target: messageAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; to: 0; easing.type: Easing.OutCubic }
-           PauseAnimation { duration: gSystemUtils.durationRatio*250}
-           ScriptAction{ script: buttonAreaLoader.anchors.topMargin = 0 }
-           ScriptAction{ script: messageAreaLoader.anchors.topMargin = 0 }
-       }
-       SequentialAnimation{
-           NumberAnimation { target: titleAreaLoader; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; to: 0; easing.type: Easing.OutCubic }
-           PauseAnimation { duration: gSystemUtils.durationRatio*250}
-           ScriptAction{ script: titleAreaLoader.anchors.topMargin = 0 }
-       }
+
        SequentialAnimation{
            PauseAnimation { duration: gSystemUtils.durationRatio*50 }
            NumberAnimation { target:contentBackground; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; to: 0; easing.type: Easing.OutCubic }

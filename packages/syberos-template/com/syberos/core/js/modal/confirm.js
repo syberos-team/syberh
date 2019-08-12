@@ -23,6 +23,7 @@ function Confirm () {
     var component = object || that.object
     component.titleText = that.param.title
     component.messageText = that.param.message
+//    component.rejectButtonVisible = that.param.showCancel
     component.show()
 
     component.accepted.connect(function () {

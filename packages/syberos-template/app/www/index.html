@@ -15,7 +15,6 @@
         font-size: 2em;
       }
     </style>
-    <script src="lib/vconsole.min.js"></script>
     <script src="lib/syber.min.js"></script>
   </head>
   <body>
@@ -31,7 +30,6 @@
 
     <div class="text" id="content"></div>
     <script>
-      var vConsole = new VConsole()
       console.log('Hello world')
       syber.config()
       syber.ready(function() {
@@ -101,7 +99,10 @@
       syber.callApi({
         name: 'confirm',
         mudule: 'modal',
-        data: { title: 'xuejun', message: 'message' },
+        data: {
+            title: '弹窗标题',
+            message: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内'
+        },
         success: function(result) {
           console.info(result)
         },
@@ -112,10 +113,11 @@
     }
 
     function test() {
+    console.log('test xuej un')
       syber.callApi({
         name: 'test',
         mudule: 'modal',
-        data: { title: 'xuejun', message: 'message' },
+        data: { title: '弹窗标题', message: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内' },
         success: function(result) {
           console.info(result)
         },
