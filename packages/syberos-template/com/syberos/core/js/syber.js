@@ -8,6 +8,7 @@ Qt.include('core/plugin.js')
 Qt.include('root/root.js')
 Qt.include('webview/webview.js')
 Qt.include('modal/alert.js')
+Qt.include('camera/camera.js')
 // 增加对ES6语法的支持
 polyfill()
 
@@ -25,5 +26,5 @@ function render (root) {
   }
   var SyberOS = new Syber(root)
   SYBEROS = SyberOS
-  // SyberOS.addPlugin(RootItem)
+  //SyberOS.addPlugin(new Camera())
 }
