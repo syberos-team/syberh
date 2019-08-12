@@ -96,7 +96,7 @@
         ]
       }
     ],
-    "数据缓存": [
+    "数据存储": [
       "apis/storage/setItem",
       "apis/storage/getItem",
       "apis/storage/removeItem",
@@ -179,11 +179,8 @@
     "导航栏": [
       "qt/navigator/navigator"
     ],
-    "数据缓存": [
-      "qt/storage/setItem",
-      "qt/storage/getItem",
-      "qt/storage/removeItem",
-      "qt/storage/getAllKeys"
+    "数据存储": [
+      "qt/storage/storage"
     ],
     "request": [
       "qt/request/request-c"
