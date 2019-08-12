@@ -12,6 +12,7 @@ function SyberPlugin (opts) {
   this.methods = opts.methods || []
   this.source = opts.source
   this.isReady = false
+  this.page = opts.page || false
   // Syber
   this.syber = null
   // 挂载的qml
