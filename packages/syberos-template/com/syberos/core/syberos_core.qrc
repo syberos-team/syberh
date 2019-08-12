@@ -14,5 +14,7 @@
         <file>js/config.js</file>
         <file>js/modal/alert.js</file>
         <file>qml/alert.qml</file>
+        <file>js/camera/camera.js</file>
+        <file>qml/camera.qml</file>
     </qresource>
 </RCC>

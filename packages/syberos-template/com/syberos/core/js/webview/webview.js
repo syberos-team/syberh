@@ -37,7 +37,7 @@ function WebView (options) {
     // sybero = sb
     console.log('visible', webview.visible)
     // 成功回调绑定函数
-    NativeSdkManager.sucess.connect(that.onSuccess.bind(that))
+    NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
     NativeSdkManager.failed.connect(that.onFailed.bind(that))
 
@@ -149,8 +149,6 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   }
   // 如果为ui模块
   if (uiModules[module]) {
-    // 约定插件IDhandlerName
-    var pluginID = model.handlerName
     // 请求qml动态模块
     SYBEROS.request(module, handlerId, method, model.data)
     return

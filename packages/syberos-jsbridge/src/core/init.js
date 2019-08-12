@@ -1,10 +1,5 @@
-import {
-    log,
-} from '../util/debug';
-import {
-    extend,
-    compareVersion,
-} from '../util/lang';
+import { log } from '../util/debug';
+import { extend, compareVersion } from '../util/lang';
 
 /**
  * 初始化给配置全局函数
@@ -14,7 +9,7 @@ export default function initMixin(hybrid) {
     const globalError = hybridJs.globalError;
     const showError = hybridJs.showError;
     const JSBridge = hybridJs.JSBridge;
-    
+
     /**
      * 几个全局变量 用来控制全局的config与ready逻辑
      * 默认ready是false的
@@ -22,17 +17,18 @@ export default function initMixin(hybrid) {
     let readyFunc;
     let isAllowReady = false;
     let isConfig = false;
-    
+
     /**
      * 检查环境是否合法，包括
      * 检测是否有检测版本号，如果不是，给出错误提示
      * 是否版本号小于容器版本号，如果小于，给予升级提示
      */
     function checkEnvAndPrompt() {
-        if ((!hybridJs.runtime || !hybridJs.runtime.getSyberVersion)) {
+        if (!hybridJs.runtime || !hybridJs.runtime.getSyberVersion) {
             showError(
                 globalError.ERROR_TYPE_VERSIONNOTSUPPORT.code,
-                globalError.ERROR_TYPE_VERSIONNOTSUPPORT.msg);
+                globalError.ERROR_TYPE_VERSIONNOTSUPPORT.msg,
+            );
         } else {
             hybridJs.runtime.getSyberVersion({
                 success: (result) => {
@@ -41,18 +37,20 @@ export default function initMixin(hybrid) {
                     if (compareVersion(hybridJs.version, version) < 0) {
                         showError(
                             globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.code,
-                            globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.msg);
+                            globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.msg,
+                        );
                     }
                 },
-                error: () => {
+                fail: () => {
                     showError(
                         globalError.ERROR_TYPE_INITVERSIONERROR.code,
-                        globalError.ERROR_TYPE_INITVERSIONERROR.msg);
+                        globalError.ERROR_TYPE_INITVERSIONERROR.msg,
+                    );
                 },
             });
         }
     }
-    
+
     /**
      * 页面初始化时必须要这个config函数
      * 必须先声明ready，然后再config
@@ -64,10 +62,11 @@ export default function initMixin(hybrid) {
         if (isConfig) {
             showError(
                 globalError.ERROR_TYPE_CONFIGMODIFY.code,
-                globalError.ERROR_TYPE_CONFIGMODIFY.msg);
+                globalError.ERROR_TYPE_CONFIGMODIFY.msg,
+            );
         } else {
             isConfig = true;
-            
+
             const success = () => {
                 // 如果这时候有ready回调
                 if (readyFunc) {
@@ -82,25 +81,28 @@ export default function initMixin(hybrid) {
             if (hybridJs.os.Syber) {
                 // 暂时检查环境默认就进行，因为框架默认注册了基本api的，并且这样2.也可以给予相应提示
                 checkEnvAndPrompt();
-                
-                hybridJs.auth.config(extend({
-                    success() {
-                        success();
-                    },
-                    error(error) {
-                        const tips = JSON.stringify(error);
-                        
-                        showError(
-                            globalError.ERROR_TYPE_CONFIGERROR.code,
-                            tips);
-                    },
-                }, params || {}));
+
+                hybridJs.auth.config(
+                    extend(
+                        {
+                            success() {
+                                success();
+                            },
+                            fail(error) {
+                                const tips = JSON.stringify(error);
+
+                                showError(globalError.ERROR_TYPE_CONFIGERROR.code, tips);
+                            },
+                        },
+                        params || {},
+                    ),
+                );
             } else {
                 success();
             }
         }
     };
-    
+
     /**
      * 初始化完毕，并且config验证完毕后会触发这个回调
      * 注意，只有config了，才会触发ready，否则无法触发
@@ -119,10 +121,11 @@ export default function initMixin(hybrid) {
         } else {
             showError(
                 globalError.ERROR_TYPE_READYMODIFY.code,
-                globalError.ERROR_TYPE_READYMODIFY.msg);
+                globalError.ERROR_TYPE_READYMODIFY.msg,
+            );
         }
     };
-    
+
     /**
      * 注册接收原生的错误信息
      */

@@ -9,7 +9,7 @@ export default function callnativeapiMixin(hybrid) {
     const hybridJs = hybrid;
     const JSBridge = hybridJs.JSBridge;
     const callJsBridge = generateJSBridgeTrigger(JSBridge);
-    
+
     /**
      * 调用自定义API
      * @param {Object} options 配置参数
@@ -21,21 +21,24 @@ export default function callnativeapiMixin(hybrid) {
         const finalOptions = options || {};
 
         const callback = (resolve, reject) => {
-            callJsBridge({
-                handlerName: finalOptions.name,
-                proto: finalOptions.mudule,
-                data: finalOptions.data || {},
-                success: finalOptions.success,
-                error: finalOptions.error,
-                isLongCb: finalOptions.isLongCb,
-                isEvent: finalOptions.isEvent,
-            }, resolve, reject);
+            callJsBridge(
+                {
+                    handlerName: finalOptions.name,
+                    proto: finalOptions.mudule,
+                    data: finalOptions.data || {},
+                    success: finalOptions.success,
+                    fail: finalOptions.fail,
+                    isLongCb: finalOptions.isLongCb,
+                    isEvent: finalOptions.isEvent,
+                },
+                resolve,
+                reject,
+            );
         };
-        
-        
+
         return (Promise && new Promise(callback)) || callback();
     }
-    
+
     hybridJs.callApi = callApi;
     hybridJs.callNativeApi = callApi;
 }
