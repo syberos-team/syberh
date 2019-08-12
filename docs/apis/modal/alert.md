@@ -17,10 +17,10 @@ title: alert
 | confirmIcon | string |       | 否 | 确认按钮的图标 |
 | confirmColor | string| '#576B95'  | 否 | 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
 | success | function |  |  否     | 接口调用成功的回调函数      |
-| error   | function |  |  否     | 接口调用失败的回调函数      |
+| fail   | function |  |  否     | 接口调用失败的回调函数      |
 
 
-#### object.error回调函数
+#### object.fail回调函数
 #### 参数
 #### Object err
 | 属性 | 类型  | 描述 |
@@ -35,7 +35,7 @@ title: alert
         success: function() {
             
         },
-        error: function(error) {
+        fail: function(error) {
             console.log(error.msg)
         }
     })
