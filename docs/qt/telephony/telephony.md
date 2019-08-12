@@ -21,7 +21,7 @@ title: 电话
 
 ## 成功信号
 
-### emit success(long responseID, QVariant result)
+### emit success(long responseID, QVariantMap result)
 
 | 参数名     | 类型        | 是否必填 | 描述                         |
 | ---------- | ----------- | -------- | ---------------------------- |

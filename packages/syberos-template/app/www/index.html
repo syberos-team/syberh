@@ -33,6 +33,7 @@
   <a class="link" href="pages/clipboard.html"> clipboard</a><br />
   <a class="link" href="pages/telephony.html"> telephony</a><br />
   <a class="link" href="pages/modal.html"> modal</a>
+  <a class="link" href="pages/storage.html"> storage</a>
   <div class="text" id="content"></div>
   <script>
     var vConsole = new VConsole()
@@ -87,33 +88,20 @@
       })
     }
 
-    function alert() {
-      syber.callApi({
-        name: 'alert',
-        mudule: 'modal',
-        data: { title: 'alert test', message: 'message' },
-        success: function (result) {
-          console.info(result)
-        },
-        error: function (error) {
-          console.info(error)
-        }
-      })
-    }
 
-      function alert() {
-        syber.callApi({
-          name: 'alert',
-          mudule: 'modal',
-          data: { title: 'alert test', message: 'message' },
-          success: function(result) {
+
+function alert() {
+    syber.modal.alert({
+        title: '弹窗标题',
+        message: '弹窗内容，告知当前状态、信息和解决方法，描述',
+        showCancel: false,
+        success: function (result) {
+          console.info('弹窗标题')
             console.info(result)
-          },
-          error: function(error) {
-            console.info(error)
           }
-        })
-      }
+
+      })
+}
 
     function confirm() {
       syber.callApi({

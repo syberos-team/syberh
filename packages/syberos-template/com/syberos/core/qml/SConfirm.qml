@@ -44,7 +44,10 @@ CAbstractPopLayer{
    property real proportion: 840 / 1080
 
    /*! 标题区与对话框背景区上边沿之间的距离。 */
-   property real topSpacing: 60 * proportion
+   property real topSpacing: 80 * proportion
+
+   /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离。 */
+   property real topSpacingNoTitle: 120 * proportion
 
    /*! 对话框的圆角大小。 */
    property real radius: 6
@@ -228,7 +231,7 @@ CAbstractPopLayer{
                    radius: sconfirm.radius
                }
                Rectangle{
-                   height:60
+                   height:buttonHeight
                    anchors.bottom: parent.bottom
                    color: "#ffffff"
                    width:parent.width
@@ -280,7 +283,7 @@ CAbstractPopLayer{
 
    Loader{
        id:messageAreaLoader
-       anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
+       anchors.topMargin: spacingBetweenMessageAreaAndButtonArea
        anchors.top: titleAreaLoader.bottom
        anchors.left: contentBackground.left
        anchors.leftMargin: messageAreaLeftMargin
@@ -306,7 +309,7 @@ CAbstractPopLayer{
 //       anchors.leftMargin: buttonAreaLeftMargin
        anchors.right: contentBackground.right
 //       anchors.rightMargin: buttonAreaRightMargin
-       sourceComponent: Item {
+       sourceComponent: Rectangle {
            implicitHeight:buttonsRow.implicitHeight
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
 
