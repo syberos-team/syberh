@@ -28,7 +28,7 @@ protected:
     QString getNetworkConnectStatus();
     bool netWorkConnected();
 signals:
-    void sucess(long responseID,QVariant result);
+    void success(long responseID,QVariantMap result);
     void failed(long responseID,long errorCode,QString errorMsg);
     void progress(long responseID,const int totalLength,const int progress,const int status);
 };

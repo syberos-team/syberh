@@ -8,6 +8,8 @@ function SyberPlugin (opts) {
   this.id = opts.id
   this.module = opts.module || 'ui'
   this.name = opts.name
+  // 支持的方法
+  this.methods = opts.methods || []
   this.source = opts.source
   this.isReady = false
   // Syber
@@ -17,7 +19,7 @@ function SyberPlugin (opts) {
   // 插件需要的参数
   this.param = {}
   // 请求ID
-  this.handlerId = {}
+  this.handlerId = null
   this.eventList = {}
 }
 

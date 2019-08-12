@@ -15,12 +15,18 @@ NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString typeID){
 
     }
     int type = QMetaType::type(typeID.toLatin1().data());
+    NativeSdkHandlerBase * instance=NULL;
     const QMetaObject *metaObj = QMetaType::metaObjectForType(type);
-    QObject *obj = metaObj->newInstance();
-    NativeSdkHandlerBase * instance = qobject_cast<NativeSdkHandlerBase*>(obj);
-    m_sdkHandlerCache.insert(typeID,instance);
-    m_sdkInitConnectCache.insert(typeID,false);
-    return instance;
+    if(metaObj){
+        QObject *obj = metaObj->newInstance();
+        NativeSdkHandlerBase * instance = qobject_cast<NativeSdkHandlerBase*>(obj);
+        m_sdkHandlerCache.insert(typeID,instance);
+        m_sdkInitConnectCache.insert(typeID,false);
+        return instance;
+    }else{
+        return instance;
+    }
+
 
 }
 QMap<QString,NativeSdkHandlerBase*> NativeSdkFactory::getAllHandlers(){

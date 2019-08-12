@@ -39,16 +39,42 @@ Syber.prototype._render = function () {
     that._autoRun()
   })
 }
+/**
+ * 根据模块和method获取plugin
+ * @module 插件ID
+ * @handlerId 请求ID
+ * @method 请求方法名称
+ * @param 请求参数
+ */
+Syber.prototype.getPlugin = function (module, method) {
+  var rPlugin = null
+  for (var key in this.pluginList) {
+    var plugin = this.pluginList[key]
+    // 如果模块名称匹配,判断方法是否匹配
+    if (plugin && plugin.module === module) {
+      for (var i = 0; i < plugin.methods.length; i++) {
+        if (plugin.methods[i] === method) {
+          return plugin
+        }
+      }
+    }
+  }
+
+  return rPlugin
+}
 
 /**
- * 创建组件
- * @pluginID 插件ID
- * @param 参数
+ * 动态组件请求
+ * @module 插件ID
+ * @handlerId 请求ID
+ * @method 请求方法名称
+ * @param 请求参数
  */
-Syber.prototype.create = function (pluginID, handlerId, param) {
-  var plugin = this.pluginList[pluginID]
+Syber.prototype.request = function (module, handlerId, method, param) {
+  var plugin = this.getPlugin(module, method)
+  // this.pluginList[pluginID]
   if (!plugin) {
-    console.error('Plugin ' + pluginID + ' 不存在.')
+    console.error('Plugin ', +module, method, ' 不存在.')
     return false
   }
   // 参数处理
@@ -57,17 +83,22 @@ Syber.prototype.create = function (pluginID, handlerId, param) {
   if (plugin.isReady) {
     console.log('plugin isReady', plugin.id)
     // 直接调用
-    plugin.onReady()
+    plugin.trigger(method, plugin.object, handlerId, param)
     return
   }
-  this._initPlugin(plugin)
+
+  // 创建完成后发送request
+  this._initPlugin(plugin, function (object) {
+    plugin.trigger(method, object, handlerId, param)
+  })
 }
 
 /**
  *@param plugin {Object} 插件
  *@param parent {Object} 挂载节点
+ *@param callback {function}
  */
-Syber.prototype._initPlugin = function (plugin, parent) {
+Syber.prototype._initPlugin = function (plugin, parent, callback) {
   var _parent = parent || this.body
   console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
   console.debug('\n ***********plugin.source', plugin.source, '\n')
@@ -85,6 +116,8 @@ Syber.prototype._initPlugin = function (plugin, parent) {
       plugin.isReady = true
       // data数据
       plugin.trigger('ready', incubator.object)
+
+      if (typeof callback === 'function') callback(incubator.object)
     }
   }
 }
