@@ -63,7 +63,7 @@ signals:
       *@responseID 请求传入的唯一标志，用于应用判断是否为自己发送的请求
       *@result 请求结果
       */
-    void success(long responseID,QVariantMap result);
+    void success(long responseID,QVariant result);
     /**
       *@brief signal 请求失败信号
       *@responseID 请求传入的唯一标志，用于应用判断是否为自己发送的请求
