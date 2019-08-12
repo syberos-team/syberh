@@ -32,7 +32,7 @@ void TestHandler::downLoadFailed(long downloadID, QString result, long errorCode
 void TestHandler::downLoadSucess(long downloadID, QString result)
 {
   qDebug() << Q_FUNC_INFO << downloadID << result;
-  emit sucess(downloadID, QVariant(result));
+  emit success(downloadID, result);
 }
 
 void TestHandler::downLoadStart(long callBackID, QVariantMap params)
