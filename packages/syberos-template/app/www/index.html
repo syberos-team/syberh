@@ -27,10 +27,12 @@
 <body>
   <button id="donwload" onclick="donwload()">donwload</button>
   <button id="donwload" onclick="alert()">alert</button>
+  <button id="donwload" onclick="confirm()">confirm</button>
   <button onclick="goBack()">goBack()</button>
   <a class="link" href="pages/webview.html"> webview</a>
   <a class="link" href="pages/clipboard.html"> clipboard</a><br />
-  <a class="link" href="pages/telephony.html"> telephony</a>
+  <a class="link" href="pages/telephony.html"> telephony</a><br />
+  <a class="link" href="pages/modal.html"> modal</a>
   <div class="text" id="content"></div>
   <script>
     var vConsole = new VConsole()
@@ -98,10 +100,7 @@
         }
       })
     }
-  </script>
-</body>
 
-<<<<<<< HEAD
       function alert() {
         syber.callApi({
           name: 'alert',
@@ -150,6 +149,3 @@
     </script>
   </body>
 </html>
-=======
-</html>
->>>>>>> upstream/master

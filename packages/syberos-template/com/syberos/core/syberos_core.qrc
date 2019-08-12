@@ -13,12 +13,10 @@
         <file>js/root/root.js</file>
         <file>js/config.js</file>
         <file>js/modal/alert.js</file>
-        <file>qml/alert.qml</file>
         <file>js/modal/confirm.js</file>
-        <file>qml/confirm.qml</file>
-        <file>qml/sbutton.qml</file>
-        <file>qml/test.qml</file>
-        <file>js/modal/test.js</file>
         <file>qml/SButton.qml</file>
+        <file>qml/test.qml</file>
+        <file>qml/SConfirm.qml</file>
+        <file>qml/SAlert.qml</file>
     </qresource>
 </RCC>

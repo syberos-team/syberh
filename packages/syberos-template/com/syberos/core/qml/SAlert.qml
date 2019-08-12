@@ -12,13 +12,7 @@ import QtQuick 2.3
 import com.syberos.basewidgets 2.0
 /*!
    \qmltype SAlert
-   \inqmlmodule com.syberos.basewidgets
-   \since 2.0
-   \ingroup controls
-   \brief 默认对话框控件
-
-   SAlert主要由五个部分组成：背景区，对话框背景区，标题区，内容区，按钮区。
-   其中浮层背景不可定制，其余部分可根据用户需求自行定制。
+   \brief 默认弹出框控件
 
    示例代码:
    \qml
@@ -30,8 +24,8 @@ import com.syberos.basewidgets 2.0
    \endqml
 */
 
-sconfirm {
+SConfirm {
     id: salert
-    titleText: 'xuejun'
-    messageText: 'haha'
+    titleText: ''
+    messageText: ''
 }

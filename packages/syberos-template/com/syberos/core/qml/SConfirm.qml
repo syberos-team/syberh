@@ -133,10 +133,10 @@ CAbstractPopLayer{
    // Button区域属性设置相关
 
    /*! 取消按钮文本，默认为“取消”。 */
-   property string rejectButtonText: os.i18n.ctr(qsTr("Cancel"))
+   property string rejectButtonText: qsTr("取消")
 
    /*! 确认按钮文本，默认为“确定”。 */
-   property string acceptedButtonText: os.i18n.ctr(qsTr("Ok"))
+   property string acceptedButtonText: qsTr("确定")
 
    /*! 取消按钮是否展示。 */
    property bool rejectButtonVisible: true
@@ -160,7 +160,7 @@ CAbstractPopLayer{
    property string buttonLineColor: "#cccccc"
 
    /*! 按钮区按钮的字体大小。 */
-   property real buttonTextPixelSize: 40 * proportion
+   property real buttonTextPixelSize: 48 * proportion
 
    /*! 模态框滑动到屏幕中间需要的距离 */
    property real distance: (contentBackground.contentHeight() / 2 + parent.height / 2) * proportion
@@ -327,6 +327,7 @@ CAbstractPopLayer{
                    text:sconfirm.rejectButtonText
                    width: buttonWidth
                    height: sconfirm.buttonHeight
+                   pixelSize: sconfirm.buttonTextPixelSize
 
                    onClicked:{
                        hideAnimation.rejectedFlag = true
@@ -347,6 +348,8 @@ CAbstractPopLayer{
                    width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
                    height: sconfirm.buttonHeight
                    enabled: acceptButtonEnabled
+                   pixelSize: sconfirm.buttonTextPixelSize
+
                    onClicked:{
                        hideAnimation.acceptedFlag = true
                        sconfirm.hide()

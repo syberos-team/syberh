@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>demo</title>
+  <style type="text/css">
+    button {
+      font-size: 2em;
+      margin: 2em 2em;
+      height: 2em;
+      width: 7em;
+    }
+
+    .text {
+      font-size: 2em;
+    }
+
+    .link {
+      font-size: 3em;
+    }
+  </style>
+  <script src="../lib/vconsole.min.js"></script>
+  <script src="../lib/syber.min.js"></script>
+</head>
+
+<body>
+  <button id="donwload" onclick="alert()">alert</button>
+  <button id="donwload" onclick="confirm()">confirm</button>
+  <button onclick="goBack()">goBack()</button>
+  
+  <div class="text" id="content"></div>
+  <script>
+    function goBack() {
+      syber.callApi({
+        name: 'goBack',
+        mudule: 'webview',
+        success: function (result) {
+          console.info(result)
+        },
+        error: function (error) {
+          console.info(error)
+        }
+      })
+    }
+
+    function alert() {
+      syber.callApi({
+        name: 'alert',
+        mudule: 'modal',
+        data: {
+            title: 'alert test',
+            message: 'message',
+            showCancel: false
+        },
+        success: function (result) {
+            console.log('xuejun-------')
+          console.info(result)
+        },
+        error: function (error) {
+          console.info(error)
+        }
+      })
+    }
+
+    function confirm() {
+      syber.callApi({
+        name: 'confirm',
+        mudule: 'modal',
+        data: {
+            title: '弹窗标题',
+            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            showCancel: false
+        },
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
+    </script>
+  </body>
+</html>
