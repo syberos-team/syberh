@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>clipboard</title>
+  <style type="text/css">
+    button {
+      font-size: 2em;
+      margin: 2em 2em;
+      height: 2em;
+      width: 7em;
+    }
+
+    input {
+      font-size: 2em;
+      height: 2em;
+      width: 7em;
+    }
+
+    .button2 {
+      font-size: 2em;
+      margin: 2em 2em;
+      height: 2em;
+      width: 80%;
+    }
+
+    .text {
+      font-size: 2em;
+    }
+  </style>
+  <script src="../lib/vconsole.min.js"></script>
+  <script src="../lib/syber.min.js"></script>
+</head>
+
+<body>
+  <button onclick="goBack()">goBack()</button>
+  <p>
+    <input id="setItemKey" placeholder="key" value="test" /><input id="setItemValue" pattern="value"
+      value="test" /><br />
+    <button onclick="setItem()">setItem</button><br />
+  </p>
+  <p>
+    <input id="getItemKey" placeholder="key" value="test" /><br />
+    <button onclick="getItem()">getItem</button><br />
+  </p>
+  <p>
+    <input id="removeItemKey" placeholder="key" value="test" /><br />
+    <button onclick="removeItem()">removeItem</button>
+  </p>
+  <p>
+    <button onclick="getAllKeys()">getAllKeys</button><br />
+  </p>
+
+  <script>
+    var vConsole = new VConsole()
+    console.log('Hello world')
+    function print(str) {
+      document.getElementById('content').innerHTML = JSON.stringify(str)
+    }
+    syber.ready(function () {
+      document.getElementById('content').innerHTML = '注册成功'
+    })
+    document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+
+    function setItem() {
+      syber.storage.setItem({
+        'key': document.getElementById('setItemKey').value,
+        'value': document.getElementById('setItemValue').value,
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function getItem() {
+      syber.storage.getItem({
+        'key': document.getElementById('getItemKey').value,
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function removeItem() {
+      syber.storage.removeItem({
+        'key': document.getElementById('removeItemKey').value,
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function getAllKeys() {
+      syber.storage.getAllKeys({
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function goBack() {
+      syber.webview.goBack({
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

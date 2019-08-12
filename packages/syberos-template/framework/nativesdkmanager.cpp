@@ -13,7 +13,7 @@ NativeSdkManager::~NativeSdkManager(){
         i.next();
         NativeSdkHandlerBase * handler = i.value();
         if(handler){
-            disconnect(handler,SIGNAL(sucess(long,QVariant)),this,SIGNAL(sucess(long,QVariant)));
+            disconnect(handler,SIGNAL(success(long,QVariant)),this,SIGNAL(success(long,QVariant)));
             disconnect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
             disconnect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
             delete handler;
@@ -73,7 +73,7 @@ QObject * NativeSdkManager::getUiSource(QString typeID,QString actionName){
 void NativeSdkManager::initHandlerConnect(QString typeID){
     NativeSdkHandlerBase * handler = m_NativeSdkFactory.getAllHandlers().value(typeID);
     if(handler){
-        connect(handler,SIGNAL(success(long,QVariantMap)),this,SIGNAL(success(long,QVariantMap)));
+        connect(handler,SIGNAL(success(long,QVariant)),this,SIGNAL(success(long,QVariant)));
         connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
         connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
     }
