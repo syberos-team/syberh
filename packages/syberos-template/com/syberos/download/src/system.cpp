@@ -64,7 +64,7 @@ void System::aboutPhone(long callBackID,QVariantMap params){
 
     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
     qDebug() << "aboutPhone: " << jsonObjectValue.toString() << endl;
-    emit sucess(callBackID, QVariant(jsonObject));
+    emit success(callBackID, QVariant(jsonObject));
 }
 
 void System::getResolution(long callBackID,QVariantMap params){
@@ -79,19 +79,19 @@ void System::getResolution(long callBackID,QVariantMap params){
     screenObj.insert("height", height);
 
     qDebug() << "getResolution, width:" << width << ", height: " << height << endl;
-    emit sucess(callBackID, QVariant(screenObj));
+    emit success(callBackID, QVariant(screenObj));
 }
 
 void System::getCoreVersion(long callBackID,QVariantMap params){
     COsInfo info;
     QString version = info.kernelVersion();
     qDebug() << "getCoreVersion: " << version << endl;
-    emit sucess(callBackID, QVariant(version));
+    emit success(callBackID, QVariant(version));
 }
 
 void System::getSysVersionID(long callBackID,QVariantMap params){
     COsInfo info;
     QString version = info.osVersion();
     qDebug() << "getSysVersionID: " << version << endl;
-    emit sucess(callBackID, QVariant(version));
+    emit success(callBackID, QVariant(version));
 }

@@ -11,6 +11,9 @@ HEADERS += \
     $$PWD/src/testhandler.h \
     $$PWD/src/loadqmlwidget.h \
     $$PWD/src/loadqmlhandler.h \
+    $$PWD/src/telephony.h \
+    $$PWD/src/storage.h \
+    $$PWD/src/clipboard.h \
     $$PWD/src/system.h
 
 SOURCES += \
@@ -22,6 +25,9 @@ SOURCES += \
     $$PWD/src/testhandler.cpp \
     $$PWD/src/loadqmlwidget.cpp \
     $$PWD/src/loadqmlhandler.cpp \
+    $$PWD/src/telephony.cpp \
+    $$PWD/src/storage.cpp \
+    $$PWD/src/clipboard.cpp \
     $$PWD/src/system.cpp
 
 DISTFILES +=

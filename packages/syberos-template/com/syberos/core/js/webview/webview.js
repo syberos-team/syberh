@@ -37,7 +37,7 @@ function WebView (options) {
     // sybero = sb
     console.log('visible', webview.visible)
     // 成功回调绑定函数
-    NativeSdkManager.sucess.connect(that.onSuccess.bind(that))
+    NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
     NativeSdkManager.failed.connect(that.onFailed.bind(that))
 

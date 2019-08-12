@@ -83,6 +83,9 @@
       "apis/systeminfo/getSysVersionID": {
         "title": "getSysVersionID"
       },
+      "apis/telephony/dial": {
+        "title": "dial"
+      },
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
@@ -149,20 +152,14 @@
       "qt/runtime/runtime": {
         "title": "runtime"
       },
-      "qt/storage/getAllKeys": {
-        "title": "getAllKeys"
-      },
-      "qt/storage/getItem": {
-        "title": "getItem"
-      },
-      "qt/storage/removeItem": {
-        "title": "removeItem"
-      },
-      "qt/storage/setItem": {
-        "title": "setItem"
+      "qt/storage/storage": {
+        "title": "本地存储"
       },
       "qt/systeminfo/systeminfo": {
         "title": "系统信息"
+      },
+      "qt/telephony/telephony": {
+        "title": "电话"
       },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
@@ -186,14 +183,16 @@
       "导航栏": "导航栏",
       "modal": "modal",
       "媒体": "媒体",
+      "电话": "电话",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
-      "数据缓存": "数据缓存",
+      "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
       "文件": "文件",
       "关于C++": "关于C++",
+      "通信": "通信",
       "更新": "更新",
       "request": "request",
       "download": "download",

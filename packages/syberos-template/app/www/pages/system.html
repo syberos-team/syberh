@@ -26,6 +26,7 @@
     <script src="../lib/syber.min.js"></script>
   </head>
   <body>
+    <button onclick="goBack()">goBack()</button>
     <button id="getCoreVersion" onclick="getCoreVersion()">内核版本号</button>
     <button id="getCoreVersion" onclick="getSysVersionID()">系统版本号</button>
     <button id="getCoreVersion" onclick="getResolution()">屏幕分辨率</button>
@@ -45,63 +46,66 @@
 
 
         function getCoreVersion() {
-            syber.callApi({
-              name: 'getCoreVersion',
-              mudule: 'system',
-              success: function(result) {
-                var retStr = "getCoreVersion: " + result;
-                console.info(retStr);
-                document.getElementById('result').innerHTML = retStr;
+            syber.system.getCoreVersion({
+              success: function (result) {
+                  var retStr = "getCoreVersion: " + result;
+                  console.info(retStr);
+                  document.getElementById('result').innerHTML = retStr;
               },
-              error: function(error) {
+              fail: function (error) {
                 console.info(error)
               }
-            })
+            });
         }
 
         function getSysVersionID() {
-            syber.callApi({
-              name: 'getSysVersionID',
-              mudule: 'system',
-              success: function(result) {
+            syber.system.getSysVersionID({
+              success: function (result) {
                   var retStr = "getSysVersionID: " + result;
                   console.info(retStr);
                   document.getElementById('result').innerHTML = retStr;
               },
-              error: function(error) {
+              fail: function (error) {
                 console.info(error)
               }
-            })
+            });
         }
 
         function aboutPhone() {
-            syber.callApi({
-              name: 'aboutPhone',
-              mudule: 'system',
-              success: function(result) {
+            syber.system.aboutPhone({
+              success: function (result) {
                   var retStr = "aboutPhone: " + JSON.stringify(result);
                   console.info(retStr);
                   document.getElementById('result').innerHTML = retStr;
               },
-              error: function(error) {
+              fail: function (error) {
                 console.info(error)
               }
-            })
+            });
         }
 
         function getResolution() {
-            syber.callApi({
-              name: 'getResolution',
-              mudule: 'system',
-              success: function(result) {
+            syber.system.getResolution({
+              success: function (result) {
                   var retStr = "getResolution: " + JSON.stringify(result);
                   console.info(retStr);
                   document.getElementById('result').innerHTML = retStr;
               },
-              error: function(error) {
+              fail: function (error) {
                 console.info(error)
               }
-            })
+            });
+        }
+
+        function goBack() {
+          syber.webview.goBack({
+            success: function (result) {
+              console.info(result)
+            },
+            fail: function (error) {
+              console.info(error)
+            }
+          })
         }
 
     </script>
