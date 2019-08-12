@@ -12,45 +12,21 @@ import QtQuick 2.3
 import com.syberos.basewidgets 2.0
 import QtQuick.Controls 1.4
 /*!
-   \qmltype CDialog
+   \qmltype SConfirm
    \inqmlmodule com.syberos.basewidgets
    \since 2.0
    \ingroup controls
    \brief 默认对话框控件
 
-   CDialog主要由五个部分组成：背景区，对话框背景区，标题区，内容区，按钮区。
+   SConfirm主要由五个部分组成：背景区，对话框背景区，标题区，内容区，按钮区。
    其中浮层背景不可定制，其余部分可根据用户需求自行定制。
-   定制方法可以参考 \l{SyberOS Controls Customization}{控件的定制}。
-   控件结构示意：
-
-   \raw HTML
-   <div style="margin:10px;display:block;border:1px solid #999;width:360px;height:640px;background:#555;">
-       <div style="margin:2px;width:356px;height:398px;text-align:center;">
-           <span style="color:#fff;line-height:300px;">背景区</span>
-       </div>
-       <div style="height:238px;background:#fff;">
-           <div style="width:356px; height:25px;">
-               <span style="margin-left:10px;line-height:40px">对话框背景区</span>
-           </div>
-           <div style="margin:10px;width:340px; height:40px;background:#ddd;text-align:center;">
-               <span style="line-height:40px">标题区</span>
-           </div>
-           <div style="margin:10px;width:340px; height:96px;background:#bbb;text-align:center;">
-               <span style="line-height:90px">内容区</span>
-           </div>
-           <div style="margin:10px;width:340px; height:40px;background:#ddd;text-align:center;">
-               <span style="line-height:40px">按钮区</span>
-           </div>
-       </div>
-   </div>
-   \endraw
 
    控件外观：
-   \image cdialog.png
+   \image SConfirm.png
 
    示例代码:
    \qml
-   CDialog {
+   SConfirm {
        id: dialog
        titleText: "message title"
        messageText: "message content"
@@ -61,56 +37,56 @@ import QtQuick.Controls 1.4
 
 
 CAbstractPopLayer{
-   id:cdialog
+   id:sconfirm
    anchors.fill: parent
 
    /*!模态框和页面的宽度比例。 */
-   property double proportion: 0.78
+   property real proportion: 840 / 1080
 
    /*! 标题区与对话框背景区上边沿之间的距离。 */
-   property int topSpacing: 60
+   property real topSpacing: 60 * proportion
+
+   /*! 对话框的圆角大小。 */
+   property real radius: 6
 
    /*! 标题区和内容区之间的距离。 */
-   property int spacingBetweenTitleAreaAndMessageArea: 60
+   property real spacingBetweenTitleAreaAndMessageArea: 80 * proportion
 
    /*!  内容区和按钮区之间的距离。*/
-   property int spacingBetweenMessageAreaAndButtonArea: 60
-
-   /*! 内容区与底部之间距离。*/
-   property int bottomSpacing:40
+   property real spacingBetweenMessageAreaAndButtonArea: 100 * proportion
 
    /*! 标题文本。 */
    property string titleText: ""
 
    /*! 标题颜色。 */
-   property color titleTextColor: gUiConst.getValue("CT1")
+   property color titleTextColor: "#333333"
 
    /*! 标题字体大小。 */
-   property double titleTextPixelSize: 52 * proportion
+   property real titleTextPixelSize: 52 * proportion
 
    /*! 标题区左侧边距。*/
-   property int titleAreaHeight: 100
+   property int titleAreaHeight: 100 * proportion
 
    /*! 标题区左侧边距。*/
-   property int titleAreaLeftMargin: 40
+   property real titleAreaLeftMargin: 40 * proportion
 
    /*! 标题区右侧边距。*/
-   property int titleAreaRightMargin:40
+   property real titleAreaRightMargin:40 * proportion
 
    /*!
-       \qmlproperty Component CDialog::titleAreaComponent
+       \qmlproperty Component SConfirm::titleAreaComponent
        标题区样式组件，默认为Text
    */
    property alias titleAreaComponent:titleAreaLoader.sourceComponent
 
    /*!
-       \qmlproperty object CDialog::titleAreaItem
+       \qmlproperty object SConfirm::titleAreaItem
        titleAreaComponent加载完成之后对应的Item元素
    */
    readonly property alias titleAreaItem:titleAreaLoader.item
 
    /*!
-       \qmlproperty bool CDialog::titleAreaEnabled
+       \qmlproperty bool SConfirm::titleAreaEnabled
        是否启用标题区。
    */
    property alias titleAreaEnabled:titleAreaLoader.active
@@ -121,31 +97,35 @@ CAbstractPopLayer{
    property string messageText: ""
 
    /*! 内容区文本颜色。 */
-   property color messageTextColor: gUiConst.getValue("CT1")
+   property color messageTextColor: "#333333"
+
 
    /*! 内容区文本字体大小。 */
-   property double messageTextPixelSize: 40 * proportion
+   property real messageTextPixelSize: 40 * proportion
+
+   /*! 内容区文本行高大小。 */
+   property real messageTextLineHeight: 70 * proportion
 
    /*! 内容区左侧边距。 */
-   property int messageAreaLeftMargin: 70
+   property real messageAreaLeftMargin: 70 * proportion
 
    /*! 内容区右侧边距。 */
-   property int messageAreaRightMargin: 70
+   property real messageAreaRightMargin: 70 * proportion
 
    /*!
-       \qmlproperty Component CDialog::messageAreaComponent
+       \qmlproperty Component SConfirm::messageAreaComponent
        内容区组件，默认为Text。
    */
    property alias messageAreaComponent:messageAreaLoader.sourceComponent
 
    /*!
-       \qmlproperty object CDialog::messageAreaItem
+       \qmlproperty object SConfirm::messageAreaItem
        messageAreaComponent加载完成之后对应的Item元素。
    */
    property alias messageAreaItem:messageAreaLoader.item
 
    /*!
-       \qmlproperty bool CDialog::messageAreaEnabled
+       \qmlproperty bool SConfirm::messageAreaEnabled
        内容区是否加载。
    */
    property alias messageAreaEnabled: messageAreaLoader.active
@@ -164,45 +144,48 @@ CAbstractPopLayer{
    /*! 确认按钮是否启用。 */
    property bool acceptButtonEnabled: true
 
-   /*! 按钮区按钮之间的距离。*/
-   property int buttonAreaSpacing: 2
+   /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度。*/
+   property real buttonAreaSpacing: 2 * proportion
 
    /*! 按钮区左侧边距。*/
-   property int buttonAreaLeftMargin: 80
+   property real buttonAreaLeftMargin: 80 * proportion
 
    /*! 按钮区右侧边距。 */
-   property int buttonAreaRightMargin: 80
+   property real buttonAreaRightMargin: 80 * proportion
 
    /*! 按钮区按钮的高度。*/
-   property int buttonHeight: 90
+   property real buttonHeight: 180 * proportion
+
+   /*! 按钮区按钮分割线的颜色。*/
+   property string buttonLineColor: "#cccccc"
 
    /*! 按钮区按钮的字体大小。 */
-   property double buttonTextPixelSize: 40 * proportion
+   property real buttonTextPixelSize: 40 * proportion
 
    /*! 模态框滑动到屏幕中间需要的距离 */
-   property int distance: contentBackground.contentHeight() / 2 + parent.height / 2
+   property real distance: (contentBackground.contentHeight() / 2 + parent.height / 2) * proportion
 
    /*!
-       \qmlproperty Component CDialog::buttonAreaComponent
+       \qmlproperty Component SConfirm::buttonAreaComponent
        按钮区组件。
    */
    property alias buttonAreaComponent:buttonAreaLoader.sourceComponent
 
    /*!
-       \qmlproperty Component CDialog::buttonAreaComponent
+       \qmlproperty Component SConfirm::buttonAreaComponent
        对话框内容背景区自定义样式接口。
        其高度会随着dialog的标题区、内容区、按键区以及区域之间的距离属性值的变化自动变化。因此高度等属性不可定制。
    */
    property alias dialogContentAreaComponent: dialogContentAreaLoader.sourceComponent
 
    /*!
-       \qmlproperty object CDialog::buttonAreaItem
+       \qmlproperty object SConfirm::buttonAreaItem
        buttonAreaComponent加载完成之后对应的Item元素。
    */
    property alias buttonAreaItem:buttonAreaLoader.item
 
    /*!
-       \qmlproperty bool CDialog::buttonAreaEnabled
+       \qmlproperty bool SConfirm::buttonAreaEnabled
        按钮区是否加载。
    */
    property alias buttonAreaEnabled:buttonAreaLoader.active
@@ -223,7 +206,7 @@ CAbstractPopLayer{
    Rectangle{
        id:background
        anchors.fill: parent
-       color: gUiConst.getValue("CB2")
+       color: "#000000"
        opacity: 0
        z:-1
    } /*! end of Rectangle */
@@ -241,14 +224,15 @@ CAbstractPopLayer{
            sourceComponent: Item{
                Rectangle{
                    anchors.fill: parent
-                   color: gUiConst.getValue("CB1")
-//                   radius: 50
+                   color: "#ffffff"
+                   radius: sconfirm.radius
                }
                Rectangle{
                    height:60
                    anchors.bottom: parent.bottom
-                   color: gUiConst.getValue("CB1")
+                   color: "#ffffff"
                    width:parent.width
+                   radius: sconfirm.radius
                }
            }
        }
@@ -270,7 +254,7 @@ CAbstractPopLayer{
                h += buttonAreaLoader.height
            }
 
-           h += bottomSpacing
+
            h += topSpacing
            return h
        }
@@ -285,9 +269,9 @@ CAbstractPopLayer{
        anchors.right: contentBackground.right
        anchors.rightMargin: titleAreaRightMargin
        sourceComponent: Text{
-           font.pixelSize: cdialog.titleTextPixelSize
-           color:cdialog.titleTextColor
-           text:cdialog.titleText
+           font.pixelSize: sconfirm.titleTextPixelSize
+           color:sconfirm.titleTextColor
+           text:sconfirm.titleText
            horizontalAlignment: Text.AlignHCenter
            verticalAlignment: Text.AlignVCenter
            elide: Text.ElideRight
@@ -303,12 +287,15 @@ CAbstractPopLayer{
        anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
        sourceComponent: Text{
-           font.pixelSize: cdialog.messageTextPixelSize
-           color:cdialog.messageTextColor
-           text:cdialog.messageText
+           font.pixelSize: sconfirm.messageTextPixelSize
+           color:sconfirm.messageTextColor
+           lineHeight: sconfirm.messageTextLineHeight
+           lineHeightMode: Text.FixedHeight
+           text:sconfirm.messageText
            wrapMode:Text.WrapAnywhere;
            horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
        }
+
    }
 
    Loader{
@@ -319,44 +306,50 @@ CAbstractPopLayer{
 //       anchors.leftMargin: buttonAreaLeftMargin
        anchors.right: contentBackground.right
 //       anchors.rightMargin: buttonAreaRightMargin
-       sourceComponent:Item{
+       sourceComponent: Item {
            implicitHeight:buttonsRow.implicitHeight
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
+
            Rectangle {
                 width: buttonAreaLoader.width
                 height: buttonAreaSpacing
-                color: 'red'
+                color: sconfirm.buttonLineColor
            }
            Row{
                id:buttonsRow
                spacing: buttonAreaSpacing
                anchors.centerIn: parent
                enabled: !animating
+
                SButton{
                    id:rejectButton
-                   visible: cdialog.rejectButtonVisible
-                   text:cdialog.rejectButtonText
-                   width:cdialog.buttonWidth
-                   height: cdialog.buttonHeight
+                   visible: sconfirm.rejectButtonVisible
+                   text:sconfirm.rejectButtonText
+                   width: buttonWidth
+                   height: sconfirm.buttonHeight
+
                    onClicked:{
                        hideAnimation.rejectedFlag = true
-                       cdialog.hide()
+                       sconfirm.hide()
                    }
                }
+
                Rectangle {
+                    visible: sconfirm.rejectButtonVisible
                     width: buttonAreaSpacing
-                    height: buttonsRow.height
-                    color: 'red'
+                    height: sconfirm.buttonHeight
+                    color: sconfirm.buttonLineColor
                }
+
                SButton{
                    id:acceptButton
-                   text:cdialog.acceptedButtonText
-                   width:cdialog.buttonWidth
-                   height: cdialog.buttonHeight
+                   text:sconfirm.acceptedButtonText
+                   width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
+                   height: sconfirm.buttonHeight
                    enabled: acceptButtonEnabled
                    onClicked:{
                        hideAnimation.acceptedFlag = true
-                       cdialog.hide()
+                       sconfirm.hide()
                    }
                }
            }
@@ -373,7 +366,7 @@ CAbstractPopLayer{
            if(hideAnimation.running){
                hideAnimation.stop()
            }
-           if(gAppUtils.lastDialog() && gAppUtils.lastDialog().visible && gAppUtils.lastDialog() != cdialog ) {
+           if(gAppUtils.lastDialog() && gAppUtils.lastDialog().visible && gAppUtils.lastDialog() != sconfirm ) {
                gAppUtils.setDialogWaitToShow(true)
                return gAppUtils.lastDialog().hide()
            }
@@ -381,13 +374,8 @@ CAbstractPopLayer{
                start()
            }
        }
-//       ScaleAnimator{target :dialogContentAreaLoader.item;                from: 0;
-//           to: 1;
-//           duration: 1000;
-//           running: true;}
 
-
-       NumberAnimation { target: background; property: "opacity"; duration: gSystemUtils.durationRatio*300; to: cdialog.__backGroundOpacity }
+       NumberAnimation { target: background; property: "opacity"; duration: gSystemUtils.durationRatio*300; to: sconfirm.__backGroundOpacity }
 
        onRunningChanged: {
            if(!running){
@@ -446,7 +434,7 @@ CAbstractPopLayer{
    }
 
    onRequestHide: {
-       if((showAnimating || showDelayTimer.running || cdialog.visible) && !hideDelayTimer.running){
+       if((showAnimating || showDelayTimer.running || sconfirm.visible) && !hideDelayTimer.running){
            // 在对话框未显示或者显示timer没有启动的时候表示对话框没有显示，不运行隐藏动画
            hideDelayTimer.start()
        }
@@ -460,8 +448,8 @@ CAbstractPopLayer{
        property int times: 0 // 用于保证正常退出循环
        onTriggered: {
            if((messageAreaLoader.status === Loader.Ready) || (times > 30)){
-               if(!cdialog.visible){
-                   cdialog.visible = true
+               if(!sconfirm.visible){
+                   sconfirm.visible = true
                }
                showDelayTimer.stop()
                showAnimation.show()
@@ -477,7 +465,7 @@ CAbstractPopLayer{
        interval: 30
        property int times: 0 // 用于保证正常退出循环
        onTriggered: {
-           if((cdialog.visible && !showDelayTimer.running && !showAnimation.running) || times > 20){
+           if((sconfirm.visible && !showDelayTimer.running && !showAnimation.running) || times > 20){
                hideDelayTimer.stop()
                hideAnimation.show()
                times = 0
