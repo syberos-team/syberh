@@ -73,7 +73,7 @@ QObject * NativeSdkManager::getUiSource(QString typeID,QString actionName){
 void NativeSdkManager::initHandlerConnect(QString typeID){
     NativeSdkHandlerBase * handler = m_NativeSdkFactory.getAllHandlers().value(typeID);
     if(handler){
-        connect(handler,SIGNAL(sucess(long,QVariant)),this,SIGNAL(sucess(long,QVariant)));
+        connect(handler,SIGNAL(success(long,QVariantMap)),this,SIGNAL(success(long,QVariantMap)));
         connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
         connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
     }

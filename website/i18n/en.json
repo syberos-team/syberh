@@ -8,11 +8,11 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
-      "apis/clipboard/getString": {
-        "title": "getString"
+      "apis/clipboard/getClipboardData": {
+        "title": "getClipboardData"
       },
-      "apis/clipboard/setString": {
-        "title": "setString"
+      "apis/clipboard/setClipboardData": {
+        "title": "setClipboardData"
       },
       "apis/download/download": {
         "title": "downloadFile"
@@ -82,6 +82,9 @@
       },
       "apis/systeminfo/getSysVersionID": {
         "title": "getSysVersionID"
+      },
+      "apis/telephony/dial": {
+        "title": "dial"
       },
       "apis/updates/manager": {
         "title": "更新管理",
@@ -164,6 +167,9 @@
       "qt/systeminfo/systeminfo": {
         "title": "系统信息"
       },
+      "qt/telephony/telephony": {
+        "title": "telephony"
+      },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
       }
@@ -186,6 +192,7 @@
       "导航栏": "导航栏",
       "modal": "modal",
       "媒体": "媒体",
+      "电话": "电话",
       "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
@@ -194,6 +201,7 @@
       "下载": "下载",
       "文件": "文件",
       "关于C++": "关于C++",
+      "通信": "通信",
       "更新": "更新",
       "request": "request",
       "download": "download",

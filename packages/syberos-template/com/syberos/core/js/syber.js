@@ -26,7 +26,6 @@ function render (root) {
     _root = root
   }
   var SyberOS = new Syber(root)
-
   SYBEROS = SyberOS
   // SyberOS.addPlugin(RootItem)
 }
