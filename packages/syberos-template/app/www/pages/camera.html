@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+    <title>demo</title>
+    <style type="text/css">
+      button {
+        font-size: 2em;
+        height: 4em;
+        width: 10em;
+      }
+
+      .text {
+        font-size: 2em;
+      }
+    </style>
+    <script src="../lib/vconsole.min.js"></script>
+    <script src="../lib/syber.min.js"></script>
+  </head>
+  <body>
+    <br><br><br><br><br>
+    <button id="capturePhoto" onclick="capturePhoto()">拍照</button>
+<!--    <button id="captureVideoStart" onclick="captureVideoStart()">开始录像</button>
+    <button id="captureVideoEnd" onclick="captureVideoEnd()">结束录像</button>
+    <button id="scan" onclick="scan()">扫描</button>-->
+
+    <br><br><br><br>
+    <a href="index.html"  class="text">返回</a>
+    <div class="text" id="content"></div>
+    <script>
+      var vConsole = new VConsole()
+      console.log('Hello world')
+      syber.config()
+      syber.ready(function() {
+        document.getElementById('content').innerHTML = '注册成功'
+      })
+      document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+
+      //拍照
+
+    function capturePhoto() {
+      syber.callApi({
+        name: 'takePictureImmediately',
+        mudule: 'camera',
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
+    </script>
+  </body>
+</html>
