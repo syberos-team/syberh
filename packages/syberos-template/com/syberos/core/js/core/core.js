@@ -16,7 +16,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert','camera']
+    defaultPlugins: ['alert', 'confirm', 'camera']
   }
 
   // add 内置 plugins
@@ -154,7 +154,8 @@ Syber.prototype._addBuiltInPlugins = function () {
   var list = this.option.defaultPlugins
   var plugins = {
     alert: { proto: Alert },
-        camera:{proto:Camera}
+    confirm: { proto: Confirm },
+    camera:{proto:Camera}
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {

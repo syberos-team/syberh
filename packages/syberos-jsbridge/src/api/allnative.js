@@ -1,4 +1,4 @@
-import uiMixin from './native/ui';
+import modalMixin from './native/modal';
 import webviewMix from './native/webview';
 import runtimeMixin from './native/runtime';
 import deviceMixin from './native/device';
@@ -14,7 +14,7 @@ import systemMixin from './native/system';
 export default function allNative (hybridJs) {
   // 下载模块
   downloadMixin(hybridJs);
-  uiMixin(hybridJs);
+  modalMixin(hybridJs);
   webviewMix(hybridJs);
   runtimeMixin(hybridJs);
   deviceMixin(hybridJs);
