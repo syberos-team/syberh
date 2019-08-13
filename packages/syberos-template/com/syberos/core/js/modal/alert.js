@@ -22,7 +22,6 @@ function Alert () {
     console.log('\n', param)
     component.titleText = that.param.title
     component.messageText = that.param.message
-    component.rejectButtonVisible = that.param.showCancel
     component.show()
 
 //    // 确认事件
