@@ -9,7 +9,7 @@ function Alert () {
     name: 'alert',
     module: 'modal',
     methods: ['alert'],
-    source: '../qml/SAlert.qml'
+    source: '../qml/SConfirm.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 

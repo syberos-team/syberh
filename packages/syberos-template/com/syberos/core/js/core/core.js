@@ -155,7 +155,7 @@ Syber.prototype._addBuiltInPlugins = function () {
   var plugins = {
     alert: { proto: Alert },
     confirm: { proto: Confirm },
-    camera:{proto:Camera}
+    camera:{proto: Camera}
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {

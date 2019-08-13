@@ -19,5 +19,8 @@
         <file>qml/SAlert.qml</file>
         <file>js/camera/camera.js</file>
         <file>qml/camera.qml</file>
+        <file>js/modal/prompt.js</file>
+        <file>qml/sprompt.qml</file>
+        <file>qml/SCollisionIndicator.qml</file>
     </qresource>
 </RCC>

@@ -21,10 +21,11 @@ function Confirm () {
     console.log('confirm ready', object)
     console.log('\n')
     var component = object || that.object
-    component.titleText = that.param.title
+//    component.titleText = that.param.title
     component.messageText = that.param.message
-    component.rejectButtonVisible = that.param.showCancel
+    component.acceptButtonLoading = true
     component.show()
+
 
     component.accepted.connect(function () {
       console.log('-----confirm accepted')

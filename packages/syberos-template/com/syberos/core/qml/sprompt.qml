@@ -131,13 +131,6 @@ CAbstractPopLayer{
    /*! 确认按钮是否启用 */
    property bool acceptButtonEnabled: true
 
-//   /*! 确认按钮的颜色 */
-//   property color acceptButtonColor: ""
-
-//   /*! 取消按钮的颜色 */
-//   property color rejectButtonColor: ""
-
-
    /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度*/
    property real buttonAreaSpacing: 2 * proportion
 
@@ -270,10 +263,10 @@ CAbstractPopLayer{
        anchors.rightMargin: titleAreaRightMargin
        sourceComponent: Item {
            Row {
-//               Image {
-////                   source:  "qrc:/images/error.svg"
-//                   source: '<g fill="#006e6e" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)" font-family="SimSun" font-size="9" font-weight="400" font-style="normal"><rect x="0" y="0" width="2000" height="2000"/></g>'
-//               }
+               Image {
+//                   source:  "qrc:/images/error.svg"
+                   source: '<g fill="#006e6e" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)" font-family="SimSun" font-size="9" font-weight="400" font-style="normal"><rect x="0" y="0" width="2000" height="2000"/></g>'
+               }
                Text{
                    font.pixelSize: sconfirm.titleTextPixelSize
                    color:sconfirm.titleTextColor
@@ -336,7 +329,7 @@ CAbstractPopLayer{
                    text:sconfirm.rejectButtonText
                    width: buttonWidth
                    height: sconfirm.buttonHeight
-                   textColor: rejectButtonColor ? rejectButtonColor : rejectButton.textSecondColor
+                   textColor: rejectButton.textSecondColor
                    pixelSize: sconfirm.buttonTextPixelSize
 
                    onClicked:{
@@ -360,7 +353,6 @@ CAbstractPopLayer{
                    height: sconfirm.buttonHeight
                    enabled: acceptButtonEnabled
                    pixelSize: sconfirm.buttonTextPixelSize
-                   textColor: acceptButtonColor ? rejectButtonColor : rejectButton.textSecondColor
 
                    onClicked:{
                        hideAnimation.acceptedFlag = true
@@ -371,9 +363,7 @@ CAbstractPopLayer{
                    visible: acceptButtonLoading
                    width: buttonWidth
                    height: sconfirm.buttonHeight
-                   SCollisionIndicator{
-                       width: buttonWidth
-                       height: sconfirm.buttonHeight
+                   CCollisionIndicator{
                        running: acceptButtonLoading
                    }
                }
