@@ -46,22 +46,14 @@
     }
 
     function alert() {
-      syber.callApi({
-        name: 'alert',
-        mudule: 'modal',
-        data: {
+        syber.modal.alert({
             title: '弹窗标题',
             message: '弹窗内容，告知当前状态、信息和解决方法，描述',
-            showCancel: false
-        },
-        success: function(result) {
-        console.log('xuejun-------')
-          console.info(result)
-        },
-        error: function(error) {
-          console.info(error)
-        }
-      })
+            success: function (result) {
+              console.info('弹窗标题')
+              console.info(result)
+            }
+        })
     }
 
     function confirm() {
