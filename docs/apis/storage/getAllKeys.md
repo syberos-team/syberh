@@ -18,7 +18,7 @@ title: getAllKeys
 #### Object res
 | 属性     | 类型    | 是否必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
-| res | array | 是     | 已存储的键名的数组 |
+| keys | array | 是     | 已存储的键名的数组 |
 
 #### object.fail 回调函数
 #### 参数
@@ -32,7 +32,7 @@ title: getAllKeys
 ``` javascript
     syber.storage.getAllKeys({
         success: function(res) {
-            console.log(res)
+            console.log(res.keys)
         },
         fail: function(res) {
             console.log(res.msg)

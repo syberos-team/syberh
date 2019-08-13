@@ -1,6 +1,7 @@
 #include "storage.h"
 #include <qdebug.h>
-#include <qjsonarray.h>
+#include <QJsonArray>
+#include <QJsonObject>
 
 int Storage::typeId = qRegisterMetaType<Storage *>();
 
@@ -48,7 +49,9 @@ void Storage::setItem(QString callbackId, QString key, QVariant value){
         return;
     }
     manager->setValue(key, value, CStorageBasic::PolicyAlways);
-    emit success(callbackId.toLong(), true);
+    QJsonObject json;
+    json.insert("result", true);
+    emit success(callbackId.toLong(), json);
 }
 
 
@@ -58,7 +61,9 @@ void Storage::getItem(QString callbackId, QString key){
         return;
     }
     QVariant value = manager->value(key, CStorageBasic::PolicyAlways);
-    emit success(callbackId.toLong(), value);
+    QJsonObject json;
+    json.insert("value", QJsonValue::fromVariant(value));
+    emit success(callbackId.toLong(), json);
 }
 
 void Storage::removeItem(QString callbackId, QString key){
@@ -68,12 +73,15 @@ void Storage::removeItem(QString callbackId, QString key){
     }
     manager->remove(key);
     bool isRemoved = !manager->contains(key);
-    emit success(callbackId.toLong(), isRemoved);
+    QJsonObject json;
+    json.insert("result", isRemoved);
+    emit success(callbackId.toLong(), json);
 }
 
 void Storage::getAllKeys(QString callbackId){
     QStringList keys = manager->listAll();
-    QJsonArray arr = QJsonArray::fromStringList(keys);
-    emit success(callbackId.toLong(), arr);
+    QJsonObject json;
+    json.insert("keys", QJsonArray::fromStringList(keys));
+    emit success(callbackId.toLong(), json);
 }
 
