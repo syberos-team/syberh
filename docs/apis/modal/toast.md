@@ -15,7 +15,7 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 | image | string |  | 否 | 自定义图标的本地路径，image 的优先级高于 icon |
 | duration | number | 2000 | 否 | 提示的延迟时间 |
 | success | function |  |  否     | 接口调用成功的回调函数      |
-| error   | function |  |  否     | 接口调用失败的回调函数      |
+| fail   | function |  |  否     | 接口调用失败的回调函数      |
 
 
 #### object.icon 的合法值
@@ -26,7 +26,7 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 | none | 不显示图标，此时 title 文本最多可显示两行 |
 
 
-#### object.error回调函数
+#### object.fail回调函数
 #### 参数
 #### Object err
 | 属性 | 类型  | 描述 |

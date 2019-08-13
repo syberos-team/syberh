@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>demo</title>
@@ -11,7 +10,6 @@
       height: 2em;
       width: 7em;
     }
-
     .text {
       font-size: 2em;
     }
@@ -27,11 +25,15 @@
 <body>
   <button id="donwload" onclick="donwload()">donwload</button>
   <button id="donwload" onclick="alert()">alert</button>
+  <button id="donwload" onclick="confirm()">confirm</button>
   <button onclick="goBack()">goBack()</button>
-  <a class="link" href="pages/webview.html"> webview</a>
+  <a class="link" href="pages/webview.html"> webview</a><br />
   <a class="link" href="pages/clipboard.html"> clipboard</a><br />
   <a class="link" href="pages/telephony.html"> telephony</a><br />
+  <a class="link" href="pages/modal.html"> modal</a>
+  <a class="link" href="pages/camera.html"> camera</a><br />
   <a class="link" href="pages/storage.html"> storage</a>
+  <a href="pages/system.html" style="font-size:40px;">系统信息</a>
   <div class="text" id="content"></div>
   <script>
     var vConsole = new VConsole()
@@ -87,19 +89,16 @@
     }
 
     function alert() {
-      syber.callApi({
-        name: 'alert',
-        mudule: 'modal',
-        data: { title: 'alert test', message: 'message' },
-        success: function (result) {
-          console.info(result)
-        },
-        error: function (error) {
-          console.info(error)
-        }
-      })
+        syber.modal.alert({
+            title: '弹窗标题',
+            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            success: function (result) {
+              console.info('弹窗标题')
+              console.info(result)
+            }
+        })
     }
-  </script>
-</body>
 
+    </script>
+  </body>
 </html>

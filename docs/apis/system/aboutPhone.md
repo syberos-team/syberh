@@ -2,7 +2,7 @@
 title: aboutPhone
 ---
 
-## syber.systeminfo.aboutPhone(Object object)
+## syber.system.aboutPhone(Object object)
 
 获取手机信息，支持Promise调用
 
@@ -14,7 +14,7 @@ title: aboutPhone
 | ------- | -------- | -------- | ------------------------------------------------------------ |
 | modem   | number   | 否       | 在双卡平台可用，默认为0，<br />0：取第一个modem的imei<br />1：取第二个modem的imei |
 | success | function | 否       | 接口调用成功的回调函数                                       |
-| error   | function | 否       | 接口调用失败的回调函数                                       |
+| fail    | function | 否       | 接口调用失败的回调函数                                       |
 
 **object.success 回调函数参数**
 
@@ -28,7 +28,7 @@ title: aboutPhone
 | simCardNumbers | Array  | 如果是双卡，有多个手机号             |
 | imsis          | Array  | 如果是双卡，有多个国际移动用户识别码 |
 
-**object.error回调函数参数**
+**object.fail回调函数参数**
 
 **Object object**
 
@@ -39,7 +39,7 @@ title: aboutPhone
 
 ### 示例
 ```js
-syber.systeminfo.aboutPhone({
+syber.system.aboutPhone({
     modem: 0,
 	success:function(result){
         console.log('id: ', result.id);
@@ -48,13 +48,13 @@ syber.systeminfo.aboutPhone({
         console.log('simCardNumbers: ', result.simCardNumbers);
         console.log('imsis: ', result.imsis);
     }
-    error:function(error){
+    fail:function(error){
         console.log('code: ', error.code);
     	console.log('msg: ', error.msg);
     }
 });
 
-syber.systeminfo.aboutPhone({
+syber.system.aboutPhone({
     modem: 0,
 }).then(function(result) {
     console.log('id: ', result.id);
