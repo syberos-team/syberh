@@ -1,38 +1,22 @@
-/*
- * This file is part of syberos-toolkit-core
- * Copyright (C) 2015 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
- * Authors:
- *       zhao pan <zhaopan@syberos.com>
- *
- * This software, including documentation, is protected by copyright controlled
- * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
- */
+/*!
+* This file is part of hybrid-core
+*
+* Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd.
+All rights reserved.
+*
+* Authors:
+*
+xuejun <xuejun@syberos.com>
+*
+* This software, including documentation, is protected by
+copyright controlled
+* by Beijing Yuan Xin Technology Co.,Ltd. All rights are
+reserved.
+*/
 
 import QtQuick 2.3
 import com.syberos.basewidgets 2.0
 import QtQuick.Controls 1.4
-/*!
-   \qmltype SConfirm
-   \inqmlmodule com.syberos.basewidgets
-   \since 2.0
-   \ingroup controls
-   \brief 默认对话框控件
-
-   SConfirm主要由五个部分组成：背景区，对话框背景区，标题区，内容区，按钮区。
-   其中浮层背景不可定制，其余部分可根据用户需求自行定制。
-
-   控件外观：
-   \image SConfirm.png
-
-   示例代码:
-   \qml
-   SConfirm {
-       id: dialog
-       titleText: "message title"
-       messageText: "message content"
-   }
-   \endqml
-*/
 
 
 
@@ -40,40 +24,40 @@ CAbstractPopLayer{
    id:sconfirm
    anchors.fill: parent
 
-   /*!模态框和页面的宽度比例。 */
+   /*! 模态框和页面的宽度比例 */
    property real proportion: 840 / 1080
 
-   /*! 标题区与对话框背景区上边沿之间的距离。 */
+   /*! 标题区与对话框背景区上边沿之间的距离 */
    property real topSpacing: 80 * proportion
 
-   /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离。 */
+   /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离 */
    property real topSpacingNoTitle: 120 * proportion
 
-   /*! 对话框的圆角大小。 */
+   /*! 对话框的圆角大小 */
    property real radius: 6
 
-   /*! 标题区和内容区之间的距离。 */
+   /*! 标题区和内容区之间的距离 */
    property real spacingBetweenTitleAreaAndMessageArea: 80 * proportion
 
-   /*!  内容区和按钮区之间的距离。*/
+   /*! 内容区和按钮区之间的距离*/
    property real spacingBetweenMessageAreaAndButtonArea: 100 * proportion
 
-   /*! 标题文本。 */
+   /*! 标题文本 */
    property string titleText: ""
 
-   /*! 标题颜色。 */
+   /*! 标题颜色 */
    property color titleTextColor: "#333333"
 
-   /*! 标题字体大小。 */
+   /*! 标题字体大小 */
    property real titleTextPixelSize: 52 * proportion
 
-   /*! 标题区左侧边距。*/
+   /*! 标题区左侧边距*/
    property int titleAreaHeight: 100 * proportion
 
-   /*! 标题区左侧边距。*/
+   /*! 标题区左侧边距*/
    property real titleAreaLeftMargin: 40 * proportion
 
-   /*! 标题区右侧边距。*/
+   /*! 标题区右侧边距*/
    property real titleAreaRightMargin:40 * proportion
 
    /*!
@@ -90,79 +74,79 @@ CAbstractPopLayer{
 
    /*!
        \qmlproperty bool SConfirm::titleAreaEnabled
-       是否启用标题区。
+       是否启用标题区
    */
    property alias titleAreaEnabled:titleAreaLoader.active
 
    // MessageAra使用相关属性
 
-   /*! 内容区文本。 */
+   /*! 内容区文本 */
    property string messageText: ""
 
-   /*! 内容区文本颜色。 */
+   /*! 内容区文本颜色 */
    property color messageTextColor: "#333333"
 
 
-   /*! 内容区文本字体大小。 */
+   /*! 内容区文本字体大小 */
    property real messageTextPixelSize: 40 * proportion
 
-   /*! 内容区文本行高大小。 */
+   /*! 内容区文本行高大小 */
    property real messageTextLineHeight: 70 * proportion
 
-   /*! 内容区左侧边距。 */
+   /*! 内容区左侧边距 */
    property real messageAreaLeftMargin: 70 * proportion
 
-   /*! 内容区右侧边距。 */
+   /*! 内容区右侧边距 */
    property real messageAreaRightMargin: 70 * proportion
 
    /*!
        \qmlproperty Component SConfirm::messageAreaComponent
-       内容区组件，默认为Text。
+       内容区组件，默认为Text
    */
    property alias messageAreaComponent:messageAreaLoader.sourceComponent
 
    /*!
        \qmlproperty object SConfirm::messageAreaItem
-       messageAreaComponent加载完成之后对应的Item元素。
+       messageAreaComponent加载完成之后对应的Item元素
    */
    property alias messageAreaItem:messageAreaLoader.item
 
    /*!
        \qmlproperty bool SConfirm::messageAreaEnabled
-       内容区是否加载。
+       内容区是否加载
    */
    property alias messageAreaEnabled: messageAreaLoader.active
 
    // Button区域属性设置相关
 
-   /*! 取消按钮文本，默认为“取消”。 */
+   /*! 取消按钮文本，默认为“取消” */
    property string rejectButtonText: qsTr("取消")
 
-   /*! 确认按钮文本，默认为“确定”。 */
+   /*! 确认按钮文本，默认为“确定” */
    property string acceptedButtonText: qsTr("确定")
 
-   /*! 取消按钮是否展示。 */
+   /*! 取消按钮是否展示 */
    property bool rejectButtonVisible: true
 
-   /*! 确认按钮是否启用。 */
+   /*! 确认按钮是否启用 */
    property bool acceptButtonEnabled: true
 
-   /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度。*/
+   /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度*/
    property real buttonAreaSpacing: 2 * proportion
 
-   /*! 按钮区左侧边距。*/
+   /*! 按钮区左侧边距*/
    property real buttonAreaLeftMargin: 80 * proportion
 
-   /*! 按钮区右侧边距。 */
+   /*! 按钮区右侧边距 */
    property real buttonAreaRightMargin: 80 * proportion
 
-   /*! 按钮区按钮的高度。*/
+   /*! 按钮区按钮的高度*/
    property real buttonHeight: 180 * proportion
 
-   /*! 按钮区按钮分割线的颜色。*/
+   /*! 按钮区按钮分割线的颜色*/
    property string buttonLineColor: "#cccccc"
 
-   /*! 按钮区按钮的字体大小。 */
+   /*! 按钮区按钮的字体大小 */
    property real buttonTextPixelSize: 48 * proportion
 
    /*! 模态框滑动到屏幕中间需要的距离 */
@@ -170,39 +154,39 @@ CAbstractPopLayer{
 
    /*!
        \qmlproperty Component SConfirm::buttonAreaComponent
-       按钮区组件。
+       按钮区组件
    */
    property alias buttonAreaComponent:buttonAreaLoader.sourceComponent
 
    /*!
        \qmlproperty Component SConfirm::buttonAreaComponent
-       对话框内容背景区自定义样式接口。
-       其高度会随着dialog的标题区、内容区、按键区以及区域之间的距离属性值的变化自动变化。因此高度等属性不可定制。
+       对话框内容背景区自定义样式接口
+       其高度会随着dialog的标题区、内容区、按键区以及区域之间的距离属性值的变化自动变化, 因此高度等属性不可定制
    */
    property alias dialogContentAreaComponent: dialogContentAreaLoader.sourceComponent
 
    /*!
        \qmlproperty object SConfirm::buttonAreaItem
-       buttonAreaComponent加载完成之后对应的Item元素。
+       buttonAreaComponent加载完成之后对应的Item元素
    */
    property alias buttonAreaItem:buttonAreaLoader.item
 
    /*!
        \qmlproperty bool SConfirm::buttonAreaEnabled
-       按钮区是否加载。
+       按钮区是否加载
    */
    property alias buttonAreaEnabled:buttonAreaLoader.active
 
    /*! \internal 控制背景透明度 */
    property real __backGroundOpacity: 0.73
 
-   /*! 标识动画是否正在进行，只读属性。*/
+   /*! 标识动画是否正在进行，只读属性*/
    readonly property bool animating: showAnimation.running || hideAnimation.running
 
-   /*! 拒绝信号，当点击默认的“取消”按钮时发射。 */
+   /*! 拒绝信号，当点击默认的“取消”按钮时发射 */
    signal rejected()
 
-   /*! 接受信号，当点击默认的“确定”按钮时发射。 */
+   /*! 接受信号，当点击默认的“确定”按钮时发射 */
    signal accepted()
 
    /*! 背景, 不允许定制 */
@@ -300,6 +284,7 @@ CAbstractPopLayer{
        }
 
    }
+   CButton {}
 
    Loader{
        id:buttonAreaLoader
