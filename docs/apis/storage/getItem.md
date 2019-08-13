@@ -18,7 +18,7 @@ title: getItem
 #### Object res
 | 属性     | 类型    | 是否必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
-| res | string  | 是     | 已存储的键值，键不存在时返回undefined  |
+| value | string  | 是     | 已存储的键值 |
 
 #### object.fail 回调函数
 #### 参数
@@ -34,7 +34,7 @@ title: getItem
     syber.storage.getItem({
         key: 'name',
         success: function(res) {
-            console.log(res)
+            console.log(res.value)
         },
         fail: function(res) {
             console.log(res.msg)

@@ -18,7 +18,7 @@ title: removeItem
 #### Object res
 | 属性     | 类型    | 是否必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
-| res | boolean  | 是     | 返回true, 表示执行成功  |
+| result | boolean  | 是     | 返回true, 表示执行成功  |
 
 #### object.fail 回调函数
 #### 参数
@@ -34,7 +34,7 @@ title: removeItem
     syber.storage.removeItem({
         key: 'name',
         success: function(res) {
-            console.log(res)
+            console.log(res.result)
         },
         fail: function(res) {
             console.log(res.msg)
