@@ -15,7 +15,8 @@ WebView {
     signal downLoadConfirmRequest
      //加载信号
     signal reloadSuccess(var loadProgress)
-
+    //返回键信号
+    signal keyOnReleased(var event)
     property var _contentY: 0
     property url curHoverUrl: ""
 
@@ -25,6 +26,12 @@ WebView {
     experimental.minimumScale: false
     experimental.preferredMinimumContentsWidth: 720
     experimental.objectName: 'qml'
+    Keys.onReleased: {
+        console.log("----- ", "WebView (event): ",
+                    event.key, "\r\n")
+        keyOnReleased(event)
+        //event.accepted = true
+    }
 
     experimental.preferences.navigatorQtObjectEnabled: true
     experimental.onMessageReceived: {
