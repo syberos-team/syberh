@@ -14,7 +14,8 @@ HEADERS += \
     $$PWD/src/telephony.h \
     $$PWD/src/storage.h \
     $$PWD/src/clipboard.h \
-    $$PWD/src/system.h
+    $$PWD/src/system.h \
+    $$PWD/src/network.h
 
 SOURCES += \
     $$PWD/src/camerahandler.cpp \
@@ -28,7 +29,8 @@ SOURCES += \
     $$PWD/src/telephony.cpp \
     $$PWD/src/storage.cpp \
     $$PWD/src/clipboard.cpp \
-    $$PWD/src/system.cpp
+    $$PWD/src/system.cpp \
+    $$PWD/src/network.cpp
 
 DISTFILES +=
 
