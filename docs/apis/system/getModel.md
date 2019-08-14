@@ -1,10 +1,11 @@
 ---
-title: getCoreVersion
+title: getModel
 ---
 
-## syber.systeminfo.getCoreVersion(Object object)
 
-获取内核版本，支持Promise调用
+## syber.system.getModel(Object object)
+
+获取手机型号，支持Promise调用
 
 ### 参数
 
@@ -13,7 +14,7 @@ title: getCoreVersion
 | 属性    | 类型     | 是否必填 | 描述                   |
 | ------- | -------- | -------- | ---------------------- |
 | success | function | 否       | 接口调用成功的回调函数 |
-| error   | function | 否       | 接口调用失败的回调函数 |
+| fail    | function | 否       | 接口调用失败的回调函数 |
 
 **object.success 回调函数参数**
 
@@ -23,7 +24,7 @@ title: getCoreVersion
 | ------ | ------ | -------- |
 | result | String | 手机型号 |
 
-**object.error回调函数参数**
+**object.fail回调函数参数**
 
 **Object object**
 
@@ -34,18 +35,18 @@ title: getCoreVersion
 
 ### 示例
 
-```
-syber.systeminfo.getCoreVersion({
+```js
+syber.system.getModel({
 	success:function(result){
         console.log('result: ', result);
     }
-    error:function(error){
+    fail:function(error){
         console.log('code: ', error.code);
     	console.log('msg: ', error.msg);
     }
 });
 
-syber.systeminfo.getCoreVersion().then(function(result) {
+syber.system.getModel().then(function(result) {
     console.log('result: ', result);
 }).catch(function(error) {
     console.log('code: ', error.code);

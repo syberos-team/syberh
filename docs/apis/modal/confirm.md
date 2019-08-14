@@ -20,7 +20,7 @@ title: confirm
 | confirmIcon | string |       | 否 | 确认按钮的图标 |
 | confirmColor | string| '#576B95'  | 否 | 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
 | success | function |  |  是     | 接口调用成功的回调函数      |
-| error   | function |  |  是     | 接口调用失败的回调函数      |
+| fail   | function |  |  是     | 接口调用失败的回调函数      |
 
 #### object.success回调函数
 #### 参数
@@ -30,7 +30,7 @@ title: confirm
 | confirm | boolean  | 为 true 时，表示用户点击了确定按钮 |
 | cancel | boolean  | 为 true 时，表示用户点击了取消  |
 
-#### object.error回调函数
+#### object.fail回调函数
 #### 参数
 #### Object error
 | 属性 | 类型  | 描述 |
@@ -51,7 +51,7 @@ title: confirm
                 console.log('用户点击取消')
             }
         },
-        error: function(error) {
+        fail: function(error) {
             console.log(error.msg)
         }
     })

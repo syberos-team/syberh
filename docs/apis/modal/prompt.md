@@ -19,7 +19,7 @@ title: prompt
 | cancelTitle | string |  '取消' |否 | 取消按钮上显示的文字信息 |
 | cancelColor | string | '#000000' | 否 | 取消按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
 | success | function |  |  是     | 接口调用成功的回调函数      |
-| error   | function |  |  是     | 接口调用失败的回调函数      |
+| fail   | function |  |  是     | 接口调用失败的回调函数      |
 
 
 #### object.success回调函数参数
@@ -31,7 +31,7 @@ title: prompt
 | cancel | boolean  | 为 true 时，表示用户点击了取消  |
 | data | String   | 用户输入的文字信息  |
 
-#### object.error回调函数
+#### object.fail回调函数
 #### 参数
 #### Object error
 | 属性 | 类型  | 描述 |
@@ -46,7 +46,7 @@ title: prompt
         success: function(res) {
             console.log(res.result)
         },
-        error: function(error) {
+        fail: function(error) {
             console.log(error.msg)
         }
     })

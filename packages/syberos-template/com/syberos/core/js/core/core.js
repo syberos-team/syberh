@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable no-undef */
 /**
  * Syber core Function
@@ -7,7 +8,9 @@ function Syber (parent) {
   this.version = '1.0.0'
   this.isInited = false
   this.pluginList = {}
+  this.modules = {}
   // 根节点
+  // eslint-disable-next-line node/no-deprecated-api
   this._root = parent || root
 
   this.body = null
@@ -16,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert','camera']
+    defaultPlugins: ['alert', 'confirm', 'camera']
   }
 
   // add 内置 plugins
@@ -88,7 +91,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   }
 
   // 创建完成后发送request
-  this._initPlugin(plugin,null, function (object) {
+  this._initPlugin(plugin, null, function (object) {
     plugin.trigger(method, object, handlerId, param)
   })
 }
@@ -126,12 +129,10 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     }
   }
 }
-
 // pageStack
 Syber.prototype.pageStack = function (plugin, callback) {
   var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
-
-
+  plugin.trigger('ready', incubator.object)
   if (callback) callback(object)
   // tackPhoto.imageConfirmed.connect(function (filePath) { // 处理信号
   //   icon.source = 'file://' + filePath
@@ -154,7 +155,8 @@ Syber.prototype._addBuiltInPlugins = function () {
   var list = this.option.defaultPlugins
   var plugins = {
     alert: { proto: Alert },
-        camera:{proto:Camera}
+    confirm: { proto: Confirm },
+    camera: { proto: Camera }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {
@@ -194,7 +196,6 @@ Syber.prototype.addPlugin = function (plugin) {
     return false
   }
   this.pluginList[plugin.id] = plugin
-
   // init plugin only if Syber is ready
   if (this.isInited && plugin.autoCreate) {
     this._initPlugin(plugin)
