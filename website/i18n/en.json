@@ -147,7 +147,7 @@
         "title": "navigator"
       },
       "qt/request/request-c": {
-        "title": "qt/request/request-c"
+        "title": "request"
       },
       "qt/runtime/runtime": {
         "title": "runtime"
