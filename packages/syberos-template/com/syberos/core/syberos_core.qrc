@@ -19,5 +19,9 @@
         <file>qml/SAlert.qml</file>
         <file>js/camera/camera.js</file>
         <file>qml/camera.qml</file>
+        <file>qml/SToast.qml</file>
+        <file>js/modal/toast.js</file>
+        <file>qml/toast-false.png</file>
+        <file>qml/toast-true.png</file>
     </qresource>
 </RCC>

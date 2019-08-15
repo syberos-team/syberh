@@ -27,10 +27,15 @@
 <body>
   <button id="donwload" onclick="alert()">alert</button>
   <button id="donwload" onclick="confirm()">confirm</button>
+  <button id="toastSuccess" onclick="toastSuccess()">toast-success</button>
+  <button id="toastError" onclick="toastError()">toast-error</button>
+  <button id="toastNone" onclick="toastNone()">toast-none</button>
   <button onclick="goBack()">goBack()</button>
   
   <div class="text" id="content"></div>
   <script>
+
+    var vConsole = new VConsole();
     function goBack() {
       syber.callApi({
         name: 'goBack',
@@ -72,6 +77,60 @@
           console.info(error)
         }
       })
+    }
+
+    function toastSuccess() {
+        syber.callApi({
+          name: 'toast',
+          mudule: 'modal',
+          data: {
+            title: '正确提示',
+            icon: 'success',
+            duration: 1500
+          },
+          success: function(result) {
+            console.info("toast success: "+ JSON.stringify(result))
+          },
+          fail: function(error) {
+            console.info("toast error: "+ JSON.stringify(error))
+          }
+        })
+    }
+
+    function toastError() {
+        syber.callApi({
+          name: 'toast',
+          mudule: 'modal',
+          data: {
+            title: '错误提示',
+            icon: 'error',
+            duration: 1500
+          },
+          success: function(result) {
+            console.info("toast success: "+ JSON.stringify(result))
+          },
+          fail: function(error) {
+            console.info("toast error: "+ JSON.stringify(error))
+          }
+        })
+    }
+
+    function toastNone() {
+        syber.callApi({
+          name: 'toast',
+          mudule: 'modal',
+          data: {
+            title: '没有文本的提示没有文本的提示',
+            icon: 'none',
+            duration: 1500
+          },
+          success: function(result) {
+            console.info("toast success: "+ JSON.stringify(result))
+          },
+          fail: function(error) {
+            console.info("toast error: "+ JSON.stringify(error))
+          }
+        })
     }
     </script>
   </body>
