@@ -24,7 +24,7 @@ title: scan
 | ------- | -------- | -------- | ----------------------------------------- |
 | camera  | number   | 是        | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
 | success | function | 否       | 接口调用成功的回调函数                    |
-| error   | function | 否       | 接口调用失败的回调函数                    |
+| fail   | function | 否       | 接口调用失败的回调函数                    |
 
 **object.success回调参数**
 
@@ -33,7 +33,7 @@ title: scan
 | type    | String | 二维码的类型 |
 | content | String | 二维码的内容 |
 
-**object.error回调参数**
+**object.fail回调参数**
 
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |

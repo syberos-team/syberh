@@ -25,7 +25,7 @@ title: 扫码
 **示例代码**
 
 ```
-void scan(QString callbackId,long camera);
+void scan(QString callbackId, QString camera);
 ```
 
 
