@@ -14,3 +14,6 @@ var uiModules = {
 var SYBEROS = null
 // 全局WEBVIEW
 var WEBVIEWCORE = null
+
+// 返回键的值
+var KEYCODE_BACK = 16777313

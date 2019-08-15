@@ -1,9 +1,9 @@
-## 网络请求
-> 发起网络请求
+---
+title: request
+---
 
-### 方法
 ### void request(QString callBackID, QVariantMap params)
-> 发起请求
+> 发起网络请求
 
 ### 参数
 属性 | 类型 | 必填 | 描述
@@ -22,7 +22,7 @@ params| QVariantMap | 是 | 请求传递的参数
 属性 | 类型 | 必填 | 描述
 ---|---|---|---
 responseID | long | 是 | 请求传入的唯一标志，用于应用判断是否为自己发送的请求
-result| QString | 是 | 请求结果
+result| QVariant | 是 | 请求结果
 
 ### 失败信号
 ### void failed(long responseID,long errorCode,QString errorMsg)
