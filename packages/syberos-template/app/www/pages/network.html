@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <div class="mui-content pt0">
+      <ul class="mui-table-view ">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="goGet()">goGet()</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="goPost()">goPost()</a>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="../common/mui/mui.js"></script>
+    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+
+
+  <script>
+    var vConsole = new VConsole()
+    console.log('Hello world')
+    function print(str) {
+      document.getElementById('content').innerHTML = JSON.stringify(str)
+    }
+    syber.ready(function () {
+      document.getElementById('content').innerHTML = '注册成功'
+    })
+    document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+
+    function goGet() {
+        syber.netWork.request({
+          url: 'http://172.16.23.94:8000/get',
+          success: function (result) {
+            console.info(result)
+          },
+          fail: function (error) {
+            console.info(error)
+          }
+        })
+    }
+    function goPost() {
+
+        syber.netWork.request({
+          url: 'http://172.16.23.94:8000/post',
+          method: 'post',
+          data: {'key1':'key1', 'key2':'key2'},
+          success: function (result) {
+            console.info(result)
+          },
+          fail: function (error) {
+            console.info(error)
+          }
+        })
+    }
+  </script>
+</body>
+
+</html>

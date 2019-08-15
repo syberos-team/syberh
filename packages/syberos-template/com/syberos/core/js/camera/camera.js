@@ -15,13 +15,14 @@ function Camera () {
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
-  this.on('takePictureImmediately', function (object, handlerId, param) {
-    var component = object || that.object
+  this.on('takePictureImmediately', function (object) {
 
-    console.log('\n')
-    console.log('alert request')
-    console.log('\n', param)
-    // component.show()
+    console.log('-------------------------------------object', object)
+    object.back.connect(function (path) {
+        console.log('-------------------------------------message',path)
+        pageStack.pop()
+        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
+    })
   })
 
   this.on('ready', function () {

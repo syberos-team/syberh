@@ -40,11 +40,30 @@ function WebView (options) {
     NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
     NativeSdkManager.failed.connect(that.onFailed.bind(that))
-
+    // 绑定消息接受信号
     webview.receiveMessage.connect(function (message) {
       that.onMessageReceived(message, that.id)
     })
-    console.log('--------\n   webview  \n')
+    // 绑定keys监听事件
+    webview.keyOnReleased.connect(function (event) {
+      that.trigger('keyRelease', webview, event)
+    })
+  })
+
+  /**
+   * 监听手机key
+   */
+  this.on('keyRelease', function (webview, event) {
+    console.log('\n----------------event.key', typeof event.key)
+    // 处理返回键事件
+    if (KEYCODE_BACK === event.key) {
+      if (webview.canGoBack) {
+        event.accepted = true
+        webview.goBack()
+      } else {
+
+      }
+    }
   })
 
   // 接受qml成功返回
@@ -147,14 +166,15 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   if (model.data) {
     funcArgs = model.data
   }
+
+  console.log('\n -------------------', handlerId, method, funcArgs)
   // 如果为ui模块
-  if (uiModules[module]) {
+  if (SYBEROS.getPlugin(module, method)) {
     // 请求qml动态模块
     SYBEROS.request(module, handlerId, method, model.data)
     return
   }
 
-  console.log('\n -------------------', handlerId, method, funcArgs)
   // 因为C++类都为大写开头,所以第一个字母转为大写
   var moduleName = module.charAt(0).toUpperCase() + module.slice(1) + '*'
   NativeSdkManager.request(moduleName, handlerId, method, funcArgs)
