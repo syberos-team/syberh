@@ -17,7 +17,7 @@
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="tel()">telephony(拨号)</a>
+        <a class="mui-navigate-right api-class" onclick="scan()">scan(扫码)</a>
       </li>
     </ul>
   </div>
@@ -27,17 +27,16 @@
   <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
-    function tel() {
-      syber.telephony.dial({
-        'tel': '15011111111',
+    function scan() {
+      syber.barcode.scan({
         success: function (result) {
           console.info(result)
         },
         fail: function (error) {
-          console.info(error)
+          print(error)
         }
       })
-    }
+    };
   </script>
 </body>
 

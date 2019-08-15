@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'camera']
+    defaultPlugins: ['alert', 'confirm', 'camera', 'barcode']
   }
 
   // add 内置 plugins
@@ -77,7 +77,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   var plugin = this.getPlugin(module, method)
   // this.pluginList[pluginID]
   if (!plugin) {
-    console.error('Plugin ', +module, method, ' 不存在.')
+    console.error('Plugin ', module, method, ' 不存在.')
     return false
   }
   // 参数处理
@@ -156,7 +156,8 @@ Syber.prototype._addBuiltInPlugins = function () {
   var plugins = {
     alert: { proto: Alert },
     confirm: { proto: Confirm },
-    camera: { proto: Camera }
+    camera: { proto: Camera },
+    barcode: { proto: Barcode }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {
