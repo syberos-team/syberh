@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtMultimedia 5.2
 import com.syberos.basewidgets 2.0
 import com.syberos.decodeWorkSpace 1.0
+import "../js/barcode/constants.js" as UI
 
 
 BarcodeScan{
@@ -132,7 +133,7 @@ BarcodeScan{
                 anchors.topMargin: 40
                 anchors.horizontalCenter: parent.horizontalCenter
                 color:"#ffffff"
-                //font.pixelSize: UI.FONT_SIZE_18
+                font.pixelSize: UI.FONT_SIZE_10
                 text: os.i18n.ctr(qsTr("放入框内，自动扫描"))
             }
         }
