@@ -132,7 +132,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
 // pageStack
 Syber.prototype.pageStack = function (plugin, callback) {
   var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
-  plugin.trigger('ready', incubator.object)
+  plugin.trigger('ready', object)
   if (callback) callback(object)
   // tackPhoto.imageConfirmed.connect(function (filePath) { // 处理信号
   //   icon.source = 'file://' + filePath
