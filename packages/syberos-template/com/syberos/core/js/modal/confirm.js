@@ -18,16 +18,18 @@ function Confirm () {
   this.on('confirm', function (object) {
 
     console.log('\n')
-    console.log('confirm ready', object)
+    console.log('confirm ready', JSON.stringify(that.param))
     console.log('\n')
     var component = object || that.object
-//    component.titleText = that.param.title
+    component.titleText =  that.param.title || ''
     component.messageText = that.param.message
-    component.acceptButtonLoading = true
+    component.acceptButtonLoading = that.param.showLoading ? true : false
+    component.icon = that.param.titleIcon||""
+
     component.show()
-
-
     component.accepted.connect(function () {
+        component.titleText = ''
+        WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true })
       console.log('-----confirm accepted')
     })
   })

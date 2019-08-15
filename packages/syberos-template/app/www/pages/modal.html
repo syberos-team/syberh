@@ -26,11 +26,16 @@
 
 <body>
   <button id="donwload" onclick="alert()">alert</button>
-  <button id="donwload" onclick="confirm()">confirm</button>
+  <button id="donwload" onclick="confirm()">confirm no title</button>
+  <button id="donwload" onclick="confirm_load()">confirm load</button>
+  <button id="donwload" onclick="confirm_title_icon()">confirm_title_icon</button>
+  <button id="donwload" onclick="confirm_no_title_icon()">confirm_no_title_icon</button>
+  <button id="donwload" onclick="prompt()">prompt</button>
   <button onclick="goBack()">goBack()</button>
   
   <div class="text" id="content"></div>
   <script>
+    var vConsole = new VConsole()
     function goBack() {
       syber.callApi({
         name: 'goBack',
@@ -56,14 +61,31 @@
         })
     }
 
+    function prompt() {
+
+        syber.callApi({
+          name: 'prompt',
+          mudule: 'modal',
+          data: {
+              title: '弹窗标题',
+              message: '弹窗内容，告知当前状态、信息和解决方法，描述'
+          },
+          success: function(result) {
+            console.info(result)
+          },
+          error: function(error) {
+            console.info(error)
+          }
+        })
+    }
+
     function confirm() {
       syber.callApi({
         name: 'confirm',
         mudule: 'modal',
         data: {
             title: '弹窗标题',
-            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
-            showCancel: false
+            message: '弹窗内容，告知当前状态、信息和解决方法，描述'
         },
         success: function(result) {
           console.info(result)
@@ -73,6 +95,61 @@
         }
       })
     }
+
+    function confirm_load() {
+      syber.callApi({
+        name: 'confirm',
+        mudule: 'modal',
+        data: {
+            title: 'confirm_load',
+            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            showLoading: true
+        },
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
+
+    function confirm_title_icon() {
+      syber.callApi({
+        name: 'confirm',
+        mudule: 'modal',
+        data: {
+            title: 'confirm_title_icon',
+            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'warning'
+        },
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
+
+    function confirm_no_title_icon() {
+      syber.callApi({
+        name: 'confirm',
+        mudule: 'modal',
+        data: {
+            message: '弹窗内容，告知当前状态',
+            titleIcon: 'success'
+        },
+        success: function(result) {
+          console.info(result)
+        },
+        error: function(error) {
+          console.info(error)
+        }
+      })
+    }
+
+
     </script>
   </body>
 </html>

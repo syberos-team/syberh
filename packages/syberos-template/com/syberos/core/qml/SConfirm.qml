@@ -16,13 +16,15 @@ reserved.
 
 import QtQuick 2.3
 import com.syberos.basewidgets 2.0
-import QtQuick.Controls 1.4
 
 
 
 CAbstractPopLayer{
    id:sconfirm
    anchors.fill: parent
+
+   /*! 点击mask是否关闭 */
+   canceledOnOutareaClicked: false
 
    /*! 模态框和页面的宽度比例 */
    property real proportion: 840 / 1080
@@ -47,6 +49,12 @@ CAbstractPopLayer{
 
    /*! 标题颜色 */
    property color titleTextColor: "#333333"
+
+   /*! 标题smallIcon的宽度 */
+   property real titleSmallIconWidth: 54 * proportion
+
+   /*! 标题BigIcon的宽度 */
+   property real titleBigIconWidth: 212 * proportion
 
    /*! 标题字体大小 */
    property real titleTextPixelSize: 52 * proportion
@@ -77,6 +85,9 @@ CAbstractPopLayer{
        是否启用标题区
    */
    property alias titleAreaEnabled:titleAreaLoader.active
+
+   /*! 标题左侧icon */
+   property string icon: ""
 
    // MessageAra使用相关属性
 
@@ -131,11 +142,11 @@ CAbstractPopLayer{
    /*! 确认按钮是否启用 */
    property bool acceptButtonEnabled: true
 
-//   /*! 确认按钮的颜色 */
-//   property color acceptButtonColor: ""
+   /*! 确认按钮的颜色 */
+   property color acceptButtonColor: "#007aff"
 
-//   /*! 取消按钮的颜色 */
-//   property color rejectButtonColor: ""
+   /*! 取消按钮的颜色 */
+   property color rejectButtonColor: "#666666"
 
 
    /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度*/
@@ -261,31 +272,50 @@ CAbstractPopLayer{
 
    Loader{
        id:titleAreaLoader
-       active: titleText ? true : false
        anchors.top:contentBackground.top
        anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.left: contentBackground.left
        anchors.leftMargin: titleAreaLeftMargin
        anchors.right: contentBackground.right
        anchors.rightMargin: titleAreaRightMargin
-       sourceComponent: Item {
+       sourceComponent: Rectangle {
+           width: !titleText ? titleBigIconWidth : titleSmallIconWidth
+           height: !titleText ? titleBigIconWidth : titleSmallIconWidth
+//           border.width: 2
+//           border.color: "red"
+
            Row {
-//               Image {
-////                   source:  "qrc:/images/error.svg"
-//                   source: '<g fill="#006e6e" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)" font-family="SimSun" font-size="9" font-weight="400" font-style="normal"><rect x="0" y="0" width="2000" height="2000"/></g>'
-//               }
+               visible: titleText
+               anchors.left: parent.left
+               anchors.leftMargin: (parent.width - textcontent.contentWidth - titleSmallIconWidth) / 2
+               spacing: 10
+               Image {
+                   visible: icon
+                   source:  icon === "warning" ? "qrc:/images/warning.png" : "qrc:/images/success_primary.png"
+               }
                Text{
+                   id:textcontent
+                   anchors.verticalCenter: parent.verticalCenter
                    font.pixelSize: sconfirm.titleTextPixelSize
                    color:sconfirm.titleTextColor
                    text:sconfirm.titleText
-                   horizontalAlignment: Text.AlignHCenter
-                   verticalAlignment: Text.AlignVCenter
                    elide: Text.ElideRight
                }
            }
+
+
+           Image {
+               visible: !titleText && icon
+               width: titleBigIconWidth
+               height: titleBigIconWidth
+               anchors.horizontalCenter: parent.horizontalCenter
+               source:  icon === "warning" ? "qrc:/images/warning_big.png" : "qrc:/images/success_primary_big.png"
+           }
+
        }
 
    }
+
 
    Loader{
        id:messageAreaLoader
@@ -320,6 +350,7 @@ CAbstractPopLayer{
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
 
            Rectangle {
+               id:line
                 width: buttonAreaLoader.width
                 height: buttonAreaSpacing
                 color: sconfirm.buttonLineColor
@@ -327,7 +358,8 @@ CAbstractPopLayer{
            Row{
                id:buttonsRow
                spacing: buttonAreaSpacing
-               anchors.centerIn: parent
+               anchors.top: line.bottom
+               anchors.topMargin: buttonAreaSpacing
                enabled: !animating
 
                SButton{
@@ -335,7 +367,7 @@ CAbstractPopLayer{
                    visible: sconfirm.rejectButtonVisible
                    text:sconfirm.rejectButtonText
                    width: buttonWidth
-                   height: sconfirm.buttonHeight
+                   height: sconfirm.buttonHeight - buttonAreaSpacing
                    textColor: rejectButtonColor ? rejectButtonColor : rejectButton.textSecondColor
                    pixelSize: sconfirm.buttonTextPixelSize
 
@@ -348,7 +380,9 @@ CAbstractPopLayer{
                Rectangle {
                     visible: sconfirm.rejectButtonVisible
                     width: buttonAreaSpacing
-                    height: sconfirm.buttonHeight
+                    height: sconfirm.buttonHeight - buttonAreaSpacing - 3
+                    anchors.top: line.bottom
+                    anchors.topMargin: buttonAreaSpacing
                     color: sconfirm.buttonLineColor
                }
 
@@ -357,10 +391,10 @@ CAbstractPopLayer{
                    visible: !acceptButtonLoading
                    text:sconfirm.acceptedButtonText
                    width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
-                   height: sconfirm.buttonHeight
+                   height: sconfirm.buttonHeight - buttonAreaSpacing
                    enabled: acceptButtonEnabled
                    pixelSize: sconfirm.buttonTextPixelSize
-                   textColor: acceptButtonColor ? rejectButtonColor : rejectButton.textSecondColor
+                   textColor: acceptButtonColor ? acceptButtonColor : acceptButton.textHrefColor
 
                    onClicked:{
                        hideAnimation.acceptedFlag = true
@@ -369,11 +403,15 @@ CAbstractPopLayer{
                }
                Rectangle {
                    visible: acceptButtonLoading
-                   width: buttonWidth
-                   height: sconfirm.buttonHeight
-                   SCollisionIndicator{
-                       width: buttonWidth
-                       height: sconfirm.buttonHeight
+                   width: buttonWidth - buttonAreaSpacing
+                   height: sconfirm.buttonHeight - buttonAreaSpacing * 3
+                   anchors.top: line.bottom
+                   anchors.topMargin: buttonAreaSpacing
+
+                   SCollisionIndicator {
+                       implicitWidth: buttonWidth
+                       anchors.left: parent.left
+                       anchors.verticalCenter: parent.verticalCenter
                        running: acceptButtonLoading
                    }
                }
@@ -398,6 +436,10 @@ CAbstractPopLayer{
            if(!running){
                start()
            }
+
+           console.log('----test',sconfirm.titleText)
+
+
        }
 
        NumberAnimation { target: background; property: "opacity"; duration: gSystemUtils.durationRatio*300; to: sconfirm.__backGroundOpacity }
@@ -448,6 +490,15 @@ CAbstractPopLayer{
                    rejected()
                    rejectedFlag = false
                }
+               sconfirm.icon = ''
+               sconfirm.titleText = ''
+               sconfirm.messageText = ''
+               sconfirm.acceptButtonLoading = false
+               sconfirm.rejectButtonVisible = true
+               sconfirm.rejectButtonText = "取消"
+               sconfirm.rejectButtonColor = "#333333"
+               sconfirm.acceptedButtonText = "确定"
+               sconfirm.acceptButtonColor = "#007aff"
            }
        }
    }

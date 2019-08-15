@@ -32,10 +32,11 @@ import QtQuick 2.3
 */
 
 Item {
-    id: root
+    id: indicator
 
     /*! 动画是否运行，默认值为 visible。 */
-    property bool running: visible
+    property bool running: true
+
 
     /*! 颜色。 */
     property color color: "#999"
@@ -49,14 +50,14 @@ Item {
     /*! 等待动画结束时发出。 */
     signal finished()
 
-//    implicitWidth: 150
-//    implicitHeight: 150
+    implicitWidth: 150
+    implicitHeight: 150
 
-    /*! 宽度 */
-    property real width: 150
+//    /*! 宽度 */
+//    property real width: 150
 
-    /*! 高度 */
-    property real height: 150
+//    /*! 高度 */
+//    property real height: 150
 
     onWidthChanged: height = width;
 
@@ -74,7 +75,7 @@ Item {
         property real dl1: 0
         property real dr1: 0
         property color bgColor: "transparent"
-        property color fgColor: root.color
+        property color fgColor: indicator.color
 
         function start() {
             startAnim.start();
@@ -85,10 +86,10 @@ Item {
         }
 
         Connections {
-            target: root
+            target: indicator
             ignoreUnknownSignals: true
             onRunningChanged: {
-                if(!root.running)
+                if(!indicator.running)
                     effect.stop();
                 else if(effect.dly != 0)
                     foldAnim.start();
@@ -96,17 +97,17 @@ Item {
                     effect.start();
             }
             onYOffsetRatioChanged: {
-                if(!root.running) {
-                    if(effect.sizeL != 0.13)
-                        effect.sizeL = 0.13;
-                    if(root.yOffsetRatio <= 1 && root.yOffsetRatio >= -1)
-                        effect.dly = -0.2 * root.yOffsetRatio;
+                if(!indicator.running) {
+                    if(effect.sizeL != 0.08)
+                        effect.sizeL = 0.08;
+                    if(indicator.yOffsetRatio <= 1 && indicator.yOffsetRatio >= -1)
+                        effect.dly = -0.2 * indicator.yOffsetRatio;
                 }
             }
         }
 
         Component.onCompleted: {
-            if(root.running)
+            if(indicator.running)
                 effect.start();
         }
 
@@ -124,15 +125,15 @@ Item {
         ParallelAnimation {
             id: startAnim
             NumberAnimation {  //big ball
-                target: effect; property: "sizeL"; from: 0; to: 0.13; duration: durationRatio*800; easing.type: Easing.OutElastic;
+                target: effect; property: "sizeL"; from: 0; to: 0.08; duration: durationRatio*800; easing.type: Easing.OutElastic;
             }
             SequentialAnimation { //left
                 PauseAnimation { duration: durationRatio*300 }
-                NumberAnimation { target: effect; property: "dl"; duration: durationRatio*800; from: 0; to: 0.18; easing.type: Easing.OutBack }
+                NumberAnimation { target: effect; property: "dl"; duration: durationRatio*800; from: 0; to: 0.15; easing.type: Easing.OutBack }
             }
             SequentialAnimation { //right
                 PauseAnimation { duration: durationRatio*400 }
-                NumberAnimation { target: effect; property: "dr"; duration: durationRatio*800; from: 0; to: 0.18; easing.type: Easing.OutBack }
+                NumberAnimation { target: effect; property: "dr"; duration: durationRatio*800; from: 0; to: 0.15; easing.type: Easing.OutBack }
             }
             onStopped: { loadingAnim.start(); }
         }
@@ -141,32 +142,32 @@ Item {
             id: loadingAnim
             SequentialAnimation { //big size ball
                 loops: Animation.Infinite
-                NumberAnimation { target: effect; property: "sizeL"; duration: durationRatio*1100; from: 0.13; to: 0.12; easing.type: Easing.InOutQuad }
-                NumberAnimation { target: effect; property: "sizeL"; duration: durationRatio*1100; from: 0.12; to: 0.13; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "sizeL"; duration: durationRatio*1100; from: 0.08; to: 0.07; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "sizeL"; duration: durationRatio*1100; from: 0.07; to: 0.08; easing.type: Easing.InOutQuad }
             }
             SequentialAnimation { //left middle size ball
                 loops: Animation.Infinite
-                NumberAnimation { target: effect; property: "dl"; duration: durationRatio*800; from: 0.18; to: 0.22; easing.type: Easing.InOutQuad }
-                NumberAnimation { target: effect; property: "dl"; duration: durationRatio*800; from: 0.22; to: 0.18; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dl"; duration: durationRatio*800; from: 0.15; to: 0.20; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dl"; duration: durationRatio*800; from: 0.20; to: 0.15; easing.type: Easing.InOutQuad }
                 PauseAnimation { duration: durationRatio*300 }
             }
             SequentialAnimation { //right middle size ball
                 loops: Animation.Infinite
                 PauseAnimation { duration: durationRatio*300 }
-                NumberAnimation { target: effect; property: "dr"; duration: durationRatio*800; from: 0.18; to: 0.22; easing.type: Easing.InOutQuad }
-                NumberAnimation { target: effect; property: "dr"; duration: durationRatio*800; from: 0.22; to: 0.18; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dr"; duration: durationRatio*800; from: 0.15; to: 0.20; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dr"; duration: durationRatio*800; from: 0.20; to: 0.15; easing.type: Easing.InOutQuad }
             }
             SequentialAnimation { //left small size ball
                 loops: Animation.Infinite
-                NumberAnimation { target: effect; property: "dl1"; duration: durationRatio*800; from: 0.18; to: 0.45; easing.type: Easing.InOutQuad }
-                NumberAnimation { target: effect; property: "dl1"; duration: durationRatio*800; from: 0.45; to: 0.18; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dl1"; duration: durationRatio*800; from: 0.15; to: 0.35; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dl1"; duration: durationRatio*800; from: 0.35; to: 0.15; easing.type: Easing.InOutQuad }
                 PauseAnimation { duration: durationRatio*300 }
             }
             SequentialAnimation { //right small size ball
                 loops: Animation.Infinite
                 PauseAnimation { duration: durationRatio*300 }
-                NumberAnimation { target: effect; property: "dr1"; duration: durationRatio*800; from: 0.18; to: 0.45; easing.type: Easing.InOutQuad }
-                NumberAnimation { target: effect; property: "dr1"; duration: durationRatio*800; from: 0.45; to: 0.18; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dr1"; duration: durationRatio*800; from: 0.15; to: 0.35; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "dr1"; duration: durationRatio*800; from: 0.35; to: 0.15; easing.type: Easing.InOutQuad }
             }
             onStopped: { stopAnim.start(); }
         }
@@ -179,9 +180,9 @@ Item {
             NumberAnimation { target: effect; property: "dr1"; to: 0; }
             SequentialAnimation { //big size ball
                 PauseAnimation { duration: durationRatio*300 }
-                NumberAnimation { target: effect; property: "sizeL"; duration: durationRatio*300; from: 0.13; to: 0; easing.type: Easing.InOutQuad }
+                NumberAnimation { target: effect; property: "sizeL"; duration: durationRatio*300; from: 0.08; to: 0; easing.type: Easing.InOutQuad }
             }
-            onStopped: root.finished();
+            onStopped: indicator.finished();
         }
 
         fragmentShader: "

@@ -16,13 +16,15 @@ reserved.
 
 import QtQuick 2.3
 import com.syberos.basewidgets 2.0
-import QtQuick.Controls 1.4
 
 
 
 CAbstractPopLayer{
    id:sconfirm
    anchors.fill: parent
+
+   /*! 点击mask是否关闭 */
+   canceledOnOutareaClicked: false
 
    /*! 模态框和页面的宽度比例 */
    property real proportion: 840 / 1080
@@ -81,7 +83,7 @@ CAbstractPopLayer{
    // MessageAra使用相关属性
 
    /*! 内容区文本 */
-   property string messageText: ""
+   property string messageText: "messageText"
 
    /*! 内容区文本颜色 */
    property color messageTextColor: "#333333"
@@ -98,6 +100,16 @@ CAbstractPopLayer{
 
    /*! 内容区右侧边距 */
    property real messageAreaRightMargin: 70 * proportion
+
+   /*! 输入框是否展示 */
+   property bool messageAreaInputShow: true
+
+   /*! 输入框默认值 */
+   property string inputValue: ''
+
+   /*! 输入框是否聚焦 */
+   property bool inputFocus: false
+
 
    /*!
        \qmlproperty Component SConfirm::messageAreaComponent
@@ -117,6 +129,26 @@ CAbstractPopLayer{
    */
    property alias messageAreaEnabled: messageAreaLoader.active
 
+   // search区域属性设置相关
+
+//   /*!
+//       \qmlproperty bool CLineEdit::searchLabelEnabled
+//       是否启用搜索标签
+//   */
+//   property alias searchLabelEnabled:searchLoader.active
+
+//   /*!
+//       \qmlproperty Component CLineEdit::searchLabelComponent
+//       搜索标签组件，可自定义为其他外观。
+//   */
+//   property alias searchLabelComponent:searchLoader.sourceComponent
+
+//   /*!
+//       \qmlproperty object CLineEdit::searchLabelItem
+//       searchLabelComponent加载完成之后对应的Item对象。
+//   */
+//   property alias searchLabelItem:searchLoader.item
+
    // Button区域属性设置相关
 
    /*! 取消按钮文本，默认为“取消” */
@@ -130,6 +162,13 @@ CAbstractPopLayer{
 
    /*! 确认按钮是否启用 */
    property bool acceptButtonEnabled: true
+
+   /*! 确认按钮的颜色 */
+   property color acceptButtonColor: "#007aff"
+
+   /*! 取消按钮的颜色 */
+   property color rejectButtonColor: "#333333"
+
 
    /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度*/
    property real buttonAreaSpacing: 2 * proportion
@@ -190,7 +229,8 @@ CAbstractPopLayer{
    signal rejected()
 
    /*! 接受信号，当点击默认的“确定”按钮时发射 */
-   signal accepted()
+   signal accepted(var inputText)
+
 
    /*! 背景, 不允许定制 */
    Rectangle{
@@ -250,6 +290,7 @@ CAbstractPopLayer{
 
            return h
        }
+
    }
 
    Loader{
@@ -263,10 +304,10 @@ CAbstractPopLayer{
        anchors.rightMargin: titleAreaRightMargin
        sourceComponent: Item {
            Row {
-               Image {
-//                   source:  "qrc:/images/error.svg"
-                   source: '<g fill="#006e6e" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)" font-family="SimSun" font-size="9" font-weight="400" font-style="normal"><rect x="0" y="0" width="2000" height="2000"/></g>'
-               }
+//               Image {
+////                   source:  "qrc:/images/error.svg"
+//                   source: '<g fill="#006e6e" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)" font-family="SimSun" font-size="9" font-weight="400" font-style="normal"><rect x="0" y="0" width="2000" height="2000"/></g>'
+//               }
                Text{
                    font.pixelSize: sconfirm.titleTextPixelSize
                    color:sconfirm.titleTextColor
@@ -288,31 +329,66 @@ CAbstractPopLayer{
        anchors.leftMargin: messageAreaLeftMargin
        anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
-       sourceComponent: Text{
-           font.pixelSize: sconfirm.messageTextPixelSize
-           color:sconfirm.messageTextColor
-           lineHeight: sconfirm.messageTextLineHeight
-           lineHeightMode: Text.FixedHeight
-           text:sconfirm.messageText
-           wrapMode:Text.WrapAnywhere;
-           horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
-       }
+       sourceComponent: Component {
+           Column {
+               Text {
+                   anchors.horizontalCenter: messageAreaInputShow ? '' : parent.horizontalCenter
+                   font.pixelSize: sconfirm.messageTextPixelSize
+                   color:sconfirm.messageTextColor
+                   lineHeight: sconfirm.messageTextLineHeight
+                   lineHeightMode: Text.FixedHeight
+                   text:sconfirm.messageText
+                   wrapMode:Text.WrapAnywhere;
+                   horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
+               }
 
+               Rectangle {
+                   id: textInputArea
+                   visible: true
+                   border.width: 2
+                   border.color: sconfirm.inputFocus ? '#007aff' : '#333333'
+                   width: childrenRect.width + 10
+                   height: childrenRect.height  + 10
+                   TextInput {
+                       id: textInput
+                       height: 40
+                       width: messageAreaLoader.width
+                       anchors.leftMargin: 20
+                       focus: sconfirm.inputFocus
+                       text: sconfirm.inputValue
+
+                       onTextChanged: {
+                         sconfirm.inputValue = textInput.text
+                       }
+
+                       onFocusChanged: {
+                           sconfirm.inputFocus = textInput.focus
+                       }
+                   }
+               }
+           }
+       }
+   }
+
+   /*! 点击mask调用的事件, 接受的信号 */
+   onOutAreaClicked: {
+       sconfirm.inputFocus = false
    }
 
    Loader{
        id:buttonAreaLoader
-       anchors.top:messageAreaLoader.bottom
+       anchors.top: messageAreaLoader.bottom
        anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.left: contentBackground.left
 //       anchors.leftMargin: buttonAreaLeftMargin
        anchors.right: contentBackground.right
 //       anchors.rightMargin: buttonAreaRightMargin
-       sourceComponent: Rectangle {
+       sourceComponent: Item {
            implicitHeight:buttonsRow.implicitHeight
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
 
            Rectangle {
+               id:line
                 width: buttonAreaLoader.width
                 height: buttonAreaSpacing
                 color: sconfirm.buttonLineColor
@@ -320,7 +396,8 @@ CAbstractPopLayer{
            Row{
                id:buttonsRow
                spacing: buttonAreaSpacing
-               anchors.centerIn: parent
+               anchors.top: line.bottom
+               anchors.topMargin: buttonAreaSpacing
                enabled: !animating
 
                SButton{
@@ -328,8 +405,8 @@ CAbstractPopLayer{
                    visible: sconfirm.rejectButtonVisible
                    text:sconfirm.rejectButtonText
                    width: buttonWidth
-                   height: sconfirm.buttonHeight
-                   textColor: rejectButton.textSecondColor
+                   height: sconfirm.buttonHeight - buttonAreaSpacing
+                   textColor: rejectButtonColor ? rejectButtonColor : rejectButton.textSecondColor
                    pixelSize: sconfirm.buttonTextPixelSize
 
                    onClicked:{
@@ -341,7 +418,7 @@ CAbstractPopLayer{
                Rectangle {
                     visible: sconfirm.rejectButtonVisible
                     width: buttonAreaSpacing
-                    height: sconfirm.buttonHeight
+                    height: sconfirm.buttonHeight - buttonAreaSpacing - 3
                     color: sconfirm.buttonLineColor
                }
 
@@ -350,9 +427,10 @@ CAbstractPopLayer{
                    visible: !acceptButtonLoading
                    text:sconfirm.acceptedButtonText
                    width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
-                   height: sconfirm.buttonHeight
+                   height: sconfirm.buttonHeight - buttonAreaSpacing
                    enabled: acceptButtonEnabled
                    pixelSize: sconfirm.buttonTextPixelSize
+                   textColor: acceptButtonColor ? acceptButtonColor : acceptButton.textHrefColor
 
                    onClicked:{
                        hideAnimation.acceptedFlag = true
@@ -361,9 +439,15 @@ CAbstractPopLayer{
                }
                Rectangle {
                    visible: acceptButtonLoading
-                   width: buttonWidth
-                   height: sconfirm.buttonHeight
-                   CCollisionIndicator{
+                   width: buttonWidth - buttonAreaSpacing
+                   height: sconfirm.buttonHeight - buttonAreaSpacing * 3
+                   anchors.top: line.bottom
+                   anchors.topMargin: buttonAreaSpacing
+
+                   SCollisionIndicator {
+                       implicitWidth: buttonWidth
+                       anchors.left: parent.left
+                       anchors.verticalCenter: parent.verticalCenter
                        running: acceptButtonLoading
                    }
                }
@@ -431,7 +515,8 @@ CAbstractPopLayer{
            if(!running){
                hideFinished()
                if(acceptedFlag){
-                   accepted()
+                   accepted(sconfirm.inputValue)
+                   sconfirm.inputValue = ''
                    acceptedFlag = false
                }
                if(rejectedFlag){

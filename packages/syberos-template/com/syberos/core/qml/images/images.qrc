@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/images">
-        <file>error.svg</file>
-        <file>success_primary.svg</file>
-        <file>success.svg</file>
-        <file>warning.svg</file>
+        <file>success_primary.png</file>
+        <file>warning.png</file>
+        <file>warning_big.png</file>
+        <file>success_primary_big.png</file>
     </qresource>
 </RCC>
