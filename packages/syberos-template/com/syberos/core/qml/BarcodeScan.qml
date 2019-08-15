@@ -19,7 +19,7 @@ import com.syberos.basewidgets 2.0
 */
 CPage{
     statusBarHoldEnabled: true
-    statusBarHoldItemColor: "red"
+    statusBarHoldItemColor: "black"
     orientationPolicy: CPageOrientation.LockPortrait
     enabled: CPageStatus.Show
 }

@@ -33,17 +33,17 @@ BarcodeScan{
     Keys.onPressed: {
         if (event.key === Qt.Key_Back) {
             if(QtCameraScan.status.toString() == "8"){
-                barCodeScanPage.popAndClearStatus();
+                barCodeScanPage.clearStatusAndBack();
             }
         }
     }
 
-    function popAndClearStatus(){
+    function clearStatusAndBack(){
         QtCameraScan.stopCamera();
         scanLineRunAnm.stop();
         searchLockTimer.stop();
         startCameraTm.stop();
-        back(barCodeScanPage.strDecodeContent);
+        barCodeScanPage.back(barCodeScanPage.strDecodeContent);
     }
 
     contentAreaItem:Rectangle {
@@ -51,13 +51,14 @@ BarcodeScan{
         BarcodeTitlebar{
             id: pageHead
             onLeftItemTriggered:  {
-                popAndClearStatus()
+                clearStatusAndBack()
+                pageStack.pop()
             }
-            titleText:"条码扫描"
+            titleText:"扫码"
         }
         Timer{
             id:searchLockTimer
-            interval: 2000
+            interval: 1200
             running: false
             repeat: true
             triggeredOnStart:true
@@ -75,13 +76,9 @@ BarcodeScan{
             onDecodeFinished: {
                 console.log("33333imagepath is ", decodeImagePath,
                             "content is " , decodeContent, "  success  ", success, "  parentPage ", parentPage);
-                info.text=
-//                        "imagepath is "+ decodeImagePath +
-//                        "content is " +
-                        decodeContent ;
-//                        +"  success  "+ success;
                 barCodeScanPage.strDecodeContent = decodeContent.toLowerCase();
-                barCodeScanPage.popAndClearStatus();
+                barCodeScanPage.clearStatusAndBack();
+                pageStack.pop();
             }
             onChangedCameraStatus:{
                 console.log("huanlilele  camere status is " , status);
@@ -97,7 +94,7 @@ BarcodeScan{
         }
         VideoOutput {
             id:videopt
-            anchors.top: parent.top
+            anchors.top: pageHead.bottom
             width: parent.width
             anchors.bottom: parent.bottom
             orientation:-90
@@ -136,7 +133,7 @@ BarcodeScan{
                 anchors.horizontalCenter: parent.horizontalCenter
                 color:"#ffffff"
                 //font.pixelSize: UI.FONT_SIZE_18
-                text: os.i18n.ctr(qsTr("Show bar code in the box, can automatically scan"))
+                text: os.i18n.ctr(qsTr("放入框内，自动扫描"))
             }
         }
         Rectangle{
@@ -160,8 +157,8 @@ BarcodeScan{
 
         Item{
             id:centerRect
-            width: 300
-            height: 300
+            width: 450
+            height: 450
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             opacity: 0.5
@@ -248,66 +245,21 @@ BarcodeScan{
             color: "#00ff36"
             height: 4
         }
-
-        Rectangle {
-            opacity: 0.5
-            width:  parent.width
-            height: 90
-             id: info_rec
-            anchors.top: centerRect.bottom
-            anchors.topMargin: 100
-
-
-
-            Text {
-                  id: info
-                anchors.centerIn: parent
-                text: ""
-                color:"#ffffff"
-                //font.pixelSize: UI.FONT_SIZE_18
-
-            }
-        }
-        Rectangle {
-            opacity: 0.5
-            width:  parent.width
-            height: 160
-            anchors.top: info_rec.bottom
-
-
-        CButton{
-            text:"继续扫码"
-            width: 300
-            height: 120
-            anchors.centerIn: parent
-            anchors.topMargin: 100
-            z:100
-            onClicked: {
-                //gToast.requestToast("请将摄像头对准二维码或条形码进行扫描")
-                info.text="";
-                QtCameraScan.startCameraAndSetZoom();
-            }
-
-        }
-
-        }
     }
 
 
     Timer{
         id:startCameraTm
-        interval: 300
+        interval: 1000
         running: false
         repeat: false
         onTriggered: {
-            console.log("QtCamera.startCameraAndSetZoom();")
             QtCameraScan.startCameraAndSetZoom();
         }
     }
 
     onStatusChanged:{
         if(status == CPageStatus.Show){
-            console.log("BarCodeScan.qml status == CPageStatus.Show  startCameraTimer start")
             startCameraTm.start();
         }else if(status == CPageStatus.WillHide){
             if(barCodeScanPage.parentPage && barCodeScanPage.parentPage.refresh)

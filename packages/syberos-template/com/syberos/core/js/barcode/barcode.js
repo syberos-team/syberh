@@ -24,7 +24,6 @@ function Barcode () {
     object.back.connect(function (cotent) {
       console.log('-------------------------------------barcode scan content', cotent)
       WEBVIEWCORE.trigger('success', that.handlerId, { cotent: cotent })
-      pageStack.pop()
     })
   })
 

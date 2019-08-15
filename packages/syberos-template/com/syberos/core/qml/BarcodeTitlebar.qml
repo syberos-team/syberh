@@ -19,10 +19,11 @@ import "../js/barcode/constants.js" as UI
   公共控件，通用标题栏
 */
 
-Item{
+Rectangle{
     id: pageHead
     anchors.top:parent.top
-    width: parent.width; height: UI.TITLE_BAR_HEIGHT - gScreenInfo.statusBarHeight
+    width: parent.width;
+    height: UI.TITLE_BAR_HEIGHT - gScreenInfo.statusBarHeight
     signal leftItemTriggered()
     signal rightItemFirstTriggered()
     signal rightItemSecondTriggered()
@@ -34,15 +35,16 @@ Item{
     property string rightItemFirstImg: ""//"qrc:/res/nav_icon_rfid.png"
     property string rightItemSecondImg: "qrc:/com/syberos/core/res/nav_icon_qrcode.png"
     property string rightText: "确定"
-    Rectangle{
-        anchors.fill: parent
-        color: "red"
-    }
+
+    color: "#000000"
+    z: 98
+
     Item{
         id:leftItem
         visible: leftItemEnabled
         height: parent.height
         width:leftImg.width + 20 *UI.rate
+        z: 99
         Image{
             id:leftImg
             anchors.left: parent.left
@@ -72,6 +74,7 @@ Item{
         horizontalAlignment: Text.AlignHCenter
         color:"#ffffff"
         font.pixelSize: UI.FONT_SIZE_16
+        z: 99
     }
     Item{
         id:rightItem
@@ -81,6 +84,7 @@ Item{
         visible: rightItemEnabled
         width: visible? (pageHead.showRightImg ? firstImg.width + secondImg.width + 10 : rightTextItem.width)
                       : 0
+        z: 99
         Item{
             id:rightTextItem
             visible: !pageHead.showRightImg

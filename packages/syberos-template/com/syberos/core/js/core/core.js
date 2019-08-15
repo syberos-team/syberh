@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable no-undef */
 /**
  * Syber core Function
@@ -7,7 +8,9 @@ function Syber (parent) {
   this.version = '1.0.0'
   this.isInited = false
   this.pluginList = {}
+  this.modules = {}
   // 根节点
+  // eslint-disable-next-line node/no-deprecated-api
   this._root = parent || root
 
   this.body = null
@@ -126,12 +129,10 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     }
   }
 }
-
 // pageStack
 Syber.prototype.pageStack = function (plugin, callback) {
   var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
-
-
+  plugin.trigger('ready', object)
   if (callback) callback(object)
   // tackPhoto.imageConfirmed.connect(function (filePath) { // 处理信号
   //   icon.source = 'file://' + filePath
@@ -196,7 +197,6 @@ Syber.prototype.addPlugin = function (plugin) {
     return false
   }
   this.pluginList[plugin.id] = plugin
-
   // init plugin only if Syber is ready
   if (this.isInited && plugin.autoCreate) {
     this._initPlugin(plugin)
