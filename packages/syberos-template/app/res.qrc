@@ -2,5 +2,11 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>res/hybrid-team.png</file>
+        <file>res/switch.png</file>
+        <file>res/start.png</file>
+        <file>res/save.png</file>
+        <file>res/end.png</file>
+        <file>res/back.png</file>
+        <file>res/app.png</file>
     </qresource>
 </RCC>
