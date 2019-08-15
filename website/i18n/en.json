@@ -68,19 +68,19 @@
       "apis/storage/setItem": {
         "title": "setItem"
       },
-      "apis/systeminfo/aboutPhone": {
+      "apis/system/aboutPhone": {
         "title": "aboutPhone"
       },
-      "apis/systeminfo/getCoreVersion": {
+      "apis/system/getCoreVersion": {
         "title": "getCoreVersion"
       },
-      "apis/systeminfo/getModel": {
+      "apis/system/getModel": {
         "title": "getModel"
       },
-      "apis/systeminfo/getResolution": {
+      "apis/system/getResolution": {
         "title": "getResolution"
       },
-      "apis/systeminfo/getSysVersionID": {
+      "apis/system/getSysVersionID": {
         "title": "getSysVersionID"
       },
       "apis/telephony/dial": {
@@ -147,7 +147,7 @@
         "title": "navigator"
       },
       "qt/request/request-c": {
-        "title": "qt/request/request-c"
+        "title": "request"
       },
       "qt/runtime/runtime": {
         "title": "runtime"

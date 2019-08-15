@@ -1,81 +1,108 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>demo</title>
-    <style type="text/css">
-      button {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 7em;
-      }
+<html lang="zh-CN">
 
-      .button2 {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 80%;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
 
-      .text {
-        font-size: 2em;
-      }
-    </style>
-    <script src="../lib/vconsole.min.js"></script>
-    <script src="../lib/syber.min.js"></script>
-  </head>
-  <body>
-    <button id="reload" onclick="reload()">reload()</button>
-    <button onclick="goBack()">goBack()</button>
-    <button class="button2" onclick="redirectTo()">
-      redirectTo(url)返回首页
-    </button>
-    <div class="text" id="content"></div>
-    <script>
-      var vConsole = new VConsole()
-      console.log('Hello world')
-      function print(str){
-        document.getElementById('content').innerHTML=JSON.stringify(str)
-      }
-      syber.ready(function() {
-        document.getElementById('content').innerHTML = '注册成功'
-      })
-      document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+<body>
 
-      function goBack() {
-        syber.webview.goBack({
-          success: function(result) {
-            console.info(result)
-          },
-          fail: function(error) {
-            console.info(error)
-          }
-        })
-      }
-      function reload() {
-        syber.webview.reload({
-          success: function(result) {
-            console.info(result)
-          },
-          fail: function(error) {
-            console.info(error)
-          }
-        })
-      }
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="redirectTo">redirectTo(打开新页面)</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="goBack">goBack(返回)</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="reload">reload(重载页面)</a>
+      </li>
 
-      //跳转
-      function redirectTo() {
-        syber.webview.redirectTo({
-          url: 'index6.html',
-          success: function(result) {
-            console.info(result)
-          },
-          fail: function(error) {
-            print(error)
-          }
-        })
+      <li class="mui-table-view-cell" style="display: none">
+        <a class="mui-navigate-right api-class" id="close">close(关闭页面)</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    window.runApi = function (id) {
+      console.log('执行API:' + id);
+
+      switch (id) {
+        case 'redirectTo':
+
+          syber.webview.redirectTo({
+            url: 'index.html',
+            success: function (result) {
+              console.info(result)
+            },
+            fail: function (error) {
+              print(error)
+            }
+          })
+
+          break;
+        case 'open2':
+          quick.page.open({
+            pageUrl: "../simple.html",
+            pageTitle: '测试页面标题',
+            // 横竖屏,默认为1表示竖屏
+            orientation: '1',
+            pageStyle: -1,
+            // 额外数据
+            data: {
+              key1: 'value1'
+            },
+            success: function (result) {
+              showTips(JSON.stringify(result));
+            },
+            error: function (error) {
+              showTips('失败:' + JSON.stringify(error));
+            }
+          });
+          break;
+
+        case 'close':
+          console.log('暂未实现')
+          break;
+        case 'goBack':
+          syber.webview.goBack({
+            success: function (result) {
+              console.info(result)
+            },
+            fail: function (error) {
+              console.info(error)
+            }
+          })
+          break;
+        case 'reload':
+          syber.webview.reload({
+            success: function (result) {
+              console.info(result)
+            },
+            fail: function (error) {
+              console.info(error)
+            }
+          })
+          break;
+        default:
+          console.error('错误！没有相应API');
       }
-    </script>
-  </body>
+    };
+  </script>
+
+</body>
+
 </html>

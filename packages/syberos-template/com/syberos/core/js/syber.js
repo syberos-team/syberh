@@ -27,7 +27,10 @@ function render (root) {
   if (root) {
     _root = root
   }
-  var SyberOS = new Syber(root)
-  SYBEROS = SyberOS
+  if(!SYBEROS){
+      var SyberOS = new Syber(root)
+      SYBEROS = SyberOS
+  }
+
   //SyberOS.addPlugin(new Camera())
 }
