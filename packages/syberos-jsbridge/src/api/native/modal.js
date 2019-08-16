@@ -2,12 +2,14 @@ export default function modalMixin(hybrid) {
     const hybridJs = hybrid;
     const innerUtil = hybridJs.innerUtil;
 
+
     hybridJs.extendModule('modal', [{
-        namespace: 'alert',
+        namespace: 'toast',
         os: ['syber'],
         defaultParams: {
             title: '',
-            message: '',
+            icon: '',
+            duration: 1500
         },
         runCode(...rest) {
             // 兼容字符串形式
@@ -15,9 +17,11 @@ export default function modalMixin(hybrid) {
                 this,
                 rest,
                 'title',
-                'message');
-            
+                'icon',
+                'duration',
+            );
+
             hybridJs.callInner.apply(this, args);
         },
-    }])
+    }]);
 }
