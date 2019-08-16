@@ -1,7 +1,3 @@
-/**
- * 文件下载接口
- * @param hybrid
- */
 export default function modalMixin(hybrid) {
     const hybridJs = hybrid;
     const innerUtil = hybridJs.innerUtil;
