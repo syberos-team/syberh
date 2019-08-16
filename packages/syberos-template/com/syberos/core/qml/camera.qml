@@ -164,13 +164,13 @@ CPage {
                     cameraObj.stop();
                     cameraObj.cameraPosition = Camera.FrontFace
                     camerVideoOutput.orientation = +90
-                    photoPreview.rotation = +90
+//                    photoPreview.rotation = +90
                    cameraObj.start();
                 } else if (postition === 2) {
                     cameraObj.stop();
                     cameraObj.cameraPosition = Camera.BackFace
                     camerVideoOutput.orientation = -90
-                    photoPreview.rotation = -90
+//                    photoPreview.rotation = -90
                     cameraObj.start();
                 }
             }
