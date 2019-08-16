@@ -33,7 +33,7 @@ CAbstractPopLayer{
    property real topSpacing: 80 * proportion
 
    /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离 */
-   property real topSpacingNoTitle: 120 * proportion
+   property real topSpacingNoTitle: 80 * proportion // 120
 
    /*! 对话框的圆角大小 */
    property real radius: 6
@@ -49,6 +49,12 @@ CAbstractPopLayer{
 
    /*! 标题颜色 */
    property color titleTextColor: "#333333"
+
+   /*! 标题smallIcon的宽度 */
+   property real titleSmallIconWidth: 54 * proportion
+
+   /*! 标题BigIcon的宽度 */
+   property real titleBigIconWidth: 212 * proportion
 
    /*! 标题字体大小 */
    property real titleTextPixelSize: 52 * proportion
@@ -79,6 +85,28 @@ CAbstractPopLayer{
        是否启用标题区
    */
    property alias titleAreaEnabled:titleAreaLoader.active
+
+   /*! 标题左侧icon，目前不支持定制，属于内置模块，有warning 和 success */
+   property string icon: ""
+
+   /*! 标题左侧icon warning */
+   property string warningType: "warning"
+
+   /*! 标题左侧icon success */
+   property string successType: "success"
+
+   /*! 标题左侧 warning icon */
+   property string warningIcon: "qrc:/images/warning.png"
+
+   /*! 标题左侧 success icon */
+   property string successIcon: "qrc:/images/success_primary.png"
+
+   /*! 无标题 大 warning icon */
+   property string warningBigIcon: "qrc:/images/warning_big.png"
+
+   /*! 无标题 大 success icon */
+   property string successBigIcon: "qrc:/images/success_primary_big.png"
+
 
    // MessageAra使用相关属性
 
@@ -128,26 +156,6 @@ CAbstractPopLayer{
        内容区是否加载
    */
    property alias messageAreaEnabled: messageAreaLoader.active
-
-   // search区域属性设置相关
-
-//   /*!
-//       \qmlproperty bool CLineEdit::searchLabelEnabled
-//       是否启用搜索标签
-//   */
-//   property alias searchLabelEnabled:searchLoader.active
-
-//   /*!
-//       \qmlproperty Component CLineEdit::searchLabelComponent
-//       搜索标签组件，可自定义为其他外观。
-//   */
-//   property alias searchLabelComponent:searchLoader.sourceComponent
-
-//   /*!
-//       \qmlproperty object CLineEdit::searchLabelItem
-//       searchLabelComponent加载完成之后对应的Item对象。
-//   */
-//   property alias searchLabelItem:searchLoader.item
 
    // Button区域属性设置相关
 
@@ -295,28 +303,50 @@ CAbstractPopLayer{
 
    Loader{
        id:titleAreaLoader
-       active: titleText ? true : false
+       active: titleText || icon
        anchors.top:contentBackground.top
        anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.left: contentBackground.left
        anchors.leftMargin: titleAreaLeftMargin
        anchors.right: contentBackground.right
        anchors.rightMargin: titleAreaRightMargin
-       sourceComponent: Item {
+       sourceComponent: Rectangle {
+           width: titleText ? titleSmallIconWidth : titleBigIconWidth
+           height: titleText ? titleSmallIconWidth : titleBigIconWidth
+           property bool hasIconType: icon === warningType || icon === successType
+           property real hasIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth - titleSmallIconWidth) / 2
+           property real noIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth) / 2
+
+//           border.color: 'red'
+
            Row {
-//               Image {
-////                   source:  "qrc:/images/error.svg"
-//                   source: '<g fill="#006e6e" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)" font-family="SimSun" font-size="9" font-weight="400" font-style="normal"><rect x="0" y="0" width="2000" height="2000"/></g>'
-//               }
+               visible: titleText
+               anchors.left: parent.left
+               anchors.leftMargin: hasIconType ? hasIconLeftMargin : noIconLeftMargin
+               spacing: 10
+               Image {
+                   visible: icon === warningType || icon === successType
+                   source:  icon === warningType ? warningIcon : icon === successType ? successIcon : ''
+               }
                Text{
+                   id:textcontent
+                   anchors.verticalCenter: parent.verticalCenter
                    font.pixelSize: sconfirm.titleTextPixelSize
                    color:sconfirm.titleTextColor
                    text:sconfirm.titleText
-                   horizontalAlignment: Text.AlignHCenter
-                   verticalAlignment: Text.AlignVCenter
                    elide: Text.ElideRight
                }
            }
+
+
+           Image {
+               visible: !titleText && (icon === warningType || icon === successType)
+               width: titleBigIconWidth
+               height: titleBigIconWidth
+               anchors.horizontalCenter: parent.horizontalCenter
+               source:  icon === warningType ? warningBigIcon : icon === successType ? successBigIcon : ''
+           }
+
        }
 
    }
@@ -329,7 +359,9 @@ CAbstractPopLayer{
        anchors.leftMargin: messageAreaLeftMargin
        anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
-       sourceComponent: Component {
+       sourceComponent: Rectangle {
+//           border.color: 'blue'
+           height: childrenRect.height
            Column {
                Text {
                    anchors.horizontalCenter: messageAreaInputShow ? '' : parent.horizontalCenter
@@ -337,35 +369,47 @@ CAbstractPopLayer{
                    color:sconfirm.messageTextColor
                    lineHeight: sconfirm.messageTextLineHeight
                    lineHeightMode: Text.FixedHeight
+                   width: messageAreaLoader.width
                    text:sconfirm.messageText
                    wrapMode:Text.WrapAnywhere;
-                   horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
+                   elide: Text.ElideRight
                }
 
                Rectangle {
-                   id: textInputArea
-                   visible: true
-                   border.width: 2
-                   border.color: sconfirm.inputFocus ? '#007aff' : '#333333'
-                   width: childrenRect.width + 10
-                   height: childrenRect.height  + 10
-                   TextInput {
-                       id: textInput
-                       height: 40
-                       width: messageAreaLoader.width
-                       anchors.leftMargin: 20
-                       focus: sconfirm.inputFocus
-                       text: sconfirm.inputValue
+//                   color: 'blue'
+                   width: childrenRect.width + 2
+                   height: childrenRect.height + 2
+                   Rectangle {
+                       id: textInputArea
+//                       color: 'red'
+//                       border.width: 2
+                       border.color: sconfirm.inputFocus ? '#007aff' : '#333333'
+                       width: childrenRect.width + 2
+                       height: childrenRect.height  + 2
+                       clip: true
 
-                       onTextChanged: {
-                         sconfirm.inputValue = textInput.text
-                       }
+                       TextInput {
+                           id: txtInput
+                           height: 50
+                           width: messageAreaLoader.width
+                           focus: sconfirm.inputFocus
+                           text: sconfirm.inputValue
+                           font.pixelSize: 26
 
-                       onFocusChanged: {
-                           sconfirm.inputFocus = textInput.focus
+                           verticalAlignment: txtInput.AlignVCenter
+
+                           onTextChanged: {
+                             sconfirm.inputValue = txtInput.text
+                           }
+
+                           onFocusChanged: {
+                               sconfirm.inputFocus = txtInput.focus
+                           }
                        }
                    }
                }
+
+
            }
        }
    }
@@ -380,10 +424,9 @@ CAbstractPopLayer{
        anchors.top: messageAreaLoader.bottom
        anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.left: contentBackground.left
-//       anchors.leftMargin: buttonAreaLeftMargin
        anchors.right: contentBackground.right
-//       anchors.rightMargin: buttonAreaRightMargin
-       sourceComponent: Item {
+       sourceComponent: Rectangle {
+//           border.color: 'red'
            implicitHeight:buttonsRow.implicitHeight
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
 
@@ -516,13 +559,23 @@ CAbstractPopLayer{
                hideFinished()
                if(acceptedFlag){
                    accepted(sconfirm.inputValue)
-                   sconfirm.inputValue = ''
                    acceptedFlag = false
                }
                if(rejectedFlag){
                    rejected()
                    rejectedFlag = false
                }
+               sconfirm.inputValue = ''
+
+               sconfirm.icon = ''
+               sconfirm.titleText = ' ' // 黑科技, 是个空格
+               sconfirm.messageText = ''
+               sconfirm.acceptButtonLoading = false
+               sconfirm.rejectButtonVisible = true
+               sconfirm.rejectButtonText = "取消"
+               sconfirm.rejectButtonColor = "#333333"
+               sconfirm.acceptedButtonText = "确定"
+               sconfirm.acceptButtonColor = "#007aff"
            }
        }
    }

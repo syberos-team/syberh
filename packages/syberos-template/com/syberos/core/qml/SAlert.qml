@@ -18,7 +18,11 @@ import QtQuick 2.3
 import com.syberos.basewidgets 2.0
 
 SConfirm {
+    id: salert
     titleText: ''
     messageText: ''
+    icon: ''
+    acceptedButtonText:  "确定"
+    acceptButtonColor:  "#007aff"
     rejectButtonVisible: false
 }

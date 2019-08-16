@@ -33,7 +33,7 @@ CAbstractPopLayer{
    property real topSpacing: 80 * proportion
 
    /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离 */
-   property real topSpacingNoTitle: 120 * proportion
+   property real topSpacingNoTitle: 80 * proportion //120
 
    /*! 对话框的圆角大小 */
    property real radius: 6
@@ -86,8 +86,29 @@ CAbstractPopLayer{
    */
    property alias titleAreaEnabled:titleAreaLoader.active
 
-   /*! 标题左侧icon */
+   /*! 标题左侧icon，目前不支持定制，属于内置模块，有warning 和 success */
    property string icon: ""
+
+   /*! 标题左侧icon warning */
+   property string warningType: "warning"
+
+   /*! 标题左侧icon success */
+   property string successType: "success"
+
+   /*! 标题左侧 warning icon */
+   property string warningIcon: "qrc:/images/warning.png"
+
+   /*! 标题左侧 success icon */
+   property string successIcon: "qrc:/images/success_primary.png"
+
+   /*! 无标题 大 warning icon */
+   property string warningBigIcon: "qrc:/images/warning_big.png"
+
+   /*! 无标题 大 success icon */
+   property string successBigIcon: "qrc:/images/success_primary_big.png"
+
+   /*! 是否正确的IconType */
+   property bool hasIconType: icon === warningType || icon === successType
 
    // MessageAra使用相关属性
 
@@ -114,19 +135,19 @@ CAbstractPopLayer{
        \qmlproperty Component SConfirm::messageAreaComponent
        内容区组件，默认为Text
    */
-   property alias messageAreaComponent:messageAreaLoader.sourceComponent
+   property alias messageAreaComponent:messageLoaderArea.sourceComponent
 
    /*!
        \qmlproperty object SConfirm::messageAreaItem
        messageAreaComponent加载完成之后对应的Item元素
    */
-   property alias messageAreaItem:messageAreaLoader.item
+   property alias messageAreaItem:messageLoaderArea.item
 
    /*!
        \qmlproperty bool SConfirm::messageAreaEnabled
        内容区是否加载
    */
-   property alias messageAreaEnabled: messageAreaLoader.active
+   property alias messageAreaEnabled: messageLoaderArea.active
 
    // Button区域属性设置相关
 
@@ -257,7 +278,7 @@ CAbstractPopLayer{
                h += topSpacingNoTitle
            }
            if(messageAreaEnabled) {
-               h += messageAreaLoader.height
+               h += messageLoaderArea.height
                if(buttonAreaEnabled)
                    h += spacingBetweenMessageAreaAndButtonArea
            }
@@ -270,8 +291,10 @@ CAbstractPopLayer{
        }
    }
 
+
    Loader{
        id:titleAreaLoader
+       active: titleText || hasIconType
        anchors.top:contentBackground.top
        anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.left: contentBackground.left
@@ -279,19 +302,24 @@ CAbstractPopLayer{
        anchors.right: contentBackground.right
        anchors.rightMargin: titleAreaRightMargin
        sourceComponent: Rectangle {
-           width: !titleText ? titleBigIconWidth : titleSmallIconWidth
-           height: !titleText ? titleBigIconWidth : titleSmallIconWidth
-//           border.width: 2
-//           border.color: "red"
+           width: hasIconType && !titleText ? titleBigIconWidth : titleSmallIconWidth
+           height: hasIconType && !titleText ? titleBigIconWidth : titleSmallIconWidth
+
+           property real hasIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth - titleSmallIconWidth) / 2
+           property real noIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth) / 2
+
+//           border.color: 'blue'
+
 
            Row {
-               visible: titleText
+               id: titleRow
+               visible: titleText !== ''
                anchors.left: parent.left
-               anchors.leftMargin: (parent.width - textcontent.contentWidth - titleSmallIconWidth) / 2
+               anchors.leftMargin: hasIconType ? hasIconLeftMargin : noIconLeftMargin
                spacing: 10
                Image {
-                   visible: icon
-                   source:  icon === "warning" ? "qrc:/images/warning.png" : "qrc:/images/success_primary.png"
+                   visible: hasIconType
+                   source:  icon === warningType ? warningIcon : icon === successType ? successIcon : ''
                }
                Text{
                    id:textcontent
@@ -305,11 +333,11 @@ CAbstractPopLayer{
 
 
            Image {
-               visible: !titleText && icon
+               visible: !titleText && hasIconType
                width: titleBigIconWidth
                height: titleBigIconWidth
                anchors.horizontalCenter: parent.horizontalCenter
-               source:  icon === "warning" ? "qrc:/images/warning_big.png" : "qrc:/images/success_primary_big.png"
+               source:  icon === warningType ? warningBigIcon : icon === successType ? successBigIcon : ''
            }
 
        }
@@ -318,36 +346,34 @@ CAbstractPopLayer{
 
 
    Loader{
-       id:messageAreaLoader
+       id:messageLoaderArea
        anchors.topMargin: spacingBetweenMessageAreaAndButtonArea
        anchors.top: titleAreaLoader.bottom
        anchors.left: contentBackground.left
        anchors.leftMargin: messageAreaLeftMargin
        anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
-       sourceComponent: Text{
-           font.pixelSize: sconfirm.messageTextPixelSize
-           color:sconfirm.messageTextColor
-           lineHeight: sconfirm.messageTextLineHeight
-           lineHeightMode: Text.FixedHeight
-           text:sconfirm.messageText
-           wrapMode:Text.WrapAnywhere;
-           horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
+       sourceComponent: Text {
+               font.pixelSize: sconfirm.messageTextPixelSize
+               color:sconfirm.messageTextColor
+               lineHeight: sconfirm.messageTextLineHeight
+               lineHeightMode: Text.FixedHeight
+               text:sconfirm.messageText
+               wrapMode:Text.WrapAnywhere
+               horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
        }
-
    }
 
    Loader{
        id:buttonAreaLoader
-       anchors.top:messageAreaLoader.bottom
+       anchors.top:messageLoaderArea.bottom
        anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
        anchors.left: contentBackground.left
-//       anchors.leftMargin: buttonAreaLeftMargin
        anchors.right: contentBackground.right
-//       anchors.rightMargin: buttonAreaRightMargin
        sourceComponent: Rectangle {
            implicitHeight:buttonsRow.implicitHeight
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
+//           border.color: 'red'
 
            Rectangle {
                id:line
@@ -490,8 +516,9 @@ CAbstractPopLayer{
                    rejected()
                    rejectedFlag = false
                }
+
                sconfirm.icon = ''
-               sconfirm.titleText = ''
+               sconfirm.titleText = '1' // 黑科技, 是个空格
                sconfirm.messageText = ''
                sconfirm.acceptButtonLoading = false
                sconfirm.rejectButtonVisible = true
@@ -523,7 +550,7 @@ CAbstractPopLayer{
        //triggeredOnStart: true
        property int times: 0 // 用于保证正常退出循环
        onTriggered: {
-           if((messageAreaLoader.status === Loader.Ready) || (times > 30)){
+           if((messageLoaderArea.status === Loader.Ready) || (times > 30)){
                if(!sconfirm.visible){
                    sconfirm.visible = true
                }

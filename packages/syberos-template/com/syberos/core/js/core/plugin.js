@@ -46,11 +46,8 @@ SyberPlugin.prototype.setParam = function (handlerId, param) {
  */
 SyberPlugin.prototype.clearParam = function (param) {
   this.handlerId = null
-    if(param){
-      this.param={};
-    }else{
-        this.param={};
-    }
+  this.param=null;
+  this.param={};
  }
 
 
