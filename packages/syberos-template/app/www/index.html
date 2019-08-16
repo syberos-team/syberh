@@ -52,6 +52,15 @@
         <a class="mui-navigate-right api-class" id="./pages/camera.html">相机模块</a>
       </li>
       <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/barcode.html">扫码</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/telephony.html">通信</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/storage.html">数据存储</a>
+      </li>
+      <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/toast.html">modal-toast</a>
       </li>
     </ul>
@@ -63,7 +72,6 @@
   <script>
     var vConsole = new VConsole();
     console.log('Hello world');
-
     window.runApi = function (id) {
       console.log('执行API:' + id);
       syber.webview.redirectTo({

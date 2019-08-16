@@ -1,5 +1,5 @@
 ---
-title: 电话
+title: 拨号
 ---
 
 # class Telephony

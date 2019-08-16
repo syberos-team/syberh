@@ -16,27 +16,6 @@ reserved.
 
 import QtQuick 2.3
 import com.syberos.basewidgets 2.0
-import QtQuick.Controls 1.4
-
-/*
-* This file is part of hybrid-core
-*
-* Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd.
-All rights reserved.
-*
-* Authors:guohongfei
-*
-* guohongfei <guohongfei@syberos.com>
-*
-* This software, including documentation, is protected by
-copyright controlled
-* by Beijing Yuan Xin Technology Co.,Ltd. All rights are
-reserved.
-*/
-
-import QtQuick 2.3
-import com.syberos.basewidgets 2.0
-import QtQuick.Controls 1.4
 
 Rectangle {
     id: stoast;
