@@ -2,9 +2,20 @@ RESOURCES += \
     $$PWD/syberos_core.qrc \
     $$PWD/qml/images/images.qrc
 
-#DISTFILES += \
-#    $$PWD/qml/images/error.svg \
-#    $$PWD/qml/images/success_primary.svg \
-#    $$PWD/qml/images/success.svg \
-#    $$PWD/qml/images/warning.svg \
-#    $$PWD/qml/images/images.qrc.autosave
+HEADERS += \
+    $$PWD/src/decodethread.h \
+    $$PWD/src/decodeworkspace.h \
+    $$PWD/src/cqrcoder.h \
+    $$PWD/src/qandroidmultimediautils.h \
+    $$PWD/src/gralloc_priv.h \
+    $$PWD/src/multimediautils.h \
+    $$PWD/src/zxing.h \
+    $$PWD/src/qtcamerascan.h
+
+SOURCES += \
+    $$PWD/src/decodethread.cpp \
+    $$PWD/src/decodeworkspace.cpp \
+    $$PWD/src/cqrcoder.cpp \
+    $$PWD/src/qandroidmultimediautils.cpp \
+    $$PWD/src/multimediautils.cpp \
+    $$PWD/src/qtcamerascan.cpp
