@@ -17,11 +17,14 @@ function SyberPlugin (opts) {
   this.syber = null
   // 挂载的qml
   this.object = null
+
+  this.defaultParam=opts.param||{}
   // 插件需要的参数
-  this.param = {}
+  this.param =this.defaultParam
   // 请求ID
   this.handlerId = null
   this.eventList = {}
+
 }
 
 /**
@@ -29,13 +32,25 @@ function SyberPlugin (opts) {
  * @param
  */
 SyberPlugin.prototype.setParam = function (handlerId, param) {
-  if (param) {
-    this.handlerId = handlerId
-    Object.assign(this.param, param)
+  this.handlerId = handlerId
+  if (param) { 
+    this.param=Object.assign(this.param, param)
   } else {
     console.error('SyberPlugin extendParam error,param is undefined')
   }
 }
+
+/**
+ * 拓展参数
+ * @param
+ */
+SyberPlugin.prototype.clearParam = function (param) {
+  this.handlerId = null
+  this.param=null;
+  this.param={};
+ }
+
+
 
 /**
  * register an event
