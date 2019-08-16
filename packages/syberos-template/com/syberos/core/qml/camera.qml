@@ -170,6 +170,7 @@ CPage {
                     cameraObj.stop();
                     cameraObj.cameraPosition = Camera.BackFace
                     camerVideoOutput.orientation = -90
+                    photoPreview.rotation = -90
                     cameraObj.start();
                 }
             }
