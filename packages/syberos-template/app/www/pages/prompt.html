@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <div class="mui-content pt0">
+      <ul class="mui-table-view ">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="prompt()">prompt</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="promptNoTitle()">prompt_no_title</a>
+        </li>
+        <!-- <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="promptShowLoading()">prompt showLoading</a>
+        </li> -->
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="promptTitleIcon()">prompt_title_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="promptBigIcon()">prompt_big_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="promptColorText()">prompt 修改颜色和文字</a>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="../common/mui/mui.js"></script>
+    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+
+
+  <script>
+    var vConsole = new VConsole()
+
+    function prompt() {
+      syber.modal.prompt({
+          title: '标题',
+          content: '请输入您的名字',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮, 值=》', res.data)
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.prompt fail')
+          }
+      })
+    }
+
+    function promptNoTitle() {
+      syber.modal.prompt({
+          content: '请输入您的名字',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮, 值=》', res.data)
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.prompt fail')
+          }
+      })
+    }
+
+    function promptShowLoading() {
+      syber.modal.prompt({
+          title: '标题',
+          content: '请输入您的名字',
+          // showLoading: true,
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮, 值=》', res.data)
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.prompt fail')
+          }
+      })
+    }
+
+    function promptTitleIcon() {
+      syber.modal.prompt({
+          title: '标题',
+          content: '请输入您的名字',
+          titleIcon: 'warning',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮, 值=》', res.data)
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.prompt fail')
+          }
+      })
+    }
+
+    function promptBigIcon() {
+      syber.modal.prompt({
+          content: '请输入您的名字',
+          titleIcon: 'warning',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮, 值=》', res.data)
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.prompt fail')
+          }
+      })
+    }
+
+    function promptColorText() {
+      syber.modal.prompt({
+          title: '标题',
+          content: '请输入您的名字',
+          titleIcon: 'warning',
+          confirmText: 'ok',
+          confirmColor: '#f00f00',
+          cancelColor: '#00ff00',
+          cancelText: 'cancel',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮, 值=》', res.data)
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.prompt fail')
+          }
+      })
+    }
+    
+    
+
+  </script>
+</body>
+
+</html>

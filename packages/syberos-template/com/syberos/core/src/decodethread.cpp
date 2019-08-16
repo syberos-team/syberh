@@ -5,7 +5,7 @@
 #include "cqrcoder.h"
 #include <errno.h>
 #include "qandroidmultimediautils.h"
-#include "gralloc_priv.h"
+//#include "gralloc_priv.h"
 //#include <gst/egl/egl.h>
 //#include <hybris/eglplatformcommon/hybris_nativebufferext.h>
 //#include <hybris/eglplatformcommon/nativewindowbase.h>
