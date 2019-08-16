@@ -61,13 +61,7 @@
         <a class="mui-navigate-right api-class" id="./pages/storage.html">数据存储</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/alert.html">modal-alert</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/confirm.html">modal-confirm</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/prompt.html">modal-prompt</a>
+        <a class="mui-navigate-right api-class" id="./pages/modal.html">modal模块</a>
       </li>
     </ul>
   </div>
@@ -80,7 +74,6 @@
     console.log('Hello world');
     window.runApi = function (id) {
       console.log('执行API:' + id);
-
       syber.webview.redirectTo({
         url: id,
         title: '测试页面标题',

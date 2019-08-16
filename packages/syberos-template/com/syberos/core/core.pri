@@ -7,7 +7,7 @@ HEADERS += \
     $$PWD/src/decodeworkspace.h \
     $$PWD/src/cqrcoder.h \
     $$PWD/src/qandroidmultimediautils.h \
-    $$PWD/src/gralloc_priv.h \
+#    $$PWD/src/gralloc_priv.h \
     $$PWD/src/multimediautils.h \
     $$PWD/src/zxing.h \
     $$PWD/src/qtcamerascan.h

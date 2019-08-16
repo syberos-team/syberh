@@ -2,12 +2,16 @@ export default function modalMixin(hybrid) {
     const hybridJs = hybrid;
     const innerUtil = hybridJs.innerUtil;
 
+
     hybridJs.extendModule('modal', [{
         namespace: 'alert',
         os: ['syber'],
         defaultParams: {
             title: '',
-            message: '',
+            titleIcon: '',
+            content: '',
+            confirmText: '确定',
+            confirmColor: '',
         },
         runCode(...rest) {
             // 兼容字符串形式
@@ -15,8 +19,33 @@ export default function modalMixin(hybrid) {
                 this,
                 rest,
                 'title',
-                'message');
+                'titleIcon',
+                'content',
+                'confirmText',
+                'showLoading',
+                'confirmColor',
+                );
             
+            hybridJs.callInner.apply(this, args);
+        },
+    },{
+        namespace: 'toast',
+        os: ['syber'],
+        defaultParams: {
+            title: '',
+            icon: '',
+            duration: 1500
+        },
+        runCode(...rest) {
+            // 兼容字符串形式
+            const args = innerUtil.compatibleStringParamsToObject.call(
+                this,
+                rest,
+                'title',
+                'icon',
+                'duration',
+            );
+
             hybridJs.callInner.apply(this, args);
         },
     }, {
@@ -79,26 +108,6 @@ export default function modalMixin(hybrid) {
                 'confirmText',
                 'showLoading',
                 'confirmColor',
-                );
-            
-            hybridJs.callInner.apply(this, args);
-        },
-    }, {
-        namespace: 'toast',
-        os: ['syber'],
-        defaultParams: {
-            title: '',
-            icon: '',
-            duration: 1500,
-        },
-        runCode(...rest) {
-            // 兼容字符串形式
-            const args = innerUtil.compatibleStringParamsToObject.call(
-                this,
-                rest,
-                'title',
-                'icon',
-                'duration',
                 );
             
             hybridJs.callInner.apply(this, args);
