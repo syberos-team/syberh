@@ -74,7 +74,6 @@ Rectangle {
             width: proportion * 120
             height: proportion * 90
             source: iconPath
-            fillMode: Image.PreserveAspectFit
         }
 
         Text {
@@ -180,9 +179,14 @@ Rectangle {
                 lineBreak = true;
             }
         }
+
+        //如果只有一行，则将换行符去掉
+        if(outputStr.indexOf("\n") == outputStr.length-1){
+            outputStr = outputStr.replace("\n", "");
+        }
+        console.log(outputStr);
         return outputStr;
     }
-
 }
 
 

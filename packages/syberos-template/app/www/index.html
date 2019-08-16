@@ -51,6 +51,9 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/camera.html">相机模块</a>
       </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/toast.html">modal-toast</a>
+      </li>
     </ul>
   </div>
   <script type="text/javascript" src="./common/mui/mui.js"></script>
@@ -60,9 +63,9 @@
   <script>
     var vConsole = new VConsole();
     console.log('Hello world');
+
     window.runApi = function (id) {
       console.log('执行API:' + id);
-
       syber.webview.redirectTo({
         url: id,
         title: '测试页面标题',
