@@ -71,18 +71,6 @@
       "apis/system/aboutPhone": {
         "title": "aboutPhone"
       },
-      "apis/system/getCoreVersion": {
-        "title": "getCoreVersion"
-      },
-      "apis/system/getModel": {
-        "title": "getModel"
-      },
-      "apis/system/getResolution": {
-        "title": "getResolution"
-      },
-      "apis/system/getSysVersionID": {
-        "title": "getSysVersionID"
-      },
       "apis/telephony/dial": {
         "title": "dial"
       },
