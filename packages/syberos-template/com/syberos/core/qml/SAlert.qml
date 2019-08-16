@@ -21,5 +21,8 @@ SConfirm {
     id: salert
     titleText: ''
     messageText: ''
+    icon: ''
+    acceptedButtonText:  "确定"
+    acceptButtonColor:  "#007aff"
     rejectButtonVisible: false
 }

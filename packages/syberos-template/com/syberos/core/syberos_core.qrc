@@ -19,6 +19,11 @@
         <file>qml/SAlert.qml</file>
         <file>js/camera/camera.js</file>
         <file>qml/camera.qml</file>
+        <file>js/modal/prompt.js</file>
+        <file>qml/sprompt.qml</file>
+        <file>qml/SCollisionIndicator.qml</file>
+        <file>qml/SToast.qml</file>
+        <file>js/modal/toast.js</file>
         <file>js/barcode/constants.js</file>
         <file>js/barcode/barcode.js</file>
         <file>qml/SBarcode.qml</file>
