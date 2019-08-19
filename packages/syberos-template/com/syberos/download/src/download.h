@@ -4,21 +4,14 @@
 #include "../framework/nativesdkhandlerbase.h"
 #include <QtNetwork>
 #include <QObject>
+#include "downloadmanager.h"
 
 class TaskInfo{
 public:
     // 任务ID
     QString downloadID;
-    // 下载文件名
-    QString name;
-    // 下载文件本地路径
-    QString path;
-
-    QNetworkReply* reply;
-    // 已取消
-    bool cancel;
-    // 是否能取消
-    bool canCancel;
+    // 下载
+    DownloadManager *downloadManager;
 };
 
 
@@ -41,20 +34,18 @@ public:
 
     static int typeId;
 
-    void downloadProgress(QString callbackId, QString path, qint64 bytesReceived, qint64 bytesTotal);
-
 private :
     void start(QString callbackId, QString url, QString name);
 
     void cancel(QString downloadID);
 
-    QNetworkAccessManager *manager;
-
-    TaskInfo* findTaskInfoByReply(QNetworkReply *reply);
-    bool downloadCannel(TaskInfo* taskInfo, bool emitFailed = false);
+    TaskInfo* findTaskInfo(DownloadManager *downloadManager);
 
 public slots:
-    void finished(QNetworkReply *reply);
+
+    void onDownloadProcess(QString downloadId, QString path, qint64 received, qint64 total);
+
+    void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
 };
 
 
