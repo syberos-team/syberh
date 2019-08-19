@@ -194,7 +194,7 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   }
   print('request sucess ', result)
   print('responseID ', handlerId)
-  gToast.requestToast('request sucess：' + JSON.stringify(result))
+  // gToast.requestToast('request sucess：' + JSON.stringify(result))
   // 返回内容
   var resObj = {
     responseId: Number(handlerId),
