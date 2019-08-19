@@ -6,6 +6,7 @@ CPage {
     id: cameraPage
 
     property string imgPath
+    property var randomNum
 
     signal back(string path)
 
@@ -36,15 +37,35 @@ CPage {
             //捕捉的图片被写入磁盘时，这个信号被发射
             onImageSaved: {
                 //将应用下的图片复制到相册中，后删除应用中的图片
-//                NativeSdkManager.request('Camera*', '123', 'scan', {'path':path});
-                imgPath = "file://" + path
-                photoPreview.source = imgPath
+                randomNum = getRandomNum();
+                NativeSdkManager.request('Camera*', randomNum, 'changeImagePath', {'path':path});
             }
             //捕捉请求出现错误
             onCaptureFailed: {
                 console.log("image onCaptureFailed! reqId: " + requestId)
                 console.log("image onCaptureFailed! message:  " + message)
             }
+        }
+    }
+
+    // min:随机数的最小值，max:随机数的最大值
+    function getRandomNum()
+    {
+        var Min = 10000000;
+        var Max = 99999999;
+        var Range = Max - Min;
+        var Rand = Math.random();
+        return(Min + Math.round(Rand * Range));
+    }
+
+    Connections{
+        target: NativeSdkManager
+        onSuccess:{
+            if( parseInt(responseID) === parseInt(randomNum)){
+                 imgPath = "file://" + result.imgPath;
+                 photoPreview.source = imgPath;
+            }
+
         }
     }
 
