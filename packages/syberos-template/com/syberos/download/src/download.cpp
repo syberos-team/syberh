@@ -38,15 +38,15 @@ int Download::typeId = qRegisterMetaType<Download *>();
 
 Download::Download()
 {
-    manager = new QNetworkAccessManager(this);
-
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
 }
 
-Download::~Download()
-{
-    delete manager;
-    manager = NULL;
+Download::~Download() {
+    QMap<QString, TaskInfo*>::ConstIterator it = tasks.begin();
+    for(; it!=tasks.end(); it++){
+        TaskInfo *taskInfo = it.value();
+        delete taskInfo;
+    }
+    tasks.clear();
 }
 
 
@@ -78,30 +78,21 @@ void Download::start(QString callbackId, QString url, QString name){
     }
     qDebug() << Q_FUNC_INFO << "url:" << url << "name:" << name << endl;
 
-    QUrl qurl(url);
-    QNetworkRequest request(qurl);
+    DownloadManager *downloadManager = new DownloadManager(this);
+    downloadManager->setDownloadId(callbackId);
 
-    QString urlAddr = url.toLower();
-    if(urlAddr.startsWith("https")){
-        QSslConfiguration config;
-        config.setPeerVerifyMode(QSslSocket::VerifyNone);
-        config.setProtocol(QSsl::UnknownProtocol);
-        request.setSslConfiguration(config);
-    }
-
-    QNetworkReply *reply = manager->get(request);
+    connect(downloadManager, &DownloadManager::signalDownloadProcess, this, &Download::onDownloadProcess);
+    connect(downloadManager, &DownloadManager::signalReplyFinished, this, &Download::onReplyFinished);
 
     TaskInfo *taskInfo = new TaskInfo();
     taskInfo->downloadID = callbackId;
-    taskInfo->reply = reply;
-    taskInfo->name = name;
-    taskInfo->path = getDownloadPath() + "/" + name;
-    taskInfo->cancel = false;
-    taskInfo->canCancel = true;
-
+    taskInfo->downloadManager = downloadManager;
     tasks.insert(callbackId, taskInfo);
 
-    QJsonObject json = successJson(callbackId, taskInfo->path, Started, 0, 0);
+    QString path = getDownloadPath() + "/" + name;
+    downloadManager->downloadFile(url, path);
+
+    QJsonObject json = successJson(callbackId, path, Started, 0, 0);
     emit success(callbackId.toLong(), json);
 }
 
@@ -115,7 +106,7 @@ void Download::cancel(QString downloadID){
         return;
     }
     TaskInfo *taskInfo = tasks.value(downloadID);
-    taskInfo->cancel = true;
+    taskInfo->downloadManager->closeDownload();
 
     QJsonObject json;
     json.insert("result", true);
@@ -123,109 +114,52 @@ void Download::cancel(QString downloadID){
 }
 
 
-void Download::finished(QNetworkReply *reply)
-{
-    QVariant statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-
-    qDebug() << Q_FUNC_INFO << " statusCode: " << statusCode.toString() << " error: " << reply->error() << endl;
-
-    TaskInfo *taskInfo = findTaskInfoByReply(reply);
-    if(taskInfo==NULL){
-        qDebug() << Q_FUNC_INFO << "TaskInfo not found, QNetworkReply:" << reply << reply->url() << endl;
-        reply->deleteLater();
-        return;
-    }
-
-    if(downloadCannel(taskInfo, true)){
-        reply->deleteLater();
-        return;
-    }
-
-    QString path = taskInfo->path;
-    QString callbackId = taskInfo->downloadID;
-
-    if(QNetworkReply::NoError == reply->error()) {
-        QFile file(path);
-        if(!file.open(QIODevice::WriteOnly)){
-            qDebug() << Q_FUNC_INFO << " save fail: " << file.error() << file.errorString() << endl;
-            reply->deleteLater();
-            emit failed(callbackId.toLong(), 500, file.errorString());
-            return;
-        }
-
-        qDebug() << "!!!!!!!! begin" << path << reply->url() << endl;
-
-        if(downloadCannel(taskInfo, true)){
-            if(file.exists()){
-                file.close();
-                file.remove();
-            }
-            reply->deleteLater();
-            return;
-        }
-
-        qint64 bytesTotal = reply->size();
-        qint64 bytesReceived = 0;
-
-        qint64 maxlen = 1024;
-        while(!reply->atEnd()){
-            if(downloadCannel(taskInfo, true)){
-                if(file.exists()){
-                    file.close();
-                    file.remove();
-                }
-                reply->deleteLater();
-                return;
-            }
-            QByteArray data = reply->read(maxlen);
-            file.write(data.data(), data.length());
-
-            bytesReceived += data.length();
-            downloadProgress(callbackId, path, bytesReceived, bytesTotal);
-        }
-        qDebug() << "!!!!!!!! read end" << endl;
-        file.close();
-
-        tasks.remove(callbackId);
-        delete taskInfo;
-        reply->deleteLater();
-
-        QJsonObject json = successJson(callbackId, path, Completed, bytesReceived, bytesTotal);
-
-        qDebug() << "!!!!!!!! success" << json << endl;
-        emit success(callbackId.toLong(), json);
-    }else{
-        long errorCode = reply->error();
-        QString errorMessage = reply->errorString();
-        reply->deleteLater();
-        emit failed(callbackId.toLong(), errorCode, errorMessage);
-    }
-}
-
-
-void Download::downloadProgress(QString callbackId, QString path, qint64 bytesReceived, qint64 bytesTotal){
-    QJsonObject json = successJson(callbackId, path, Downloading, bytesReceived, bytesTotal);
-    qDebug() << "!!!!!!!! downloadProgress" << json << endl;
-    emit success(callbackId.toLong(), json);
-}
-
-TaskInfo* Download::findTaskInfoByReply(QNetworkReply *reply){
+TaskInfo* Download::findTaskInfo(DownloadManager *downloadManager){
     QMap<QString, TaskInfo*>::ConstIterator it = tasks.begin();
     for(; it!=tasks.end(); it++){
         TaskInfo *taskInfo = it.value();
-        if(taskInfo->reply == reply){
+        if(taskInfo->downloadManager == downloadManager){
             return taskInfo;
         }
     }
     return NULL;
 }
 
-bool Download::downloadCannel(TaskInfo* taskInfo, bool emitFailed){
-    if(taskInfo->canCancel && taskInfo->cancel){
-        if(emitFailed){
-            emit failed(taskInfo->downloadID.toLong(), 200, "下载取消");
-        }
-        return true;
+
+// 更新下载进度;
+void Download::onDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal) {
+    QJsonObject json = successJson(downloadId, path, Downloading, bytesReceived, bytesTotal);
+    qDebug() << Q_FUNC_INFO << "downloadProgress" << json << endl;
+    emit success(downloadId.toLong(), json);
+}
+
+
+void Download::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
+    qDebug() << Q_FUNC_INFO << "download finished " << statusCode << errorMessage << endl;
+
+    qint64 received = 0;
+    qint64 total = 0;
+    TaskInfo *taskInfo = tasks.value(downloadId);
+    if(taskInfo!=NULL){
+        received = taskInfo->downloadManager->getBytesReceived();
+        total = taskInfo->downloadManager->getBytesTotal();
     }
-    return false;
+    // 根据状态码判断当前下载是否出错;
+    if (statusCode > 200 && statusCode < 400) {
+        qDebug() << Q_FUNC_INFO << "download failed " << statusCode << errorMessage << endl;
+        emit failed(downloadId.toLong(), statusCode, errorMessage);
+    }
+    else {
+        QJsonObject json = successJson(downloadId, path, Completed, received, total);
+
+        qDebug() << Q_FUNC_INFO << "download success " << statusCode << errorMessage << endl;
+        emit success(downloadId.toLong(), json);
+    }
+    if(taskInfo!=NULL){
+        disconnect(taskInfo->downloadManager, &DownloadManager::signalDownloadProcess, this, &Download::onDownloadProcess);
+        disconnect(taskInfo->downloadManager, &DownloadManager::signalReplyFinished, this, &Download::onReplyFinished);
+        tasks.remove(downloadId);
+        delete taskInfo;
+        taskInfo = NULL;
+    }
 }
