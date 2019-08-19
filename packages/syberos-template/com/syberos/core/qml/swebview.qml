@@ -42,10 +42,13 @@ WebView {
         receiveMessage(message)
 
     }
-    experimental.alertDialog: CAlertDialog {
-        id: messageDialog
-        canceledOnOutareaClicked: false
+    experimental.alertDialog: SConfirm {
+        id: salert
         messageText: model.message
+        icon: ''
+        acceptedButtonText:  "确定"
+        acceptButtonColor:  "#007aff"
+        rejectButtonVisible: false
         onAccepted: {
             model.accept()
         }
@@ -54,6 +57,7 @@ WebView {
             show()
         }
     }
+
 
     experimental.confirmDialog: CDialog {
         id: confirmDialog
