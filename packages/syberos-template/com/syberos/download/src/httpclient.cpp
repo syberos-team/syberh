@@ -7,21 +7,28 @@ HttpClient::HttpClient(QObject *parent) :
     QObject(parent) {
     manager = new QNetworkAccessManager(this);
 
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finished(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished, this, &HttpClient::finished);
 }
 
 HttpClient::~HttpClient(){
     delete manager;
+    manager = NULL;
 }
 
-HttpClient* HttpClient::instance(){
-    static HttpClient client;
-    return &client;
-}
 
 QNetworkReply* HttpClient::get(const QString &url){
     qDebug() << Q_FUNC_INFO << endl;
-    return manager->get(QNetworkRequest(QUrl(url)));
+    QUrl qurl(url);
+    QNetworkRequest request(qurl);
+
+    QString urlAddr = url.toLower();
+    if(urlAddr.startsWith("https")){
+        QSslConfiguration config;
+        config.setPeerVerifyMode(QSslSocket::VerifyNone);
+        config.setProtocol(QSsl::UnknownProtocol);
+        request.setSslConfiguration(config);
+    }
+    return manager->get(request);
 }
 
 void HttpClient::finished(QNetworkReply *reply){

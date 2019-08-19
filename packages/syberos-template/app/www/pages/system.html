@@ -27,15 +27,32 @@
   </head>
   <body>
     <button onclick="goBack()">goBack()</button>
-    <button id="getCoreVersion" onclick="getCoreVersion()">内核版本号</button>
-    <button id="getCoreVersion" onclick="getSysVersionID()">系统版本号</button>
-    <button id="getCoreVersion" onclick="getResolution()">屏幕分辨率</button>
-    <button id="getCoreVersion" onclick="aboutPhone()">手机信息</button>
+    <button id="uniqueId" onclick="uniqueId()">设备ID</button>
+    <button id="brand" onclick="brand()">设备品牌</button>
+    <button id="manufacturer" onclick="manufacturer()">设备生产商</button>
+    <button id="model" onclick="model()">设备型号</button>
+    <button id="name" onclick="name()">手机名称</button>
+    <button id="imei" onclick="imei()">移动设备国际识别码</button>
+    <button id="simCardNumbers" onclick="simCardNumbers()">如果是双卡，有多个手机号</button>
+    <button id="imsis" onclick="imsis()">如果是双卡，有多个国际移动用户识别码</button>
+    <button id="hardware" onclick="hardware()">系统的平台类型 </button>
+    <button id="osVersion" onclick="osVersion()">系统版本号</button>
+    <button id="osVersionCode" onclick="osVersionCode()">系统小版本号</button>
+    <button id="softwareVersion" onclick="softwareVersion()">系统版本号的简称或者代号</button>
+    <button id="height" onclick="height()">手机分辨率，高度</button>
+    <button id="width" onclick="width()">手机分辨率，宽度</button>
+    <button id="desktopAvailableHeight" onclick="desktopAvailableHeight()">可使用窗口高度</button>
+    <button id="desktopAvailableWidth" onclick="desktopAvailableWidth()">可使用窗口宽度</button>
+    <button id="statusBarHeight" onclick="statusBarHeight()">状态栏的高度</button>
+    <button id="pixelRatio" onclick="pixelRatio()">设备像素比</button>
+    <button id="language" onclick="language()">系统语言</button>
+    <button id="region" onclick="region()">系统地区</button>
+
     <div class="text" id="content"></div>
     <div class="text" id="result"></div>
     <script>
         var vConsole = new VConsole()
-        console.log('Hello world')
+        console.log('Hello world-系统信息')
         function print(str){
             document.getElementById('content').innerHTML=JSON.stringify(str)
         }
@@ -45,57 +62,73 @@
         document.getElementById('content').innerHTML = JSON.stringify(syber.os)
 
 
-        function getCoreVersion() {
-            syber.system.getCoreVersion({
-              success: function (result) {
-                  var retStr = "getCoreVersion: " + result;
-                  console.info(retStr);
-                  document.getElementById('result').innerHTML = retStr;
-              },
-              fail: function (error) {
-                console.info(error)
-              }
-            });
+        function uniqueId() {
+            baseParameter("uniqueId");
+        }
+        function brand() {
+            baseParameter("brand");
+        }
+        function manufacturer() {
+            baseParameter("manufacturer");
+        }
+        function model() {
+            baseParameter("model");
+        }
+        function name() {
+            baseParameter("name");
+        }
+        function imei() {
+            baseParameter("imei");
+        }
+        function simCardNumbers() {
+            baseParameter("simCardNumbers");
+        }
+        function imsis() {
+            baseParameter("imsis");
+        }
+        function hardware() {
+            baseParameter("hardware");
+        }
+        function KernelVersion() {
+            baseParameter("KernelVersion");
+        }
+        function osVersion() {
+            baseParameter("osVersion");
+        }
+        function osVersionCode() {
+            baseParameter("osVersionCode");
+        }
+        function softwareVersion() {
+            baseParameter("softwareVersion");
+        }
+        function height() {
+            baseParameter("height");
+        }
+        function width() {
+            baseParameter("width");
+        }
+        function desktopAvailableHeight() {
+            baseParameter("desktopAvailableHeight");
+        }
+        function desktopAvailableHeight() {
+            baseParameter("desktopAvailableHeight");
+        }
+        function desktopAvailableWidth() {
+            baseParameter("desktopAvailableWidth");
+        }
+        function statusBarHeight() {
+            baseParameter("statusBarHeight");
+        }
+        function pixelRatio() {
+            baseParameter("pixelRatio");
+        }
+        function language() {
+            baseParameter("language");
+        }
+        function region() {
+            baseParameter("region");
         }
 
-        function getSysVersionID() {
-            syber.system.getSysVersionID({
-              success: function (result) {
-                  var retStr = "getSysVersionID: " + result;
-                  console.info(retStr);
-                  document.getElementById('result').innerHTML = retStr;
-              },
-              fail: function (error) {
-                console.info(error)
-              }
-            });
-        }
-
-        function aboutPhone() {
-            syber.system.aboutPhone({
-              success: function (result) {
-                  var retStr = "aboutPhone: " + JSON.stringify(result);
-                  console.info(retStr);
-                  document.getElementById('result').innerHTML = retStr;
-              },
-              fail: function (error) {
-                console.info(error)
-              }
-            });
-        }
-
-        function getResolution() {
-            syber.system.getResolution({
-              success: function (result) {
-                  var retStr = "getResolution: " + JSON.stringify(result);
-                  console.info(retStr);
-                  document.getElementById('result').innerHTML = retStr;
-              },
-              fail: function (error) {
-                console.info(error)
-              }
-            });
-        }
 
         function goBack() {
           syber.webview.goBack({
@@ -106,6 +139,21 @@
               console.info(error)
             }
           })
+        }
+
+        function baseParameter(param){
+            syber.system.aboutPhone({
+              success: function (result) {
+                  var retStr = "result-系统信息: " + JSON.stringify(result);
+                  console.info("retStr: " + retStr);
+
+                  alert("retStr" +" :"+retStr)
+                  document.getElementById('result').innerHTML = retStr;
+              },
+              fail: function (error) {
+                console.info(error)
+              }
+            });
         }
 
     </script>
