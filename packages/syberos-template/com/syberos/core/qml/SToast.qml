@@ -163,7 +163,6 @@ Rectangle {
         if(outputStr.indexOf("\n") == outputStr.length-1){
             outputStr = outputStr.replace("\n", "");
         }
-        console.log(outputStr);
         return outputStr;
     }
 }
