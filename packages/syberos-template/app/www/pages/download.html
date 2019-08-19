@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">download(下载文件)</button>
+      </div>
+      <div class="mui-card-content">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell">downloadID:<span id="start-downloadID"></span></li>
+          <li class="mui-table-view-cell">path:<span id="start-path"></span></li>
+          <li class="mui-table-view-cell">status:<span id="start-status"></span></li>
+          <li class="mui-table-view-cell">received:<span id="start-received"></span></li>
+          <li class="mui-table-view-cell">total:<span id="start-total"></span></li>
+        </ul>
+      </div>
+      <div class="mui-card-footer">
+        <div id="start-progressbar" class="mui-progressbar">
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel()">cancel(取消下载)</button>
+      </div>
+      <div class="mui-card-content">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell">downloadID:<span id="cancel-downloadID"></span></li>
+          <li class="mui-table-view-cell">path:<span id="cancel-path"></span></li>
+          <li class="mui-table-view-cell">status:<span id="cancel-status"></span></li>
+          <li class="mui-table-view-cell">received:<span id="cancel-received"></span></li>
+          <li class="mui-table-view-cell">total:<span id="cancel-total"></span></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="cancel()">cancel(取消下载)</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    function showResult(type, result) {
+      document.getElementById(type + '-downloadID').innerText = result.downloadID;
+      document.getElementById(type + '-path').innerText = result.path;
+      document.getElementById(type + '-status').innerText = result.status;
+      document.getElementById(type + '-received').innerText = result.received;
+      document.getElementById(type + '-total').innerText = result.total;
+    }
+
+    function start() {
+      var first = true;
+      syber.download.start({
+        'url': 'https://www.baidu.com/img/bd_logo1.png',
+        'name': 'baidu_logo.png',
+        success: function (result) {
+          showResult('start', result);
+          if (first) {
+            first = false;
+            mui("#start-progressbar").progressbar().setProgress(0);
+          } else {
+            mui("#start-progressbar").progressbar().setProgress(Math.round((result.received / result.total) * 100));
+          }
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function cancel() {
+      var first = true;
+      syber.download.start({
+        'url': 'https://d2j3q9yua85jt3.cloudfront.net/img/e94b52a277d4919d43f455e29818c222',
+        'name': 'google.png',
+        success: function (result) {
+          showResult('cancel', result);
+          if (first) {
+            first = false
+            syber.download.cancel({
+              'downloadID': result.downloadID,
+              success: function (rs) {
+                console.info(rs)
+              },
+              fail: function (er) {
+                console.info(er)
+              }
+            })
+          }
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
