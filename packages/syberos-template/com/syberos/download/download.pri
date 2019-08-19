@@ -8,7 +8,6 @@ HEADERS += \
     $$PWD/src/helper.h \
     $$PWD/src/httpclient.h \
     $$PWD/src/qtcamera.h \
-    $$PWD/src/testhandler.h \
     $$PWD/src/loadqmlwidget.h \
     $$PWD/src/loadqmlhandler.h \
     $$PWD/src/telephony.h \
@@ -23,7 +22,6 @@ SOURCES += \
     $$PWD/src/helper.cpp \
     $$PWD/src/httpclient.cpp \
     $$PWD/src/qtcamera.cpp \
-    $$PWD/src/testhandler.cpp \
     $$PWD/src/loadqmlwidget.cpp \
     $$PWD/src/loadqmlhandler.cpp \
     $$PWD/src/telephony.cpp \
