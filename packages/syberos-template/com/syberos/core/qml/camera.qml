@@ -17,6 +17,12 @@ CPage {
         flash.mode: Camera.FlashRedEyeReduction //控制照相机闪光灯的方法和属性。红眼减少闪光
         imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash //调整相机图像处理参数的方法和属性。闪光白平衡模式
 
+        focus {
+            focusMode: Camera.FocusAuto
+            focusPointMode: Camera.FocusPointAuto
+            customFocusPoint: Qt.point(0.5, 0.5)
+        }
+
         exposure {
             exposureCompensation: -1.0
             exposureMode: Camera.ExposurePortrait //曝光模式
@@ -29,6 +35,8 @@ CPage {
             }
             //捕捉的图片被写入磁盘时，这个信号被发射
             onImageSaved: {
+                //将应用下的图片复制到相册中，后删除应用中的图片
+//                NativeSdkManager.request('Camera*', '123', 'scan', {'path':path});
                 imgPath = "file://" + path
                 photoPreview.source = imgPath
             }
@@ -41,6 +49,7 @@ CPage {
     }
 
     VideoOutput {
+        id:camerVideoOutput
         source: cameraObj
         orientation: -90 //摄像头旋转90度
         focus: visible // 接收焦点并在可见时捕获关键事件
@@ -50,7 +59,8 @@ CPage {
         id: photoPreview
         anchors.fill: parent
         focus: visible
-        //        rotation: +90
+//        rotation: +90
+
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -149,13 +159,20 @@ CPage {
             anchors.fill: parent
             onClicked: {
                 var postition = cameraObj.cameraPosition
-                console.log("---------------------------------------cameraObj.cameraPosition--front: " + cameraObj.cameraPosition)
+                //切换摄像头方法：关闭当前摄像头、设置成要切换的摄像头、调整摄像头角度、开启摄像头
                 if (postition === 1) {
+                    cameraObj.stop();
                     cameraObj.cameraPosition = Camera.FrontFace
+                    camerVideoOutput.orientation = +90
+//                    photoPreview.rotation = +90
+                   cameraObj.start();
                 } else if (postition === 2) {
+                    cameraObj.stop();
                     cameraObj.cameraPosition = Camera.BackFace
+                    camerVideoOutput.orientation = -90
+//                    photoPreview.rotation = -90
+                    cameraObj.start();
                 }
-                console.log("---------------------------------------cameraObj.cameraPosition--after: " + cameraObj.cameraPosition)
             }
         }
 
@@ -164,5 +181,10 @@ CPage {
             source: "/res/switch.png"
             anchors.fill: parent
         }
+    }
+
+    Component.onCompleted: {
+        cameraObj.stop()
+        cameraObj.start()
     }
 }

@@ -23,6 +23,15 @@ function Camera () {
         pageStack.pop()
         WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
     })
+
+//    object.imageConfirmed.connect(function(filePath) { //处理信号
+//        console.log('-------------------------------------filePath----js', filePath)
+//        pageStack.pop(root)
+
+//        WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
+//    })
+
+
   })
 
   this.on('ready', function () {

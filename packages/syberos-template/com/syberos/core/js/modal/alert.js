@@ -9,7 +9,7 @@ function Alert () {
     name: 'alert',
     module: 'modal',
     methods: ['alert'],
-    source: '../qml/SAlert.qml'
+    source: '../qml/SConfirm.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
@@ -20,14 +20,23 @@ function Alert () {
     console.log('\n')
     console.log('alert request', component.z)
     console.log('\n', param)
-    component.titleText = that.param.title
-    component.messageText = that.param.message
+
+
+    component.rejectButtonVisible = false
+
+    component.titleText = that.param.title || ''
+    component.icon = that.param.titleIcon|| ''
+    component.messageText = that.param.content || ''
+    component.acceptedButtonText = that.param.confirmText || '确定'
+    component.acceptButtonColor = that.param.confirmColor || '#007aff'
+
+
     component.show()
 
-//    // 确认事件
+    // 确认事件
     component.accepted.connect(function () {
-      WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true })
-      console.log('-----alert accepted')
+      that.clearParam()
+      WEBVIEWCORE.trigger('success', that.handlerId)
     })
 
   })

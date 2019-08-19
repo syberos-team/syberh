@@ -50,8 +50,8 @@ Rectangle {
         Image {
             id: toastIcon
             anchors.horizontalCenter: parent.horizontalCenter
-            width: proportion * 120
-            height: proportion * 90
+            width: proportion * 141
+            height: proportion * 141
             source: iconPath
         }
 
@@ -101,9 +101,9 @@ Rectangle {
         toastIcon.visible = true;
 
         if(icon === "success"){
-            stoast.iconPath = "toast-true.png";
+            stoast.iconPath = "qrc:/images/toast-true.png";
         }else if(icon === "error"){
-            stoast.iconPath = "toast-false.png";
+            stoast.iconPath = "qrc:/images/toast-false.png";
         }else if(icon === "none"){
             toastIcon.visible = false;
             stoast.title = getOutputStr(stoast.title, stoast.textLength);
