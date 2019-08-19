@@ -9,7 +9,10 @@ Qt.include('root/root.js')
 Qt.include('webview/webview.js')
 Qt.include('modal/alert.js')
 Qt.include('modal/confirm.js')
+Qt.include('modal/prompt.js')
+Qt.include('modal/toast.js')
 Qt.include('camera/camera.js')
+Qt.include('barcode/barcode.js')
 // 增加对ES6语法的支持
 polyfill()
 

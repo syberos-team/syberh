@@ -88,11 +88,7 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/systeminfo/aboutPhone",
-          "apis/systeminfo/getCoreVersion",
-          "apis/systeminfo/getModel",
-          "apis/systeminfo/getResolution",
-          "apis/systeminfo/getSysVersionID"
+          "apis/system/aboutPhone"
         ]
       }
     ],

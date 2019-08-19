@@ -19,5 +19,19 @@
         <file>qml/SAlert.qml</file>
         <file>js/camera/camera.js</file>
         <file>qml/camera.qml</file>
+        <file>js/modal/prompt.js</file>
+        <file>qml/sprompt.qml</file>
+        <file>qml/SCollisionIndicator.qml</file>
+        <file>qml/SToast.qml</file>
+        <file>js/modal/toast.js</file>
+        <file>js/barcode/constants.js</file>
+        <file>js/barcode/barcode.js</file>
+        <file>qml/SBarcode.qml</file>
+        <file>qml/BarcodeTitlebar.qml</file>
+        <file>qml/BarcodeScan.qml</file>
+        <file>res/nav_icon_qrcode.png</file>
+        <file>res/nav_return.png</file>
+        <file>res/SAOMIAO_56.png</file>
+        <file>res/nav_icon_rfid.png</file>
     </qresource>
 </RCC>

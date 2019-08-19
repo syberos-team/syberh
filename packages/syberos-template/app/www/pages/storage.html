@@ -1,68 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>clipboard</title>
-  <style type="text/css">
-    button {
-      font-size: 2em;
-      margin: 2em 2em;
-      height: 2em;
-      width: 7em;
-    }
-
-    input {
-      font-size: 2em;
-      height: 2em;
-      width: 7em;
-    }
-
-    .button2 {
-      font-size: 2em;
-      margin: 2em 2em;
-      height: 2em;
-      width: 80%;
-    }
-
-    .text {
-      font-size: 2em;
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .pt0 {
+      margin-top: 1em;
     }
   </style>
-  <script src="../lib/vconsole.min.js"></script>
-  <script src="../lib/syber.min.js"></script>
 </head>
 
 <body>
-  <button onclick="goBack()">goBack()</button>
-  <p>
-    <input id="setItemKey" placeholder="key" value="test" /><input id="setItemValue" pattern="value"
-      value="test" /><br />
-    <button onclick="setItem()">setItem</button><br />
-  </p>
-  <p>
-    <input id="getItemKey" placeholder="key" value="test" /><br />
-    <button onclick="getItem()">getItem</button><br />
-  </p>
-  <p>
-    <input id="removeItemKey" placeholder="key" value="test" /><br />
-    <button onclick="removeItem()">removeItem</button>
-  </p>
-  <p>
-    <button onclick="getAllKeys()">getAllKeys</button><br />
-  </p>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>key</label>
+        <input type="text" id="setItemKey" placeholder="key" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-input-row">
+        <label>value</label>
+        <input type="text" id="setItemValue" pattern="value" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="setItem()">setItem</button>
+      </div>
+    </form>
+  </div>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>key</label>
+        <input type="text" id="getItemKey" placeholder="key" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-warning" onclick="getItem()">getItem</button>
+      </div>
+    </form>
+  </div>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>key</label>
+        <input type="text" id="removeItemKey" placeholder="key" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-danger" onclick="removeItem()">removeItem</button>
+      </div>
+    </form>
+  </div>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-success" onclick="getAllKeys()">getAllKeys</button>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
-    var vConsole = new VConsole()
-    console.log('Hello world')
-    function print(str) {
-      document.getElementById('content').innerHTML = JSON.stringify(str)
-    }
-    syber.ready(function () {
-      document.getElementById('content').innerHTML = '注册成功'
-    })
-    document.getElementById('content').innerHTML = JSON.stringify(syber.os)
-
     function setItem() {
       syber.storage.setItem({
         'key': document.getElementById('setItemKey').value,
@@ -99,16 +104,6 @@
     }
     function getAllKeys() {
       syber.storage.getAllKeys({
-        success: function (result) {
-          console.info(result)
-        },
-        fail: function (error) {
-          console.info(error)
-        }
-      })
-    }
-    function goBack() {
-      syber.webview.goBack({
         success: function (result) {
           console.info(result)
         },

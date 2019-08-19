@@ -1,78 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>demo</title>
-  <style type="text/css">
-    button {
-      font-size: 2em;
-      margin: 2em 2em;
-      height: 2em;
-      width: 7em;
-    }
-
-    .text {
-      font-size: 2em;
-    }
-
-    .link {
-      font-size: 3em;
-    }
-  </style>
-  <script src="../lib/vconsole.min.js"></script>
-  <script src="../lib/syber.min.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Quick Hybrid API</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
 </head>
 
 <body>
-  <button id="donwload" onclick="alert()">alert</button>
-  <button id="donwload" onclick="confirm()">confirm</button>
-  <button onclick="goBack()">goBack()</button>
-  
-  <div class="text" id="content"></div>
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/alert.html">alert</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/confirm.html">confirm</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/prompt.html">prompt</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/toast.html">toast</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script>
-    function goBack() {
-      syber.callApi({
-        name: 'goBack',
-        mudule: 'webview',
+    var vConsole = new VConsole();
+    console.log('Hello world');
+    window.runApi = function (id) {
+      console.log('执行API:' + id);
+
+      syber.webview.redirectTo({
+        url: id,
+        title: '测试页面标题',
+        // 横竖屏,默认为1表示竖屏
+        orientation: '1',
         success: function (result) {
-        console.info('xuejun----')
-          console.info(result)
+          showTips(JSON.stringify(result));
         },
         error: function (error) {
-          console.info(error)
+          showTips('失败:' + JSON.stringify(error));
         }
-      })
-    }
+      });
+    };
+  </script>
+</body>
 
-    function alert() {
-        syber.modal.alert({
-            title: '弹窗标题',
-            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
-            success: function (result) {
-              console.info('弹窗标题')
-              console.info(result)
-            }
-        })
-    }
-
-    function confirm() {
-      syber.callApi({
-        name: 'confirm',
-        mudule: 'modal',
-        data: {
-            title: '弹窗标题',
-            message: '弹窗内容，告知当前状态、信息和解决方法，描述',
-            showCancel: false
-        },
-        success: function(result) {
-          console.info(result)
-        },
-        error: function(error) {
-          console.info(error)
-        }
-      })
-    }
-    </script>
-  </body>
 </html>
