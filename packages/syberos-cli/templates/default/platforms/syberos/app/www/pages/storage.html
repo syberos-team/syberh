@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .pt0 {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>key</label>
+        <input type="text" id="setItemKey" placeholder="key" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-input-row">
+        <label>value</label>
+        <input type="text" id="setItemValue" pattern="value" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="setItem()">setItem</button>
+      </div>
+    </form>
+  </div>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>key</label>
+        <input type="text" id="getItemKey" placeholder="key" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-warning" onclick="getItem()">getItem</button>
+      </div>
+    </form>
+  </div>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>key</label>
+        <input type="text" id="removeItemKey" placeholder="key" value="test" class="mui-input-clear" />
+      </div>
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-danger" onclick="removeItem()">removeItem</button>
+      </div>
+    </form>
+  </div>
+  <div class="mui-content pt0">
+    <form class="mui-input-group">
+      <div class="mui-button-row">
+        <button type="button" class="mui-btn mui-btn-success" onclick="getAllKeys()">getAllKeys</button>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    function setItem() {
+      syber.storage.setItem({
+        'key': document.getElementById('setItemKey').value,
+        'value': document.getElementById('setItemValue').value,
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function getItem() {
+      syber.storage.getItem({
+        'key': document.getElementById('getItemKey').value,
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function removeItem() {
+      syber.storage.removeItem({
+        'key': document.getElementById('removeItemKey').value,
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function getAllKeys() {
+      syber.storage.getAllKeys({
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
