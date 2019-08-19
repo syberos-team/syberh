@@ -14,7 +14,11 @@ HEADERS += \
     $$PWD/src/storage.h \
     $$PWD/src/clipboard.h \
     $$PWD/src/system.h \
+<<<<<<< HEAD
+    $$PWD/src/downloadmanager.h
+=======
     $$PWD/src/camera.h \
+>>>>>>> 8d55f92f25a87c46549ba22f0e5206c17fb2c07c
     $$PWD/src/network.h
 
 SOURCES += \
@@ -29,7 +33,11 @@ SOURCES += \
     $$PWD/src/storage.cpp \
     $$PWD/src/clipboard.cpp \
     $$PWD/src/system.cpp \
+<<<<<<< HEAD
+    $$PWD/src/downloadmanager.cpp
+=======
     $$PWD/src/camera.cpp \
+>>>>>>> 8d55f92f25a87c46549ba22f0e5206c17fb2c07c
     $$PWD/src/network.cpp
 
 DISTFILES +=
