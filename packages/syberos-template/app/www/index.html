@@ -49,6 +49,9 @@
         <a class="mui-navigate-right api-class" id="./pages/network.html">网络</a>
       </li>
       <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/system.html">系统信息</a>
+      </li>
+      <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/camera.html">相机模块</a>
       </li>
       <li class="mui-table-view-cell">
@@ -59,6 +62,9 @@
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/storage.html">数据存储</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/modal.html">modal模块</a>
       </li>
     </ul>
   </div>
@@ -71,7 +77,6 @@
     console.log('Hello world');
     window.runApi = function (id) {
       console.log('执行API:' + id);
-
       syber.webview.redirectTo({
         url: id,
         title: '测试页面标题',
