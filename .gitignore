@@ -9,6 +9,7 @@ _book
 temp
 .temp
 website/build
+website/i18n/en.json
 packages/**/package-lock.json
 .history
 packages/build*

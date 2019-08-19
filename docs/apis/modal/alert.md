@@ -14,10 +14,16 @@ title: alert
 | titleIcon | string |       | 否 | 标题左侧的图标 |
 | content | string |  | 是 | 确认按钮上显示的文字信息 |
 | confirmText | string | '确定' | 否 | 确认按钮的文字，最多 4 个字符 |
-| confirmIcon | string |       | 否 | 确认按钮的图标 |
-| confirmColor | string| '#576B95'  | 否 | 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
+| confirmColor | string| '#007aff'  | 否 | 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
 | success | function |  |  否     | 接口调用成功的回调函数      |
 | fail   | function |  |  否     | 接口调用失败的回调函数      |
+
+
+#### object.titleIcon 的合法值
+| 值     | 说明    |       
+| ---------- | ------- | 
+| success | 显示成功图标，此时 title 文本最多显示 7 个汉字长度 |
+| warning | 显示警告图标，此时 title 文本最多显示 7 个汉字长度 |
 
 
 #### object.fail回调函数

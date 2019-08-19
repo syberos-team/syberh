@@ -12,7 +12,8 @@ CONFIG += link_pkgconfig
 
 RESOURCES += res.qrc
 
-PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt gstreamer-egl-0.10 android-headers
+PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt
+# gstreamer-egl-0.10 android-headers
 
 QML_FILES = qml/*.qml
 

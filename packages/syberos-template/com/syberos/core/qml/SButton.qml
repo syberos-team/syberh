@@ -54,7 +54,23 @@ MouseArea {
    property string text: ""
 
    /*! 文本颜色 */
-   property color textColor: "#007aff"
+   property color textColor: textHrefColor
+
+   /*! 文本primary颜色 */
+   property color textPrimaryColor: "#333333"
+
+   /*! 文本href颜色 */
+   property color textHrefColor: "#007aff"
+
+   /*! 文本Second颜色 */
+   property color textSecondColor: "#666666"
+
+   /*! 文本third颜色 */
+   property color textThirdColor: "#999999"
+
+   /*! 文本four颜色 */
+   property color textFourColor: "#bbbbbb"
+
    /*!
        \qmlproperty object CButton::backgroundItem
        backgroundComponent加载完成之后对应的Item元素
