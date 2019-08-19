@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sopconfig syberos:versionName="1.0.0" syberos:versionCode="1" syberos:shareUserId="" syberos:sopid="com.syberos.demo" xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1">
+    <uses-permission syberos:name="syberos.permission.ACCESS_ALARM"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_APP_PERMISSION"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_BLACKLIST"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_BLUETOOTH"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_CAMERA"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_DATA_NETWORK"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_FLASHLIGHT"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_NOTIFICATION"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_PHONE"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_SIM"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_SMS"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_USERAUTH"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_WAKELOCK"/>
+    <uses-permission syberos:name="syberos.permission.ACCESS_WIFI"/>
+    <uses-permission syberos:name="syberos.permission.ADMIN_BLUETOOTH"/>
+    <uses-permission syberos:name="syberos.permission.ADMIN_DATA_NETWORK"/>
+    <uses-permission syberos:name="syberos.permission.ADMIN_PACKAGES"/>
+    <uses-permission syberos:name="syberos.permission.ADMIN_TIME"/>
+    <uses-permission syberos:name="syberos.permission.ADMIN_VPN"/>
+    <uses-permission syberos:name="syberos.permission.ADMIN_WIFI"/>
+    <uses-permission syberos:name="syberos.permission.CAPTURE_SCREEN"/>
+    <uses-permission syberos:name="syberos.permission.CLEAR_APP_DATA"/>
+    <uses-permission syberos:name="syberos.permission.DEVICE_DATAFORMAT"/>
+    <uses-permission syberos:name="syberos.permission.DEVICE_OTA"/>
+    <uses-permission syberos:name="syberos.permission.DEVICE_RECOVERY"/>
+    <uses-permission syberos:name="syberos.permission.DEVICE_SHUTDOWN"/>
+    <uses-permission syberos:name="syberos.permission.MDM"/>
+    <uses-permission syberos:name="syberos.permission.READ_CONTACT"/>
+    <uses-permission syberos:name="syberos.permission.READ_FINE_LOCATION"/>
+    <uses-permission syberos:name="syberos.permission.READ_IMEI"/>
+    <uses-permission syberos:name="syberos.permission.READ_NETWORK_STATE"/>
+    <uses-permission syberos:name="syberos.permission.RECORD"/>
+    <uses-permission syberos:name="syberos.permission.VIBRATE"/>
+
+ <application syberos:debuggable="true" syberos:description="SyberOS Hybrid App开发" syberos:name="hybrid" syberos:icon="res/app.png">
+        <uiapp syberos:exec="bin/app" syberos:id="app" syberos:name="" syberos:splash="res/hybrid-team.png" syberos:launcher="true" syberos:icon="res/app.png" syberos:background="">
+            <doctype syberos:id=""/>
+        </uiapp>
+    </application>
+
+    <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
+  
+
+</sopconfig>

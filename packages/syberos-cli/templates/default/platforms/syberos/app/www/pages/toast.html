@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="toast-success">成功提示</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="toast-error">错误提示</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="toast-none">无icon提示</a>
+      </li>
+
+      <li class="mui-table-view-cell" style="display: none">
+        <a class="mui-navigate-right api-class" id="close">close(关闭页面)</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+
+    var vConsole = new VConsole();
+
+    window.runApi = function (id) {
+      console.log('执行API:' + id);
+
+      switch (id) {
+        case 'toast-success':
+            syber.modal.toast({
+                title: '正确提示',
+                icon: 'success',
+                duration: 1500,
+                success: function (result) {
+                  console.info(JSON.stringify(result));
+                },
+                fail: function (error) {
+                  console.info(JSON.stringify(error));
+                }
+            });
+          break;
+        case 'toast-error':
+            syber.modal.toast({
+                title: '错误提示',
+                icon: 'error',
+                duration: 1500,
+                success: function (result) {
+                  console.info(JSON.stringify(result));
+                },
+                fail: function (error) {
+                  console.info(JSON.stringify(error));
+                }
+            });
+            break;
+        case 'toast-none':
+            syber.modal.toast({
+                title: '没有图标的提示没有图标的提示',
+                icon: 'none',
+                duration: 1500,
+                success: function (result) {
+                  console.info(JSON.stringify(result));
+                },
+                fail: function (error) {
+                  console.info(JSON.stringify(error));
+                }
+            });
+            break;
+        default:
+          console.error('错误！没有相应API');
+      }
+    };
+  </script>
+
+</body>
+
+</html>

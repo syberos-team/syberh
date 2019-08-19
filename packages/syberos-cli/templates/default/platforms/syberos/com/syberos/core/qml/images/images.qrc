@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>success_primary.png</file>
+        <file>warning.png</file>
+        <file>warning_big.png</file>
+        <file>success_primary_big.png</file>
+        <file>toast-false.png</file>
+        <file>toast-true.png</file>
+    </qresource>
+</RCC>
