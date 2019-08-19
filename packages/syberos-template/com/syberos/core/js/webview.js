@@ -224,7 +224,7 @@ function WebView (parent) {
       }
       print('request sucess ', result)
       print('responseID ', handlerId)
-      gToast.requestToast('request sucess ' + result)
+      // gToast.requestToast('request sucess ' + result)
       // 返回内容
       var resObj = {
         responseId: Number(handlerId),

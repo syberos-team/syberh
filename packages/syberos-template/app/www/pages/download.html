@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">download(下载文件)</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel()">cancel(取消下载)</button>
+      </div>
+      <div class="mui-card-content">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell"><span id="exec">&nbsp;</span></li>
+          <li class="mui-table-view-cell">downloadID:<span id="start-downloadID"></span></li>
+          <li class="mui-table-view-cell">path:<span id="start-path"></span></li>
+          <li class="mui-table-view-cell">status:<span id="start-status"></span></li>
+          <li class="mui-table-view-cell">received:<span id="start-received"></span></li>
+          <li class="mui-table-view-cell">total:<span id="start-total"></span></li>
+        </ul>
+      </div>
+      <div class="mui-card-footer">
+        <div id="start-progressbar" class="mui-progressbar">
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    function showResult(type, result) {
+      document.getElementById(type + '-downloadID').innerText = result.downloadID;
+      document.getElementById(type + '-path').innerText = result.path;
+      document.getElementById(type + '-status').innerText = result.status;
+      document.getElementById(type + '-received').innerText = result.received;
+      document.getElementById(type + '-total').innerText = result.total;
+    }
+
+    function start() {
+      document.getElementById('exec').innerText = '下载文件';
+      var first = true;
+      syber.download.start({
+        'url': 'http://online.qianqian.com/qianqian/info/ffaeb0b4503d0ee83768998b03140732.exe',
+        'name': 'qianqian.exe',
+        success: function (result) {
+          showResult('start', result);
+          if (first) {
+            first = false;
+            mui("#start-progressbar").progressbar().setProgress(0);
+          } else {
+            mui("#start-progressbar").progressbar().setProgress(Math.round((result.received / result.total) * 100));
+          }
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function cancel() {
+      document.getElementById('exec').innerText = '取消下载';
+      var downloadId = document.getElementById('start-downloadID').innerText;
+      syber.download.cancel({
+        'downloadID': downloadId,
+        success: function (rs) {
+          console.info(rs)
+        },
+        fail: function (er) {
+          console.info(er)
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

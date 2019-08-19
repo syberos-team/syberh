@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <div class="mui-content pt0">
+      <ul class="mui-table-view ">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirm()">confirm</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmColorText()">confirm 修改颜色和文字</a>
+        </li>
+        <!-- <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmShowLoading()">confirm showLoading</a>
+        </li> -->
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmSmallIcon()">confirm_small_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmNoTitle()">confirm_no_title</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmBigIcon()">confirm_big_icon</a>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="../common/mui/mui.js"></script>
+    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+
+
+  <script>
+    var vConsole = new VConsole()
+
+    function confirm() {
+      syber.modal.confirm({
+          title: '标题',
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          success: function () {
+            console.log('modal.confirm success')
+          },
+          fail: function() {
+            console.log('modal.confirm fail')
+          }
+      })
+    }
+
+    function confirmColorText() {
+      syber.modal.confirm({
+          title: '标题',
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          confirmText: 'ok',
+          confirmColor: '#ff0000',
+          cancelColor: '#00ff00',
+          cancelText: 'cancel',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮')
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.confirm fail')
+          }
+      })
+    }
+
+    function confirmShowLoading() {
+      syber.modal.confirm({
+          title: '标题',
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          showLoading: true,
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮')
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.confirm fail')
+          }
+      })
+    }
+
+    function confirmSmallIcon() {
+      syber.modal.confirm({
+          title: '标题',
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          titleIcon: 'success',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮')
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.confirm fail')
+          }
+      })
+    }
+
+    function confirmNoTitle() {
+      syber.modal.confirm({
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮')
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.confirm fail')
+          }
+      })
+    }
+
+    function confirmBigIcon() {
+      syber.modal.confirm({
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          titleIcon: 'warning',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮')
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
+          },
+          fail: function() {
+            console.log('modal.confirm fail')
+          }
+      })
+    }
+    
+    
+
+  </script>
+</body>
+
+</html>
