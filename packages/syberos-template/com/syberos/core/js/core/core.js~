@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'camera', 'prompt', 'toast', 'gtoast']
+    defaultPlugins: ['alert', 'confirm', 'camera', 'barcode', 'prompt', 'toast']
   }
 
   // add 内置 plugins
@@ -106,13 +106,6 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
   if (plugin.page) {
     this.pageStack(plugin, callback)
   } else {
-    if (!plugin.source) {
-      plugin.isReady = true
-      // data数据
-      plugin.trigger('ready')
-      if (typeof callback === 'function') callback()
-      return
-    }
     var _parent = parent || this.body
     console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
     console.debug('\n ***********plugin.source', plugin.source, '\n')
@@ -163,9 +156,11 @@ Syber.prototype._addBuiltInPlugins = function () {
   var plugins = {
     alert: { proto: Alert },
     confirm: { proto: Confirm },
+    camera:{proto: Camera},
+    prompt: {proto: Prompt},
     camera: { proto: Camera },
-    prompt: { proto: Prompt },
-    toast: { proto: Toast }
+    toast:{ proto:Toast },
+    barcode: { proto: Barcode }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {

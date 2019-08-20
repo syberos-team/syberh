@@ -96,22 +96,22 @@ CAbstractPopLayer{
    property string successType: "success"
 
    /*! 标题左侧 warning icon */
-   property string warningIcon: "qrc:/images/warning.png"
+   property string warningIcon: "qrc:/com/syberos/core/res/warning.png"
 
    /*! 标题左侧 success icon */
-   property string successIcon: "qrc:/images/success_primary.png"
+   property string successIcon: "qrc:/com/syberos/core/res/success_primary.png"
 
    /*! 无标题 大 warning icon */
-   property string warningBigIcon: "qrc:/images/warning_big.png"
+   property string warningBigIcon: "qrc:/com/syberos/core/res/warning_big.png"
 
    /*! 无标题 大 success icon */
-   property string successBigIcon: "qrc:/images/success_primary_big.png"
+   property string successBigIcon: "qrc:/com/syberos/core/res/success_primary_big.png"
 
 
    // MessageAra使用相关属性
 
    /*! 内容区文本 */
-   property string messageText: "messageText"
+   property string messageText: ""
 
    /*! 内容区文本颜色 */
    property color messageTextColor: "#333333"
@@ -239,6 +239,11 @@ CAbstractPopLayer{
    /*! 接受信号，当点击默认的“确定”按钮时发射 */
    signal accepted(var inputText)
 
+   /*! 给input框设置默认值 */
+   function setText(placeholder) {
+        inputValue = placeholder
+   }
+
 
    /*! 背景, 不允许定制 */
    Rectangle{
@@ -317,7 +322,6 @@ CAbstractPopLayer{
            property real hasIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth - titleSmallIconWidth) / 2
            property real noIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth) / 2
 
-//           border.color: 'red'
 
            Row {
                visible: titleText
@@ -354,17 +358,16 @@ CAbstractPopLayer{
    Loader{
        id:messageAreaLoader
        anchors.topMargin: spacingBetweenMessageAreaAndButtonArea
-       anchors.top: titleAreaLoader.bottom
+       anchors.top: titleAreaEnabled ? titleAreaLoader.bottom : contentBackground.top
        anchors.left: contentBackground.left
        anchors.leftMargin: messageAreaLeftMargin
        anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
        sourceComponent: Rectangle {
-//           border.color: 'blue'
            height: childrenRect.height
            Column {
                Text {
-                   anchors.horizontalCenter: messageAreaInputShow ? '' : parent.horizontalCenter
+                   anchors.horizontalCenter: messageAreaInputShow ? undefined : parent.horizontalCenter
                    font.pixelSize: sconfirm.messageTextPixelSize
                    color:sconfirm.messageTextColor
                    lineHeight: sconfirm.messageTextLineHeight
@@ -376,13 +379,10 @@ CAbstractPopLayer{
                }
 
                Rectangle {
-//                   color: 'blue'
                    width: childrenRect.width + 2
                    height: childrenRect.height + 2
                    Rectangle {
                        id: textInputArea
-//                       color: 'red'
-//                       border.width: 2
                        border.color: sconfirm.inputFocus ? '#007aff' : '#333333'
                        width: childrenRect.width + 2
                        height: childrenRect.height  + 2
@@ -395,8 +395,6 @@ CAbstractPopLayer{
                            focus: sconfirm.inputFocus
                            text: sconfirm.inputValue
                            font.pixelSize: 26
-
-                           verticalAlignment: txtInput.AlignVCenter
 
                            onTextChanged: {
                              sconfirm.inputValue = txtInput.text
@@ -426,9 +424,9 @@ CAbstractPopLayer{
        anchors.left: contentBackground.left
        anchors.right: contentBackground.right
        sourceComponent: Rectangle {
-//           border.color: 'red'
-           implicitHeight:buttonsRow.implicitHeight
+           implicitHeight: buttonsRow.implicitHeight + buttonAreaSpacing
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
+           clip: true
 
            Rectangle {
                id:line
@@ -440,7 +438,6 @@ CAbstractPopLayer{
                id:buttonsRow
                spacing: buttonAreaSpacing
                anchors.top: line.bottom
-               anchors.topMargin: buttonAreaSpacing
                enabled: !animating
 
                SButton{
@@ -448,7 +445,7 @@ CAbstractPopLayer{
                    visible: sconfirm.rejectButtonVisible
                    text:sconfirm.rejectButtonText
                    width: buttonWidth
-                   height: sconfirm.buttonHeight - buttonAreaSpacing
+                   height: sconfirm.buttonHeight
                    textColor: rejectButtonColor ? rejectButtonColor : rejectButton.textSecondColor
                    pixelSize: sconfirm.buttonTextPixelSize
 
@@ -461,7 +458,7 @@ CAbstractPopLayer{
                Rectangle {
                     visible: sconfirm.rejectButtonVisible
                     width: buttonAreaSpacing
-                    height: sconfirm.buttonHeight - buttonAreaSpacing - 3
+                    height: sconfirm.buttonHeight
                     color: sconfirm.buttonLineColor
                }
 
@@ -470,7 +467,7 @@ CAbstractPopLayer{
                    visible: !acceptButtonLoading
                    text:sconfirm.acceptedButtonText
                    width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
-                   height: sconfirm.buttonHeight - buttonAreaSpacing
+                   height: sconfirm.buttonHeight
                    enabled: acceptButtonEnabled
                    pixelSize: sconfirm.buttonTextPixelSize
                    textColor: acceptButtonColor ? acceptButtonColor : acceptButton.textHrefColor
@@ -568,7 +565,7 @@ CAbstractPopLayer{
                sconfirm.inputValue = ''
 
                sconfirm.icon = ''
-               sconfirm.titleText = ' ' // 黑科技, 是个空格
+               sconfirm.titleText = ''
                sconfirm.messageText = ''
                sconfirm.acceptButtonLoading = false
                sconfirm.rejectButtonVisible = true

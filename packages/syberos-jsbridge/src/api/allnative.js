@@ -9,7 +9,6 @@ import downloadMixin from './native/download';
 import telephonyMixin from './native/telephony';
 import storageMixin from './native/storage';
 import systemMixin from './native/system';
-import barcodeMixin from './native/barcode';
 import networkMixin from './native/network';
 
 // const hybridJs = window.syber;
@@ -26,6 +25,5 @@ export default function allNative(hybridJs) {
     telephonyMixin(hybridJs);
     storageMixin(hybridJs);
     systemMixin(hybridJs);
-    barcodeMixin(hybridJs);
     networkMixin(hybridJs);
 }
