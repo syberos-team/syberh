@@ -24,17 +24,17 @@ export default function modalMixin(hybrid) {
                 'confirmText',
                 'showLoading',
                 'confirmColor',
-                );
-            
+            );
+
             hybridJs.callInner.apply(this, args);
         },
-    },{
+    }, {
         namespace: 'toast',
         os: ['syber'],
         defaultParams: {
             title: '',
             icon: '',
-            duration: 1500
+            duration: 1500,
         },
         runCode(...rest) {
             // 兼容字符串形式
@@ -76,8 +76,8 @@ export default function modalMixin(hybrid) {
                 'confirmText',
                 'showLoading',
                 'confirmColor',
-                );
-            
+            );
+
             hybridJs.callInner.apply(this, args);
         },
     }, {
@@ -108,9 +108,25 @@ export default function modalMixin(hybrid) {
                 'confirmText',
                 'showLoading',
                 'confirmColor',
-                );
-            
+            );
+
             hybridJs.callInner.apply(this, args);
         },
-    }])
+    }, {
+        namespace: 'gtoast',
+        os: ['syber'],
+        defaultParams: {
+            title: '',
+        },
+        runCode(...rest) {
+            // 兼容字符串形式
+            const args = innerUtil.compatibleStringParamsToObject.call(
+                this,
+                rest,
+                'title',
+            );
+
+            hybridJs.callInner.apply(this, args);
+        },
+    }]);
 }

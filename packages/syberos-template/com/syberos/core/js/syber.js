@@ -13,6 +13,7 @@ Qt.include('modal/prompt.js')
 Qt.include('modal/toast.js')
 Qt.include('camera/camera.js')
 Qt.include('barcode/barcode.js')
+Qt.include('modal/gtoast.js')
 // 增加对ES6语法的支持
 polyfill()
 

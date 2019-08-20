@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'camera', 'barcode', 'prompt', 'toast']
+    defaultPlugins: ['alert', 'confirm', 'camera', 'barcode', 'prompt', 'toast', 'gtoast']
   }
 
   // add 内置 plugins
@@ -105,7 +105,15 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
   // 如果需要单独打开一个页面的话
   if (plugin.page) {
     this.pageStack(plugin, callback)
+
   } else {
+    if(!plugin.source){
+        plugin.isReady = true
+        // data数据
+        plugin.trigger('ready')
+        if (typeof callback === 'function') callback()
+        return
+    }
     var _parent = parent || this.body
     console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
     console.debug('\n ***********plugin.source', plugin.source, '\n')
