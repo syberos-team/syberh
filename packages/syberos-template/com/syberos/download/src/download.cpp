@@ -1,159 +1,165 @@
 #include "download.h"
 #include "helper.h"
-#include "httpclient.h"
+
+#include <QNetworkAccessManager>
+#include <QJsonObject>
+#include <QDir>
 #include <QObject>
 #include <QDebug>
-#include <QDir>
 
-Download::Download(QObject *parent) : QObject(parent) {
+//key 既是downloadID也是callbackId
+static QMap<QString, TaskInfo*> tasks;
 
-    connect(HttpClient::instance(), &HttpClient::replyData, this, &Download::saveDownloadFile);
-    connect(HttpClient::instance(), &HttpClient::replyError, this, &Download::downloadFileFailed);
+
+QString getDownloadPath(){
+    Helper *helper = Helper::instance();
+    QString sopid = helper->sopid();
+
+    QString downloadPath = helper->getInnerStorageRootPath() + "/" + sopid;
+    if(!helper->exists(downloadPath)){
+        QDir dir(downloadPath);
+        dir.mkpath(downloadPath);
+    }
+    return downloadPath;
 }
 
-Download* Download::instance(){
-    static Download download;
-    return &download;
-}
-
-QString Download::getDownloadDir(){
-    return Helper::instance()->getInnerStorageRootPath();
-}
-
-/**
- * @brief cancel 取消下载
- * @param downloadID 要取消下载的任务Id
- * @return 成功则无返回。
- *      失败则返回错误码。
- */
-long Download::cancel(long downloadID){
-    return downloadID;
-}
-/**
- * @brief getFileInfos 获取所有下载文件信息
- * @return 成功则返回FileInfo数组。
-          失败则返回错误码。
- */
-QList<FileInfo> Download::getFileInfos(){
-    QList<FileInfo> list;
-    return list;
-}
-/**
- * @brief pause 暂停下载 (暂不支持)
- * @param downloadID 要暂停的下载任务Id
- * @return 成功则无返回。
-                  失败则返回错误码。
- */
-long Download::pause(long downloadID){
-    return downloadID;
-}
-/**
- * @brief removeFileInfos 移除下载文件记录。
- * @param downloadIDs 整型数组, 要移除下载文件的Id。
- * @return 成功则无返回。
-                  失败则返回错误码。
- */
-long Download::removeFileInfos(long downloadIDs[]){
-    return downloadIDs[0];
-}
-/**
- * @brief restart 重新下载。
- * @param downloadID 要重新下载的任务Id。
- * @return 成功则重新下载后的新任务Id。
-            失败则返回错误码。
- */
-long Download::restart(long downloadID){
-    return downloadID;
-}
-/**
- * @brief resume 恢复下载 (暂不支持)。
- * @param downloadID 要恢复的下载任务Id
- * @return 成功则无返回。
-                  失败则返回错误码。
- */
-long Download::resume(long downloadID){
-    return downloadID;
-}
-/**
- * @brief start 开始下载
- * @param url 下载文件地址
- * @param name 保存的文件名
- * @return 成功则下载任务Id。
-                 失败则返回错误码。
- */
-long Download::start(long downloadID,QString url, QString name){
-    taskId += 1;
-    DownloadTask task;
-    task.downloadID = downloadID;
-    task.url = url;
-    task.name = name;
-
-    HttpClient::instance()->get(url);
-
-    downloadTasks[downloadID] = task;
-    return taskId;
+QJsonObject successJson(QString callbackId, QString path, int status, qint64 received, qint64 total){
+    QJsonObject json;
+    json.insert("downloadID", callbackId);
+    json.insert("path", path);
+    json.insert("status", status);
+    json.insert("received", received);
+    json.insert("total", total);
+    return json;
 }
 
 
-DownloadTask* Download::findTaskByUrl(QString url){
-    QMap<long, DownloadTask>::const_iterator it = downloadTasks.begin();
-    while(it != downloadTasks.end()){
-        DownloadTask task = it.value();
-        if(url == task.url){
-            downloadTasks.remove(task.downloadID);
-            return new DownloadTask(task);
+int Download::typeId = qRegisterMetaType<Download *>();
+
+Download::Download()
+{
+}
+
+Download::~Download() {
+    QMap<QString, TaskInfo*>::ConstIterator it = tasks.begin();
+    for(; it!=tasks.end(); it++){
+        TaskInfo *taskInfo = it.value();
+        delete taskInfo;
+    }
+    tasks.clear();
+}
+
+
+
+void Download::request(QString callbackId, QString actionName, QVariantMap params)
+{
+    qDebug() << Q_FUNC_INFO << "callbackId" << callbackId << "actionName" << actionName << "params" << params << endl;
+
+    if (actionName == "start") {
+        start(callbackId, params.value("url").toString(), params.value("name").toString());
+    } else if (actionName == "cancel"){
+        cancel(params.value("downloadID").toString());
+    } else {
+        emit failed(callbackId.toLong(), 500, "Invalid call");
+    }
+}
+
+void Download::submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes){
+    Q_UNUSED(typeID)
+    Q_UNUSED(callBackID)
+    Q_UNUSED(actionName)
+    Q_UNUSED(dataRowList)
+    Q_UNUSED(attachementes)
+}
+
+void Download::start(QString callbackId, QString url, QString name){
+    if (name.isEmpty()) {
+        name = callbackId;
+    }
+    qDebug() << Q_FUNC_INFO << "url:" << url << "name:" << name << endl;
+
+    DownloadManager *downloadManager = new DownloadManager(this);
+    downloadManager->setDownloadId(callbackId);
+
+    connect(downloadManager, &DownloadManager::signalDownloadProcess, this, &Download::onDownloadProcess);
+    connect(downloadManager, &DownloadManager::signalReplyFinished, this, &Download::onReplyFinished);
+
+    TaskInfo *taskInfo = new TaskInfo();
+    taskInfo->downloadID = callbackId;
+    taskInfo->downloadManager = downloadManager;
+    tasks.insert(callbackId, taskInfo);
+
+    QString path = getDownloadPath() + "/" + name;
+    downloadManager->downloadFile(url, path);
+
+    QJsonObject json = successJson(callbackId, path, Started, 0, 0);
+    emit success(callbackId.toLong(), json);
+}
+
+void Download::cancel(QString downloadID){
+    if (downloadID == "") {
+        emit failed(downloadID.toLong(), 500, "downloadID为空");
+        return;
+    }
+    if (!tasks.contains(downloadID)) {
+        emit failed(downloadID.toLong(), 500, "下载任务不存在或已完成");
+        return;
+    }
+    TaskInfo *taskInfo = tasks.value(downloadID);
+    taskInfo->downloadManager->closeDownload();
+
+    QJsonObject json;
+    json.insert("result", true);
+    emit success(taskInfo->downloadID.toLong(), json);
+}
+
+
+TaskInfo* Download::findTaskInfo(DownloadManager *downloadManager){
+    QMap<QString, TaskInfo*>::ConstIterator it = tasks.begin();
+    for(; it!=tasks.end(); it++){
+        TaskInfo *taskInfo = it.value();
+        if(taskInfo->downloadManager == downloadManager){
+            return taskInfo;
         }
     }
     return NULL;
 }
 
 
-// 槽，保存下载的文件
-void Download::saveDownloadFile(QString url, QNetworkReply *reply){
-    qDebug() << Q_FUNC_INFO << " url: " << url << endl;
-
-    QString path = getDownloadDir() + "/download";
-    QDir dir(path);
-    if(!dir.exists()){
-        dir.mkpath(path);
-    }
-
-    DownloadTask* task = findTaskByUrl(url);
-    if(NULL == task){
-        qDebug() << Q_FUNC_INFO << "cannot found task by url:" << url << endl;
-        return;
-    }
-    QString filename = task->name;
-    long downloadID = task->downloadID;
-    delete task;
-
-//    connect(reply, &QNetworkReply::downloadProgress, this, [](long downloadID, QString filename)->{
-//        emit downloadProgress(downloadID, filename, );
-//    });
-
-    QString filePath = path + "/" + filename;
-    QFile file(filePath);
-    if(!file.open(QIODevice::WriteOnly)){
-        qDebug() << Q_FUNC_INFO << " save fail: " << file.error() << file.errorString() << endl;
-        return;
-    }
-    file.write(reply->readAll());
-    file.close();
-
-    reply->deleteLater();
-    emit downloadCompleted(downloadID, filePath);
+// 更新下载进度;
+void Download::onDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal) {
+    QJsonObject json = successJson(downloadId, path, Downloading, bytesReceived, bytesTotal);
+    qDebug() << Q_FUNC_INFO << "downloadProgress" << json << endl;
+    emit success(downloadId.toLong(), json);
 }
 
 
-void Download::downloadFileFailed(QString url, long errorCode, QString errorMessage){
-    qDebug() << Q_FUNC_INFO << " url:" << url << "error: " << errorCode << errorMessage << endl;
+void Download::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
+    qDebug() << Q_FUNC_INFO << "download finished " << statusCode << errorMessage << endl;
 
-    DownloadTask* task = findTaskByUrl(url);
-    if(NULL == task){
-        qDebug() << Q_FUNC_INFO << "cannot found task by url:" << url << endl;
-        return;
+    qint64 received = 0;
+    qint64 total = 0;
+    TaskInfo *taskInfo = tasks.value(downloadId);
+    if(taskInfo!=NULL){
+        received = taskInfo->downloadManager->getBytesReceived();
+        total = taskInfo->downloadManager->getBytesTotal();
     }
-    long downloadID = task->downloadID;
-    delete task;
-    emit downloadFailed(downloadID, errorMessage, errorCode);
+    // 根据状态码判断当前下载是否出错;
+    if (statusCode > 200 && statusCode < 400) {
+        qDebug() << Q_FUNC_INFO << "download failed " << statusCode << errorMessage << endl;
+        emit failed(downloadId.toLong(), statusCode, errorMessage);
+    }
+    else {
+        QJsonObject json = successJson(downloadId, path, Completed, received, total);
+
+        qDebug() << Q_FUNC_INFO << "download success " << statusCode << errorMessage << endl;
+        emit success(downloadId.toLong(), json);
+    }
+    if(taskInfo!=NULL){
+        disconnect(taskInfo->downloadManager, &DownloadManager::signalDownloadProcess, this, &Download::onDownloadProcess);
+        disconnect(taskInfo->downloadManager, &DownloadManager::signalReplyFinished, this, &Download::onReplyFinished);
+        tasks.remove(downloadId);
+        delete taskInfo;
+        taskInfo = NULL;
+    }
 }

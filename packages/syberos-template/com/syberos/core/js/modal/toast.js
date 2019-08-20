@@ -53,22 +53,4 @@ function Toast () {
   });
 }
 
-function getStrLength(inputStr){
-    var currLength = 0;
-    if(!inputStr){
-        return currLength;
-    }
-
-    for(var i = 0; i < inputStr.length; i++){
-        var item = inputStr.charAt(i);
-        //中文字符的长度经编码之后大于4
-        if(escape(item).length > 4){
-            currLength += 2;
-        }else{
-            currLength += 1;
-        }
-    }
-    return currLength;
-}
-
 Toast.prototype = SyberPlugin.prototype

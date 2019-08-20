@@ -110,7 +110,8 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/download/download"
+          "apis/download/download",
+          "apis/download/download-cancel"
         ]
       }
     ],
