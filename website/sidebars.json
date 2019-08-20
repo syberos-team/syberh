@@ -37,6 +37,7 @@
     ],
     "modal": [
       "apis/modal/toast",
+      "apis/modal/gtoast",
       "apis/modal/alert",
       "apis/modal/confirm",
       "apis/modal/prompt"
