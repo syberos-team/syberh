@@ -14,8 +14,11 @@
       "apis/clipboard/setClipboardData": {
         "title": "setClipboardData"
       },
+      "apis/download/download-cancel": {
+        "title": "cancel"
+      },
       "apis/download/download": {
-        "title": "downloadFile"
+        "title": "start"
       },
       "apis/fileInfo/getFileInfos": {
         "title": "getFileInfos"
@@ -147,7 +150,7 @@
         "title": "系统信息"
       },
       "qt/telephony/telephony": {
-        "title": "电话"
+        "title": "拨号"
       },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
