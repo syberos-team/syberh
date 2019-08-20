@@ -9,7 +9,7 @@ function Prompt () {
     name: 'prompt',
     module: 'modal',
     methods: ['prompt'],
-    source: '../qml/sprompt.qml'
+    source: '../qml/SPrompt.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
