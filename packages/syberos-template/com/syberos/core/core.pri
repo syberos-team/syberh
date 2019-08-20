@@ -1,6 +1,5 @@
 RESOURCES += \
-    $$PWD/syberos_core.qrc \
-    $$PWD/qml/images/images.qrc
+    $$PWD/syberos_core.qrc
 
 HEADERS += \
     $$PWD/src/decodethread.h \
