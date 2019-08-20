@@ -101,9 +101,9 @@ Rectangle {
         toastIcon.visible = true;
 
         if(icon === "success"){
-            stoast.iconPath = "qrc:/images/toast-true.png";
+            stoast.iconPath = "qrc:/com/syberos/core/res/toast-fail.png";
         }else if(icon === "error"){
-            stoast.iconPath = "qrc:/images/toast-false.png";
+            stoast.iconPath = "qrc:/com/syberos/core/res/toast-success.png";
         }else if(icon === "none"){
             toastIcon.visible = false;
             stoast.title = getOutputStr(stoast.title, stoast.textLength);
@@ -163,7 +163,6 @@ Rectangle {
         if(outputStr.indexOf("\n") == outputStr.length-1){
             outputStr = outputStr.replace("\n", "");
         }
-        console.log(outputStr);
         return outputStr;
     }
 }

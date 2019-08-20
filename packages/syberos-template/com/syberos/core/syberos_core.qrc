@@ -20,18 +20,15 @@
         <file>js/camera/camera.js</file>
         <file>qml/camera.qml</file>
         <file>js/modal/prompt.js</file>
-        <file>qml/sprompt.qml</file>
         <file>qml/SCollisionIndicator.qml</file>
         <file>qml/SToast.qml</file>
         <file>js/modal/toast.js</file>
-        <file>js/barcode/constants.js</file>
-        <file>js/barcode/barcode.js</file>
-        <file>qml/SBarcode.qml</file>
-        <file>qml/BarcodeTitlebar.qml</file>
-        <file>qml/BarcodeScan.qml</file>
-        <file>res/nav_icon_qrcode.png</file>
-        <file>res/nav_return.png</file>
-        <file>res/SAOMIAO_56.png</file>
-        <file>res/nav_icon_rfid.png</file>
+        <file>res/success_primary_big.png</file>
+        <file>res/success_primary.png</file>
+        <file>res/toast-fail.png</file>
+        <file>res/toast-success.png</file>
+        <file>res/warning_big.png</file>
+        <file>res/warning.png</file>
+        <file>qml/SPrompt.qml</file>
     </qresource>
 </RCC>
