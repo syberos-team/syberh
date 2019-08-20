@@ -16,16 +16,22 @@
   <div class="mui-content pt0">
       <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alert()">alert</a>
+          <a class="mui-navigate-right api-class" onclick="alertNormal()">alertNormal</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="alertNoTitle()">alert_no_title</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="alertSmallIcon()">alert_small_icon</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="alertBigIcon()">alert_big_icon</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="alertColorText()">alert 修改颜色和文字</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="alertOrigin()">原生alert</a>
         </li>
       </ul>
     </div>
@@ -38,7 +44,7 @@
   <script>
     var vConsole = new VConsole()
 
-    function alert() {
+    function alertNormal() {
       syber.modal.alert({
           title: '标题',
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
@@ -51,6 +57,17 @@
     function alertNoTitle() {
       syber.modal.alert({
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          success: function () {
+            console.log('弹窗标题')
+          }
+      })
+    }
+
+    function alertSmallIcon() {
+      syber.modal.alert({
+          title: '标题',
+          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+          titleIcon: 'success',
           success: function () {
             console.log('弹窗标题')
           }
@@ -69,6 +86,7 @@
            
     function alertColorText() {
       syber.modal.alert({
+          title: '标题',
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
           titleIcon: 'warning',
           confirmText: 'ok',
@@ -79,6 +97,9 @@
       })
     }
 
+    function alertOrigin() {
+      alert('我是alert')
+    }
   </script>
 </body>
 
