@@ -33,7 +33,7 @@ CAbstractPopLayer{
    property real topSpacing: 80 * proportion
 
    /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离 */
-   property real topSpacingNoTitle: 80 * proportion //120
+   property real topSpacingNoTitle: 120 * proportion //120
 
    /*! 对话框的圆角大小 */
    property real radius: 6
@@ -96,16 +96,16 @@ CAbstractPopLayer{
    property string successType: "success"
 
    /*! 标题左侧 warning icon */
-   property string warningIcon: "qrc:/images/warning.png"
+   property string warningIcon: "qrc:/com/syberos/core/res/warning.png"
 
    /*! 标题左侧 success icon */
-   property string successIcon: "qrc:/images/success_primary.png"
+   property string successIcon: "qrc:/com/syberos/core/res/success_primary.png"
 
    /*! 无标题 大 warning icon */
-   property string warningBigIcon: "qrc:/images/warning_big.png"
+   property string warningBigIcon: "qrc:/com/syberos/core/res/warning_big.png"
 
    /*! 无标题 大 success icon */
-   property string successBigIcon: "qrc:/images/success_primary_big.png"
+   property string successBigIcon: "qrc:/com/syberos/core/res/success_primary_big.png"
 
    /*! 是否正确的IconType */
    property bool hasIconType: icon === warningType || icon === successType
@@ -296,7 +296,7 @@ CAbstractPopLayer{
        id:titleAreaLoader
        active: titleText || hasIconType
        anchors.top:contentBackground.top
-       anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
+       anchors.topMargin: topSpacing
        anchors.left: contentBackground.left
        anchors.leftMargin: titleAreaLeftMargin
        anchors.right: contentBackground.right
@@ -307,8 +307,6 @@ CAbstractPopLayer{
 
            property real hasIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth - titleSmallIconWidth) / 2
            property real noIconLeftMargin: (titleAreaLoader.width - textcontent.contentWidth) / 2
-
-//           border.color: 'blue'
 
 
            Row {
@@ -347,8 +345,8 @@ CAbstractPopLayer{
 
    Loader{
        id:messageLoaderArea
-       anchors.topMargin: spacingBetweenMessageAreaAndButtonArea
-       anchors.top: titleAreaLoader.bottom
+       anchors.topMargin: titleAreaEnabled ? spacingBetweenTitleAreaAndMessageArea : topSpacingNoTitle
+       anchors.top: titleAreaEnabled ? titleAreaLoader.bottom : contentBackground.top
        anchors.left: contentBackground.left
        anchors.leftMargin: messageAreaLeftMargin
        anchors.right: contentBackground.right
@@ -361,19 +359,20 @@ CAbstractPopLayer{
                text:sconfirm.messageText
                wrapMode:Text.WrapAnywhere
                horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
-       }
+            }
+
    }
 
    Loader{
        id:buttonAreaLoader
        anchors.top:messageLoaderArea.bottom
-       anchors.topMargin: spacingBetweenTitleAreaAndMessageArea
+       anchors.topMargin: spacingBetweenMessageAreaAndButtonArea
        anchors.left: contentBackground.left
        anchors.right: contentBackground.right
        sourceComponent: Rectangle {
-           implicitHeight:buttonsRow.implicitHeight
+           implicitHeight: buttonsRow.implicitHeight + buttonAreaSpacing
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
-//           border.color: 'red'
+           clip: true
 
            Rectangle {
                id:line
@@ -385,7 +384,6 @@ CAbstractPopLayer{
                id:buttonsRow
                spacing: buttonAreaSpacing
                anchors.top: line.bottom
-               anchors.topMargin: buttonAreaSpacing
                enabled: !animating
 
                SButton{
@@ -406,7 +404,7 @@ CAbstractPopLayer{
                Rectangle {
                     visible: sconfirm.rejectButtonVisible
                     width: buttonAreaSpacing
-                    height: sconfirm.buttonHeight - buttonAreaSpacing - 3
+                    height: sconfirm.buttonHeight
                     anchors.top: line.bottom
                     anchors.topMargin: buttonAreaSpacing
                     color: sconfirm.buttonLineColor
@@ -462,10 +460,6 @@ CAbstractPopLayer{
            if(!running){
                start()
            }
-
-           console.log('----test',sconfirm.titleText)
-
-
        }
 
        NumberAnimation { target: background; property: "opacity"; duration: gSystemUtils.durationRatio*300; to: sconfirm.__backGroundOpacity }
@@ -517,8 +511,9 @@ CAbstractPopLayer{
                    rejectedFlag = false
                }
 
+
                sconfirm.icon = ''
-               sconfirm.titleText = '1' // 黑科技, 是个空格
+               sconfirm.titleText = ''
                sconfirm.messageText = ''
                sconfirm.acceptButtonLoading = false
                sconfirm.rejectButtonVisible = true

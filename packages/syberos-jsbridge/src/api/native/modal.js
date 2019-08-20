@@ -8,22 +8,13 @@ export default function modalMixin(hybrid) {
         os: ['syber'],
         defaultParams: {
             title: '',
-            titleIcon: '',
-            content: '',
-            confirmText: '确定',
-            confirmColor: '',
         },
         runCode(...rest) {
             // 兼容字符串形式
             const args = innerUtil.compatibleStringParamsToObject.call(
                 this,
                 rest,
-                'title',
-                'titleIcon',
-                'content',
-                'confirmText',
-                'showLoading',
-                'confirmColor',
+                'title'
                 );
             
             hybridJs.callInner.apply(this, args);
