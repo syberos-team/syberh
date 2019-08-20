@@ -8,8 +8,7 @@ var uiModules = {
   modal: true,
   navigator: true,
   webview: true,
-  camera: true,
-  barcode: true
+  camera: true
 }
 // 全局syberos对象,在初始化完成有建立
 var SYBEROS = null

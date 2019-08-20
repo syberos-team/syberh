@@ -42,9 +42,8 @@ WebView {
         receiveMessage(message)
 
     }
-    experimental.alertDialog: CAlertDialog {
-        id: messageDialog
-        canceledOnOutareaClicked: false
+    experimental.alertDialog: SAlert {
+        id: salert
         messageText: model.message
         onAccepted: {
             model.accept()
@@ -55,17 +54,14 @@ WebView {
         }
     }
 
-    experimental.confirmDialog: CDialog {
+
+    experimental.confirmDialog: SConfirm {
         id: confirmDialog
-        canceledOnOutareaClicked: false
         messageText: model.message
         onAccepted: {
             model.accept()
         }
         onRejected: {
-            model.reject()
-        }
-        onCanceled: {
             model.reject()
         }
 
@@ -74,17 +70,13 @@ WebView {
         }
     }
 
-    experimental.promptDialog: CInputDialog {
+    experimental.promptDialog: SPrompt {
         id: promptDialog
-        canceledOnOutareaClicked: false
-        titleText: model.message
+        messageText: model.message
         onAccepted: {
-            model.accept(messageAreaItem.text)
+            model.accept(inputText)
         }
         onRejected: {
-            model.reject()
-        }
-        onCanceled: {
             model.reject()
         }
 
