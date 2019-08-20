@@ -8,12 +8,20 @@ function Toast () {
     id: 'toast',
     name: 'toast',
     module: 'modal',
-    methods: ['toast'],
+    methods: ['toast','gtoast'],
     source: '../qml/SToast.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
+  this.on('gtoast',function(){
+    if(!that.param.title){
+        WEBVIEWCORE.trigger( 'failed', that.handlerId, { "code": 0, "msg": "提示的内容不能为空"});
+        return;
+    }
+    gToast.requestToast(that.param.title)
+  });
+
   this.on('toast', function (object, handlerId, param) {
     var component = object || that.object
 
@@ -25,19 +33,15 @@ function Toast () {
     component.hide();
 
     if(!that.param.icon){
-        console.log("that.param.icon : "+ that.param.icon);
         that.param.icon = "success";
     }
     component.icon = that.param.icon;
 
     var strlength = getStrLength(that.param.title);
     if(that.param.icon !== "none" && strlength > 14){
-        console.log("1414141414");
         WEBVIEWCORE.trigger( 'failed', that.handlerId, { "code": 0, "msg": "有图标时最多7个汉字长度的文本"});
         return;
     }
-    console.log("that.param: "+ JSON.stringify(that.param));
-    console.log("strlength: "+ strlength);
     if(that.param.icon === "none" && strlength > 28 ){
         WEBVIEWCORE.trigger('failed',that.handlerId,{ "code": 0, "msg": "无图标时最多显示两行文本（14个汉字长度）"});
         component.hide();

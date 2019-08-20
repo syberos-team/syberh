@@ -32,6 +32,9 @@
       "apis/modal/confirm": {
         "title": "confirm"
       },
+      "apis/modal/gtoast": {
+        "title": "gtoast"
+      },
       "apis/modal/prompt": {
         "title": "prompt"
       },
