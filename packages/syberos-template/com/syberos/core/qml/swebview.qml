@@ -1,14 +1,12 @@
 import QtQuick 2.0
 import QtWebKit 3.0
+import QtQuick.Window 2.2
 import QtWebKit.experimental 1.0
 import com.syberos.basewidgets 2.0
 
 WebView {
-
     id: webview
-
     focus: true
-
     property var syberObject
     //接受消息信号
     signal receiveMessage(var message)
@@ -25,7 +23,9 @@ WebView {
 
     experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
     experimental.minimumScale: false
-    experimental.preferredMinimumContentsWidth: 720
+    experimental.preferredMinimumContentsWidth: Screen.width
+    experimental.deviceWidth:Screen.width
+    experimental.deviceHeight:Screen.height
     experimental.objectName: 'qml'
     Keys.onReleased: {
         console.log("----- ", "WebView (event): ",
@@ -162,7 +162,6 @@ WebView {
 
     onLoadProgressChanged: {
         console.log("onLoadProgressChanged", loadProgress)
-       
         reloadSuccess(loadProgress)
        
     }
