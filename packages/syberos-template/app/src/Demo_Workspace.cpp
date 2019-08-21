@@ -1,10 +1,10 @@
 #include "Demo_Workspace.h"
-#include "../framework/nativesdkmanager.h"
+#include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include <QQmlContext>
 #include <QDebug>
 #include <qqml.h>
-#include "../com/syberos/download/src/helper.h"
-#include "../framework/common/extendedconfig.h"
+#include "../com/syberos/api/src/helper.h"
+#include "../com/syberos/api/src/framework/common/extendedconfig.h"
 
 Demo_Workspace::Demo_Workspace()
     : CWorkspace()
