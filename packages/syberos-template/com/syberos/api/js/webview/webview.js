@@ -100,20 +100,18 @@ function WebView (options) {
     object.reload()
     // 绑定进度事件
     object.reloadSuccess.connect(function (loadProgress) {
-      console.log('\n =========loadProgress', loadProgress)
       if (loadProgress === 100) {
-        that.trigger('success', handlerId, 'ok')
+        that.trigger('success', handlerId, true)
       }
     })
   })
   // 回退
   this.on('goBack', function (object, handlerId) {
-    console.log('\n =========can goback', object.canGoBack)
     if (object.canGoBack) {
       object.goBack()
-      that.trigger('success', handlerId, 'ok')
+      that.trigger('success', handlerId, true)
     } else {
-      that.trigger('failed', handlerId, 0, '')
+      that.trigger('failed', handlerId, 0, false)
     }
   })
 
@@ -121,11 +119,8 @@ function WebView (options) {
   this.on('redirectTo', function (object, handlerId, param) {
     try {
       var url = getUrl(param.url)
-      console.log('\n =========url', url)
-
       object.url = url
-
-      that.trigger('success', handlerId, 'ok')
+      that.trigger('success', handlerId, true)
     } catch (error) {
       console.error(error.message)
       that.trigger('failed', handlerId, 0, error.message)

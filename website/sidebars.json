@@ -29,7 +29,7 @@
     "关于API": [
       "apis/about/desc"
     ],
-    "modal": [
+    "模态弹窗": [
       "apis/modal/toast",
       "apis/modal/gtoast",
       "apis/modal/alert",
