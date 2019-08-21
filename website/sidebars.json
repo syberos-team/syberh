@@ -29,12 +29,6 @@
     "关于API": [
       "apis/about/desc"
     ],
-    "webview": [
-      "apis/webview/webview"
-    ],
-    "导航栏": [
-      "apis/navigator/navigator"
-    ],
     "modal": [
       "apis/modal/toast",
       "apis/modal/gtoast",
@@ -65,14 +59,6 @@
         "type": "subcategory",
         "ids": [
           "apis/telephony/dial"
-        ]
-      }
-    ],
-    "runtime": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "apis/runtime/launchApp"
         ]
       }
     ],
@@ -124,6 +110,9 @@
           "apis/fileInfo/removeFileInfos"
         ]
       }
+    ],
+    "webview": [
+      "apis/webview/webview"
     ]
   },
   "C++模块": {
