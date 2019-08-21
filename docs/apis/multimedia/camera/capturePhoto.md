@@ -7,7 +7,7 @@ title: takePictureImmediately
 
 ## syber.camera.takePictureImmediately(Object object)
 
-进行拍照功能，成功则返回图片路径
+进行拍照功能，可对照片进行剪裁，成功则返回图片路径
 
 
 
@@ -36,7 +36,7 @@ title: takePictureImmediately
 
 
 
-### **示例代码**
+### **照片示例代码**
 
 ```
 syber.camera.takePictureImmediately({
@@ -50,3 +50,16 @@ syber.camera.takePictureImmediately({
 });
 ```
 
+### **拍照剪裁示例代码**
+
+```
+syber.camera.takePictureImmediately({
+	data:{enableCut:true},
+	success: function(result){
+		console.log('success: ', result.path);
+	},
+	fail: function(err){
+		console.log('fail: ', err.code, err.msg);
+	}
+});
+```
