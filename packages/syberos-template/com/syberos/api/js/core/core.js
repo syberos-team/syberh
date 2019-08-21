@@ -113,6 +113,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     var _parent = parent || this.body
     var component = Qt.createComponent(plugin.source)
 
+    console.error('\n _initPlugin component', component.status)
     if (component.status === Component.Error) {
       console.error('\n initPlugin Error', component.status)
       return
@@ -122,20 +123,34 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     if (incubator) {
       plugin.incubator = incubator
     }
-    incubator.onStatusChanged = function (status) {
-      if (status === Component.Ready) {
-        plugin.object = incubator.object
-        plugin.isReady = true
-
-        // data数据
-        plugin.trigger('ready', incubator.object)
-
-        if (typeof callback === 'function') {
-          callback(incubator.object)
+    if (incubator.status !== Component.Ready) {
+      incubator.onStatusChanged = function (status) {
+        if (status === Component.Ready) {
+          plugin.object = incubator.object
+          plugin.isReady = true
+          // 调用事件:ready 
+          plugin.trigger('ready', incubator.object)
+          if (typeof callback === 'function') {
+            callback(incubator.object)
+          }
         }
       }
+    } else {
+      print("Object", incubator.object, "is ready immediately!");
+      plugin.object = incubator.object
+      plugin.isReady = true
+      // 调用事件:ready 
+      plugin.trigger('ready', incubator.object)
+      if (typeof callback === 'function') {
+        callback(incubator.object)
+      }
     }
+
+    if (typeof callback === 'function') callback(incubator.object)
+
   }
+
+}
 }
 
 /**
@@ -151,11 +166,11 @@ Syber.prototype.destroy = function (pluginId) {
   var component = plugin.component
   if (component) {
     component.destroy()
-      // 释放
-      plugin.component=null
-      plugin.isReady=false
-      plugin.object=null
-      plugin.incubator=null
+    // 释放
+    plugin.component = null
+    plugin.isReady = false
+    plugin.object = null
+    plugin.incubator = null
 
   }
 }
