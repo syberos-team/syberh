@@ -15,13 +15,14 @@ reserved.
 */
 
 import QtQuick 2.3
+import QtQuick.Window 2.2
 import com.syberos.basewidgets 2.0
 
 Rectangle {
     id: stoast;
 
-    /*! 模态框和页面的宽度比例 */
-    property real proportion: 840 / 1080
+    /*! 模态框和页面的缩放比例 */
+    property real scaleFactor: Screen.width / 1080
 
     /*! 提示的内容 */
     property string title: ""
@@ -34,8 +35,8 @@ Rectangle {
     /*! 一行文本的字符数（英文） */
     property real textLength: 14
 
-    width: proportion * 330
-    height: proportion * 330
+    width: scaleFactor * 330
+    height: scaleFactor * 330
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.verticalCenter: parent.verticalCenter
@@ -50,15 +51,15 @@ Rectangle {
         Image {
             id: toastIcon
             anchors.horizontalCenter: parent.horizontalCenter
-            width: proportion * 141
-            height: proportion * 141
+            width: scaleFactor * 141
+            height: scaleFactor * 141
             source: iconPath
         }
 
         Text {
             id: toastText
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: proportion * 40
+            font.pixelSize: scaleFactor * 40
             text: stoast.title
             color: "white"
         }
@@ -96,8 +97,8 @@ Rectangle {
 
     function parseIcon(){
 
-        stoast.width = stoast.proportion * 330
-        stoast.height = stoast.proportion * 330
+        stoast.width = stoast.scaleFactor * 330
+        stoast.height = stoast.scaleFactor * 330
         toastIcon.visible = true;
 
         if(icon === "success"){
@@ -107,8 +108,8 @@ Rectangle {
         }else if(icon === "none"){
             toastIcon.visible = false;
             stoast.title = getOutputStr(stoast.title, stoast.textLength);
-            stoast.width = stoast.proportion * toastText.contentWidth + 80
-            stoast.height = stoast.proportion * toastText.contentHeight + 80
+            stoast.width = stoast.scaleFactor * toastText.contentWidth + 80
+            stoast.height = stoast.scaleFactor * toastText.contentHeight + 80
         }
     }
 
