@@ -42,7 +42,7 @@
         "title": "toast"
       },
       "apis/multimedia/camera/capturePhoto": {
-        "title": "capturePhoto"
+        "title": "takePictureImmediately"
       },
       "apis/multimedia/camera/captureVideoEnd": {
         "title": "captureVideoEnd"
