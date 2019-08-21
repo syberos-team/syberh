@@ -20,7 +20,7 @@ void Telephony::request(QString callBackID,QString actionName,QVariantMap params
     qDebug() << Q_FUNC_INFO << "actionName:" << actionName << "params:" << params << endl;
     if (actionName == "dial") {
         QString tel = params.value("tel").toString();
-        qApp->openUrl("tel://" + tel);
+        qApp->openUrl("dial://showdialpage?" + tel);
         emit success(callBackID.toLong(), "");
     }else{
         emit failed(callBackID.toLong(), 500, "Invalid call");
