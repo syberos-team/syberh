@@ -9,11 +9,16 @@ function Prompt () {
     name: 'prompt',
     module: 'modal',
     methods: ['prompt'],
+    autoCreate: true, // lineEdit loader加载不出来， 设置自动加载一次
     source: '../qml/SPrompt.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
   var that = this
+
+  this.on('ready', function (object) {
+    console.log('prompt ready')
+  })
 
   this.on('prompt', function (object) {
 
@@ -35,8 +40,10 @@ function Prompt () {
 
 
     component.accepted.connect(function (value) {
+        console.log('success')
       that.clearParam()
       WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true, data: value })
+        component.accepted.disconnect(function() {})
     })
 
     component.rejected.connect(function () {

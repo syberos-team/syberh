@@ -1,12 +1,17 @@
 import QtQuick 2.0
 import QtMultimedia 5.2
 import com.syberos.basewidgets 2.0
+import QtQuick.Window 2.2
 
 CPage {
     id: cameraPage
 
     property string imgPath
     property var randomNum
+    property bool isVideoMode: cameraObj.captureMode === Camera.CaptureVideo
+    property bool isBackFace: currentCameraPosition === cameraPosition.back ? true : false
+    property var cameraPosition: {"front": 1, "back": 0}
+    property int currentCameraPosition: cameraPosition.back
 
     signal back(string path)
 
@@ -49,8 +54,7 @@ CPage {
     }
 
     // min:随机数的最小值，max:随机数的最大值
-    function getRandomNum()
-    {
+    function getRandomNum(){
         var Min = 10000000;
         var Max = 99999999;
         var Range = Max - Min;
@@ -63,7 +67,8 @@ CPage {
         onSuccess:{
             if( parseInt(responseID) === parseInt(randomNum)){
                  imgPath = "file://" + result.imgPath;
-                 photoPreview.source = imgPath;
+                 photoPreviewRec.opacity = 1
+                 photoPreview.source = imgPath
             }
 
         }
@@ -74,22 +79,43 @@ CPage {
         source: cameraObj
         orientation: -90 //摄像头旋转90度
         focus: visible // 接收焦点并在可见时捕获关键事件
-    }
-
-    Image {
-        id: photoPreview
-        anchors.fill: parent
-        focus: visible
-//        rotation: +90
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                photoPreview.source = ""
-            }
+        width: isVideoMode ?  isBackFace? height*9/16: height*2/3 : height*3/4
+        transform: Rotation {
+            id: camerRotation
+            origin.x: width / 2
+            origin.y: 100
+            axis.x: 0; axis.y: 1; axis.z: 0
+            angle: currentCameraPosition === cameraPosition.back ? 0 : 180
+            Behavior on angle { PropertyAnimation{} }
         }
     }
 
+    Rectangle {
+        id:photoPreviewRec
+        anchors.fill: parent
+        color: "black"
+        opacity:0
+
+        Image {
+            id: photoPreview
+            rotation: +90
+            anchors.centerIn: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            fillMode: Image.PreserveAspectFit
+//            fillMode: Image.PreserveAspectCrop
+            height: Screen.width
+            width: Screen.height
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    photoPreviewRec.opacity = 0
+                    photoPreview.source = ""
+                }
+            }
+        }
+    }
     //底部靠左 返回不保存操作
     Rectangle {
         id: backRect
@@ -185,13 +211,13 @@ CPage {
                     cameraObj.stop();
                     cameraObj.cameraPosition = Camera.FrontFace
                     camerVideoOutput.orientation = +90
-//                    photoPreview.rotation = +90
+                    photoPreview.rotation = -90
                    cameraObj.start();
                 } else if (postition === 2) {
                     cameraObj.stop();
                     cameraObj.cameraPosition = Camera.BackFace
-                    camerVideoOutput.orientation = -90
-//                    photoPreview.rotation = -90
+                    camerVideoOutput.orientation = -270
+                    photoPreview.rotation = +270
                     cameraObj.start();
                 }
             }

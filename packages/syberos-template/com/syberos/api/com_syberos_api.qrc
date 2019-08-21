@@ -2,7 +2,6 @@
     <qresource prefix="/com/syberos/api">
         <file>qmldir</file>
         <file>qml/swebview.qml</file>
-        <file>qml/dynamic-image.qml</file>
         <file>qml/root.qml</file>
         <file>js/util/tool.js</file>
         <file>js/util/polyfill.js</file>
@@ -18,7 +17,6 @@
         <file>qml/SConfirm.qml</file>
         <file>qml/SAlert.qml</file>
         <file>js/camera/camera.js</file>
-        <file>qml/camera.qml</file>
         <file>js/modal/prompt.js</file>
         <file>qml/SCollisionIndicator.qml</file>
         <file>qml/SToast.qml</file>
@@ -30,5 +28,6 @@
         <file>res/warning_big.png</file>
         <file>res/warning.png</file>
         <file>qml/SPrompt.qml</file>
+        <file>qml/SCamera.qml</file>
     </qresource>
 </RCC>

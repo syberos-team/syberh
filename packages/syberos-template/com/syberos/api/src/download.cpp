@@ -6,9 +6,12 @@
 #include <QDir>
 #include <QObject>
 #include <QDebug>
+#include <QFile>
 
 //key 既是downloadID也是callbackId
 static QMap<QString, TaskInfo*> tasks;
+// 防止并发，文件名重复导致数据写入到同一个文件内 先缓存文件名(文件路径) key 文件名(文件路径) val 文件名(文件路径)
+static QMap<QString, QString> fileNames;
 
 
 QString getDownloadPath(){
@@ -58,7 +61,7 @@ void Download::request(QString callbackId, QString actionName, QVariantMap param
     if (actionName == "start") {
         start(callbackId, params.value("url").toString(), params.value("name").toString());
     } else if (actionName == "cancel"){
-        cancel(params.value("downloadID").toString());
+        cancel(callbackId, params.value("downloadID").toString());
     } else {
         emit failed(callbackId.toLong(), 500, "Invalid call");
     }
@@ -73,6 +76,12 @@ void Download::submit(QString typeID,QString callBackID,QString actionName,QVari
 }
 
 void Download::start(QString callbackId, QString url, QString name){
+    // 检查网络
+    if (!netWorkConnected()) {
+        emit failed(callbackId.toLong(),NETWORK_ERROR,ErrorInfo::m_errorCode.value(NETWORK_ERROR));
+        return;
+    }
+
     if (name.isEmpty()) {
         name = callbackId;
     }
@@ -90,27 +99,47 @@ void Download::start(QString callbackId, QString url, QString name){
     tasks.insert(callbackId, taskInfo);
 
     QString path = getDownloadPath() + "/" + name;
-    downloadManager->downloadFile(url, path);
 
+    // 判断当前文件是否重复，如果重复名称添加序号
+    QStringList nameSplit = name.split(".");
+    int i = 1;
+    while (QFile::exists(path)
+           || QFile::exists(path + downloadManager->getDownloadFileSuffix())
+           || fileNames.value(path) != NULL) {
+        if (nameSplit.size() > 1) {
+            path = getDownloadPath() + "/" + nameSplit[nameSplit.size() - 2] + "(" + QString::number(i) + ")." + nameSplit[nameSplit.size() - 1];
+        } else {
+            path = getDownloadPath() + "/" + nameSplit[nameSplit.size() - 1] + "(" + QString::number(i) + ")";
+        }
+        i++;
+    }
+    // add缓存文件路径
+    fileNames.insert(path, path);
+
+    downloadManager->downloadFile(url, path);
     QJsonObject json = successJson(callbackId, path, Started, 0, 0);
     emit success(callbackId.toLong(), json);
 }
 
-void Download::cancel(QString downloadID){
+void Download::cancel(QString callbackId, QString downloadID){
     if (downloadID == "") {
-        emit failed(downloadID.toLong(), 500, "downloadID为空");
+        emit failed(callbackId.toLong(), 500, "downloadID为空");
         return;
     }
     if (!tasks.contains(downloadID)) {
-        emit failed(downloadID.toLong(), 500, "下载任务不存在或已完成");
+        emit failed(callbackId.toLong(), 500, "下载任务不存在或已完成");
         return;
     }
     TaskInfo *taskInfo = tasks.value(downloadID);
+
+    // 删除缓存文件路径
+    fileNames.remove(taskInfo->downloadManager->getMPath());
+
     taskInfo->downloadManager->closeDownload();
 
     QJsonObject json;
     json.insert("result", true);
-    emit success(taskInfo->downloadID.toLong(), json);
+    emit success(callbackId.toLong(), json);
 }
 
 
@@ -144,6 +173,10 @@ void Download::onReplyFinished(QString downloadId, QString path, int statusCode,
         received = taskInfo->downloadManager->getBytesReceived();
         total = taskInfo->downloadManager->getBytesTotal();
     }
+
+    // 删除缓存文件路径
+    fileNames.remove(taskInfo->downloadManager->getMPath());
+
     // 根据状态码判断当前下载是否出错;
     if (statusCode > 200 && statusCode < 400) {
         qDebug() << Q_FUNC_INFO << "download failed " << statusCode << errorMessage << endl;

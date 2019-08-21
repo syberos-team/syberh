@@ -10,7 +10,7 @@ function Camera () {
     module: 'camera',
     page: true,
     methods: ['takePictureImmediately'],
-    source: '../qml/camera.qml'
+    source: '../qml/SCamera.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
