@@ -110,15 +110,15 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
       if (typeof callback === 'function') callback()
       return
     }
-    var _parent = parent || this.body
-    var component = Qt.createComponent(plugin.source)
 
-    console.error('\n _initPlugin component', component.status)
+    var component = Qt.createComponent(plugin.source)
     if (component.status === Component.Error) {
       console.error('\n initPlugin Error', component.status)
       return
     }
     plugin.component = component
+
+    var _parent = parent || this.body
     var incubator = component.incubateObject(_parent)
     if (incubator) {
       plugin.incubator = incubator
@@ -128,7 +128,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
         if (status === Component.Ready) {
           plugin.object = incubator.object
           plugin.isReady = true
-          // 调用事件:ready 
+          // 调用事件:ready
           plugin.trigger('ready', incubator.object)
           if (typeof callback === 'function') {
             callback(incubator.object)
@@ -136,21 +136,16 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
         }
       }
     } else {
-      print("Object", incubator.object, "is ready immediately!");
+      print('Object', incubator.object, 'is ready immediately!')
       plugin.object = incubator.object
       plugin.isReady = true
-      // 调用事件:ready 
+      // 调用事件:ready
       plugin.trigger('ready', incubator.object)
       if (typeof callback === 'function') {
         callback(incubator.object)
       }
     }
-
-    if (typeof callback === 'function') callback(incubator.object)
-
   }
-
-}
 }
 
 /**
@@ -171,7 +166,6 @@ Syber.prototype.destroy = function (pluginId) {
     plugin.isReady = false
     plugin.object = null
     plugin.incubator = null
-
   }
 }
 
