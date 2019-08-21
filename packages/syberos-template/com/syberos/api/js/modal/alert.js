@@ -13,6 +13,9 @@ function Alert () {
   }
   SyberPlugin.call(this, defaultOpts)
 
+  // 默认是否绑定接受信号
+  this.acceptedConnect = false
+
   var that = this
   this.on('alert', function (object, handlerId, param) {
     var component = object || that.object
@@ -33,11 +36,18 @@ function Alert () {
 
     component.show()
 
-    // 确认事件
-    component.accepted.connect(function () {
-      that.clearParam()
-      WEBVIEWCORE.trigger('success', that.handlerId)
-    })
+    // 只做一次信号绑定,防止多次信号被触发
+    if(!that.acceptedConnect) {
+      // 确认事件
+      component.accepted.connect(function() {
+          // 设置绑定信号
+          that.acceptedConnect = true
+          // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
+          WEBVIEWCORE.trigger('success',that.handlerId)
+          // 清理相关参数信息
+          that.clearParam()
+      })
+    }
 
   })
 }
