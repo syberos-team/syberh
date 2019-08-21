@@ -45,7 +45,7 @@ private :
      * @return 成功则无返回。
      *      失败则返回错误码。
      */
-//    void  getResolution(long callBackID,QVariantMap params);
+    void  getResolution(long callBackID,QVariantMap params);
 
    /**
     * @brief getCoreVersion 获取内核版本号
@@ -54,7 +54,7 @@ private :
     * @return 成功则无返回。
     *      失败则返回错误码。
     */
-//   void  getCoreVersion(long callBackID,QVariantMap params);
+   void  getCoreVersion(long callBackID,QVariantMap params);
 
    /**
     * @brief getSysVersionID 获取系统版本号
@@ -63,7 +63,7 @@ private :
     * @return 成功则无返回。
     *      失败则返回错误码。
     */
-//   void  getSysVersionID(long callBackID,QVariantMap params);
+   void  getSysVersionID(long callBackID,QVariantMap params);
 
 };
 
