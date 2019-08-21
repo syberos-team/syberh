@@ -37,7 +37,7 @@ public:
 private :
     void start(QString callbackId, QString url, QString name);
 
-    void cancel(QString downloadID);
+    void cancel(QString callbackId, QString downloadID);
 
     TaskInfo* findTaskInfo(DownloadManager *downloadManager);
 
