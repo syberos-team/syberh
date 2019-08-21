@@ -1,13 +1,13 @@
 ---
-title: takePictureImmediately
+title: shearPhoto
 ---
 
 
 
 
-## syber.camera.takePictureImmediately(Object object)
+## syber.camera.shearPhoto(Object object)
 
-进行拍照功能，成功则返回图片路径
+可对拍出的照片进行裁剪功能，成功则返回裁剪后图片路径
 
 
 
@@ -40,7 +40,7 @@ title: takePictureImmediately
 
 ```
 syber.camera.takePictureImmediately({
-	data:{enableCut:false},
+	data:{enableCut:true},
 	success: function(result){
 		console.log('success: ', result.path);
 	},
