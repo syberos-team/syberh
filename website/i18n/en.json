@@ -14,8 +14,11 @@
       "apis/clipboard/setClipboardData": {
         "title": "setClipboardData"
       },
+      "apis/download/download-cancel": {
+        "title": "cancel"
+      },
       "apis/download/download": {
-        "title": "downloadFile"
+        "title": "start"
       },
       "apis/fileInfo/getFileInfos": {
         "title": "getFileInfos"
@@ -28,6 +31,9 @@
       },
       "apis/modal/confirm": {
         "title": "confirm"
+      },
+      "apis/modal/gtoast": {
+        "title": "gtoast"
       },
       "apis/modal/prompt": {
         "title": "prompt"
@@ -147,7 +153,7 @@
         "title": "系统信息"
       },
       "qt/telephony/telephony": {
-        "title": "电话"
+        "title": "拨号"
       },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
@@ -167,21 +173,21 @@
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
       "关于API": "关于API",
-      "webview": "webview",
-      "导航栏": "导航栏",
       "modal": "modal",
       "媒体": "媒体",
       "电话": "电话",
-      "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
       "文件": "文件",
+      "webview": "webview",
       "关于C++": "关于C++",
       "通信": "通信",
+      "runtime": "runtime",
       "更新": "更新",
+      "导航栏": "导航栏",
       "request": "request",
       "download": "download",
       "界面交互": "界面交互"

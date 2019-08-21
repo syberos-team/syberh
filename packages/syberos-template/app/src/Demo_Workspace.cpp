@@ -1,12 +1,10 @@
 #include "Demo_Workspace.h"
-#include "../framework/nativesdkmanager.h"
+#include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include <QQmlContext>
 #include <QDebug>
 #include <qqml.h>
-#include "../com/syberos/download/src/helper.h"
-#include "../framework/common/extendedconfig.h"
-#include "../com/syberos/core/src/decodeworkspace.h"
-#include "../com/syberos/core/src/qtcamerascan.h"
+#include "../com/syberos/api/src/helper.h"
+#include "../com/syberos/api/src/framework/common/extendedconfig.h"
 
 Demo_Workspace::Demo_Workspace()
     : CWorkspace()
@@ -26,12 +24,6 @@ Demo_Workspace::Demo_Workspace()
 
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
-
-    qmlRegisterType<DecodeWorkSpace>("com.syberos.decodeWorkSpace", 1, 0, "DecodeWorkSpace");
-    QtCameraScan *camera = QtCameraScan::getInstance();
-    qDebug() << "QtCameraScan *camera = QtCameraScan::getInstance() ok";
-    QQmlEngine::setObjectOwnership(camera, QQmlEngine::CppOwnership);
-    m_view->rootContext()->setContextProperty("QtCameraScan", camera);
 
     NativeSdkManager * nativeSdkManager = NativeSdkManager::getInstance();
     m_view->rootContext()->setContextProperty("NativeSdkManager",nativeSdkManager);

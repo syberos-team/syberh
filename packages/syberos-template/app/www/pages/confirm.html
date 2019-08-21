@@ -16,22 +16,25 @@
   <div class="mui-content pt0">
       <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirm()">confirm</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirmColorText()">confirm 修改颜色和文字</a>
+          <a class="mui-navigate-right api-class" onclick="confirmNormal()">confirmNormal</a>
         </li>
         <!-- <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="confirmShowLoading()">confirm showLoading</a>
         </li> -->
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirmSmallIcon()">confirm_small_icon</a>
-        </li>
-        <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="confirmNoTitle()">confirm_no_title</a>
         </li>
         <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmSmallIcon()">confirm_small_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="confirmBigIcon()">confirm_big_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmColorText()">confirm 修改颜色和文字</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmOrigin()">原生confirm</a>
         </li>
       </ul>
     </div>
@@ -44,7 +47,7 @@
   <script>
     var vConsole = new VConsole()
 
-    function confirm() {
+    function confirmNormal() {
       syber.modal.confirm({
           title: '标题',
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
@@ -146,8 +149,16 @@
           }
       })
     }
-    
-    
+
+
+    function confirmOrigin() {
+      var result = confirm('Hello world');
+      if (result == true) {
+        console.log('用户点击了确定')
+      } else if (result == false) {
+        console.log('用户点击了取消')
+      }
+    }
 
   </script>
 </body>

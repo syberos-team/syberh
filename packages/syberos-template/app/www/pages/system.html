@@ -1,161 +1,180 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>demo</title>
-    <style type="text/css">
-      button {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 7em;
-      }
+<html lang="zh-CN">
 
-      .button2 {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 80%;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Quick Hybrid API</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .pt0 {
+      margin-top: 1em;
+    }
+    .mui-system .mui-input-row{
+        height: auto !important;
+        word-wrap:break-word !important;
+    }
+  </style>
+</head>
 
-      .text {
-        font-size: 2em;
-      }
-    </style>
-    <script src="../lib/vconsole.min.js"></script>
-    <script src="../lib/syber.min.js"></script>
-  </head>
-  <body>
-    <button onclick="goBack()">goBack()</button>
-    <button id="uniqueId" onclick="uniqueId()">设备ID</button>
-    <button id="brand" onclick="brand()">设备品牌</button>
-    <button id="manufacturer" onclick="manufacturer()">设备生产商</button>
-    <button id="model" onclick="model()">设备型号</button>
-    <button id="name" onclick="name()">手机名称</button>
-    <button id="imei" onclick="imei()">移动设备国际识别码</button>
-    <button id="simCardNumbers" onclick="simCardNumbers()">如果是双卡，有多个手机号</button>
-    <button id="imsis" onclick="imsis()">如果是双卡，有多个国际移动用户识别码</button>
-    <button id="hardware" onclick="hardware()">系统的平台类型 </button>
-    <button id="osVersion" onclick="osVersion()">系统版本号</button>
-    <button id="osVersionCode" onclick="osVersionCode()">系统小版本号</button>
-    <button id="softwareVersion" onclick="softwareVersion()">系统版本号的简称或者代号</button>
-    <button id="height" onclick="height()">手机分辨率，高度</button>
-    <button id="width" onclick="width()">手机分辨率，宽度</button>
-    <button id="desktopAvailableHeight" onclick="desktopAvailableHeight()">可使用窗口高度</button>
-    <button id="desktopAvailableWidth" onclick="desktopAvailableWidth()">可使用窗口宽度</button>
-    <button id="statusBarHeight" onclick="statusBarHeight()">状态栏的高度</button>
-    <button id="pixelRatio" onclick="pixelRatio()">设备像素比</button>
-    <button id="language" onclick="language()">系统语言</button>
-    <button id="region" onclick="region()">系统地区</button>
+<body>
+<div class="mui-content pt0">
+  <form class="mui-input-group">
+    <div class="mui-button-row">
+      <button type="button" class="mui-btn mui-btn-primary" onclick="baseParam()">获取系统信息</button>
+    </div>
+  </form>
+</div>
 
-    <div class="text" id="content"></div>
-    <div class="text" id="result"></div>
-    <script>
-        var vConsole = new VConsole()
-        console.log('Hello world-系统信息')
-        function print(str){
-            document.getElementById('content').innerHTML=JSON.stringify(str)
-        }
-        syber.ready(function() {
-            document.getElementById('content').innerHTML = '注册成功'
-        })
-        document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+<div class="mui-content pt0">
+  <form class="mui-input-group mui-system">
+  <div class="mui-input-row">
+    <label>设备ID</label>
+    <input type="text" id="uniqueId" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>设备品牌</label>
+    <input type="text" id="brand" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>设备生产商</label>
+    <input type="text" id="manufacturer" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>设备型号</label>
+    <input type="text" id="model" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>手机名称</label>
+    <input type="text" id="name" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>移动设备国际识别码</label>
+    <input type="text" id="imei" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>如果是双卡，有多个手机号</label>
+    <input type="text" id="simCardNumbers" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>如果是双卡，有多个国际移动用户识别码</label>
+    <input type="text" id="imsis" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>系统的平台类型</label>
+    <input type="text" id="hardware" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>系统版本号</label>
+    <input type="text" id="osVersion" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>系统小版本号</label>
+    <input type="text" id="osVersionCode" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>系统版本号的简称或者代号</label>
+    <input type="text" id="softwareVersion" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>手机分辨率，高度</label>
+    <input type="text" id="height" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>手机分辨率，宽度</label>
+    <input type="text" id="width" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>可使用窗口高度</label>
+    <input type="text" id="desktopAvailableHeight" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>可使用窗口宽度</label>
+    <input type="text" id="desktopAvailableWidth" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>状态栏的高度</label>
+    <input type="text" id="statusBarHeight" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>设备像素比</label>
+    <input type="text" id="pixelRatio" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>系统语言</label>
+    <input type="text" id="language" pattern="value" value="" class="mui-input-clear" />
+  </div>
+  <div class="mui-input-row">
+    <label>系统地区</label>
+    <input type="text" id="region" pattern="value" value="" class="mui-input-clear" />
+  </div>
 
+  </form>
+</div>
 
-        function uniqueId() {
-            baseParameter("uniqueId");
-        }
-        function brand() {
-            baseParameter("brand");
-        }
-        function manufacturer() {
-            baseParameter("manufacturer");
-        }
-        function model() {
-            baseParameter("model");
-        }
-        function name() {
-            baseParameter("name");
-        }
-        function imei() {
-            baseParameter("imei");
-        }
-        function simCardNumbers() {
-            baseParameter("simCardNumbers");
-        }
-        function imsis() {
-            baseParameter("imsis");
-        }
-        function hardware() {
-            baseParameter("hardware");
-        }
-        function KernelVersion() {
-            baseParameter("KernelVersion");
-        }
-        function osVersion() {
-            baseParameter("osVersion");
-        }
-        function osVersionCode() {
-            baseParameter("osVersionCode");
-        }
-        function softwareVersion() {
-            baseParameter("softwareVersion");
-        }
-        function height() {
-            baseParameter("height");
-        }
-        function width() {
-            baseParameter("width");
-        }
-        function desktopAvailableHeight() {
-            baseParameter("desktopAvailableHeight");
-        }
-        function desktopAvailableHeight() {
-            baseParameter("desktopAvailableHeight");
-        }
-        function desktopAvailableWidth() {
-            baseParameter("desktopAvailableWidth");
-        }
-        function statusBarHeight() {
-            baseParameter("statusBarHeight");
-        }
-        function pixelRatio() {
-            baseParameter("pixelRatio");
-        }
-        function language() {
-            baseParameter("language");
-        }
-        function region() {
-            baseParameter("region");
-        }
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
 
+  <script>
+       var vConsole = new VConsole()
+       console.log('Hello world-系统信息')
 
-        function goBack() {
-          syber.webview.goBack({
-            success: function (result) {
-              console.info(result)
-            },
-            fail: function (error) {
-              console.info(error)
-            }
-          })
-        }
+       function goBack() {
+         syber.webview.goBack({
+           success: function (result) {
+             console.info(result)
+           },
+           fail: function (error) {
+             console.info('失败:' + JSON.stringify(error))
+           }
+         })
+       }
 
-        function baseParameter(param){
+        function baseParam(param){
             syber.system.aboutPhone({
               success: function (result) {
-                  var retStr = "result-系统信息: " + JSON.stringify(result);
-                  console.info("retStr: " + retStr);
+                  console.info("result-系统信息: " + result)
+                  alert("result-: 请求成功, 返回数据" + JSON.stringify(result));
+                  document.getElementById("uniqueId").value = blankHandle(result.id);
+                  document.getElementById("brand").value = blankHandle(result.brand);
+                  document.getElementById("manufacturer").value = blankHandle(result.idmanufacturer);
+                  document.getElementById("model").value = blankHandle(result.model);
+                  document.getElementById("name").value = blankHandle(result.name);
+                  document.getElementById("imei").value = blankHandle(result.imei);
+                  document.getElementById("simCardNumbers").value = blankHandle(result.simCardNumbers);
+                  document.getElementById("imsis").value = blankHandle(result.imsis);
+                  document.getElementById("hardware").value = blankHandle(result.hardware);
+                  document.getElementById("osVersionCode").value = blankHandle(result.osVersionCode);
+                  document.getElementById("softwareVersion").value = blankHandle(result.softwareVersion);
+                  document.getElementById("height").value = blankHandle(result.height);
+                  document.getElementById("width").value = blankHandle(result.width);
+                  document.getElementById("desktopAvailableHeight").value = blankHandle(result.desktopAvailableHeight);
+                  document.getElementById("desktopAvailableWidth").value = blankHandle(result.desktopAvailableWidth);
+                  document.getElementById("statusBarHeight").value = blankHandle(result.statusBarHeight);
+                  document.getElementById("pixelRatio").value = blankHandle(result.pixelRatio);
+                  document.getElementById("language").value = blankHandle(result.language);
+                  document.getElementById("region").value = blankHandle(result.region);
 
-                  alert("retStr" +" :"+retStr)
-                  document.getElementById('result').innerHTML = retStr;
               },
               fail: function (error) {
                 console.info(error)
+                alert(error.msg);
               }
             });
         }
 
-    </script>
-  </body>
+        function blankHandle(param){
+            return !param?'':param;
+        }
+
+  </script>
+</body>
+
 </html>

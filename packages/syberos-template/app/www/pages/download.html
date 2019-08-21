@@ -18,9 +18,11 @@
     <div class="mui-card">
       <div class="mui-card-header">
         <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">download(下载文件)</button>
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel()">cancel(取消下载)</button>
       </div>
       <div class="mui-card-content">
         <ul class="mui-table-view">
+          <li class="mui-table-view-cell"><span id="exec">&nbsp;</span></li>
           <li class="mui-table-view-cell">downloadID:<span id="start-downloadID"></span></li>
           <li class="mui-table-view-cell">path:<span id="start-path"></span></li>
           <li class="mui-table-view-cell">status:<span id="start-status"></span></li>
@@ -34,27 +36,6 @@
         </div>
       </div>
     </div>
-    <div class="mui-card">
-      <div class="mui-card-header">
-        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel()">cancel(取消下载)</button>
-      </div>
-      <div class="mui-card-content">
-        <ul class="mui-table-view">
-          <li class="mui-table-view-cell">downloadID:<span id="cancel-downloadID"></span></li>
-          <li class="mui-table-view-cell">path:<span id="cancel-path"></span></li>
-          <li class="mui-table-view-cell">status:<span id="cancel-status"></span></li>
-          <li class="mui-table-view-cell">received:<span id="cancel-received"></span></li>
-          <li class="mui-table-view-cell">total:<span id="cancel-total"></span></li>
-        </ul>
-      </div>
-    </div>
-
-
-    <ul class="mui-table-view ">
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="cancel()">cancel(取消下载)</a>
-      </li>
-    </ul>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syber.min.js"></script>
@@ -71,10 +52,11 @@
     }
 
     function start() {
+      document.getElementById('exec').innerText = '下载文件';
       var first = true;
       syber.download.start({
-        'url': 'https://www.baidu.com/img/bd_logo1.png',
-        'name': 'baidu_logo.png',
+        'url': 'http://online.qianqian.com/qianqian/info/ffaeb0b4503d0ee83768998b03140732.exe',
+        'name': 'qianqian.exe',
         success: function (result) {
           showResult('start', result);
           if (first) {
@@ -90,27 +72,15 @@
       })
     }
     function cancel() {
-      var first = true;
-      syber.download.start({
-        'url': 'https://d2j3q9yua85jt3.cloudfront.net/img/e94b52a277d4919d43f455e29818c222',
-        'name': 'google.png',
-        success: function (result) {
-          showResult('cancel', result);
-          if (first) {
-            first = false
-            syber.download.cancel({
-              'downloadID': result.downloadID,
-              success: function (rs) {
-                console.info(rs)
-              },
-              fail: function (er) {
-                console.info(er)
-              }
-            })
-          }
+      document.getElementById('exec').innerText = '取消下载';
+      var downloadId = document.getElementById('start-downloadID').innerText;
+      syber.download.cancel({
+        'downloadID': downloadId,
+        success: function (rs) {
+          console.info(rs)
         },
-        fail: function (error) {
-          console.info(error)
+        fail: function (er) {
+          console.info(er)
         }
       })
     }

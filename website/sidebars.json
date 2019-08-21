@@ -29,14 +29,9 @@
     "关于API": [
       "apis/about/desc"
     ],
-    "webview": [
-      "apis/webview/webview"
-    ],
-    "导航栏": [
-      "apis/navigator/navigator"
-    ],
     "modal": [
       "apis/modal/toast",
+      "apis/modal/gtoast",
       "apis/modal/alert",
       "apis/modal/confirm",
       "apis/modal/prompt"
@@ -64,14 +59,6 @@
         "type": "subcategory",
         "ids": [
           "apis/telephony/dial"
-        ]
-      }
-    ],
-    "runtime": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "apis/runtime/launchApp"
         ]
       }
     ],
@@ -110,7 +97,8 @@
       {
         "type": "subcategory",
         "ids": [
-          "apis/download/download"
+          "apis/download/download",
+          "apis/download/download-cancel"
         ]
       }
     ],
@@ -122,6 +110,9 @@
           "apis/fileInfo/removeFileInfos"
         ]
       }
+    ],
+    "webview": [
+      "apis/webview/webview"
     ]
   },
   "C++模块": {
