@@ -57,7 +57,6 @@
             } else if (res.cancel) {
               console.log('用户点了取消按钮')
             }
-            syber.modal.gToast(res)
           },
           fail: function() {
             console.log('modal.confirm fail')
@@ -151,6 +150,7 @@
           },
           fail: function() {
             console.log('modal.confirm fail')
+            gtoast('modal.confirm fail')
           }
       })
     }
