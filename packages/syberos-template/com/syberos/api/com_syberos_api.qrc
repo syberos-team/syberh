@@ -28,7 +28,6 @@
         <file>res/warning.png</file>
         <file>qml/SPrompt.qml</file>
         <file>qml/SCamera.qml</file>
-        <file>js/camera/clip.js</file>
         <file>js/camera/capture.js</file>
     </qresource>
 </RCC>

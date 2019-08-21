@@ -5,8 +5,7 @@
  */
 function Capture () {
   var defaultOpts = {
-    id: 'capture',
-    name: 'capture',
+    id: 'camera',
     module: 'camera',
     page: true,
     methods: ['takePictureImmediately'],
@@ -27,15 +26,15 @@ function Capture () {
 //        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
 //    })
 
-    if (!that.imageConfirmedFlag) {
+//    if (!that.imageConfirmedFlag) {
         object.imageConfirmed.connect(function(filePath) { //处理信号
-            console.log('-------------------------------------filePath----js', filePath)
+            console.log('-------------------------------------takePictureImmediately', filePath)
             that.imageConfirmedFlag = true
             pageStack.pop(root)
             filePath = "file://"+filePath;
             WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
         })
-    }
+//    }
 
   })
 

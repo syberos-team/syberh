@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast','capture','clip' ]
+    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast','capture' ]
   }
 
   // add 内置 plugins
@@ -196,8 +196,7 @@ Syber.prototype._addBuiltInPlugins = function () {
     confirm: { proto: Confirm },
     prompt: { proto: Prompt },
     toast: { proto: Toast },
-    capture: { proto: Capture },
-    clip: { proto: Clip }
+    capture: { proto: Capture }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {
