@@ -10,6 +10,13 @@
     <title>auth</title>
     <link rel="stylesheet" href="../common/mui/mui.css" />
     <link rel="stylesheet" href="../common/common.css" />
+    <style type="text/css">
+    #pathDiv{  width: 100%;
+        height: auto;
+        word-wrap:break-word;
+        word-break:break-all;
+        overflow: hidden;  }
+    </style>
 </head>
 
   <body>
@@ -22,6 +29,12 @@
         </ul>
     </div>
 
+    <div class="mui-card-content">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell"><div id="pathDiv">path:</div></li>
+      </ul>
+    </div>
+
     <script type="text/javascript" src="../common/mui/mui.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
     <script type="text/javascript" src="../../dist/quick.js"></script>
@@ -29,6 +42,7 @@
     <script type="text/javascript" src="../../dist/quick.h5.js"></script>
     <script type="text/javascript" src="../lib/vconsole.min.js"></script>
     <script type="text/javascript" src="../lib/syber.min.js"></script>
+
 
     <script>
         quick.error(function(message) {
@@ -44,6 +58,7 @@
                 name: 'takePictureImmediately',
                 mudule: 'camera',
                 success: function(result) {
+                    document.getElementById('pathDiv').innerText = "path:"+result.path
                     console.info(result)
                 },
                 error: function(error) {

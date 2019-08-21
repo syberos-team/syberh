@@ -1,13 +1,13 @@
 ---
-title: capturePhoto
+title: takePictureImmediately
 ---
 
 
 
 
-## syber.camera.capturePhoto（Object object）
+## syber.camera.takePictureImmediately()
 
-进行拍照功能，成功则返回图片文件路径
+进行拍照功能，成功则返回图片路径
 
 
 
@@ -17,9 +17,8 @@ title: capturePhoto
 
 | 属性    | 类型     | 是否必填 | 描述                                      |
 | ------- | -------- | -------- | ----------------------------------------- |
-| camera  | number   | 是       | 指定摄像头，`1` ：主摄像头，`2`：辅摄像头 |
 | success | function | 否       | 接口调用成功的回调函数                    |
-| error   | function | 否       | 接口调用失败的回调函数                    |
+| fail   | function | 否       | 接口调用失败的回调函数                    |
 
 **object.success回调参数**
 
@@ -27,7 +26,7 @@ title: capturePhoto
 | ---- | ------ | ------------ |
 | path | String | 图片文件路径 |
 
-**object.error回调参数**
+**object.fail回调参数**
 
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
@@ -39,13 +38,12 @@ title: capturePhoto
 ### **示例代码**
 
 ```
-syber.camera.capturePhoto({
-	camera: '1',
+syber.camera.takePictureImmediately({
 	success: function(result){
 		console.log('success: ', result.path);
 	},
-	error: function(err){
-		console.log('error: ', err.code, err.msg);
+	fail: function(err){
+		console.log('fail: ', err.code, err.msg);
 	}
 });
 ```
