@@ -71,9 +71,14 @@ void Storage::removeItem(QString callbackId, QString key){
         emit failed(callbackId.toLong(), 500, "key is blank");
         return;
     }
+    QJsonObject json;
+    if(!manager->contains(key)){
+        json.insert("result", false);
+        emit success(callbackId.toLong(), json);
+        return;
+    }
     manager->remove(key);
     bool isRemoved = !manager->contains(key);
-    QJsonObject json;
     json.insert("result", isRemoved);
     emit success(callbackId.toLong(), json);
 }
