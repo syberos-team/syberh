@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
-import com.syberos.download 1.0
-import com.syberos.core 1.0
+import com.syberos.api 1.0
 
 CPageStackWindow {
     Component.onCompleted: console.log("=======Completed Running!")
