@@ -250,11 +250,6 @@ CAbstractPopLayer{
    /*! 输入框内容变化时发出该信号, \a text 为当前输入的文本。 */
    signal textChanged(string text)
 
-   /*! 给input框设置默认值 */
-   function setText(placeholder) {
-        placeholderText = placeholder
-   }
-
    /*! 是否启用编辑框的密码功能， 默认为false。*/
    property bool passwordEnabled:false
 
@@ -269,6 +264,11 @@ CAbstractPopLayer{
        编辑框文本颜色。
    */
    property color inputTextColor: "#333333"
+
+   /*! 给input框设置默认值 */
+   function setText(placeholder) {
+        sconfirm.placeholderText = placeholder
+   }
 
    /*! 背景, 不允许定制 */
    Rectangle{
@@ -409,7 +409,7 @@ CAbstractPopLayer{
                    passwordLabelEnabled: passwordEnabled
                    font.pixelSize: inputFontPixelSize
                    textColor: inputTextColor
-                   placeholderText: placeholderText
+                   placeholderText: sconfirm.placeholderText
                    echoMode: passwordEnabled ? TextInput.Password : TextInput.Normal
                    maximumLength: 200
                    focusActive: sconfirm.inputFocus
