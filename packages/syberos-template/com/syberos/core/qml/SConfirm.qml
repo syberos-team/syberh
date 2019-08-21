@@ -15,6 +15,7 @@ reserved.
 */
 
 import QtQuick 2.3
+import QtQuick.Window 2.2
 import com.syberos.basewidgets 2.0
 
 
@@ -26,23 +27,26 @@ CAbstractPopLayer{
    /*! 点击mask是否关闭 */
    canceledOnOutareaClicked: false
 
-   /*! 模态框和页面的宽度比例 */
-   property real proportion: 840 / 1080
+   /*! 模态框和页面的缩放比例 */
+   property real scaleFactor: Screen.width / 1080
+
+   /*! 模态框背景的宽度 */
+   property real contentBgWidth: 840 * scaleFactor
 
    /*! 标题区与对话框背景区上边沿之间的距离 */
-   property real topSpacing: 80 * proportion
+   property real topSpacing: 80 * scaleFactor
 
    /*! 无标题的时候，内容区与对话框背景区上边沿之间的距离 */
-   property real topSpacingNoTitle: 120 * proportion //120
+   property real topSpacingNoTitle: 120 * scaleFactor //120
 
    /*! 对话框的圆角大小 */
    property real radius: 6
 
    /*! 标题区和内容区之间的距离 */
-   property real spacingBetweenTitleAreaAndMessageArea: 80 * proportion
+   property real spacingBetweenTitleAreaAndMessageArea: 80 * scaleFactor
 
-   /*! 内容区和按钮区之间的距离*/
-   property real spacingBetweenMessageAreaAndButtonArea: 100 * proportion
+   /*! 内容区和按钮区之间的距离(减掉文字的行高和实际自体的大小差距 messageTextPixelSize messageTextLineHeight)*/
+   property real spacingBetweenMessageAreaAndButtonArea: (100 - (70 - 40)) * scaleFactor
 
    /*! 标题文本 */
    property string titleText: ""
@@ -51,22 +55,22 @@ CAbstractPopLayer{
    property color titleTextColor: "#333333"
 
    /*! 标题smallIcon的宽度 */
-   property real titleSmallIconWidth: 54 * proportion
+   property real titleSmallIconWidth: 54 * scaleFactor
 
    /*! 标题BigIcon的宽度 */
-   property real titleBigIconWidth: 212 * proportion
+   property real titleBigIconWidth: 212 * scaleFactor
 
    /*! 标题字体大小 */
-   property real titleTextPixelSize: 52 * proportion
+   property real titleTextPixelSize: 52 * scaleFactor
 
    /*! 标题区左侧边距*/
-   property int titleAreaHeight: 100 * proportion
+   property int titleAreaHeight: 100 * scaleFactor
 
    /*! 标题区左侧边距*/
-   property real titleAreaLeftMargin: 40 * proportion
+   property real titleAreaLeftMargin: 40 * scaleFactor
 
    /*! 标题区右侧边距*/
-   property real titleAreaRightMargin:40 * proportion
+   property real titleAreaRightMargin:40 * scaleFactor
 
    /*!
        \qmlproperty Component SConfirm::titleAreaComponent
@@ -120,16 +124,16 @@ CAbstractPopLayer{
 
 
    /*! 内容区文本字体大小 */
-   property real messageTextPixelSize: 40 * proportion
+   property real messageTextPixelSize: 40 * scaleFactor
 
    /*! 内容区文本行高大小 */
-   property real messageTextLineHeight: 70 * proportion
+   property real messageTextLineHeight: 70 * scaleFactor
 
    /*! 内容区左侧边距 */
-   property real messageAreaLeftMargin: 70 * proportion
+   property real messageAreaLeftMargin: 70 * scaleFactor
 
    /*! 内容区右侧边距 */
-   property real messageAreaRightMargin: 70 * proportion
+   property real messageAreaRightMargin: 70 * scaleFactor
 
    /*!
        \qmlproperty Component SConfirm::messageAreaComponent
@@ -171,28 +175,28 @@ CAbstractPopLayer{
 
 
    /*! 按钮区按钮之间的距离/按钮区按钮分割线的宽度*/
-   property real buttonAreaSpacing: 2 * proportion
+   property real buttonAreaSpacing: 2 * scaleFactor
 
    /*! 确认按钮加载状态 */
    property bool acceptButtonLoading: false
 
    /*! 按钮区左侧边距*/
-   property real buttonAreaLeftMargin: 80 * proportion
+   property real buttonAreaLeftMargin: 80 * scaleFactor
 
    /*! 按钮区右侧边距 */
-   property real buttonAreaRightMargin: 80 * proportion
+   property real buttonAreaRightMargin: 80 * scaleFactor
 
    /*! 按钮区按钮的高度*/
-   property real buttonHeight: 180 * proportion
+   property real buttonHeight: 180 * scaleFactor
 
    /*! 按钮区按钮分割线的颜色*/
    property string buttonLineColor: "#cccccc"
 
    /*! 按钮区按钮的字体大小 */
-   property real buttonTextPixelSize: 48 * proportion
+   property real buttonTextPixelSize: 48 * scaleFactor
 
    /*! 模态框滑动到屏幕中间需要的距离 */
-   property real distance: (contentBackground.contentHeight() / 2 + parent.height / 2) * proportion
+   property real distance: (contentBackground.contentHeight() / 2 + parent.height / 2) * scaleFactor
 
    /*!
        \qmlproperty Component SConfirm::buttonAreaComponent
@@ -244,7 +248,7 @@ CAbstractPopLayer{
    MouseArea{
        id:contentBackground
        anchors.centerIn: parent
-       width: proportion * parent.width
+       width: contentBgWidth
        height:contentHeight()
 
        Loader{
@@ -296,7 +300,7 @@ CAbstractPopLayer{
        id:titleAreaLoader
        active: titleText || hasIconType
        anchors.top:contentBackground.top
-       anchors.topMargin: topSpacing
+       anchors.topMargin: titleAreaEnabled ? topSpacing : topSpacingNoTitle
        anchors.left: contentBackground.left
        anchors.leftMargin: titleAreaLeftMargin
        anchors.right: contentBackground.right
@@ -317,6 +321,7 @@ CAbstractPopLayer{
                spacing: 10
                Image {
                    visible: hasIconType
+                   anchors.topMargin: - (titleSmallIconWidth - textcontent.height) / 2
                    source:  icon === warningType ? warningIcon : icon === successType ? successIcon : ''
                }
                Text{
@@ -352,15 +357,15 @@ CAbstractPopLayer{
        anchors.right: contentBackground.right
        anchors.rightMargin: messageAreaRightMargin
        sourceComponent: Text {
-               font.pixelSize: sconfirm.messageTextPixelSize
-               color:sconfirm.messageTextColor
-               lineHeight: sconfirm.messageTextLineHeight
-               lineHeightMode: Text.FixedHeight
-               text:sconfirm.messageText
-               wrapMode:Text.WrapAnywhere
-               horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
-            }
-
+           id: messageText
+           font.pixelSize: sconfirm.messageTextPixelSize
+           color:sconfirm.messageTextColor
+           lineHeight: sconfirm.messageTextLineHeight
+           lineHeightMode: Text.FixedHeight
+           text:sconfirm.messageText
+           wrapMode:Text.WrapAnywhere
+           horizontalAlignment: lineCount<=1 ? Text.AlignHCenter:Text.AlignLeft
+        }
    }
 
    Loader{
@@ -379,66 +384,63 @@ CAbstractPopLayer{
                 width: buttonAreaLoader.width
                 height: buttonAreaSpacing
                 color: sconfirm.buttonLineColor
-           }
-           Row{
-               id:buttonsRow
-               spacing: buttonAreaSpacing
-               anchors.top: line.bottom
-               enabled: !animating
 
-               SButton{
-                   id:rejectButton
-                   visible: sconfirm.rejectButtonVisible
-                   text:sconfirm.rejectButtonText
-                   width: buttonWidth
-                   height: sconfirm.buttonHeight - buttonAreaSpacing
-                   textColor: rejectButtonColor ? rejectButtonColor : rejectButton.textSecondColor
-                   pixelSize: sconfirm.buttonTextPixelSize
-
-                   onClicked:{
-                       hideAnimation.rejectedFlag = true
-                       sconfirm.hide()
-                   }
-               }
-
-               Rectangle {
-                    visible: sconfirm.rejectButtonVisible
-                    width: buttonAreaSpacing
-                    height: sconfirm.buttonHeight
+                Row{
+                    id:buttonsRow
+                    spacing: buttonAreaSpacing
                     anchors.top: line.bottom
-                    anchors.topMargin: buttonAreaSpacing
-                    color: sconfirm.buttonLineColor
-               }
+                    enabled: !animating
 
-               SButton{
-                   id:acceptButton
-                   visible: !acceptButtonLoading
-                   text:sconfirm.acceptedButtonText
-                   width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
-                   height: sconfirm.buttonHeight - buttonAreaSpacing
-                   enabled: acceptButtonEnabled
-                   pixelSize: sconfirm.buttonTextPixelSize
-                   textColor: acceptButtonColor ? acceptButtonColor : acceptButton.textHrefColor
+                    SButton{
+                        id:rejectButton
+                        visible: sconfirm.rejectButtonVisible
+                        text:sconfirm.rejectButtonText
+                        width: buttonWidth
+                        height: sconfirm.buttonHeight
+                        textColor: rejectButtonColor ? rejectButtonColor : rejectButton.textSecondColor
+                        pixelSize: sconfirm.buttonTextPixelSize
 
-                   onClicked:{
-                       hideAnimation.acceptedFlag = true
-                       sconfirm.hide()
-                   }
-               }
-               Rectangle {
-                   visible: acceptButtonLoading
-                   width: buttonWidth - buttonAreaSpacing
-                   height: sconfirm.buttonHeight - buttonAreaSpacing * 3
-                   anchors.top: line.bottom
-                   anchors.topMargin: buttonAreaSpacing
+                        onClicked:{
+                            hideAnimation.rejectedFlag = true
+                            sconfirm.hide()
+                        }
+                    }
 
-                   SCollisionIndicator {
-                       implicitWidth: buttonWidth
-                       anchors.left: parent.left
-                       anchors.verticalCenter: parent.verticalCenter
-                       running: acceptButtonLoading
-                   }
-               }
+                    Rectangle {
+                         visible: sconfirm.rejectButtonVisible
+                         width: buttonAreaSpacing
+                         height: sconfirm.buttonHeight
+                         color: sconfirm.buttonLineColor
+                    }
+
+                    SButton{
+                        id:acceptButton
+                        visible: !acceptButtonLoading
+                        text:sconfirm.acceptedButtonText
+                        width: sconfirm.rejectButtonVisible ? buttonWidth : buttonAreaLoader.width
+                        height: sconfirm.buttonHeight
+                        enabled: acceptButtonEnabled
+                        pixelSize: sconfirm.buttonTextPixelSize
+                        textColor: acceptButtonColor ? acceptButtonColor : acceptButton.textHrefColor
+
+                        onClicked:{
+                            hideAnimation.acceptedFlag = true
+                            sconfirm.hide()
+                        }
+                    }
+                    Rectangle {
+                        visible: acceptButtonLoading
+                        width: buttonWidth - buttonAreaSpacing
+                        height: sconfirm.buttonHeight
+
+                        SCollisionIndicator {
+                            implicitWidth: buttonWidth
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            running: acceptButtonLoading
+                        }
+                    }
+                }
            }
        }
    }

@@ -112,21 +112,36 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     console.debug('\n ***********_parent', _parent, '\n')
     var component = Qt.createComponent(plugin.source)
 
+    console.error('\n _initPlugin component', component.status)
     if (component.status === Component.Error) {
       console.error('\n initPlugin Error', component.status)
       return
     }
+
+
+
     var incubator = component.incubateObject(_parent)
-    incubator.onStatusChanged = function (status) {
-      if (status === Component.Ready) {
+    if (incubator.status !== Component.Ready) {
+        incubator.onStatusChanged = function (status) {
+          if (status === Component.Ready) {
+            plugin.object = incubator.object
+            plugin.isReady = true
+            // data数据
+            plugin.trigger('ready', incubator.object)
+
+            if (typeof callback === 'function') callback(incubator.object)
+          }
+        }
+    } else {
+        print ("Object", incubator.object, "is ready immediately!");
         plugin.object = incubator.object
         plugin.isReady = true
         // data数据
         plugin.trigger('ready', incubator.object)
 
         if (typeof callback === 'function') callback(incubator.object)
-      }
     }
+
   }
 }
 // pageStack
