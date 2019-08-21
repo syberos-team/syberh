@@ -2,6 +2,7 @@
 #include "helper.h"
 #include <QObject>
 #include <QDebug>
+#include <QCameraInfo>
 #include <QCameraImageCapture>
 
 int Camera::typeId = qRegisterMetaType<Camera *>();
@@ -66,6 +67,11 @@ void  Camera::changeCameraImagePath(long callBackID,QVariantMap params){
 
     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
     qDebug() << Q_FUNC_INFO << "imgPath: " << jsonObjectValue.toString() << endl;
+
+//    camera = new QCamera;
+//    QCameraInfo cameraInfo(camera);
+//    cameraInfo.orientation();
+//    qDebug() << Q_FUNC_INFO << "cameraInfo.orientation(): " << cameraInfo.orientation() << endl;
 
     emit success(callBackID, QVariant(jsonObject));
 }

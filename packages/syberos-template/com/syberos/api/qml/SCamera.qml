@@ -8,8 +8,6 @@ CPage {
 
     property string imgPath
     property var randomNum
-    property bool isVideoMode: cameraObj.captureMode === Camera.CaptureVideo
-    property bool isBackFace: currentCameraPosition === cameraPosition.back ? true : false
     property var cameraPosition: {"front": 1, "back": 0}
     property int currentCameraPosition: cameraPosition.back
 
@@ -79,7 +77,6 @@ CPage {
         source: cameraObj
         orientation: -90 //摄像头旋转90度
         focus: visible // 接收焦点并在可见时捕获关键事件
-        width: isVideoMode ?  isBackFace? height*9/16: height*2/3 : height*3/4
         transform: Rotation {
             id: camerRotation
             origin.x: width / 2
@@ -90,6 +87,7 @@ CPage {
         }
     }
 
+    //图片回显
     Rectangle {
         id:photoPreviewRec
         anchors.fill: parent
@@ -106,16 +104,9 @@ CPage {
 //            fillMode: Image.PreserveAspectCrop
             height: Screen.width
             width: Screen.height
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    photoPreviewRec.opacity = 0
-                    photoPreview.source = ""
-                }
-            }
         }
     }
+
     //底部靠左 返回不保存操作
     Rectangle {
         id: backRect
@@ -142,6 +133,37 @@ CPage {
         }
     }
 
+    //底部靠右 返回拍照操作
+    Rectangle {
+        id: backCaptureRect
+        width: 65 * 2
+        height: width
+        radius: 65 //弧度大小
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 40
+        anchors.left: parent.left
+        anchors.leftMargin: 50
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                photoPreviewRec.opacity = 0
+                photoPreview.source = ""
+                //返回主页后：显示拍照、返回主页按钮，隐藏保存、返回相机按钮
+                captureRect.visible = true
+                backRect.visible = true
+                saveRect.visible = false
+                backCaptureRect.visible = false
+            }
+        }
+
+        Image {
+            id: backCaptureImg
+            source: "/res/backCapture.png"
+            anchors.fill: parent
+        }
+    }
+
     //底部居中 拍照操作
     Rectangle {
         id: captureRect
@@ -155,7 +177,15 @@ CPage {
         MouseArea {
             anchors.fill: parent
             visible: cameraObj.imageCapture.ready
-            onClicked: cameraObj.imageCapture.capture()
+//            onClicked: cameraObj.imageCapture.capture()
+            onClicked: {
+                cameraObj.imageCapture.capture()
+                //拍照后：隐藏拍照、返回主页按钮，显示保存、返回相机按钮
+                captureRect.visible = false
+                backRect.visible = false
+                saveRect.visible = true
+                backCaptureRect.visible = true
+            }
         }
 
         Image {
@@ -216,8 +246,8 @@ CPage {
                 } else if (postition === 2) {
                     cameraObj.stop();
                     cameraObj.cameraPosition = Camera.BackFace
-                    camerVideoOutput.orientation = -270
-                    photoPreview.rotation = +270
+                    camerVideoOutput.orientation = -90
+                    photoPreview.rotation = +90
                     cameraObj.start();
                 }
             }
@@ -230,8 +260,13 @@ CPage {
         }
     }
 
+    //初始化
     Component.onCompleted: {
+        //从新启动相机功能
         cameraObj.stop()
         cameraObj.start()
+        //隐藏保存、返回相机按钮
+        saveRect.visible = false
+        backCaptureRect.visible = false
     }
 }

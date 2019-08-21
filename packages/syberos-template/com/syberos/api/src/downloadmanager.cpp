@@ -35,6 +35,10 @@ void DownloadManager::setDownInto(bool isSupportBreakPoint){
 QString DownloadManager::getDownloadUrl(){
     return m_url.toString();
 }
+// 获取临时文件后缀
+QString DownloadManager::getDownloadFileSuffix() {
+    return DOWNLOAD_FILE_SUFFIX;
+}
 
 // 开始下载文件，传入下载链接和文件的路径
 void DownloadManager::downloadFile(QString url , QString fileName){
@@ -48,6 +52,7 @@ void DownloadManager::downloadFile(QString url , QString fileName){
 
         // 将当前文件名设置为临时文件名，下载完成时修改回来;
         m_fileName = fileName + DOWNLOAD_FILE_SUFFIX;
+
         m_path = fileName;
 
         // 如果当前下载的字节数为0那么说明未下载过或者重新下载
@@ -136,6 +141,10 @@ void DownloadManager::setDownloadId(QString downloadId){
 
 QString DownloadManager::getDownloadId(){
     return m_downloadId;
+}
+
+QString DownloadManager::getMPath(){
+    return m_path;
 }
 
 qint64 DownloadManager::getBytesReceived(){

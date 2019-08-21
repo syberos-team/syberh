@@ -19,11 +19,16 @@ webview 模块提供了一系列的当前操作接口，例如 goBack、redirect
 | success | function |        | 否   | 接口调用成功的回调函数 |
 | fail    | function |        | 否   | 接口调用失败的回调函数 |
 
+#### 回调函数
+> success(boolean)
+
+
 ### 代码示例
 
 ```
 syber.webview.reload({
   success:function(res){
+      //true or false
     console.log(res)
   },
   fail:function(error){
@@ -45,11 +50,18 @@ syber.webview.reload({
 | success | function |        | 否   | 接口调用成功的回调函数 |
 | fail    | function |        | 否   | 接口调用失败的回调函数 |
 
+#### 回调函数
+> success(boolean)
+
+
 ### 代码示例
+
+
 
 ```
 syber.webview.goBack({
   success:function(res){
+      //true or false
     console.log(res)
   },
   fail:function(error){
@@ -72,13 +84,17 @@ syber.webview.goBack({
 | success | function |        | 否   | 接口调用成功的回调函数 |
 | fail    | function |        | 否   | 接口调用失败的回调函数 |
 
+#### 回调函数
+> success(boolean)
+
 ### 代码示例
 
 ```
 syber.webview.redirectTo({
   url:'https://baidu.com',
   success:function(res){
-    console.log(res)
+    //true or false
+    console.log(res) 
   },
   fail:function(error){
     console.log(error)
