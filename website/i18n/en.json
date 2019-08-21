@@ -42,7 +42,7 @@
         "title": "toast"
       },
       "apis/multimedia/camera/capturePhoto": {
-        "title": "capturePhoto"
+        "title": "takePictureImmediately"
       },
       "apis/multimedia/camera/captureVideoEnd": {
         "title": "captureVideoEnd"
@@ -173,7 +173,7 @@
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
       "关于API": "关于API",
-      "modal": "modal",
+      "模态弹窗": "模态弹窗",
       "媒体": "媒体",
       "电话": "电话",
       "剪贴板": "剪贴板",
