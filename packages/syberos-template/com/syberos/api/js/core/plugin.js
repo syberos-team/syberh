@@ -18,13 +18,15 @@ function SyberPlugin (opts) {
   // 挂载的qml
   this.object = null
 
-  this.defaultParam=opts.param||{}
+  this.defaultParam = opts.param || {}
   // 插件需要的参数
-  this.param =this.defaultParam
+  this.param = this.defaultParam
   // 请求ID
   this.handlerId = null
+  // qml component
+  this.component = null
+  this.incubator = null
   this.eventList = {}
-
 }
 
 /**
@@ -33,8 +35,8 @@ function SyberPlugin (opts) {
  */
 SyberPlugin.prototype.setParam = function (handlerId, param) {
   this.handlerId = handlerId
-  if (param) { 
-    this.param=Object.assign(this.param, param)
+  if (param) {
+    this.param = Object.assign(this.param, param)
   } else {
     console.error('SyberPlugin extendParam error,param is undefined')
   }
@@ -46,11 +48,9 @@ SyberPlugin.prototype.setParam = function (handlerId, param) {
  */
 SyberPlugin.prototype.clearParam = function (param) {
   this.handlerId = null
-  this.param=null;
-  this.param={};
- }
-
-
+  this.param = null
+  this.param = {}
+}
 
 /**
  * register an event
@@ -78,6 +78,9 @@ SyberPlugin.prototype.trigger = function () {
   for (var sum = 1; sum < len; sum += 1) {
     funcArgs.push(arguments[sum])
   }
+
+  console.log('event name',this.eventList[eventName])
+
   if (typeof this.eventList[eventName] === 'function') {
     // registered by `.on()` method
     this.eventList[eventName].apply(this, funcArgs)
