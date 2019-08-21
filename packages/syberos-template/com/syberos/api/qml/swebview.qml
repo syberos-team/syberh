@@ -7,7 +7,6 @@ import com.syberos.basewidgets 2.0
 WebView {
     id: webview
     focus: true
-    property var syberObject
     //接受消息信号
     signal receiveMessage(var message)
     signal downLoadConfirmRequest
@@ -17,7 +16,7 @@ WebView {
     signal keyOnReleased(var event)
     property var _contentY: 0
     property url curHoverUrl: ""
-    //
+     property var syberObject
     anchors.topMargin: gScreenInfo.statusBarHeight
     anchors.fill:parent
 

@@ -35,9 +35,13 @@ public:
 
     QString getDownloadId();
 
+    QString getMPath();
+
     qint64 getBytesReceived();
 
     qint64 getBytesTotal();
+
+    QString getDownloadFileSuffix();
 
 private:
     QNetworkAccessManager *m_networkManager;

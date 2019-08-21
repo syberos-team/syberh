@@ -17,6 +17,13 @@ NetWork::~NetWork()
 }
 void NetWork::request(QString callBackID, QString actionName, QVariantMap params)
 {
+
+    // 检查网络
+    if (!netWorkConnected()) {
+        emit failed(callBackID.toLong(),NETWORK_ERROR,ErrorInfo::m_errorCode.value(NETWORK_ERROR));
+        return;
+    }
+
     qDebug() << Q_FUNC_INFO << "NetWork callbackID is" << callBackID << "actionName is" << actionName << "params is" << params << endl;
 
     QString url = params.value("url").toString();
