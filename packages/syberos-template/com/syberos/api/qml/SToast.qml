@@ -35,6 +35,9 @@ Rectangle {
     /*! 一行文本的字符数（英文） */
     property real textLength: 14
 
+   /*! 成功信号，动画执行完发射 */
+   signal accepted()
+
     width: scaleFactor * 330
     height: scaleFactor * 330
 
@@ -131,6 +134,8 @@ Rectangle {
         if(hideAnimation.running){
             hideAnimation.stop();
         }
+
+        accepted();
         closeTimer.stop();
     }
 

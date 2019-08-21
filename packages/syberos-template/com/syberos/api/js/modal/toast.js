@@ -13,6 +13,9 @@ function Toast () {
   }
   SyberPlugin.call(this, defaultOpts)
 
+  // 是否第一次绑定接受信号
+  this.firstConnect = false
+
   var that = this
   this.on('gtoast',function(){
     if(!that.param.title){
@@ -54,6 +57,19 @@ function Toast () {
     }
 
     component.show();
+
+    // 只做一次信号绑定,防止多次信号被触发
+    if(!that.firstConnect) {
+      // 设置绑定信号
+      that.firstConnect = true
+
+      // 成功事件
+      component.accepted.connect(function() {
+        // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
+        WEBVIEWCORE.trigger('success',that.handlerId)
+      })
+    }
+
   });
 }
 
