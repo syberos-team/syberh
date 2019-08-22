@@ -1,6 +1,6 @@
 {
   "name": "@syberos/cli",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "description": "CLI tool for syberos hybrid",
   "main": "index.js",
   "scripts": {
