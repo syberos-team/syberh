@@ -1,4 +1,4 @@
-#include "Demo_Workspace.h"
+#include "App_Workspace.h"
 #include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include <QQmlContext>
 #include <QDebug>
@@ -6,7 +6,7 @@
 #include "../com/syberos/api/src/helper.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
 
-Demo_Workspace::Demo_Workspace()
+App_Workspace::App_Workspace()
     : CWorkspace()
 {
 
@@ -31,7 +31,7 @@ Demo_Workspace::Demo_Workspace()
     m_view->showFullScreen();
 }
 
-void Demo_Workspace::onLaunchComplete(Option option, const QStringList& params)
+void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
 {
     Q_UNUSED(params)
 
