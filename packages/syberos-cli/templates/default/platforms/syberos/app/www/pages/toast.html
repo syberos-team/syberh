@@ -25,7 +25,12 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="toast-none">无icon提示</a>
       </li>
-
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="gtoast-btn1">GToast提示(用法1)</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="gtoast-btn2">GToast提示(用法2)</a>
+      </li>
       <li class="mui-table-view-cell" style="display: none">
         <a class="mui-navigate-right api-class" id="close">close(关闭页面)</a>
       </li>
@@ -49,8 +54,8 @@
                 title: '正确提示',
                 icon: 'success',
                 duration: 1500,
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
@@ -62,8 +67,8 @@
                 title: '错误提示',
                 icon: 'error',
                 duration: 1500,
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
@@ -75,13 +80,27 @@
                 title: '没有图标的提示没有图标的提示',
                 icon: 'none',
                 duration: 1500,
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
                 }
             });
+            break;
+        case 'gtoast-btn1':
+            syber.modal.gtoast({
+                title: 'gtoast提示（用法1）',
+                success: function () {
+                  console.log('toast执行成功')
+                },
+                fail: function (error) {
+                  console.info(JSON.stringify(error));
+                }
+            });
+            break;
+        case 'gtoast-btn2':
+            syber.modal.gtoast("gtoast提示（用法2）");
             break;
         default:
           console.error('错误！没有相应API');
