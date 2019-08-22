@@ -21,17 +21,8 @@
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="promptNoTitle()">prompt_no_title</a>
         </li>
-        <!-- <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptShowLoading()">prompt showLoading</a>
-        </li> -->
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptSmallIcon()">prompt_small_icon</a>
-        </li>
-        <!-- <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptBigIcon()">prompt_big_icon</a>
-        </li> -->
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptColorText()">prompt 修改颜色和文字</a>
+          <a class="mui-navigate-right api-class" onclick="promptColorText()">prompt 修改文字</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="promptOrigin()">原生prompt</a>
@@ -76,61 +67,12 @@
       })
     }
 
-    function promptShowLoading() {
-      syber.modal.prompt({
-          title: '标题',
-          content: '请输入您的名字',
-          // showLoading: true,
-          success: function (res) {
-            if (res !== '') {
-              console.log('用户输入的值 =》', res)
-            }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptSmallIcon() {
-      syber.modal.prompt({
-          title: '标题',
-          content: '请输入您的名字',
-          titleIcon: 'warning',
-          success: function (res) {
-            if (res !== '') {
-              console.log('用户输入的值 =》', res)
-            }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptBigIcon() {
-      syber.modal.prompt({
-          content: '请输入您的名字',
-          titleIcon: 'warning',
-          success: function (res) {
-            if (res !== '') {
-              console.log('用户输入的值 =》', res)
-            }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
 
     function promptColorText() {
       syber.modal.prompt({
           title: '标题',
           content: '请输入您的名字',
-          titleIcon: 'warning',
           confirmText: 'ok',
-          confirmColor: '#f00f00',
-          cancelColor: '#00ff00',
           cancelText: 'cancel',
           success: function (res) {
             if (res !== '') {

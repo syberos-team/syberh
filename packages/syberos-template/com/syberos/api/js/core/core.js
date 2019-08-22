@@ -118,7 +118,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     }
     plugin.component = component
 
-    var _parent = parent || this.body
+    var _parent = plugin.id === 'webview' ? this.body : root
     var incubator = component.incubateObject(_parent)
     if (incubator) {
       plugin.incubator = incubator
