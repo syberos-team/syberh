@@ -31,12 +31,8 @@ title: prompt
 
 #### object.success回调函数参数
 #### 参数
-#### Object res
-| 属性     | 类型    | 描述                            |
-| ---------- | ------- | ---------------------------- |
-| confirm | boolean  | 为 true 时，表示用户点击了确定按钮 |
-| cancel | boolean  | 为 true 时，表示用户点击了取消  |
-| data | String   | 用户输入的文字信息  |
+#### Boolean res
+用户输入的内容, 为""时，表示用户未输入
 
 #### object.fail回调函数
 #### 参数
@@ -51,7 +47,9 @@ title: prompt
     syber.modal.prompt({
         content: 'This is a prompt',
         success: function(res) {
-            console.log(res.result)
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
+            }
         },
         fail: function(error) {
             console.log(error.msg)
@@ -64,7 +62,9 @@ title: prompt
     syber.modal.prompt({
         content: 'This is a prompt',
     }).then(function(res) {
-        console.log(res.result)
+        if (res !== '') {
+            console.log('用户输入的值 =》', res)
+        }
     }).catch(function(error) {
         console.log(error.msg)
     })
