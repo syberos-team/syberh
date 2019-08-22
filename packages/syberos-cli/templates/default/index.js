@@ -46,10 +46,10 @@ exports.createApp = function (creater, params, helper, cb) {
   const platformsDirName = 'platforms'
   // www根目录
   const www = 'ww'
-  //APP 模板目录
+  // APP 模板目录
   const syberosDir = 'syberos'
 
-  //默认设备target
+  // 默认设备target
   const target = TARGET_NAMES['target-armv7tnhl-xuanwu']
   // 默认模拟器target
   const targetSimulator = TARGET_SIMULATOR_NAMES['target-i686-main_dev']
@@ -65,15 +65,13 @@ exports.createApp = function (creater, params, helper, cb) {
   const useYarnLock =
     shouldUseYarn &&
     fs.existsSync(creater.templatePath(template, yarnLockfilePath))
-  let appCSSName
   let pageCSSName
 
-  const currentStyleExt = styleExtMap[css] || 'css'
   params.page = 'index'
   fs.ensureDirSync(projectPath)
   fs.ensureDirSync(sourceDir)
-  fs.ensureDirSync(platformsDir)
   fs.ensureDirSync(path.join(sourceDir, 'lib'))
+  fs.ensureDirSync(platformsDir)
 
   // 拷贝APP模板工程
   fs.copySync(
@@ -122,7 +120,7 @@ exports.createApp = function (creater, params, helper, cb) {
     typescript
   })
 
-  //创建index.html
+  // 创建index.html
   creater.template(template, 'indexhtml', path.join(sourceDir, 'index.html'))
 
   switch (css) {
@@ -166,14 +164,14 @@ exports.createApp = function (creater, params, helper, cb) {
     }
   )
 
-  if (useNpmrc)
-    creater.template(template, 'npmrc', path.join(projectPath, '.npmrc'))
-  if (useYarnLock)
+  if (useNpmrc) { creater.template(template, 'npmrc', path.join(projectPath, '.npmrc')) }
+  if (useYarnLock) {
     creater.template(
       template,
       yarnLockfilePath,
       path.join(projectPath, 'yarn.lock')
     )
+  }
   creater.fs.commit(() => {
     console.log(
       `${chalk.green('✔ ')}${chalk.grey(
@@ -222,16 +220,18 @@ exports.createApp = function (creater, params, helper, cb) {
         `创建文件: ${projectName}/project.config.json`
       )}`
     )
-    if (useNpmrc)
+    if (useNpmrc) {
       console.log(
         `${chalk.green('✔ ')}${chalk.grey(`创建文件: ${projectName}/.npmrc`)}`
       )
-    if (useYarnLock)
+    }
+    if (useYarnLock) {
       console.log(
         `${chalk.green('✔ ')}${chalk.grey(
           `创建文件: ${projectName}/yarn.lock`
         )}`
       )
+    }
     console.log()
     const gitInitSpinner = ora(
       `cd ${chalk.cyan.bold(projectName)}, 执行 ${chalk.cyan.bold('git init')}`
