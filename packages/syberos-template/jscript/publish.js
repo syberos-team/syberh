@@ -8,6 +8,7 @@ function main () {
   const files = [
     'app',
     'com',
+    'tests',
     'META-INF',
     'app.pro',
     'sopconfig.xml',
