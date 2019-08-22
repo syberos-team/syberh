@@ -105,9 +105,9 @@ Rectangle {
         toastIcon.visible = true;
 
         if(icon === "success"){
-            stoast.iconPath = "qrc:/com/syberos/api/res/toast-fail.png";
-        }else if(icon === "error"){
             stoast.iconPath = "qrc:/com/syberos/api/res/toast-success.png";
+        }else if(icon === "error"){
+            stoast.iconPath = "qrc:/com/syberos/api/res/toast-fail.png";
         }else if(icon === "none"){
             toastIcon.visible = false;
             stoast.title = getOutputStr(stoast.title, stoast.textLength);

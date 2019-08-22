@@ -1,6 +1,6 @@
 {
   "name": "@syberos/jsbridge",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.2-alpha.0",
   "description": "js-sdk for syberos",
   "homepage": "https://github.com/syberos-team/syberos-hybrid",
   "main": "dist/syber.js",

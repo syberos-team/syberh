@@ -1,6 +1,6 @@
 {
   "name": "@syberos/cli",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.4-alpha.0",
   "description": "CLI tool for syberos hybrid",
   "main": "index.js",
   "scripts": {
@@ -129,5 +129,5 @@
     "tslint-config-standard": "^8.0.1",
     "typescript": "3.4.5"
   },
-  "gitHead": "ffc4619cd7bdd5b1693a736e18ca30a4b760a5d3"
+  "gitHead": "c287dcb941e01a46fc326f7d460726c532a59180"
 }
