@@ -1,6 +1,6 @@
 {
   "name": "@syberos/jsbridge",
-  "version": "1.0.1-alpha.0",
+  "version": "0.0.1-alpha.0",
   "description": "js-sdk for syberos",
   "homepage": "https://github.com/syberos-team/syberos-hybrid",
   "main": "dist/syber.js",
@@ -52,5 +52,6 @@
     "webpack-cli": "^3.3.6"
   },
   "author": "syberos",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "ffc4619cd7bdd5b1693a736e18ca30a4b760a5d3"
 }
