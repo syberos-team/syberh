@@ -14,13 +14,12 @@ function Prompt () {
   }
   SyberPlugin.call(this, defaultOpts)
 
+  // 是否第一次绑定接受信号
+  this.firstConnect = false
+
   var that = this
 
-  this.on('ready', function (object) {
-    console.log('prompt ready')
-  })
-
-  this.on('prompt', function (object) {
+  that.on('prompt', function (object) {
 
     console.log('\n')
     console.log('prompt ready', object)
@@ -38,18 +37,27 @@ function Prompt () {
 
     component.show()
 
+    // 只做一次信号绑定,防止多次信号被触发
+    if(!that.firstConnect) {
+        // 设置绑定信号
+      that.firstConnect = true
 
-    component.accepted.connect(function (value) {
-        console.log('success')
-      that.clearParam()
-      WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true, data: value })
-        component.accepted.disconnect(function() {})
-    })
+      // 确认事件
+      component.accepted.connect(function(value) {
+          // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
+          WEBVIEWCORE.trigger('success', that.handlerId, value)
+          // 清理相关参数信息
+          that.clearParam()
+      })
 
-    component.rejected.connect(function () {
-      that.clearParam()
-      WEBVIEWCORE.trigger('success', that.handlerId, { cancel: true })
-    })
+      // 取消事件
+      component.rejected.connect(function() {
+          // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
+          WEBVIEWCORE.trigger('success', that.handlerId, '')
+          // 清理相关参数信息
+          that.clearParam()
+      })
+    }
 
   })
 
