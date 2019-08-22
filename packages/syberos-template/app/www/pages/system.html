@@ -111,18 +111,6 @@
       </div>
       <div class="mui-card">
           <div class="mui-input-row">
-              <label>运行平台版本名称（待实现)</label>
-              <input type="text" id="platformVersionName" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-          </div>
-      </div>
-      <div class="mui-card">
-          <div class="mui-input-row">
-              <label>运行平台版本号（待实现)</label>
-              <input type="text" id="platformVersionCode" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-          </div>
-      </div>
-      <div class="mui-card">
-          <div class="mui-input-row">
               <label>屏幕宽</label>
               <input type="text" id="screenWidth" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
           </div>
@@ -217,8 +205,6 @@
                   document.getElementById("osVersion").value = blankHandle(result.osVersion);
                   document.getElementById("osVersionCode").value = blankHandle(result.osVersionCode);
                   document.getElementById("kernelVersion").value = blankHandle(result.kernelVersion);
-                  document.getElementById("platformVersionName").value = blankHandle(result.platformVersionName);
-                  document.getElementById("platformVersionCode").value = blankHandle(result.platformVersionCode);
                   document.getElementById("screenWidth").value = blankHandle(result.screenWidth);
                   document.getElementById("screenHeight").value = blankHandle(result.screenHeight);
                   document.getElementById("windowWidth").value = blankHandle(result.windowWidth);

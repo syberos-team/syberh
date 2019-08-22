@@ -29,5 +29,6 @@
         <file>qml/SPrompt.qml</file>
         <file>qml/SCamera.qml</file>
         <file>js/camera/capture.js</file>
+        <file>js/system/system.js</file>
     </qresource>
 </RCC>

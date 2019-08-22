@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast','capture','system']
+    defaultPlugins: ['alert', 'confirm', 'camera', 'prompt', 'toast', 'gtoast', 'system']
   }
 
   // add 内置 plugins
@@ -43,9 +43,11 @@ Syber.prototype._render = function () {
   })
 }
 /**
- * 根据插件module和method获取plugin
- * @module {string} 插件module
- * @method {string} 请求方法名称
+ * 根据模块和method获取plugin
+ * @module 插件ID
+ * @handlerId 请求ID
+ * @method 请求方法名称
+ * @param 请求参数
  */
 Syber.prototype.getPlugin = function (module, method) {
   var rPlugin = null
@@ -66,13 +68,14 @@ Syber.prototype.getPlugin = function (module, method) {
 
 /**
  * 动态组件请求
- * @param module {string} 插件module
- * @param handlerId {number} 请求ID
- * @param method {string} 请求方法名称
- * @param param {Object} 请求参数
+ * @module 插件ID
+ * @handlerId 请求ID
+ * @method 请求方法名称
+ * @param 请求参数
  */
 Syber.prototype.request = function (module, handlerId, method, param) {
   var plugin = this.getPlugin(module, method)
+  // this.pluginList[pluginID]
   if (!plugin) {
     console.error('Plugin ', module, method, ' 不存在.')
     return false
@@ -110,93 +113,59 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
       if (typeof callback === 'function') callback()
       return
     }
-
+    var _parent = parent || this.body
+    console.debug('\n ***********plugin', JSON.stringify(plugin), '\n')
+    console.debug('\n ***********plugin.source', plugin.source, '\n')
+    console.debug('\n ***********_parent', _parent, '\n')
     var component = Qt.createComponent(plugin.source)
+
     if (component.status === Component.Error) {
       console.error('\n initPlugin Error', component.status)
       return
     }
-    plugin.component = component
-
-    var _parent = parent || this.body
     var incubator = component.incubateObject(_parent)
-    if (incubator) {
-      plugin.incubator = incubator
-    }
-    if (incubator.status !== Component.Ready) {
-      incubator.onStatusChanged = function (status) {
-        if (status === Component.Ready) {
-          plugin.object = incubator.object
-          plugin.isReady = true
-          // 调用事件:ready
-          plugin.trigger('ready', incubator.object)
-          if (typeof callback === 'function') {
-            callback(incubator.object)
-          }
-        }
-      }
-    } else {
-      print('Object', incubator.object, 'is ready immediately!')
-      plugin.object = incubator.object
-      plugin.isReady = true
-      // 调用事件:ready
-      plugin.trigger('ready', incubator.object)
-      if (typeof callback === 'function') {
-        callback(incubator.object)
+    incubator.onStatusChanged = function (status) {
+      if (status === Component.Ready) {
+        plugin.object = incubator.object
+        plugin.isReady = true
+        // data数据
+        plugin.trigger('ready', incubator.object)
+
+        if (typeof callback === 'function') callback(incubator.object)
       }
     }
   }
 }
-
-/**
- * 销毁组件
- *@param pluginId {string} 插件ID
- */
-Syber.prototype.destroy = function (pluginId) {
-  var plugin = this.pluginList[pluginId]
-  if (!plugin) {
-    throw new Error('core.js,destroy(),plugin不存在,id:', pluginId)
-  }
-
-  var component = plugin.component
-  if (component) {
-    component.destroy()
-    // 释放
-    plugin.component = null
-    plugin.isReady = false
-    plugin.object = null
-    plugin.incubator = null
-  }
-}
-
-/**
- * 使用pageStack形式打开新的页面
- * @param plugin {Object} 插件
- * @param callback {function} 回调
- */
+// pageStack
 Syber.prototype.pageStack = function (plugin, callback) {
   var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
   plugin.trigger('ready', object)
-  if (typeof callback === 'function') {
-    callback(object)
-  }
+  if (callback) callback(object)
+  // tackPhoto.imageConfirmed.connect(function (filePath) { // 处理信号
+  //   icon.source = 'file://' + filePath
+  //   pageStack.pop(main)
+  // })
 }
 
 /**
  * add built-in plugins
  */
 Syber.prototype._addBuiltInPlugins = function () {
+  // add default log plugin
+
   // 建立全局webview
-  var webview = new WebView()
-  WEBVIEWCORE = webview
-  this.addPlugin(webview)
+  var vm = new WebView()
+  WEBVIEWCORE = vm
+  this.addPlugin(vm)
+
+  // add other built-in plugins according to user's config
   var list = this.option.defaultPlugins
   var plugins = {
     alert: { proto: Alert },
     confirm: { proto: Confirm },
+    camera: { proto: Camera },
     prompt: { proto: Prompt },
     toast: { proto: Toast },
-    capture: { proto: Capture },
     system: { proto: System }
   }
   if (!!list && isArray(list)) {
