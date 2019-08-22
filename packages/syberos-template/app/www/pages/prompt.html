@@ -52,10 +52,8 @@
           title: '标题',
           content: '请输入您的名字',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
             }
           },
           fail: function() {
@@ -68,10 +66,8 @@
       syber.modal.prompt({
           content: '请输入您的名字',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
             }
           },
           fail: function() {
@@ -86,10 +82,8 @@
           content: '请输入您的名字',
           // showLoading: true,
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
             }
           },
           fail: function() {
@@ -104,10 +98,8 @@
           content: '请输入您的名字',
           titleIcon: 'warning',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
             }
           },
           fail: function() {
@@ -121,10 +113,8 @@
           content: '请输入您的名字',
           titleIcon: 'warning',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
             }
           },
           fail: function() {
@@ -143,10 +133,8 @@
           cancelColor: '#00ff00',
           cancelText: 'cancel',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res !== '') {
+              console.log('用户输入的值 =》', res)
             }
           },
           fail: function() {
@@ -156,8 +144,10 @@
     }
     
     function promptOrigin() {
-      var result = prompt('哈哈哈', 'placeholder');
-      console.log('用户输入的值 =》', result)
+      var res = prompt('哈哈哈', 'placeholder')
+      if (res !== '') {
+        console.log('用户输入的值 =》', res)
+      }
     }
 
   </script>

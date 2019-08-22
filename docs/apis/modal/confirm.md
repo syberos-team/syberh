@@ -31,11 +31,9 @@ title: confirm
 
 #### object.success回调函数
 #### 参数
-#### Object res
-| 属性     | 类型    | 说明 |
-| ---------- | ------- | -------- | 
-| confirm | boolean  | 为 true 时，表示用户点击了确定按钮 |
-| cancel | boolean  | 为 true 时，表示用户点击了取消  |
+#### Boolean res 
+true，表示用户点击了确定按钮, false，表示用户点击了取消
+
 
 #### object.fail回调函数
 #### 参数
@@ -51,11 +49,11 @@ title: confirm
     syber.modal.confirm({
         title: '提示',
         content: '这是一个模态弹窗',
-        success: function(res) {
-            if (res.confirm) {
-                console.log('用户点击确定')
-            } else if (res.cancel) {
-                console.log('用户点击取消')
+        success: function (res) {
+            if (res === true) {
+                console.log('用户点击了确定')
+            } else if (res === false) {
+                console.log('用户点击了取消')
             }
         },
         fail: function(error) {
@@ -70,10 +68,10 @@ title: confirm
         title: '提示',
         content: '这是一个模态弹窗',
     }).then(function(res) {
-        if (res.confirm) {
-            console.log('用户点击确定')
-        } else if (res.cancel) {
-            console.log('用户点击取消')
+        if (res === true) {
+            console.log('用户点击了确定')
+        } else if (res === false) {
+            console.log('用户点击了取消')
         }
     }).catch(function(error) {
         console.log(error.msg)

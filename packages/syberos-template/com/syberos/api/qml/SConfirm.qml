@@ -263,7 +263,7 @@ CAbstractPopLayer{
                Rectangle{
                    height:buttonHeight
                    anchors.bottom: parent.bottom
-                   color: "#ffffff"
+                   color: "transparent"
                    width:parent.width
                    radius: sconfirm.radius
                }
@@ -306,6 +306,7 @@ CAbstractPopLayer{
        anchors.right: contentBackground.right
        anchors.rightMargin: titleAreaRightMargin
        sourceComponent: Rectangle {
+           color: 'transparent'
            width: hasIconType && !titleText ? titleBigIconWidth : titleSmallIconWidth
            height: hasIconType && !titleText ? titleBigIconWidth : titleSmallIconWidth
 
@@ -375,6 +376,8 @@ CAbstractPopLayer{
        anchors.left: contentBackground.left
        anchors.right: contentBackground.right
        sourceComponent: Rectangle {
+           color: 'transparent'
+
            implicitHeight: buttonsRow.implicitHeight + buttonAreaSpacing
            property int buttonWidth:(buttonAreaLoader.width - buttonsRow.spacing) / 2 - buttonsRow.spacing
            clip: true
@@ -445,6 +448,7 @@ CAbstractPopLayer{
        }
    }
 
+
    ParallelAnimation {
        id: showAnimation
 
@@ -465,6 +469,19 @@ CAbstractPopLayer{
        }
 
        NumberAnimation { target: background; property: "opacity"; duration: gSystemUtils.durationRatio*300; to: sconfirm.__backGroundOpacity }
+       SequentialAnimation {
+           NumberAnimation { target: contentBackground; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 1}
+       }
+       SequentialAnimation {
+           NumberAnimation { target: titleAreaLoader; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 1}
+       }
+       SequentialAnimation {
+           NumberAnimation { target: messageLoaderArea; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 1}
+       }
+       SequentialAnimation {
+           NumberAnimation { target: buttonAreaLoader; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 1}
+       }
+
 
        onRunningChanged: {
            if(!running){
@@ -490,17 +507,25 @@ CAbstractPopLayer{
            }
        }
 
-
-       SequentialAnimation{
-           PauseAnimation { duration: gSystemUtils.durationRatio*50 }
-           NumberAnimation { target:contentBackground; property:"anchors.topMargin"; duration: gSystemUtils.durationRatio*250; to: 0; easing.type: Easing.OutCubic }
-           PauseAnimation { duration: gSystemUtils.durationRatio*250}
-           ScriptAction{ script: contentBackground.anchors.topMargin = 0 }
-       }
        SequentialAnimation {
-           PauseAnimation { duration: gSystemUtils.durationRatio*150 }
            NumberAnimation { target: background; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 0}
        }
+
+       SequentialAnimation {
+           NumberAnimation { target: contentBackground; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 0}
+       }
+
+       SequentialAnimation {
+           NumberAnimation { target: titleAreaLoader; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 0}
+       }
+       SequentialAnimation {
+           NumberAnimation { target: messageLoaderArea; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 0}
+       }
+       SequentialAnimation {
+           NumberAnimation { target: buttonAreaLoader; property:"opacity"; duration: gSystemUtils.durationRatio*300; to: 0}
+       }
+
+
        onRunningChanged: {
            if(!running){
                hideFinished()
