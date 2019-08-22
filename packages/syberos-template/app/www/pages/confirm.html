@@ -51,8 +51,12 @@
       syber.modal.confirm({
           title: '标题',
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          success: function () {
-            console.log('modal.confirm success')
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点了确定按钮')
+            } else if (res.cancel) {
+              console.log('用户点了取消按钮')
+            }
           },
           fail: function() {
             console.log('modal.confirm fail')
@@ -146,6 +150,7 @@
           },
           fail: function() {
             console.log('modal.confirm fail')
+            gtoast('modal.confirm fail')
           }
       })
     }

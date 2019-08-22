@@ -42,7 +42,7 @@
         "title": "toast"
       },
       "apis/multimedia/camera/capturePhoto": {
-        "title": "capturePhoto"
+        "title": "takePictureImmediately"
       },
       "apis/multimedia/camera/captureVideoEnd": {
         "title": "captureVideoEnd"
@@ -173,21 +173,21 @@
       "进阶指南": "进阶指南",
       "关于组件库": "关于组件库",
       "关于API": "关于API",
-      "webview": "webview",
-      "导航栏": "导航栏",
-      "modal": "modal",
+      "模态弹窗": "模态弹窗",
       "媒体": "媒体",
       "电话": "电话",
-      "runtime": "runtime",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
       "文件": "文件",
+      "webview": "webview",
       "关于C++": "关于C++",
       "通信": "通信",
+      "runtime": "runtime",
       "更新": "更新",
+      "导航栏": "导航栏",
       "request": "request",
       "download": "download",
       "界面交互": "界面交互"
