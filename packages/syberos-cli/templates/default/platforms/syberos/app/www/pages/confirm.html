@@ -16,22 +16,25 @@
   <div class="mui-content pt0">
       <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirm()">confirm</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirmColorText()">confirm 修改颜色和文字</a>
+          <a class="mui-navigate-right api-class" onclick="confirmNormal()">confirmNormal</a>
         </li>
         <!-- <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="confirmShowLoading()">confirm showLoading</a>
         </li> -->
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirmSmallIcon()">confirm_small_icon</a>
-        </li>
-        <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="confirmNoTitle()">confirm_no_title</a>
         </li>
         <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmSmallIcon()">confirm_small_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="confirmBigIcon()">confirm_big_icon</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmColorText()">confirm 修改颜色和文字</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="confirmOrigin()">原生confirm</a>
         </li>
       </ul>
     </div>
@@ -44,12 +47,16 @@
   <script>
     var vConsole = new VConsole()
 
-    function confirm() {
+    function confirmNormal() {
       syber.modal.confirm({
           title: '标题',
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          success: function () {
-            console.log('modal.confirm success')
+          success: function (res) {
+            if (res === true) {
+              console.log('用户点击了确定')
+            } else if (res === false) {
+              console.log('用户点击了取消')
+            }
           },
           fail: function() {
             console.log('modal.confirm fail')
@@ -66,10 +73,10 @@
           cancelColor: '#00ff00',
           cancelText: 'cancel',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮')
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res === true) {
+              console.log('用户点击了确定')
+            } else if (res === false) {
+              console.log('用户点击了取消')
             }
           },
           fail: function() {
@@ -84,10 +91,10 @@
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
           showLoading: true,
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮')
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res === true) {
+              console.log('用户点击了确定')
+            } else if (res === false) {
+              console.log('用户点击了取消')
             }
           },
           fail: function() {
@@ -102,10 +109,10 @@
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
           titleIcon: 'success',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮')
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res === true) {
+              console.log('用户点击了确定')
+            } else if (res === false) {
+              console.log('用户点击了取消')
             }
           },
           fail: function() {
@@ -118,10 +125,10 @@
       syber.modal.confirm({
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮')
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res === true) {
+              console.log('用户点击了确定')
+            } else if (res === false) {
+              console.log('用户点击了取消')
             }
           },
           fail: function() {
@@ -135,10 +142,10 @@
           content: '弹窗内容，告知当前状态、信息和解决方法，描述',
           titleIcon: 'warning',
           success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮')
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+            if (res === true) {
+              console.log('用户点击了确定')
+            } else if (res === false) {
+              console.log('用户点击了取消')
             }
           },
           fail: function() {
@@ -146,8 +153,16 @@
           }
       })
     }
-    
-    
+
+
+    function confirmOrigin() {
+      var res = confirm('Hello world');
+      if (res === true) {
+        console.log('用户点击了确定')
+      } else if (res === false) {
+        console.log('用户点击了取消')
+      }
+    }
 
   </script>
 </body>

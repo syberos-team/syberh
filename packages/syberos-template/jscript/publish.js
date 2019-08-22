@@ -8,7 +8,6 @@ function main () {
   const files = [
     'app',
     'com',
-    'framework',
     'META-INF',
     'app.pro',
     'sopconfig.xml',
@@ -18,7 +17,7 @@ function main () {
   const tempPath = path.resolve('.')
   const copyTo = path.resolve('../syberos-cli/templates/default/platforms/syberos')
 
-  fs.ensureDirSync(copyTo)
+  fs.emptyDirSync(copyTo)
   console.log('项目路径:', tempPath)
   console.log('拷贝至cli路径:', copyTo)
   for (let name of files) {

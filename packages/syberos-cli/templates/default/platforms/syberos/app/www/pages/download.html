@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">download(下载文件)</button>
+        <!-- <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel()">cancel(取消下载)</button> -->
+      </div>
+      <div class="mui-card-content" id="mui-card-content">
+      
+      </div>
+      <div class="mui-card-footer">
+        <!-- <div id="start-progressbar" class="mui-progressbar">
+          <span></span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    function showResult(type, result) {
+      document.getElementById(type + '-downloadID').innerText = result.downloadID;
+      document.getElementById(type + '-path').innerText = result.path;
+      document.getElementById(type + '-status').innerText = result.status;
+      document.getElementById(type + '-received').innerText = result.received;
+      document.getElementById(type + '-total').innerText = result.total;
+    }
+
+    var vConsole = new VConsole();
+    
+    function start() {
+      // document.getElementById('exec').innerText = '下载文件';
+     
+
+      
+      // var first = true;
+      syber.download.start({
+        'url': 'http://online.qianqian.com/qianqian/info/ffaeb0b4503d0ee83768998b03140732.exe',
+        'name': 'qianqian.exe',
+        success: function (result) {
+          // console.log("----~~~~~~~~~!!!!cNode!!!----" + JSON.stringify(result));
+        
+          if (result.status == 1 ) {
+            var html = ' \
+          <ul class="mui-table-view">\
+            <li class="mui-table-view-cell">downloadID:<span id="{{downloadID}}">{{rdownloadID}}</span><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel({{canDownId}})">cancel(取消下载)</button></li>\
+          </ul>\
+          <div id="progress-{{progressbarId}}" class="mui-progressbar">\
+            <span></span>\
+          </div>\
+        '
+              // showResult('start', result);
+            html = html.replace('{{downloadID}}', result.downloadID)
+            html = html.replace('{{progressbarId}}', result.downloadID)
+            html = html.replace('{{rdownloadID}}', result.downloadID)
+            html = html.replace('{{canDownId}}', result.downloadID)
+
+            const div = document.createElement('div')
+            div.innerHTML = html
+            document.getElementById("mui-card-content").appendChild(div);
+            mui("#progress-"+result.downloadID).progressbar().setProgress(0);
+          } else {
+            mui("#progress-"+result.downloadID).progressbar().setProgress(Math.round((result.received / result.total) * 100));
+          }
+        },
+        fail: function (error) {
+          console.info(error)
+        }
+      })
+    }
+    function cancel(canDownId) {
+      // document.getElementById('exec').innerText = '取消下载';
+      // var downloadId = document.getElementById('start-downloadID').innerText;
+      syber.download.cancel({
+        'downloadID': canDownId,
+        success: function (rs) {
+          mui("#progress-"+canDownId).progressbar().setProgress(0);
+          console.info(rs)
+        },
+        fail: function (er) {
+          console.info(er)
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
