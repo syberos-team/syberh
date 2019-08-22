@@ -34,40 +34,29 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 
 ### 代码示例
 ```javascript
-
 //success图标
 syber.modal.toast({
     title: 'This is a toast',
     icon: 'success',
-    success:function(result){
-        console.log('result: ', result);
+    success:function(){
+        console.log('toast执行成功')
     }
     fail:function(error){
         console.log('code: ', error.code);
         console.log('msg: ', error.msg);
 	}
 });
-// error图标
-syber.modal.toast({
-    title: '错误图标toast',
-    icon: 'error',
-}).then(function(result) {
-    console.log('result: ', result);
-}).catch(function(error) {
-    console.log('code: ', error.code);
-    console.log('msg: ', error.msg);
-});
+```
 
-//none图标
+#### Promise
+```javascript
 syber.modal.toast({
     title: '我是没有图标的toast，但是我最大只能14个汉字',
     icon: 'none',
-}).then(function(result) {
-    console.log('result: ', result);
+}).then(function() {
+    console.log('toast执行成功')
 }).catch(function(error) {
     console.log('code: ', error.code);
     console.log('msg: ', error.msg);
 });
-
-
 ```

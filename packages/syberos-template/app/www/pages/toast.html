@@ -54,8 +54,8 @@
                 title: '正确提示',
                 icon: 'success',
                 duration: 1500,
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
@@ -67,8 +67,8 @@
                 title: '错误提示',
                 icon: 'error',
                 duration: 1500,
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
@@ -80,8 +80,8 @@
                 title: '没有图标的提示没有图标的提示',
                 icon: 'none',
                 duration: 1500,
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
@@ -91,8 +91,8 @@
         case 'gtoast-btn1':
             syber.modal.gtoast({
                 title: 'gtoast提示（用法1）',
-                success: function (result) {
-                  console.info(JSON.stringify(result));
+                success: function () {
+                  console.log('toast执行成功')
                 },
                 fail: function (error) {
                   console.info(JSON.stringify(error));
