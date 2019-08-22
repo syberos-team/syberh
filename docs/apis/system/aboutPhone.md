@@ -30,17 +30,16 @@ title: aboutPhone
 | simCardNumbers | Array   | 如果是双卡，有多个手机号              |
 | imsis          | Array   | 如果是双卡，有多个国际移动用户识别码  |
 | kernelVersion  | String  | 内核版本 |
-| osType	     | String  | 操作系统名称 | 
-| osVersionName	 | String  | 操作系统版本名称| 
-| osVersion	 | Integer | 操作系统版本号| 
-| osVersionCode	 | Integer | 操作系统小版本号| 
-| platformVersionName	| String  | 运行平台版本名称（待实现)| 
+| osType	     | String  | 操作系统名称 |
+| osVersionName	 | String  | 操作系统版本名称|
+| osVersion	 | Integer | 操作系统版本号|
+| osVersionCode	 | Integer | 操作系统小版本号|
 | platformVersionCode	| Integer | 运行平台版本号（待实现)|
 | screenWidth    | number  | 屏幕宽 |
 | screenHeight   | number  | 屏幕高 |
-| windowWidth    | number  | 可使用窗口宽度 （待实现） |
-| windowHeight   | number  | 可使用窗口高度 （待实现） |
-| statusBarHeight| String  | 状态栏的高度 （待实现） |
+| windowWidth    | number  | 可使用窗口宽度 |
+| windowHeight   | number  | 可使用窗口高度 |
+| statusBarHeight| String  | 状态栏的高度 |
 | pixelRatio     | number  | 设备像素比|
 | language       | String  | 系统语言|
 | region     	 | String  | 系统地区|
@@ -57,7 +56,6 @@ title: aboutPhone
 ### 示例
 ```js
 syber.system.aboutPhone({
-    modem: 0,
 	success:function(result){
         console.log('deviceId: ', result.deviceId);
         console.log('brand: ', result.brand);
@@ -72,8 +70,6 @@ syber.system.aboutPhone({
         console.log('osVersion: ', result.osVersion);
         console.log('osVersionCode: ', result.osVersionCode);
         console.log('softwareVersion: ', result.softwareVersion);
-        console.log('platformVersionName: ', result.platformVersionName);
-        console.log('platformVersionCode: ', result.platformVersionCode);
         console.log('screenWidth: ', result.screenWidth);
         console.log('screenHeight: ', result.screenHeight);
         console.log('windowWidth: ', result.windowWidth);
@@ -90,9 +86,7 @@ syber.system.aboutPhone({
     }
 });
 
-syber.system.aboutPhone({
-    modem: 0,
-}).then(function(result) {
+syber.system.aboutPhone().then(function(result) {
         console.log('deviceId: ', result.deviceId);
         console.log('brand: ', result.brand);
         console.log('manufacturer: ', result.manufacturer);
@@ -106,8 +100,6 @@ syber.system.aboutPhone({
         console.log('osVersion: ', result.osVersion);
         console.log('osVersionCode: ', result.osVersionCode);
         console.log('softwareVersion: ', result.softwareVersion);
-        console.log('platformVersionName: ', result.platformVersionName);
-        console.log('platformVersionCode: ', result.platformVersionCode);
         console.log('screenWidth: ', result.screenWidth);
         console.log('screenHeight: ', result.screenHeight);
         console.log('windowWidth: ', result.windowWidth);
