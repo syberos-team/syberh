@@ -13,7 +13,9 @@ title: request
 属性 | 类型 | 必填 | 描述
 ---|---|---|---
 url | String | 是 | 目标服务器 URL
-method | String | 否 | 默认GET，目前支持GET/POST
+method | String | 否 | 默认GET，目前支持GET/POST/PUT/DELETE
+dataType | String | 否 | 返回数据格式，默认json，目前支持json/text
+headers | Object | 否 | 例：{"key","val"} 
 data | Object | 否 | 例：{"key","val"}
 success | Function | 否 | 调用成功的回调函数
 fail | Function | 否 | 调用失败的回调函数
@@ -35,30 +37,19 @@ data | String | 响应数据
 syber.network.request({
   url: 'https://*',
   method: 'POST',
+  headers: {
+    "Content-Type":"application/json; charset=utf-8"
+  },
   data: {
     'from': 'from',
     'production': 'production',
   },
-  success: function(res) {
-    console.log(res);
+  success: function(result) {
+    console.log(result);
   },
-  fail: function(res) {
-    console.log(res);
+  fail: function(error) {
+    console.log(error);
   }
 });
-
-syber.network.request({
-  url: 'https://*',
-  method: 'POST',
-  data: {
-    'from': 'from',
-    'production': 'production',
-  }
-}).then(function(res) {
-    console.log(res);
-}).catch(function(res) {
-    console.log(res);
-});
-
 ```
 
