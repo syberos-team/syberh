@@ -31,13 +31,6 @@
         "ids": [
           "apis/multimedia/camera/capturePhoto"
         ]
-      },
-      {
-        "label": "扫码",
-        "type": "subcategory",
-        "ids": [
-          "apis/multimedia/camera/scan"
-        ]
       }
     ],
     "电话": [
@@ -99,73 +92,6 @@
     ],
     "webview": [
       "apis/webview/webview"
-    ]
-  },
-  "C++模块": {
-    "关于C++": [
-      "qt/about/desc"
-    ],
-    "媒体": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/multimedia/camera/capture",
-          "qt/multimedia/camera/scan"
-        ]
-      }
-    ],
-    "通信": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/telephony/telephony"
-        ]
-      }
-    ],
-    "runtime": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/runtime/runtime"
-        ]
-      }
-    ],
-    "剪贴板": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/clipboard/clipboard"
-        ]
-      }
-    ],
-    "系统信息": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/systeminfo/systeminfo"
-        ]
-      }
-    ],
-    "更新": [
-      "apis/updates/getUpdateManager"
-    ],
-    "导航栏": [
-      "qt/navigator/navigator"
-    ],
-    "数据存储": [
-      "qt/storage/storage"
-    ],
-    "request": [
-      "qt/request/request-c"
-    ],
-    "download": [
-      "qt/download/download-c"
-    ],
-    "界面交互": [
-      "qt/modal/toast",
-      "qt/modal/alert",
-      "qt/modal/confirm",
-      "qt/modal/prompt"
     ]
   }
 }

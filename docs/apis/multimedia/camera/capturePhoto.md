@@ -3,11 +3,11 @@ title: takePictureImmediately
 ---
 
 
-
 拍照：用于用户拍摄照片。
 
 可以对拍摄后的照片进行剪裁，拍摄成功则返回图片路径。
 
+> takePictureImmediately 为syberos中自带的拍照功能
 
 
 ## syber.camera.takePictureImmediately(Object object)
@@ -20,13 +20,13 @@ title: takePictureImmediately
 | fail   | function |        | 否       | 回调失败                    |
 
 **object.success回调函数**
-
+#### 参数
 | 属性 | 类型   | 描述         |
 | ---- | ------ | ------------ |
 | path | String | 图片路径 |
 
 **object.fail回调函数**
-
+#### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
 | code | String | 错误码   |

@@ -166,7 +166,6 @@
       "文档": "文档",
       "组件库": "组件库",
       "API": "API",
-      "C++模块": "C++模块",
       "GitHub": "GitHub"
     },
     "categories": {
@@ -183,15 +182,7 @@
       "网络": "网络",
       "下载": "下载",
       "文件": "文件",
-      "webview": "webview",
-      "关于C++": "关于C++",
-      "通信": "通信",
-      "runtime": "runtime",
-      "更新": "更新",
-      "导航栏": "导航栏",
-      "request": "request",
-      "download": "download",
-      "界面交互": "界面交互"
+      "webview": "webview"
     }
   },
   "pages-strings": {
