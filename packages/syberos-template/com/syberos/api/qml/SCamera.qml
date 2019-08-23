@@ -4,9 +4,12 @@ import QtQuick 2.0
 
 CameraPlugin {
     id: __cameraPlugin
-//    enableCut:false
+    enableCut:false
 
     Component.onCompleted:{
+        gScreenInfo.setStatusBar(false)
+    }
+    Component.onDestruction :{
         gScreenInfo.setStatusBar(true)
     }
 
