@@ -16,7 +16,6 @@
         <file>qml/SButton.qml</file>
         <file>qml/SConfirm.qml</file>
         <file>qml/SAlert.qml</file>
-        <file>js/camera/camera.js</file>
         <file>js/modal/prompt.js</file>
         <file>qml/SCollisionIndicator.qml</file>
         <file>qml/SToast.qml</file>
@@ -27,7 +26,9 @@
         <file>res/toast-success.png</file>
         <file>res/warning_big.png</file>
         <file>res/warning.png</file>
-        <file>qml/SPrompt.qml</file>
         <file>qml/SCamera.qml</file>
+        <file>js/camera/capture.js</file>
+        <file>qml/SInputDialog.qml</file>
+        <file>js/system/system.js</file>
     </qresource>
 </RCC>

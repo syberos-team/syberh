@@ -26,7 +26,6 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 
 
 #### object.fail回调函数
-#### 参数
 #### Object object
 | 属性 | 类型  | 描述 |
 | -- | -- | -- |
@@ -35,23 +34,27 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 
 ### 代码示例
 ```javascript
+//success图标
 syber.modal.toast({
     title: 'This is a toast',
     icon: 'success',
-    success:function(result){
-        console.log('result: ', result);
+    success:function(){
+        console.log('toast执行成功')
     }
     fail:function(error){
         console.log('code: ', error.code);
         console.log('msg: ', error.msg);
 	}
 });
+```
 
+#### Promise
+```javascript
 syber.modal.toast({
-    title: 'This is a toast',
-    icon: 'success',
-}).then(function(result) {
-    console.log('result: ', result);
+    title: '我是没有图标的toast，但是我最大只能14个汉字',
+    icon: 'none',
+}).then(function() {
+    console.log('toast执行成功')
 }).catch(function(error) {
     console.log('code: ', error.code);
     console.log('msg: ', error.msg);

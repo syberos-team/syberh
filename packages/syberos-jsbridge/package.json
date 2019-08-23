@@ -1,6 +1,6 @@
 {
   "name": "@syberos/jsbridge",
-  "version": "1.0.0",
+  "version": "0.0.2-alpha.0",
   "description": "js-sdk for syberos",
   "homepage": "https://github.com/syberos-team/syberos-hybrid",
   "main": "dist/syber.js",
@@ -17,7 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/syberos-team/syberos-hybrid"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
@@ -50,8 +49,9 @@
     "mocha": "^5.2.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.7"
   },
   "author": "syberos",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "ffc4619cd7bdd5b1693a736e18ca30a4b760a5d3"
 }

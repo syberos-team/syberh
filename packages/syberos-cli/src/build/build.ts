@@ -217,6 +217,6 @@ export default class Build {
    * 查找项目中的syberos.pro文件路径
    */
   private locateSyberosPro(): string {
-    return path.join(this.appPath, 'platforms', 'syberos', 'syberos.pro')
+    return path.join(this.appPath, 'platforms', 'syberos', 'app.pro')
   }
 }

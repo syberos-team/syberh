@@ -9,47 +9,43 @@ function Prompt () {
     name: 'prompt',
     module: 'modal',
     methods: ['prompt'],
-    autoCreate: true, // lineEdit loader加载不出来， 设置自动加载一次
-    source: '../qml/SPrompt.qml'
+    source: '../qml/SInputDialog.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
+  // 是否第一次绑定接受信号
+  this.firstConnect = false
+
   var that = this
 
-  this.on('ready', function (object) {
-    console.log('prompt ready')
-  })
-
-  this.on('prompt', function (object) {
+  that.on('prompt', function (object) {
 
     console.log('\n')
     console.log('prompt ready', object)
     console.log('\n')
     var component = object || that.object
+    // 默认清除输入框的值
+    component.setText('')
+
     component.titleText = that.param.title || ''
-    component.icon = that.param.titleIcon || ''
-    component.messageText = that.param.content || ''
-    component.acceptButtonLoading = that.param.showLoading  || false
-    component.rejectButtonVisible = that.param.showCancel  || false
     component.rejectButtonText = that.param.cancelText || '取消'
-    component.rejectButtonColor = that.param.cancelColor || '#333333'
     component.acceptedButtonText = that.param.confirmText || '确定'
-    component.acceptButtonColor = that.param.confirmColor || '#007aff'
 
     component.show()
 
+    // 只做一次信号绑定,防止多次信号被触发
+    if(!that.firstConnect) {
+        // 设置绑定信号
+      that.firstConnect = true
 
-    component.accepted.connect(function (value) {
-        console.log('success')
-      that.clearParam()
-      WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true, data: value })
-        component.accepted.disconnect(function() {})
-    })
-
-    component.rejected.connect(function () {
-      that.clearParam()
-      WEBVIEWCORE.trigger('success', that.handlerId, { cancel: true })
-    })
+      // 确认事件
+      component.inputAccepted.connect(function(value) {
+          // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
+          WEBVIEWCORE.trigger('success', that.handlerId, value)
+          // 清理相关参数信息
+          that.clearParam()
+      })
+    }
 
   })
 

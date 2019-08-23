@@ -16,22 +16,13 @@
   <div class="mui-content pt0">
       <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptNormal()">promptNormal</a>
+          <a class="mui-navigate-right api-class" id="prompt">prompt</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptNoTitle()">prompt_no_title</a>
+          <a class="mui-navigate-right api-class" id="prompt_no_title">prompt_no_title</a>
         </li>
-        <!-- <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptShowLoading()">prompt showLoading</a>
-        </li> -->
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptSmallIcon()">prompt_small_icon</a>
-        </li>
-        <!-- <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptBigIcon()">prompt_big_icon</a>
-        </li> -->
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptColorText()">prompt 修改颜色和文字</a>
+          <a class="mui-navigate-right api-class" id="prompt_change_text">prompt 修改按钮文字</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="promptOrigin()">原生prompt</a>
@@ -47,117 +38,58 @@
   <script>
     var vConsole = new VConsole()
 
-    function promptNormal() {
-      syber.modal.prompt({
-          title: '标题',
-          content: '请输入您的名字',
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+    window.runApi = function (id) {
+      switch (id) {
+        case 'prompt':
+          syber.modal.prompt({
+            title: '请输入您的名字',
+            success: function (res) {
+              if (res !== '') {
+                console.log('用户输入的值 =》', res)
+              }
+            },
+            fail: function() {
+              console.log('modal.prompt fail')
             }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptNoTitle() {
-      syber.modal.prompt({
-          content: '请输入您的名字',
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+          })
+          break;
+        case 'prompt_no_title':
+          syber.modal.prompt({
+            success: function (res) {
+              if (res !== '') {
+                console.log('用户输入的值 =》', res)
+              }
+            },
+            fail: function() {
+              console.log('modal.prompt fail')
             }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptShowLoading() {
-      syber.modal.prompt({
-          title: '标题',
-          content: '请输入您的名字',
-          // showLoading: true,
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
+          })
+          break;
+        case 'prompt_change_text':
+          syber.modal.prompt({
+            title: '标题',
+            confirmText: '确定按钮',
+            cancelText: '取消按钮',
+            success: function (res) {
+              if (res !== '') {
+                console.log('用户输入的值 =》', res)
+              }
+            },
+            fail: function() {
+              console.log('modal.prompt fail')
             }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptSmallIcon() {
-      syber.modal.prompt({
-          title: '标题',
-          content: '请输入您的名字',
-          titleIcon: 'warning',
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
-            }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptBigIcon() {
-      syber.modal.prompt({
-          content: '请输入您的名字',
-          titleIcon: 'warning',
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
-            }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
-    }
-
-    function promptColorText() {
-      syber.modal.prompt({
-          title: '标题',
-          content: '请输入您的名字',
-          titleIcon: 'warning',
-          confirmText: 'ok',
-          confirmColor: '#f00f00',
-          cancelColor: '#00ff00',
-          cancelText: 'cancel',
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点了确定按钮, 值=》', res.data)
-            } else if (res.cancel) {
-              console.log('用户点了取消按钮')
-            }
-          },
-          fail: function() {
-            console.log('modal.prompt fail')
-          }
-      })
+          })
+          break;
+        default:
+          console.error('错误！没有相应API');
+      }
     }
     
     function promptOrigin() {
-      var result = prompt('哈哈哈', 'placeholder');
-      console.log('用户输入的值 =》', result)
+      var res = prompt('请填写用户名', 'nickname')
+      if (res !== '') {
+        console.log('用户输入的值 =》', res)
+      }
     }
 
   </script>

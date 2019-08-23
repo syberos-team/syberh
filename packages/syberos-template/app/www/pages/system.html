@@ -19,103 +19,153 @@
         height: auto !important;
         word-wrap:break-word !important;
     }
+
   </style>
 </head>
 
 <body>
 <div class="mui-content pt0">
-  <form class="mui-input-group">
-    <div class="mui-button-row">
-      <button type="button" class="mui-btn mui-btn-primary" onclick="baseParam()">获取系统信息</button>
+  <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="baseParam()">获取系统信息</button>
     </div>
-  </form>
+  </div>
+  <div class="mui-card-content">
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>设备ID</label>
+              <input type="text" id="deviceId" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>设备品牌（待实现）</label>
+              <input type="text" id="brand" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>设备生产商（待实现）</label>
+              <input type="text" id="manufacturer" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>设备型号（待实现）</label>
+              <input type="text" id="model" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>手机名称</label>
+              <input type="text" id="name" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>移动设备国际识别码</label>
+              <input type="text" id="imei" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>如果是双卡，有多个手机号</label>
+              <input type="text" id="simCardNumbers" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>如果是双卡，有多个国际移动用户识别码</label>
+              <input type="text" id="imsis" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>操作系统名称</label>
+              <input type="text" id="osType" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>操作系统版本名称</label>
+              <input type="text" id="osVersionName" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>操作系统版本号</label>
+              <input type="text" id="osVersion" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>操作系统小版本号</label>
+              <input type="text" id="osVersionCode" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>内核版本号</label>
+              <input type="text" id="kernelVersion" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>屏幕宽</label>
+              <input type="text" id="screenWidth" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>屏幕高</label>
+              <input type="text" id="screenHeight" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>可使用窗口宽度 （待实现）</label>
+              <input type="text" id="windowWidth" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>可使用窗口高度 （待实现）</label>
+              <input type="text" id="windowHeight" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>状态栏的高度 （待实现）</label>
+              <input type="text" id="statusBarHeight" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>设备像素比</label>
+              <input type="text" id="pixelRatio" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>系统语言</label>
+              <input type="text" id="language" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+      <div class="mui-card">
+          <div class="mui-input-row">
+              <label>系统地区</label>
+              <input type="text" id="region" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          </div>
+      </div>
+  </div>
+  <div class="mui-card-footer">
+      <div id="start-progressbar" class="mui-progressbar">
+        <span></span>
+      </div>
+  </div>
 </div>
 
-<div class="mui-content pt0">
-  <form class="mui-input-group mui-system">
-  <div class="mui-input-row">
-    <label>设备ID</label>
-    <input type="text" id="uniqueId" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>设备品牌</label>
-    <input type="text" id="brand" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>设备生产商</label>
-    <input type="text" id="manufacturer" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>设备型号</label>
-    <input type="text" id="model" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>手机名称</label>
-    <input type="text" id="name" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>移动设备国际识别码</label>
-    <input type="text" id="imei" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>如果是双卡，有多个手机号</label>
-    <input type="text" id="simCardNumbers" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>如果是双卡，有多个国际移动用户识别码</label>
-    <input type="text" id="imsis" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>系统的平台类型</label>
-    <input type="text" id="hardware" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>系统版本号</label>
-    <input type="text" id="osVersion" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>系统小版本号</label>
-    <input type="text" id="osVersionCode" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>系统版本号的简称或者代号</label>
-    <input type="text" id="softwareVersion" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>手机分辨率，高度</label>
-    <input type="text" id="height" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>手机分辨率，宽度</label>
-    <input type="text" id="width" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>可使用窗口高度</label>
-    <input type="text" id="desktopAvailableHeight" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>可使用窗口宽度</label>
-    <input type="text" id="desktopAvailableWidth" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>状态栏的高度</label>
-    <input type="text" id="statusBarHeight" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>设备像素比</label>
-    <input type="text" id="pixelRatio" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>系统语言</label>
-    <input type="text" id="language" pattern="value" value="" class="mui-input-clear" />
-  </div>
-  <div class="mui-input-row">
-    <label>系统地区</label>
-    <input type="text" id="region" pattern="value" value="" class="mui-input-clear" />
-  </div>
 
-  </form>
-</div>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syber.min.js"></script>
@@ -141,27 +191,28 @@
             syber.system.aboutPhone({
               success: function (result) {
                   console.info("result-系统信息: " + result)
-                  alert("result-: 请求成功, 返回数据" + JSON.stringify(result));
-                  document.getElementById("uniqueId").value = blankHandle(result.id);
+
+                  document.getElementById("deviceId").value = blankHandle(result.deviceId);
                   document.getElementById("brand").value = blankHandle(result.brand);
-                  document.getElementById("manufacturer").value = blankHandle(result.idmanufacturer);
+                  document.getElementById("manufacturer").value = blankHandle(result.manufacturer);
                   document.getElementById("model").value = blankHandle(result.model);
                   document.getElementById("name").value = blankHandle(result.name);
                   document.getElementById("imei").value = blankHandle(result.imei);
                   document.getElementById("simCardNumbers").value = blankHandle(result.simCardNumbers);
                   document.getElementById("imsis").value = blankHandle(result.imsis);
-                  document.getElementById("hardware").value = blankHandle(result.hardware);
+                  document.getElementById("osType").value = blankHandle(result.osType);
+                  document.getElementById("osVersionName").value = blankHandle(result.osVersionName);
+                  document.getElementById("osVersion").value = blankHandle(result.osVersion);
                   document.getElementById("osVersionCode").value = blankHandle(result.osVersionCode);
-                  document.getElementById("softwareVersion").value = blankHandle(result.softwareVersion);
-                  document.getElementById("height").value = blankHandle(result.height);
-                  document.getElementById("width").value = blankHandle(result.width);
-                  document.getElementById("desktopAvailableHeight").value = blankHandle(result.desktopAvailableHeight);
-                  document.getElementById("desktopAvailableWidth").value = blankHandle(result.desktopAvailableWidth);
+                  document.getElementById("kernelVersion").value = blankHandle(result.kernelVersion);
+                  document.getElementById("screenWidth").value = blankHandle(result.screenWidth);
+                  document.getElementById("screenHeight").value = blankHandle(result.screenHeight);
+                  document.getElementById("windowWidth").value = blankHandle(result.windowWidth);
+                  document.getElementById("windowHeight").value = blankHandle(result.windowHeight);
                   document.getElementById("statusBarHeight").value = blankHandle(result.statusBarHeight);
                   document.getElementById("pixelRatio").value = blankHandle(result.pixelRatio);
                   document.getElementById("language").value = blankHandle(result.language);
                   document.getElementById("region").value = blankHandle(result.region);
-
               },
               fail: function (error) {
                 console.info(error)

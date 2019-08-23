@@ -29,7 +29,7 @@
     "关于API": [
       "apis/about/desc"
     ],
-    "modal": [
+    "模态弹窗": [
       "apis/modal/toast",
       "apis/modal/gtoast",
       "apis/modal/alert",
@@ -41,9 +41,7 @@
         "label": "相机",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/camera/capturePhoto",
-          "apis/multimedia/camera/captureVideoStart",
-          "apis/multimedia/camera/captureVideoEnd"
+          "apis/multimedia/camera/capturePhoto"
         ]
       },
       {
