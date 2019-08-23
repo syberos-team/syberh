@@ -10,6 +10,7 @@ import telephonyMixin from './native/telephony';
 import storageMixin from './native/storage';
 import systemMixin from './native/system';
 import networkMixin from './native/network';
+import captureMixin from './native/capture';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -26,4 +27,5 @@ export default function allNative(hybridJs) {
     storageMixin(hybridJs);
     systemMixin(hybridJs);
     networkMixin(hybridJs);
+    captureMixin(hybridJs);
 }
