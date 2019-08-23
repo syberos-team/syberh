@@ -41,9 +41,7 @@
         "label": "相机",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/camera/capturePhoto",
-          "apis/multimedia/camera/captureVideoStart",
-          "apis/multimedia/camera/captureVideoEnd"
+          "apis/multimedia/camera/capturePhoto"
         ]
       },
       {
