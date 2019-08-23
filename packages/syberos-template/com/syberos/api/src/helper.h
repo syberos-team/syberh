@@ -24,6 +24,8 @@ public:
 
     Q_INVOKABLE QString sopid();
 
+    Q_INVOKABLE QJsonObject aboutPhone();
+
 private:
     explicit Helper(QObject *parent = 0);
     Helper(const Helper &) Q_DECL_EQ_DELETE;

@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/com/syberos/download">
-        <file>qmldir</file>
-        <file>qml/relativetime.js</file>
-        <file>qml/test.qml</file>
-    </qresource>
-</RCC>

@@ -29,5 +29,6 @@
         <file>qml/SCamera.qml</file>
         <file>js/camera/capture.js</file>
         <file>qml/SInputDialog.qml</file>
+        <file>js/system/system.js</file>
     </qresource>
 </RCC>

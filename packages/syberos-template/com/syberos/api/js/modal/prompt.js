@@ -9,7 +9,6 @@ function Prompt () {
     name: 'prompt',
     module: 'modal',
     methods: ['prompt'],
-    autoCreate: true, // lineEdit loader加载不出来， 设置自动加载一次
     source: '../qml/SInputDialog.qml'
   }
   SyberPlugin.call(this, defaultOpts)
@@ -25,6 +24,9 @@ function Prompt () {
     console.log('prompt ready', object)
     console.log('\n')
     var component = object || that.object
+    // 默认清除输入框的值
+    component.setText('')
+
     component.titleText = that.param.title || ''
     component.rejectButtonText = that.param.cancelText || '取消'
     component.acceptedButtonText = that.param.confirmText || '确定'
@@ -38,7 +40,6 @@ function Prompt () {
 
       // 确认事件
       component.inputAccepted.connect(function(value) {
-          console.log(value)
           // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
           WEBVIEWCORE.trigger('success', that.handlerId, value)
           // 清理相关参数信息
