@@ -34,11 +34,11 @@ total | Number | 总大小
 syber.download.start({
       'url': 'http://xx/xx/xx.exe',
       'name': 'xxx.exe',
-      success: function(res) {
-        console.log(res);
+      success: function(result) {
+        console.log(result);
       },
-      fail: function(res) {
-        console.log(res);
+      fail: function(error) {
+        console.log(error);
       }
     });
 ```
