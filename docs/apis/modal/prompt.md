@@ -10,28 +10,16 @@ title: prompt
 #### Object object
 | 属性     | 类型    | 默认值 | 必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------------------- | ---- |
-| title | string |  |否 | 确认按钮上显示的文字信息 |
-| titleIcon | string |       | 否 | 标题左侧的图标 |
-| content | string |  |是 | 警告框内显示的文字信息 |
-| confirmText | string | '确定' | 否 | 确认按钮的文字，最多 4 个字符 |
-| showLoading | boolean |  false | 否 | 确认按钮是否显示加载图标 |
-| confirmColor | string| '#007aff'  | 否 | 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
-| cancelTitle | string |  '取消' |否 | 取消按钮上显示的文字信息 |
-| cancelColor | string | '#333333' | 否 | 取消按钮的文字颜色，必须是 16 进制格式的颜色字符串 |
-| success | function |  |  是     | 接口调用成功的回调函数      |
-| fail   | function |  |  是     | 接口调用失败的回调函数      |
-
-
-#### object.titleIcon 的合法值
-| 值     | 说明    |       
-| ---------- | ------- | 
-| success | 显示成功图标，此时 title 文本最多显示 7 个汉字长度 |
-| warning | 显示警告图标，此时 title 文本最多显示 7 个汉字长度 |
+| title | string |  |否 | 标题，最多7个汉字       |
+| confirmText | string | '确定' | 否 | 确认按钮的文字，最多4个汉字 |
+| cancelText | string |  '取消' |否 | 取消按钮的文字，最多4个汉字 |
+| success | function |  |  是     | 回调成功      |
+| fail   | function |  |  是     | 回调失败      |
 
 
 #### object.success回调函数参数
 #### 参数
-#### Boolean res
+#### String result
 用户输入的内容, 为""时，表示用户未输入
 
 #### object.fail回调函数
@@ -46,9 +34,9 @@ title: prompt
 ```javascript
     syber.modal.prompt({
         content: 'This is a prompt',
-        success: function(res) {
-            if (res !== '') {
-              console.log('用户输入的值 =》', res)
+        success: function(result) {
+            if (result !== '') {
+              console.log('用户输入的值 =》', result)
             }
         },
         fail: function(error) {
@@ -61,11 +49,19 @@ title: prompt
 ```javascript
     syber.modal.prompt({
         content: 'This is a prompt',
-    }).then(function(res) {
-        if (res !== '') {
-            console.log('用户输入的值 =》', res)
+    }).then(function(result) {
+        if (result !== '') {
+            console.log('用户输入的值 =》', result)
         }
     }).catch(function(error) {
         console.log(error.msg)
     })
+```
+
+#### 原生prompt调用
+```javascript
+    var result = prompt('哈哈哈', 'placeholder')
+    if (result !== '') {
+        console.log('用户输入的值 =》', result)
+    }
 ```
