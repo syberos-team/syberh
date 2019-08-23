@@ -14,31 +14,55 @@
 
 <body>
   <div class="mui-content pt0">
-    
-      <ul class="mui-table-view ">
-        <li class="mui-table-view-cell">
-            <span>method：</span>
-            <input type="radio" name="method" value="get">get
-            <input type="radio" name="method" value="post">post
-            <input type="radio" name="method" value="put">put
-            <input type="radio" name="method" value="delete">delete
-        </li>
-        <li class="mui-table-view-cell">
-            <span>dataType：</span>
-            <input type="radio" name="dataType" value="json">json
-            <input type="radio" name="dataType" value="text">text
-        </li>
-        <li class="mui-table-view-cell">
-            <button onclick="start()">请求</button>
-        </li>
-      </ul>
-      <span id="result"></span>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">请求</button>
+      </div>
+      <div class="mui-card-content">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">method</a>
+            <div class="mui-collapse-content">
+              <div class="mui-input-row mui-radio">
+                <label>GET</label>
+                <input name="method" type="radio" value="get">
+              </div>
+              <div class="mui-input-row mui-radio">
+                <label>POST</label>
+                <input name="method" type="radio" value="post">
+              </div>
+              <div class="mui-input-row mui-radio">
+                <label>PUT</label>
+                <input name="method" type="radio" value="put">
+              </div>
+              <div class="mui-input-row mui-radio">
+                <label>DELETE</label>
+                <input name="method" type="radio" value="delete">
+              </div>
+            </div>
+          </li>
+          <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">dataType</a>
+            <div class="mui-collapse-content">
+              <div class="mui-input-row mui-radio">
+                <label>JSON</label>
+                <input name="dataType" type="radio" value="json">
+              </div>
+              <div class="mui-input-row mui-radio">
+                <label>TEXT</label>
+                <input name="dataType" type="radio" value="text">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="mui-card-footer" id="show-rsp">&nbsp;</div>
     </div>
-    <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
-    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../common/common.js"></script>
-
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
     var vConsole = new VConsole()
@@ -47,19 +71,19 @@
       var obj = document.getElementsByName("method");
       var method;
       for (i = 0; i < obj.length; i++) {
-          if (obj[i].checked) {
-            method = obj[i].value;
-            break;
-          }
+        if (obj[i].checked) {
+          method = obj[i].value;
+          break;
+        }
       }
 
       var obj1 = document.getElementsByName("dataType");
       var dataType;
       for (i = 0; i < obj1.length; i++) {
-          if (obj1[i].checked) {
-            dataType = obj1[i].value;
-            break;
-          }
+        if (obj1[i].checked) {
+          dataType = obj1[i].value;
+          break;
+        }
       }
 
       if (method == "get") {
@@ -75,80 +99,86 @@
     }
 
     function goGet() {
-        syber.netWork.request({
-          url: 'http://172.16.23.91:8000/get',
-          headers: {
-            "Content-Type":"application/json; charset=utf-8"
-          },
-          success: function (result) {
-            document.getElementById("result").innerText = "GET请求响应：" + result.data;
-            console.info(result)
-          },
-          fail: function (error) {
-            console.info(error)
-          }
-        })
+      syber.netWork.request({
+        url: 'http://172.16.23.91:8000/get',
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        success: function (result) {
+          document.getElementById("show-rsp").innerHTML = "GET请求响应：<br/>" + result.data;
+          console.info(result)
+        },
+        fail: function (error) {
+          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
+          console.info(error)
+        }
+      })
     }
     function goPost(dataType) {
-        syber.netWork.request({
-          url: 'http://172.16.23.91:8000/post',
-          headers: {
-            "Content-Type":"application/json; charset=utf-8"
-          },
-          dataType : dataType,
-          method: 'post',
-          data: {'service':'unified.trade.native', 'mch_id':'key2', 
-            'out_trade_no':'key2', 'body':'body', 'total_fee':'100', 'mch_create_ip':'0.0.0.0', 'notify_url':'https://www.baidu.com', 
-            'nonce_str':'https://www.baidu.com', 'sign':'sign'},
-          success: function (result) {
-            if (dataType == 'json' || !dataType) {
-              document.getElementById("result").innerText = "POST请求响应JSON：" + result.data;
-            } else {
-              document.getElementById("result").innerText = "POST请求响应TEXT：" + result;
-            }
-            
-            console.info(result)
-          },
-          fail: function (error) {
-            console.info(error)
+      syber.netWork.request({
+        url: 'http://172.16.23.91:8000/post',
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        dataType: dataType,
+        method: 'post',
+        data: {
+          'service': 'unified.trade.native', 'mch_id': 'key2',
+          'out_trade_no': 'key2', 'body': 'body', 'total_fee': '100', 'mch_create_ip': '0.0.0.0', 'notify_url': 'https://www.baidu.com',
+          'nonce_str': 'https://www.baidu.com', 'sign': 'sign'
+        },
+        success: function (result) {
+          if (dataType == 'json' || !dataType) {
+            document.getElementById("show-rsp").innerHTML = "POST请求响应JSON：<br/>" + result.data;
+          } else {
+            document.getElementById("show-rsp").innerHTML = "POST请求响应TEXT：<br/>" + result;
           }
-        })
+
+          console.info(result)
+        },
+        fail: function (error) {
+          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
+          console.info(error)
+        }
+      })
     }
     function goPut(dataType) {
-        syber.netWork.request({
-          url: 'http://172.16.23.91:8000/put',
-          headers: {
-            "hello":"hi"
-          },
-          dataType : dataType,
-          method: 'put',
-          data: {'service':'put', 'sign':'sign'},
-          success: function (result) {
-            if (dataType == 'json' || !dataType) {
-              document.getElementById("result").innerText = "put请求响应JSON：" + result.data;
-            } else {
-              document.getElementById("result").innerText = "put请求响应TEXT：" + result;
-            }
-            
-            console.info(result)
-          },
-          fail: function (error) {
-            console.info(error)
+      syber.netWork.request({
+        url: 'http://172.16.23.91:8000/put',
+        headers: {
+          "hello": "hi"
+        },
+        dataType: dataType,
+        method: 'put',
+        data: { 'service': 'put', 'sign': 'sign' },
+        success: function (result) {
+          if (dataType == 'json' || !dataType) {
+            document.getElementById("show-rsp").innerHTML = "put请求响应JSON：<br/>" + result.data;
+          } else {
+            document.getElementById("show-rsp").innerHTML = "put请求响应TEXT：<br/>" + result;
           }
-        })
+
+          console.info(result)
+        },
+        fail: function (error) {
+          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
+          console.info(error)
+        }
+      })
     }
     function goDel() {
-        syber.netWork.request({
-          url: 'http://172.16.23.91:8000/delete',
-          method: 'delete',
-          success: function (result) {
-            document.getElementById("result").innerText = "delete请求响应：" + result.data;
-            console.info(result)
-          },
-          fail: function (error) {
-            console.info(error)
-          }
-        })
+      syber.netWork.request({
+        url: 'http://172.16.23.91:8000/delete',
+        method: 'delete',
+        success: function (result) {
+          document.getElementById("show-rsp").innerHTML = "delete请求响应：<br/>" + result.data;
+          console.info(result)
+        },
+        fail: function (error) {
+          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
+          console.info(error)
+        }
+      })
     }
   </script>
 </body>
