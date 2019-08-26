@@ -104,11 +104,11 @@
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
       },
+      "first-app": {
+        "title": "第一个应用"
+      },
       "functional-component": {
         "title": "函数式组件"
-      },
-      "GETTING-STARTED": {
-        "title": "安装 cli 及使用"
       },
       "qt/about/desc": {
         "title": "C++ 说明"
@@ -157,6 +157,9 @@
       },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
+      },
+      "started-cli": {
+        "title": "安装 cli 及使用"
       },
       "started-syberos": {
         "title": "安装 SyberOS SDK & PKD"
