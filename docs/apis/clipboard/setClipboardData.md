@@ -21,7 +21,7 @@ title: setClipboardData
   syber.clipboard.setClipboardData({
     data:"some of the content setClipboardData",
     success: function(result) {
-      document.getElementById('pathDiv').innerText = result;
+        console.log('success: ', result.data);
     },
     error: function(error) {
       console.log('fail: ', error.code, error.msg);
