@@ -3,32 +3,30 @@ title: takePictureImmediately
 ---
 
 
+拍照：用于用户拍摄照片。
+
+可以对拍摄后的照片进行剪裁，拍摄成功则返回图片路径。
+
+> takePictureImmediately 为syberos中自带的拍照功能
 
 
 ## syber.camera.takePictureImmediately(Object object)
-
-进行拍照功能，可对照片进行剪裁，成功则返回图片路径
-
-
-
 ### **参数**
+#### Object object
+| 属性     | 类型   | 默认值  |  必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------- | ----------------------------------
+| enableCut | boolean | false       | 是       | 是否启动裁剪                           |
+| success | function |        | 否       | 回调成功                    |
+| fail   | function |        | 否       | 回调失败                    |
 
-**Object object**
-
-| 属性    | 类型     | 是否必填 | 描述                                      |
-| ------- | -------- | -------- | ----------------------------------------- |
-| enableCut | boolean | 是       | 是否启动裁剪                           |
-| success | function | 否       | 接口调用成功的回调函数                    |
-| fail   | function | 否       | 接口调用失败的回调函数                    |
-
-**object.success回调参数**
-
+**object.success回调函数**
+#### 参数
 | 属性 | 类型   | 描述         |
 | ---- | ------ | ------------ |
-| path | String | 图片文件路径 |
+| path | String | 图片路径 |
 
-**object.fail回调参数**
-
+**object.fail回调函数**
+#### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
 | code | String | 错误码   |
@@ -36,16 +34,15 @@ title: takePictureImmediately
 
 
 
-### **照片示例代码**
+### **拍照示例代码**
 
 ```
 syber.camera.takePictureImmediately({
-	data:{enableCut:false},
 	success: function(result){
 		console.log('success: ', result.path);
 	},
-	fail: function(err){
-		console.log('fail: ', err.code, err.msg);
+	fail: function(error){
+		console.log('fail: ', error.code, error.msg);
 	}
 });
 ```
@@ -54,12 +51,12 @@ syber.camera.takePictureImmediately({
 
 ```
 syber.camera.takePictureImmediately({
-	data:{enableCut:true},
+	enableCut:true,
 	success: function(result){
 		console.log('success: ', result.path);
 	},
-	fail: function(err){
-		console.log('fail: ', err.code, err.msg);
+	fail: function(error){
+		console.log('fail: ', error.code, error.msg);
 	}
 });
 ```

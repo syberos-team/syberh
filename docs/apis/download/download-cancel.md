@@ -28,11 +28,11 @@ result | Boolean | |
 ```javascript
 syber.download.cancel({
       'downloadID': downloadId,
-      success: function (rs) {
-        console.info(rs)
+      success: function (result) {
+        console.info(result)
       },
-      fail: function (er) {
-        console.info(er)
+      fail: function (error) {
+        console.info(error)
       }
     });
 ```

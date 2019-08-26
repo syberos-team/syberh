@@ -4,7 +4,7 @@ title: confirm
 
 确认框：用于提示用户的确认框。
 
-可以设置确认框的标题、标题图标、内容、按钮文字、按钮文字颜色是否加载图标等，仅支持成功、警告图标。
+可以设置确认框的标题、标题图标、内容、按钮文字、按钮文字颜色是否加载图标等，仅支持成功、警告图标，用户点击关闭。
 
 支持`Promise` 化使用。
 
@@ -74,7 +74,7 @@ true，表示用户点击了确定按钮, false，表示用户点击了取消
             console.log('用户点击了取消')
         }
     }).catch(function(error) {
-        console.log(error.msg)
+	    console.log('fail: ', error.code, error.msg);
     })
 ```
 
