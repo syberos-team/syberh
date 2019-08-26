@@ -12,14 +12,28 @@
 */
 
 import QtQuick 2.3
+import QtQuick.Window 2.2
 import com.syberos.basewidgets 2.0
 
-SConfirm {
-    id: salert
-    titleText: ''
-    messageText: ''
-    icon: ''
-    acceptedButtonText:  "确定"
-    acceptButtonColor:  "#007aff"
-    rejectButtonVisible: false
+CInputDialog{
+    id: inputDialog
+    /*! 标题 */
+    titleText: ""
+
+    /*! 输入框默认文本 */
+    placeholderText: ""
+
+    /*! 点击遮罩层是否可以关闭 */
+    canceledOnOutareaClicked: false
+
+    /*! 确认按钮文字 */
+    acceptedButtonText: ''
+
+    /*! 取消按钮文字 */
+    rejectButtonText: ''
 }
+
+
+
+
+
