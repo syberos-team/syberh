@@ -27,6 +27,9 @@ CAbstractPopLayer{
    /*! 点击mask是否关闭 */
    canceledOnOutareaClicked: false
 
+   /*! 点击返回键是否隐藏弹层，默认值为false*/
+   canceledOnBackKeyReleased: false
+
    /*! 模态框和页面的缩放比例 */
    property real scaleFactor: Screen.width / 1080
 
