@@ -124,8 +124,7 @@ export function getPkgItemByKey (key: string) {
 
 export function printPkgVersion () {
   const taroVersion = getPkgVersion()
-  console.log(`👽SyberOS-Hybrid v${taroVersion}`)
-  console.log()
+  console.log(`SyberOS-Hybrid v${taroVersion}`)
 }
 
 export function shouldUseYarn (): boolean {
