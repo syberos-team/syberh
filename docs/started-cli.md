@@ -43,7 +43,7 @@ $ npx @syberos/cli init myApp
 
 ![syberos init myApp command screenshot](/img/init_myapp.png)
 
-在创建完项目之后，Taro 会默认开始安装项目所需要的依赖，安装使用的工具按照 yarn>cnpm>npm 顺序进行检测，一般来说，依赖安装会比较顺利，但某些情况下可能会安装失败，这时候你可以在项目目录下自己使用安装命令进行安装
+在创建完项目之后，会默认开始安装项目所需要的依赖，安装使用的工具按照 yarn>cnpm>npm 顺序进行检测，一般来说，依赖安装会比较顺利，但某些情况下可能会安装失败，这时候你可以在项目目录下自己使用安装命令进行安装
 
 ```bash
 # 使用 yarn 安装依赖
