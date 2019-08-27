@@ -2,54 +2,67 @@
 title: request
 ---
 
-### syber.network.request(Object object)
+网络请求：用于发起网络请求。
 
-> 发起网络请求
+可以设置请求地址、请求类型、请求参数等。返回值由请求地址决定，支持json/text格式。
 
-### 入参
-
-> Object类型，属性如下：
-
-属性 | 类型 | 必填 | 描述
----|---|---|---
-url | String | 是 | 目标服务器 URL
-method | String | 否 | 默认GET，目前支持GET/POST/PUT/DELETE
-dataType | String | 否 | 返回数据格式，默认json，目前支持json/text
-headers | Object | 否 | 例：{"key","val"} 
-data | Object | 否 | 例：{"key","val"}
-success | Function | 否 | 调用成功的回调函数
-fail | Function | 否 | 调用失败的回调函数
+支持`Promise` 使用。
 
 
-### success 回调函数
+## syber.netWork.request(Object object)
+### 参数
+#### Object object
+| 属性     | 类型   | 默认值  |  必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------- | ----------------------------------
+| url | String |  | 是| 目标服务器 URL |
+| method | String | GET | 否 |请求类型，支持GET/POST/PUT/DELETE |
+| dataType | String | json | 否 | 返回格式，json/text |
+| headers | Object | | 否 | 例：{"key","val"} |
+| data | Object | | 否 | 参数，例：{"key","val"} |
+| success | function |  |  否     | 回调成功      |
+| fail   | function |  |  否     | 回调失败      |
 
-> 入参为 Object 类型，属性如下：
 
-
-属性 | 类型 | 描述
----|---|---
-data | String | 响应数据
+#### object.fail回调函数
+#### 参数
+| 属性 | 类型  | 描述 |
+| -- | -- | -- |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
 
 
 ### 示例代码
 
 ```javascript
-syber.network.request({
+syber.netWork.request({
   url: 'https://*',
   method: 'POST',
-  headers: {
-    "Content-Type":"application/json; charset=utf-8"
-  },
   data: {
     'from': 'from',
     'production': 'production',
   },
   success: function(result) {
-    console.log(result);
+    console.log('success',result);            
   },
-  fail: function(error) {
-    console.log(error);
+    fail: function(error) {
+    console.log('fail: ', error.code, error.msg);
   }
+});
+```
+
+#### Promise
+```javascript
+syber.netWork.request({
+  url: 'https://*',
+  method: 'POST',
+  data: {
+    'from': 'from',
+    'production': 'production',
+  }
+}).then(function(result) {
+    console.log('success',result); 
+}).catch(function(error) {
+    console.log('fail: ', error.code, error.msg);
 });
 ```
 

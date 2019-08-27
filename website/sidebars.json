@@ -82,15 +82,6 @@
         ]
       }
     ],
-    "文件": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "apis/fileInfo/getFileInfos",
-          "apis/fileInfo/removeFileInfos"
-        ]
-      }
-    ],
     "webview": [
       "apis/webview/webview"
     ]
