@@ -20,10 +20,11 @@ OTHER_FILES += $$QML_FILES *.qm
 QMAKE_LFLAGS += -Wl,-rpath,$$INSTALL_DIR/lib
 # The .cpp file which was generated for your project.
 SOURCES += src/main.cpp \
-           src/Demo_Workspace.cpp \
+    src/App_Workspace.cpp
 
 
-HEADERS += src/Demo_Workspace.h
+HEADERS += \
+    src/App_Workspace.h
 
 # Installation path
 target.path = $$INSTALL_DIR/bin

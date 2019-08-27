@@ -9,11 +9,17 @@ import config from '../config/index'
 export default class Build {
   private conf: any = {}
   private appPath: string
+  // 是否支持cdb
+  private isSupportCdb: boolean = false
+  // cdb模式的设备名
+  private cdbDevice: string
   // pdk根路径
   private pdkRootPath: string
   private targetName: string
   // 定义编译目录
   private buildDir: string
+  // 是否安装至模拟器
+  private useSimulator: boolean = false
   // 设备网络配置
   private adapterConfig = {
     device: {
@@ -110,11 +116,12 @@ export default class Build {
     const { adapter } = this.conf
 
     let adapterConfig: any
-
+    // 检查安装至模拟器还是真机
     if (DEVICES_TYPES.DEVICE === adapter) {
       adapterConfig = this.adapterConfig.device
     } else if (DEVICES_TYPES.SIMULATOR === adapter) {
       adapterConfig = this.adapterConfig.simulator
+      this.useSimulator = true
     } else {
       throw new Error('adapter类型错误')
     }
@@ -127,18 +134,68 @@ export default class Build {
       console.log(chalk.green('准备启动模拟器'))
       await helper.startvm()
     }
-    // 发送
-    this.sendSop(adapterConfig.ip, adapterConfig.port, sopPath)
-    // 安装
-    this.sshInstallSop(adapterConfig.ip, adapterConfig.port, path.basename(sopPath))
-    // 启动
-    this.sshStartApp(adapterConfig.ip, adapterConfig.port)
+    // 检查是否支持cdb
+    this.checkCdb()
+    // 非模拟器，支持cdb
+    if (!this.useSimulator && this.isSupportCdb) {
+      // 发送
+      this.cdbSop(sopPath)
+      // 安装
+      this.cdbInstallSop(path.basename(sopPath))
+      // 启动
+      this.cdbStartApp()
+    } else {
+      // 发送
+      this.scpSop(adapterConfig.ip, adapterConfig.port, sopPath)
+      // 安装
+      this.sshInstallSop(adapterConfig.ip, adapterConfig.port, path.basename(sopPath))
+      // 启动
+      this.sshStartApp(adapterConfig.ip, adapterConfig.port)
+    }
+
+  }
+
+  private checkCdb() {
+    // 安装至模拟器时，不使用cdb
+    if (this.useSimulator) {
+      return
+    }
+    const cdbPath = this.locateCdb()
+    console.log(cdbPath + ' devices')
+    let result = shelljs.exec(`${cdbPath} devices`)
+    // 出现no permissions时，需要重启cdb服务
+    if (result.stdout.indexOf('no permissions') > 0) {
+      console.log(chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...'))
+      shelljs.exec(`${cdbPath} kill-server`)
+      shelljs.exec(`sudo ${cdbPath} start-server`)
+      result = shelljs.exec(`${cdbPath} devices`)
+    }
+
+    this.isSupportCdb = result.stdout.indexOf('-SyberOS') > 0
+
+    const firstIdx = result.stdout.indexOf('\n')
+    const lastIdx = result.stdout.indexOf('-SyberOS')
+    this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
   }
 
 
-  private sendSop(ip: string, port: number, sopPath: string) {
+  private scpSop(ip: string, port: number, sopPath: string) {
     console.log(chalk.green('准备发送sop包'), ip, port.toString(), sopPath)
-    shelljs.exec(`expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`)
+    // 非模拟器，支持cdb
+    if (!this.useSimulator && this.isSupportCdb) {
+      const cdbPath = this.locateCdb()
+      const cdbPushCmd = `${cdbPath} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+      console.log(cdbPushCmd)
+      shelljs.exec(cdbPushCmd)
+    } else {
+      shelljs.exec(`expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`)
+    }
+  }
+
+  private cdbSop(sopPath: string) {
+    const cdbPushCmd = `${this.locateCdb()} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+    console.log(cdbPushCmd)
+    shelljs.exec(cdbPushCmd)
   }
 
   private sshInstallSop(ip: string, port: number, filename: string) {
@@ -147,11 +204,25 @@ export default class Build {
     shelljs.exec(`expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${nameSplit[0]} ${filename}`)
   }
 
+  private cdbInstallSop(filename: string) {
+    console.log(chalk.green('准备安装sop包'), filename)
+    const cmd = `expect ${helper.locateScripts('cdb-install-sop.sh')} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
+    console.log(cmd)
+    shelljs.exec(cmd)
+  }
+
   private sshStartApp(ip: string, port: number) {
     const { sopid, projectName } = this.conf
-
     console.log(chalk.green('准备启动app'), sopid + ':' + projectName + ':uiapp')
     shelljs.exec(`expect ${helper.locateScripts('ssh-start-app.sh')} ${ip} ${port} ${sopid} ${projectName}`)
+  }
+
+  private cdbStartApp() {
+    const { sopid, projectName } = this.conf
+    console.log(chalk.green('准备启动app'), sopid + ':' + projectName + ':uiapp')
+    const cmd = `expect ${helper.locateScripts('cdb-start-app.sh')} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
+    console.log(cmd)
+    shelljs.exec(cmd)
   }
 
 
@@ -219,4 +290,11 @@ export default class Build {
   private locateSyberosPro(): string {
     return path.join(this.appPath, 'platforms', 'syberos', 'app.pro')
   }
+  /**
+   * 查找cdb路径
+   */
+  private locateCdb(): string {
+    return path.join(this.pdkRootPath, 'targets', this.targetName, 'usr', 'lib', 'qt5', 'bin', 'cdb')
+  }
+
 }

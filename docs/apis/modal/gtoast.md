@@ -2,7 +2,11 @@
 title: gtoast
 ---
 
-gtoast()会在一个小浮层里展示关于某个操作的简单反馈。例如，在邮件发送前离开邮件编辑界面，可以触发一个“草稿已保存”的 gtoast，告知用户以后可以继续编辑。gtoast会在显示一段时间之后自动消失，支持Promise调用
+提示框：用于提示用户某个操作的简单反馈。
+
+可以设置提示框的内容，2.5秒后提示框自动消失。
+
+支持`Promise` 使用。
 
 > gtoast 为syberos中自带的toast
 
@@ -11,14 +15,13 @@ gtoast()会在一个小浮层里展示关于某个操作的简单反馈。例如
 #### Object object
 | 属性     | 类型  | 默认值 | 必填 | 描述                         |
 | ---------- | ------- | -------- | -------- | -------------------------- |
-| title | string | | 是 | 提示的内容 |
-| success | function |  |  否     | 接口调用成功的回调函数      |
-| fail   | function |  |  否     | 接口调用失败的回调函数      |
+| title | string | | 是 | 内容 |
+| success | function |  |  否     | 回调成功      |
+| fail   | function |  |  否     | 回调失败      |
 
 
 #### object.fail回调函数
 #### 参数
-#### Object object
 | 属性 | 类型  | 描述 |
 | -- | -- | -- |
 | code | String | 错误码 |
@@ -27,14 +30,20 @@ gtoast()会在一个小浮层里展示关于某个操作的简单反馈。例如
 ### 代码示例
 ```javascript
 // 方式一:
-syber.modal.gtoast('This is gtoast');
+syber.modal.gtoast({
+    title: 'This is gtoast）',
+    success: function () {
+        console.log('toast执行成功')
+    },
+    fail: function (error) {
+	    console.log('fail: ', error.code, error.msg);
+    }
+});
 
 //方式二:
 syber.modal.gtoast({
     title: 'This is gtoast'
 }).catch(function(error) {
-    console.log('code: ', error.code);
-    console.log('msg: ', error.msg);
+	console.log('fail: ', error.code, error.msg);
 });
-
 ```

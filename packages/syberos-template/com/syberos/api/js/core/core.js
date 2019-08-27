@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast','capture' ]
+    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast','capture','system']
   }
 
   // add 内置 plugins
@@ -118,7 +118,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     }
     plugin.component = component
 
-    var _parent = parent || this.body
+    var _parent = plugin.id === 'webview' ? this.body : root
     var incubator = component.incubateObject(_parent)
     if (incubator) {
       plugin.incubator = incubator
@@ -196,7 +196,8 @@ Syber.prototype._addBuiltInPlugins = function () {
     confirm: { proto: Confirm },
     prompt: { proto: Prompt },
     toast: { proto: Toast },
-    capture: { proto: Capture }
+    capture: { proto: Capture },
+    system: { proto: System }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {
