@@ -6,11 +6,14 @@
 #include <QtNetwork>
 
 
-class TaskInfo{
+class TaskInfo
+{
 public:
-    QString callBackID;
+    QString dataType;
     QNetworkReply* reply;
+
 };
+
 
 class NetWork : public NativeSdkHandlerBase
 {
@@ -25,12 +28,11 @@ public:
 
     static int typeId;
 
-
-
 private :
     QNetworkAccessManager *manager;
 
-    QMap<QString, TaskInfo> tasks;
+    QMap<QString,TaskInfo*> tasks;
+
 public slots:
     void finished(QNetworkReply *reply);
 };

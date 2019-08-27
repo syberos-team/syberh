@@ -173,8 +173,9 @@ export default class Build {
 
     this.isSupportCdb = result.stdout.indexOf('-SyberOS') > 0
 
-    const firstIdx = result.stdout.indexOf('\n')
     const lastIdx = result.stdout.indexOf('-SyberOS')
+    const prefixSub = result.stdout.substring(0, lastIdx + 8)
+    const firstIdx = prefixSub.lastIndexOf('\n')
     this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
   }
 

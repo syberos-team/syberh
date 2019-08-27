@@ -11,6 +11,7 @@ import storageMixin from './native/storage';
 import systemMixin from './native/system';
 import networkMixin from './native/network';
 import captureMixin from './native/capture';
+import clipboardMixin from './native/clipboard';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -28,4 +29,5 @@ export default function allNative(hybridJs) {
     systemMixin(hybridJs);
     networkMixin(hybridJs);
     captureMixin(hybridJs);
+    clipboardMixin(hybridJs);
 }
