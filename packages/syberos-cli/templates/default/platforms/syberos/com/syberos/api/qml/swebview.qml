@@ -69,17 +69,21 @@ WebView {
         }
     }
 
-    experimental.promptDialog: SPrompt {
+    experimental.promptDialog: CInputDialog{
         id: promptDialog
-        messageText: model.message
+        canceledOnOutareaClicked: false
+        titleText: model.message
         onAccepted: {
-            model.accept(inputText)
+            model.accept(messageAreaItem.text)
         }
         onRejected: {
             model.reject()
         }
+        onCanceled: {
+            model.reject()
+        }
 
-        Component.onCompleted: {
+        Component.onCompleted:{
             setText(model.defaultValue)
             show()
         }

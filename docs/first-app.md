@@ -52,4 +52,9 @@ $ syberos build --type device
 $ syberos build --type simulator
 ```
 
+## 修改图标
+
+应用的图标位于 `platforms/syberos/app/res/app.png` 
+
+通过替换该图片完成应用图标的修改
 

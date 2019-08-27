@@ -8,10 +8,8 @@
     "css": "<%= css %>"
   },
   "scripts": {
-    "build:device": "taro build --type DEVICE",
-    "build:simulator": "taro build --type SIMULATOR",
-    "dev:simulator": "npm run build:weapp -- --watch",
-    "dev:device": "npm run build:device -- --watch"
+    "build:device": "syberos build --type device",
+    "build:simulator": "syberos build --type simulator"
   },
   "author": "",
   "license": "MIT",

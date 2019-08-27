@@ -49,7 +49,7 @@ Rectangle {
     opacity: 0
 
     Column {
-        spacing: 40;
+        spacing: scaleFactor * 20;
         anchors.centerIn: parent
         Image {
             id: toastIcon

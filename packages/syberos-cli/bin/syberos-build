@@ -49,7 +49,7 @@ process.env.SYBEROS_ENV = type
 
 const projectConf = require(projectConfPath)
 
-console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectname)}`))
+console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
 build(appPath, {
   type,
