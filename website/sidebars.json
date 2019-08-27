@@ -5,7 +5,8 @@
     ],
     "快速开始": [
       "started-syberos",
-      "GETTING-STARTED"
+      "started-cli",
+      "first-app"
     ]
   },
   "components": {
@@ -78,15 +79,6 @@
         "ids": [
           "apis/download/download",
           "apis/download/download-cancel"
-        ]
-      }
-    ],
-    "文件": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "apis/fileInfo/getFileInfos",
-          "apis/fileInfo/removeFileInfos"
         ]
       }
     ],

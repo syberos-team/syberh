@@ -2,27 +2,27 @@
 title: getAllKeys
 ---
 
-返回一个包含全部已存储项键名的数组, 支持`Promise` 化使用
+返回一个包含全部已存储项键名的数组。
+
+支持`Promise` 使用。
 
 ## syber.storage.getAllKeys(Object object)
 ### 参数
 #### Object object
-| 属性     | 类型    | 是否必填 | 描述                         |
-| ---------- | ------- | -------- | ---------------------------- |
-| success | function | 是       | 回调函数      |
-| fail   | function | 是       | 回调函数      |
+| 属性     | 类型   | 默认值  |  必填 | 描述                         |
+| ---------- | ------- | -------- | ---------------- | ----------------------------------
+| success | function |  |  是       | 回调成功      |
+| fail   | function |  |  是       | 回调失败      |
 
 
 #### object.success 回调函数参数
 #### 参数
-#### Object res
 | 属性     | 类型    | 是否必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
 | keys | array | 是     | 已存储的键名的数组 |
 
 #### object.fail 回调函数
 #### 参数
-#### Object res
 | 属性 | 类型  | 描述 |
 | -- | -- | -- |
 | code | String | 错误码 |
@@ -31,11 +31,11 @@ title: getAllKeys
 ### 代码示例
 ``` javascript
     syber.storage.getAllKeys({
-        success: function(res) {
-            console.log(res.keys)
+        success: function(result) {
+            console.log('success',result); 
         },
-        fail: function(res) {
-            console.log(res.msg)
+        fail: function(error) {
+            console.log('fail: ', error.code, error.msg);
         }
     })
 ```
@@ -43,9 +43,9 @@ title: getAllKeys
 #### Promise
 ``` javascript
     syber.storage.getAllKeys()
-        .then(function(res) {
-            console.log(res)
-        }).catch(function(res) {
-            console.log(res.msg)
+        .then(function(result) {
+            console.log('success',result); 
+        }).catch(function(error) {
+            console.log('fail: ', error.code, error.msg);
         })
 ```
