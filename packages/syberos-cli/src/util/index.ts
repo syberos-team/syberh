@@ -30,14 +30,14 @@ import { callPluginSync } from './npm'
 
 const execSync = child_process.execSync
 
-export function isNpmPkg (name: string): boolean {
+export function isNpmPkg(name: string): boolean {
   if (/^(\.|\/)/.test(name)) {
     return false
   }
   return true
 }
 
-export function isAliasPath (name: string, pathAlias: object = {}): boolean {
+export function isAliasPath(name: string, pathAlias: object = {}): boolean {
   const prefixs = Object.keys(pathAlias)
   if (prefixs.length === 0) {
     return false
@@ -45,7 +45,7 @@ export function isAliasPath (name: string, pathAlias: object = {}): boolean {
   return prefixs.includes(name) || (new RegExp(`^(${prefixs.join('|')})/`).test(name))
 }
 
-export function replaceAliasPath (filePath: string, name: string, pathAlias: object = {}) {
+export function replaceAliasPath(filePath: string, name: string, pathAlias: object = {}) {
   // 后续的 path.join 在遇到符号链接时将会解析为真实路径，如果
   // 这里的 filePath 没有做同样的处理，可能会导致 import 指向
   // 源代码文件，导致文件被意外修改
@@ -62,7 +62,7 @@ export function replaceAliasPath (filePath: string, name: string, pathAlias: obj
   return name
 }
 
-export function promoteRelativePath (fPath: string): string {
+export function promoteRelativePath(fPath: string): string {
   const fPathArr = fPath.split(path.sep)
   let dotCount = 0
   fPathArr.forEach(item => {
@@ -83,11 +83,11 @@ export function promoteRelativePath (fPath: string): string {
 
 export const homedir = os.homedir
 
-export function getRootPath (): string {
+export function getRootPath(): string {
   return path.resolve(__dirname, '../../')
 }
 
-export function getTaroPath (): string {
+export function getTaroPath(): string {
   const taroPath = path.join(homedir(), '.taro')
   if (!fs.existsSync(taroPath)) {
     fs.ensureDirSync(taroPath)
@@ -95,7 +95,7 @@ export function getTaroPath (): string {
   return taroPath
 }
 
-export function getConfig (): object {
+export function getConfig(): object {
   const configPath = path.join(getTaroPath(), 'config.json')
   if (fs.existsSync(configPath)) {
     return require(configPath)
@@ -103,17 +103,17 @@ export function getConfig (): object {
   return {}
 }
 
-export function getSystemUsername (): string {
+export function getSystemUsername(): string {
   const userHome = homedir()
   const systemUsername = process.env.USER || path.basename(userHome)
   return systemUsername
 }
 
-export function getPkgVersion (): string {
+export function getPkgVersion(): string {
   return require(path.join(getRootPath(), 'package.json')).version
 }
 
-export function getPkgItemByKey (key: string) {
+export function getPkgItemByKey(key: string) {
   const packageMap = require(path.join(getRootPath(), 'package.json'))
   if (Object.keys(packageMap).indexOf(key) === -1) {
     return {}
@@ -122,13 +122,12 @@ export function getPkgItemByKey (key: string) {
   }
 }
 
-export function printPkgVersion () {
+export function printPkgVersion() {
   const taroVersion = getPkgVersion()
-  console.log(`👽SyberOS-Hybrid v${taroVersion}`)
-  console.log()
+  console.log(`SyberOS-Hybrid v${taroVersion}`)
 }
 
-export function shouldUseYarn (): boolean {
+export function shouldUseYarn(): boolean {
   try {
     execSync('yarn --version', { stdio: 'ignore' })
     return true
@@ -137,7 +136,7 @@ export function shouldUseYarn (): boolean {
   }
 }
 
-export function shouldUseCnpm (): boolean {
+export function shouldUseCnpm(): boolean {
   try {
     execSync('cnpm --version', { stdio: 'ignore' })
     return true
@@ -146,7 +145,7 @@ export function shouldUseCnpm (): boolean {
   }
 }
 
-export function isEmptyObject (obj: any): boolean {
+export function isEmptyObject(obj: any): boolean {
   if (obj == null) {
     return true
   }
@@ -158,8 +157,8 @@ export function isEmptyObject (obj: any): boolean {
   return true
 }
 
-export function urlJoin (...agrs: string[]): string {
-  function normalize (str) {
+export function urlJoin(...agrs: string[]): string {
+  function normalize(str) {
     return str
       .replace(/([/]+)/g, '/')
       .replace(/\/\?(?!\?)/g, '?')
@@ -171,7 +170,7 @@ export function urlJoin (...agrs: string[]): string {
   return normalize(joined)
 }
 
-export function resolveScriptPath (p: string): string {
+export function resolveScriptPath(p: string): string {
   const realPath = p
   const taroEnv = process.env.TARO_ENV
   const SCRIPT_EXT = JS_EXT.concat(TS_EXT)
@@ -198,7 +197,7 @@ export function resolveScriptPath (p: string): string {
   return realPath
 }
 
-export function resolveStylePath (p: string): string {
+export function resolveStylePath(p: string): string {
   const realPath = p
   const removeExtPath = p.replace(path.extname(p), '')
   const taroEnv = process.env.TARO_ENV
@@ -216,7 +215,7 @@ export function resolveStylePath (p: string): string {
   return realPath
 }
 
-export function isDifferentArray (a: any[], b: any[]): boolean {
+export function isDifferentArray(a: any[], b: any[]): boolean {
   if (!Array.isArray(a) || !Array.isArray(b)) {
     return true
   }
@@ -233,14 +232,14 @@ export function isDifferentArray (a: any[], b: any[]): boolean {
   return false
 }
 
-export function checksum (buf: Buffer | string, length?): string {
+export function checksum(buf: Buffer | string, length?): string {
   if (!Buffer.isBuffer(buf)) {
     buf = Buffer.from(buf)
   }
   return crypto.createHash('md5').update(buf).digest('hex').slice(0, length || 8)
 }
 
-export function printLog (type: processTypeEnum, tag: string, filePath?: string) {
+export function printLog(type: processTypeEnum, tag: string, filePath?: string) {
   const typeShow = processTypeMap[type]
   const tagLen = tag.replace(/[\u0391-\uFFE5]/g, 'aa').length
   const tagFormatLen = 8
@@ -257,7 +256,7 @@ export function printLog (type: processTypeEnum, tag: string, filePath?: string)
   }
 }
 
-export function replaceContentEnv (content: string, env: object): string {
+export function replaceContentEnv(content: string, env: object): string {
   if (env && !isEmptyObject(env)) {
     for (const key in env) {
       const reg = new RegExp(`process.env.${key}`, 'g')
@@ -268,8 +267,8 @@ export function replaceContentEnv (content: string, env: object): string {
   return content
 }
 
-export function generateEnvList (env: object): object {
-  const res = { }
+export function generateEnvList(env: object): object {
+  const res = {}
   if (env && !isEmptyObject(env)) {
     for (const key in env) {
       try {
@@ -282,7 +281,7 @@ export function generateEnvList (env: object): object {
   return res
 }
 
-export function replaceContentConstants (content: string, constants: object): string {
+export function replaceContentConstants(content: string, constants: object): string {
   if (constants && !isEmptyObject(constants)) {
     for (const key in constants) {
       const reg = new RegExp(key, 'g')
@@ -293,8 +292,8 @@ export function replaceContentConstants (content: string, constants: object): st
   return content
 }
 
-export function generateConstantsList (constants: object): object {
-  const res = { }
+export function generateConstantsList(constants: object): object {
+  const res = {}
   if (constants && !isEmptyObject(constants)) {
     for (const key in constants) {
       if (isPlainObject(constants[key])) {
@@ -311,7 +310,7 @@ export function generateConstantsList (constants: object): object {
   return res
 }
 
-export function cssImports (content: string): string[] {
+export function cssImports(content: string): string[] {
   let match: RegExpExecArray | null
   const results: string[] = []
   content = String(content).replace(/\/\*.+?\*\/|\/\/.*(?=[\n\r])/g, '')
@@ -321,7 +320,7 @@ export function cssImports (content: string): string[] {
   return results
 }
 
-export function processStyleImports (content: string, adapter: BUILD_TYPES, processFn: (a: string, b: string) => string) {
+export function processStyleImports(content: string, adapter: BUILD_TYPES, processFn: (a: string, b: string) => string) {
   const style: string[] = []
   const imports: string[] = []
   const styleReg = new RegExp(`\\${MINI_APP_FILES[adapter].STYLE}`)
@@ -347,7 +346,7 @@ export function processStyleImports (content: string, adapter: BUILD_TYPES, proc
 }
 /*eslint-disable*/
 const retries = (process.platform === 'win32') ? 100 : 1
-export function emptyDirectory (dirPath: string, opts: { excludes: string[] } = { excludes: [] }) {
+export function emptyDirectory(dirPath: string, opts: { excludes: string[] } = { excludes: [] }) {
   if (fs.existsSync(dirPath)) {
     fs.readdirSync(dirPath).forEach(file => {
       const curPath = path.join(dirPath, file)
@@ -376,7 +375,7 @@ export function emptyDirectory (dirPath: string, opts: { excludes: string[] } = 
 }
 /* eslint-enable */
 
-export function recursiveFindNodeModules (filePath: string): string {
+export function recursiveFindNodeModules(filePath: string): string {
   const dirname = path.dirname(filePath)
   const nodeModules = path.join(dirname, 'node_modules')
   if (fs.existsSync(nodeModules)) {
@@ -385,10 +384,10 @@ export function recursiveFindNodeModules (filePath: string): string {
   return recursiveFindNodeModules(dirname)
 }
 
-export const pascalCase: (str: string) => string
-  = (str: string): string => str.charAt(0).toUpperCase() + camelCase(str.substr(1))
+export const pascalCase: (str: string) => string =
+  (str: string): string => str.charAt(0).toUpperCase() + camelCase(str.substr(1))
 
-export function getInstalledNpmPkgPath (pkgName: string, basedir: string): string | null {
+export function getInstalledNpmPkgPath(pkgName: string, basedir: string): string | null {
   const resolvePath = require('resolve')
   try {
     return resolvePath.sync(`${pkgName}/package.json`, { basedir })
@@ -397,7 +396,7 @@ export function getInstalledNpmPkgPath (pkgName: string, basedir: string): strin
   }
 }
 
-export function getInstalledNpmPkgVersion (pkgName: string, basedir: string): string | null {
+export function getInstalledNpmPkgVersion(pkgName: string, basedir: string): string | null {
   const pkgPath = getInstalledNpmPkgPath(pkgName, basedir)
   if (!pkgPath) {
     return null
@@ -405,7 +404,7 @@ export function getInstalledNpmPkgVersion (pkgName: string, basedir: string): st
   return fs.readJSONSync(pkgPath).version
 }
 
-export function traverseObjectNode (node, buildAdapter: string, parentKey?: string) {
+export function traverseObjectNode(node, buildAdapter: string, parentKey?: string) {
   if (node.type === 'ClassProperty' || node.type === 'ObjectProperty') {
     const properties = node.value.properties
     const obj = {}
@@ -423,7 +422,7 @@ export function traverseObjectNode (node, buildAdapter: string, parentKey?: stri
   }
   if (node.type === 'ObjectExpression') {
     const properties = node.properties
-    const obj= {}
+    const obj = {}
     properties.forEach(p => {
       let key = t.isIdentifier(p.key) ? p.key.name : p.key.value
       if (CONFIG_MAP[buildAdapter][key] === false) {
@@ -445,7 +444,7 @@ export function traverseObjectNode (node, buildAdapter: string, parentKey?: stri
   return node.value
 }
 
-export function copyFileSync (from: string, to: string, options?: ICopyArgOptions) {
+export function copyFileSync(from: string, to: string, options?: ICopyArgOptions) {
   const filename = path.basename(from)
   if (fs.statSync(from).isFile() && !path.extname(to)) {
     fs.ensureDirSync(to)
@@ -461,7 +460,7 @@ export function copyFileSync (from: string, to: string, options?: ICopyArgOption
   return fs.copySync(from, to, options)
 }
 
-export function copyFiles (appPath: string, copyConfig: ICopyOptions | void) {
+export function copyFiles(appPath: string, copyConfig: ICopyOptions | void) {
   copyConfig = copyConfig || { patterns: [], options: {} }
   if (copyConfig.patterns && copyConfig.patterns.length) {
     copyConfig.options = copyConfig.options || {}
@@ -495,11 +494,11 @@ export function copyFiles (appPath: string, copyConfig: ICopyOptions | void) {
   }
 }
 
-export function isQuickAppPkg (name: string): boolean {
+export function isQuickAppPkg(name: string): boolean {
   return /@system\./.test(name)
 }
 
-export function generateQuickAppUx ({
+export function generateQuickAppUx({
   script,
   template,
   style,
@@ -590,7 +589,7 @@ export const applyArrayedVisitors = obj => {
   return obj
 }
 
-export function unzip (zipPath) {
+export function unzip(zipPath) {
   return new Promise((resolve, reject) => {
     yauzl.open(zipPath, { lazyEntries: true }, (err, zipfile) => {
       if (err) throw err
@@ -624,7 +623,7 @@ export function unzip (zipPath) {
             fileNameArr.shift()
             const fileName = fileNameArr.join('/')
             const writeStream = fs.createWriteStream(path.join(path.dirname(zipPath), fileName))
-            writeStream.on('close', () => {})
+            writeStream.on('close', () => { })
             readStream
               .pipe(filter)
               .pipe(writeStream)
@@ -637,7 +636,7 @@ export function unzip (zipPath) {
 
 let babelConfig
 
-export function getBabelConfig (babel) {
+export function getBabelConfig(babel) {
   if (!babelConfig) {
     babelConfig = mergeWith({}, defaultBabelConfig, babel, (objValue, srcValue) => {
       if (Array.isArray(objValue)) {
@@ -648,7 +647,7 @@ export function getBabelConfig (babel) {
   return babelConfig
 }
 
-export function uglifyJS (resCode: string, filePath: string, root: string, uglify: TogglableOptions): string {
+export function uglifyJS(resCode: string, filePath: string, root: string, uglify: TogglableOptions): string {
   const uglifyPluginConfig = uglify || { enable: true }
   if (uglifyPluginConfig.enable) {
     const uglifyConfig = Object.assign(defaultUglifyConfig, uglifyPluginConfig.config || {})
