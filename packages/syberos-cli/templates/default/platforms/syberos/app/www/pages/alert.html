@@ -16,19 +16,19 @@
   <div class="mui-content pt0">
       <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alertNormal()">alertNormal</a>
+          <a class="mui-navigate-right api-class" id="alert">alert</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alertNoTitle()">alert_no_title</a>
+          <a class="mui-navigate-right api-class" id="alert_no_title">alert_no_title</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alertSmallIcon()">alert_small_icon</a>
+          <a class="mui-navigate-right api-class" id="alert_small_icon">alert_small_icon</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alertBigIcon()">alert_big_icon</a>
+          <a class="mui-navigate-right api-class" id="alert_big_icon">alert_big_icon</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alertColorText()">alert 修改颜色和文字</a>
+          <a class="mui-navigate-right api-class" id="alert_color_text">alert 修改颜色和文字</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="alertOrigin()">原生alert</a>
@@ -44,59 +44,63 @@
   <script>
     var vConsole = new VConsole()
 
-    function alertNormal() {
-      syber.modal.alert({
-          title: '标题',
-          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          success: function () {
-            console.log('弹窗标题')
-          }
-      })
-    }
-    
-    function alertNoTitle() {
-      syber.modal.alert({
-          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          success: function () {
-            console.log('弹窗标题')
-          }
-      })
+
+    window.runApi = function (id) {
+      switch (id) {
+        case 'alert':
+          syber.modal.alert({
+            title: '标题',
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_no_title':
+          syber.modal.alert({
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_small_icon':
+          syber.modal.alert({
+            title: '标题',
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'success',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_big_icon':
+          syber.modal.alert({
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'warning',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_color_text':
+          syber.modal.alert({
+            title: '标题',
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'warning',
+            confirmText: '确定按钮',
+            confirmColor: '#ff0000',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        default:
+          console.error('错误！没有相应API');
+      }
     }
 
-    function alertSmallIcon() {
-      syber.modal.alert({
-          title: '标题',
-          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          titleIcon: 'success',
-          success: function () {
-            console.log('弹窗标题')
-          }
-      })
-    }
-       
-    function alertBigIcon() {
-      syber.modal.alert({
-          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          titleIcon: 'warning',
-          success: function () {
-            console.log('弹窗标题')
-          }
-      })
-    }
-           
-    function alertColorText() {
-      syber.modal.alert({
-          title: '标题',
-          content: '弹窗内容，告知当前状态、信息和解决方法，描述',
-          titleIcon: 'warning',
-          confirmText: 'ok',
-          confirmColor: '#ff0000',
-          success: function () {
-            console.log('弹窗标题')
-          }
-      })
-    }
-
+ 
     function alertOrigin() {
       alert('我是alert')
     }

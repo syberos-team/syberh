@@ -33,7 +33,7 @@ title: setClipboardData
 ``` javascript
   syber.clipboard.setClipboardData()
     .then(function(result) {
-        console.log('success',result); 
+        console.log('success: ', result.data);
     }).catch(function(error) {
         console.log('fail: ', error.code, error.msg);
     })

@@ -27,7 +27,7 @@
                 <a class="mui-navigate-right api-class" onclick="capturePhoto()">拍照</a>
             </li>
             <li class="mui-table-view-cell">
-                <a class="mui-navigate-right api-class" onclick="shearPhoto()">剪切</a>
+                <a class="mui-navigate-right api-class" onclick="shearPhoto()">裁剪</a>
             </li>
         </ul>
     </div>
@@ -47,7 +47,6 @@
     <script type="text/javascript" src="../lib/vconsole.min.js"></script>
     <script type="text/javascript" src="../lib/syber.min.js"></script>
 
-
     <script>
         quick.error(function(message) {
             alert('错误:' + JSON.stringify(message));
@@ -58,37 +57,31 @@
         });
 
         function capturePhoto() {
-            syber.callApi({
-                name: 'takePictureImmediately',
-                mudule: 'camera',
-                data:{enableCut:false},
-                success: function(result) {
+            syber.camera.takePictureImmediately({
+                success: function(result){
                     document.getElementById('pathDiv').innerText = "path:"+result.path
                     document.getElementById('img').src = result.path
-                    console.info(result)
+                    console.log('success: ', result.path);
                 },
-                error: function(error) {
-                    console.info(error)
+                fail: function(error){
+                    console.log('fail: ', error.code, error.msg);
                 }
-            })
+            });
         }
 
-        function shearPhoto() {
-            syber.callApi({
-                name: 'takePictureImmediately',
-                mudule: 'camera',
-                data:{enableCut:true},
-                success: function(result) {
+        function shearPhoto() {        
+            syber.camera.takePictureImmediately({
+                enableCut:true,
+                success: function(result){
                     document.getElementById('pathDiv').innerText = "path:"+result.path
                     document.getElementById('img').src = result.path
-                    console.info(result)
+                    console.log('success: ', result.path);
                 },
-                error: function(error) {
-                    console.info(error)
+                fail: function(error){
+                    console.log('fail: ', error.code, error.msg);
                 }
-            })
+            });
         }
-
     </script>
   </body>
 </html>
