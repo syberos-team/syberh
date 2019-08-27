@@ -5,7 +5,7 @@ title: takePictureImmediately
 
 拍照：用于用户拍摄照片。
 
-可以对拍摄后的照片进行剪裁，拍摄成功则返回图片路径。
+可以对拍摄后的照片进行裁剪，拍摄成功则返回图片路径。
 
 > takePictureImmediately 为syberos中自带的拍照功能
 
@@ -34,9 +34,8 @@ title: takePictureImmediately
 
 
 
-### **拍照示例代码**
-
-```
+### **拍照代码示例**
+``` javascript
 syber.camera.takePictureImmediately({
 	success: function(result){
 		console.log('success: ', result.path);
@@ -47,9 +46,8 @@ syber.camera.takePictureImmediately({
 });
 ```
 
-### **拍照剪裁示例代码**
-
-```
+### **拍照裁剪代码示例**
+``` javascript
 syber.camera.takePictureImmediately({
 	enableCut:true,
 	success: function(result){

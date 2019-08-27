@@ -26,12 +26,11 @@ syber.模块名.方法({
 ```js
 syber.modal.alert({
     content: 'This is a alert',
-     success: fucntion(result) {  
-       console.log(result)
+    success: fucntion() {  
+		  console.log('success'); 
     },
     fail: fucntion(error) {
-         console.log(error.code)
-         console.log(error.msg)
+      console.log('fail: ', error.code, error.msg);
     }
   })
 ```
@@ -40,12 +39,11 @@ syber.modal.alert({
 
 ```js
 syber.modal.alert({
-    content: 'This is a alert'
-  })
-  .then(function() {})
-  .catch(function(error) {
-     console.log(error.code)
-    console.log(error.msg)
+    content: 'This is a alert',
+  }).then(function() {
+    console.log('success');
+  }).catch(function(error) {
+    console.log('fail: ', error.code, error.msg);
   })
 ```
 
