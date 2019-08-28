@@ -6,7 +6,7 @@ title: confirm
 
 可以设置确认框的标题、标题图标、内容、按钮文字、按钮文字颜色是否加载图标等，仅支持成功、警告图标，用户点击关闭。
 
-支持`Promise` 化使用。
+<!-- 支持`Promise` 化使用。 -->
 
 
 
@@ -59,7 +59,7 @@ syber.modal.confirm({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.modal.confirm({
     content: 'This is a confirm',
@@ -68,7 +68,7 @@ syber.modal.confirm({
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
 })
-```
+``` -->
 
 #### 原生confirm调用
 ```javascript

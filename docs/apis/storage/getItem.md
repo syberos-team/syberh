@@ -4,7 +4,7 @@ title: getItem
 
 根据键名查询键值：传入键名返回对应的键值。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.storage.getItem(Object object)
 ### 参数
@@ -42,7 +42,7 @@ syber.storage.getItem({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
 syber.storage.getItem({
     key: 'name'
@@ -51,4 +51,4 @@ syber.storage.getItem({
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
 })
-```
+``` -->

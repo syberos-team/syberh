@@ -6,7 +6,7 @@ title: alert
 
 可以设置弹出框的标题、标题图标、内容、按钮文字、按钮文字颜色，仅支持成功、警告图标，用户点击关闭。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 
 
@@ -51,7 +51,7 @@ syber.modal.alert({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.modal.alert({
     content: 'This is a alert',
@@ -60,7 +60,7 @@ syber.modal.alert({
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
 })
-```
+``` -->
 
 #### 原生alert调用
 ```javascript

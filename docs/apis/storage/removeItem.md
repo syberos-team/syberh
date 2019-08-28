@@ -4,7 +4,7 @@ title: removeItem
 
 传入一个键名将会删除本地存储中对应的键值。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.storage.removeItem(Object object)
 ### 参数
@@ -42,7 +42,7 @@ syber.storage.removeItem({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
 syber.storage.removeItem({
     key: 'name'
@@ -50,5 +50,5 @@ syber.storage.removeItem({
 console.log('success',result); 
 }).catch(function(error) {
         console.log('fail: ', error.code, error.msg);
-})
+}) -->
 ```

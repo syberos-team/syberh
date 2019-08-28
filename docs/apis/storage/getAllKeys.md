@@ -4,7 +4,7 @@ title: getAllKeys
 
 查询所有数字：返回一个包含全部已存储项键名的数组。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.storage.getAllKeys(Object object)
 ### 参数
@@ -40,7 +40,7 @@ syber.storage.getAllKeys({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
 syber.storage.getAllKeys()
     .then(function(result) {
@@ -48,4 +48,4 @@ syber.storage.getAllKeys()
     }).catch(function(error) {
         console.log('fail: ', error.code, error.msg);
     })
-```
+``` -->
