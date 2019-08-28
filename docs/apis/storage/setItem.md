@@ -4,7 +4,7 @@ title: setItem
 
 存储数据：可以通过键值对的形式将数据存储到本地。同时可以通过该方法，更新已有的数据。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.storage.setItem(Object object)
 ### 参数
@@ -44,7 +44,7 @@ syber.storage.setItem({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
 syber.storage.setItem({
     key: 'name'
@@ -52,5 +52,5 @@ syber.storage.setItem({
 console.log('success',result); 
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
-})
+}) -->
 ```

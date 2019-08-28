@@ -6,7 +6,7 @@ title: gtoast
 
 可以设置提示框的内容，2.5秒后提示框自动消失。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 > gtoast 为syberos中自带的toast
 
@@ -40,11 +40,11 @@ syber.modal.gtoast({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.modal.gtoast({
     title: 'This is gtoast'
 }).catch(function(error) {
 	console.log('fail: ', error.code, error.msg);
 });
-```
+``` -->

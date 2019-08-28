@@ -6,7 +6,7 @@ title: aboutPhone
 
 获取手机信息。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ### 参数
 
@@ -84,7 +84,7 @@ syber.system.aboutPhone({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.system.aboutPhone()
     .then(function(result) {
@@ -112,4 +112,4 @@ syber.system.aboutPhone()
     }).catch(function(error) {
         console.log('fail: ', error.code, error.msg);
     });
-```
+``` -->

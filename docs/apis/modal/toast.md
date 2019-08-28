@@ -6,7 +6,7 @@ title: toast
 
 可以设置提示框的标题、标题图标、内容、提示时长，仅支持成功、错误图标，到时提示框自动消失。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 
 ## syber.modal.toast(Object object)
@@ -50,7 +50,7 @@ syber.modal.toast({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.modal.toast({
     title:"我是没有图标的toast，但是我最大只能14个汉字",
@@ -60,4 +60,4 @@ syber.modal.toast({
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
 })
-```
+``` -->

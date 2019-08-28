@@ -6,7 +6,7 @@ title: request
 
 可以设置请求地址、请求类型、请求参数等。返回值由请求地址决定，支持json/text格式。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 
 ## syber.netWork.request(Object object)
@@ -45,7 +45,7 @@ syber.netWork.request({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.netWork.request({
         url: 'https://*',
@@ -54,5 +54,5 @@ syber.netWork.request({
     }).catch(function(error) {
         console.log('fail: ', error.code, error.msg);
     });
-```
+``` -->
 

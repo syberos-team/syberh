@@ -6,7 +6,7 @@ title: prompt
 
 可以设置输入框的标题、按钮文字等，用户点击关闭。
 
-支持`Promise` 化使用。
+<!-- 支持`Promise` 化使用。 -->
 
 ## syber.modal.prompt(Object object)
 ### 参数
@@ -46,7 +46,7 @@ syber.modal.prompt({
 })
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.modal.prompt({
     content: 'This is a prompt',
@@ -55,7 +55,7 @@ syber.modal.prompt({
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
 })
-```
+``` -->
 
 #### 原生prompt调用
 ```javascript

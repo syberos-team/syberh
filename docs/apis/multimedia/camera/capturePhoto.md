@@ -15,7 +15,7 @@ title: takePictureImmediately
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
-| enableCut | boolean | false       | 是       | 是否启动裁剪                           |
+| enableCut | boolean | false       | 否       | 是否启动裁剪                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -37,7 +37,6 @@ title: takePictureImmediately
 ### **拍照代码示例**
 ``` javascript
 syber.camera.takePictureImmediately({
-	enableCut:false,
 	success: function(result){
 		console.log('success: ', result.path);
 	},

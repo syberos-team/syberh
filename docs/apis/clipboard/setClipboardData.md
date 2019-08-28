@@ -4,7 +4,7 @@ title: setClipboardData
 
 设置剪贴板内容,支持 `promise`调用。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 
 ## syber.clipboard.setClipboardData(Object object)
@@ -44,7 +44,7 @@ syber.clipboard.setClipboardData({
 }); 
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
 syber.clipboard.setClipboardData({
     data:"some of the content setClipboardData",
@@ -53,4 +53,4 @@ syber.clipboard.setClipboardData({
 }).catch(function(error) {
     console.log('fail: ', error.code, error.msg);
 })
-```
+``` -->
