@@ -162,8 +162,10 @@ export interface AppBuildConfig {
   /**
    * 适配器
    */
-  adapter: DEVICES_TYPES
   target: any
+  adapter?: DEVICES_TYPES
+  // 只打SOP包，不运行
+  onlyBuildSop?: boolean
   debug?: boolean
   envHasBeenSet?: boolean
   port?: number
