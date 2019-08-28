@@ -39,20 +39,39 @@ export default class Build {
     this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
   }
 
+
   /**
    * 开始编译
    */
-  public async start() {
-    console.log(chalk.green('开始编译'), this.appPath, JSON.stringify(this.conf))
-
+  public async buildSop() {
     // 1、生成编译目录
     this.mkdirBuild()
     // 2、拷贝www路径到模板下
     await this.copywww()
     // 3、执行构建命令
     await this.executeShell()
+
+    if (this.conf.onlyBuildSop === true) {
+      const { stdout } = shelljs.exec("ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'")
+      const sopPath = stdout.trim()
+      console.log(
+        chalk.bgGreen('打包完成，SOP包的位置是=》'), sopPath
+      )
+      shelljs.exit(1)
+    }
+  }
+
+  /**
+   * 开始编译， 并在设备上运行
+   */
+  public async start() {
+    console.log(chalk.green('开始编译'), this.appPath, JSON.stringify(this.conf))
+
+    // 执行编译
+    await this.buildSop()
+
     // 4、安装sop
-    await this.installSop();
+    await this.installSop()
   }
 
   /**
@@ -61,10 +80,16 @@ export default class Build {
   private mkdirBuild() {
     console.log(chalk.green('准备编译目录'))
     const appPath = this.appPath
-    const { adapter, debug } = this.conf
+    const { adapter, debug, onlyBuildSop } = this.conf
 
     // 定义编译目录
-    this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${debug ? '-Debug' : ''}`
+    if (onlyBuildSop === true) {
+      // 如果是只打SOP包， 目录名的设备名为 device
+      this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${this.targetName}${debug ? '-Debug' : ''}`
+    } else {
+      this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${debug ? '-Debug' : ''}`
+    }
+
     if (!fs.pathExistsSync(this.buildDir)) {
       fs.mkdirsSync(this.buildDir)
     }
@@ -228,7 +253,7 @@ export default class Build {
 
 
   private execKchroot(subCommand: string = '') {
-    const { adapter } = this.conf
+    const { adapter, onlyBuildSop } = this.conf
 
     const kchroot = this.locateKchroot()
 
@@ -239,6 +264,9 @@ export default class Build {
     } else if (DEVICES_TYPES.SIMULATOR === adapter) {
       // 模拟器
       cmd += `${kchroot} exec_${this.targetName}`
+    } else if (onlyBuildSop === true) {
+      // 打SOP包， 和真机命令一样
+      cmd += `${kchroot} 'sb2 -t ${this.targetName} -R'`
     } else {
       throw new Error('adapter类型错误')
     }

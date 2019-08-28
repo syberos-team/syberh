@@ -10,7 +10,8 @@
   "scripts": {
     "doctor": "syberos doctor",
     "build:simulator": "syberos build --type simulator",
-    "build:device": "syberos build --type device"
+    "build:device": "syberos build --type device",
+    "build": "syberos build"
   },
   "author": "",
   "license": "MIT",
