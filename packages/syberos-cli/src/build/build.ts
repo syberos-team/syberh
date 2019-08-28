@@ -39,7 +39,6 @@ export default class Build {
     this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
   }
 
-
   /**
    * 开始编译
    */
@@ -52,12 +51,12 @@ export default class Build {
     await this.executeShell()
 
     if (this.conf.onlyBuildSop === true) {
-      const { stdout } = shelljs.exec("ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'")
-      const sopPath = stdout.trim()
-      console.log(
-        chalk.bgGreen('打包完成，SOP包的位置是=》'), sopPath
+      const { stdout } = shelljs.exec(
+        "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
       )
-      shelljs.exit(1)
+      const sopPath = stdout.trim()
+      console.log(chalk.bgGreen('打包完成，SOP包的位置是=》'), sopPath)
+      shelljs.exit(0)
     }
   }
 
@@ -65,7 +64,11 @@ export default class Build {
    * 开始编译， 并在设备上运行
    */
   public async start() {
-    console.log(chalk.green('开始编译'), this.appPath, JSON.stringify(this.conf))
+    console.log(
+      chalk.green('开始编译'),
+      this.appPath,
+      JSON.stringify(this.conf)
+    )
 
     // 执行编译
     await this.buildSop()
@@ -85,9 +88,13 @@ export default class Build {
     // 定义编译目录
     if (onlyBuildSop === true) {
       // 如果是只打SOP包， 目录名的设备名为 device
-      this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${this.targetName}${debug ? '-Debug' : ''}`
+      this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${
+        this.targetName
+      }${debug ? '-Debug' : ''}`
     } else {
-      this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${debug ? '-Debug' : ''}`
+      this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${
+        debug ? '-Debug' : ''
+      }`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -151,7 +158,9 @@ export default class Build {
       throw new Error('adapter类型错误')
     }
 
-    const { stdout } = shelljs.exec("ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'")
+    const { stdout } = shelljs.exec(
+      "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
+    )
     const sopPath = stdout.trim()
 
     // 启动虚拟机
@@ -173,11 +182,14 @@ export default class Build {
       // 发送
       this.scpSop(adapterConfig.ip, adapterConfig.port, sopPath)
       // 安装
-      this.sshInstallSop(adapterConfig.ip, adapterConfig.port, path.basename(sopPath))
+      this.sshInstallSop(
+        adapterConfig.ip,
+        adapterConfig.port,
+        path.basename(sopPath)
+      )
       // 启动
       this.sshStartApp(adapterConfig.ip, adapterConfig.port)
     }
-
   }
 
   private checkCdb() {
@@ -190,7 +202,9 @@ export default class Build {
     let result = shelljs.exec(`${cdbPath} devices`)
     // 出现no permissions时，需要重启cdb服务
     if (result.stdout.indexOf('no permissions') > 0) {
-      console.log(chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...'))
+      console.log(
+        chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...')
+      )
       shelljs.exec(`${cdbPath} kill-server`)
       shelljs.exec(`sudo ${cdbPath} start-server`)
       result = shelljs.exec(`${cdbPath} devices`)
@@ -204,22 +218,27 @@ export default class Build {
     this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
   }
 
-
   private scpSop(ip: string, port: number, sopPath: string) {
     console.log(chalk.green('准备发送sop包'), ip, port.toString(), sopPath)
     // 非模拟器，支持cdb
     if (!this.useSimulator && this.isSupportCdb) {
       const cdbPath = this.locateCdb()
-      const cdbPushCmd = `${cdbPath} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+      const cdbPushCmd = `${cdbPath} -s ${
+        this.cdbDevice
+      } push -p ${sopPath} /tmp`
       console.log(cdbPushCmd)
       shelljs.exec(cdbPushCmd)
     } else {
-      shelljs.exec(`expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`)
+      shelljs.exec(
+        `expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`
+      )
     }
   }
 
   private cdbSop(sopPath: string) {
-    const cdbPushCmd = `${this.locateCdb()} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+    const cdbPushCmd = `${this.locateCdb()} -s ${
+      this.cdbDevice
+    } push -p ${sopPath} /tmp`
     console.log(cdbPushCmd)
     shelljs.exec(cdbPushCmd)
   }
@@ -227,30 +246,47 @@ export default class Build {
   private sshInstallSop(ip: string, port: number, filename: string) {
     console.log(chalk.green('准备安装sop包'), filename)
     const nameSplit = filename.split('-')
-    shelljs.exec(`expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${nameSplit[0]} ${filename}`)
+    shelljs.exec(
+      `expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${
+        nameSplit[0]
+      } ${filename}`
+    )
   }
 
   private cdbInstallSop(filename: string) {
     console.log(chalk.green('准备安装sop包'), filename)
-    const cmd = `expect ${helper.locateScripts('cdb-install-sop.sh')} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
+    const cmd = `expect ${helper.locateScripts(
+      'cdb-install-sop.sh'
+    )} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
     console.log(cmd)
     shelljs.exec(cmd)
   }
 
   private sshStartApp(ip: string, port: number) {
     const { sopid, projectName } = this.conf
-    console.log(chalk.green('准备启动app'), sopid + ':' + projectName + ':uiapp')
-    shelljs.exec(`expect ${helper.locateScripts('ssh-start-app.sh')} ${ip} ${port} ${sopid} ${projectName}`)
+    console.log(
+      chalk.green('准备启动app'),
+      sopid + ':' + projectName + ':uiapp'
+    )
+    shelljs.exec(
+      `expect ${helper.locateScripts(
+        'ssh-start-app.sh'
+      )} ${ip} ${port} ${sopid} ${projectName}`
+    )
   }
 
   private cdbStartApp() {
     const { sopid, projectName } = this.conf
-    console.log(chalk.green('准备启动app'), sopid + ':' + projectName + ':uiapp')
-    const cmd = `expect ${helper.locateScripts('cdb-start-app.sh')} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
+    console.log(
+      chalk.green('准备启动app'),
+      sopid + ':' + projectName + ':uiapp'
+    )
+    const cmd = `expect ${helper.locateScripts(
+      'cdb-start-app.sh'
+    )} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
     console.log(cmd)
     shelljs.exec(cmd)
   }
-
 
   private execKchroot(subCommand: string = '') {
     const { adapter, onlyBuildSop } = this.conf
@@ -288,7 +324,9 @@ export default class Build {
 
     const qmakeConfig = debug ? 'qml_debug' : 'release'
 
-    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString('hex')
+    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString(
+      'hex'
+    )
     return `${qmake} ${syberosPro} -r -spec linux-g++ CONFIG+=${qmakeConfig} EX_CONFIG=${exConfig}`
   }
 
@@ -311,7 +349,16 @@ export default class Build {
    * 查找qmake路径
    */
   private locateQmake(): string {
-    return path.join(this.pdkRootPath, 'targets', this.targetName, 'usr', 'lib', 'qt5', 'bin', 'qmake')
+    return path.join(
+      this.pdkRootPath,
+      'targets',
+      this.targetName,
+      'usr',
+      'lib',
+      'qt5',
+      'bin',
+      'qmake'
+    )
   }
   /**
    * 查找项目中的syberos.pro文件路径
@@ -323,7 +370,15 @@ export default class Build {
    * 查找cdb路径
    */
   private locateCdb(): string {
-    return path.join(this.pdkRootPath, 'targets', this.targetName, 'usr', 'lib', 'qt5', 'bin', 'cdb')
+    return path.join(
+      this.pdkRootPath,
+      'targets',
+      this.targetName,
+      'usr',
+      'lib',
+      'qt5',
+      'bin',
+      'cdb'
+    )
   }
-
 }
