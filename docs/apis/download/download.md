@@ -40,13 +40,13 @@ title: start
 ### 示例代码
 ```javascript
 syber.download.start({
-  'url': 'http://xx/xx/xx.exe',
-  'name': 'xxx.exe',
-  success: function(result) {
-    console.log('success',result.path);    
-  },
-  fail: function(error) {
-    console.log('fail: ', error.code, error.msg);
-  }
+    'url': 'http://xx/xx/xx.exe',
+    'name': 'xxx.exe',
+    success: function(result) {
+        console.log('success',result.path);    
+    },
+    fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
 });
 ```

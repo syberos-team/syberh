@@ -2,7 +2,7 @@
 title: setItem
 ---
 
-可以通过键值对的形式将数据存储到本地。同时可以通过该方法，更新已有的数据。
+存储数据：可以通过键值对的形式将数据存储到本地。同时可以通过该方法，更新已有的数据。
 
 支持`Promise` 使用。
 
@@ -18,7 +18,7 @@ title: setItem
 
 #### object.success 回调函数参数
 #### 参数
-| 属性     | 类型    | 是否必填 | 描述                     |
+| 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
 | result | boolean  | 是     | 返回true, 表示执行成功  |
 
@@ -32,25 +32,25 @@ title: setItem
 
 ### 代码示例
 ``` javascript
-    syber.storage.setItem({
-        key: 'name',
-        value: 'syber',
-        success: function(result) {
-            console.log('success',result); 
-        },
-        fail: function(error) {
-            console.log('fail: ', error.code, error.msg);
-        }
-    })
+syber.storage.setItem({
+    key: 'name',
+    value: 'syber',
+    success: function(result) {
+        console.log('success',result); 
+    },
+    fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
+})
 ```
 
 #### Promise
 ``` javascript
-    syber.storage.setItem({
-        key: 'name'
-    }).then(function(result) {
-    console.log('success',result); 
-    }).catch(function(error) {
-        console.log('fail: ', error.code, error.msg);
-    })
+syber.storage.setItem({
+    key: 'name'
+}).then(function(result) {
+console.log('success',result); 
+}).catch(function(error) {
+    console.log('fail: ', error.code, error.msg);
+})
 ```

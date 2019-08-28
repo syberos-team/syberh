@@ -17,7 +17,7 @@ title: removeItem
 
 #### object.success 回调函数参数
 #### 参数
-| 属性     | 类型    | 是否必填 | 描述                     |
+| 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
 | result | boolean  | 是     | 返回true, 表示执行成功  |
 
@@ -31,24 +31,24 @@ title: removeItem
 
 ### 代码示例
 ``` javascript
-    syber.storage.removeItem({
-        key: 'name',
-        success: function(result) {
-            console.log('success',result); 
-        },
-        fail: function(error) {
-            console.log('fail: ', error.code, error.msg);
-        }
-    })
+syber.storage.removeItem({
+    key: 'name',
+    success: function(result) {
+        console.log('success',result); 
+    },
+    fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
+})
 ```
 
 #### Promise
 ``` javascript
-    syber.storage.removeItem({
-        key: 'name'
-    }).then(function(result) {
-    console.log('success',result); 
-    }).catch(function(error) {
-            console.log('fail: ', error.code, error.msg);
-    })
+syber.storage.removeItem({
+    key: 'name'
+}).then(function(result) {
+console.log('success',result); 
+}).catch(function(error) {
+        console.log('fail: ', error.code, error.msg);
+})
 ```

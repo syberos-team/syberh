@@ -28,7 +28,7 @@ title: dial
 ```javascript
 syber.telephony.dial({
 	tel: "150xxxxxxxx",
-	success: function(result){
+	success: function(){
 		console.log('success');  
 	},
 	fail: function(error){
@@ -41,7 +41,7 @@ syber.telephony.dial({
 ```javascript
 syber.telephony.dial({
 	tel: "150xxxxxxxx",
-}).then(function(result) {
+}).then(function() {
 	console.log('success');  
 }).catch(function(fail) {
 	console.log('fail: ', error.code, error.msg);
