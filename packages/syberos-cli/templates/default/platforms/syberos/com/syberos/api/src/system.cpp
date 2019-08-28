@@ -41,6 +41,8 @@ void System::submit(QString typeID, QString callBackID, QString actionName, QVar
 }
 
 void System::aboutPhone(long callBackID,QVariantMap params){
+    Q_UNUSED(callBackID);
+    Q_UNUSED(params);
     int modem = 0;
 
     //qDebug() << "modem2: " << params.value(modem2) << endl;
@@ -100,6 +102,8 @@ void System::aboutPhone(long callBackID,QVariantMap params){
 
 void System::getResolution(long callBackID,QVariantMap params){
 
+    Q_UNUSED(callBackID);
+    Q_UNUSED(params);
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect mm = screen->availableGeometry() ;
     int width = mm.width();
@@ -114,6 +118,8 @@ void System::getResolution(long callBackID,QVariantMap params){
 }
 
 void System::getCoreVersion(long callBackID,QVariantMap params){
+    Q_UNUSED(callBackID);
+    Q_UNUSED(params);
     COsInfo info;
     QString version = info.kernelVersion();
     qDebug() << "getCoreVersion: " << version << endl;
@@ -121,6 +127,8 @@ void System::getCoreVersion(long callBackID,QVariantMap params){
 }
 
 void System::getSysVersionID(long callBackID,QVariantMap params){
+    Q_UNUSED(callBackID);
+    Q_UNUSED(params);
     COsInfo info;
     QString version = info.osVersion();
     qDebug() << "getSysVersionID: " << version << endl;
