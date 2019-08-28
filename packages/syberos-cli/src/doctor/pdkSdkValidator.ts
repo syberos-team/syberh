@@ -1,17 +1,16 @@
 import * as helper from '../syberos/helper'
-import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as fs from 'fs-extra'
+import * as path from 'path'
 import { IErrorLine } from './interface'
 
-
-function buildReport(errors: IErrorLine[]) {
+async function buildReport (errors: IErrorLine[]) {
   return {
     desc: '检查系统编译环境',
     lines: errors
   }
 }
 
-function checkSyberosPdk(): IErrorLine[] {
+function checkSyberosPdk (): IErrorLine[] {
   const pdkPath = helper.locatePdk()
   const errorLines: IErrorLine[] = []
 
@@ -33,7 +32,7 @@ function checkSyberosPdk(): IErrorLine[] {
   return errorLines
 }
 
-function checkTarget(): IErrorLine[] {
+function checkTarget (): IErrorLine[] {
   const pdkPath = helper.locatePdk()
   const errorLines: IErrorLine[] = []
 
@@ -58,7 +57,7 @@ function checkTarget(): IErrorLine[] {
   return errorLines
 }
 
-function checkSyberOSSDK(): IErrorLine[] {
+function checkSyberOSSDK (): IErrorLine[] {
   const sdkPath = helper.locateSdk()
   const errorLines: IErrorLine[] = []
   if (!fs.pathExistsSync(sdkPath)) {

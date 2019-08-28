@@ -1,86 +1,88 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>clipboard</title>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>auth</title>
+    <link rel="stylesheet" href="../common/mui/mui.css" />
+    <link rel="stylesheet" href="../common/common.css" />
     <style type="text/css">
-      button {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 7em;
-      }
-
-      .button2 {
-        font-size: 2em;
-        margin: 2em 2em;
-        height: 2em;
-        width: 80%;
-      }
-
-      .text {
-        font-size: 2em;
-      }
+        #pathDiv{  width: 100%;
+            height: auto;
+            word-wrap:break-word;
+            word-break:break-all;
+            overflow: hidden;
+        }
     </style>
-    <script src="../lib/vconsole.min.js"></script>
-    <script src="../lib/syber.min.js"></script>
-  </head>
+</head>
+
   <body>
-    <button id="setClipboardData" onclick="getClipboardData()">
-      getClipboardData
-    </button>
-    <button id="setClipboardData" onclick="setClipboardData()">
-      setClipboardData
-    </button>
 
-    <input id="text" class="button2" />
-    <button onclick="goBack()">goBack()</button>
+    <div class="mui-content pt0">
+        <ul class="mui-table-view ">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right api-class" onclick="setClipboardData()">复制</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right api-class" onclick="getClipboardData()">粘贴</a>
+            </li>
+        </ul>
+    </div>
 
-    <div class="text" id="content"></div>
+    <div class="mui-card-content">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell">输入剪切板内容：<input type="text" id="text"/></li>
+      </ul>
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell">显示剪切板内容：<input type="text" id="text1"/></li>
+      </ul>
+    </div><br>
+    <img id="img" width="80%" height="80%">
+
+    <script type="text/javascript" src="../common/mui/mui.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+    <script type="text/javascript" src="../../dist/quick.js"></script>
+    <script type="text/javascript" src="../../dist/quick.native.js"></script>
+    <script type="text/javascript" src="../../dist/quick.h5.js"></script>
+    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+    <script type="text/javascript" src="../lib/syber.min.js"></script>
+
     <script>
-      var vConsole = new VConsole()
-      console.log('Hello world')
-      function print(str) {
-        document.getElementById('content').innerHTML = JSON.stringify(str)
-      }
-      syber.ready(function() {
-        document.getElementById('content').innerHTML = '注册成功'
-      })
-      document.getElementById('content').innerHTML = JSON.stringify(syber.os)
+        quick.error(function(message) {
+            alert('错误:' + JSON.stringify(message));
+        });
+        quick.config();
+        quick.ready(function() {
+            showTips('注册成功');
+        });
 
-      function goBack() {
-        syber.webview.goBack({
-          success: function(result) {
-            console.info(result)
-          },
-          fail: function(error) {
-            console.info(error)
-          }
-        })
-      }
-      function setClipboardData() {
-       syber.clipboard.setClipboardData({
-          data: 'lihejia text' ,
-          success: function(result) {
-            document.getElementById('text').value = result.data
-            console.info(result.data)
-          },
-          error: function(error) {
-            console.info(error)
-          }
-        })
-      }
+        function setClipboardData() {
+            var value = document.getElementById('text').value
+            syber.clipboard.setClipboardData({
+                data: value ,
+                success: function(result) {
+                    console.info(result.data)
+                },
+                error: function(error) {
+                    console.info(error)
+                }
+            })
+        }
 
-      function getClipboardData() {
-          syber.clipboard.getClipboardData({
-          success: function(result) {
-            document.getElementById('text').value = result.data
-          },
-          error: function(error) {
-            console.info(error)
-          }
-        })
-      }
+        function getClipboardData() {
+            syber.clipboard.getClipboardData({
+                success: function(result) {
+                    document.getElementById('text1').value = result.data
+                },
+                error: function(error) {
+                    console.info(error)
+                }
+            })
+        }
     </script>
   </body>
 </html>

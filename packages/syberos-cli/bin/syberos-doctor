@@ -1,16 +1,28 @@
 #!/usr/bin/env node
+const _ = require('lodash/fp')
 const chalk = require('chalk')
 const doctor = require('../dist/doctor').default
+// appPath
+const appPath = process.cwd()
 
-for (const validator of doctor.validators) {
-  const result = validator()
-  if (result.lines && result.lines.length > 0) {
-    console.log(chalk.red(`${result.desc}失败`))
-    for (const errorLine of result.lines) {
-      console.log(chalk.red(`  > ${errorLine.desc}`))
-      console.log(chalk.blue(`  >> ${errorLine.solution}`))
-    }
-  } else {
-    console.log(chalk.green(`${result.desc}成功`))
-  }
+async function checkAll (validators) {
+  const reportsP = _.map(validator => validator({ appPath }), validators)
+  const reports = await Promise.all(reportsP)
+  printReport(reports)
 }
+
+function printReport (resultArr) {
+  _.forEach(result => {
+    if (result.lines && result.lines.length > 0) {
+      console.log(chalk.red(`${result.desc}失败`))
+      for (const errorLine of result.lines) {
+        console.log(chalk.red(`  > ${errorLine.desc}`))
+        console.log(chalk.blue(`  >> ${errorLine.solution}`))
+      }
+    } else {
+      console.log(chalk.green(`${result.desc}成功`))
+    }
+  }, resultArr)
+}
+
+checkAll(doctor.validators).catch(console.error)
