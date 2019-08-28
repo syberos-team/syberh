@@ -4,7 +4,7 @@ title: getClipboardData
 
 获取系统剪贴板的内容 
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.clipboard.getClipboardData(Object object)
 ### 参数
@@ -16,9 +16,9 @@ title: getClipboardData
 
 #### object.success 回调函数参数
 #### 参数
-| 属性     | 类型    | 是否必填 | 描述                     |
+| 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
-| data | String | 剪贴板的内容 |
+| data | String |   |剪贴板的内容 |
 
 #### object.fail 回调函数
 #### 参数
@@ -40,7 +40,7 @@ syber.clipboard.getClipboardData({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
 syber.clipboard.getClipboardData()
     .then(function(result) {
@@ -48,5 +48,5 @@ syber.clipboard.getClipboardData()
     }).catch(function(error) {
         console.log('fail: ', error.code, error.msg);
     });
-```
+``` -->
 

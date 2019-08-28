@@ -4,7 +4,7 @@ title: dial
 
 拨打电话
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.telephony.dial(Object object)
 ### 参数
@@ -28,7 +28,7 @@ title: dial
 ```javascript
 syber.telephony.dial({
 	tel: "150xxxxxxxx",
-	success: function(result){
+	success: function(){
 		console.log('success');  
 	},
 	fail: function(error){
@@ -37,14 +37,14 @@ syber.telephony.dial({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.telephony.dial({
 	tel: "150xxxxxxxx",
-}).then(function(result) {
+}).then(function() {
 	console.log('success');  
 }).catch(function(fail) {
 	console.log('fail: ', error.code, error.msg);
-});
+}); -->
 ```
 
