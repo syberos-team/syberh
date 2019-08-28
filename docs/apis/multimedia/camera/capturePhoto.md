@@ -3,7 +3,7 @@ title: takePictureImmediately
 ---
 
 
-拍照：用于用户拍摄照片。
+拍照：拍摄照片。
 
 可以对拍摄后的照片进行裁剪，拍摄成功则返回图片路径。
 
@@ -37,6 +37,7 @@ title: takePictureImmediately
 ### **拍照代码示例**
 ``` javascript
 syber.camera.takePictureImmediately({
+	enableCut:false,
 	success: function(result){
 		console.log('success: ', result.path);
 	},

@@ -2,7 +2,7 @@
 title: prompt
 ---
 
-输入框：用于用户输入信息。
+输入框：用户输入信息。
 
 可以设置输入框的标题、按钮文字等，用户点击关闭。
 
@@ -35,32 +35,30 @@ title: prompt
 
 ### 代码示例
 ```javascript
-    syber.modal.prompt({
-        content: 'This is a prompt',
-        success: function(result) {
-            console.log('用户输入的值：', result)
-        },
-        fail: function(error) {
-	    console.log('fail: ', error.code, error.msg);
-        }
-    })
+syber.modal.prompt({
+    content: 'This is a prompt',
+    success: function(result) {
+        console.log('success',result); 
+    },
+    fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
+})
 ```
 
 #### Promise
 ```javascript
-    syber.modal.prompt({
-        content: 'This is a prompt',
-    }).then(function(result) {
-        console.log('用户输入的值 =》', result)
-    }).catch(function(error) {
-	    console.log('fail: ', error.code, error.msg);
-    })
+syber.modal.prompt({
+    content: 'This is a prompt',
+}).then(function(result) {
+    console.log('success',result);
+}).catch(function(error) {
+    console.log('fail: ', error.code, error.msg);
+})
 ```
 
 #### 原生prompt调用
 ```javascript
-    var result = prompt('哈哈哈', 'placeholder')
-    if (result !== '') {
-        console.log('用户输入的值 =》', result)
-    }
+var result = prompt('提示', 'This is a prompt')
+console.log(result); 
 ```

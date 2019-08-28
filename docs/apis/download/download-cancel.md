@@ -3,7 +3,7 @@ title: cancel
 ---
 
 
-取消下载：用于取消正在下载的文件。
+取消下载：取消正在下载的文件。
 
 设置文件下载id，根据文件下载id可以取消文件下载。
 
@@ -35,12 +35,12 @@ title: cancel
 ### 示例代码
 ```javascript
 syber.download.cancel({
-  'downloadID': downloadId,
-  success: function (result) {
-    console.log('success',result.path);   
-  },
-  fail: function (error) {
-    console.log('fail: ', error.code, error.msg);
-  }
+    'downloadID': downloadID,
+    success: function (result) {
+        console.log('success',result.path);   
+    },
+    fail: function (error) {
+        console.log('fail: ', error.code, error.msg);
+    }
 });
 ```
