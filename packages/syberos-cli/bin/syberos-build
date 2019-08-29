@@ -3,10 +3,9 @@ const path = require('path')
 const fs = require('fs-extra')
 const program = require('commander')
 const chalk = require('chalk')
-const _ = require('lodash')
 const build = require('../dist/build').default
 const { targetReset } = require('../dist/build/target')
-const { PROJECT_CONFIG, BUILD_TYPES } = require('../dist/util/constants')
+const { PROJECT_CONFIG } = require('../dist/util/constants')
 const appPath = process.cwd()
 const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 
@@ -18,7 +17,7 @@ program
   .option('--port [port]', 'Specified port')
   .parse(process.argv)
 
-const { type, debug, target, port } = program
+const { type, debug, port } = program
 let { env } = program
 
 env = process.env.NODE_ENV || env
@@ -49,7 +48,7 @@ process.env.SYBEROS_ENV = type
 
 const projectConf = require(projectConfPath)
 
-console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectname)}`))
+console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
 build(appPath, {
   type,

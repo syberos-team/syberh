@@ -7,7 +7,7 @@
 
 const React = require('react')
 class Footer extends React.Component {
-  render() {
+  render () {
     return (
       <footer className="footer" id="footer">
         <div className="footer-container">
@@ -18,7 +18,7 @@ class Footer extends React.Component {
             <div className="footer-link">
               <h3>相关资源</h3>
               <p>
-                <a className="link" href="#">
+                <a className="link" href="/docs/README.html">
                   SyberOS-开发文档
                 </a>
               </p>
@@ -26,12 +26,12 @@ class Footer extends React.Component {
             <div className="footer-link">
               <h3>社区</h3>
               <p>
-                <a href="https://github.com/syberos-team/syberos-hybrid/issues">
+                <a target="_blank" href="https://github.com/syberos-team/syberos-hybrid/issues">
                   反馈建议
                 </a>
               </p>
               <p>
-                <a href="https://github.com/syberos-team/syberos-hybrid">
+                <a target="_blank" href="https://github.com/syberos-team/syberos-hybrid">
                   GitHub
                 </a>
               </p>
@@ -41,7 +41,7 @@ class Footer extends React.Component {
               <p>
                 <a
                   target="_blank"
-                  href="http://www.syberos.com/Introductio/index/id/1250"
+                  href="http://www.syberos.com/"
                 >
                   元心科技
                 </a>

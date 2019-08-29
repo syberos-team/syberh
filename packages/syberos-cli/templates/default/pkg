@@ -8,10 +8,10 @@
     "css": "<%= css %>"
   },
   "scripts": {
-    "build:device": "taro build --type DEVICE",
-    "build:simulator": "taro build --type SIMULATOR",
-    "dev:simulator": "npm run build:weapp -- --watch",
-    "dev:device": "npm run build:device -- --watch"
+    "doctor": "syberos doctor",
+    "build:simulator": "syberos build --type simulator",
+    "build:device": "syberos build --type device",
+    "build": "syberos build"
   },
   "author": "",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-import": "^2.12.0",
+    "eslint-config-taro": "1.3.1",
     "stylelint": "9.3.0"
-
   }
 }
