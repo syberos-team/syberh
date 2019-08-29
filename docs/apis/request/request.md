@@ -43,7 +43,7 @@ title: request
 ### 示例代码
 
 ```javascript
-syber.netWork.request({
+syber.network.request({
     url: 'https://*',
     success: function(result) {
         console.log('success',result);            
@@ -56,7 +56,7 @@ syber.netWork.request({
 
 <!-- #### Promise
 ```javascript
-syber.netWork.request({
+syber.network.request({
         url: 'https://*',
     }).then(function(result) {
         console.log('success',result); 
