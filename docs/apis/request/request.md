@@ -23,6 +23,15 @@ title: request
 | fail   | function |  |  否     | 回调失败      |
 
 
+#### object.success回调函数
+#### 参数
+| 属性 | 类型  | 描述 |
+| -- | -- | -- |
+| statusCode | String | 响应状态码 |
+| header | Object  | 响应头信息 |
+| data | Object  | 响应数据，如dataType是json，响应数据非json格式则返回空 |
+
+
 #### object.fail回调函数
 #### 参数
 | 属性 | 类型  | 描述 |

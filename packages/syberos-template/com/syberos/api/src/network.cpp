@@ -2,20 +2,21 @@
 #include <QDebug>
 #include <QNetworkAccessManager>
 #include <QJsonObject>
+#include <QNetworkReply>
 
-int NetWork::typeId = qRegisterMetaType<NetWork *>();
+int Network::typeId = qRegisterMetaType<Network *>();
 
-NetWork::NetWork()
+Network::Network()
 {
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(finished(QNetworkReply*)));
 }
-NetWork::~NetWork()
+Network::~Network()
 {
     delete manager;
 }
-void NetWork::request(QString callBackID, QString actionName, QVariantMap params)
+void Network::request(QString callBackID, QString actionName, QVariantMap params)
 {
 
     // 检查网络
@@ -113,13 +114,22 @@ void NetWork::request(QString callBackID, QString actionName, QVariantMap params
 }
 
 
-void NetWork::finished(QNetworkReply *reply)
+void Network::finished(QNetworkReply *reply)
 {
     qDebug() << Q_FUNC_INFO << endl;
 
     QVariant statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
 
     qDebug() << Q_FUNC_INFO << " statusCode: " << statusCode.toString() << " error: " << reply->error() << endl;
+
+    QJsonObject headers;
+
+    QList<QPair<QByteArray, QByteArray> > ls = reply->rawHeaderPairs();
+    for(qint64 i=0; i<ls.size();i++){
+        QByteArray key = ls.at(i).first;
+        QByteArray val = ls.at(i).second;
+        headers.insert(QString(key),QString(val));
+    }
 
     QString result = QString(reply->readAll());
 
@@ -141,16 +151,17 @@ void NetWork::finished(QNetworkReply *reply)
         }
         it++;
     }
-//    qDebug() << Q_FUNC_INFO << " tasks.size(): " << tasks.size() <<endl;
-//    qDebug() << Q_FUNC_INFO << " callBackId: " << callBackId <<endl;
 
     if(QNetworkReply::NoError == reply->error()) {
+        QJsonObject json;
+        json.insert("statusCode", statusCode.toString());
+        json.insert("header", headers);
         if (datatype.toLower() == "json") {
-            QJsonObject json;
-            json.insert("data", result);
+            json.insert("data", QJsonDocument::fromJson(result.toLocal8Bit().data()).object());
             emit success(callBackId.toLong(), json);
         } else {
-            emit success(callBackId.toLong(), result);
+            json.insert("data", result);
+            emit success(callBackId.toLong(), json);
         }
     }else{
         qDebug() << Q_FUNC_INFO << " result error " <<endl;
