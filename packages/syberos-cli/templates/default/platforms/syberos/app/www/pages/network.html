@@ -87,7 +87,7 @@
       }
 
       if (method == "get") {
-        goGet();
+        goGet(dataType);
       } else if (method == "post") {
         goPost(dataType);
       } else if (method == "put") {
@@ -98,15 +98,16 @@
 
     }
 
-    function goGet() {
-      syber.netWork.request({
-        url: 'http://172.16.23.91:8000/get',
+    function goGet(dataType) {
+      syber.network.request({
+        url: 'http://www.baidu.com',
         headers: {
           "Content-Type": "application/json; charset=utf-8"
         },
+        dataType: dataType,
         success: function (result) {
           document.getElementById("show-rsp").innerHTML = "GET请求响应：<br/>" + result.data;
-          console.info(result)
+          console.info(JSON.stringify(result))
         },
         fail: function (error) {
           document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
@@ -115,7 +116,7 @@
       })
     }
     function goPost(dataType) {
-      syber.netWork.request({
+      syber.network.request({
         url: 'http://172.16.23.91:8000/post',
         headers: {
           "Content-Type": "application/json; charset=utf-8"
@@ -143,7 +144,7 @@
       })
     }
     function goPut(dataType) {
-      syber.netWork.request({
+      syber.network.request({
         url: 'http://172.16.23.91:8000/put',
         headers: {
           "hello": "hi"
@@ -167,7 +168,7 @@
       })
     }
     function goDel() {
-      syber.netWork.request({
+      syber.network.request({
         url: 'http://172.16.23.91:8000/delete',
         method: 'delete',
         success: function (result) {
