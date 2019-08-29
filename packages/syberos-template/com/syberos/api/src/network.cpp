@@ -55,9 +55,9 @@ void Network::request(QString callBackID, QString actionName, QVariantMap params
         request.setSslConfiguration(config);
     }
 
-    QVariantMap headers = params.value("headers").toMap();
+    QVariantMap headers = params.value("header").toMap();
 
-    qDebug() << Q_FUNC_INFO << "headers is " << headers  <<endl;
+    qDebug() << Q_FUNC_INFO << "header is " << headers  <<endl;
 
     QVariantMap::Iterator headerIt = headers.begin();
     while (headerIt != headers.end()) {
