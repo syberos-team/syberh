@@ -8,7 +8,7 @@ Syberos 应用必须在 ubuntu 64位系统下编译打包，推荐使用 Ubuntu 
 
 ### 安装 SDK
 
-下载依赖包 [sdk_install_package.tgz](/#)，解压并进行安装，安装时需要root权限
+下载依赖包 `sdk_install_package.tgz`，解压并进行安装，安装时需要root权限
 
 ```bash
 # 将 sdk_install_package.tgz 解压至当前目录
@@ -19,7 +19,7 @@ $ cd sdk_install_package/ubuntu14.04
 $ sudo dpkg -i *.deb
 ```
 
-接下来安装 SDK，下载 [SyberOS-sdk_compile.build253-SDK-20170220.run](/#)，添加执行权限并运行
+接下来安装 SDK，下载 `SyberOS-sdk_compile.build253-SDK-20170220.run`，添加执行权限并运行
 
 ```bash
 # 添加执行权限
@@ -59,21 +59,21 @@ $ ./SyberOS-sdk_compile.build253-SDK-20170220.run
 
 sdk: 
 
-[syberos_sdk-main_dev-build354.tar.bz2](/#)
+`syberos_sdk-main_dev-build354.tar.bz2`
 
 target: 
 
-[target-armv7tnhl-ginkgo_millet-build287.tar.bz2](/#)
+`target-armv7tnhl-ginkgo_millet-build287.tar.bz2`
 
-[target-armv7tnhl-main_dev-build774.tar.bz2](/#)
+`target-armv7tnhl-main_dev-build774.tar.bz2`
 
-[target-armv7tnhl-os_2_1_lts-build777.tar.bz2](/#)
+`target-armv7tnhl-os_2_1_lts-build777.tar.bz2`
 
-[target-armv7tnhl-xuanwu-build782.tar.bz2](/#)
+`target-armv7tnhl-xuanwu-build782.tar.bz2`
 
-[target-i686-main_dev-build564.tar.bz2](/#)
+`target-i686-main_dev-build564.tar.bz2`
 
-[target-i686-xuanwu-build762.tar.bz2](/#)
+`target-i686-xuanwu-build762.tar.bz2`
 
 
 1. 启动 SyberOS SDK
