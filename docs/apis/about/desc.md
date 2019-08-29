@@ -32,13 +32,13 @@ syber.modal.alert({
     fail: fucntion(error) {
         console.log('fail: ', error.code, error.msg);
     }
-  })
+})
 ```
 
 <!-- 同时，为了方便代码书写，API 进行了 `promisify` 化，你可以像使用 Promise 那样进行调用，例如
 
 ``` javascript
-syber.modal.alert({
+  syber.modal.alert({
     content: 'This is a alert',
   }).then(function() {
     console.log('success');
