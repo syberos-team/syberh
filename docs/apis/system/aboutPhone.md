@@ -4,15 +4,15 @@ title: aboutPhone
 
 ## syber.system.aboutPhone(Object object)
 
-用于用户获取手机信息。
+获取手机信息。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ### 参数
 
 #### Object object
 
-| 属性    | 类型     | 是否必填 | 描述                                                         |
+| 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
@@ -84,31 +84,32 @@ syber.system.aboutPhone({
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
-syber.system.aboutPhone().then(function(result) {
-    console.log('deviceId: ', result.deviceId);
-    console.log('brand: ', result.brand);
-    console.log('manufacturer: ', result.manufacturer);
-    console.log('model: ', result.model);
-    console.log('name: ', result.name);
-    console.log('imei: ', result.imei);
-    console.log('simCardNumbers: ', result.simCardNumbers);
-    console.log('imsis: ', result.imsis);
-    console.log('hardware: ', result.hardware);
-    console.log('KernelVersion: ', result.KernelVersion);
-    console.log('osVersion: ', result.osVersion);
-    console.log('osVersionCode: ', result.osVersionCode);
-    console.log('softwareVersion: ', result.softwareVersion);
-    console.log('screenWidth: ', result.screenWidth);
-    console.log('screenHeight: ', result.screenHeight);
-    console.log('windowWidth: ', result.windowWidth);
-    console.log('windowHeight: ', result.windowHeight);
-    console.log('statusBarHeight: ', result.statusBarHeight);
-    console.log('pixelRatio: ', result.pixelRatio);
-    console.log('language: ', result.language);
-    console.log('region: ', result.region);
-}).catch(function(error) {
-    console.log('fail: ', error.code, error.msg);
-});
-```
+syber.system.aboutPhone()
+    .then(function(result) {
+        console.log('deviceId: ', result.deviceId);
+        console.log('brand: ', result.brand);
+        console.log('manufacturer: ', result.manufacturer);
+        console.log('model: ', result.model);
+        console.log('name: ', result.name);
+        console.log('imei: ', result.imei);
+        console.log('simCardNumbers: ', result.simCardNumbers);
+        console.log('imsis: ', result.imsis);
+        console.log('hardware: ', result.hardware);
+        console.log('KernelVersion: ', result.KernelVersion);
+        console.log('osVersion: ', result.osVersion);
+        console.log('osVersionCode: ', result.osVersionCode);
+        console.log('softwareVersion: ', result.softwareVersion);
+        console.log('screenWidth: ', result.screenWidth);
+        console.log('screenHeight: ', result.screenHeight);
+        console.log('windowWidth: ', result.windowWidth);
+        console.log('windowHeight: ', result.windowHeight);
+        console.log('statusBarHeight: ', result.statusBarHeight);
+        console.log('pixelRatio: ', result.pixelRatio);
+        console.log('language: ', result.language);
+        console.log('region: ', result.region);
+    }).catch(function(error) {
+        console.log('fail: ', error.code, error.msg);
+    });
+``` -->

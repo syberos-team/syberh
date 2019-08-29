@@ -2,11 +2,11 @@
 title: request
 ---
 
-网络请求：用于发起网络请求。
+网络请求：发起网络请求。
 
 可以设置请求地址、请求类型、请求参数等。返回值由请求地址决定，支持json/text格式。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 
 ## syber.netWork.request(Object object)
@@ -35,34 +35,24 @@ title: request
 
 ```javascript
 syber.netWork.request({
-  url: 'https://*',
-  method: 'POST',
-  data: {
-    'from': 'from',
-    'production': 'production',
-  },
-  success: function(result) {
-    console.log('success',result);            
-  },
-    fail: function(error) {
-    console.log('fail: ', error.code, error.msg);
-  }
+    url: 'https://*',
+    success: function(result) {
+        console.log('success',result);            
+    },
+      fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.netWork.request({
-  url: 'https://*',
-  method: 'POST',
-  data: {
-    'from': 'from',
-    'production': 'production',
-  }
-}).then(function(result) {
-    console.log('success',result); 
-}).catch(function(error) {
-    console.log('fail: ', error.code, error.msg);
-});
-```
+        url: 'https://*',
+    }).then(function(result) {
+        console.log('success',result); 
+    }).catch(function(error) {
+        console.log('fail: ', error.code, error.msg);
+    });
+``` -->
 
