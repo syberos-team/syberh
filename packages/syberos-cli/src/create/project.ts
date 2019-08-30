@@ -79,7 +79,7 @@ export default class Project extends Creator {
     const conf = this.conf
 
     if (conf.useDemo === true) {
-      console.log(chalk.green(`正在创建demo项目!`))
+      console.log(chalk.green(`正在创建示例项目!`))
       console.log()
     }
 
