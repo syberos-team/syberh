@@ -55,7 +55,7 @@ export default class Build {
         "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
       )
       const sopPath = stdout.trim()
-      console.log(chalk.bgGreen('打包完成，SOP包的位置是=》'), sopPath)
+      console.log(chalk.bgGreen('打包完成，SOP包的位置是=>'), sopPath)
       shelljs.exit(0)
     }
   }
