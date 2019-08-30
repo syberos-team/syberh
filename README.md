@@ -1,7 +1,3 @@
----
-title: SyberOS-Hybrid 介绍
----
-
 ## 简介
 
 SyberOS-Hybrid 框架是在 SyberOS 上支持 Hybrid 开发解决方案，基于 WebView UI 的方案进行实现。SyberOS-Hybrid 框架主要包括 CLI(开发工具)、JS-SDK、Native-SDK 模块。
