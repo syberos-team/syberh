@@ -15,28 +15,31 @@ Hybrid App 的本质，其实是在原生的 App 中，使用 WebView 作为容�
 ```js
 //核心代码
 if (os.syber) {
-  navigator.qt.postMessage(messageStr);
+  navigator.qt.postMessage(messageStr)
 } else {
   // 浏览器
-  warn(`浏览器中jsbridge无效,对应scheme:${messageStr}`);
+  warn(`浏览器中jsbridge无效,对应scheme:${messageStr}`)
 }
 ```
 
-## 开发工具CLI
+## 开发工具 CLI
 
-App快速开发的脚手架,提供简洁的的命令,即可从APP的创建到发布APP到手机中。
+App 快速开发的脚手架,提供简洁的的命令,即可从 APP 的创建到发布 APP 到手机中。
 
 创建模板项目
+
 ```bash
 $ syberos init myapp
 ```
 
 打包项目
+
 ```bash
 $ syberos build --type device
 ```
 
 快速检查用户本地开发环境
+
 ```bash
 $ syberos doctor
 ```
@@ -47,7 +50,7 @@ $ syberos doctor
 
 ### 项目的结构
 
-整个项目基于 ES6、Airbnb 代码规范，使用 webpack 构建，部分重要代码进行了 Karma + Moch a单元测试
+整个项目基于 ES6、Airbnb 代码规范，使用 webpack 构建，部分重要代码进行了 Karma + Mocha 单元测试
 
 整体目录结构如下：
 
@@ -57,7 +60,7 @@ jsbridge
     |   |- syber.min.js
     |   |- syber.h5.js
     |- src              // 核心源码
-    |   |- api          // 各个环境下的api实现 
+    |   |- api          // 各个环境下的api实现
     |   |   |- h5       // h5下的api
     |   |   |- native   // quick下的api
     |   |- core         // 核心控制
@@ -65,7 +68,7 @@ jsbridge
     |   |- inner        // 内部用到的代码
     |   |- util         // 用到的工具类
     |- test             // 单元测试相关
-    |   |- unit         
+    |   |- unit
     |   |   |- karma.xxx.config.js
     |   |- xxx.spec.js
     |   |- ...
@@ -77,43 +80,45 @@ jsbridge
 
 ```js
 Object.defineProperty(apiParent, apiName, {
-    configurable: true,
-    enumerable: true,
-    get: function proxyGetter() {
-        // 确保get得到的函数一定是能执行的
-        const nameSpaceApi = proxysApis[finalNameSpace];
-        // 得到当前是哪一个环境，获得对应环境下的代理对象
-        return nameSpaceApi[getCurrProxyApiOs(quick.os)] || nameSpaceApi.h5;
-    },
-    set: function proxySetter() {
-        alert('不允许修改syber API');
-    },
-});
+  configurable: true,
+  enumerable: true,
+  get: function proxyGetter() {
+    // 确保get得到的函数一定是能执行的
+    const nameSpaceApi = proxysApis[finalNameSpace]
+    // 得到当前是哪一个环境，获得对应环境下的代理对象
+    return nameSpaceApi[getCurrProxyApiOs(quick.os)] || nameSpaceApi.h5
+  },
+  set: function proxySetter() {
+    alert('不允许修改syber API')
+  }
+})
 
 //...
 
-syber.extendModule('modal', [{
+syber.extendModule('modal', [
+  {
     namespace: 'alert',
     os: ['syber'],
     defaultParams: {
-        message: '',
+      message: ''
     },
     runCode(message) {
-        alert('syber-' + message);
-    },
-}]);
+      alert('syber-' + message)
+    }
+  }
+])
 ```
 
 ### 最终效果
 
-框架设计的最终目的是提供给用户一个简单易用的API,同时也可以保证开发者可以依托目前的模式进行API的拓展开发。
+框架设计的最终目的是提供给用户一个简单易用的 API,同时也可以保证开发者可以依托目前的模式进行 API 的拓展开发。
 
 最终使用的示例如下:
 
 ```js
 syber.modal.alert({
   content: 'This is a alert',
-  success: fucntion(result) {  
+  success: fucntion(result) {
       console.log(result)
   },
   fail: fucntion(error) {
@@ -137,6 +142,7 @@ api
 ```
 
 主要实现了以下功能
-1. 负责和JS-SDK的通讯
-2. 通过插件的形式统一管理目前实现的qml组件功能。
-3. 负责和C++代码进行通讯
+
+1. 负责和 JS-SDK 的通讯
+2. 通过插件的形式统一管理目前实现的 qml 组件功能。
+3. 负责和 C++代码进行通讯

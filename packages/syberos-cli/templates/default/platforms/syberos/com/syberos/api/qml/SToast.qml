@@ -49,7 +49,7 @@ Rectangle {
     opacity: 0
 
     Column {
-        spacing: 40;
+        spacing: scaleFactor * 20;
         anchors.centerIn: parent
         Image {
             id: toastIcon
@@ -105,9 +105,9 @@ Rectangle {
         toastIcon.visible = true;
 
         if(icon === "success"){
-            stoast.iconPath = "qrc:/com/syberos/api/res/toast-fail.png";
-        }else if(icon === "error"){
             stoast.iconPath = "qrc:/com/syberos/api/res/toast-success.png";
+        }else if(icon === "error"){
+            stoast.iconPath = "qrc:/com/syberos/api/res/toast-fail.png";
         }else if(icon === "none"){
             toastIcon.visible = false;
             stoast.title = getOutputStr(stoast.title, stoast.textLength);

@@ -56,7 +56,6 @@ $ npm install
 
 进入项目目录开始开发
 
-
 ### 注意事项
 
 值得一提再提的是，如果安装过程出现`sass`相关的安装错误，请在安装[`mirror-config-china`](https://www.npmjs.com/package/mirror-config-china)后重试。
@@ -65,10 +64,15 @@ $ npm install
 $ npm install -g mirror-config-china
 ```
 
+### 检查环境
+
+```bash
+$ syberos doctor
+```
+
 ### 编译打包
 
 开发过程中可以使用模拟器或真机运行应用
-
 
 ```bash
 # 运行于模拟器
@@ -76,8 +80,10 @@ $ syberos build --type simulator
 
 # 运行于手机
 $ syberos build --type device
-```
 
+# 只打包不运行
+$ syberos build
+```
 
 ## 更新
 
@@ -86,16 +92,8 @@ Syberos 提供了更新命令来更新 CLI 工具自身和项目中 Syberos 相�
 更新 Syberos CLI 工具
 
 ```bash
-# syberos
-$ syberos update self
 # npm
 npm i -g @syberos/cli@latest
 # yarn
 yarn global add @syberos/cli@latest
-```
-
-更新项目中 Syberos 相关的依赖
-
-```bash
-$ syberos update project
 ```

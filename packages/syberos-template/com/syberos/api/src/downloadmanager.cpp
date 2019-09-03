@@ -202,6 +202,6 @@ void DownloadManager::onFinished(){
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
 void DownloadManager::onError(QNetworkReply::NetworkError code){
-    closeDownload();
     emit signalDownloadError(m_downloadId, code, m_reply->errorString());
+    closeDownload();
 }

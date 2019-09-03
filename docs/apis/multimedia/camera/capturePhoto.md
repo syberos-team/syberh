@@ -3,7 +3,7 @@ title: takePictureImmediately
 ---
 
 
-拍照：用于用户拍摄照片。
+拍照：拍摄照片。
 
 可以对拍摄后的照片进行裁剪，拍摄成功则返回图片路径。
 
@@ -15,7 +15,7 @@ title: takePictureImmediately
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
-| enableCut | boolean | false       | 是       | 是否启动裁剪                           |
+| enableCut | boolean | false       | 否       | 是否启动裁剪                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
