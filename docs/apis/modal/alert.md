@@ -2,11 +2,11 @@
 title: alert
 ---
 
-弹出框：用于提示或警告用户。
+弹出框：提示或警告用户。
 
 可以设置弹出框的标题、标题图标、内容、按钮文字、按钮文字颜色，仅支持成功、警告图标，用户点击关闭。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 
 
@@ -40,37 +40,29 @@ title: alert
 
 ### 代码示例
 ```javascript
-    syber.modal.alert({
-        title:"提示",
-        titleIcon:"success",
-        confirmText:"确定",
-        confirmColor:"#ff0000",
-        content: 'This is a alert',
-        success: function() {
-		    console.log('success');            
-        },
-        fail: function(error) {
-		    console.log('fail: ', error.code, error.msg);
-        }
-    })
+syber.modal.alert({
+    content: 'This is a alert',
+    success: function() {
+        console.log('success');            
+    },
+    fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
+})
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
-    syber.modal.alert({
-        title:"提示",
-        titleIcon:"success",
-        confirmText:"确定",
-        confirmColor:"#ff0000",
-        content: 'This is a alert',
-    }).then(function() {
-        console.log('success');
-    }).catch(function(error) {
-		console.log('fail: ', error.code, error.msg);
-    })
-```
+syber.modal.alert({
+    content: 'This is a alert',
+}).then(function() {
+    console.log('success');
+}).catch(function(error) {
+    console.log('fail: ', error.code, error.msg);
+})
+``` -->
 
 #### 原生alert调用
 ```javascript
-    alert('我是alert')
+alert('This is a alert')
 ```

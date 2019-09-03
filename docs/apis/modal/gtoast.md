@@ -2,11 +2,11 @@
 title: gtoast
 ---
 
-提示框：用于提示用户某个操作的简单反馈。
+提示框：提示用户某个操作的简单反馈。
 
 可以设置提示框的内容，2.5秒后提示框自动消失。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 > gtoast 为syberos中自带的toast
 
@@ -29,21 +29,22 @@ title: gtoast
 
 ### 代码示例
 ```javascript
-// 方式一:
 syber.modal.gtoast({
-    title: 'This is gtoast）',
+    title: 'This is gtoast',
     success: function () {
-        console.log('toast执行成功')
+        console.log('success');
     },
     fail: function (error) {
 	    console.log('fail: ', error.code, error.msg);
     }
 });
+```
 
-//方式二:
+<!-- #### Promise
+```javascript
 syber.modal.gtoast({
     title: 'This is gtoast'
 }).catch(function(error) {
 	console.log('fail: ', error.code, error.msg);
 });
-```
+``` -->

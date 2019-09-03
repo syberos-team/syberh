@@ -11,11 +11,14 @@ program
   .option('--no-typescript', '不使用TypeScript')
   .option('--template [template]', '项目模板(default)')
   .option('--css [css]', 'CSS预处理器(sass/less/stylus/none)')
+  .option('--example', '创建示例项目')
   .parse(process.argv)
 
 const args = program.args
 const { template = 'default', description, name, css } = program
 let typescript
+// 是否创建示例项目
+let useDemo = false
 
 /**
  * 非标准做法
@@ -27,6 +30,10 @@ if (program.rawArgs.indexOf('--typescript') !== -1) {
   typescript = false
 }
 
+if (program.rawArgs.indexOf('--example') !== -1) {
+  useDemo = true
+}
+
 const projectName = args[0] || name
 
 const project = new Project({
@@ -35,7 +42,8 @@ const project = new Project({
   template,
   description,
   typescript,
-  css
+  css,
+  useDemo
 })
 
 project.create()

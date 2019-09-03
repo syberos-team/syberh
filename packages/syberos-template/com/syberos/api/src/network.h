@@ -15,14 +15,14 @@ public:
 };
 
 
-class NetWork : public NativeSdkHandlerBase
+class Network : public NativeSdkHandlerBase
 {
     Q_OBJECT
 
 public:
 
-    Q_INVOKABLE NetWork();
-    ~NetWork();
+    Q_INVOKABLE Network();
+    ~Network();
 
     void request(QString callBackID,QString actionName,QVariantMap params);
 

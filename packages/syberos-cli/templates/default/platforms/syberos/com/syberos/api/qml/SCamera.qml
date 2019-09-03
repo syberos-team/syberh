@@ -25,6 +25,7 @@ CameraPlugin {
     }
     Component.onDestruction :{
         gScreenInfo.setStatusBar(true)
+        gScreenInfo.setStatusBarStyle("black")
     }
 
 }

@@ -2,9 +2,9 @@
 title: getItem
 ---
 
-传入键名返回对应的键值。
+根据键名查询键值：传入键名返回对应的键值。
 
-支持`Promise` 使用。
+<!-- 支持`Promise` 使用。 -->
 
 ## syber.storage.getItem(Object object)
 ### 参数
@@ -17,9 +17,9 @@ title: getItem
 
 #### object.success 回调函数参数
 #### 参数
-| 属性     | 类型    | 是否必填 | 描述                     |
+| 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
-| value | string  | 是     | 已存储的键值 |
+| value | string  | 是     | 存储键值 |
 
 #### object.fail 回调函数
 #### 参数
@@ -31,24 +31,24 @@ title: getItem
 
 ### 代码示例
 ``` javascript
-    syber.storage.getItem({
-        key: 'name',
-        success: function(result) {
-            console.log('success',result); 
-        },
-        fail: function(error) {
-            console.log('fail: ', error.code, error.msg);
-        }
-    })
+syber.storage.getItem({
+    key: 'name',
+    success: function(result) {
+        console.log('success',result); 
+    },
+    fail: function(error) {
+        console.log('fail: ', error.code, error.msg);
+    }
+})
 ```
 
-#### Promise
+<!-- #### Promise
 ``` javascript
-    syber.storage.getItem({
-        key: 'name'
-    }).then(function(result) {
+syber.storage.getItem({
+    key: 'name'
+}).then(function(result) {
     console.log('success',result); 
-    }).catch(function(error) {
-        console.log('fail: ', error.code, error.msg);
-    })
-```
+}).catch(function(error) {
+    console.log('fail: ', error.code, error.msg);
+})
+``` -->
