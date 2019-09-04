@@ -8,13 +8,16 @@
     "css": "<%= css %>"
   },
   "scripts": {
-    "build:device": "syberos build --type DEVICE",
-    "build:simulator": "syberos build --type SIMULATOR",
-    "dev:simulator": "npm run build:weapp -- --watch",
-    "dev:device": "npm run build:device -- --watch"
+
+    "doctor": "syberos doctor",
+    "build:simulator": "syberos build --type simulator",
+    "build:device": "syberos build --type device",
+    "build": "syberos build"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+  },
+  "devDependencies": {
   }
 }

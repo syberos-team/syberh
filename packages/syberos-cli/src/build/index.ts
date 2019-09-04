@@ -12,7 +12,11 @@ import { getProjectConfig } from '../syberos/helper'
 export const build = (appPath: string, config: AppBuildConfig) => {
   const newConfig = { ...config, ...getProjectConfig(appPath) }
   const build = new Build(appPath, newConfig)
-  build.start()
+  if (newConfig.onlyBuildSop === true) {
+    build.buildSop()
+  } else {
+    build.start()
+  }
 
   const watcher = chokidar.watch(path.join(appPath, 'www'), {
     ignored: /(^|[/\\])\../,

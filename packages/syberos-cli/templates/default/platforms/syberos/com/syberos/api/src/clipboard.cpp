@@ -1,4 +1,6 @@
 #include "clipboard.h"
+#include <QJsonArray>
+#include <QJsonObject>
 
 int Clipboard::typeId = qRegisterMetaType<Clipboard *>();
 Clipboard::Clipboard(){}
@@ -25,23 +27,29 @@ void Clipboard::submit(QString typeID, QString callBackID, QString actionName, Q
     Q_UNUSED(attachementes)
 }
 void Clipboard::setClipboardData(long callBackID, QVariantMap params){
-
-    QString data = params.value("data").toString();
+     QString data = params.value("data").toString();
      QClipboard *clipboard = QApplication::clipboard();
      clipboard->setText(data);
 
-     QVariantMap map;
-     emit success(callBackID, map);
+     QJsonObject jsonObject;
+     jsonObject.insert("data", data);
+
+     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
+     emit success(callBackID, QVariant(jsonObject));
 }
 
 void Clipboard::getClipboardData(long callBackID, QVariantMap params){
     Q_UNUSED(params)
 
      QClipboard *clipboard = QApplication::clipboard();
-     QString data=clipboard->text();
+     QString data = clipboard->text();
      QVariantMap map;
      map.insert("data", data);
 
-     emit success(callBackID, map);
+     QJsonObject jsonObject;
+     jsonObject.insert("data", data);
+
+     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
+     emit success(callBackID, QVariant(jsonObject));
 }
 

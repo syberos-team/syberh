@@ -36,18 +36,19 @@ export const getProjectName = (appPath: string) => {
  * @return string 返回target name
  *
  */
-export const getTargetName = (appPath: string, adapter: DEVICES_TYPES) => {
+export const getTargetName = (appPath: string, adapter?: DEVICES_TYPES) => {
+  const projectConfig = getProjectConfig(appPath)
+
   if (adapter === DEVICES_TYPES.SIMULATOR) {
-    const projectConfig = getProjectConfig(appPath)
     return projectConfig.targetSimulator
   }
 
   if (adapter === DEVICES_TYPES.DEVICE) {
-    const projectConfig = getProjectConfig(appPath)
     return projectConfig['target']
   }
 
-  throw new Error(`${PROJECT_CONFIG} 配置文件未找到`)
+  return projectConfig['target']
+  // throw new Error(`${PROJECT_CONFIG} 配置文件未找到`)
 }
 
 /**
@@ -81,7 +82,7 @@ export const homeSubPath = (...subDirs: string[]): string => {
 }
 
 /**
- * 查找pdk根目录路径 
+ * 查找pdk根目录路径
  */
 export const locatePdk = (): string => {
   return homeSubPath('Syberos-Pdk')
@@ -90,7 +91,6 @@ export const locatePdk = (): string => {
 export const locateSdk = (): string => {
   return homeSubPath('SyberOS-SDK')
 }
-
 
 /**
  * 查找sh脚本路径
@@ -114,7 +114,7 @@ export const startvm = async (port: number | string = 5555) => {
     return
   }
 
-  const result = shelljs.exec(`${locateScripts('startvm.sh')} ${emulatorPath} ${port ? port : ''}`)
+  const result = shelljs.exec(`${locateScripts('startvm.sh')} ${emulatorPath} ${port || ''}`)
   if (result.code === 1) {
     await sleep(2000)
     console.log(chalk.blue(`模拟器已启动[pid=${shelljs.exec('pgrep "emulator-x86"').trim()}]`))

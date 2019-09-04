@@ -103,8 +103,6 @@ QJsonObject Helper::aboutPhone(){
     qDebug() << "aboutphone: " << jsonObject << endl;
     return jsonObject;
 }
-
-
 bool Helper::emptyDir(const QString &path){
     if (path.isEmpty()){
         return false;
@@ -126,4 +124,3 @@ bool Helper::emptyDir(const QString &path){
     }
     return dir.rmpath(dir.absolutePath());
 }
-

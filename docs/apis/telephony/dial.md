@@ -2,61 +2,52 @@
 title: dial
 ---
 
-## syber.telephony.dial(Object object)
+拨打电话
 
-拨号
+<!-- 支持`Promise` 使用。 -->
+
+## syber.telephony.dial(Object object)
 
 ### 参数
 
-**Object object**
+#### Object object
 
-| 属性    | 类型     | 是否必填         | 描述     |
-| ------- | -------- | ---------------- | -------- |
-| tel     | String   | 是 | 对方号码      |
-| success | function | 否               | 回调函数 |
-| fail   | function | 否               | 回调函数 |
+| 属性    | 类型     | 默认值 | 必填 | 描述     |
+| ------- | -------- | ------ | ---- | -------- |
+| tel     | String   |        | 是   | 号码     |
+| success | function |        | 否   | 回调成功 |
+| fail    | function |        | 否   | 回调失败 |
 
-#### success回调函数参数
+#### object.fail 回调函数
 
-**Object object**
-
-| 属性 | 类型   | 描述     |
-| ---- | ------ | -------- |
-| code | String | 错误码   |
-| msg  | String | 错误信息 |
-
-#### object.fail回调函数参数
-
-**Object object**
+#### 参数
 
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
 | code | String | 错误码   |
 | msg  | String | 错误信息 |
 
-### 示例
+### 代码示例
 
+```javascript
+syber.telephony.dial({
+  tel: '150xxxxxxxx',
+  success: function() {
+    console.log('success')
+  },
+  fail: function(error) {
+    console.log('fail: ', error.code, error.msg)
+  }
+})
 ```
-syber.telephony.dial({
-	tel: "150xxxxxxxx",
-	success: function(result){
-		console.log('code: ', result.code);
-		console.log('msg: ', result.msg);
-	},
-	fail: function(error){
-		console.log('code: ', error.code);
-		console.log('msg: ', error.msg);
-	}
-});
 
+<!-- #### Promise
+```javascript
 syber.telephony.dial({
 	tel: "150xxxxxxxx",
-}).then(function(result) {
-  console.log('code: ', result.code);
-	console.log('msg: ', result.msg);
+}).then(function() {
+	console.log('success');
 }).catch(function(fail) {
-  console.log('code: ', fail.code);
-	console.log('msg: ', fail.msg);
+	console.log('fail: ', error.code, error.msg);
 });
-```
-
+``` -->

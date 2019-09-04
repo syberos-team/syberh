@@ -1,12 +1,15 @@
-/*
- * This file is part of syberos-toolkit-core
- * Copyright (C) 2015 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
- * Authors:
- *       Cai Zhenbin <caizhenbin@syberos.com>
- *
- * This software, including documentation, is protected by copyright controlled
- * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
- */
+/*!
+* This file is part of hybrid-core
+*
+* Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
+*
+* Authors:
+*
+*   xuejun <xuejun@syberos.com>
+*
+* This software, including documentation, is protected by copyright controlled
+* by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
+*/
 
 import QtQuick 2.3
 

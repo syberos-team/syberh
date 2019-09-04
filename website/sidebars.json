@@ -1,34 +1,10 @@
 {
   "docs": {
-    "关于SYBEROS": [
-      "SYBEROS",
-      "README"
-    ],
-    "快速开始": [
-      "GETTING-STARTED",
-      "composition",
-      "before-dev-remind",
-      "specials"
-    ],
-    "教程": [
-      "debug"
-    ],
-    "进阶指南": [
-      "config",
-      "config-detail",
-      "async-await",
-      "CONTRIBUTING"
-    ]
-  },
-  "components": {
-    "关于组件库": [
-      "components-desc"
-    ]
+    "关于SYBEROS": ["README"],
+    "快速开始": ["started-syberos", "started-cli", "first-app"]
   },
   "API": {
-    "关于API": [
-      "apis/about/desc"
-    ],
+    "关于API": ["apis/about/desc"],
     "模态弹窗": [
       "apis/modal/toast",
       "apis/modal/gtoast",
@@ -40,24 +16,13 @@
       {
         "label": "相机",
         "type": "subcategory",
-        "ids": [
-          "apis/multimedia/camera/capturePhoto"
-        ]
-      },
-      {
-        "label": "扫码",
-        "type": "subcategory",
-        "ids": [
-          "apis/multimedia/camera/scan"
-        ]
+        "ids": ["apis/multimedia/camera/capturePhoto"]
       }
     ],
     "电话": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/telephony/dial"
-        ]
+        "ids": ["apis/telephony/dial"]
       }
     ],
     "剪贴板": [
@@ -72,9 +37,7 @@
     "系统信息": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/system/aboutPhone"
-        ]
+        "ids": ["apis/system/aboutPhone"]
       }
     ],
     "数据存储": [
@@ -86,98 +49,15 @@
     "网络": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/request/request"
-        ]
+        "ids": ["apis/request/request"]
       }
     ],
     "下载": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/download/download",
-          "apis/download/download-cancel"
-        ]
+        "ids": ["apis/download/download", "apis/download/download-cancel"]
       }
     ],
-    "文件": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "apis/fileInfo/getFileInfos",
-          "apis/fileInfo/removeFileInfos"
-        ]
-      }
-    ],
-    "webview": [
-      "apis/webview/webview"
-    ]
-  },
-  "C++模块": {
-    "关于C++": [
-      "qt/about/desc"
-    ],
-    "媒体": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/multimedia/camera/capture",
-          "qt/multimedia/camera/scan"
-        ]
-      }
-    ],
-    "通信": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/telephony/telephony"
-        ]
-      }
-    ],
-    "runtime": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/runtime/runtime"
-        ]
-      }
-    ],
-    "剪贴板": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/clipboard/clipboard"
-        ]
-      }
-    ],
-    "系统信息": [
-      {
-        "type": "subcategory",
-        "ids": [
-          "qt/systeminfo/systeminfo"
-        ]
-      }
-    ],
-    "更新": [
-      "apis/updates/getUpdateManager"
-    ],
-    "导航栏": [
-      "qt/navigator/navigator"
-    ],
-    "数据存储": [
-      "qt/storage/storage"
-    ],
-    "request": [
-      "qt/request/request-c"
-    ],
-    "download": [
-      "qt/download/download-c"
-    ],
-    "界面交互": [
-      "qt/modal/toast",
-      "qt/modal/alert",
-      "qt/modal/confirm",
-      "qt/modal/prompt"
-    ]
+    "webview": ["apis/webview/webview"]
   }
 }

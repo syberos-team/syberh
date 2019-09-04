@@ -27,17 +27,17 @@
                 <a class="mui-navigate-right api-class" onclick="capturePhoto()">拍照</a>
             </li>
             <li class="mui-table-view-cell">
-                <a class="mui-navigate-right api-class" onclick="shearPhoto()">剪切</a>
+                <a class="mui-navigate-right api-class" onclick="shearPhoto()">裁剪</a>
             </li>
         </ul>
     </div>
 
     <div class="mui-card-content">
       <ul class="mui-table-view">
-        <li class="mui-table-view-cell"><div id="pathDiv">path:</div></li>
+        <li class="mui-table-view-cell">path:<div id="pathDiv"></div></li>
       </ul>
     </div><br>
-    <img id="img" width="80%" height="80%">
+    <div align="center"><img id="img" width="80%" height="80%"></div>
 
     <script type="text/javascript" src="../common/mui/mui.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
@@ -59,7 +59,7 @@
         function capturePhoto() {
             syber.camera.takePictureImmediately({
                 success: function(result){
-                    document.getElementById('pathDiv').innerText = "path:"+result.path
+                    document.getElementById('pathDiv').innerText = result.path
                     document.getElementById('img').src = result.path
                     console.log('success: ', result.path);
                 },
@@ -73,7 +73,7 @@
             syber.camera.takePictureImmediately({
                 enableCut:true,
                 success: function(result){
-                    document.getElementById('pathDiv').innerText = "path:"+result.path
+                    document.getElementById('pathDiv').innerText = result.path
                     document.getElementById('img').src = result.path
                     console.log('success: ', result.path);
                 },

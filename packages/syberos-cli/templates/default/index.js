@@ -40,10 +40,13 @@ exports.createApp = function (creater, params, helper, cb) {
     date,
     src,
     css,
-    sopid
+    sopid,
+    useDemo
   } = params
   // syberos app 模块目录
   const platformsDirName = 'platforms'
+  // platforms/syberos/app/www 模板demo目录
+  const wwwDirName = path.join('platforms', 'syberos', 'app', 'www')
   // www根目录
   const www = 'ww'
   // APP 模板目录
@@ -66,6 +69,7 @@ exports.createApp = function (creater, params, helper, cb) {
     shouldUseYarn &&
     fs.existsSync(creater.templatePath(template, yarnLockfilePath))
   let pageCSSName
+  // let appCSSName
 
   params.page = 'index'
   fs.ensureDirSync(projectPath)
@@ -120,12 +124,20 @@ exports.createApp = function (creater, params, helper, cb) {
     typescript
   })
 
-  // 创建index.html
-  creater.template(template, 'indexhtml', path.join(sourceDir, 'index.html'))
+  // 是否创建demo项目
+  if (useDemo === true) {
+    fs.copySync(
+      path.join(creater.templatePath(), template, wwwDirName),
+      path.join(sourceDir)
+    )
+  } else {
+    // 创建index.html
+    creater.template(template, 'indexhtml', path.join(sourceDir, 'index.html'))
+  }
 
   switch (css) {
     default:
-      appCSSName = 'app.css'
+      // appCSSName = 'app.css'
       pageCSSName = 'index.css'
       break
   }
@@ -164,7 +176,9 @@ exports.createApp = function (creater, params, helper, cb) {
     }
   )
 
-  if (useNpmrc) { creater.template(template, 'npmrc', path.join(projectPath, '.npmrc')) }
+  if (useNpmrc) {
+    creater.template(template, 'npmrc', path.join(projectPath, '.npmrc'))
+  }
   if (useYarnLock) {
     creater.template(
       template,
@@ -183,21 +197,31 @@ exports.createApp = function (creater, params, helper, cb) {
         `创建模板目录: ${projectName}/${platformsDirName}`
       )}`
     )
+
+    console.log(
+      `${chalk.green('✔ ')}${chalk.grey(
+        `拷贝APP模板: ${projectName}/${platformsDirName}/${syberosDir}`
+      )}`
+    )
+
     console.log(
       `${chalk.green('✔ ')}${chalk.grey(`创建www目录: ${projectName}/${src}`)}`
     )
 
-    console.log(
-      `${chalk.green('✔ ')}${chalk.grey(
-        `拷贝APP模板: ${projectName}/${src}/${platformsDirName}/${syberosDir}`
-      )}`
-    )
-
-    console.log(
-      `${chalk.green('✔ ')}${chalk.grey(
-        `创建文件: ${projectName}/${src}/index.html`
-      )}`
-    )
+    // 是否创建demo项目
+    if (useDemo === true) {
+      console.log(
+        `${chalk.green('✔ ')}${chalk.grey(
+          `拷贝www模板: ${projectName}/${src}`
+        )}`
+      )
+    } else {
+      console.log(
+        `${chalk.green('✔ ')}${chalk.grey(
+          `创建文件: ${projectName}/${src}/index.html`
+        )}`
+      )
+    }
 
     console.log(
       `${chalk.green('✔ ')}${chalk.grey(

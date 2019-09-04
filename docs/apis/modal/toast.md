@@ -2,7 +2,11 @@
 title: toast
 ---
 
-toast()会在一个小浮层里展示关于某个操作的简单反馈。例如，在邮件发送前离开邮件编辑界面，可以触发一个“草稿已保存”的 toast，告知用户以后可以继续编辑。toast 会在显示一段时间之后自动消失，支持Promise调用
+提示框：提示用户某个操作的简单反馈。
+
+可以设置提示框的标题、标题图标、内容、提示时长，仅支持成功、错误图标，到时提示框自动消失。
+
+<!-- 支持`Promise` 使用。 -->
 
 
 ## syber.modal.toast(Object object)
@@ -10,23 +14,23 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 #### Object object
 | 属性     | 类型  | 默认值 | 必填 | 描述                         |
 | ---------- | ------- | -------- | -------- | -------------------------- |
-| title | string | | 是 | 提示的内容 |
-| icon | string | 'success' | 是 | 图标 |
-| duration | number | 1500 | 否 | 提示的延迟时间 |
-| success | function |  |  否     | 接口调用成功的回调函数      |
-| fail   | function |  |  否     | 接口调用失败的回调函数      |
+| title | string | | 是 |标题：显示图标时，最多7个汉字；不显示图标时，最多14个汉字 |
+| icon | string | success | 是 | 标题图标 |
+| duration | number | 1500 | 否 | 提示时长（毫秒） |
+| success | function |  |  否     | 回调成功      |
+| fail   | function |  |  否     | 回调失败      |
 
 
 #### object.icon 的合法值
 | 值     | 说明    |
 | ---------- | ------- |
-| success | 显示成功图标，此时 title 文本最多显示 7 个汉字长度 |
-| error | 显示错误图标，此时 title 文本最多显示 7 个汉字长度 |
-| none | 不显示图标，此时 title 文本最多可显示两行（14个汉字长度） |
+| success | 成功图标 |
+| error | 错误图标 |
+| none | 不显示图标 |
 
 
 #### object.fail回调函数
-#### Object object
+#### 参数
 | 属性 | 类型  | 描述 |
 | -- | -- | -- |
 | code | String | 错误码 |
@@ -34,29 +38,26 @@ toast()会在一个小浮层里展示关于某个操作的简单反馈。例如�
 
 ### 代码示例
 ```javascript
-//success图标
 syber.modal.toast({
-    title: 'This is a toast',
+    title: '提示',
     icon: 'success',
-    success:function(){
-        console.log('toast执行成功')
+    success: function () {
+        console.log('success');  
+    },
+    fail: function (error) {
+	    console.log('fail: ', error.code, error.msg);
     }
-    fail:function(error){
-        console.log('code: ', error.code);
-        console.log('msg: ', error.msg);
-	}
 });
 ```
 
-#### Promise
+<!-- #### Promise
 ```javascript
 syber.modal.toast({
-    title: '我是没有图标的toast，但是我最大只能14个汉字',
-    icon: 'none',
+    title:"我是没有图标的toast，但是我最大只能14个汉字",
+    icon:"none"
 }).then(function() {
-    console.log('toast执行成功')
+    console.log('success');  
 }).catch(function(error) {
-    console.log('code: ', error.code);
-    console.log('msg: ', error.msg);
-});
-```
+    console.log('fail: ', error.code, error.msg);
+})
+``` -->

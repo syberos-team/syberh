@@ -1,7 +1,7 @@
 export default function networkMixin(hybrid) {
     const hybridJs = hybrid;
 
-    hybridJs.extendModule('netWork', [
+    hybridJs.extendModule('network', [
         {
             namespace: 'request',
             os: ['syber'],

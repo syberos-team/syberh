@@ -104,11 +104,11 @@
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
       },
+      "first-app": {
+        "title": "第一个应用"
+      },
       "functional-component": {
         "title": "函数式组件"
-      },
-      "GETTING-STARTED": {
-        "title": "安装及使用"
       },
       "qt/about/desc": {
         "title": "C++ 说明"
@@ -157,21 +157,22 @@
       },
       "README": {
         "title": "SyberOS-Hybrid 介绍"
+      },
+      "started-cli": {
+        "title": "安装 cli 及使用"
+      },
+      "started-syberos": {
+        "title": "安装 SyberOS SDK & PKD"
       }
     },
     "links": {
       "文档": "文档",
-      "组件库": "组件库",
       "API": "API",
-      "C++模块": "C++模块",
       "GitHub": "GitHub"
     },
     "categories": {
       "关于SYBEROS": "关于SYBEROS",
       "快速开始": "快速开始",
-      "教程": "教程",
-      "进阶指南": "进阶指南",
-      "关于组件库": "关于组件库",
       "关于API": "关于API",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",
@@ -181,16 +182,7 @@
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
-      "文件": "文件",
-      "webview": "webview",
-      "关于C++": "关于C++",
-      "通信": "通信",
-      "runtime": "runtime",
-      "更新": "更新",
-      "导航栏": "导航栏",
-      "request": "request",
-      "download": "download",
-      "界面交互": "界面交互"
+      "webview": "webview"
     }
   },
   "pages-strings": {

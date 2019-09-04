@@ -28,8 +28,6 @@ function Confirm () {
     component.titleText = that.param.title || ''
     component.icon = that.param.titleIcon||""
     component.messageText = that.param.content || ''
-    component.acceptButtonLoading = that.param.showLoading  || false
-    component.rejectButtonVisible = that.param.showCancel  || false
     component.rejectButtonText = that.param.cancelText || '取消'
     component.rejectButtonColor = that.param.cancelColor || '#333333'
     component.acceptedButtonText = that.param.confirmText || '确定'
