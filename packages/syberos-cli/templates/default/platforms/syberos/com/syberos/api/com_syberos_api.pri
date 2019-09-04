@@ -8,11 +8,9 @@ HEADERS += \
     $$PWD/src/framework/common/networkstatus.h \
     $$PWD/src/framework/common/errorinfo.h \
     $$PWD/src/framework/common/extendedconfig.h \
-    $$PWD/src/camerahandler.h \
     $$PWD/src/download.h \
     $$PWD/src/helper.h \
     $$PWD/src/httpclient.h \
-    $$PWD/src/qtcamera.h \
     $$PWD/src/loadqmlwidget.h \
     $$PWD/src/loadqmlhandler.h \
     $$PWD/src/telephony.h \
@@ -21,7 +19,9 @@ HEADERS += \
     $$PWD/src/system.h \
     $$PWD/src/downloadmanager.h \
     $$PWD/src/camera.h \
-    $$PWD/src/network.h
+    $$PWD/src/network.h \
+    $$PWD/src/framework/devtools/devtools.h \
+    $$PWD/src/framework/devtools/socketclient.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -30,11 +30,9 @@ SOURCES += \
     $$PWD/src/framework/common/networkstatus.cpp \
     $$PWD/src/framework/common/errorinfo.cpp \
     $$PWD/src/framework/common/extendedconfig.cpp \
-    $$PWD/src/camerahandler.cpp \
     $$PWD/src/download.cpp \
     $$PWD/src/helper.cpp \
     $$PWD/src/httpclient.cpp \
-    $$PWD/src/qtcamera.cpp \
     $$PWD/src/loadqmlwidget.cpp \
     $$PWD/src/loadqmlhandler.cpp \
     $$PWD/src/telephony.cpp \
@@ -43,4 +41,6 @@ SOURCES += \
     $$PWD/src/system.cpp \
     $$PWD/src/downloadmanager.cpp \
     $$PWD/src/camera.cpp \
-    $$PWD/src/network.cpp
+    $$PWD/src/network.cpp \
+    $$PWD/src/framework/devtools/devtools.cpp \
+    $$PWD/src/framework/devtools/socketclient.cpp

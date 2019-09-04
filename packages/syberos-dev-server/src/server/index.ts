@@ -236,6 +236,7 @@ export default class Server {
     console.log('----当前客户端数量:', clients.length)
     let count = 0
     clients.forEach(socket => {
+      // tslint:disable-next-line: no-floating-promises
       this.writeFile(socket, fileHead, filePath, () => {
         console.log('------发送返回')
         count += 1
@@ -255,6 +256,7 @@ export default class Server {
           return
         }
         console.log('------queue', JSON.stringify(queue))
+        // tslint:disable-next-line: no-floating-promises
         this.writeFileToClients(queue.filePath)
       }
     }, 1000)
@@ -287,8 +289,8 @@ export default class Server {
    * @param buffer
    */
   async write(socket: net.Socket, buffer: string) {
-    return new Promise(function(resole, reject) {
-      const r = socket.write(buffer, function(res) {
+    return new Promise(function (resole, reject) {
+      const r = socket.write(buffer, function (res) {
         console.log('-------async write', res)
         resole(true)
       })

@@ -8,14 +8,11 @@ const Server = require('../dist/index').default
 const { gzDir } = require('../dist/util/gzip')
 const path = require('path')
 
-let server
-const data = { message: 'data' }
-function startServer() {
+function startServer () {
   const wss = new Server({ port: 8080 })
 
   wss.onConnections(socket => {
     // console.log(JSON.stringify(socket))
-
     socket.on('close', () => {
       console.log('TCP socket closed')
     })
@@ -30,23 +27,18 @@ function startServer() {
 
     console.log(filePath)
 
-    //压缩并发送
+    // 压缩并发送
     gzDir(filePath).then(ofile => {
-      //console.log('---output', ofile)
+      // console.log('---output', ofile)
       setTimeout(() => {
-        //console.log('getConnections')
-        wss.getConnections(function(error, count) {
+        // console.log('getConnections')
+        wss.getConnections(function (error, count) {
           console.log('getConnections', error, count)
         })
         wss.writeFileToClients(ofile)
       }, 1000)
     })
   })
-
-  // server.onConnection(function (c, h) {
-  //   console.log('----ok', c);
-  //   console.log('----ok', h);
-  // })
 }
 
 startServer()

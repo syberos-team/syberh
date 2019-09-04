@@ -6,6 +6,10 @@
 #include <QMutex>
 #include <QMap>
 #include<QVariant>
+#include "./common/extendedconfig.h"
+#include "./devtools/devtools.h"
+
+
 /**
  * @brief The NativeSdkManager class
  * 单例模式，提供上层应用接口
@@ -16,8 +20,10 @@ private:
     NativeSdkManager();
     static NativeSdkManager *m_pNativeSdkManager;
     NativeSdkFactory m_NativeSdkFactory;
-
-
+    //拓展配置
+    ExtendedConfig *extendConfig;
+    //开发工具
+    DevTools *devTools;
     /**
      * @brief 连接所有的handler 信号
      * @param typeID 业务类的typeID,通过反射进行业务类实例化

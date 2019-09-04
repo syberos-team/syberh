@@ -43,6 +43,9 @@ void System::submit(QString typeID, QString callBackID, QString actionName, QVar
 void System::aboutPhone(long callBackID,QVariantMap params){
     int modem = 0;
 
+    //qDebug() << "modem2: " << params.value(modem2) << endl;
+
+
     CSystemDeviceInfo deviceInfo;
     QJsonValue deviceId = QJsonValue::fromVariant(deviceInfo.uniqueDeviceId());
     QJsonValue name = QJsonValue::fromVariant(deviceInfo.productName());
@@ -83,13 +86,13 @@ void System::aboutPhone(long callBackID,QVariantMap params){
     jsonObject.insert("screenHeight", screenHeight);//屏幕高
     jsonObject.insert("windowWidth", "");//可使用窗口宽度
     jsonObject.insert("windowHeight", "");//可使用窗口高度
-    jsonObject.insert("pixelRatio", pixelRatio);//设备像素比
     jsonObject.insert("statusBarHeight", "");//状态栏的高度 （待实现）
+    jsonObject.insert("pixelRatio", pixelRatio);//设备像素比
     jsonObject.insert("language", language);//系统语言
     jsonObject.insert("region", region);//系统地区
 
     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
-    qDebug() << "aboutPhone: " << jsonObjectValue.toString() << endl;
+    qDebug() << "aboutPhone11: " << jsonObjectValue << endl;
     qDebug() << "jsonObject: " << jsonObject << endl;
     emit success(callBackID, QVariant(jsonObject));
 }

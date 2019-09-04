@@ -8,6 +8,7 @@ TEMPLATE = app
 TARGET = app
 
 CONFIG += link_pkgconfig
+CONFIG += C++11
 
 RESOURCES += res.qrc
 
