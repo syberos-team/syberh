@@ -11,7 +11,7 @@ CONFIG += link_pkgconfig
 
 RESOURCES += res.qrc
 
-PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt
+PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt Qt5Contacts
 
 QML_FILES = qml/*.qml
 

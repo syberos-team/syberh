@@ -30,5 +30,10 @@
         <file>js/camera/capture.js</file>
         <file>qml/SInputDialog.qml</file>
         <file>js/system/system.js</file>
+        <file>qml/SDelegateComponent.qml</file>
+        <file>qml/SFilesPicker.qml</file>
+        <file>qml/SFilesPickerView.qml</file>
+        <file>qml/Sfm.js</file>
+        <file>qml/SUI.js</file>
     </qresource>
 </RCC>

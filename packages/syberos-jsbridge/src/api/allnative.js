@@ -12,6 +12,7 @@ import systemMixin from './native/system';
 import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
+import contactMixin from './native/contact';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -30,4 +31,5 @@ export default function allNative(hybridJs) {
     networkMixin(hybridJs);
     captureMixin(hybridJs);
     clipboardMixin(hybridJs);
+    contactMixin(hybridJs);
 }
