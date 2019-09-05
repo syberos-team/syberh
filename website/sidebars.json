@@ -37,7 +37,24 @@
     "系统信息": [
       {
         "type": "subcategory",
-        "ids": ["apis/system/aboutPhone"]
+        "ids": [
+          "apis/system/aboutPhone",
+          "apis/system/battery",
+          "apis/system/volume-getMediaValue",
+          "apis/system/volume-setMediaValue",
+          "apis/system/brightness-getValue",
+          "apis/system/brightness-setValue",
+          "apis/system/brightness-getMode",
+          "apis/system/brightness-setMode",
+          "apis/system/network-getType",
+          "apis/system/network-subscribe",
+          "apis/system/network-unsubscribe",
+          "apis/system/geolocation-getLocation",
+          "apis/system/geolocation-getLocationType",
+          "apis/system/geolocation-getLocationType",
+          "apis/system/geolocation-unsubscribe"
+
+        ]
       }
     ],
     "数据存储": [

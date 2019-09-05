@@ -12,6 +12,8 @@ import systemMixin from './native/system';
 import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
+import batteryMixin from './native/battery';
+
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -30,4 +32,6 @@ export default function allNative(hybridJs) {
     networkMixin(hybridJs);
     captureMixin(hybridJs);
     clipboardMixin(hybridJs);
+    //电池模块
+    batteryMixin(hybridJs);
 }
