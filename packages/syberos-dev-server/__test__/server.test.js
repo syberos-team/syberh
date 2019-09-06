@@ -7,7 +7,7 @@ var host = '127.0.0.1'
 describe('server-test', function () {
   describe('客户端连接', function () {
     let socket = {
-      fileInfo: null,
+      files: null,
       hasSend: 0,
       hasWrite: 0,
       buf: null,
@@ -25,13 +25,13 @@ describe('server-test', function () {
       if (!socket.fileInfo) {
         console.log('-------------data', data)
         const cData = JSON.parse(data)
-        socket.fileInfo = cData.fileInfo
-        console.log(cData.uid)
-        console.log(cData.fileInfo.name)
-        socket.hasSend = 0 // 已经发送进来的大小
-        socket.hasWrite = 0 // 已经写入的大小
-        socket.buf = '' // buffer存储对象
-        socket.fd = fs.openSync(path.join('.tmp', socket.fileInfo.name), 'w+') // 文件标识ID
+        socket.fileInfo = cData.files
+        console.log(cData.files.length)
+        // console.log(cData.fileInfo.name)
+        // socket.hasSend = 0 // 已经发送进来的大小
+        // socket.hasWrite = 0 // 已经写入的大小
+        // socket.buf = '' // buffer存储对象
+        // socket.fd = fs.openSync(path.join('.temp', socket.fileInfo.name), 'w+') // 文件标识ID
         client.write('set file info') // 反馈
       } else {
         socket.buf += data

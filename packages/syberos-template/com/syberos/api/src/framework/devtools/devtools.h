@@ -18,13 +18,14 @@
 #include <QObject>
 #include <QDebug>
 #include "../common/chalk.h"
+#include "../nativesdkhandlerbase.h"
 
 
 /**
  * 开发工具类
  * @brief The DevTools class
  */
-class DevTools:public QObject
+class DevTools:public NativeSdkHandlerBase
 {
     Q_OBJECT
 public:

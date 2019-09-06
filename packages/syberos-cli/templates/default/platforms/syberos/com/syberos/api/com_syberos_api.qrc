@@ -28,10 +28,7 @@
         <file>res/warning.png</file>
         <file>qml/SCamera.qml</file>
         <file>js/camera/capture.js</file>
-<<<<<<< HEAD
-=======
         <file>qml/SInputDialog.qml</file>
->>>>>>> upstream/master
         <file>js/system/system.js</file>
     </qresource>
 </RCC>

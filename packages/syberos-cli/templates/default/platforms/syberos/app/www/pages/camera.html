@@ -2,94 +2,90 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>auth</title>
-    <link rel="stylesheet" href="../common/mui/mui.css" />
-    <link rel="stylesheet" href="../common/common.css" />
-    <style type="text/css">
-    #pathDiv{  width: 100%;
-        height: auto;
-        word-wrap:break-word;
-        word-break:break-all;
-        overflow: hidden;  }
-    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>auth</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style type="text/css">
+    #pathDiv {
+      width: 100%;
+      height: auto;
+      word-wrap: break-word;
+      word-break: break-all;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
-  <body>
+<body>
 
-    <div class="mui-content pt0">
-        <ul class="mui-table-view ">
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right api-class" onclick="capturePhoto()">拍照</a>
-            </li>
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right api-class" onclick="shearPhoto()">裁剪</a>
-            </li>
-        </ul>
-    </div>
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="capturePhoto()">拍照</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="shearPhoto()">裁剪</a>
+      </li>
+    </ul>
+  </div>
 
-    <div class="mui-card-content">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">path:<div id="pathDiv"></div></li>
-      </ul>
-    </div><br>
-    <div align="center"><img id="img" width="80%" height="80%"></div>
+  <div class="mui-card-content">
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">path:<div id="pathDiv"></div>
+      </li>
+    </ul>
+  </div><br>
+  <div align="center"><img id="img" width="80%" height="80%"></div>
 
-    <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../common/common.js"></script>
-    <script type="text/javascript" src="../../dist/quick.js"></script>
-    <script type="text/javascript" src="../../dist/quick.native.js"></script>
-    <script type="text/javascript" src="../../dist/quick.h5.js"></script>
-    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../../dist/quick.js"></script>
+  <script type="text/javascript" src="../../dist/quick.native.js"></script>
+  <script type="text/javascript" src="../../dist/quick.h5.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
 
-    <script>
-        quick.error(function(message) {
-            alert('错误:' + JSON.stringify(message));
-        });
-        quick.config();
-        quick.ready(function() {
-            showTips('注册成功');
-        });
+  <script>
+    quick.error(function (message) {
+      alert('错误:' + JSON.stringify(message));
+    });
+    quick.config();
+    quick.ready(function () {
+      showTips('注册成功');
+    });
 
-        function capturePhoto() {
-            syber.camera.takePictureImmediately({
-                success: function(result){
-<<<<<<< HEAD
-                    document.getElementById('pathDiv').innerText = "path:"+result.path
-=======
-                    document.getElementById('pathDiv').innerText = result.path
->>>>>>> upstream/master
-                    document.getElementById('img').src = result.path
-                    console.log('success: ', result.path);
-                },
-                fail: function(error){
-                    console.log('fail: ', error.code, error.msg);
-                }
-            });
+    function capturePhoto() {
+      syber.camera.takePictureImmediately({
+        success: function (result) {
+          document.getElementById('pathDiv').innerText = result.path
+          document.getElementById('img').src = result.path
+          console.log('success: ', result.path);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
         }
+      });
+    }
 
-        function shearPhoto() {        
-            syber.camera.takePictureImmediately({
-                enableCut:true,
-                success: function(result){
-<<<<<<< HEAD
-                    document.getElementById('pathDiv').innerText = "path:"+result.path
-=======
-                    document.getElementById('pathDiv').innerText = result.path
->>>>>>> upstream/master
-                    document.getElementById('img').src = result.path
-                    console.log('success: ', result.path);
-                },
-                fail: function(error){
-                    console.log('fail: ', error.code, error.msg);
-                }
-            });
+    function shearPhoto() {
+      syber.camera.takePictureImmediately({
+        enableCut: true,
+        success: function (result) {
+          document.getElementById('pathDiv').innerText = result.path
+          document.getElementById('img').src = result.path
+          console.log('success: ', result.path);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
         }
-    </script>
-  </body>
+      });
+    }
+  </script>
+</body>
+
 </html>

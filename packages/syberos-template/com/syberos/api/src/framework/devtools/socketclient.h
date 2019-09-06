@@ -25,6 +25,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include "../../helper.h"
+#include "../../downloadmanager.h"
 
 
 /**
@@ -59,16 +60,22 @@ public slots:
     void close();
     void connection();
     void data();
+    //下载完成信号
+    void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
 
 
 private:
-
+     DownloadManager *downloadManager;
     Helper *helper;
+    //需要下载的个数
+    int total=0;
+
+    int downloadTotal=0;
     /**
      * @brief gzvfWWW 解压缩www文件
      * @param $gzPath 压缩文件目录
      */
-    void zxvfWWW(const QString &path);
+    void zxvfWWW(QString path);
 
 
     /**
@@ -110,7 +117,7 @@ private:
     int hasSend=0;
 
     //临时目录名称
-    QString TEMP_PATH_NAME=".temp";
+    QString TEMP_PATH_NAME="tmp";
 
 
     // void onError(QAbstractSocket::SocketError);

@@ -192,6 +192,7 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   // gToast.requestToast('request sucess：' + JSON.stringify(result))
   // 返回内容
   var resObj = {
+      //handlerName:"handleError",
     responseId: Number(handlerId),
     responseData: {
       result: result

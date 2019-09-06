@@ -82,6 +82,7 @@ void NativeSdkManager::initHandlerConnect(QString typeID){
         connect(handler,SIGNAL(success(long,QVariant)),this,SIGNAL(success(long,QVariant)));
         connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
         connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
+         connect(handler,SIGNAL(subscribe(QString,QVariant)),this,SIGNAL(subscribe(QString,QVariant)));
     }
 }
 void NativeSdkManager::loadQml(QString typeID,QString parentPageName, QString parentName, QString type){
