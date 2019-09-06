@@ -12,6 +12,7 @@ import systemMixin from './native/system';
 import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
+import audioMixin from './native/audio';
 import contactMixin from './native/contact';
 import filepickerMixin from './native/filepicker';
 
@@ -32,6 +33,7 @@ export default function allNative(hybridJs) {
     networkMixin(hybridJs);
     captureMixin(hybridJs);
     clipboardMixin(hybridJs);
+    audioMixin(hybridJs);
     contactMixin(hybridJs);
     filepickerMixin(hybridJs);
 }
