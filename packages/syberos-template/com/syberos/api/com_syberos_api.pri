@@ -22,7 +22,8 @@ HEADERS += \
     $$PWD/src/network.h \
     $$PWD/src/battery.h
     $$PWD/src/networkInfo.h
-    $$PWD/src/audio.h
+    $$PWD/src/audio.h \
+    $$PWD/src/filesystemmanager.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -46,4 +47,5 @@ SOURCES += \
     $$PWD/src/battery.cpp
     $$PWD/src/audio.cpp
     $$PWD/src/networkInfo.cpp
+    $$PWD/src/filesystemmanager.cpp
 
