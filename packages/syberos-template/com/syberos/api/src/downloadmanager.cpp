@@ -65,9 +65,9 @@ void DownloadManager::downloadFile(QString url , QString fileName){
             return;
         }
         //自动创建目录
-        QDir dir = f.absoluteDir();
+        QDir dir( f.absoluteDir());
         if(!dir.exists()){
-            dir.mkpath(dirPath);
+            dir.mkpath(dir.absolutePath());
         }
 
         // 如果当前下载的字节数为0那么说明未下载过或者重新下载

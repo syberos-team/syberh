@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ limit: '10000kb', extended: true }))
 app.get('/download', function (req, res) {
   let filePath = req.query.path
   filePath = path.join(path.resolve('.'), filePath)
-  console.log('下载文件路径', filePath)
   if (fs.existsSync(filePath)) {
     res.writeHead(200, {
       // 告诉浏览器这是一个二进制文件
