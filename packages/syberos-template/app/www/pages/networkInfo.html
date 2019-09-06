@@ -43,28 +43,28 @@
 
       <div class="mui-card">
         <div class="mui-input-row">
-          <label>电池是否有效</label>
+          <label>返回当前网络类型</label>
           <input type="text" id="networkType" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
       </div>
 
       <div class="mui-card">
         <div class="mui-input-row">
-          <label>当前网络是否可用</label>
+          <label>当前网络是否可用。可用返回 true ，不可用返回 false 。</label>
           <input type="text" id="isNetworkAvailable" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
       </div>
 
       <div class="mui-card">
         <div class="mui-input-row">
-          <label>当前WiFi是否处于连接状态</label>
+          <label>返回当前WiFi是否处于连接状态。WiFi连接返回 true，否则返回 false</label>
           <input type="text" id="isWifiConnected" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
       </div>
 
       <div class="mui-card">
         <div class="mui-input-row">
-          <label>当前信号强度</label>
+          <label>返回当前信号强度。-1 表示WiFi网络不可用，-2 表示获取数据失败。</label>
           <input type="text" id="wifiSignalStrength" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
       </div>
@@ -89,7 +89,7 @@
 
   <script>
     var vConsole = new VConsole()
-    console.log('Hello world-系统信息')
+    console.log('Hello world-网络状态信息')
 
     function goBack() {
       syber.webview.goBack({
@@ -105,7 +105,11 @@
     function baseParam(param) {
       syber.networkInfo.getInfo({
         success: function (result) {
-          console.info("result-电池信息: " + result)
+          console.info("result-网络状态信息: " + result)
+          alert(result.networkType);
+          alert(result.isNetworkAvailable);
+          alert(result.isWifiConnected);
+          alert(result.wifiSignalStrength);
           document.getElementById("networkType").value = blankHandle(result.networkType);
           document.getElementById("isNetworkAvailable").value = blankHandle(result.isNetworkAvailable);
           document.getElementById("isWifiConnected").value = blankHandle(result.isWifiConnected);
@@ -119,7 +123,10 @@
     }
 
     function blankHandle(param) {
-      return !param ? '' : param;
+      if(typeof param === "string"){
+        return !param ? '' : param;
+      }
+      return param;
     }
 
 

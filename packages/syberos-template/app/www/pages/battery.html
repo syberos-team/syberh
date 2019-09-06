@@ -119,7 +119,10 @@
     }
 
     function blankHandle(param) {
-      return !param ? '' : param;
+      if(typeof param === "string"){
+        return !param ? '' : param;
+      }
+      return param;
     }
 
   </script>

@@ -45,13 +45,12 @@ void NetworkInfo::getInfo(long callBackID,QVariantMap params){
     CNetworkManager network;
     bool isNetworkAvailable = network.isNetworkAvailable();
     bool isWifiConnected = network.isWifiConnected();
-//    int networkType = network.NetworkType;
+//    int networkType = CNetworkManager::NetworkType;
     int wifiSignalStrength = network.wifiSignalStrength();
-int networkType111 = network.currentNetworkType();
+    int networkType = network.currentNetworkType();
 
     QJsonObject json;
-//    json.insert("networkType", networkType);
-        json.insert("networkType111", networkType111);
+    json.insert("networkType", networkType);
     json.insert("isNetworkAvailable", isNetworkAvailable);
     json.insert("isWifiConnected", isWifiConnected);
     json.insert("wifiSignalStrength", wifiSignalStrength);

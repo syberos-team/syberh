@@ -20,7 +20,9 @@ HEADERS += \
     $$PWD/src/downloadmanager.h \
     $$PWD/src/camera.h \
     $$PWD/src/network.h \
-    $$PWD/src/battery.h
+    $$PWD/src/battery.h \
+    $$PWD/src/audio.h \
+    $$PWD/src/networkInfo.h
     $$PWD/src/networkInfo.h
     $$PWD/src/audio.h
 
@@ -43,7 +45,9 @@ SOURCES += \
     $$PWD/src/downloadmanager.cpp \
     $$PWD/src/camera.cpp \
     $$PWD/src/network.cpp \
-    $$PWD/src/battery.cpp
+    $$PWD/src/battery.cpp \
+    $$PWD/src/audio.cpp \
+    $$PWD/src/networkInfo.cpp
     $$PWD/src/audio.cpp
     $$PWD/src/networkInfo.cpp
 
