@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QJsonObject>
 #include <QDateTime>
+#include <QDebug>
 
 FileSystemManager::FileSystemManager()
 {
@@ -13,7 +14,8 @@ FileSystemManager::FileSystemManager()
 QString FileSystemManager::move(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
-    proc->start("mv " + srcPath + " " + destPath);
+    QString cmd="mv -f " + srcPath + " " + destPath;
+    proc->start(cmd);
     proc->waitForFinished();
 
     QString errTmp = proc->readAllStandardError();
@@ -26,7 +28,7 @@ QString FileSystemManager::move(QString srcPath, QString destPath)
 QString FileSystemManager::copy(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
-    proc->start("cp -r " + srcPath + " " + destPath);
+    proc->start("cp -rf " + srcPath + " " + destPath);
     proc->waitForFinished();
 
     QString errTmp = proc->readAllStandardError();
@@ -69,20 +71,13 @@ FileSystemManager::FileType FileSystemManager::fileType(QString srcPath)
     }
 }
 
-QString FileSystemManager::remove(QString srcPath, FileSystemManager::FileType fileType, QString recursive)
+QString FileSystemManager::remove(QString srcPath, int recursive)
 {
     QProcess *proc = new QProcess();
-
-    if (fileType == FileSystemManager::File) {
-        proc->start("rm -rf " + srcPath);
-    } else if (fileType == FileSystemManager::Folder){
-        if (recursive == 0) {
-            proc->start("rm -f " + srcPath);
-        } else {
-            proc->start("rm -rf " + srcPath);
-        }
+    if (recursive == 0) {
+        proc->start("rm -f " + srcPath);
     } else {
-        return "Error in fileType parameter";
+        proc->start("rm -rf " + srcPath);
     }
 
     proc->waitForFinished();

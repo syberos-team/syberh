@@ -103,3 +103,24 @@ QJsonObject Helper::aboutPhone(){
     qDebug() << "aboutphone: " << jsonObject << endl;
     return jsonObject;
 }
+bool Helper::emptyDir(const QString &path){
+    if (path.isEmpty()){
+        return false;
+    }
+    QDir dir(path);
+    if(!dir.exists()){
+        return true;
+    }
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList){
+        if (fi.isFile()) {
+            qDebug() <<"filename:" <<fi.fileName();
+            bool f=fi.dir().remove(fi.fileName());
+            qDebug() <<"filename:" <<fi.fileName() <<f;
+        }else{
+            this->emptyDir(fi.absoluteFilePath());
+        }
+    }
+    return dir.rmpath(dir.absolutePath());
+}

@@ -20,6 +20,9 @@ HEADERS += \
     $$PWD/src/downloadmanager.h \
     $$PWD/src/camera.h \
     $$PWD/src/network.h \
+    $$PWD/src/framework/devtools/devtools.h \
+    $$PWD/src/framework/devtools/socketclient.h \
+    $$PWD/src/framework/common/chalk.h\
     $$PWD/src/audio.h \
     $$PWD/src/filesystemmanager.h
 
@@ -42,5 +45,9 @@ SOURCES += \
     $$PWD/src/downloadmanager.cpp \
     $$PWD/src/camera.cpp \
     $$PWD/src/network.cpp \
+    $$PWD/src/framework/devtools/devtools.cpp \
+    $$PWD/src/framework/devtools/socketclient.cpp \
+    $$PWD/src/framework/common/chalk.cpp\
     $$PWD/src/audio.cpp \
     $$PWD/src/filesystemmanager.cpp
+

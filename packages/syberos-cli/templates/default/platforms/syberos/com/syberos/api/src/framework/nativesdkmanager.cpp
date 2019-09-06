@@ -4,7 +4,12 @@
 
 NativeSdkManager* NativeSdkManager::m_pNativeSdkManager = NULL;
 NativeSdkManager::NativeSdkManager(){
-
+    extendConfig= ExtendedConfig::instance();
+    QVariant debug = extendConfig->get("debug");
+       if(debug.toBool()){
+           devTools=DevTools::getInstance();
+       }
+    qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
 }
 NativeSdkManager::~NativeSdkManager(){
     QMap<QString,NativeSdkHandlerBase*> handlers = m_NativeSdkFactory.getAllHandlers();
