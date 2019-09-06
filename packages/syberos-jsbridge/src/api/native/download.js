@@ -15,6 +15,8 @@ export default function downloadMixin (hybrid) {
       url: '',
       /** 保存的文件名 */
       name: '',
+      /** 存储位置，内置存储或外部存储 */
+      storage: ''
     },
     runCode (...rest) {
       // 兼容字符串形式
@@ -23,6 +25,7 @@ export default function downloadMixin (hybrid) {
         rest,
         'url',
         'name',
+        'storage'
       );
       this.api.isLongCb = true;
       hybridJs.callInner.apply(this, args);
