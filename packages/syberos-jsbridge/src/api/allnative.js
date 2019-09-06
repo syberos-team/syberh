@@ -32,6 +32,8 @@ export default function allNative(hybridJs) {
     networkMixin(hybridJs);
     captureMixin(hybridJs);
     clipboardMixin(hybridJs);
+    audioMixin(hybridJs);
     //电池模块
     batteryMixin(hybridJs);
+
 }

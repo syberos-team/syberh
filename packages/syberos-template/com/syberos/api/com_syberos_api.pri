@@ -21,6 +21,8 @@ HEADERS += \
     $$PWD/src/camera.h \
     $$PWD/src/network.h \
     $$PWD/src/battery.h
+    $$PWD/src/audio.h
+
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -42,3 +44,5 @@ SOURCES += \
     $$PWD/src/camera.cpp \
     $$PWD/src/network.cpp \
     $$PWD/src/battery.cpp
+    $$PWD/src/audio.cpp
+

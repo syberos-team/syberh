@@ -53,6 +53,18 @@
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
+      "apis/multimedia/camera/startAudioPlay": {
+        "title": "startAudioPlay"
+      },
+      "apis/multimedia/camera/startAudioRecorder": {
+        "title": "startAudioRecorder"
+      },
+      "apis/multimedia/camera/stopAudioPlay": {
+        "title": "stopAudioPlay"
+      },
+      "apis/multimedia/camera/stopAudioRecorder": {
+        "title": "stopAudioRecorder"
+      },
       "apis/navigator/navigator": {
         "title": "navigator"
       },
