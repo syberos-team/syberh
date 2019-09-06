@@ -22,8 +22,11 @@ CPage {
     orientationLock: CPageOrientation.LockPortrait
     clip: true
 
+    property string titleText: "" // 标题文字
+    property bool leftItemEnabled: false  // 是否展示左侧icon
+
     property var filesPath //for email
-    property string category: "all" //all, image, video, audio, document, file, text, album, folder, photoAlbum, albumArtist
+    property int category: 0 //0: all, 1: image, 2: video, 3: audio, 4: document, 5: text, 6: album, 7: photoAlbum
     property var dirPath //for download
 
     property bool isDirMode: false
@@ -39,7 +42,6 @@ CPage {
     }
 
     function getDirPath() {
-        console.log("-------------filePicker: dir path:", typeModel.path);
         return typeModel.path;
     }
 
@@ -57,45 +59,38 @@ CPage {
 
     contentAreaItem: SFilesPickerView {
         id: filesView
+        titleText: filesPicker.titleText
+        leftItemEnabled: filesPicker.leftItemEnabled
     }
 
     onStatusChanged: {
         if (status === CPageStatus.WillShow) {
             switch(category) {
-            case "all":
-                typeModel.path = "";
-                filesView.focus = true
-                break;
-            case "image":
-                galleryModel.rootType = "Image";
-                break;
-            case "video":
-                galleryModel.rootType = "Video";
-                break;
-            case "audio":
-                galleryModel.rootType = "Audio";
-                break;
-            case "document":
-                galleryModel.rootType = "Document";
-                break;
-            case "file":
-                galleryModel.rootType = "File";
-                break;
-            case "text":
-                galleryModel.rootType = "Text";
-                break;
-            case "album":
-                galleryModel.rootType = "Album";
-                break;
-            case "folder":
-                galleryModel.rootType = "Folder";
-                break;
-            case "photoAlbum":
-                galleryModel.rootType = "PhotoAlbum";
-                break;
-            case "albumArtist":
-                galleryModel.rootType = "AlbumArtist";
-                break;
+                case 0:
+                    typeModel.path = "";
+                    filesView.focus = true
+                    break;
+                case 1:
+                    galleryModel.rootType = "Image";
+                    break;
+                case 2:
+                    galleryModel.rootType = "Video";
+                    break;
+                case 3:
+                    galleryModel.rootType = "Audio";
+                    break;
+                case 4:
+                    galleryModel.rootType = "Document";
+                    break;
+                case 5:
+                    galleryModel.rootType = "Text";
+                    break;
+                case 6:
+                    galleryModel.rootType = "Album";
+                    break;
+                case 7:
+                    galleryModel.rootType = "PhotoAlbum";
+                    break;
             default:
                 break;
             }

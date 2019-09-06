@@ -4,7 +4,9 @@
 * Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
 *
 * Authors:
-*       Xue Jun <zhanghuanlin@syberos.com>
+*       Zhenbin Cai <caizhenbin@syberos.com>
+*       Xuan Liu <liuxuan@syberos.com>
+*       Pengcheng Zhang <zhangpengcheng@syberos.com>
 *
 * This software, including documentation, is protected by copyright controlled
 * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
@@ -20,11 +22,13 @@ Rectangle {
     height: parent.height
     focus: true
 
-    property int selectCnt: 0
+    property string titleText: "" // 页面标题
+    property bool leftItemEnabled: false // 左侧区域是否展示
+    property bool titleAreaEnable: fileListRect.titleText || fileListRect.leftItemEnabled // 标题区域区域是否展示
+
 
     Keys.onReleased: {
         if (event.key === Qt.Key_Back) {
-            console.debug("----- back key triggered, currentPath-----", typeModel.path);
             var curPath = typeModel.path;
             if (curPath !== "") {
                 if (curPath === fileUtils.innerStoragePath || curPath === "/mnt/sdcard") {
@@ -33,12 +37,42 @@ Rectangle {
                     typeModel.path = FM.getDir(typeModel.path);
                 }
             } else {
-                console.log("Reach the top, now quit------------- ");
+                toptitle.leftItemTriggered();
             }
             event.accepted = true;
         }
     }
 
+
+    CTitleBar {
+        id: toptitle
+        visible: fileListRect.titleText || fileListRect.leftItemEnabled
+        anchors.top: parent.top
+        height: UI.TITLEBAR_HEIGHT
+        titleText: fileListRect.titleText
+        titleAreaCentered: true
+        leftItemEnabled: fileListRect.leftItemEnabled
+
+        titlePixelSize: gUiConst.getValue("S2")
+        titleTextColor: gUiConst.getValue("CT1")
+        leftItemText: ""
+        leftItemPixelSize: gUiConst.getValue("S5")
+        leftItemTextColor: gUiConst.getValue("CT1")
+
+        onLeftItemTriggered: {
+            var curPath = typeModel.path;
+            if (curPath !== "") {
+                if (curPath === fileUtils.innerStoragePath || curPath === "/mnt/sdcard") {
+                    typeModel.path = "";
+                } else {
+                    typeModel.path = FM.getDir(typeModel.path);
+                }
+            } else {
+                filesPicker.cancel();
+                pageStack.pop();
+            }
+        }
+    }
 
     CIconLabel {
         id: noItemArea
@@ -55,7 +89,7 @@ Rectangle {
 
     CEditListView {
         id: fileList
-        anchors.top: parent.top
+        anchors.top: titleAreaEnable ? toptitle.bottom : parent.top
         anchors.bottom: parent.bottom
         width: parent.width
         clip: true
@@ -74,7 +108,6 @@ Rectangle {
             width: fileList.width
 
             onClicked: {
-                console.log(filePath + " is been clicked---------------");
                 if (!isFile) { //dir
                     typeModel.path = filePath;
                 } else if (!filesPicker.isDirMode){ //file(for select file not dir)
@@ -84,9 +117,6 @@ Rectangle {
             } //end onClicked
         } //end DelegateComponent{
 
-        Component.onCompleted: {
-            console.log("fileList Component.onCompleted------", fileList.count);
-        }
     } //end CEditListView {
 }
 

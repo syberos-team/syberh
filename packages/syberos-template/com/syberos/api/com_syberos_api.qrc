@@ -35,5 +35,8 @@
         <file>qml/SFilesPickerView.qml</file>
         <file>qml/Sfm.js</file>
         <file>qml/SUI.js</file>
+        <file>js/readme.md</file>
+        <file>js/webview.js</file>
+        <file>js/filepicker/filepicker.js</file>
     </qresource>
 </RCC>
