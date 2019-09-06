@@ -26,6 +26,9 @@
       "apis/fileInfo/removeFileInfos": {
         "title": "removeFileInfos"
       },
+      "apis/filepicker/filepicker": {
+        "title": "filepicker"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -194,7 +197,8 @@
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
-      "webview": "webview"
+      "webview": "webview",
+      "文件选择": "文件选择"
     }
   },
   "pages-strings": {

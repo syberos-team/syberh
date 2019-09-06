@@ -26,7 +26,7 @@ CPage {
     property bool leftItemEnabled: false  // 是否展示左侧icon
 
     property var filesPath //for email
-    property int category: 0 //0: all, 1: image, 2: video, 3: audio, 4: document, 5: text, 6: album, 7: photoAlbum
+    property int category: 0 //0: all, 1: image, 2: video, 3: audio, 4: document, 5: text
     property var dirPath //for download
 
     property bool isDirMode: false
@@ -84,12 +84,6 @@ CPage {
                     break;
                 case 5:
                     galleryModel.rootType = "Text";
-                    break;
-                case 6:
-                    galleryModel.rootType = "Album";
-                    break;
-                case 7:
-                    galleryModel.rootType = "PhotoAlbum";
                     break;
             default:
                 break;

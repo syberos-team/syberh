@@ -1,18 +1,10 @@
 {
   "docs": {
-    "关于SYBEROS": [
-      "README"
-    ],
-    "快速开始": [
-      "started-syberos",
-      "started-cli",
-      "first-app"
-    ]
+    "关于SYBEROS": ["README"],
+    "快速开始": ["started-syberos", "started-cli", "first-app"]
   },
   "API": {
-    "关于API": [
-      "apis/about/desc"
-    ],
+    "关于API": ["apis/about/desc"],
     "模态弹窗": [
       "apis/modal/toast",
       "apis/modal/gtoast",
@@ -24,9 +16,7 @@
       {
         "label": "相机",
         "type": "subcategory",
-        "ids": [
-          "apis/multimedia/camera/capturePhoto"
-        ]
+        "ids": ["apis/multimedia/camera/capturePhoto"]
       },
       {
         "label": "录音",
@@ -42,9 +32,7 @@
     "电话": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/telephony/dial"
-        ]
+        "ids": ["apis/telephony/dial"]
       }
     ],
     "剪贴板": [
@@ -59,9 +47,7 @@
     "系统信息": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/system/aboutPhone"
-        ]
+        "ids": ["apis/system/aboutPhone"]
       }
     ],
     "数据存储": [
@@ -73,22 +59,16 @@
     "网络": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/request/request"
-        ]
+        "ids": ["apis/request/request"]
       }
     ],
     "下载": [
       {
         "type": "subcategory",
-        "ids": [
-          "apis/download/download",
-          "apis/download/download-cancel"
-        ]
+        "ids": ["apis/download/download", "apis/download/download-cancel"]
       }
     ],
-    "webview": [
-      "apis/webview/webview"
-    ]
+    "webview": ["apis/webview/webview"],
+    "文件选择": ["apis/filepicker/filepicker"]
   }
 }
