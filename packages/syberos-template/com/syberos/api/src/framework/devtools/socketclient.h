@@ -52,12 +52,12 @@ public:
 
 signals:
     // 热更新完成
-    void hot();
+    void update();
 
 public slots:
 
     void socketError(QAbstractSocket::SocketError error);
-    void close();
+    void disconnected();
     void connection();
     void data();
     //下载完成信号
@@ -67,21 +67,14 @@ public slots:
 private:
      DownloadManager *downloadManager;
     Helper *helper;
+    /**
+     * @brief hotUpdate 热更新实现
+     */
+    void updateWebRoot();
     //需要下载的个数
     int total=0;
 
     int downloadTotal=0;
-    /**
-     * @brief gzvfWWW 解压缩www文件
-     * @param $gzPath 压缩文件目录
-     */
-    void zxvfWWW(QString path);
-
-
-    /**
-     * @brief removePath 清空web路径
-     */
-    void ensureWebRoot(const QString &path);
     /**
      * @brief onData 接受到数据
      */
@@ -115,12 +108,8 @@ private:
     int fileSize=-1;
     //已经发送进来的大小
     int hasSend=0;
-
     //临时目录名称
     QString TEMP_PATH_NAME="tmp";
-
-
-    // void onError(QAbstractSocket::SocketError);
 };
 
 #endif // SOCKETCLIENT_H

@@ -29,19 +29,20 @@ class DevTools:public NativeSdkHandlerBase
 {
     Q_OBJECT
 public:
+    Q_INVOKABLE DevTools();
     ~DevTools();
     static DevTools * getInstance();
+     void request(QString callBackID,QString actionName,QVariantMap params);
     bool copyDirectoryFiles(const QString &fromDir, const QString &toDir, bool coverFileIfExist);
     bool copyFileToPath(QString sourceDir ,QString toDir, bool coverFileIfExist);
+    static int typeId;
 private:
-    DevTools();
     static DevTools *pDevTools;
     SocketClient *socketClient;
     //服务端IP
     QString serverIp();
     //服务端端口
     int serverPort();
-
     /**
      * @brief 拷贝临时目录
      * @return

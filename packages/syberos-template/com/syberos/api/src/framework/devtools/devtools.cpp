@@ -1,6 +1,7 @@
 #include "devtools.h"
 #include <QMutexLocker>
 
+int DevTools::typeId = qRegisterMetaType<DevTools*>();
 DevTools *DevTools::pDevTools=NULL;
 DevTools::DevTools()
 {
@@ -9,7 +10,11 @@ DevTools::DevTools()
     this->copyWWW();
     socketClient=new SocketClient(this->serverIp(),this->serverPort());
     //绑定热更新函数
-    connect(socketClient,&SocketClient::hot,this,&DevTools::reload);
+    connect(socketClient,&SocketClient::update,this,&DevTools::reload);
+}
+
+void DevTools::request(QString callBackID, QString actionName, QVariantMap params){
+    qDebug()<<Q_FUNC_INFO<<"----------------------request"<<callBackID <<actionName <<endl;
 }
 
 DevTools *DevTools::getInstance(){
@@ -41,6 +46,8 @@ int DevTools::serverPort(){
 void DevTools::reload(){
     qDebug();
     qDebug()<<"-----reload";
+
+    emit subscribe("DevToolsReload",true);
 }
 
 /**

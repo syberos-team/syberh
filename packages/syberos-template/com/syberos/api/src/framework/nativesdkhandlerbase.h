@@ -31,7 +31,7 @@ signals:
     void success(long responseID, QVariant result);
     void failed(long responseID,long errorCode,QString errorMsg);
     void progress(long responseID,const int totalLength,const int progress,const int status);
-     void subscribe(QString handleName,QVariant result);
+    void subscribe(QString handleName,QVariant result);
 };
 
 #endif // NATIVESDKHANDLERBASE_H

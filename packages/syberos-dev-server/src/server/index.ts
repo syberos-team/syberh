@@ -176,6 +176,8 @@ export default class Server {
    * @param callback
    */
   private addQueue(filePath: string, callback?: Function) {
+
+    console.log("队列等待中   addQueue:", filePath);
     if (this.queue.length > 0) {
       // 清空数组
       this.queue = []
@@ -241,11 +243,7 @@ export default class Server {
 
         }
         await this.write(socket, JSON.stringify(fileHead));
-        // // tslint:disable-next-line: no-floating-promises
-        // this.writeFile(socket, fileHead, file, () => {
-        //   console.log('------发送返回')
-
-        // })
+        count += 1;
       })
     });
 
