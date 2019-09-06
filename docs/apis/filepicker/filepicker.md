@@ -57,10 +57,14 @@ syber.filepicker.show({
   showBack: true,
   category: 'image',
   success: function(result) {
-    console.log('success: ', result.path)
+    if (result.confirm) {
+      console.log('用户点击确定， 文件路径为=》', result.path)
+    } else if (result.cancel) {
+      console.log('用户点击取消')
+    }
   },
   fail: function(error) {
-    console.log('fail: ', error.code, error.msg)
+    console.log('filepicker open fail')
   }
 })
 ```
