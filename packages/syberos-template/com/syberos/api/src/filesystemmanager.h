@@ -32,11 +32,19 @@ public:
     QString fileList(QString srcPath);
 
     /**
+     * @brief fileType      文件类型
+     * @param srcPath       源路径
+     * @return              0：文件，1：文件夹，2：其他
+     */
+    qint32 fileType(QString srcPath);
+
+    /**
      * @brief remove        移除
      * @param srcPath       源路径
+     * @param fileType      0：文件，1：文件夹
      * @return
      */
-    QString remove(QString srcPath);
+    QString remove(QString srcPath, QString fileType);
 
 };
 
