@@ -16,13 +16,17 @@ DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_bytesCurrentReceived(0)
         , m_isStop(true)
         , m_downloadId("")
+        , m_storage(Internal)
 {
     m_networkManager = new QNetworkAccessManager(this);
+    m_storageManager = new CStorageManager(this);
 }
 
 
 DownloadManager::~DownloadManager(){
-    delete m_networkManager;
+    m_storageManager->deleteLater();
+    m_storageManager = NULL;
+    m_networkManager->deleteLater();
     m_networkManager = NULL;
 }
 
@@ -54,6 +58,17 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         m_fileName = fileName + DOWNLOAD_FILE_SUFFIX;
 
         m_path = fileName;
+
+        QFileInfo f(m_path);
+        if(f.isDir()){
+            emit signalDownloadError(m_downloadId, QNetworkReply::UnknownContentError, "必须是一个文件路径");
+            return;
+        }
+        //自动创建目录
+        QDir dir = f.absoluteDir();
+        if(!dir.exists()){
+            dir.mkpath(dirPath);
+        }
 
         // 如果当前下载的字节数为0那么说明未下载过或者重新下载
         // 则需要检测本地是否存在之前下载的临时文件，如果有则删除
@@ -139,6 +154,14 @@ void DownloadManager::setDownloadId(QString downloadId){
     m_downloadId = downloadId;
 }
 
+void DownloadManager::setStorage(DownloadManager::Storage storage){
+    m_storage = storage;
+}
+
+DownloadManager::Storage DownloadManager::getStorage() {
+    return m_storage;
+}
+
 QString DownloadManager::getDownloadId(){
     return m_downloadId;
 }
@@ -156,6 +179,18 @@ qint64 DownloadManager::getBytesTotal(){
 }
 
 
+//获取下载文件大小
+qint64 DownloadManager::downloadFileSize(){
+    if(m_bytesTotal > 0){
+        return m_bytesTotal;
+    }
+    QVariant size = m_reply->header(QNetworkRequest::ContentLengthHeader);
+    if (size.isValid()){
+        m_bytesTotal = size.toLongLong();
+    }
+    return m_bytesTotal;
+}
+
 
 // 下载进度信息
 void DownloadManager::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal){
@@ -172,7 +207,15 @@ void DownloadManager::onReadyRead(){
     if (!m_isStop) {
         QFile file(m_fileName);
         if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-            file.write(m_reply->readAll());
+            qint64 free = m_storageManager->storageFreeSize(m_storage==Extended ? CStorageManager::ExtStorage : CStorageManager::IntStorage);
+            qint64 size = downloadFileSize();
+            if(size > free){
+                qDebug() << Q_FUNC_INFO << "存储空间不足，预期：" << size << "，实际可用：" << free << endl;
+                emit signalDownloadError(m_downloadId, QNetworkReply::UnknownContentError, "存储空间不足");
+                closeDownload();
+            }else{
+                file.write(m_reply->readAll());
+            }
         }
         file.close();
     }
