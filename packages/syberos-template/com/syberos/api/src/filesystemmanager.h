@@ -1,12 +1,27 @@
 #ifndef FILESYSTEMMANAGER_H
 #define FILESYSTEMMANAGER_H
 #include <QObject>
+#include <QJsonObject>
+
+
+struct FileInfo
+{
+    QString path;
+    qint64 size;
+    QString created;
+};
 
 class FileSystemManager : public QObject
 {
     Q_OBJECT
 
 public:
+
+    enum FileType {
+        File,
+        Folder,
+        Unknown
+    };
 
     FileSystemManager();
 
@@ -36,7 +51,7 @@ public:
      * @param srcPath       源路径
      * @return              0：文件，1：文件夹，2：其他
      */
-    qint32 fileType(QString srcPath);
+    FileSystemManager::FileType fileType(QString srcPath);
 
     /**
      * @brief remove        移除
@@ -45,7 +60,21 @@ public:
      * @param recursive     当fileType为1时有效。0：否，1：是
      * @return
      */
-    QString remove(QString srcPath, QString fileType, QString recursive);
+    QString remove(QString srcPath, FileSystemManager::FileType fileType, QString recursive);
+
+    /**
+     * @brief getInfo       获取文件信息
+     * @param srcPath       源路径
+     * @return
+     */
+    FileInfo getInfo(QString srcPath);
+
+    /**
+     * @brief exists        判断文件是否存在
+     * @param srcPath       源路径
+     * @return
+     */
+    bool exists(QString srcPath);
 
 };
 

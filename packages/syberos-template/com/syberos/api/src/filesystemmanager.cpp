@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QDir>
 #include <QFileInfo>
+#include <QJsonObject>
+#include <QDateTime>
 
 FileSystemManager::FileSystemManager()
 {
@@ -49,28 +51,31 @@ QString FileSystemManager::fileList(QString srcPath)
     }
 }
 
-qint32 FileSystemManager::fileType(QString srcPath)
+FileSystemManager::FileType FileSystemManager::fileType(QString srcPath)
 {
-    QFileInfo fileinfo(srcPath);
-    if (!fileinfo.exists()) {
-        return "No such file or folder";
+
+    if (!exists(srcPath)) {
+        return FileSystemManager::Unknown;
     }
+
+    QFileInfo fileinfo(srcPath);
+
     if (fileinfo.isFile()) {
-        return 0;
+        return FileSystemManager::File;
     } else if (fileinfo.isDir()) {
-        return 1;
+        return FileSystemManager::Folder;
     } else {
-        return 2;
+        return FileSystemManager::Unknown;
     }
 }
 
-QString FileSystemManager::remove(QString srcPath, QString fileType, QString recursive)
+QString FileSystemManager::remove(QString srcPath, FileSystemManager::FileType fileType, QString recursive)
 {
     QProcess *proc = new QProcess();
 
-    if (fileType == 0) {
+    if (fileType == FileSystemManager::File) {
         proc->start("rm -rf " + srcPath);
-    } else if (fileType == 1){
+    } else if (fileType == FileSystemManager::Folder){
         if (recursive == 0) {
             proc->start("rm -f " + srcPath);
         } else {
@@ -89,3 +94,23 @@ QString FileSystemManager::remove(QString srcPath, QString fileType, QString rec
         return errTmp;
     }
 }
+FileInfo FileSystemManager::getInfo(QString srcPath)
+{
+    FileInfo file;
+    if (!exists(srcPath)) {
+        return file;
+    }
+    QFileInfo fileinfo(srcPath);
+
+    file.path = fileinfo.path();
+    file.size = fileinfo.size();
+    file.created = fileinfo.created().toString("yyyy-MM-dd hh:mm:ss");
+
+    return file;
+}
+bool FileSystemManager::exists(QString srcPath)
+{
+    QFileInfo fileinfo(srcPath);
+    return fileinfo.exists();
+}
+
