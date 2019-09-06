@@ -42,9 +42,10 @@ public:
      * @brief remove        移除
      * @param srcPath       源路径
      * @param fileType      0：文件，1：文件夹
+     * @param recursive     当fileType为1时有效。0：否，1：是
      * @return
      */
-    QString remove(QString srcPath, QString fileType);
+    QString remove(QString srcPath, QString fileType, QString recursive);
 
 };
 
