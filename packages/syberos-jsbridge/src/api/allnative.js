@@ -12,22 +12,24 @@ import systemMixin from './native/system';
 import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
+import audioMixin from './native/audio';
 
 // const hybridJs = window.syber;
-export default function allNative(hybridJs) {
-    // 下载模块
-    downloadMixin(hybridJs);
-    modalMixin(hybridJs);
-    webviewMix(hybridJs);
-    runtimeMixin(hybridJs);
-    deviceMixin(hybridJs);
-    pageMixin(hybridJs);
-    navigatorMixin(hybridJs);
-    utilMixin(hybridJs);
-    telephonyMixin(hybridJs);
-    storageMixin(hybridJs);
-    systemMixin(hybridJs);
-    networkMixin(hybridJs);
-    captureMixin(hybridJs);
-    clipboardMixin(hybridJs);
+export default function allNative (hybridJs) {
+  // 下载模块
+  downloadMixin(hybridJs);
+  modalMixin(hybridJs);
+  webviewMix(hybridJs);
+  runtimeMixin(hybridJs);
+  deviceMixin(hybridJs);
+  pageMixin(hybridJs);
+  navigatorMixin(hybridJs);
+  utilMixin(hybridJs);
+  telephonyMixin(hybridJs);
+  storageMixin(hybridJs);
+  systemMixin(hybridJs);
+  networkMixin(hybridJs);
+  captureMixin(hybridJs);
+  clipboardMixin(hybridJs);
+  audioMixin(hybridJs);
 }

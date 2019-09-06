@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as fs from 'fs-extra'
 import chalk from 'chalk'
-import * as _ from 'lodash';
+import * as _ from 'lodash'
 import * as inquirer from 'inquirer'
 import * as semver from 'semver'
 
@@ -20,6 +20,8 @@ interface IProjectConf {
   css: 'none' | 'sass' | 'stylus' | 'less'
   date?: string
   src?: string
+  // 是否创建demo项目
+  useDemo?: boolean
 }
 
 export default class Project extends Creator {
@@ -41,7 +43,8 @@ export default class Project extends Creator {
         projectDir: '',
         template: 'default',
         sopid: '',
-        appName: ''
+        appName: '',
+        useDemo: ''
       },
       options
     )
@@ -59,10 +62,10 @@ export default class Project extends Creator {
     this.ask().then(answers => {
       const date = new Date()
       //对象
-      const newAnswer = {};
+      const newAnswer = {}
       for (const obj in answers) {
         const value = _.trim(answers[obj])
-        newAnswer[obj] = value;
+        newAnswer[obj] = value
       }
       this.conf = Object.assign(this.conf, newAnswer)
       this.conf.date = `${date.getFullYear()}-${date.getMonth() +
@@ -74,6 +77,11 @@ export default class Project extends Creator {
   ask() {
     const prompts: object[] = []
     const conf = this.conf
+
+    if (conf.useDemo === true) {
+      console.log(chalk.green(`正在创建示例项目!`))
+      console.log()
+    }
 
     if (typeof conf.projectName !== 'string') {
       prompts.push({
@@ -107,8 +115,6 @@ export default class Project extends Creator {
       })
     }
 
-
-
     if (!conf.appName) {
       prompts.push({
         type: 'input',
@@ -122,7 +128,6 @@ export default class Project extends Creator {
         }
       })
     }
-
 
     if (!conf.sopid) {
       prompts.push({

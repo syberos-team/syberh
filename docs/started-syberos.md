@@ -6,6 +6,11 @@ title: 安装 SyberOS SDK & PKD
 
 Syberos 应用必须在 ubuntu 64位系统下编译打包，推荐使用 Ubuntu 14.04 版本。安装 SyberOS SDK & PKD 前请选确保当前系统为 Ubuntu。
 
+
+**下载地址：**
+
+[百度网盘](https://pan.baidu.com/s/1wxQxmD6K-SMryDiWcuXseQ) 提取码：fcxs 
+
 ### 安装 SDK
 
 下载依赖包 `sdk_install_package.tgz`，解压并进行安装，安装时需要root权限
@@ -63,15 +68,7 @@ sdk:
 
 target: 
 
-`target-armv7tnhl-ginkgo_millet-build287.tar.bz2`
-
-`target-armv7tnhl-main_dev-build774.tar.bz2`
-
-`target-armv7tnhl-os_2_1_lts-build777.tar.bz2`
-
 `target-armv7tnhl-xuanwu-build782.tar.bz2`
-
-`target-i686-main_dev-build564.tar.bz2`
 
 `target-i686-xuanwu-build762.tar.bz2`
 
