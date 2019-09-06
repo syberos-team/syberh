@@ -13,6 +13,7 @@ import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
 import batteryMixin from './native/battery';
+import getInfoMixin from './native/networkInfo';
 
 
 // const hybridJs = window.syber;
@@ -35,5 +36,6 @@ export default function allNative(hybridJs) {
     audioMixin(hybridJs);
     //电池模块
     batteryMixin(hybridJs);
-
+    //网络状态模块
+    getInfoMixin(hybridJs);
 }

@@ -106,3 +106,4 @@ target:
 ### 注意事项
 
 安装 SDK 与 PDK 时，切勿修改安装路径，SDK安装于用户目录下的 SyberOS-SDK 目录中，PDK安装于用户目录下的 Syberos-Pdk 目录中。
+getType

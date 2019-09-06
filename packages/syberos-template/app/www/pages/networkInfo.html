@@ -35,7 +35,7 @@
   <div class="mui-content pt0">
     <div class="mui-card">
       <div class="mui-card-header">
-        <button type="button" class="mui-btn mui-btn-primary" onclick="baseParam()">获取电池信息</button>
+        <button type="button" class="mui-btn mui-btn-primary" onclick="baseParam()">网络类型</button>
       </div>
     </div>
 
@@ -43,31 +43,32 @@
 
       <div class="mui-card">
         <div class="mui-input-row">
-          <label>是否正在充电</label>
-          <input type="text" id="isCharging" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-        </div>
-      </div>
-
-      <div class="mui-card">
-        <div class="mui-input-row">
-          <label>当前电量，0 - 100 之间</label>
-          <input type="text" id="level" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-        </div>
-      </div>
-
-      <div class="mui-card">
-        <div class="mui-input-row">
-          <label>电池容量，0 - 100 之间</label>
-          <input type="text" id="capacity" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-        </div>
-      </div>
-
-      <div class="mui-card">
-        <div class="mui-input-row">
           <label>电池是否有效</label>
-          <input type="text" id="isValid" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+          <input type="text" id="networkType" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
       </div>
+
+      <div class="mui-card">
+        <div class="mui-input-row">
+          <label>当前网络是否可用</label>
+          <input type="text" id="isNetworkAvailable" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+        </div>
+      </div>
+
+      <div class="mui-card">
+        <div class="mui-input-row">
+          <label>当前WiFi是否处于连接状态</label>
+          <input type="text" id="isWifiConnected" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+        </div>
+      </div>
+
+      <div class="mui-card">
+        <div class="mui-input-row">
+          <label>当前信号强度</label>
+          <input type="text" id="wifiSignalStrength" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
+        </div>
+      </div>
+
 
       <div class="mui-card-footer">
         <div id="start-progressbar" class="mui-progressbar">
@@ -102,14 +103,13 @@
     }
 
     function baseParam(param) {
-      syber.battery.getStatus({
+      syber.networkInfo.getInfo({
         success: function (result) {
           console.info("result-电池信息: " + result)
-          document.getElementById("isCharging").value = blankHandle(result.isCharging);
-          document.getElementById("level").value = blankHandle(result.level);
-          document.getElementById("capacity").value = blankHandle(result.capacity);
-          document.getElementById("isValid").value = blankHandle(result.isValid);
-
+          document.getElementById("networkType").value = blankHandle(result.networkType);
+          document.getElementById("isNetworkAvailable").value = blankHandle(result.isNetworkAvailable);
+          document.getElementById("isWifiConnected").value = blankHandle(result.isWifiConnected);
+          document.getElementById("wifiSignalStrength").value = blankHandle(result.wifiSignalStrength);
         },
         fail: function (error) {
           console.info(error)
@@ -121,6 +121,7 @@
     function blankHandle(param) {
       return !param ? '' : param;
     }
+
 
   </script>
 </body>

@@ -92,35 +92,14 @@
       "apis/system/battery": {
         "title": "battery"
       },
-      "apis/system/brightness-getMode": {
-        "title": "brightness-getMode"
-      },
-      "apis/system/brightness-getValue": {
-        "title": "brightness-getValue"
-      },
-      "apis/system/brightness-setMode": {
-        "title": "brightness-setMode"
-      },
-      "apis/system/brightness-setValue": {
-        "title": "brightness-setValue"
-      },
-      "apis/system/geolocation copy": {
-        "title": "geolocation-getLocation"
-      },
-      "apis/system/network-getType": {
-        "title": "network-getType"
+      "apis/system/network-getInfo": {
+        "title": "networkGetInfo"
       },
       "apis/system/network-subscribe": {
         "title": "network-subscribe"
       },
       "apis/system/network-unsubscribe": {
         "title": "network-unsubscribe"
-      },
-      "apis/system/volume-getMediaValue": {
-        "title": "volume-getMediaValue"
-      },
-      "apis/system/volume-setMediaValue": {
-        "title": "volume-setMediaValue"
       },
       "apis/telephony/dial": {
         "title": "dial"

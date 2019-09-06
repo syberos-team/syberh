@@ -68,7 +68,7 @@
           "apis/system/brightness-setValue",
           "apis/system/brightness-getMode",
           "apis/system/brightness-setMode",
-          "apis/system/network-getType",
+          "apis/system/network-getInfo",
           "apis/system/network-subscribe",
           "apis/system/network-unsubscribe",
           "apis/system/geolocation-getLocation",

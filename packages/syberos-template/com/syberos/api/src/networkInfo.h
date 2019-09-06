@@ -11,16 +11,16 @@
 * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
 */
 
-#ifndef BATTERY_H
-#define BATTERY_H
+#ifndef NETWORKINFO_H
+#define NETWORKINFO_H
 
 #include "framework/nativesdkhandlerbase.h"
-class Battery : public NativeSdkHandlerBase
+class NetworkInfo : public NativeSdkHandlerBase
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE Battery();
-    ~Battery();
+    Q_INVOKABLE NetworkInfo();
+    ~NetworkInfo();
 
     void request(QString callBackID, QString actionName, QVariantMap params);
 
@@ -31,13 +31,13 @@ public:
 private :
 
     /**
-     * @brief aboutPhone 获取当前设备的电量信息
+     * @brief aboutPhone 获取当前设备的网络信息
      * @param callBackID 获取手机信息的任务Id
      * @param params 参数
-     * @return 成功则返回当前设备的电量信息及是否在充电。
+     * @return 成功则返回当前设备的网络信息。
      * @return 失败则返回错误码。
      */
-    void  getStatus(long callBackID, QVariantMap params);
+    void  getInfo(long callBackID, QVariantMap params);
 };
 
-#endif // SYSTEMINFO_H
+#endif // NETWORKINFO_H
