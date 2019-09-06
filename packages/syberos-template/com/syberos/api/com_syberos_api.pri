@@ -43,11 +43,7 @@ SOURCES += \
     $$PWD/src/downloadmanager.cpp \
     $$PWD/src/camera.cpp \
     $$PWD/src/network.cpp \
-<<<<<<< Updated upstream
     $$PWD/src/battery.cpp
     $$PWD/src/audio.cpp
-
-=======
-    $$PWD/src/battery.cpp \
     $$PWD/src/networkInfo.cpp
->>>>>>> Stashed changes
+
