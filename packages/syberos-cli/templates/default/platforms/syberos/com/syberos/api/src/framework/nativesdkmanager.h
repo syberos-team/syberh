@@ -85,6 +85,13 @@ signals:
       *@status 上传/下载状态  开始下载 下载中 下载完成
       */
     void progress(long responseID,const int totalLength,const int progress,const int status);
+
+    /**
+      *@brief signal 订阅方法
+      *@handleName 调用的方法
+      *@data 回调数据
+      */
+    void subscribe(QString handleName,QVariant data);
 };
 
 #endif // NATIVESDKMANAGER_H

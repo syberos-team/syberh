@@ -22,7 +22,7 @@ export const build = (appPath: string, config: AppBuildConfig) => {
     build.start()
   }
 
-  const server = new Server({ prot: serverPort })
+  const server = new Server({ port: serverPort })
 
   const wpath = path.join(appPath, 'www')
   // tslint:disable-next-line: no-unused-expression

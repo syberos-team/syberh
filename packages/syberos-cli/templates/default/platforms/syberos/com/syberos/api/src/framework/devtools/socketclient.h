@@ -25,6 +25,8 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include "../../helper.h"
+#include "../../util/downloadmanager.h"
+
 
 /**
  * Socket客户端工具类
@@ -50,27 +52,29 @@ public:
 
 signals:
     // 热更新完成
-    void hot();
+    void update();
 
 public slots:
 
-    //void socketError(QAbstractSocket::SocketError error);
-    void close();
+    void socketError(QAbstractSocket::SocketError error);
+    void disconnected();
     void connection();
     void data();
+    //下载完成信号
+    void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
 
 
 private:
+     DownloadManager *downloadManager;
+    Helper *helper;
     /**
-     * @brief gzvfWWW 解压缩www文件
-     * @param $gzPath 压缩文件目录
+     * @brief hotUpdate 热更新实现
      */
-    void zxvfWWW(const QString &path);
+    void updateWebRoot();
+    //需要下载的个数
+    int total=0;
 
-    /**
-     * @brief removePath 清空web路径
-     */
-    void ensureWebRoot(const QString &path);
+    int downloadTotal=0;
     /**
      * @brief onData 接受到数据
      */
@@ -104,12 +108,8 @@ private:
     int fileSize=-1;
     //已经发送进来的大小
     int hasSend=0;
-
     //临时目录名称
-    QString TEMP_PATH_NAME=".temp";
-
-
-    // void onError(QAbstractSocket::SocketError);
+    QString TEMP_PATH_NAME="tmp";
 };
 
 #endif // SOCKETCLIENT_H
