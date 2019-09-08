@@ -1,8 +1,8 @@
 {
   "name": "@syberos/dev-server",
-  "version": "1.0.0",
-  "description": "syberos 开发支持工具",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "syberos dev server ",
+  "main": "dist/index.js",
   "license": "MIT",
   "engines": {
     "node": ">=8"
