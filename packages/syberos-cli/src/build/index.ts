@@ -11,6 +11,10 @@ import { getProjectConfig } from '../syberos/helper'
  */
 export const build = (appPath: string, config: AppBuildConfig) => {
   const newConfig = { ...config, ...getProjectConfig(appPath) }
+  let serverPort = 4399;
+  if (!newConfig.port) {
+    Object.assign(newConfig, { port: serverPort })
+  }
   const build = new Build(appPath, newConfig)
   if (newConfig.onlyBuildSop === true) {
     build.buildSop()
@@ -18,10 +22,8 @@ export const build = (appPath: string, config: AppBuildConfig) => {
     build.start()
   }
 
+  const server = new Server({ prot: serverPort })
 
-  const server = new Server({ prot: 8080 });
-
-  const wpath = path.join(appPath, 'www');
-  new Watcher(server, wpath);
-
+  const wpath = path.join(appPath, 'www')
+  new Watcher(server, wpath)
 }
