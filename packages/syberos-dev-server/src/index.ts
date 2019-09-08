@@ -1,3 +1,5 @@
-import Server from './server/index';
+import Server from './server/index'
+import Watcher from './server/Watcher'
 
-export default Server;
+export { Watcher }
+export default Server

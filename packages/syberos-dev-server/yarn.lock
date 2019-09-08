@@ -1843,6 +1843,11 @@ braces@^3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
+brolog@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/brolog/-/brolog-1.8.3.tgz#8123420b46912333ed4dc3d25fe98af30f5b0fad"
+  integrity sha512-ye50Dh2AIz6r4UdrKq9KuZHq3P0osZI42bXUTh9Grp3qLjTN7HqnC1b7czD6ySoSj42piFAq4eHuBrYBRSGxDg==
+
 brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/brorand/download/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"

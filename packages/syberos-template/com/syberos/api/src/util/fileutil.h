@@ -11,7 +11,7 @@ struct FileInfo
     QString created;
 };
 
-class FileSystemManager : public QObject
+class FileUtil : public QObject
 {
     Q_OBJECT
 
@@ -23,7 +23,7 @@ public:
         Unknown
     };
 
-    FileSystemManager();
+    FileUtil();
 
     /**
      * @brief move          移动
@@ -51,7 +51,7 @@ public:
      * @param srcPath       源路径
      * @return              0：文件，1：文件夹，2：其他
      */
-    static FileSystemManager::FileType fileType(QString srcPath);
+    static FileUtil::FileType fileType(QString srcPath);
 
     /**
      * @brief remove        移除

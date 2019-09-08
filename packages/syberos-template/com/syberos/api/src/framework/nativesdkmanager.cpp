@@ -9,7 +9,10 @@ NativeSdkManager::NativeSdkManager(){
     if(debug.toBool()){
 
     }
-    devTools=DevTools::getInstance();
+    if(!devTools){
+         devTools=DevTools::getInstance();
+    }
+
     qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
 }
 NativeSdkManager::~NativeSdkManager(){

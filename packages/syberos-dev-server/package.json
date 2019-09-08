@@ -1,10 +1,9 @@
 {
   "name": "@syberos/dev-server",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.0",
   "description": "syberos 开发支持工具",
   "main": "index.js",
   "license": "MIT",
-  "private": true,
   "engines": {
     "node": ">=8"
   },
@@ -12,6 +11,7 @@
     "test": "jest --detectOpenHandles",
     "build": "run-s clean prod",
     "dev": "tsc -w",
+    "server": " DEV_LOG=verbose node bin/syber-dev-server.js",
     "prod": "tsc",
     "clean": "rimraf dist",
     "lint": "tslint src/**/*.ts --fix",
@@ -33,6 +33,7 @@
     "babylon": "^6.18.0",
     "better-babel-generator": "^6.26.1",
     "body-parser": "^1.19.0",
+    "brolog": "^1.8.3",
     "chalk": "2.4.2",
     "chokidar": "^3.0.2",
     "commander": "^2.19.0",

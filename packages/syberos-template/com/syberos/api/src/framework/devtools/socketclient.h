@@ -25,7 +25,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include "../../helper.h"
-#include "../../downloadmanager.h"
+#include "../../util/downloadmanager.h"
 
 
 /**

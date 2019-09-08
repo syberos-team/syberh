@@ -1,4 +1,4 @@
-#include "filesystemmanager.h"
+#include "fileutil.h"
 #include <QProcess>
 #include <QFile>
 #include <QDir>
@@ -7,11 +7,11 @@
 #include <QDateTime>
 #include <QDebug>
 
-FileSystemManager::FileSystemManager()
+FileUtil::FileUtil()
 {
 
 }
-QString FileSystemManager::move(QString srcPath, QString destPath)
+QString FileUtil::move(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
     QString cmd="mv -f " + srcPath + " " + destPath;
@@ -25,7 +25,7 @@ QString FileSystemManager::move(QString srcPath, QString destPath)
         return errTmp;
     }
 }
-QString FileSystemManager::copy(QString srcPath, QString destPath)
+QString FileUtil::copy(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
     proc->start("cp -rf " + srcPath + " " + destPath);
@@ -39,7 +39,7 @@ QString FileSystemManager::copy(QString srcPath, QString destPath)
     }
 }
 
-QString FileSystemManager::fileList(QString srcPath)
+QString FileUtil::fileList(QString srcPath)
 {
     QProcess *proc = new QProcess();
     proc->start("ls " + srcPath);
@@ -53,25 +53,25 @@ QString FileSystemManager::fileList(QString srcPath)
     }
 }
 
-FileSystemManager::FileType FileSystemManager::fileType(QString srcPath)
+FileUtil::FileType FileUtil::fileType(QString srcPath)
 {
 
     if (!exists(srcPath)) {
-        return FileSystemManager::Unknown;
+        return FileUtil::Unknown;
     }
 
     QFileInfo fileinfo(srcPath);
 
     if (fileinfo.isFile()) {
-        return FileSystemManager::File;
+        return FileUtil::File;
     } else if (fileinfo.isDir()) {
-        return FileSystemManager::Folder;
+        return FileUtil::Folder;
     } else {
-        return FileSystemManager::Unknown;
+        return FileUtil::Unknown;
     }
 }
 
-QString FileSystemManager::remove(QString srcPath, int recursive)
+QString FileUtil::remove(QString srcPath, int recursive)
 {
     QProcess *proc = new QProcess();
     if (recursive == 0) {
@@ -89,7 +89,7 @@ QString FileSystemManager::remove(QString srcPath, int recursive)
         return errTmp;
     }
 }
-FileInfo FileSystemManager::getInfo(QString srcPath)
+FileInfo FileUtil::getInfo(QString srcPath)
 {
     FileInfo file;
     if (!exists(srcPath)) {
@@ -103,7 +103,7 @@ FileInfo FileSystemManager::getInfo(QString srcPath)
 
     return file;
 }
-bool FileSystemManager::exists(QString srcPath)
+bool FileUtil::exists(QString srcPath)
 {
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();

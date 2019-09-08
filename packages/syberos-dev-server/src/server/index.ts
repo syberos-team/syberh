@@ -4,8 +4,7 @@ import * as chalk from 'chalk'
 import * as uuid from 'uuid'
 import ip from 'internal-ip'
 import * as path from 'path';
-
-import { startServer } from './HttpServer';
+import HttpServer from './HttpServer';
 
 
 /**
@@ -52,34 +51,52 @@ export default class Server {
   private sendStatus: SendStatus
 
   private timer: any = null
-
-  private httpPort: number = 0;
-
   // 客户端列表
   private clients: any[] = []
+
+  private httpServer: any;
 
   constructor(config = {}) {
     this.conf = { ...this.conf, ...config }
     // 设置待发送状态
     this.sendStatus = SendStatus.WATING
+
+    this.startServer();
+  }
+
+  /**
+   * 启动socket服务
+   */
+  private startServer() {
     this.server = net.createServer()
     this.server.on('listening', async () => {
       // 初始化ip地址
       const vhost = this.conf.host || (await ip.v4())
-
       this.conf.host = vhost;
       console.log(`syberos-dev-server 服务监听 ${vhost}:${this.conf.port}`)
       console.log(chalk.default.green(`socket 服务监听 ${vhost}:${this.conf.port}`))
-      this.httpPort = this.conf.port + 1;
-
-      startServer(this.httpPort);
-      console.log(chalk.default.green(`http 服务监听 ${this.httpPort}`))
     })
 
+    this.server.on('connection', () => {
+      console.log("----connect")
+      this.startHttpServer();
+    })
     this.server.on('close', () => {
       console.log('syberos-dev-server服务端关闭')
     })
     this.server.listen(this.conf.port)
+    // 监听错误信息
+    this.server.on('error', e => {
+      if (e.code === 'EADDRINUSE') {
+        console.log(`${this.conf.port}端口正被使用,请重新设置`);
+      }
+    })
+
+    this.onConnections();
+  }
+
+  private startHttpServer() {
+    this.httpServer = new HttpServer();
   }
 
   /**
@@ -104,14 +121,11 @@ export default class Server {
     }
   }
 
-  onConnections(callback) {
+  onConnections(callback?) {
     this.server.on('connection', (socket: net.Socket) => {
       Object.assign(socket, { sid: uuid() })
       this.saveClient(socket)
 
-      socket.on('error', e => {
-        console.log(`syberos-dev-server:客户端 error: ${e.stack}`)
-      })
 
       socket.on('close', () => {
         this.removeClient(socket)
@@ -124,50 +138,6 @@ export default class Server {
 
       typeof callback === 'function' && callback(socket)
     })
-  }
-
-
-  /**
-   * 发送文件
-   * @param socket
-   * @param filePath  文件信息
-   * @param callback   发送完成的回调,成功会返回true
-   */
-  public async writeFile(
-    socket: net.Socket,
-    fileHead: FileHead,
-    filePath: string,
-    callback?: Function
-  ) {
-    // if (!socket) {
-    //   throw new Error('socket 不能为空')
-    // }
-
-    // this.uid += 1
-    // // const hsize=JSON.stringify(obj).length;
-    // const objString = JSON.stringify(fileHead)
-    // await this.write(socket, objString)
-    // // socket.write(objString)
-    // let sendSize = 0
-    // const packSize = 1024
-    // const fd = fs.openSync(filePath, 'r')
-    // const buf = Buffer.alloc(packSize)
-    // let countData = 0
-    // const { name, size } = fileHead.fileInfo
-    // console.log(chalk.default.green(`开始发送数据，文件名:${name} ,文件大小:${size}`))
-    // while (sendSize < fileHead.fileInfo.size) {
-    //   // readSync参数:文件ID,buffer对象,写入buffer的起始位置,写入buffer的结束位置,读取文件的起始位置
-    //   fs.readSync(fd, buf, 0, buf.length, sendSize)
-    //   const data = buf.toString('hex') // 以十六进制传输
-    //   socket.write(data)
-    //   sendSize += packSize
-    //   countData += buf.length
-    // }
-    // // 发送完成标志
-    // socket.write("#");
-    // console.log('发送完成', countData)
-
-    // callback && callback(true)
   }
 
   /**
@@ -232,7 +202,8 @@ export default class Server {
       clients.forEach(async socket => {
         this.uid += 1
 
-        const serverhost = `http://${this.conf.host}:${this.httpPort}/download`;
+        // 获取下载服务地址
+        const serverhost = this.httpServer.getUri();
 
         console.log('----serverhost:', serverhost)
         // 发送数据格式
