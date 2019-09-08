@@ -17,9 +17,9 @@
 #include <QString>
 #include <QObject>
 #include <QDebug>
-#include "../common/chalk.h"
+#include "../../util/chalk.h"
 #include "../nativesdkhandlerbase.h"
-
+#include "../common/extendedconfig.h"
 
 /**
  * 开发工具类
@@ -33,12 +33,12 @@ public:
     ~DevTools();
     static DevTools * getInstance();
      void request(QString callBackID,QString actionName,QVariantMap params);
-    bool copyDirectoryFiles(const QString &fromDir, const QString &toDir, bool coverFileIfExist);
-    bool copyFileToPath(QString sourceDir ,QString toDir, bool coverFileIfExist);
     static int typeId;
 private:
     static DevTools *pDevTools;
     SocketClient *socketClient;
+
+     ExtendedConfig *extendConfig;
     //服务端IP
     QString serverIp();
     //服务端端口

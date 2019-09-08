@@ -4,7 +4,7 @@
 #include "framework/nativesdkhandlerbase.h"
 #include <QtNetwork>
 #include <QObject>
-#include "downloadmanager.h"
+#include "./util/downloadmanager.h"
 
 class TaskInfo{
 public:

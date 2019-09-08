@@ -1,12 +1,16 @@
 #include "socketclient.h"
-#include "../common/chalk.h"
-#include "../../filesystemmanager.h";
+#include "../../util/chalk.h"
+#include "../../util/fileutil.h";
 //#include "../include/quazip/JlCompress.h"
 
 SocketClient::SocketClient(const QString &url, const int &port)
 {
     helper=Helper::instance();
-    this->create(url,port);
+
+    if(!socketClient){
+       this->create(url,port);
+    }
+
     this->getOrCreateTempPath();
 
     qDebug() <<Q_FUNC_INFO << "SocketClient init success" <<endl;
@@ -17,7 +21,7 @@ SocketClient::~SocketClient(){
 }
 
 void SocketClient::create(const QString &url, const int &port){
-
+     qDebug() <<Q_FUNC_INFO << "SocketClient create" <<endl;
     socketClient = new QTcpSocket();
     socketClient -> abort();
     socketClient->connectToHost(url, port);
@@ -27,21 +31,6 @@ void SocketClient::create(const QString &url, const int &port){
         QByteArray s = socketClient->readAll();
         QString ss = QVariant(s).toString();
     }
-
-    //    QString str(socketClient->state());
-    //     Chalk::green(str,"SocketClient","create()");
-    //     socketClient->disconnectFromHost();
-    //         if (socketClient->state() == QAbstractSocket::UnconnectedState ||
-    //             socketClient->waitForDisconnected(1000))
-    //             str="Disconnected";
-    //             Chalk::green(str,"SocketClient","create()");
-    //socketClient->disconnectFromHost();
-    //     QString str(socketClient->state());
-    //       Chalk::green(str,"SocketClient","create()");
-    //    if (socketClient->state() == QAbstractSocket::UnconnectedState){
-    //        QString str("SocketClient 连接["+url+":"+QString::number(port)+"]失败,请检查网络情况");
-    //        Chalk::green(str,"SocketClient","create()");
-    //    }
     //绑定常用信号
     connect(socketClient, &QTcpSocket::readyRead,this, &SocketClient::data);
     connect(socketClient, &QTcpSocket::disconnected,this, &SocketClient::disconnected);
@@ -53,8 +42,7 @@ void SocketClient::create(const QString &url, const int &port){
 
 void SocketClient::socketError(QAbstractSocket::SocketError error){
     qDebug() <<"socketError";
-    //Chalk::green("str","SocketClient","create()");
-    //Chalk::green("socket socketError","SocketClient","socketError()");
+
 }
 
 
@@ -62,7 +50,7 @@ void SocketClient::socketError(QAbstractSocket::SocketError error){
  * @brief SocketClient::onDisconnected 断开链接slot
  */
 void SocketClient::disconnected(){
-    qDebug();
+
     qDebug() <<"SocketClient 断开链接:";
     //重连操作
 }
@@ -70,8 +58,6 @@ void SocketClient::disconnected(){
 void SocketClient::connection(){
     QString str("connection");
     Chalk::green(str,"SocketClient","create()");
-    qDebug() <<"connection";
-    //Chalk::green("socket connection","SocketClient","connection()");
 }
 
 void onData(QString &data){
@@ -107,7 +93,7 @@ void SocketClient::data(){
     //int hsize=dataContent.take("hsize").toInt();
     qDebug() <<"files:" << fileArray.size();
     total=fileArray.size();
-    FileSystemManager::remove(tempPath+"/www",1);
+    FileUtil::remove(tempPath+"/www",1);
     //QJsonArray files=subObj["files"].toArray();
     for (int npcIndex = 0; npcIndex < fileArray.size(); ++npcIndex) {
         QString filePath = fileArray[npcIndex].toString();
@@ -115,14 +101,11 @@ void SocketClient::data(){
         DownloadManager *downloadManager=new DownloadManager(this);
         downloadManager->setDownloadId(uid);
         QString url=serverHost+"?path="+filePath;
-        qDebug() <<"url:" << url<<endl;
 
         QString downloadPath=tempPath+"/"+filePath;
-        qDebug() <<"tempPath+filePath:" << downloadPath<<endl;
         //创建目录
         int li=downloadPath.lastIndexOf("/");
         QString dirPath= downloadPath.mid(0,li+1);
-        qDebug() <<"dirPath:" << dirPath<<endl;
         QDir dir(dirPath);
         if(!dir.exists()){
             dir.mkpath(dir.absolutePath());
@@ -152,10 +135,8 @@ void SocketClient::updateWebRoot(){
     QString dataRoot= Helper::instance()->getDataWebRootPath();
     QString tmpwww=tempPath+"/www";
 
-    FileSystemManager::remove(dataRoot,1);
-     qDebug() <<Q_FUNC_INFO << tmpwww <<endl;
-     qDebug() <<Q_FUNC_INFO << dataRoot <<endl;
-    FileSystemManager::copy(tmpwww,dataRoot);
+    FileUtil::remove(dataRoot,1);
+    FileUtil::copy(tmpwww,dataRoot);
 
     emit update();
 
@@ -179,13 +160,12 @@ void SocketClient::initParams(){
 
 QString SocketClient::getOrCreateTempPath(){
     tempPath=Helper::instance()->getDataRootPath()+"/"+this->TEMP_PATH_NAME;
-    //tempPath="/tmp/www";
     QDir *temp=new QDir(tempPath);
     if(!temp->exists(tempPath)){
         temp->mkpath(tempPath);
-        qDebug()<<"临时路径不存在:"<<tempPath <<"重新创建";
+        qDebug()<< Q_FUNC_INFO<<"临时路径不存在:"<<tempPath <<"重新创建";
     }else{
-        qDebug()<<"存在临时路径:"<<tempPath;
+        qDebug()<< Q_FUNC_INFO<<"存在临时路径:"<<tempPath;
     }
     return tempPath;
 }
