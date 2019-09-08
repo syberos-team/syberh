@@ -1,10 +1,19 @@
 #include "socketclient.h"
+#include "../../util/chalk.h"
+#include "../../util/fileutil.h";
+//#include "../include/quazip/JlCompress.h"
 
 SocketClient::SocketClient(const QString &url, const int &port)
 {
+    helper=Helper::instance();
 
-    this->create(url,port);
+    if(!socketClient){
+       this->create(url,port);
+    }
+
     this->getOrCreateTempPath();
+
+    qDebug() <<Q_FUNC_INFO << "SocketClient init success" <<endl;
 }
 
 SocketClient::~SocketClient(){
@@ -12,137 +21,127 @@ SocketClient::~SocketClient(){
 }
 
 void SocketClient::create(const QString &url, const int &port){
-
+     qDebug() <<Q_FUNC_INFO << "SocketClient create" <<endl;
     socketClient = new QTcpSocket();
     socketClient -> abort();
     socketClient->connectToHost(url, port);
-    socketClient->waitForReadyRead();
 
+
+    if(socketClient->waitForReadyRead(1000)){
+        QByteArray s = socketClient->readAll();
+        QString ss = QVariant(s).toString();
+    }
     //绑定常用信号
     connect(socketClient, &QTcpSocket::readyRead,this, &SocketClient::data);
-    connect(socketClient, &QTcpSocket::disconnected,this, &SocketClient::close);
+    connect(socketClient, &QTcpSocket::disconnected,this, &SocketClient::disconnected);
     connect(socketClient, &QTcpSocket::connected,this, &SocketClient::connection);
-    //connect(socketClient,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(socketError(QAbstractSocket::SocketError)));
+    connect(socketClient,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(socketError(QAbstractSocket::SocketError)));
     qDebug()<< "SocketClient create() 成功";
 
 }
 
+void SocketClient::socketError(QAbstractSocket::SocketError error){
+    qDebug() <<"socketError";
 
-//void SocketClient::socketError(QAbstractSocket::SocketError error){
-//    qDebug() <<"socketError";
-//}
+}
 
-void SocketClient::close(){
-    qDebug() <<"close";
+
+/**
+ * @brief SocketClient::onDisconnected 断开链接slot
+ */
+void SocketClient::disconnected(){
+
+    qDebug() <<"SocketClient 断开链接:";
+    //重连操作
 }
 
 void SocketClient::connection(){
-    qDebug() <<"connection";
+    QString str("connection");
+    Chalk::green(str,"SocketClient","create()");
 }
 
-
+void onData(QString &data){
+    Chalk::green(data,"SocketClient","create()");
+}
 
 void SocketClient::data(){
+    QByteArray qba= socketClient->readAll(); //读取
+    QString ss=QVariant(qba).toString();
 
-    if(fileSize==-1){
-        QByteArray qba= socketClient->readAll(); //读取
+    qDebug()<<"-----------------ss:"<<ss <<endl;
 
-        QString ss=QVariant(qba).toString();
-        int lastIndex=ss.lastIndexOf("}");
+    //onData(ss);
+    //    if(fileSize==-1){
 
-        qDebug()<<"lastIndex:"<<lastIndex;
-        qDebug();
-        //截取json字符串
-        QString jsonString=ss.mid(0,lastIndex+1);
-        //qDebug()<<"jsonString:"<<jsonString;
-        //剩余字符
-        QString surString=ss.mid(lastIndex+1);
-        //qDebug()<<"surString:"<<surString;
-        qDebug();
+    int lastIndex=ss.lastIndexOf("}");
+    qDebug()<<"lastIndex:"<<lastIndex;
+    qDebug();
+    //截取json字符串
+    QString jsonString=ss.mid(0,lastIndex+1);
+    //qDebug()<<"jsonString:"<<jsonString;
+    //剩余字符
+    QString surString=ss.mid(lastIndex+1);
+    //qDebug()<<"surString:"<<surString;
+    qDebug();
 
-        QJsonDocument obj=QJsonDocument::fromJson(jsonString.toUtf8());
-        QJsonObject dataContent= obj.object();
-        QJsonObject subObj =dataContent.take("fileInfo").toObject();
-        int uid=dataContent.take("uid").toInt();
-        //int hsize=dataContent.take("hsize").toInt();
-        qDebug() <<"dataContent id:" << uid;
-        fileSize=subObj["size"].toInt();
-        fileName=subObj["name"].toString();
+    QJsonDocument obj=QJsonDocument::fromJson(jsonString.toUtf8());
+    QJsonObject dataContent= obj.object();
+    QJsonArray fileArray =dataContent.take("files").toArray();
+    QString uid=dataContent.take("uid").toString();
+    QString serverHost=dataContent.take("server").toString();
 
-        zfilePath=tempPath+"/"+QString::number(uid)+"-"+fileName;
-        QFile zfile(zfilePath);
-        if(zfile.exists()){
-            zfile.remove();
+    //int hsize=dataContent.take("hsize").toInt();
+    qDebug() <<"files:" << fileArray.size();
+    total=fileArray.size();
+    FileUtil::remove(tempPath+"/www",1);
+    //QJsonArray files=subObj["files"].toArray();
+    for (int npcIndex = 0; npcIndex < fileArray.size(); ++npcIndex) {
+        QString filePath = fileArray[npcIndex].toString();
+        Chalk::green(filePath);
+        DownloadManager *downloadManager=new DownloadManager(this);
+        downloadManager->setDownloadId(uid);
+        QString url=serverHost+"?path="+filePath;
+
+        QString downloadPath=tempPath+"/"+filePath;
+        //创建目录
+        int li=downloadPath.lastIndexOf("/");
+        QString dirPath= downloadPath.mid(0,li+1);
+        QDir dir(dirPath);
+        if(!dir.exists()){
+            dir.mkpath(dir.absolutePath());
         }
-        qDebug() <<"name-----:" << fileName;
-        qDebug() <<"size-----:" << fileSize;
-        qDebug() <<"zfilePath-----:" << zfilePath;
-        QString fok="ok";
-        socketClient->write(fok.toUtf8());
 
-        //处理剩余字符串
-        if(surString.length()>0||lastIndex==-1){
-            QByteArray qba=  surString.toUtf8();
-
-            this->appendFile(QByteArray::fromHex(qba));
-            qDebug()<<"开始处理剩余字符串";
-        }
-
-
-
-    }else{
-
-        // 通过formHex把十六进制的转换为QByteArray
-        QByteArray fqba=QByteArray::fromHex(socketClient->readAll());
-
-        this->appendFile(fqba);
-
+        downloadManager->downloadFile(url,downloadPath );
+        connect(downloadManager, &DownloadManager::signalReplyFinished, this, &SocketClient::onReplyFinished);
     }
 
 }
 
-//保存字符到文件
-void SocketClient::appendFile(const QByteArray &fqba){
 
-    hasSend=hasSend+fqba.length();
-    // qDebug() <<"hasSend-----:"<<hasSend ;
-    //压缩的文件
-    QFile zfile(zfilePath);
-
-    zfile.open(QIODevice::WriteOnly|QIODevice::Append);
-    zfile.write(fqba);
-    //qDebug()<< hasSend<< (int)((hasSend / fileSize) * 100) << "%";
-    //qDebug() <<"hasSend-----:"<<hasSend << "fileSize:"<<fileSize;
-    //接受完成
-    if(hasSend >= fileSize){
-        zfile.close();
-        //临时目录
-        QString lpath(fqba);
-        qDebug() <<"文件接受完成,文件大小"<<hasSend << "更新时间"<<QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-        // 重置参数,等待下次更新
-        this->initParams();
-        //this->zxvfWWW(lpath);
+void SocketClient::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
+    downloadTotal+=1;
+    if(this->total==this->downloadTotal){
+        qDebug() << Q_FUNC_INFO << "download success " <<this->downloadTotal << endl;
+        this->updateWebRoot();
     }
+
 }
 
 
-void SocketClient::zxvfWWW(const QString &path){
-    QString webPath=Helper::instance()->getWebRootPath();
-    //清空web目录
-    //this->ensureWebRoot(webPath);
 
-        QString cmd="tar zxvf "+path+" -C ../www"+webPath;
-        qDebug() <<"解压缩命令" << cmd;
-        QProcess::execute(cmd);
 
-         qDebug() <<"解压完成" << cmd;
+void SocketClient::updateWebRoot(){
+    this->initParams();
+    QString dataRoot= Helper::instance()->getDataWebRootPath();
+    QString tmpwww=tempPath+"/www";
+
+    FileUtil::remove(dataRoot,1);
+    FileUtil::copy(tmpwww,dataRoot);
+
+    emit update();
+
 }
 
-void SocketClient::ensureWebRoot(const QString &path){
-
-    bool ensure=Helper::instance()->emptyDir(path);
-    qDebug() << "清空web目录" <<path<<ensure;
-}
 
 
 void SocketClient::initParams(){
@@ -151,28 +150,24 @@ void SocketClient::initParams(){
     uid=-1;
     fileName="";
     zfilePath="";
+    this->total=0;
+    this->downloadTotal=0;
 }
 
 
 
-///**
-// * @brief SocketClient::onDisconnected 断开链接slot
-// */
-//void SocketClient::disconnected(){
-//    qDebug();
-//    qDebug() <<"SocketClient 断开链接:";
-//    //重连操作
-//}
+
 
 QString SocketClient::getOrCreateTempPath(){
     tempPath=Helper::instance()->getDataRootPath()+"/"+this->TEMP_PATH_NAME;
     QDir *temp=new QDir(tempPath);
     if(!temp->exists(tempPath)){
         temp->mkpath(tempPath);
-        qDebug()<<"临时路径不存在:"<<tempPath <<"重新创建";
+        qDebug()<< Q_FUNC_INFO<<"临时路径不存在:"<<tempPath <<"重新创建";
     }else{
-        qDebug()<<"存在临时路径:"<<tempPath;
+        qDebug()<< Q_FUNC_INFO<<"存在临时路径:"<<tempPath;
     }
     return tempPath;
 }
+
 

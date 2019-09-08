@@ -9,7 +9,7 @@ const { Watcher } = require('../dist/index')
 const path = require('path')
 
 function startServer () {
-  const wss = new Server({ port: 8080 })
+  const wss = new Server({ port: 8081 })
   const dirPath = path.join(path.resolve('.'), 'www')
 
   new Watcher(wss, dirPath)

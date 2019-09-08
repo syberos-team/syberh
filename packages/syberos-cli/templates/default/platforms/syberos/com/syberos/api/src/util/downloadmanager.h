@@ -5,11 +5,18 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QUrl>
+#include "cstoragemanager.h"
 
 class DownloadManager : public QObject
 {
     Q_OBJECT
 public:
+    //存储位置
+    enum Storage {
+        Internal = 1,   //内置
+        Extended
+    };
+
     explicit DownloadManager(QObject *parent = 0);
     ~DownloadManager();
 
@@ -30,8 +37,12 @@ public:
     // 停止下载按钮被按下，关闭下载，重置参数，并删除下载的临时文件
     void closeDownload();
 
-
+    //设置downloadId
     void setDownloadId(QString downloadId);
+    //设置存储位置
+    void setStorage(DownloadManager::Storage storage);
+
+    DownloadManager::Storage getStorage();
 
     QString getDownloadId();
 
@@ -55,6 +66,10 @@ private:
     qint64 m_bytesCurrentReceived;
     bool m_isStop;
     QString m_downloadId;
+    Storage m_storage;  //存储位置
+    CStorageManager *m_storageManager;
+    //获取下载文件的大小
+    qint64 downloadFileSize();
 
 signals:
     void signalDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal);
