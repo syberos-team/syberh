@@ -1,6 +1,6 @@
 {
   "name": "<%= projectName %>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "<%= description %>",
   "templateInfo": {
@@ -8,10 +8,10 @@
     "css": "<%= css %>"
   },
   "scripts": {
-
-    "doctor": "syberos doctor",
     "build:simulator": "syberos build --type simulator",
     "build:device": "syberos build --type device",
+    "dev:device": "syberos build --type device  --watch",
+    "dev:simulator": "syberos build --type simulator  --watch",
     "build": "syberos build"
   },
   "author": "",

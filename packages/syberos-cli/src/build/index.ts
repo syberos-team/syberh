@@ -11,7 +11,7 @@ import { getProjectConfig } from '../syberos/helper'
  */
 export const build = (appPath: string, config: AppBuildConfig) => {
   const newConfig = { ...config, ...getProjectConfig(appPath) }
-  let serverPort = 4399
+  const serverPort = 4399
   if (!newConfig.port) {
     Object.assign(newConfig, { port: serverPort })
   }
