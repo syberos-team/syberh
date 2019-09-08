@@ -7,7 +7,7 @@
   * @param {string}   filePath文件路径
   * @return {string} fileName  文件名称
   */
-export function fileName(filePath: string) {
-  const pos = filePath.lastIndexOf('/');
-  return filePath.substring(pos + 1);
+export function fileName (filePath: string) {
+  const pos = filePath.lastIndexOf('/')
+  return filePath.substring(pos + 1)
 }
