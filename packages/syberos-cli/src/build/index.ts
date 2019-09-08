@@ -1,5 +1,5 @@
 import * as path from 'path'
-import Server, { Watcher } from '@syberos/dev-server/dist/index'
+import Server, { Watcher } from '@syberos/dev-server'
 import { AppBuildConfig } from '../util/constants'
 import Build from './build'
 import { getProjectConfig } from '../syberos/helper'
@@ -11,7 +11,7 @@ import { getProjectConfig } from '../syberos/helper'
  */
 export const build = (appPath: string, config: AppBuildConfig) => {
   const newConfig = { ...config, ...getProjectConfig(appPath) }
-  let serverPort = 4399;
+  let serverPort = 4399
   if (!newConfig.port) {
     Object.assign(newConfig, { port: serverPort })
   }
@@ -25,5 +25,6 @@ export const build = (appPath: string, config: AppBuildConfig) => {
   const server = new Server({ prot: serverPort })
 
   const wpath = path.join(appPath, 'www')
+  // tslint:disable-next-line: no-unused-expression
   new Watcher(server, wpath)
 }
