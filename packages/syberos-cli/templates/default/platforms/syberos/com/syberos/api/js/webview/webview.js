@@ -40,6 +40,9 @@ function WebView (options) {
     NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
     NativeSdkManager.failed.connect(that.onFailed.bind(that))
+
+      // 绑定订阅函数
+      NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that));
     // 绑定消息接受信号
     webview.receiveMessage.connect(function (message) {
       that.onMessageReceived(message, that.id)
@@ -48,6 +51,8 @@ function WebView (options) {
     webview.keyOnReleased.connect(function (event) {
       that.trigger('keyRelease', webview, event)
     })
+
+      NativeSdkManager.request("DevTools*", 124567, "method", "funcArgs")
   })
 
   /**
@@ -101,7 +106,9 @@ function WebView (options) {
     // 绑定进度事件
     object.reloadSuccess.connect(function (loadProgress) {
       if (loadProgress === 100) {
-        that.trigger('success', handlerId, true)
+          if(handlerId){
+              that.trigger('success', handlerId, true)
+          }
       }
     })
   })
@@ -192,11 +199,33 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   // gToast.requestToast('request sucess：' + JSON.stringify(result))
   // 返回内容
   var resObj = {
+      //handlerName:"handleError",
     responseId: Number(handlerId),
     responseData: {
       result: result
     }
   }
+  webview.experimental.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  )
+}
+
+
+WebView.prototype.onSubscribe = function (handlerName,result) {
+  print('\n onSubscribe  request handlerId', typeof handlerName)
+     console.log('-----------subscribe----------',handlerName,result)
+  if(handlerName==="DevToolsReload"){
+       console.log('-----------this.trigger----------',typeof this.trigger)
+      this.trigger('reload', this.object);
+    return;
+  }
+  var resObj = {
+    handlerName:handlerName,
+    responseData: {
+      result: result
+    }
+  }
+  print('\n onSubscribe ', JSON.stringify(resObj))
   webview.experimental.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
   )
