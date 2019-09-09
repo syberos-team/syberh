@@ -191,6 +191,15 @@ qint64 DownloadManager::downloadFileSize(){
     return m_bytesTotal;
 }
 
+//获取存储空间剩余
+qint64 DownloadManager::storageFreeSize(){
+    if(m_storageFreeSize > 0){
+        return m_storageFreeSize;
+    }
+    m_storageFreeSize = m_storageManager->storageFreeSize(m_storage==Extended ? CStorageManager::ExtStorage : CStorageManager::IntStorage);
+    return m_storageFreeSize;
+}
+
 
 // 下载进度信息
 void DownloadManager::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal){
@@ -207,7 +216,7 @@ void DownloadManager::onReadyRead(){
     if (!m_isStop) {
         QFile file(m_fileName);
         if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-            qint64 free = m_storageManager->storageFreeSize(m_storage==Extended ? CStorageManager::ExtStorage : CStorageManager::IntStorage);
+            qint64 free = storageFreeSize();
             qint64 size = downloadFileSize();
             if(size > free){
                 qDebug() << Q_FUNC_INFO << "存储空间不足，预期：" << size << "，实际可用：" << free << endl;
