@@ -153,6 +153,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
  *@param pluginId {string} 插件ID
  */
 Syber.prototype.destroy = function (pluginId) {
+    console.log('----pluginId----', pluginId)
   var plugin = this.pluginList[pluginId]
   if (!plugin) {
     throw new Error('core.js,destroy(),plugin不存在,id:', pluginId)

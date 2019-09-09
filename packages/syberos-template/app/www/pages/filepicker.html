@@ -23,7 +23,34 @@
     <div class="mui-content pt0">
       <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="show()">open</a>
+          <a class="mui-navigate-right api-class" onclick="show()"
+            >选择所有文件</a
+          >
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="showImages()"
+            >选择所有图片</a
+          >
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="showVideos()"
+            >选择所有视频</a
+          >
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="showMusics()"
+            >选择所有音频</a
+          >
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="showDocs()"
+            >选择所有文档</a
+          >
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="showTexts()"
+            >选择所有文本</a
+          >
         </li>
       </ul>
     </div>
@@ -49,6 +76,106 @@
         syber.filepicker.open({
           title: '文件选择',
           showBack: true,
+          success: function(result) {
+            console.log('filepicker open success', JSON.stringify(result))
+            if (result.confirm) {
+              console.log('用户点击确定， 文件路径为=》', result.path)
+              document.getElementById('pathDiv').innerText = result.path
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          },
+          fail: function(error) {
+            console.log('filepicker open fail', error)
+          }
+        })
+      }
+
+      function showImages() {
+        syber.filepicker.open({
+          title: '照片选择',
+          showBack: true,
+          category: 'image',
+          success: function(result) {
+            console.log('filepicker open success', JSON.stringify(result))
+            if (result.confirm) {
+              console.log('用户点击确定， 文件路径为=》', result.path)
+              document.getElementById('pathDiv').innerText = result.path
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          },
+          fail: function(error) {
+            console.log('filepicker open fail', error)
+          }
+        })
+      }
+
+      function showVideos() {
+        syber.filepicker.open({
+          title: '视频选择',
+          showBack: true,
+          category: 'video',
+          success: function(result) {
+            console.log('filepicker open success', JSON.stringify(result))
+            if (result.confirm) {
+              console.log('用户点击确定， 文件路径为=》', result.path)
+              document.getElementById('pathDiv').innerText = result.path
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          },
+          fail: function(error) {
+            console.log('filepicker open fail', error)
+          }
+        })
+      }
+
+      function showMusics() {
+        syber.filepicker.open({
+          title: '音频选择',
+          showBack: true,
+          category: 'audio',
+          success: function(result) {
+            console.log('filepicker open success', JSON.stringify(result))
+            if (result.confirm) {
+              console.log('用户点击确定， 文件路径为=》', result.path)
+              document.getElementById('pathDiv').innerText = result.path
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          },
+          fail: function(error) {
+            console.log('filepicker open fail', error)
+          }
+        })
+      }
+
+      function showDocs() {
+        syber.filepicker.open({
+          title: '文档选择',
+          showBack: true,
+          category: 'document',
+          success: function(result) {
+            console.log('filepicker open success', JSON.stringify(result))
+            if (result.confirm) {
+              console.log('用户点击确定， 文件路径为=》', result.path)
+              document.getElementById('pathDiv').innerText = result.path
+            } else if (result.cancel) {
+              console.log('用户点击取消')
+            }
+          },
+          fail: function(error) {
+            console.log('filepicker open fail', error)
+          }
+        })
+      }
+
+      function showTexts() {
+        syber.filepicker.open({
+          title: '文本选择',
+          showBack: true,
+          category: 'text',
           success: function(result) {
             console.log('filepicker open success', JSON.stringify(result))
             if (result.confirm) {

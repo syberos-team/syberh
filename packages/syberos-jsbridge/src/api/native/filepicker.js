@@ -6,10 +6,20 @@ export default function filepickerMixin(hybrid) {
         {
             namespace: 'open',
             os: ['syber'],
-            defaultParams: {},
+            defaultParams: {
+                title: '',
+                showBack: false,
+                category: '',
+            },
             runCode(...rest) {
                 // 兼容字符串形式
-                const args = innerUtil.compatibleStringParamsToObject.call(this, rest);
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                    'title',
+                    'showBack',
+                    'category',
+                );
                 hybridJs.callInner.apply(this, args);
             },
         },
