@@ -7,10 +7,11 @@ NativeSdkManager::NativeSdkManager(){
     extendConfig= ExtendedConfig::instance();
     QVariant debug = extendConfig->get("debug");
     if(debug.toBool()){
-
-    }
-    if(!devTools){
-         devTools=DevTools::getInstance();
+        if(!devTools){
+             devTools=DevTools::getInstance();
+        }
+        //默认初始化DevTools
+        initHandlerConnect("DevTools*");
     }
 
     qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
@@ -43,9 +44,7 @@ NativeSdkManager * NativeSdkManager::getInstance(){
         QMutexLocker locker(&mutex);
         if(m_pNativeSdkManager == NULL){
               m_pNativeSdkManager = new NativeSdkManager;
-              QString typeId("DevTools*");
-              qDebug()<< "getInstance:"<<typeId<<"不存在";
-              //initHandlerConnect(typeId);
+
         }
 
 

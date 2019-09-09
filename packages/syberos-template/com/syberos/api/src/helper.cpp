@@ -31,13 +31,15 @@ bool Helper::exists(QString filePath){
 
 
 QString Helper::getWebRootPath(){
-    bool debug=true;
-    if(debug){
+    extendConfig= ExtendedConfig::instance();
+    QVariant debug = extendConfig->get("debug");
+    if(debug.toBool()){
         qDebug() <<"webroot:" <<this->getDataWebRootPath();
         return this->getDataWebRootPath();
     }else{
         return this->getDefaultWebRootPath();
     }
+
 }
 
 
@@ -135,7 +137,7 @@ bool Helper::emptyDir(const QString &path){
     QFileInfoList fileList = dir.entryInfoList();
     foreach (QFileInfo fi, fileList){
         if (fi.isFile()) {
-            bool f=fi.dir().remove(fi.fileName());
+            fi.dir().remove(fi.fileName());
             //qDebug() <<"filename:" <<fi.fileName() <<f;
         }else{
             this->emptyDir(fi.absoluteFilePath());

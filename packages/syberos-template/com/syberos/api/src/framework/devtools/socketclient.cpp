@@ -8,7 +8,7 @@ SocketClient::SocketClient(const QString &url, const int &port)
     helper=Helper::instance();
 
     if(!socketClient){
-       this->create(url,port);
+        this->create(url,port);
     }
 
     this->getOrCreateTempPath();
@@ -21,7 +21,8 @@ SocketClient::~SocketClient(){
 }
 
 void SocketClient::create(const QString &url, const int &port){
-     qDebug() <<Q_FUNC_INFO << "SocketClient create" <<endl;
+    qDebug() <<Q_FUNC_INFO <<url << port<<endl;
+
     socketClient = new QTcpSocket();
     socketClient -> abort();
     socketClient->connectToHost(url, port);
