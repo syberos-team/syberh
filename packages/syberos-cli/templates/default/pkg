@@ -10,11 +10,11 @@
   "scripts": {
     "build:simulator": "syberos build --type simulator",
     "build:device": "syberos build --type device",
-    "dev:device": "syberos build --type device  --watch",
-    "dev:simulator": "syberos build --type simulator  --watch",
+    "dev:device": "syberos build --type device  --debug",
+    "dev:simulator": "syberos build --type simulator  --debug",
     "build": "syberos build"
   },
-  "author": "",
+  "author": "YuanXin",
   "license": "MIT",
   "dependencies": {
   },
