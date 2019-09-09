@@ -1,5 +1,5 @@
 /*
-* This file is part of DevTools
+* This file is part of API
 *
 * Copyright (C) 2019 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
 *
