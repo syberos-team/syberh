@@ -1,9 +1,9 @@
-export default function getInfoMixin(hybrid) {
+export default function networkInfoMixin(hybrid) {
     const hybridJs = hybrid;
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('networkInfo', [{
-        namespace: 'getInfo',
+        namespace: 'info',
         os: ['syber'],
         defaultParams: {
         },

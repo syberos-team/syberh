@@ -92,14 +92,8 @@
       "apis/system/battery": {
         "title": "battery"
       },
-      "apis/system/network-getInfo": {
-        "title": "networkGetInfo"
-      },
-      "apis/system/network-subscribe": {
-        "title": "network-subscribe"
-      },
-      "apis/system/network-unsubscribe": {
-        "title": "network-unsubscribe"
+      "apis/system/networkInfo": {
+        "title": "networkInfo"
       },
       "apis/telephony/dial": {
         "title": "dial"

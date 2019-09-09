@@ -37,7 +37,7 @@ title: battery
 
 ### 代码示例
 ```js
-syber.system.battery({
+syber.battery.getStatus({
 	success:function(result){
         console.log('isCharging: ', result.isCharging);
         console.log('level: ', result.level);

@@ -2,7 +2,8 @@
 #include <QObject>
 #include <QDebug>
 #include <qjsonobject.h>
-
+#include <qjsonarray.h>
+#include <qjsonvalue.h>
 
 
 
@@ -23,7 +24,7 @@ void NetworkInfo::request(QString callBackID, QString actionName, QVariantMap pa
     //如果参数不使用此方法可以防止运行异常
     Q_UNUSED(actionName);
     Q_UNUSED(params);
-    getInfo(callBackID.toLong(), params);
+    info(callBackID.toLong(), params);
 
 }
 
@@ -37,7 +38,7 @@ void NetworkInfo::submit(QString typeID, QString callBackID, QString actionName,
 
 }
 
-void NetworkInfo::getInfo(long callBackID,QVariantMap params){
+void NetworkInfo::info(long callBackID,QVariantMap params){
     Q_UNUSED(callBackID);
     Q_UNUSED(params);
 
@@ -57,6 +58,6 @@ void NetworkInfo::getInfo(long callBackID,QVariantMap params){
 
     qDebug() << "getInfo: " << json << endl;
 
-    emit success(callBackID, json);
+    emit success(callBackID,  QVariant(json));
 }
 

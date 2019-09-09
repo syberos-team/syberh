@@ -1,5 +1,5 @@
 ---
-title: networkGetInfo
+title: networkInfo
 ---
 
 ## syber.system.networkInfo(Object object)
@@ -46,7 +46,7 @@ title: networkGetInfo
 
 ### 代码示例
 ```js
-syber.system.info({
+syber.networkInfo.info({
 	success:function(result){
         console.log('networkType: ', result.networkType);
         console.log('isNetworkAvailable: ', result.isNetworkAvailable);

@@ -37,7 +37,7 @@ private :
      * @return 成功则返回当前设备的网络信息。
      * @return 失败则返回错误码。
      */
-    void  getInfo(long callBackID, QVariantMap params);
+    void  info(long callBackID, QVariantMap params);
 };
 
 #endif // NETWORKINFO_H

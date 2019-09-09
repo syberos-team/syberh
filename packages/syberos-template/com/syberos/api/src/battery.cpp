@@ -57,6 +57,6 @@ void Battery::getStatus(long callBackID,QVariantMap params){
 
     qDebug() << "getStatus: " << json << endl;
 
-    emit success(callBackID, json);
+    emit success(callBackID, QVariant(json));
 }
 
