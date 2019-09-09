@@ -17,11 +17,12 @@
 #include <QTimeZone>
 #include <QLocale>
 
+
 Helper::Helper(QObject *parent) : QObject(parent) {
     env = new CEnvironment(this);
     appInfo = new CAppInfo();
+    extendConfig=ExtendedConfig::instance();
 }
-
 
 bool Helper::exists(QString filePath){
     QFile file(filePath);
@@ -30,10 +31,27 @@ bool Helper::exists(QString filePath){
 
 
 QString Helper::getWebRootPath(){
+    bool debug=true;
+    if(debug){
+        qDebug() <<"webroot:" <<this->getDataWebRootPath();
+        return this->getDataWebRootPath();
+    }else{
+        return this->getDefaultWebRootPath();
+    }
+}
+
+
+QString Helper::getDefaultWebRootPath(){
     QDir dir(qApp->applicationDirPath());
     dir.cdUp();
     dir.cd("www");
     return dir.absolutePath();
+}
+
+
+QString Helper::getDataWebRootPath(){
+    QString path=this->getDataRootPath()+"/www";
+    return path;
 }
 
 QString Helper::getDataRootPath(){
@@ -103,3 +121,26 @@ QJsonObject Helper::aboutPhone(){
     qDebug() << "aboutphone: " << jsonObject << endl;
     return jsonObject;
 }
+
+
+bool Helper::emptyDir(const QString &path){
+    if (path.isEmpty()){
+        return false;
+    }
+    QDir dir(path);
+    if(!dir.exists()){
+        return true;
+    }
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList){
+        if (fi.isFile()) {
+            bool f=fi.dir().remove(fi.fileName());
+            //qDebug() <<"filename:" <<fi.fileName() <<f;
+        }else{
+            this->emptyDir(fi.absoluteFilePath());
+        }
+    }
+    return dir.rmpath(dir.absolutePath());
+}
+
