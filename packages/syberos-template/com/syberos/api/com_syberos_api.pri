@@ -20,7 +20,7 @@ HEADERS += \
     $$PWD/src/camera.h \
     $$PWD/src/network.h \
     $$PWD/src/battery.h \
-    $$PWD/src/networkInfo.h
+    $$PWD/src/networkInfo.h 
     $$PWD/src/framework/devtools/devtools.h \
     $$PWD/src/framework/devtools/socketclient.h \
     $$PWD/src/audio.h \
