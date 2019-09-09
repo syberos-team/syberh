@@ -67,9 +67,12 @@ private:
     bool m_isStop;
     QString m_downloadId;
     Storage m_storage;  //存储位置
+    qint64 m_storageFreeSize;   //存储空间剩余
     CStorageManager *m_storageManager;
     //获取下载文件的大小
     qint64 downloadFileSize();
+    //获取存储空间剩余
+    qint64 storageFreeSize();
 
 signals:
     void signalDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal);
