@@ -1,6 +1,6 @@
 {
   "name": "<%= projectName %>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "<%= description %>",
   "templateInfo": {
@@ -8,9 +8,10 @@
     "css": "<%= css %>"
   },
   "scripts": {
-    "doctor": "syberos doctor",
     "build:simulator": "syberos build --type simulator",
     "build:device": "syberos build --type device",
+    "dev:device": "syberos build --type device  --watch",
+    "dev:simulator": "syberos build --type simulator  --watch",
     "build": "syberos build"
   },
   "author": "",
@@ -18,18 +19,5 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@types/react": "^16.4.6",
-    "@types/webpack-env": "^1.13.6",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-jsx-stylesheet": "^0.6.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-eslint": "^8.2.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-react": "^7.8.2",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-config-taro": "1.3.1",
-    "stylelint": "9.3.0"
   }
 }

@@ -1,13 +1,14 @@
 include(../syberos.pri)
 include (../com/syberos/api/com_syberos_api.pri)
 
-QT += gui qml quick widgets webkit network multimedia core bluetooth
+QT += gui qml quick widgets webkit network multimedia core
 
 TEMPLATE = app
 
 TARGET = app
 
 CONFIG += link_pkgconfig
+CONFIG += C++11
 
 RESOURCES += res.qrc
 
@@ -37,6 +38,22 @@ res.path = $$INSTALL_DIR/res
 
 web.files = www
 web.path = $$INSTALL_DIR
+
+#LIBS += -L$PWD/../lib -lquazip
+#INCLUDEPATH += ../include/quazip
+
+#quazip.files = ../lib/lib*
+#quazip.path = $$INSTALL_DIR/lib
+#QMAKE_RPATHDIR=$$INSTALL_DIR/lib
+
+
+#LIBS += -L"/home/lihejia/Desktop/syberos-hysbrid/packages/syberos-template/com/syberos/quazip/lib" -lquazip
+#INCLUDEPATH += /home/lihejia/Desktop/syberos-hybrid/packages/syberos-template/com/syberos/quazip/include/quazip
+
+#quazip.files = /home/lihejia/Desktop/syberos-hybrid/packages/syberos-template/com/syberos/quazip/include/quazip/lib/*
+#quazip.path = $$INSTALL_DIR/libs
+
+#INSTALLS += quazip
 
 INSTALLS += target qm web res
 

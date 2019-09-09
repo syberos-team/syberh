@@ -1,6 +1,6 @@
 {
   "name": "@syberos/cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "CLI tool for syberos hybrid",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
   "author": "YuanXin",
   "license": "MIT",
   "dependencies": {
+    "@syberos/dev-server": "^1.0.1",
     "@types/request": "^2.48.1",
     "autoprefixer": "^8.4.1",
     "babel-core": "^6.26.3",
@@ -39,8 +40,6 @@
     "babel-plugin-remove-dead-code": "^1.3.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-define": "^1.3.0",
-    "babel-plugin-transform-jsx-to-stylesheet": "1.3.1",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-template": "^6.26.0",
     "babel-traverse": "^6.26.0",
     "babel-types": "^6.26.0",
