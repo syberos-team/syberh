@@ -31,13 +31,15 @@ bool Helper::exists(QString filePath){
 
 
 QString Helper::getWebRootPath(){
-    bool debug=true;
-    if(debug){
+    extendConfig= ExtendedConfig::instance();
+    QVariant debug = extendConfig->get("debug");
+    if(debug.toBool()){
         qDebug() <<"webroot:" <<this->getDataWebRootPath();
         return this->getDataWebRootPath();
     }else{
         return this->getDefaultWebRootPath();
     }
+
 }
 
 

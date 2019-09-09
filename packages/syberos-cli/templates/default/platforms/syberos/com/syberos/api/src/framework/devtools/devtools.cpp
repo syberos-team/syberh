@@ -6,12 +6,16 @@ DevTools *DevTools::pDevTools=NULL;
 DevTools::DevTools()
 {
     qDebug()<<"~DevTools()";
-     extendConfig=ExtendedConfig::instance();
-    //拷贝www到data目录下
-    this->copyWWW();
-    socketClient=new SocketClient(this->serverIp(),this->serverPort());
-    //绑定热更新函数
-    connect(socketClient,&SocketClient::update,this,&DevTools::reload);
+    extendConfig= ExtendedConfig::instance();
+    QVariant debug = extendConfig->get("debug");
+    if(debug.toBool()){
+        //拷贝www到data目录下
+        this->copyWWW();
+        socketClient=new SocketClient(this->serverIp(),this->serverPort());
+        //绑定热更新函数
+        connect(socketClient,&SocketClient::update,this,&DevTools::reload);
+    }
+
 }
 
 void DevTools::request(QString callBackID, QString actionName, QVariantMap params){
@@ -35,21 +39,22 @@ DevTools::~DevTools(){
 
 QString DevTools::serverIp(){
     QString ip("127.0.0.1");
-    QString serverIp=extendConfig->get("serverIP").toString();
+    QString serverIp=extendConfig->get("serverIp").toString();
     if(!serverIp.isEmpty()){
        ip=serverIp;
     }
-    qDebug()<<Q_FUNC_INFO<<"serverIP"<<ip <<endl;
+    qDebug()<<Q_FUNC_INFO<<"serverIp"<<ip <<endl;
     return ip;
 }
 
 int DevTools::serverPort(){
 
     int port=8080;
-    int sport=extendConfig->get("serverIP").toInt();
+    int sport=extendConfig->get("port").toInt();
     if(sport>0){
         port=sport;
     }
+     qDebug()<<Q_FUNC_INFO<<"server port"<<port<<endl;
     return 8080;
 }
 

@@ -51,8 +51,6 @@ function WebView (options) {
     webview.keyOnReleased.connect(function (event) {
       that.trigger('keyRelease', webview, event)
     })
-
-      NativeSdkManager.request("DevTools*", 124567, "method", "funcArgs")
   })
 
   /**
