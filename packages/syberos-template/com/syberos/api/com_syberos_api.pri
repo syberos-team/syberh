@@ -19,7 +19,8 @@ HEADERS += \
     $$PWD/src/system.h \
     $$PWD/src/downloadmanager.h \
     $$PWD/src/camera.h \
-    $$PWD/src/network.h
+    $$PWD/src/network.h \
+    $$PWD/src/runtime.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -39,4 +40,5 @@ SOURCES += \
     $$PWD/src/system.cpp \
     $$PWD/src/downloadmanager.cpp \
     $$PWD/src/camera.cpp \
-    $$PWD/src/network.cpp
+    $$PWD/src/network.cpp \
+    $$PWD/src/runtime.cpp

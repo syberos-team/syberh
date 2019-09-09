@@ -1,7 +1,7 @@
 include(../syberos.pri)
 include (../com/syberos/api/com_syberos_api.pri)
 
-QT += gui qml quick widgets webkit network multimedia core
+QT += gui qml quick widgets webkit network multimedia core bluetooth
 
 TEMPLATE = app
 

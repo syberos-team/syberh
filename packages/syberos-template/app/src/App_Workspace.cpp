@@ -29,6 +29,8 @@ App_Workspace::App_Workspace()
     m_view->rootContext()->setContextProperty("NativeSdkManager",nativeSdkManager);
     m_view->setSource(QUrl("qrc:/qml/main.qml"));
     m_view->showFullScreen();
+
+    m_root = (QObject *)(m_view->rootObject());
 }
 
 void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
@@ -47,6 +49,23 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
         break;
     default:
         break;
+    }
+}
+
+void App_Workspace::openByUrl(const QUrl& url){
+    qDebug() << "----appui_Workspace::openByUrl---------------url:" << url;
+    QString scheme = url.scheme();
+    QString path = url.path();
+    QUrlQuery query(url.query());
+    qDebug() << "---------------scheme:"<<scheme;
+    qDebug() << "-----------------path:"<<path;
+    qDebug() << "----------------query:"<<query.toString();
+    if(scheme == "syberos"){
+        //myapp:entrySecondPage?content=xxx
+        if(path == "entrySecondPage"){
+            QString content = query.queryItemValue("content");
+
+        }
     }
 }
 
