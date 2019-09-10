@@ -15,7 +15,7 @@ FileUtil::FileUtil()
 {
 
 }
-QString FileUtil::move(QString srcPath, QString destPath)
+bool FileUtil::move(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
     QString cmd="mv -f " + srcPath + " " + destPath;
@@ -24,9 +24,10 @@ QString FileUtil::move(QString srcPath, QString destPath)
 
     QString errTmp = proc->readAllStandardError();
     if (errTmp == "") {
-        return "success";
+        return true;
     } else {
-        return errTmp;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+        return false;
     }
 }
 
@@ -56,7 +57,7 @@ bool FileUtil::chmodr(QString path)
     return true;
 }
 
-QString FileUtil::copy(QString srcPath, QString destPath)
+bool FileUtil::copy(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
     proc->start("cp -rf " + srcPath + " " + destPath);
@@ -66,29 +67,22 @@ QString FileUtil::copy(QString srcPath, QString destPath)
     chmodr(destPath);
     QString errTmp = proc->readAllStandardError();
     if (errTmp == "") {
-        return "success";
+        return true;
     } else {
-        return errTmp;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+        return false;
     }
 }
 
-QString FileUtil::fileList(QString srcPath)
+QFileInfoList FileUtil::fileList(QString srcPath)
 {
-    QProcess *proc = new QProcess();
-    proc->start("ls " + srcPath);
-    proc->waitForFinished();
-
-    QString errTmp = proc->readAllStandardError();
-    if (errTmp == "") {
-        return "success";
-    } else {
-        return errTmp;
-    }
+    QDir dir(srcPath);
+    QStringList filters;
+    return dir.entryInfoList(filters, QDir::AllDirs|QDir::Files);
 }
 
 FileUtil::FileType FileUtil::fileType(QString srcPath)
 {
-
     if (!exists(srcPath)) {
         return FileUtil::Unknown;
     }
@@ -104,7 +98,7 @@ FileUtil::FileType FileUtil::fileType(QString srcPath)
     }
 }
 
-QString FileUtil::remove(QString srcPath, int recursive)
+bool FileUtil::remove(QString srcPath, int recursive)
 {
     QProcess *proc = new QProcess();
     if (recursive == 0) {
@@ -117,9 +111,10 @@ QString FileUtil::remove(QString srcPath, int recursive)
 
     QString errTmp = proc->readAllStandardError();
     if (errTmp == "") {
-        return "success";
+        return true;
     } else {
-        return errTmp;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+        return false;
     }
 }
 FileInfo FileUtil::getInfo(QString srcPath)
@@ -130,7 +125,7 @@ FileInfo FileUtil::getInfo(QString srcPath)
     }
     QFileInfo fileinfo(srcPath);
 
-    file.path = fileinfo.path();
+    file.path = fileinfo.filePath();
     file.size = fileinfo.size();
     file.created = fileinfo.created().toString("yyyy-MM-dd hh:mm:ss");
 

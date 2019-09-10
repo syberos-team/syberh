@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">移动</button>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="list()">列表</button>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="getInfo()">信息</button>
+      </div>      
+      <div class="mui-card-footer"></div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+
+    var vConsole = new VConsole();
+    
+    function start() {
+      syber.fileManager.move({
+        srcPath: "/home/user/download/2021.png",
+        // destPath: "/data/system/2020.png",
+        destPath: "/home/user/download/2022.png",
+        success: function(res) {
+          console.info(res)
+        },
+        fail: function (err) {
+          console.info(err)
+        }
+      });
+    }
+    function list() {
+      syber.fileManager.fileList({
+        srcPath: "/home/user/DCIM/Camera",
+        success: function(res) {
+          console.info(res)
+        }
+      })
+    }
+    function getInfo() {
+      syber.fileManager.getInfo({
+        srcPath: "/home/user/com.syberos.demo/2022.png",
+        success: function(res) {
+          console.info(JSON.stringify(res))
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
