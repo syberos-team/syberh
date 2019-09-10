@@ -5,6 +5,7 @@ import chalk from 'chalk'
 import { AppBuildConfig, DEVICES_TYPES } from '../util/constants'
 import * as helper from '../syberos/helper'
 import config from '../config/index'
+import { log } from '../util/log'
 
 export default class Build {
   private conf: any = {}
@@ -35,6 +36,11 @@ export default class Build {
   constructor(appPath: string, config: AppBuildConfig) {
     this.appPath = appPath
     this.conf = { ...this.conf, ...config }
+
+    if (log.isVerboseEnabled()) {
+      log.verbose('Build constructor(%s, %j)', appPath, config)
+      log.verbose('配置参数:%j', this.conf)
+    }
     this.pdkRootPath = helper.locatePdk()
     this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
   }
@@ -43,6 +49,7 @@ export default class Build {
    * 开始编译
    */
   public async buildSop() {
+    log.verbose('Build buildSop()')
     // 1、生成编译目录
     this.mkdirBuild()
     // 2、拷贝www路径到模板下
@@ -51,11 +58,13 @@ export default class Build {
     await this.executeShell()
 
     if (this.conf.onlyBuildSop === true) {
-      const { stdout } = shelljs.exec(
-        "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
-      )
+      const cmd = "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
+      log.verbose('执行：', cmd)
+      const { stdout } = shelljs.exec(cmd)
+      log.verbose('执行结果：', stdout)
+
       const sopPath = stdout.trim()
-      console.log(chalk.bgGreen('打包完成，SOP包的位置是=>'), sopPath)
+      console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
       shelljs.exit(0)
     }
   }
@@ -64,16 +73,13 @@ export default class Build {
    * 开始编译， 并在设备上运行
    */
   public async start() {
-    console.log(
-      chalk.green('开始编译'),
-      this.appPath,
-      JSON.stringify(this.conf)
-    )
+    console.log(chalk.green('开始编译'))
+    log.verbose('Build start()')
+    log.verbose('appPath:%s, conf:%j', this.appPath, this.conf)
 
     // 执行编译
     await this.buildSop()
-
-    // 4、安装sop
+    // 安装sop
     await this.installSop()
   }
 
@@ -82,6 +88,7 @@ export default class Build {
    */
   private mkdirBuild() {
     console.log(chalk.green('准备编译目录'))
+    log.verbose('Build mkdirBuild()')
     const appPath = this.appPath
     const { adapter, debug, onlyBuildSop } = this.conf
 
@@ -90,11 +97,11 @@ export default class Build {
       // 如果是只打SOP包， 目录名的设备名为 device
       this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${
         this.targetName
-      }${debug ? '-Debug' : ''}`
+        }${debug ? '-Debug' : ''}`
     } else {
       this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${
         debug ? '-Debug' : ''
-      }`
+        }`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -102,7 +109,7 @@ export default class Build {
     }
     shelljs.cd(this.buildDir)
 
-    console.info('已创建编译目录：', this.buildDir)
+    log.info('已创建编译目录：', this.buildDir)
   }
 
   /**
@@ -111,6 +118,7 @@ export default class Build {
    */
   private async copywww(appPath: string = this.appPath) {
     console.log(chalk.green('准备拷贝www目录'))
+    log.verbose('Build copywww(%s)', appPath)
     // const projectName = getProjectName(appPath)
     const wwwPath = path.join(appPath, config.SOURCE_DIR)
 
@@ -122,15 +130,16 @@ export default class Build {
       // 拷贝
       await fs.copy(wwwPath, syberosPath)
     } catch (err) {
-      console.error(err)
+      log.error(chalk.red(err))
       return
     }
-    console.info('已拷贝www目录，From：', wwwPath, ' To：', syberosPath)
+    log.info('已拷贝www目录，From：', wwwPath, ' To：', syberosPath)
   }
   /**
    * 执行构建脚本
    */
   private async executeShell() {
+    log.verbose('Build executeShell()')
     console.log(chalk.green('准备执行编译指令'))
     // kchroot qmake
     this.execKchroot(this.qmakeCommand())
@@ -144,6 +153,7 @@ export default class Build {
    * 安装sop包
    */
   private async installSop() {
+    log.verbose('Build installSop()')
     console.log(chalk.green('开始安装sop包...'))
     const { adapter } = this.conf
 
@@ -158,9 +168,11 @@ export default class Build {
       throw new Error('adapter类型错误')
     }
 
-    const { stdout } = shelljs.exec(
-      "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
-    )
+    const cmd = "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
+    log.verbose('执行：', cmd)
+    const { stdout } = shelljs.exec(cmd)
+    log.verbose('执行结果：', stdout)
+
     const sopPath = stdout.trim()
 
     // 启动虚拟机
@@ -193,21 +205,34 @@ export default class Build {
   }
 
   private checkCdb() {
+    log.verbose('Build checkCdb()')
     // 安装至模拟器时，不使用cdb
     if (this.useSimulator) {
       return
     }
     const cdbPath = this.locateCdb()
-    console.log(cdbPath + ' devices')
+    log.verbose('%s devices', cdbPath)
+
+    const cdbCmd = `${cdbPath} devices`
+    log.verbose('执行：', cdbCmd)
     let result = shelljs.exec(`${cdbPath} devices`)
+    log.verbose('执行结果：', result)
+
     // 出现no permissions时，需要重启cdb服务
     if (result.stdout.indexOf('no permissions') > 0) {
-      console.log(
-        chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...')
-      )
-      shelljs.exec(`${cdbPath} kill-server`)
-      shelljs.exec(`sudo ${cdbPath} start-server`)
-      result = shelljs.exec(`${cdbPath} devices`)
+      console.log(chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...'))
+
+      let cmd = `${cdbPath} kill-server`
+      log.verbose('执行：', cmd)
+      shelljs.exec(cmd)
+
+      cmd = `sudo ${cdbPath} start-server`
+      log.verbose('执行：', cmd)
+      shelljs.exec(cmd)
+
+      cmd = `${cdbPath} devices`
+      log.verbose('执行：', cmd)
+      result = shelljs.exec(cmd)
     }
 
     this.isSupportCdb = result.stdout.indexOf('-SyberOS') > 0
@@ -216,79 +241,79 @@ export default class Build {
     const prefixSub = result.stdout.substring(0, lastIdx + 8)
     const firstIdx = prefixSub.lastIndexOf('\n')
     this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
+
+    log.verbose('isSupportCdb:%s, cdbDevice:%s', this.isSupportCdb, this.cdbDevice)
   }
 
   private scpSop(ip: string, port: number, sopPath: string) {
-    console.log(chalk.green('准备发送sop包'), ip, port.toString(), sopPath)
+    log.verbose('Build scpSop(%s, %d, %s)', ip, port, sopPath)
+    console.log(chalk.green('准备发送sop包'))
+    log.verbose('ip:%s, port:%d, sopPath:%s', ip, port, sopPath)
     // 非模拟器，支持cdb
     if (!this.useSimulator && this.isSupportCdb) {
       const cdbPath = this.locateCdb()
-      const cdbPushCmd = `${cdbPath} -s ${
-        this.cdbDevice
-      } push -p ${sopPath} /tmp`
-      console.log(cdbPushCmd)
+      const cdbPushCmd = `${cdbPath} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+      log.verbose('执行：', cdbPushCmd)
       shelljs.exec(cdbPushCmd)
     } else {
-      shelljs.exec(
-        `expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`
-      )
+      const cmd = `expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`
+      log.verbose('执行：', cmd)
+      shelljs.exec(cmd)
     }
   }
 
   private cdbSop(sopPath: string) {
-    const cdbPushCmd = `${this.locateCdb()} -s ${
-      this.cdbDevice
-    } push -p ${sopPath} /tmp`
-    console.log(cdbPushCmd)
+    log.verbose('Build cdbSop(%s)', sopPath)
+    const cdbPushCmd = `${this.locateCdb()} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+    log.verbose('执行：', cdbPushCmd)
     shelljs.exec(cdbPushCmd)
   }
 
   private sshInstallSop(ip: string, port: number, filename: string) {
-    console.log(chalk.green('准备安装sop包'), filename)
+    log.verbose('Build sshInstallSop(%s, %d, %s)', ip, port, filename)
+    console.log(chalk.green('准备安装sop包'))
+    log.verbose(filename)
+
     const nameSplit = filename.split('-')
-    shelljs.exec(
-      `expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${
-        nameSplit[0]
-      } ${filename}`
-    )
+    const cmd = `expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${nameSplit[0]} ${filename}`
+    log.verbose('执行：', cmd)
+    shelljs.exec(cmd)
   }
 
   private cdbInstallSop(filename: string) {
-    console.log(chalk.green('准备安装sop包'), filename)
-    const cmd = `expect ${helper.locateScripts(
-      'cdb-install-sop.sh'
-    )} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
-    console.log(cmd)
+    log.verbose('Build cdbInstallSop(%s)', filename)
+    console.log(chalk.green('准备安装sop包'))
+    log.verbose(filename)
+
+    const cmd = `expect ${helper.locateScripts('cdb-install-sop.sh')} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
+    log.verbose('执行：', cmd)
     shelljs.exec(cmd)
   }
 
   private sshStartApp(ip: string, port: number) {
+    log.verbose('Build sshStartApp(%s, %d)', ip, port)
     const { sopid, projectName } = this.conf
-    console.log(
-      chalk.green('准备启动app'),
-      sopid + ':' + projectName + ':uiapp'
-    )
-    shelljs.exec(
-      `expect ${helper.locateScripts(
-        'ssh-start-app.sh'
-      )} ${ip} ${port} ${sopid} ${projectName}`
-    )
+    console.log(chalk.green('准备启动app'))
+    log.verbose('%s:%s:uiapp', sopid, projectName)
+
+    const cmd = `expect ${helper.locateScripts('ssh-start-app.sh')} ${ip} ${port} ${sopid} ${projectName}`
+    log.verbose('执行：', cmd)
+    shelljs.exec(cmd)
   }
 
   private cdbStartApp() {
+    log.verbose('Build cdbStartApp()')
     const { sopid, projectName } = this.conf
-    console.log(
-      chalk.green('准备启动app'),
-      sopid + ':' + projectName + ':uiapp'
-    )
-    const cmd = `expect ${helper.locateScripts(
-      'cdb-start-app.sh'
-    )} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
-    console.log(cmd)
+    console.log(chalk.green('准备启动app'))
+    log.verbose('%s:%s:uiapp', sopid, projectName)
+
+    const cmd = `expect ${helper.locateScripts('cdb-start-app.sh')} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
+    log.verbose('执行：', cmd)
     shelljs.exec(cmd)
   }
 
   private execKchroot(subCommand: string = '') {
+    log.verbose('Build execKchroot()', subCommand)
     const { adapter, onlyBuildSop } = this.conf
 
     const kchroot = this.locateKchroot()
@@ -311,12 +336,13 @@ export default class Build {
       if (subCommand) {
         cmd += ` '${subCommand}'`
       }
-      console.info('执行指令：', cmd)
+      log.verbose('执行：', cmd)
       shelljs.exec(cmd)
     }
   }
 
   private qmakeCommand() {
+    log.verbose('Build qmakeCommand()')
     const { debug } = this.conf
 
     const qmake = this.locateQmake()
@@ -324,17 +350,17 @@ export default class Build {
 
     const qmakeConfig = debug ? 'qml_debug' : 'release'
 
-    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString(
-      'hex'
-    )
+    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString('hex')
     return `${qmake} ${syberosPro} -r -spec linux-g++ CONFIG+=${qmakeConfig} EX_CONFIG=${exConfig}`
   }
 
   private makeCommand() {
+    log.verbose('Build makeCommand()')
     return '/usr/bin/make'
   }
 
   private buildPkgCommand() {
+    log.verbose('Build buildPkgCommand()')
     const syberosPro = this.locateSyberosPro()
     return `buildpkg ${syberosPro}`
   }
@@ -343,12 +369,14 @@ export default class Build {
    * 查找kchroot路径
    */
   private locateKchroot(): string {
+    log.verbose('Build locateKchroot()')
     return path.join(this.pdkRootPath, 'sdk', 'script', 'kchroot')
   }
   /**
    * 查找qmake路径
    */
   private locateQmake(): string {
+    log.verbose('Build locateQmake()')
     return path.join(
       this.pdkRootPath,
       'targets',
@@ -364,12 +392,14 @@ export default class Build {
    * 查找项目中的syberos.pro文件路径
    */
   private locateSyberosPro(): string {
+    log.verbose('Build locateSyberosPro()')
     return path.join(this.appPath, 'platforms', 'syberos', 'app.pro')
   }
   /**
    * 查找cdb路径
    */
   private locateCdb(): string {
+    log.verbose('Build locateCdb()')
     return path.join(
       this.pdkRootPath,
       'targets',
