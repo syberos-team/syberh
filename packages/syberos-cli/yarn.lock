@@ -520,10 +520,10 @@
   version "0.7.0"
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
 
-"@syberos/dev-server@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@syberos/dev-server/-/dev-server-1.0.1.tgz#f4c52eb58519489f23734903ba481afcde66ba65"
-  integrity sha512-Gh+Q0IO92sGBjtTytHypQn0GQWreVh0l7im8dSQaVAR9rL6XomQ1Q2kOVXpjVkqklfarZS+/55R02yrKlGUh3g==
+"@syberos/dev-server@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@syberos/dev-server/-/dev-server-1.0.2.tgz#06c2779175b3205326b3d551d512690841d3ffa6"
+  integrity sha512-UPudGXywBPpc1S0wCCCJl5lkoDSabfbqRpbRoSI+4Req4c051e8SMKLgXYVdqFJ2n+EX8dpMxm/OcT9zQZWdWA==
   dependencies:
     archiver "^2.1.1"
     autoprefixer "^8.4.1"
