@@ -32,7 +32,8 @@ void FileManager::request(QString callBackID, QString actionName, QVariantMap pa
     } else if (actionName == "getInfo") {
         getInfo(callBackID, params.value("srcPath").toString());
     } else if (actionName == "remove") {
-        remove(callBackID, params.value("srcPath").toString(), params.value("recursive").toInt(true));
+        bool ok;
+        remove(callBackID, params.value("srcPath").toString(), params.value("recursive").toString().toInt(&ok,10));
     }
 }
 
