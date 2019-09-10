@@ -4,7 +4,7 @@
 #include "framework/nativesdkhandlerbase.h"
 #include <QtNetwork>
 #include <QObject>
-#include "downloadmanager.h"
+#include "./util/downloadmanager.h"
 
 class TaskInfo{
 public:
@@ -13,6 +13,9 @@ public:
     // 下载
     DownloadManager *downloadManager;
 };
+
+#define STORAGE_INTERNAL "internal"
+#define STORAGE_EXTENDED "extended"
 
 
 class Download : public NativeSdkHandlerBase
@@ -35,17 +38,21 @@ public:
     static int typeId;
 
 private :
-    void start(QString callbackId, QString url, QString name);
+    void start(QString callbackId, QString url, QString name, QString storage);
 
     void cancel(QString callbackId, QString downloadID);
 
     TaskInfo* findTaskInfo(DownloadManager *downloadManager);
+    //删除TaksInfo对象，断开连接的信号，并移除任务
+    void removeTask(QString downloadId);
 
 public slots:
 
     void onDownloadProcess(QString downloadId, QString path, qint64 received, qint64 total);
 
     void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
+
+    void onDownloadError(QString downloadId, QNetworkReply::NetworkError code, QString error);
 };
 
 
