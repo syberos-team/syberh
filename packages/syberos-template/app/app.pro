@@ -12,7 +12,7 @@ CONFIG += C++11
 
 RESOURCES += res.qrc
 
-PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt Qt5Contacts
+PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt
 
 QML_FILES = qml/*.qml
 
