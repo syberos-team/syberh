@@ -92,6 +92,12 @@
       "apis/system/aboutPhone": {
         "title": "aboutPhone"
       },
+      "apis/system/battery": {
+        "title": "battery"
+      },
+      "apis/system/networkInfo": {
+        "title": "networkInfo"
+      },
       "apis/telephony/dial": {
         "title": "dial"
       },

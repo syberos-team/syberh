@@ -38,5 +38,61 @@
         <file>js/readme.md</file>
         <file>js/webview.js</file>
         <file>js/filepicker/filepicker.js</file>
+        <file>js/readme.md</file>
+        <file>js/webview.js</file>
+        <file>src/framework/common/errorinfo.cpp</file>
+        <file>src/framework/common/errorinfo.h</file>
+        <file>src/framework/common/extendedconfig.cpp</file>
+        <file>src/framework/common/extendedconfig.h</file>
+        <file>src/framework/common/networkstatus.cpp</file>
+        <file>src/framework/common/networkstatus.h</file>
+        <file>src/framework/devtools/devtools.cpp</file>
+        <file>src/framework/devtools/devtools.h</file>
+        <file>src/framework/devtools/socketclient.cpp</file>
+        <file>src/framework/devtools/socketclient.h</file>
+        <file>src/framework/nativesdkfactory.cpp</file>
+        <file>src/framework/nativesdkfactory.h</file>
+        <file>src/framework/nativesdkhandlerbase.cpp</file>
+        <file>src/framework/nativesdkhandlerbase.h</file>
+        <file>src/framework/nativesdkmanager.cpp</file>
+        <file>src/framework/nativesdkmanager.h</file>
+        <file>src/util/chalk.cpp</file>
+        <file>src/util/chalk.h</file>
+        <file>src/util/downloadmanager.cpp</file>
+        <file>src/util/downloadmanager.h</file>
+        <file>src/util/fileutil.cpp</file>
+        <file>src/util/fileutil.h</file>
+        <file>src/audio.cpp</file>
+        <file>src/audio.h</file>
+        <file>src/battery.cpp</file>
+        <file>src/battery.h</file>
+        <file>src/camera.cpp</file>
+        <file>src/camera.h</file>
+        <file>src/clipboard.cpp</file>
+        <file>src/clipboard.h</file>
+        <file>src/download.cpp</file>
+        <file>src/download.h</file>
+        <file>src/filemanager.cpp</file>
+        <file>src/filemanager.h</file>
+        <file>src/helper.cpp</file>
+        <file>src/helper.h</file>
+        <file>src/httpclient.cpp</file>
+        <file>src/httpclient.h</file>
+        <file>src/loadqmlhandler.cpp</file>
+        <file>src/loadqmlhandler.h</file>
+        <file>src/loadqmlwidget.cpp</file>
+        <file>src/loadqmlwidget.h</file>
+        <file>src/network.cpp</file>
+        <file>src/network.h</file>
+        <file>src/networkInfo.cpp</file>
+        <file>src/networkInfo.h</file>
+        <file>src/storage.cpp</file>
+        <file>src/storage.h</file>
+        <file>src/system.cpp</file>
+        <file>src/system.h</file>
+        <file>src/telephony.cpp</file>
+        <file>src/telephony.h</file>
+        <file>com_syberos_api.pri</file>
+        <file>com_syberos_api.qrc</file>
     </qresource>
 </RCC>
