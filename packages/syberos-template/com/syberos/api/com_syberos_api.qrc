@@ -30,6 +30,14 @@
         <file>js/camera/capture.js</file>
         <file>qml/SInputDialog.qml</file>
         <file>js/system/system.js</file>
+        <file>qml/SDelegateComponent.qml</file>
+        <file>qml/SFilesPicker.qml</file>
+        <file>qml/SFilesPickerView.qml</file>
+        <file>qml/Sfm.js</file>
+        <file>qml/SUI.js</file>
+        <file>js/readme.md</file>
+        <file>js/webview.js</file>
+        <file>js/filepicker/filepicker.js</file>
         <file>js/readme.md</file>
         <file>js/webview.js</file>
         <file>src/framework/common/errorinfo.cpp</file>
@@ -43,11 +51,11 @@
         <file>src/framework/devtools/socketclient.cpp</file>
         <file>src/framework/devtools/socketclient.h</file>
         <file>src/framework/nativesdkfactory.cpp</file>
+        <file>src/framework/nativesdkfactory.h</file>
         <file>src/framework/nativesdkhandlerbase.cpp</file>
         <file>src/framework/nativesdkhandlerbase.h</file>
         <file>src/framework/nativesdkmanager.cpp</file>
         <file>src/framework/nativesdkmanager.h</file>
-        <file>src/framework/natviesdkfactory.h</file>
         <file>src/util/chalk.cpp</file>
         <file>src/util/chalk.h</file>
         <file>src/util/downloadmanager.cpp</file>
