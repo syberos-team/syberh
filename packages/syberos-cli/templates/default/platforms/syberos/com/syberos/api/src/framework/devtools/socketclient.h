@@ -75,10 +75,7 @@ private:
     int total=0;
 
     int downloadTotal=0;
-    /**
-     * @brief onData 接受到数据
-     */
-    //void data2(QByteArray qba);
+
     /**
      * 获取临时目录地址,如果不存在则创建
      * @brief mkdirTemp

@@ -32,13 +32,12 @@ public:
     Q_INVOKABLE DevTools();
     ~DevTools();
     static DevTools * getInstance();
-     void request(QString callBackID,QString actionName,QVariantMap params);
+    void request(QString callBackID,QString actionName,QVariantMap params);
     static int typeId;
 private:
     static DevTools *pDevTools;
     SocketClient *socketClient;
-
-     ExtendedConfig *extendConfig;
+    ExtendedConfig *extendConfig;
     //服务端IP
     QString serverIp();
     //服务端端口

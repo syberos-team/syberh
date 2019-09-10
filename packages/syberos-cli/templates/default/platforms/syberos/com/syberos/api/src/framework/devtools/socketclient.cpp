@@ -8,7 +8,7 @@ SocketClient::SocketClient(const QString &url, const int &port)
     helper=Helper::instance();
 
     if(!socketClient){
-        this->create(url,port);
+        create(url,port);
     }
 
     this->getOrCreateTempPath();
@@ -42,7 +42,7 @@ void SocketClient::create(const QString &url, const int &port){
 }
 
 void SocketClient::socketError(QAbstractSocket::SocketError error){
-    qDebug() <<"socketError";
+    qDebug() <<Q_FUNC_INFO <<"socketError";
 
 }
 
@@ -52,53 +52,35 @@ void SocketClient::socketError(QAbstractSocket::SocketError error){
  */
 void SocketClient::disconnected(){
 
-    qDebug() <<"SocketClient 断开链接:";
+    qDebug() <<Q_FUNC_INFO<<"SocketClient 断开链接:";
     //重连操作
 }
 
 void SocketClient::connection(){
-    QString str("connection");
-    Chalk::green(str,"SocketClient","create()");
+    QString str("Socket连接成功");
+    Chalk::green(str,"SocketClient","connection()");
 }
 
-void onData(QString &data){
-    Chalk::green(data,"SocketClient","create()");
-}
 
 void SocketClient::data(){
     QByteArray qba= socketClient->readAll(); //读取
     QString ss=QVariant(qba).toString();
-
-    qDebug()<<"-----------------ss:"<<ss <<endl;
-
-    //onData(ss);
-    //    if(fileSize==-1){
-
     int lastIndex=ss.lastIndexOf("}");
-    qDebug()<<"lastIndex:"<<lastIndex;
-    qDebug();
+
     //截取json字符串
     QString jsonString=ss.mid(0,lastIndex+1);
-    //qDebug()<<"jsonString:"<<jsonString;
     //剩余字符
     QString surString=ss.mid(lastIndex+1);
-    //qDebug()<<"surString:"<<surString;
-    qDebug();
-
     QJsonDocument obj=QJsonDocument::fromJson(jsonString.toUtf8());
     QJsonObject dataContent= obj.object();
     QJsonArray fileArray =dataContent.take("files").toArray();
     QString uid=dataContent.take("uid").toString();
     QString serverHost=dataContent.take("server").toString();
 
-    //int hsize=dataContent.take("hsize").toInt();
-    qDebug() <<"files:" << fileArray.size();
     total=fileArray.size();
     FileUtil::remove(tempPath+"/www",1);
-    //QJsonArray files=subObj["files"].toArray();
     for (int npcIndex = 0; npcIndex < fileArray.size(); ++npcIndex) {
         QString filePath = fileArray[npcIndex].toString();
-        Chalk::green(filePath);
         DownloadManager *downloadManager=new DownloadManager(this);
         downloadManager->setDownloadId(uid);
         QString url=serverHost+"?path="+filePath;
@@ -121,29 +103,20 @@ void SocketClient::data(){
 
 void SocketClient::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
     downloadTotal+=1;
-    if(this->total==this->downloadTotal){
-        qDebug() << Q_FUNC_INFO << "download success " <<this->downloadTotal << endl;
-        this->updateWebRoot();
+    if(total==downloadTotal){
+        updateWebRoot();
     }
-
 }
-
-
-
 
 void SocketClient::updateWebRoot(){
     this->initParams();
     QString dataRoot= Helper::instance()->getDataWebRootPath();
     QString tmpwww=tempPath+"/www";
-
     FileUtil::remove(dataRoot,1);
     FileUtil::copy(tmpwww,dataRoot);
-
     emit update();
 
 }
-
-
 
 void SocketClient::initParams(){
     fileSize=-1;
@@ -154,9 +127,6 @@ void SocketClient::initParams(){
     this->total=0;
     this->downloadTotal=0;
 }
-
-
-
 
 
 QString SocketClient::getOrCreateTempPath(){
