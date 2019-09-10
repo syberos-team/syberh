@@ -6,6 +6,10 @@
 #include <QJsonObject>
 #include <QDateTime>
 #include <QDebug>
+#include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
+
 
 FileUtil::FileUtil()
 {
@@ -26,12 +30,41 @@ bool FileUtil::move(QString srcPath, QString destPath)
         return false;
     }
 }
+
+bool FileUtil::chmodr(QString path)
+{
+    if (path.isEmpty()){
+        return false;
+    }
+    QDir dir(path);
+    if(!dir.exists()){
+        return false;
+    }
+    chmod(path.toStdString().c_str(), S_IRWXU|S_IRWXG|S_IRWXO);
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList){
+        if (fi.isFile()) {
+            QString p = path +"/" + fi.fileName();
+            chmod(p.toStdString().c_str(), S_IRWXU|S_IRWXG|S_IRWXO);
+        } else if (fi.isDir()) {
+            chmod(fi.absoluteFilePath().toStdString().c_str(), S_IRWXU|S_IRWXG|S_IRWXO);
+            chmodr(fi.absoluteFilePath());
+        }
+        else{
+        }
+    }
+    return true;
+}
+
 bool FileUtil::copy(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
     proc->start("cp -rf " + srcPath + " " + destPath);
     proc->waitForFinished();
 
+    errno = 0;
+    chmodr(destPath);
     QString errTmp = proc->readAllStandardError();
     if (errTmp == "") {
         return true;
@@ -43,17 +76,6 @@ bool FileUtil::copy(QString srcPath, QString destPath)
 
 QFileInfoList FileUtil::fileList(QString srcPath)
 {
-//    QProcess *proc = new QProcess();
-//    proc->start("ls " + srcPath);
-//    proc->waitForFinished();
-
-//    QString errTmp = proc->readAllStandardError();
-//    if (errTmp == "") {
-//        return "success";
-//    } else {
-//        return errTmp;
-//    }
-
     QDir dir(srcPath);
     QStringList filters;
     return dir.entryInfoList(filters, QDir::AllDirs|QDir::Files);
@@ -61,7 +83,6 @@ QFileInfoList FileUtil::fileList(QString srcPath)
 
 FileUtil::FileType FileUtil::fileType(QString srcPath)
 {
-
     if (!exists(srcPath)) {
         return FileUtil::Unknown;
     }
@@ -115,4 +136,5 @@ bool FileUtil::exists(QString srcPath)
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
 }
+
 

@@ -76,6 +76,13 @@ public:
      */
     static bool exists(QString srcPath);
 
+    /**
+     * @brief chmodr        赋予权限
+     * @param path       源路径
+     * @return
+     */
+    static bool chmodr(QString path);
+
 };
 
 #endif // FILESYSTEMMANAGER_H
