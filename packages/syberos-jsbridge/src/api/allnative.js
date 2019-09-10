@@ -13,6 +13,8 @@ import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
 import audioMixin from './native/audio';
+import networkInfoMixin from './native/networkInfo';
+import batteryMixin from './native/battery';
 
 // const hybridJs = window.syber;
 export default function allNative (hybridJs) {
@@ -32,4 +34,6 @@ export default function allNative (hybridJs) {
   captureMixin(hybridJs);
   clipboardMixin(hybridJs);
   audioMixin(hybridJs);
+  networkInfoMixin(hybridJs);
+  batteryMixin(hybridJs);
 }

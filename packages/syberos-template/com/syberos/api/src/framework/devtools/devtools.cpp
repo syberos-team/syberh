@@ -5,13 +5,13 @@ int DevTools::typeId = qRegisterMetaType<DevTools*>();
 DevTools *DevTools::pDevTools=NULL;
 DevTools::DevTools()
 {
-    qDebug()<<"~DevTools()";
+    qDebug()<<Q_FUNC_INFO <<endl;
     extendConfig= ExtendedConfig::instance();
     QVariant debug = extendConfig->get("debug");
     if(debug.toBool()){
         //拷贝www到data目录下
         this->copyWWW();
-        socketClient=new SocketClient(this->serverIp(),this->serverPort());
+        socketClient=new SocketClient(serverIp(),serverPort());
         //绑定热更新函数
         connect(socketClient,&SocketClient::update,this,&DevTools::reload);
     }
@@ -19,7 +19,7 @@ DevTools::DevTools()
 }
 
 void DevTools::request(QString callBackID, QString actionName, QVariantMap params){
-    qDebug()<<Q_FUNC_INFO<<"----------------------request"<<callBackID <<actionName <<endl;
+    qDebug()<<Q_FUNC_INFO<<endl;
 }
 
 DevTools *DevTools::getInstance(){
@@ -33,18 +33,19 @@ DevTools *DevTools::getInstance(){
 }
 
 DevTools::~DevTools(){
-    qDebug();
-    qDebug()<<"~DevTools";
+    qDebug()<<Q_FUNC_INFO;
 }
 
 QString DevTools::serverIp(){
-    QString ip("127.0.0.1");
+    extendConfig->get("serverIp").toString();
     QString serverIp=extendConfig->get("serverIp").toString();
-    if(!serverIp.isEmpty()){
-       ip=serverIp;
+    if(serverIp.isEmpty()){
+        qDebug()<<Q_FUNC_INFO<<"serverIP不存在"<<serverIp <<endl;
+    }else{
+        qDebug()<<Q_FUNC_INFO<<"serverIp"<<serverIp <<endl;
     }
-    qDebug()<<Q_FUNC_INFO<<"serverIp"<<ip <<endl;
-    return ip;
+
+    return serverIp;
 }
 
 int DevTools::serverPort(){
@@ -54,8 +55,8 @@ int DevTools::serverPort(){
     if(sport>0){
         port=sport;
     }
-     qDebug()<<Q_FUNC_INFO<<"server port"<<port<<endl;
-    return 8080;
+    qDebug()<<Q_FUNC_INFO<<"server port"<<port<<endl;
+    return port;
 }
 
 
@@ -68,11 +69,13 @@ void DevTools::reload(){
  * @return
  */
 bool DevTools::copyWWW(){
+
     //获取data目录
     QString dataPath=Helper::instance()->getDataWebRootPath();
     //获取默认目录
     QString webPath=Helper::instance()->getDefaultWebRootPath();
-
+    Helper::instance()->emptyDir(dataPath);
+    FileUtil::remove(dataPath,1);
     FileUtil::copy(webPath,dataPath);
 
 }
