@@ -31,7 +31,7 @@ class DevTools:public NativeSdkHandlerBase
 public:
     Q_INVOKABLE DevTools();
     ~DevTools();
-    static DevTools * getInstance();
+    static DevTools *getInstance();
     void request(QString callBackID,QString actionName,QVariantMap params);
     static int typeId;
 private:

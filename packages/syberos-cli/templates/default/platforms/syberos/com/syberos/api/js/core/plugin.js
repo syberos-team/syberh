@@ -79,7 +79,7 @@ SyberPlugin.prototype.trigger = function () {
     funcArgs.push(arguments[sum])
   }
 
-  console.log('event name',this.eventList[eventName])
+  //console.log('event name',this.eventList[eventName])
 
   if (typeof this.eventList[eventName] === 'function') {
     // registered by `.on()` method

@@ -38,7 +38,6 @@ Syber.prototype._render = function () {
   RootItem.on('ready', function (obj) {
     // 设置跟节点
     that.body = obj
-    console.log('\n ----RootItem-on ready \n')
     that._autoRun()
   })
 }
@@ -81,7 +80,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   plugin.setParam(handlerId, param)
 
   if (plugin.isReady) {
-    console.log('plugin isReady', plugin.id)
+    //console.log('plugin isReady', plugin.id)
     // 直接调用
     plugin.trigger(method, plugin.object, handlerId, param)
     return
@@ -153,7 +152,6 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
  *@param pluginId {string} 插件ID
  */
 Syber.prototype.destroy = function (pluginId) {
-    console.log('----pluginId----', pluginId)
   var plugin = this.pluginList[pluginId]
   if (!plugin) {
     throw new Error('core.js,destroy(),plugin不存在,id:', pluginId)
@@ -231,9 +229,7 @@ Syber.prototype._autoRun = function () {
 }
 
 Syber.prototype.addPlugin = function (plugin) {
-  console.log('\n addPlugin \n', typeof plugin, '\n')
-  // console.log('\n addPlugin \n', JSON.stringify(plugin), '\n')
-  // ignore this plugin if it has already been installed
+
   if (this.pluginList[plugin.id] !== undefined) {
     console.debug('Plugin ' + plugin.id + ' has already been added.')
     return false

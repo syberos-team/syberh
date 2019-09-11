@@ -38,8 +38,6 @@
         <file>js/readme.md</file>
         <file>js/webview.js</file>
         <file>js/filepicker/filepicker.js</file>
-        <file>js/readme.md</file>
-        <file>js/webview.js</file>
         <file>src/framework/common/errorinfo.cpp</file>
         <file>src/framework/common/errorinfo.h</file>
         <file>src/framework/common/extendedconfig.cpp</file>
