@@ -63,6 +63,12 @@ public:
       *@param type     需要加载的qml类型，用于区分加载哪个qml文件
       */
     Q_INVOKABLE void loadQml(QString typeID,QString parentPageName,QString parentName,QString type);
+
+    /**
+      *@brief 唤起应用方法
+      *@url 请求信息
+      */
+    Q_INVOKABLE void url(const QUrl& url);
 signals:
     /**
       *@brief signal 请求成功信号

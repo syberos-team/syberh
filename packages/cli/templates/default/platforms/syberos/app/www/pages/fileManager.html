@@ -136,7 +136,12 @@
       syber.fileManager.fileList({
         srcPath: document.getElementById("list-src").value,
         success: function(res) {
-          console.info(res)
+			for(i = 0; i < res.length; i++) {
+				console.info(res[i].path)
+				console.info(res[i].size)
+				console.info(res[i].created)
+				console.info(res[i].isDir)
+			}
         }
       })
     }

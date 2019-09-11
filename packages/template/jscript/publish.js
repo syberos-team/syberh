@@ -16,7 +16,7 @@ function main () {
   ]
   // 获取根目录
   const tempPath = path.resolve('.')
-  const copyTo = path.resolve('../syberos-cli/templates/default/platforms/syberos')
+  const copyTo = path.resolve('../cli/templates/default/platforms/syberos')
 
   fs.emptyDirSync(copyTo)
   console.log('项目路径:', tempPath)
