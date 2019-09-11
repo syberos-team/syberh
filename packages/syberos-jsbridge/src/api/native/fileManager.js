@@ -32,5 +32,13 @@ export default function fileManagerMixin(hybrid) {
                 srcPath: '',
             },
         },
+        {
+            namespace: 'remove',
+            os: ['syber'],
+            defaultParams: {
+                srcPath: '',
+                recursive: 0,
+            },
+        },
     ]);
 }

@@ -17,7 +17,7 @@
     "build": "lerna run build",
     "build:docs": "node ./build/docs.js",
     "prettier": "prettier --write \"src/**/*.jsx\" \"src/**/*.ts\"",
-    "lint": "tslint packages/*/src/**/*.ts --fix",
+    "lint": "tslint packages/*/src/**/*.ts  --fix",
     "publish-l": "lerna publish --conventional-commits --independent"
   },
   "devDependencies": {
@@ -79,7 +79,7 @@
   },
   "lint-staged": {
     "*.{ts,jsx}": [
-      "eslint --fix",
+      "tslint --fix",
       "git add"
     ]
   },

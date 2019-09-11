@@ -85,6 +85,13 @@
       }
     ],
     "webview": ["apis/webview/webview"],
-    "文件选择": ["apis/filepicker/filepicker"]
+    "文件选择": ["apis/filepicker/filepicker"],
+    "文件管理": [
+      "apis/fileManager/move",
+      "apis/fileManager/copy",
+      "apis/fileManager/fileList",
+      "apis/fileManager/getInfo",
+      "apis/fileManager/remove"
+    ]
   }
 }

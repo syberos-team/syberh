@@ -58,9 +58,9 @@ void FileManager::fileList(QString callbackId, QString srcPath)
             jsonObj.insert("size", fileInfos.at(i).size());
             jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
             if (fileInfos.at(i).isDir()) {
-                jsonObj.insert("isDir", "T");
+                jsonObj.insert("isDir", true);
             } else {
-                jsonObj.insert("isDir", "F");
+                jsonObj.insert("isDir", false);
             }
             jsonArr.append(jsonObj);
         }

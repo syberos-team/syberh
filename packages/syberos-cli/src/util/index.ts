@@ -2,7 +2,7 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as crypto from 'crypto'
 import * as os from 'os'
-import * as child_process from 'child_process'
+import * as childProcess from 'child_process'
 import * as chalk from 'chalk'
 import { mergeWith, isPlainObject, camelCase, flatMap } from 'lodash'
 import * as minimatch from 'minimatch'
@@ -28,7 +28,7 @@ import {
 import { ICopyArgOptions, ICopyOptions, TogglableOptions } from './types'
 import { callPluginSync } from './npm'
 
-const execSync = child_process.execSync
+const execSync = childProcess.execSync
 
 export function isNpmPkg (name: string): boolean {
   if (/^(\.|\/)/.test(name)) {
