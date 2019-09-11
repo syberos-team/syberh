@@ -6,6 +6,10 @@
 #include <QJsonObject>
 #include <QDateTime>
 #include <QDebug>
+#include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
+
 
 FileUtil::FileUtil()
 {
@@ -25,12 +29,41 @@ QString FileUtil::move(QString srcPath, QString destPath)
         return errTmp;
     }
 }
+
+bool FileUtil::chmodr(QString path)
+{
+    if (path.isEmpty()){
+        return false;
+    }
+    QDir dir(path);
+    if(!dir.exists()){
+        return false;
+    }
+    chmod(path.toStdString().c_str(), S_IRWXU|S_IRWXG|S_IRWXO);
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList){
+        if (fi.isFile()) {
+            QString p = path +"/" + fi.fileName();
+            chmod(p.toStdString().c_str(), S_IRWXU|S_IRWXG|S_IRWXO);
+        } else if (fi.isDir()) {
+            chmod(fi.absoluteFilePath().toStdString().c_str(), S_IRWXU|S_IRWXG|S_IRWXO);
+            chmodr(fi.absoluteFilePath());
+        }
+        else{
+        }
+    }
+    return true;
+}
+
 QString FileUtil::copy(QString srcPath, QString destPath)
 {
     QProcess *proc = new QProcess();
     proc->start("cp -rf " + srcPath + " " + destPath);
     proc->waitForFinished();
 
+    errno = 0;
+    chmodr(destPath);
     QString errTmp = proc->readAllStandardError();
     if (errTmp == "") {
         return "success";
@@ -108,4 +141,5 @@ bool FileUtil::exists(QString srcPath)
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
 }
+
 

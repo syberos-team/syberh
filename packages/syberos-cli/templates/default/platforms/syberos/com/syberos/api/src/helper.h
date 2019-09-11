@@ -34,7 +34,7 @@ public:
      * @brief emptyDir 清空文件夹
      * @param path
      */
-    Q_INVOKABLE bool emptyDir(const QString &path);
+     Q_INVOKABLE bool emptyDir(const QString &path);
 
 private:
     explicit Helper(QObject *parent = 0);
