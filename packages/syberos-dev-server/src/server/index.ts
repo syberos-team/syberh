@@ -3,8 +3,10 @@ import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
 import * as uuid from 'uuid'
 import ip from 'internal-ip'
+import * as os from 'os';
 import * as path from 'path';
 import HttpServer from './HttpServer';
+import log from '../util/log';
 
 
 /**
@@ -73,22 +75,28 @@ export default class Server {
       // 初始化ip地址
       const vhost = this.conf.host || (await ip.v4())
       this.conf.host = vhost;
-      console.log(`syberos-dev-server 服务监听 ${vhost}:${this.conf.port}`)
-      console.log(chalk.default.green(`socket 服务监听 ${vhost}:${this.conf.port}`))
+      const ifaces = os.networkInterfaces();
+      Object.keys(ifaces).forEach(dev => {
+        ifaces[dev].forEach(details => {
+          if (details.family === 'IPv4') {
+            log.info(chalk.default.green(`socket服务 ${details.address}:${this.conf.port}`))
+          }
+        });
+      });
     })
 
     this.server.on('connection', () => {
-      console.log("----connect")
+      log.info('客户端链接');
       this.startHttpServer();
     })
     this.server.on('close', () => {
-      console.log('syberos-dev-server服务端关闭')
+      log.info('syberos-dev-server服务端关闭')
     })
     this.server.listen(this.conf.port)
     // 监听错误信息
     this.server.on('error', e => {
       if (e.code === 'EADDRINUSE') {
-        console.log(`${this.conf.port}端口正被使用,请重新设置`);
+        log.error(`${this.conf.port}端口正被使用,请重新设置`);
       }
     })
 
@@ -147,7 +155,7 @@ export default class Server {
    */
   private addQueue(filePath: string, callback?: Function) {
 
-    console.log("队列等待中   addQueue:", filePath);
+    log.verbose('队列等待中   addQueue:', filePath);
     if (this.queue.length > 0) {
       // 清空数组
       this.queue = []
@@ -166,62 +174,58 @@ export default class Server {
 
   /**
    * 发送给所有客户端
-   * @param filePath
+   * @param fileList [] 文件列表
    * @param callback
    */
-  public async writeFileToClients(filePath: string) {
-    if (!fs.existsSync(filePath)) {
-      // throw new Error(`文件:${filePath},不存在,请检查`)
-      console.error(`文件:${filePath},不存在,请检查`)
-      return
+  public async writeFileToClients(fs) {
+    log.verbose('Server writeFileToClients() ')
+    log.verbose('files', fs.length);
+    const fileList: any = [...fs];
+    if (fileList.length === 0) {
+      log.info('files', JSON.stringify(fileList))
+      return;
     }
 
     if (this.sendStatus === SendStatus.PENDING) {
       // 当前状态发送中，加入队列等待
-      this.addQueue(filePath)
+      this.addQueue(fileList)
       return
     }
     // 设置问发送状态
     this.sendStatus = SendStatus.PENDING
-    const fileList = [];
-
+    const filePath = path.resolve('.');
     let count = 0
-    const { clients } = this
-    this.readDirSync(filePath, fileList, (files) => {
-      console.log('files length', files.length)
+    const { clients = [] } = this
+    const files = fileList;
+    const splitFiles: any = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const nf = file.replace(filePath, '');
+      log.verbose('nf', nf);
+      splitFiles.push(nf);
+    }
+    log.info('----当前客户端数量:', clients.length)
+    // console.log('----替换后的地址:', JSON.stringify(splitFiles))
+    clients.forEach(async socket => {
+      this.uid += 1
+      // 获取下载服务地址
+      const serverhost = this.httpServer.getUri();
+      log.verbose('----serverhost:', serverhost)
+      // 发送数据格式
+      const fileHead: FileHead = {
+        uid: this.uid,
+        server: serverhost,
+        files: splitFiles
 
-      const splitFiles: any = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const nf = 'www' + file.replace(filePath, '');
-
-        splitFiles.push(nf);
       }
-      console.log('----当前客户端数量:', clients.length)
-      // console.log('----替换后的地址:', JSON.stringify(splitFiles))
-      clients.forEach(async socket => {
-        this.uid += 1
-
-        // 获取下载服务地址
-        const serverhost = this.httpServer.getUri();
-
-        console.log('----serverhost:', serverhost)
-        // 发送数据格式
-        const fileHead: FileHead = {
-          uid: this.uid,
-          server: serverhost,
-          files: splitFiles
-
-        }
-        await this.write(socket, JSON.stringify(fileHead));
-        count += 1;
-      })
-    });
+      await this.write(socket, JSON.stringify(fileHead));
+      count += 1;
+    })
 
     // 启动定时器扫描发送情况
     this.timer = setInterval(() => {
       if (count === clients.length) {
-        console.log('-----发送完成')
+        log.info('-----发送完成,发送数量', clients.length)
         clearInterval(this.timer)
         this.timer = null
         // 说明已经发送完成，开始检查队列
@@ -230,8 +234,6 @@ export default class Server {
         if (!queue) {
           return
         }
-        console.log('------queue', JSON.stringify(queue))
-        // tslint:disable-next-line: no-floating-promises
         this.writeFileToClients(queue.filePath)
       }
     }, 1000)
@@ -243,7 +245,6 @@ export default class Server {
     pa.forEach(function (ele, index) {
       const info = fs.statSync(path.join(dirPath, ele));
       if (info.isDirectory()) {
-        console.log('dir: ', ele)
         that.readDirSync(path.join(dirPath, ele), files, null);
       } else {
 
@@ -265,13 +266,13 @@ export default class Server {
 
   onEnd(socket, callback) {
     socket.on('end', () => {
-      console.log('connect end')
+      log.warn('connect end')
     })
   }
 
   onClose(callback) {
     this.server.on('close', () => {
-      console.log('onClose')
+      log.info('onClose')
       callback && callback()
     })
   }
@@ -283,8 +284,6 @@ export default class Server {
    */
   async write(socket: net.Socket, buffer: string) {
     return new Promise(function (resole, reject) {
-
-      console.log('--buffer----', buffer)
       socket.write(buffer, function () {
         resole(true)
       })

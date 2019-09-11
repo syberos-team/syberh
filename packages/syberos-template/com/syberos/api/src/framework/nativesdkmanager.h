@@ -2,7 +2,7 @@
 #define NATIVESDKMANAGER_H
 
 #include <QObject>
-#include "natviesdkfactory.h"
+#include "nativesdkfactory.h"
 #include <QMutex>
 #include <QMap>
 #include<QVariant>

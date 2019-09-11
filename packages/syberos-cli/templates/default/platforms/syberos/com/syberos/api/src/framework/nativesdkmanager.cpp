@@ -10,10 +10,10 @@ NativeSdkManager::NativeSdkManager(){
         if(!devTools){
              devTools=DevTools::getInstance();
         }
-        //默认初始化DevTools
-        initHandlerConnect("DevTools*");
-    }
 
+    }
+    //默认初始化DevTools
+    initHandlerConnect("DevTools*");
     qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
 }
 NativeSdkManager::~NativeSdkManager(){

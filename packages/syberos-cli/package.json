@@ -30,7 +30,7 @@
   "author": "YuanXin",
   "license": "MIT",
   "dependencies": {
-    "@syberos/dev-server": "^1.0.1",
+    "@syberos/dev-server": "^1.0.2",
     "@types/request": "^2.48.1",
     "autoprefixer": "^8.4.1",
     "babel-core": "^6.26.3",
@@ -60,6 +60,7 @@
     "generic-names": "^2.0.1",
     "glob": "^7.1.2",
     "inquirer": "^5.2.0",
+    "internal-ip": "^4.3.0",
     "joi": "^14.0.6",
     "klaw": "^2.1.1",
     "latest-version": "^4.0.0",
