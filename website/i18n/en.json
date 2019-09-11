@@ -8,6 +8,12 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/cellular/networkDisabled": {
+        "title": "networkDisabled"
+      },
+      "apis/cellular/networkEnabled": {
+        "title": "networkEnabled"
+      },
       "apis/clipboard/getClipboardData": {
         "title": "getClipboardData"
       },
@@ -25,6 +31,21 @@
       },
       "apis/fileInfo/removeFileInfos": {
         "title": "removeFileInfos"
+      },
+      "apis/fileManager/copy": {
+        "title": "copy"
+      },
+      "apis/fileManager/fileList": {
+        "title": "fileList"
+      },
+      "apis/fileManager/getInfo": {
+        "title": "getInfo"
+      },
+      "apis/fileManager/move": {
+        "title": "move"
+      },
+      "apis/fileManager/remove": {
+        "title": "remove"
       },
       "apis/filepicker/filepicker": {
         "title": "filepicker"
@@ -97,6 +118,9 @@
       },
       "apis/system/networkInfo": {
         "title": "networkInfo"
+      },
+      "apis/system/networkSetCellularEnabled": {
+        "title": "networkEnabled"
       },
       "apis/telephony/dial": {
         "title": "dial"
@@ -200,11 +224,13 @@
       "电话": "电话",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
+      "数据网络": "数据网络",
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
       "webview": "webview",
-      "文件选择": "文件选择"
+      "文件选择": "文件选择",
+      "文件管理": "文件管理"
     }
   },
   "pages-strings": {

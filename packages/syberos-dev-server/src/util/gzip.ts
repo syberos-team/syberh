@@ -9,7 +9,7 @@ import { createHash } from './hash'
  * @param hash 是否自动hash,默认为true
  *
  */
-export async function gzDir(
+export async function gzDir (
   input: string,
   output: string,
   hash: boolean = true

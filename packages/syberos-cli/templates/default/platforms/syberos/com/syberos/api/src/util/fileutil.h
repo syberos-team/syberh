@@ -2,6 +2,7 @@
 #define FILESYSTEMMANAGER_H
 #include <QObject>
 #include <QJsonObject>
+#include <QDir>
 
 
 struct FileInfo
@@ -31,20 +32,20 @@ public:
      * @param destPath      目标路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    static QString move(QString srcPath, QString destPath);
+    static bool move(QString srcPath, QString destPath);
     /**
      * @brief copy          复制
      * @param srcPath       源路径
      * @param destPath      目标路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    static QString copy(QString srcPath, QString destPath);
+    static bool copy(QString srcPath, QString destPath);
     /**
      * @brief fileList      获取文件列表
      * @param srcPath       源路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-   static QString fileList(QString srcPath);
+   static QFileInfoList fileList(QString srcPath);
 
     /**
      * @brief fileType      文件类型
@@ -59,7 +60,7 @@ public:
      * @param recursive    是否递归删除 0：否，1：是
      * @return
      */
-    static QString remove(QString srcPath, int recursive);
+    static bool remove(QString srcPath, int recursive);
 
     /**
      * @brief getInfo       获取文件信息

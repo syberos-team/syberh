@@ -40,12 +40,16 @@ void FileManager::request(QString callBackID, QString actionName, QVariantMap pa
 void FileManager::move(QString callbackId, QString srcPath, QString destPath)
 {
     bool res = FileUtil::move(srcPath, destPath);
-    emit success(callbackId.toLong(), res);
+    QJsonObject jsonObj;
+    jsonObj.insert("result", res);
+    emit success(callbackId.toLong(), jsonObj);
 }
 void FileManager::copy(QString callbackId, QString srcPath, QString destPath)
 {
     bool res = FileUtil::copy(srcPath, destPath);
-    emit success(callbackId.toLong(), res);
+    QJsonObject jsonObj;
+    jsonObj.insert("result", res);
+    emit success(callbackId.toLong(), jsonObj);
 }
 void FileManager::fileList(QString callbackId, QString srcPath)
 {
@@ -58,9 +62,9 @@ void FileManager::fileList(QString callbackId, QString srcPath)
             jsonObj.insert("size", fileInfos.at(i).size());
             jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
             if (fileInfos.at(i).isDir()) {
-                jsonObj.insert("isDir", "T");
+                jsonObj.insert("isDir", true);
             } else {
-                jsonObj.insert("isDir", "F");
+                jsonObj.insert("isDir", false);
             }
             jsonArr.append(jsonObj);
         }
@@ -86,5 +90,7 @@ void FileManager::getInfo(QString callBackID, QString srcPath)
 void FileManager::remove(QString callBackID, QString srcPath, int recursive)
 {
     bool res = FileUtil::remove(srcPath, recursive);
-    emit success(callBackID.toLong(), res);
+    QJsonObject jsonObj;
+    jsonObj.insert("result", res);
+    emit success(callBackID.toLong(), jsonObj);
 }

@@ -14,15 +14,96 @@
 
 <body>
 
-  <div class="mui-content pt0">
-    <div class="mui-card">
-      <div class="mui-card-header">
-        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">移动</button>
-        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="list()">列表</button>
-        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="getInfo()">信息</button>
-      </div>      
-      <div class="mui-card-footer"></div>
-    </div>
+<div class="mui-content">
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell mui-collapse">
+			<a class="mui-navigate-right" href="#">移动文件</a>
+			<div class="mui-collapse-content">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label onclick="moveSrcClick()">源文件</label>
+						<input type="text" class="mui-input-clear" id="move-src">
+					</div>
+					<div class="mui-input-row">
+						<label onclick="moveDestClick()">目标路径</label>
+						<input type="text" class="mui-input-clear" id="move-dest">
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" onclick="move()">移动</button>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-collapse">
+			<a class="mui-navigate-right" href="#">拷贝</a>
+			<div class="mui-collapse-content">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label>源文件</label>
+						<input type="text" class="mui-input-clear" id="copy-src">
+					</div>
+					<div class="mui-input-row">
+						<label>目标路径</label>
+						<input type="text" class="mui-input-clear" id="copy-dest">
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" onclick="copy()">拷贝</button>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-collapse">
+			<a class="mui-navigate-right" href="#">列表</a>
+			<div class="mui-collapse-content">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label>源文件</label>
+						<input type="text" class="mui-input-clear" id="list-src">
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" onclick="list()">列表</button>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-collapse">
+			<a class="mui-navigate-right" href="#">信息</a>
+			<div class="mui-collapse-content">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label>源文件</label>
+						<input type="text" class="mui-input-clear" id="info-src">
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" onclick="getInfo()">信息</button>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-collapse">
+			<a class="mui-navigate-right" href="#">删除</a>
+			<div class="mui-collapse-content">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label>源文件</label>
+						<input type="text" class="mui-input-clear" id="remove-src">
+					</div>
+					<div class="mui-input-row mui-radio">
+						<label>强制删除：否</label>
+						<input name="radio1" type="radio" value="0">
+					</div>
+					<div class="mui-input-row mui-radio">
+						<label>强制删除：是</label>
+						<input name="radio1" type="radio" value="1">
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary " onclick="removeFile()">删除</button>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+     
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syber.min.js"></script>
@@ -32,31 +113,58 @@
   <script>
 
     var vConsole = new VConsole();
-    
-    function start() {
+
+    function move() {
       syber.fileManager.move({
-        srcPath: "/home/user/download/2021.png",
-        // destPath: "/data/system/2020.png",
-        destPath: "/home/user/download/2022.png",
+        srcPath: document.getElementById("move-src").value,
+        destPath: document.getElementById("move-dest").value,
         success: function(res) {
           console.info(res)
-        },
-        fail: function (err) {
-          console.info(err)
         }
       });
     }
-    function list() {
-      syber.fileManager.fileList({
-        srcPath: "/home/user/DCIM/Camera",
+    function copy() {
+      syber.fileManager.copy({
+        srcPath: document.getElementById("copy-src").value,
+        destPath: document.getElementById("copy-dest").value,
         success: function(res) {
           console.info(res)
         }
       })
     }
+    function list() {
+      syber.fileManager.fileList({
+        srcPath: document.getElementById("list-src").value,
+        success: function(res) {
+			for(i = 0; i < res.length; i++) {
+				console.info(res[i].path)
+				console.info(res[i].size)
+				console.info(res[i].created)
+				console.info(res[i].isDir)
+			}
+        }
+      })
+    }
     function getInfo() {
       syber.fileManager.getInfo({
-        srcPath: "/home/user/com.syberos.demo/2022.png",
+        srcPath: document.getElementById("info-src").value,
+        success: function(res) {
+          console.info(JSON.stringify(res))
+        }
+      })
+    }
+    function removeFile(){
+		var obj = document.getElementsByName("radio1");
+      var method;
+      for (i = 0; i < obj.length; i++) {
+        if (obj[i].checked) {
+          method = obj[i].value;
+          break;
+        }
+      }
+      syber.fileManager.remove({
+		srcPath: document.getElementById("remove-src").value,
+		recursive: method,
         success: function(res) {
           console.info(JSON.stringify(res))
         }

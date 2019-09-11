@@ -9,7 +9,8 @@ var uiModules = {
   navigator: true,
   webview: true,
   camera: true,
-  system: true
+  system: true,
+  filepicker: true
 }
 // 全局syberos对象,在初始化完成有建立
 var SYBEROS = null

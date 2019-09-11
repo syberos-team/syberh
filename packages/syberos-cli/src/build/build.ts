@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as shelljs from 'shelljs'
+import * as os from 'os'
 import chalk from 'chalk'
 import { AppBuildConfig, DEVICES_TYPES } from '../util/constants'
 import * as helper from '../syberos/helper'
@@ -97,11 +98,11 @@ export default class Build {
       // 如果是只打SOP包， 目录名的设备名为 device
       this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${
         this.targetName
-        }${debug ? '-Debug' : ''}`
+      }${debug ? '-Debug' : ''}`
     } else {
       this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${
         debug ? '-Debug' : ''
-        }`
+      }`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -220,7 +221,9 @@ export default class Build {
 
     // 出现no permissions时，需要重启cdb服务
     if (result.stdout.indexOf('no permissions') > 0) {
-      console.log(chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...'))
+      console.log(
+        chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...')
+      )
 
       let cmd = `${cdbPath} kill-server`
       log.verbose('执行：', cmd)
@@ -242,7 +245,11 @@ export default class Build {
     const firstIdx = prefixSub.lastIndexOf('\n')
     this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
 
-    log.verbose('isSupportCdb:%s, cdbDevice:%s', this.isSupportCdb, this.cdbDevice)
+    log.verbose(
+      'isSupportCdb:%s, cdbDevice:%s',
+      this.isSupportCdb,
+      this.cdbDevice
+    )
   }
 
   private scpSop(ip: string, port: number, sopPath: string) {
@@ -252,11 +259,16 @@ export default class Build {
     // 非模拟器，支持cdb
     if (!this.useSimulator && this.isSupportCdb) {
       const cdbPath = this.locateCdb()
-      const cdbPushCmd = `${cdbPath} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+
+      const cdbPushCmd = `${cdbPath} -s ${
+        this.cdbDevice
+      } push -p ${sopPath} /tmp`
       log.verbose('执行：', cdbPushCmd)
       shelljs.exec(cdbPushCmd)
     } else {
-      const cmd = `expect ${helper.locateScripts('scp-sop.sh')} ${ip} ${port} ${sopPath}`
+      const cmd = `expect ${helper.locateScripts(
+        'scp-sop.sh'
+      )} ${ip} ${port} ${sopPath}`
       log.verbose('执行：', cmd)
       shelljs.exec(cmd)
     }
@@ -264,7 +276,9 @@ export default class Build {
 
   private cdbSop(sopPath: string) {
     log.verbose('Build cdbSop(%s)', sopPath)
-    const cdbPushCmd = `${this.locateCdb()} -s ${this.cdbDevice} push -p ${sopPath} /tmp`
+    const cdbPushCmd = `${this.locateCdb()} -s ${
+      this.cdbDevice
+    } push -p ${sopPath} /tmp`
     log.verbose('执行：', cdbPushCmd)
     shelljs.exec(cdbPushCmd)
   }
@@ -275,7 +289,10 @@ export default class Build {
     log.verbose(filename)
 
     const nameSplit = filename.split('-')
-    const cmd = `expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${nameSplit[0]} ${filename}`
+
+    const cmd = `expect ${helper.locateScripts(
+      'ssh-install-sop.sh'
+    )} ${ip} ${port} ${nameSplit[0]} ${filename}`
     log.verbose('执行：', cmd)
     shelljs.exec(cmd)
   }
@@ -285,7 +302,9 @@ export default class Build {
     console.log(chalk.green('准备安装sop包'))
     log.verbose(filename)
 
-    const cmd = `expect ${helper.locateScripts('cdb-install-sop.sh')} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
+    const cmd = `expect ${helper.locateScripts(
+      'cdb-install-sop.sh'
+    )} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
     log.verbose('执行：', cmd)
     shelljs.exec(cmd)
   }
@@ -296,7 +315,9 @@ export default class Build {
     console.log(chalk.green('准备启动app'))
     log.verbose('%s:%s:uiapp', sopid, projectName)
 
-    const cmd = `expect ${helper.locateScripts('ssh-start-app.sh')} ${ip} ${port} ${sopid} ${projectName}`
+    const cmd = `expect ${helper.locateScripts(
+      'ssh-start-app.sh'
+    )} ${ip} ${port} ${sopid} ${projectName}`
     log.verbose('执行：', cmd)
     shelljs.exec(cmd)
   }
@@ -307,7 +328,9 @@ export default class Build {
     console.log(chalk.green('准备启动app'))
     log.verbose('%s:%s:uiapp', sopid, projectName)
 
-    const cmd = `expect ${helper.locateScripts('cdb-start-app.sh')} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
+    const cmd = `expect ${helper.locateScripts(
+      'cdb-start-app.sh'
+    )} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
     log.verbose('执行：', cmd)
     shelljs.exec(cmd)
   }
@@ -350,19 +373,40 @@ export default class Build {
 
     const qmakeConfig = debug ? 'qml_debug' : 'release'
 
-    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString('hex')
+    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString(
+      'hex'
+    )
     return `${qmake} ${syberosPro} -r -spec linux-g++ CONFIG+=${qmakeConfig} EX_CONFIG=${exConfig}`
   }
 
   private makeCommand() {
     log.verbose('Build makeCommand()')
-    return '/usr/bin/make'
+    const cpu = this.getCpu()
+    const cmd = `/usr/bin/make -j${cpu} `
+    log.verbose('Build makeCommand() cmd:', cmd)
+    return cmd
   }
 
   private buildPkgCommand() {
     log.verbose('Build buildPkgCommand()')
     const syberosPro = this.locateSyberosPro()
     return `buildpkg ${syberosPro}`
+  }
+
+  /**
+   * 获取CUP进程数
+   */
+  private getCpu() {
+    log.verbose('Build getCpu()')
+    let ret: any = 4
+    try {
+      ret = os.cpus().length
+      console.log(chalk.green(`getCpu() stdout :${ret}`))
+      log.verbose(chalk.green(`getCpu() stdout :${ret}`))
+    } catch (e) {
+      log.error('----------stdout', e)
+    }
+    return ret
   }
 
   /**

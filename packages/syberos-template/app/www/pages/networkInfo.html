@@ -101,43 +101,6 @@
         }
       })
     }
-    function baseParam(param){
-            syber.system.aboutPhone({
-              success: function (result) {
-                  console.info("result-系统信息: " + result)
-
-                  document.getElementById("deviceId").value = blankHandle(result.deviceId);
-                  document.getElementById("brand").value = blankHandle(result.brand);
-                  document.getElementById("manufacturer").value = blankHandle(result.manufacturer);
-                  document.getElementById("model").value = blankHandle(result.model);
-                  document.getElementById("name").value = blankHandle(result.name);
-                  document.getElementById("imei").value = blankHandle(result.imei);
-                  document.getElementById("simCardNumbers").value = blankHandle(result.simCardNumbers);
-                  document.getElementById("imsis").value = blankHandle(result.imsis);
-                  document.getElementById("osType").value = blankHandle(result.osType);
-                  document.getElementById("osVersionName").value = blankHandle(result.osVersionName);
-                  document.getElementById("osVersion").value = blankHandle(result.osVersion);
-                  document.getElementById("osVersionCode").value = blankHandle(result.osVersionCode);
-                  document.getElementById("kernelVersion").value = blankHandle(result.kernelVersion);
-                  document.getElementById("screenWidth").value = blankHandle(result.screenWidth);
-                  document.getElementById("screenHeight").value = blankHandle(result.screenHeight);
-                  document.getElementById("windowWidth").value = blankHandle(result.windowWidth);
-                  document.getElementById("windowHeight").value = blankHandle(result.windowHeight);
-                  document.getElementById("statusBarHeight").value = blankHandle(result.statusBarHeight);
-                  document.getElementById("pixelRatio").value = blankHandle(result.pixelRatio);
-                  document.getElementById("language").value = blankHandle(result.language);
-                  document.getElementById("region").value = blankHandle(result.region);
-              },
-              fail: function (error) {
-                console.info(error)
-                alert(error.msg);
-              }
-            });
-        }
-
-        function blankHandle(param){
-            return !param?'':param;
-        }
 
     function baseParam(param) {
       syber.networkInfo.info({

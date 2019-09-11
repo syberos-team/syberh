@@ -2,11 +2,6 @@ import * as path from 'path'
 
 import chalk from 'chalk'
 
-
-
-
-
-
 export default class Convertor {
   root: string
   convertRoot: string
@@ -35,7 +30,5 @@ export default class Convertor {
 
   init () {
     console.log(chalk.green('开始代码转换...'))
-   
   }
-
 }

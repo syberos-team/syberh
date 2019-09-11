@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast','capture','system']
+    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast', 'capture', 'system', 'filepicker']
   }
 
   // add 内置 plugins
@@ -38,7 +38,6 @@ Syber.prototype._render = function () {
   RootItem.on('ready', function (obj) {
     // 设置跟节点
     that.body = obj
-    console.log('\n ----RootItem-on ready \n')
     that._autoRun()
   })
 }
@@ -81,7 +80,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   plugin.setParam(handlerId, param)
 
   if (plugin.isReady) {
-    console.log('plugin isReady', plugin.id)
+    //console.log('plugin isReady', plugin.id)
     // 直接调用
     plugin.trigger(method, plugin.object, handlerId, param)
     return
@@ -197,7 +196,8 @@ Syber.prototype._addBuiltInPlugins = function () {
     prompt: { proto: Prompt },
     toast: { proto: Toast },
     capture: { proto: Capture },
-    system: { proto: System }
+    system: { proto: System },
+    filepicker: { proto: FilePicker }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {
@@ -229,9 +229,7 @@ Syber.prototype._autoRun = function () {
 }
 
 Syber.prototype.addPlugin = function (plugin) {
-  console.log('\n addPlugin \n', typeof plugin, '\n')
-  // console.log('\n addPlugin \n', JSON.stringify(plugin), '\n')
-  // ignore this plugin if it has already been installed
+
   if (this.pluginList[plugin.id] !== undefined) {
     console.debug('Plugin ' + plugin.id + ' has already been added.')
     return false
