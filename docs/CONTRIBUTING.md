@@ -1,10 +1,10 @@
-# SyberOS-Hybrid Contributing Guide
+# syberh Contributing Guide
 
-我们非常欢迎社区的开发者向 SyberOS-Hybrid 做出贡献。在提交贡献之前，请花一些时间阅读以下内容，保证贡献是符合规范并且能帮助到社区。
+我们非常欢迎社区的开发者向 syberh 做出贡献。在提交贡献之前，请花一些时间阅读以下内容，保证贡献是符合规范并且能帮助到社区。
 
 ## Issue 报告指南
 
-如果提交的是 Bug 报告，请务必遵守 [`Bug report`](https://github.com/syberos-team/syberos-hybrid/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) 模板。
+如果提交的是 Bug 报告，请务必遵守 [`Bug report`](https://github.com/syberos-team/syberh/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) 模板。
 
 如果提交的是功能需求，请在 issue 的标题的起始处增加 `[Feature request]` 字符。
 
@@ -50,7 +50,7 @@ lerna run dev
 
 ## 提交 commit
 
-整个 SyberOS-Hybrid 仓库遵从 [Angular Style Commit Message Conventions](https://github.com/angular/angular.js/blob/f3377da6a748007c11fde090890ee58fae4cefa5/CONTRIBUTING.md#commit)，在输入 commit message 的时候请务必遵从此规范。
+整个 syberh 仓库遵从 [Angular Style Commit Message Conventions](https://github.com/angular/angular.js/blob/f3377da6a748007c11fde090890ee58fae4cefa5/CONTRIBUTING.md#commit)，在输入 commit message 的时候请务必遵从此规范。
 
 ## 代码风格
 
@@ -69,7 +69,7 @@ lerna run dev
 
 ## Credits
 
-感谢以下所有给 SyberOS-Hybrid 贡献过代码的开发者：
+感谢以下所有给 syberh 贡献过代码的开发者：
 
 - 感谢 quickhybrid 作者提供了 jsbridge 的实现逻辑和相关代码
-- 参与者 <a href="https://github.com/syberos-team/syberos-hybrid/graphs/contributors">更多</a>
+- 参与者 <a href="https://github.com/syberos-team/syberh/graphs/contributors">更多</a>

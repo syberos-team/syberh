@@ -1,26 +1,17 @@
 ---
-title: SyberOS-Hybrid 介绍
+title: syberh 介绍
 ---
 
 ## 简介
 
-SyberOS-Hybrid 框架是在 SyberOS 上支持 Hybrid 开发解决方案，基于 WebView UI 的方案进行实现。SyberOS-Hybrid 框架主要包括 CLI(开发工具)、JS-SDK、Native-SDK 模块。
+syberh 框架是对 SyberOS 中支持 Hybrid 开发解决方案，基于 WebView UI 的方案进行实现。syberh 框架主要包括 CLI(开发工具)、JS SDK 和Native SDK 模块。
 
 ## 实现原理
 
-Hybrid App 的本质，其实是在原生的 App 中，使用 WebView 作为容器直接承载 Web 页面。因此，最核心的点就是 Native 端 与 H5 端 之间的双向通讯层，其实这里也可以理解为我们需要一套跨语言通讯方案，来完成 Native(Qt/Java/...) 与 JavaScript 的通讯。这个方案就是我们所说的 JSBridge，而实现的关键便是作为容器的 WebView，一切的原理都是基于 WebView 的机制。
+Hybrid App 的本质，其实是在原生的 App 中，使用 WebView 作为容器直接承载 Web 页面。因此，最核心的点就是 Native 端 与 H5 端 之间的双向通讯层，其实这里也可以理解为我们需要一套跨语言通讯方案，来完成 Native(Qt/Java/xxx) 与 JavaScript 的通讯。这个方案就是我们所说的 JSBridge，而实现的关键便是作为容器的 WebView，一切的原理都是基于 WebView 的机制。
 
 ![原理](/img/introduction/1.png)
 
-```js
-//核心代码
-if (os.syber) {
-  navigator.qt.postMessage(messageStr)
-} else {
-  // 浏览器
-  warn(`浏览器中jsbridge无效,对应scheme:${messageStr}`)
-}
-```
 
 ## 开发工具 CLI
 
@@ -33,7 +24,6 @@ $ syberos init myapp
 ```
 
 打包项目
-
 ```bash
 $ syberos build --type device
 ```
@@ -44,105 +34,45 @@ $ syberos build --type device
 $ syberos doctor
 ```
 
-## JS-SDK
+## JS SDK
 
-不同于一般混合框架的只包含 JSBridge 部分的前端实现，本框架的前端实现包括 JSBridge 部分、多平台支持，统一预处理等等。
+   JS端的实现,提供常用API接口提供Hybrid开发者调用远程接口。
 
-### 项目的结构
-
-整个项目基于 ES6、Airbnb 代码规范，使用 webpack 构建，部分重要代码进行了 Karma + Mocha 单元测试
-
-整体目录结构如下：
-
-```
-jsbridge
-    |- dist             // 发布目录
-    |   |- syber.min.js
-    |   |- syber.h5.js
-    |- src              // 核心源码
-    |   |- api          // 各个环境下的api实现
-    |   |   |- h5       // h5下的api
-    |   |   |- native   // quick下的api
-    |   |- core         // 核心控制
-    |   |   |- ...      // 将核心代码切割为多个文件
-    |   |- inner        // 内部用到的代码
-    |   |- util         // 用到的工具类
-    |- test             // 单元测试相关
-    |   |- unit
-    |   |   |- karma.xxx.config.js
-    |   |- xxx.spec.js
-    |   |- ...
-```
-
-### 统一的预处理
-
-`API多平台的支撑` 中有提到如何基于 Object.defineProperty 实现一个支持多平台调用的 API，实现起来的 API 大致是这样子的。同时也规定了 API 接口后续模块的统一规范开发。
-
-```js
-Object.defineProperty(apiParent, apiName, {
-  configurable: true,
-  enumerable: true,
-  get: function proxyGetter() {
-    // 确保get得到的函数一定是能执行的
-    const nameSpaceApi = proxysApis[finalNameSpace]
-    // 得到当前是哪一个环境，获得对应环境下的代理对象
-    return nameSpaceApi[getCurrProxyApiOs(quick.os)] || nameSpaceApi.h5
-  },
-  set: function proxySetter() {
-    alert('不允许修改syber API')
-  }
-})
-
-//...
-
-syber.extendModule('modal', [
-  {
-    namespace: 'alert',
-    os: ['syber'],
-    defaultParams: {
-      message: ''
-    },
-    runCode(message) {
-      alert('syber-' + message)
-    }
-  }
-])
-```
-
-### 最终效果
-
-框架设计的最终目的是提供给用户一个简单易用的 API,同时也可以保证开发者可以依托目前的模式进行 API 的拓展开发。
-
-最终使用的示例如下:
-
-```js
-syber.modal.alert({
-  content: 'This is a alert',
-  success: fucntion(result) {
-      console.log(result)
-  },
-  fail: fucntion(error) {
-        console.log(error.code)
-        console.log(error.msg)
-  }
-})
-```
 
 ## Native-SDK
 
-Hybrid 模式的核心就是在原生。由于各种各样的原因，本项目中的 Native 容器确保核心交互以及部分重要 API 实现，关于底层容器优化等机制后续再考虑完善。
-
-### 项目的结构
-
-```
-api
-    |- qml
-    |- js
-    |- src
-```
+原生功能实现,提供标准、可拓展的方式提供给JS端进行调用。
+> 由于各种各样的原因，Native 容器确保核心交互以及部分重要 API 实现，关于底层容器优化等机制会一直持续完善。
 
 主要实现了以下功能
 
 1. 负责和 JS-SDK 的通讯
-2. 通过插件的形式统一管理目前实现的 qml 组件功能。
+2. 通过插件的形式统一管理qml 组件功能
 3. 负责和 C++代码进行通讯
+
+
+## 🤝 参与共建 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+请参考[贡献指南](https://github.com/syberos-team/syberh/blob/master/docs/CONTRIBUTING.md).
+
+>强烈推荐阅读 [《提问的智慧》](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way)、[《如何向开源社区提问题》](https://github.com/seajs/seajs/issues/545) 和 [《如何有效地报告 Bug》](http://www.chiark.greenend.org.uk/%7Esgtatham/bugs-cn.html)、[《如何向开源项目提交无法解答的问题》](https://zhuanlan.zhihu.com/p/25795393)，更好的问题更容易获得帮助。
+
+
+## 贡献者们
+
+感谢以下所有给 syberh 贡献过代码的开发者：
+
+- 感谢 quickhybrid 作者提供了 jsbridge 的实现逻辑和相关代码
+- 参与者 <a href="https://github.com/syberos-team/syberh/graphs/contributors">更多</a>
+
+## 开发计划
+
+[开发计划]()
+
+## 更新日志
+
+本项目遵从 [Angular Style Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)，更新日志由 `conventional-changelog` 自动生成。完整日志请点击 [CHANGELOG.md](./CHANGELOG.md)。
+
+## 开发交流
+
+[官方交流微信群]()
