@@ -10,8 +10,8 @@ const appPath = process.cwd()
 const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 
 program
-  .option('--type [typeName]', '并运行编译类型,device:真机 simulator:模拟器')
-  .option('--debug', 'debug模式运行')
+  .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
+  .option('--debug', 'debug模式运行,支持热更新')
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
   .option('--port [port]', 'Specified port')

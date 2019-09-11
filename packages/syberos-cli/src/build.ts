@@ -5,9 +5,6 @@ import { BUILD_TYPES } from './util/constants'
 import { IBuildConfig } from './util/types'
 
 export default function build(appPath, buildConfig: IBuildConfig) {
-  if (JSON.stringify(buildConfig) !== '{}') {
-    console.log(chalk.bgRed(JSON.stringify(buildConfig)))
-  }
   const { type, debug, port } = buildConfig
 
   if (type) {

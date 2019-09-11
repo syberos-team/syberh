@@ -1,4 +1,4 @@
-#include "natviesdkfactory.h"
+#include "nativesdkfactory.h"
 #include <QDebug>
 
 NativeSdkFactory::NativeSdkFactory(){

@@ -156,6 +156,8 @@ WebView {
     onNavigationRequested: {
         console.log("$$$$$$$$$$$$$$$onNavigationRequested:",
                     request.navigationType)
+
+        console.log('--------------helper.getWebRootPath()',helper.getWebRootPath())
     }
 
     url: "file://" + helper.getWebRootPath() + "/index.html"

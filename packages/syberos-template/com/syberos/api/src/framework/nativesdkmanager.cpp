@@ -4,7 +4,17 @@
 
 NativeSdkManager* NativeSdkManager::m_pNativeSdkManager = NULL;
 NativeSdkManager::NativeSdkManager(){
+    extendConfig= ExtendedConfig::instance();
+    QVariant debug = extendConfig->get("debug");
+    if(debug.toBool()){
+        if(!devTools){
+             devTools=DevTools::getInstance();
+        }
 
+    }
+    //默认初始化DevTools
+    initHandlerConnect("DevTools*");
+    qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
 }
 NativeSdkManager::~NativeSdkManager(){
     QMap<QString,NativeSdkHandlerBase*> handlers = m_NativeSdkFactory.getAllHandlers();
@@ -16,6 +26,7 @@ NativeSdkManager::~NativeSdkManager(){
             disconnect(handler,SIGNAL(success(long,QVariant)),this,SIGNAL(success(long,QVariant)));
             disconnect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
             disconnect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
+            disconnect(handler,SIGNAL(subscribe(QString,QVariant)),this,SIGNAL(subscribe(QString,QVariant)));
             delete handler;
             handler = NULL;
         }
@@ -31,8 +42,12 @@ NativeSdkManager * NativeSdkManager::getInstance(){
     static QMutex mutex;
     if(m_pNativeSdkManager == NULL){
         QMutexLocker locker(&mutex);
-        if(m_pNativeSdkManager == NULL)
-            m_pNativeSdkManager = new NativeSdkManager;
+        if(m_pNativeSdkManager == NULL){
+              m_pNativeSdkManager = new NativeSdkManager;
+
+        }
+
+
     }
     return m_pNativeSdkManager;
 }
@@ -76,6 +91,7 @@ void NativeSdkManager::initHandlerConnect(QString typeID){
         connect(handler,SIGNAL(success(long,QVariant)),this,SIGNAL(success(long,QVariant)));
         connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
         connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
+        connect(handler,SIGNAL(subscribe(QString,QVariant)),this,SIGNAL(subscribe(QString,QVariant)));
     }
 }
 void NativeSdkManager::loadQml(QString typeID,QString parentPageName, QString parentName, QString type){
@@ -84,7 +100,6 @@ void NativeSdkManager::loadQml(QString typeID,QString parentPageName, QString pa
         if(!m_NativeSdkFactory.IsInitConnect(typeID))
             initHandlerConnect(typeID);
         handler->loadQml(parentPageName,parentName,type);
-
     }
 }
 

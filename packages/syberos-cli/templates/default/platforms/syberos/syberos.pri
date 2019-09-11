@@ -12,6 +12,6 @@ DATA_DIR = $$APP_DATA/com.syberos.demo
 
 DEFINES += SOP_ID=\\\"com.syberos.demo\\\"
 DEFINES += APP_DIR_ENVVAR=\\\"APPDIR_REGULAR\\\"
-# Currently home screen sets the environment variable, so when run from
+# Currently home screen sets the environment variable, so wen run from
 # elsewhere, use this work-around instead.
 DEFINES += APP_DIR=\\\"$$APP_DIR\\\"

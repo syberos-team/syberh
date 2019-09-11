@@ -4,7 +4,6 @@ RESOURCES += \
 HEADERS += \
     $$PWD/src/framework/nativesdkmanager.h \
     $$PWD/src/framework/nativesdkhandlerbase.h \
-    $$PWD/src/framework/natviesdkfactory.h \
     $$PWD/src/framework/common/networkstatus.h \
     $$PWD/src/framework/common/errorinfo.h \
     $$PWD/src/framework/common/extendedconfig.h \
@@ -17,10 +16,19 @@ HEADERS += \
     $$PWD/src/storage.h \
     $$PWD/src/clipboard.h \
     $$PWD/src/system.h \
-    $$PWD/src/downloadmanager.h \
     $$PWD/src/camera.h \
     $$PWD/src/network.h \
-    $$PWD/src/audio.h
+    $$PWD/src/audio.h \
+    $$PWD/src/battery.h \
+    $$PWD/src/networkInfo.h \
+    $$PWD/src/framework/devtools/devtools.h \
+    $$PWD/src/framework/devtools/socketclient.h \
+    $$PWD/src/util/chalk.h \
+    $$PWD/src/util/downloadmanager.h \
+    $$PWD/src/util/fileutil.h \
+    $$PWD/src/framework/nativesdkfactory.h \
+    $$PWD/src/filemanager.h
+
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -38,7 +46,14 @@ SOURCES += \
     $$PWD/src/storage.cpp \
     $$PWD/src/clipboard.cpp \
     $$PWD/src/system.cpp \
-    $$PWD/src/downloadmanager.cpp \
     $$PWD/src/camera.cpp \
     $$PWD/src/network.cpp \
-    $$PWD/src/audio.cpp
+    $$PWD/src/audio.cpp \
+    $$PWD/src/framework/devtools/devtools.cpp \
+    $$PWD/src/framework/devtools/socketclient.cpp \
+    $$PWD/src/battery.cpp \
+    $$PWD/src/networkInfo.cpp \
+    $$PWD/src/util/chalk.cpp \
+    $$PWD/src/util/downloadmanager.cpp \
+    $$PWD/src/util/fileutil.cpp \
+    $$PWD/src/filemanager.cpp
