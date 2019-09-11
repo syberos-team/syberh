@@ -61,7 +61,7 @@ export default class Project extends Creator {
   create() {
     this.ask().then(answers => {
       const date = new Date()
-      //对象
+      // 对象
       const newAnswer = {}
       for (const obj in answers) {
         const value = _.trim(answers[obj])

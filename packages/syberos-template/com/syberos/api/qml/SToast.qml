@@ -38,7 +38,7 @@ Rectangle {
    /*! 成功信号，动画执行完发射 */
    signal accepted()
 
-    width: scaleFactor * 330
+    width: unit.dp(330)
     height: scaleFactor * 330
 
     anchors.horizontalCenter: parent.horizontalCenter
@@ -99,7 +99,7 @@ Rectangle {
     }
 
     function parseIcon(){
-
+        console.log("-------------unit-----------",unit.dp(330))
         stoast.width = stoast.scaleFactor * 330
         stoast.height = stoast.scaleFactor * 330
         toastIcon.visible = true;
