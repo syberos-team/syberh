@@ -27,7 +27,8 @@ function WebView (options) {
   this.responseCallbacks = {}
   // 长期存在的回调，调用后不会删除
   this.responseCallbacksLongTerm = {}
-
+  //
+  this.loadSuccess=0;
   var that = this
 
   this.on('ready', function (webview) {
@@ -51,7 +52,8 @@ function WebView (options) {
       that.trigger('keyRelease', webview, event)
     })
 
-  NativeSdkManager.request("DevTools*",12378,'','')
+    NativeSdkManager.request("DevTools*", 12378, '', '')
+    NativeSdkManager.request("Url*", 151010, '', '')
   })
 
   /**
@@ -123,10 +125,42 @@ function WebView (options) {
 
   // 转向某个url
   this.on('redirectTo', function (object, handlerId, param) {
+    print('\n AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ',JSON.stringify(param))
+
+
     try {
       var url = getUrl(param.url)
       object.url = url
-      that.trigger('success', handlerId, true)
+
+      // 是否第一次绑定接受信号
+      that.firstConnect = false
+
+      // 只做一次信号绑定,防止多次信号被触发
+      if(!that.firstConnect) {
+          // 设置绑定信号
+          that.firstConnect = true
+
+          object.reloadSuccess.connect(function (loadProgress) {
+
+              if (that.loadSuccess===0 && loadProgress===100) {
+                  that.loadSuccess=1;
+
+              }else if (that.loadSuccess===1){
+                   print('\n loadSuccess ',loadProgress)
+                  if(handlerId){
+                      that.trigger('success', handlerId, true)
+                  }else{
+                      if(param.type){
+                          print('\n subscribeEvaluate ',param.type)
+                          that.subscribeEvaluate(param.handlerName,param.data);
+
+                      }
+                  }
+                  that.loadSuccess=0;
+            }
+            })
+        }
+
     } catch (error) {
       console.error(error.message)
       that.trigger('failed', handlerId, 0, error.message)
@@ -216,9 +250,21 @@ WebView.prototype.onSubscribe = function (handlerName,result) {
       this.trigger('reload', this.object);
     return;
   }
+  print('\n BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ')
+
+  if(handlerName==="openPage"){
+      var params={};
+      params.url= result.path;
+      params.handlerName=handlerName;
+      params.type = "openPage";
+      params.data = result;
+      this.trigger('redirectTo', this.object, null, params);
+      return;
+  }
+
   var resObj = {
     handlerName:handlerName,
-    responseData: {
+    data: {
       result: result
     }
   }
@@ -227,6 +273,19 @@ WebView.prototype.onSubscribe = function (handlerName,result) {
   webview.experimental.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
   )
+}
+
+
+WebView.prototype.subscribeEvaluate = function (handlerName,data) {
+    var resObj = {
+      handlerName:handlerName,
+      data: data
+    }
+    print('\n onSubscribe ', JSON.stringify(resObj))
+    var webview=this.currentWebview;
+    webview.experimental.evaluateJavaScript(
+      'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+    )
 }
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
@@ -305,8 +364,14 @@ function getUrl (url) {
   }
 
   var filePath = helper.getWebRootPath() + '/' + url
+  var checkPath;
   console.log('--------filePath', filePath)
-  if (helper.exists(filePath)) {
+  if(filePath.indexOf("?")>=0){
+    checkPath=filePath.split("?")[0];
+  }else{
+    checkPath=filePath;
+  }
+  if (helper.exists(checkPath)) {
     var rurl = 'file://' + filePath
     return rurl
   } else {

@@ -1,4 +1,4 @@
-{
+﻿{
   "docs": {
     "关于SYBEROS": ["README"],
     "快速开始": ["started-syberos", "started-cli", "first-app"]
@@ -84,6 +84,11 @@
       "apis/fileManager/fileList",
       "apis/fileManager/getInfo",
       "apis/fileManager/remove"
-    ]
+    ],
+    "url": [
+      {
+        "apis/url/url"
+      }
+    ],
   }
 }

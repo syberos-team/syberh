@@ -48,6 +48,13 @@ NativeSdkManager * NativeSdkManager::getInstance(){
     }
     return m_pNativeSdkManager;
 }
+
+void NativeSdkManager::url(const QUrl& url){
+    QVariantMap params;
+    params.insert("url", url.toString());
+    request("Url*","123","openByUrl", params);
+}
+
 void NativeSdkManager::request(QString className,QString callBackID,QString actionName,QVariantMap params){
     NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(className);
     if(handler){

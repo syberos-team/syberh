@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import { BUILD_TYPES } from './util/constants'
 import { IBuildConfig } from './util/types'
 
-export default function build(appPath, buildConfig: IBuildConfig) {
+export default function build (appPath, buildConfig: IBuildConfig) {
   const { type, debug, port } = buildConfig
 
   if (type) {
@@ -27,21 +27,21 @@ export default function build(appPath, buildConfig: IBuildConfig) {
   }
 }
 
-function buildForDevice(appPath: string, { debug }: IBuildConfig) {
+function buildForDevice (appPath: string, { debug }: IBuildConfig) {
   require('./build/index').build(appPath, {
     debug,
     adapter: BUILD_TYPES.DEVICE
   })
 }
 
-function buildForSimulator(appPath: string, { debug }: IBuildConfig) {
+function buildForSimulator (appPath: string, { debug }: IBuildConfig) {
   require('./build/index').build(appPath, {
     debug,
     adapter: BUILD_TYPES.SIMULATOR
   })
 }
 
-function buildSop(appPath: string, { debug }: IBuildConfig) {
+function buildSop (appPath: string, { debug }: IBuildConfig) {
   require('./build/index').build(appPath, {
     debug,
     onlyBuildSop: true

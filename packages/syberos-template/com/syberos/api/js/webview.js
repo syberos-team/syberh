@@ -1,264 +1,285 @@
-Qt.include('tool.js')
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
-// 构造方法内部封装属性
-function WebView (parent) {
-  this._parent = parent
-  // 定义是否初始化
-  this._init = false
-  // 默认层级
-  this.defalutZ = 10
-  // 当前层级
-  this.currentZ = this.defalutZ
+var sybero = null
+
+function WebView (options) {
+  // 默认参数
+  var defaultOpts = {
+    id: 'webview',
+    name: 'webview',
+    module: 'webview',
+    source: '../qml/swebview.qml',
+    methods: ['reload', 'goBack', 'redirectTo'],
+    autoCreate: true
+  }
+  if (options) {
+    Object.assign(defaultOpts, options)
+  }
+
+  SyberPlugin.call(this, defaultOpts)
+
   // 定义数组,保存所有webivew
-  this._webviews = []
-
+  this._webviews = {}
+  this.currentWebview=null;
   this.key = 0
   // 在原生调用完对应的方法后,会执行对应的回调函数id，并删除
   this.responseCallbacks = {}
   // 长期存在的回调，调用后不会删除
   this.responseCallbacksLongTerm = {}
 
-  if (typeof this.init !== 'function') {
-    WebView.prototype.init = function () {
-      if (this._init) {
-        console.warn('当前已初始化,不可多次初始化')
-        return
-      }
-      var that = this
-      this._init = true
-      // 调用创建
-      this.create(null, function (webview) {
-        console.debug('------创建完成', webview.syberObject.key)
-        // 注意,要在webview初始化完成后创建
-        // 创建NativeSdkManager
-        that.initNativeSdkManager()
-      })
-    }
-  }
+  var that = this
 
-  // 初始化C++通讯绑定函数
-  if (typeof this.initNativeSdkManager !== 'function') {
-    WebView.prototype.initNativeSdkManager = function () {
-      // 成功回调绑定函数
-      NativeSdkManager.sucess.connect(this.onSuccess.bind(this))
-      // 错误回调绑定函数
-      NativeSdkManager.failed.connect(this.onFailed.bind(this))
-    }
-  }
+  this.on('ready', function (webview) {
+    // var webview = data.object
+    SYBEROS.body = webview
+    that._webviews[that.id] = webview
+    that.currentWebview=webview
+    // 成功回调绑定函数
+    NativeSdkManager.success.connect(that.onSuccess.bind(that))
+    // 错误回调绑定函数
+    NativeSdkManager.failed.connect(that.onFailed.bind(that))
+    // 绑定订阅函数
+    NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that));
+
+    // 绑定消息接受信号
+    webview.receiveMessage.connect(function (message) {
+      that.onMessageReceived(message, that.id)
+    })
+    // 绑定keys监听事件
+    webview.keyOnReleased.connect(function (event) {
+      that.trigger('keyRelease', webview, event)
+    })
+
+   NativeSdkManager.request("DevTools*",12378)
+  })
 
   /**
-   * 获取webview
-   * @params {string} webview.syberObject.key
+   * 监听手机key
    */
-  if (typeof this.getWebView !== 'function') {
-    WebView.prototype.getWebView = function (id) {
-      var rwebview
-
-      for (var i = 0; i < this._webviews.length; i++) {
-        print(
-          '------this._webviews',
-          JSON.stringify(this._webviews[i].syberObject),
-          '\n'
-        )
-        if (this._webviews[i].syberObject.key === id) {
-          rwebview = this._webviews[i]
-          break
-        }
-      }
-      return rwebview
-    }
-  }
-
-  /**
-   * 获取当前webview数量
-   */
-  if (typeof this.size !== 'function') {
-    WebView.prototype.size = function () {
-      return this._webviews.length
-    }
-  }
-  if (typeof this.create !== 'function') {
-    WebView.prototype.create = function (_options, callback) {
-      var defalutOption = {
-        url: getIndexPath()
-      }
-      var key = 'webview_' + uuid()
-      var options = Object.assign(defalutOption, _options)
-      var that = this
-      var component = Qt.createComponent('../qml/swebview.qml')
-      var incubator = component.incubateObject(that._parent, {
-        url: options.url,
-        z: that.currentZ
-      })
-
-      this.currentZ = this.currentZ + 1
-      if (incubator.status !== Component.Ready) {
-        incubator.onStatusChanged = function (status) {
-          if (status === Component.Ready) {
-            var webview = incubator.object
-            // 初始化完成再设置宽高
-            webview.height = that._parent.height - 50
-            webview.syberObject = {
-              key: key
-            }
-            webview.width = that._parent.width - 30
-            that._webviews.push(webview)
-            // 做函数绑定
-            webview.receiveMessage.connect(function (message) {
-              that.onMessageReceived(message, key)
-            })
-            if (typeof callback === 'function') callback(webview)
-          }
-        }
+  this.on('keyRelease', function (webview, event) {
+    console.log('\n----------------event.key', typeof event.key)
+    // 处理返回键事件
+    if (KEYCODE_BACK === event.key) {
+      if (webview.canGoBack) {
+        event.accepted = true
+        webview.goBack()
       } else {
-        console.error('Object', incubator.object, 'is ready immediately!')
+
       }
     }
-  }
+  })
+
+  // 接受qml成功返回
+  this.on('success', function () {
+    var len = arguments.length
+    var funcArgs = []
+
+    for (var sum = 0; sum < len; sum += 1) {
+      funcArgs.push(arguments[sum])
+    }
+    console.log('--------\n   funcArgs  \n', JSON.stringify(funcArgs))
+
+    that.onSuccess.apply(this, funcArgs)
+  })
+  // 接受qml组件fail返回
+  this.on('failed', function () {
+    var len = arguments.length
+    var funcArgs = []
+
+    for (var sum = 0; sum < len; sum += 1) {
+      funcArgs.push(arguments[sum])
+    }
+    that.onFailed.apply(this, funcArgs)
+  })
 
   /**
-   * 消息接受
-   * @params {JSON} 传输字符串
-   * @parasm {string} webviewId
+   * request 请求
+   * @object qml实例化对象
+   * @handlerId 请求ID
+   * @param 请求参数
+   * @method 请求方法名称
    */
-  if (typeof this.onMessageReceived !== 'function') {
-    WebView.prototype.onMessageReceived = function (message, webviewId) {
-      console.log(
-        '@@@ ',
-        'WebView received Message: ',
-        webviewId,
-        JSON.stringify(message),
-        '\r\n'
-      )
-
-      var model = JSON.parse(message.data)
-
-      var handlerId = model.callbackId
-
-      // print('\n  typeof handlerId', handlerId, typeof handlerId)
-      // 如果有callbackId 则保存回调信息
-      if (handlerId) {
-        // 是否为长期回调
-        var isLong = model['isLong'] || false
-        // 保存到短期中
-        this.responseCallbacks[handlerId] = webviewId
-        if (isLong) {
-          // 如果需要长期,则保存长期池
-          this.responseCallbacksLongTerm[handlerId] = webviewId
-        }
+  this.on('reload', function (object, handlerId) {
+    object.reload()
+    // 绑定进度事件
+    object.reloadSuccess.connect(function (loadProgress) {
+      if (loadProgress === 100) {
+          if(handlerId){
+              that.trigger('success', handlerId, true)
+          }
       }
-      var funcArgs = {}
-      if (model.data) {
-        var keys = Object.keys(model.data)
-        // 关联callbackId和webview
+    })
+  })
+  // 回退
+  this.on('goBack', function (object, handlerId) {
+    if (object.canGoBack) {
+      object.goBack()
+      that.trigger('success', handlerId, true)
+    } else {
+      that.trigger('failed', handlerId, 0, false)
+    }
+  })
 
-        for (var i in keys) {
-          print('@@@ ', 'key: ', i, keys[i], '\r\n')
-          print('@@@ value is', model.data[keys[i]])
-          funcArgs[keys[i]] = model.data[keys[i]]
-        }
-      }
+  // 转向某个url
+  this.on('redirectTo', function (object, handlerId, param) {
+    try {
+      var url = getUrl(param.url)
+      object.url = url
+      that.trigger('success', handlerId, true)
+    } catch (error) {
+      console.error(error.message)
+      that.trigger('failed', handlerId, 0, error.message)
+    }
+  })
+}
 
-      NativeSdkManager.request(
-        'TestHandler*',
-        handlerId,
-        model.handlerName,
-        funcArgs
-      )
+WebView.prototype = SyberPlugin.prototype
+
+WebView.prototype.onMessageReceived = function (message, webviewId) {
+  console.log(
+    '@@@ ',
+    'WebView received Message: ',
+    typeof message,
+    webviewId,
+    JSON.stringify(message),
+    '\r\n'
+  )
+
+  var model = JSON.parse(message.data)
+  var handlerId = model.callbackId
+  var method = model.handlerName
+  var module = model.module
+
+  // print('\n  typeof handlerId', handlerId, typeof handlerId)
+  // 如果有callbackId 则保存回调信息
+  if (handlerId) {
+    // 是否为长期回调
+    var isLong = model['isLong'] || false
+    // 保存到短期中
+    this.responseCallbacks[handlerId] = webviewId
+    if (isLong) {
+      // 如果需要长期,则保存长期池
+      this.responseCallbacksLongTerm[handlerId] = webviewId
     }
   }
-
-  // 获取默认webview
-  if (typeof this.getDefault !== 'function') {
-    WebView.prototype.getDefault = function () {
-      return this._webviews[0]
-    }
+  var funcArgs = {}
+  if (model.data) {
+    funcArgs = model.data
   }
 
-  // 获取所有webview
-  if (typeof this.getAll !== 'function') {
-    WebView.prototype.getAll = function () {
-      return this._webviews
-    }
+  console.log('\n -------------------', handlerId, method, funcArgs)
+  // 如果为ui模块
+  if (SYBEROS.getPlugin(module, method)) {
+    // 请求qml动态模块
+    SYBEROS.request(module, handlerId, method, model.data)
+    return
   }
 
-  /**
-   * 根据请求ID获取对应webviewID
-   * @param {string} responseId
-   */
-  if (typeof this.getWebViewIdByHandlerId !== 'function') {
-    WebView.prototype.getWebViewIdByHandlerId = function (handlerId) {
-      print(
-        '\n ------getWebViewIdByHandlerId()-----',
-        handlerId,
-        JSON.stringify(this.responseCallbacks)
-      )
-      var webviewId = this.responseCallbacks[handlerId]
+  // 因为C++类都为大写开头,所以第一个字母转为大写
+  var moduleName = module.charAt(0).toUpperCase() + module.slice(1) + '*'
+  NativeSdkManager.request(moduleName, handlerId, method, funcArgs)
+}
 
-      // 默认先短期再长期
-      webviewId = webviewId || this.responseCallbacksLongTerm[handlerId]
-      print('\n ------getWebViewIdByHandlerId()-----', webviewId)
-      if (!webviewId) {
-        console.error('webview未找到')
-        return
-      }
-      delete this.responseCallbacks[handlerId]
-      return webviewId
+WebView.prototype.onSuccess = function (handlerId, result) {
+  console.log('----handlerId \n', handlerId)
+  if (!handlerId) {
+    return
+  }
+  var webviewId = this.getWebViewIdByHandlerId(handlerId)
+  var webview = this.getWebView(webviewId)
+
+  if (!webview) {
+    console.error('webview未找到')
+    return
+  }
+  print('request sucess ', result)
+  print('responseID ', handlerId)
+  // gToast.requestToast('request sucess：' + JSON.stringify(result))
+  // 返回内容
+  var resObj = {
+      //handlerName:"handleError",
+    responseId: Number(handlerId),
+    responseData: {
+      result: result
     }
   }
+  webview.experimental.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  )
+}
 
-  /**
-   *成功回调
-   */
-  if (typeof this.onSuccess !== 'function') {
-    WebView.prototype.onSuccess = function (handlerId, result) {
-      if (!handlerId) {
-        return
-      }
-      var webviewId = this.getWebViewIdByHandlerId(handlerId)
-      var webview = this.getWebView(webviewId)
 
-      if (!webview) {
-        console.error('webview未找到')
-        return
-      }
-      print('request sucess ', result)
-      print('responseID ', handlerId)
-      // gToast.requestToast('request sucess ' + result)
-      // 返回内容
-      var resObj = {
-        responseId: Number(handlerId),
-        responseData: {
-          result: result
-        }
-      }
-      webview.experimental.evaluateJavaScript(
-        'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
-      )
+WebView.prototype.onSubscribe = function (handlerName,result) {
+  console.log('-----------subscribe----------',handlerName,result)
+  if(handlerName==="DevToolsReload"){
+      this.trigger('reload', this.object);
+    return;
+  }
+  var resObj = {
+    handlerName:handlerName,
+    responseData: {
+      result: result
     }
   }
-  if (typeof this.onFailed !== 'function') {
-    WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
-      print('\n request handlerId', typeof handlerId)
-      var webviewId = this.getWebViewIdByHandlerId(handlerId)
-      var webview = this.getWebView(webviewId)
+  print('\n onSubscribe ', JSON.stringify(resObj))
+  var webview=this.currentWebview;
+  webview.experimental.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  )
+}
 
-      var obj = {
-        responseId: Number(handlerId),
-        responseData: {
-          code: 0,
-          msg: errorMsg
-        }
-      }
-      print('\n request failed ', JSON.stringify(obj))
-      webview.experimental.evaluateJavaScript(
-        'JSBridge._handleMessageFromNative(' + JSON.stringify(obj) + ')'
-      )
+WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
+  print('\n request handlerId', typeof handlerId)
+  var webviewId = this.getWebViewIdByHandlerId(handlerId)
+  var webview = this.getWebView(webviewId)
+
+  var obj = {
+    responseId: Number(handlerId),
+    responseData: {
+      code: 0,
+      msg: errorMsg
     }
   }
+  print('\n request failed ', JSON.stringify(obj))
+  webview.experimental.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + JSON.stringify(obj) + ')'
+  )
+}
 
-  // 默认初始化
-  this.init()
+WebView.prototype.getWebViewIdByHandlerId = function (handlerId) {
+  print(
+    '\n ------getWebViewIdByHandlerId()-----',
+    handlerId,
+    JSON.stringify(this.responseCallbacks)
+  )
+  var webviewId = this.responseCallbacks[handlerId]
+
+  // 默认先短期再长期
+  webviewId = webviewId || this.responseCallbacksLongTerm[handlerId]
+  print('\n ------getWebViewIdByHandlerId()-----', webviewId)
+  if (!webviewId) {
+    console.error('webview未找到')
+    return
+  }
+  delete this.responseCallbacks[handlerId]
+  return webviewId
+}
+
+// 获取默认webview
+
+WebView.prototype.getDefault = function () {
+  return this._webviews[0]
+}
+
+// 获取所有webview
+
+WebView.prototype.getAll = function () {
+  return this._webviews
+}
+
+WebView.prototype.getWebView = function (id) {
+  return this._webviews[id]
 }
 
 /**
@@ -269,4 +290,26 @@ function getIndexPath () {
   var url = 'file://' + helper.getWebRootPath() + '/index.html'
   console.debug('\n url', url, '\n')
   return url
+}
+/**
+ * url地址转换
+ * @param {string} url
+ */
+function getUrl (url) {
+  if (!url) {
+    throw new Error('url不存在', url)
+  }
+  // 如果是网络地址,直接返回
+  if (url.startsWith('http') || url.startsWith('https')) {
+    return url
+  }
+
+  var filePath = helper.getWebRootPath() + '/' + url
+  console.log('--------filePath', filePath)
+  if (helper.exists(filePath)) {
+    var rurl = 'file://' + filePath
+    return rurl
+  } else {
+    throw new Error('页面不存在')
+  }
 }
