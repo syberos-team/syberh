@@ -21,7 +21,7 @@ function WebView (options) {
 
   // 定义数组,保存所有webivew
   this._webviews = {}
-
+  this.currentWebview=null;
   this.key = 0
   // 在原生调用完对应的方法后,会执行对应的回调函数id，并删除
   this.responseCallbacks = {}
@@ -34,15 +34,14 @@ function WebView (options) {
     // var webview = data.object
     SYBEROS.body = webview
     that._webviews[that.id] = webview
-    // sybero = sb
-    console.log('visible', webview.visible)
+    that.currentWebview=webview
     // 成功回调绑定函数
     NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
     NativeSdkManager.failed.connect(that.onFailed.bind(that))
+    // 绑定订阅函数
+    NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that));
 
-      // 绑定订阅函数
-      NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that));
     // 绑定消息接受信号
     webview.receiveMessage.connect(function (message) {
       that.onMessageReceived(message, that.id)
@@ -51,6 +50,9 @@ function WebView (options) {
     webview.keyOnReleased.connect(function (event) {
       that.trigger('keyRelease', webview, event)
     })
+
+   NativeSdkManager.request("DevTools*", 12378, '', '')
+   NativeSdkManager.request("Url*", 151010, '', '')
   })
 
   /**
@@ -125,7 +127,19 @@ function WebView (options) {
     try {
       var url = getUrl(param.url)
       object.url = url
-      that.trigger('success', handlerId, true)
+      object.reloadSuccess.connect(function (loadProgress) {
+          if (loadProgress === 100) {
+              if(handlerId){
+                  that.trigger('success', handlerId, true)
+              }else{
+                  if(param.type === "openUrl"){
+                      openUrl(that, param);
+                  }
+              }
+
+          }
+        })
+
     } catch (error) {
       console.error(error.message)
       that.trigger('failed', handlerId, 0, error.message)
@@ -210,20 +224,26 @@ WebView.prototype.onSuccess = function (handlerId, result) {
 
 
 WebView.prototype.onSubscribe = function (handlerName,result) {
-  print('\n onSubscribe  request handlerId', typeof handlerName)
-     console.log('-----------subscribe----------',handlerName,result)
+  console.log('-----------subscribe----------',handlerName,result)
   if(handlerName==="DevToolsReload"){
-       console.log('-----------this.trigger----------',typeof this.trigger)
       this.trigger('reload', this.object);
     return;
   }
+  if(handlerName==="openUrl"){
+      result.type = "openUrl";
+      result.url = result.path;
+      this.trigger('redirectTo', this.object, null, result);
+      return;
+  }
+
   var resObj = {
     handlerName:handlerName,
-    responseData: {
+    data: {
       result: result
     }
   }
   print('\n onSubscribe ', JSON.stringify(resObj))
+  var webview=this.currentWebview;
   webview.experimental.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
   )
@@ -305,11 +325,38 @@ function getUrl (url) {
   }
 
   var filePath = helper.getWebRootPath() + '/' + url
+  var checkPath;
   console.log('--------filePath', filePath)
-  if (helper.exists(filePath)) {
+  if(filePath.indexOf("?")>=0){
+    checkPath=filePath.split("?")[0];
+  }else{
+    checkPath=filePath;
+  }
+  if (helper.exists(checkPath)) {
     var rurl = 'file://' + filePath
     return rurl
   } else {
     throw new Error('页面不存在')
   }
+}
+
+/**
+ * openUrl
+ * @that
+ * @param {object} 参数
+ */
+function openUrl(that, result){
+
+    var resObj = {
+      handlerName:"openUrl",
+      data: {
+          "path": result.path,
+          "params": result.params
+      }
+    }
+    print('\n onSubscribe ', JSON.stringify(resObj))
+    var webview=that.currentWebview;
+    webview.experimental.evaluateJavaScript(
+      'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+    )
 }

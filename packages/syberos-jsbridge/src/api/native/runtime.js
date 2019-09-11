@@ -1,7 +1,7 @@
 export default function runtimeMixin(hybrid) {
     const hybridJs = hybrid;
     const innerUtil = hybridJs.innerUtil;
-    
+
     hybridJs.extendModule('runtime', [{
         namespace: 'launchApp',
         os: ['syber'],
@@ -46,7 +46,7 @@ export default function runtimeMixin(hybrid) {
                 this,
                 rest,
                 'text');
-            
+
             hybridJs.callInner.apply(this, args);
         },
     }, {
@@ -58,7 +58,7 @@ export default function runtimeMixin(hybrid) {
         runCode(...rest) {
             // 兼容字符串形式
             const args = innerUtil.compatibleStringParamsToObject(rest, 'url');
-            
+
             hybridJs.callInner.apply(this, args);
         },
     }]);

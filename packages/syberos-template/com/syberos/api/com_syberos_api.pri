@@ -19,13 +19,13 @@ HEADERS += \
     $$PWD/src/system.h \
     $$PWD/src/camera.h \
     $$PWD/src/network.h \
-    $$PWD/src/runtime.h \
     $$PWD/src/framework/devtools/devtools.h \
     $$PWD/src/framework/devtools/socketclient.h \
     $$PWD/src/audio.h \
     $$PWD/src/util/chalk.h \
     $$PWD/src/util/downloadmanager.h \
-    $$PWD/src/util/fileutil.h
+    $$PWD/src/util/fileutil.h \
+    $$PWD/src/url.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -45,10 +45,10 @@ SOURCES += \
     $$PWD/src/system.cpp \
     $$PWD/src/camera.cpp \
     $$PWD/src/network.cpp \
-    $$PWD/src/runtime.cpp \
     $$PWD/src/framework/devtools/devtools.cpp \
     $$PWD/src/framework/devtools/socketclient.cpp \
     $$PWD/src/audio.cpp \
     $$PWD/src/util/chalk.cpp \
     $$PWD/src/util/downloadmanager.cpp \
-    $$PWD/src/util/fileutil.cpp
+    $$PWD/src/util/fileutil.cpp \
+    $$PWD/src/url.cpp

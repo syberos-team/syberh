@@ -5,6 +5,7 @@
 #include <qqml.h>
 #include "../com/syberos/api/src/helper.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
+#include "../com/syberos/api/src/url.h"
 
 App_Workspace::App_Workspace()
     : CWorkspace()
@@ -53,19 +54,14 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
 }
 
 void App_Workspace::openByUrl(const QUrl& url){
-    qDebug() << "----appui_Workspace::openByUrl---------------url:" << url;
+    qDebug() << "----App_Workspace::openByUrl----url:" << url;
     QString scheme = url.scheme();
     QString path = url.path();
     QUrlQuery query(url.query());
-    qDebug() << "---------------scheme:"<<scheme;
-    qDebug() << "-----------------path:"<<path;
-    qDebug() << "----------------query:"<<query.toString();
-    if(scheme == "syberos"){
-        //myapp:entrySecondPage?content=xxx
-        if(path == "entrySecondPage"){
-            QString content = query.queryItemValue("content");
-
-        }
-    }
+    QVariantMap params;
+    params.insert("scheme", scheme);
+    params.insert("path", path);
+    params.insert("query", query.toString());
+    NativeSdkManager::getInstance()->request("Url*","123","openByUrl",params);
 }
 

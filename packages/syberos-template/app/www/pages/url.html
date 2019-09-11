@@ -35,8 +35,14 @@
 
       switch (id) {
         case 'openUrl':
-            syber.runtime.openUrl({
-                url: 'send:entrySecondPage?content=OpenUrl方式启动进入第二个界面',
+            syber.url.openUrl({
+                scheme: "send",
+                method: "openPage",
+                path: "entrySecondPage?content=跳转页面",
+                params: {
+                    name: "zhangsan",
+                    age: "18"
+                },
                 success: function () {
                   console.log('唤起执行成功')
                 },
@@ -49,6 +55,14 @@
           console.error('错误！没有相应API');
       }
     };
+
+    /**
+     * 注册接收原生的错误信息
+     */
+    JSBridge.registerHandler('openUrl', function(result) {
+        console.log("openUrl callback result: "+ JSON.stringify(result));
+    });
+
   </script>
 
 </body>
