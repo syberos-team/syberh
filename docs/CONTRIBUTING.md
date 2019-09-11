@@ -69,7 +69,7 @@ lerna run dev
 
 ## Credits
 
-感谢以下所有给 SyberOS-Hybrid 贡献过代码的开发者：
+感谢以下所有给 syberh 贡献过代码的开发者：
 
 - 感谢 quickhybrid 作者提供了 jsbridge 的实现逻辑和相关代码
 - 参与者 <a href="https://github.com/syberos-team/syberos-hybrid/graphs/contributors">更多</a>
