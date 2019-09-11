@@ -2,12 +2,11 @@ import * as net from 'net'
 import * as fs from 'fs-extra'
 import * as chalk from 'chalk'
 import * as uuid from 'uuid'
-import ip from 'internal-ip'
-import * as os from 'os';
-import * as path from 'path';
-import HttpServer from './HttpServer';
-import log from '../util/log';
-
+import * as ip from 'internal-ip'
+import * as os from 'os'
+import * as path from 'path'
+import HttpServer from './HttpServer'
+import log from '../util/log'
 
 /**
  * 文件头信息
@@ -56,14 +55,14 @@ export default class Server {
   // 客户端列表
   private clients: any[] = []
 
-  private httpServer: any;
+  private httpServer: any
 
   constructor(config = {}) {
     this.conf = { ...this.conf, ...config }
     // 设置待发送状态
     this.sendStatus = SendStatus.WATING
 
-    this.startServer();
+    this.startServer()
   }
 
   /**
@@ -74,37 +73,41 @@ export default class Server {
     this.server.on('listening', async () => {
       // 初始化ip地址
       const vhost = this.conf.host || (await ip.v4())
-      this.conf.host = vhost;
-      const ifaces = os.networkInterfaces();
+      this.conf.host = vhost
+      const ifaces = os.networkInterfaces()
       Object.keys(ifaces).forEach(dev => {
         ifaces[dev].forEach(details => {
           if (details.family === 'IPv4') {
-            log.info(chalk.default.green(`socket服务 ${details.address}:${this.conf.port}`))
+            log.info(
+              chalk.default.green(
+                `socket服务 ${details.address}:${this.conf.port}`
+              )
+            )
           }
-        });
-      });
+        })
+      })
     })
 
     this.server.on('connection', () => {
-      log.info('客户端链接');
-      this.startHttpServer();
+      log.info(chalk.default.green('客户端链接'))
+      this.startHttpServer()
     })
     this.server.on('close', () => {
-      log.info('syberos-dev-server服务端关闭')
+      log.warn(chalk.default.red('dev-server服务端关闭'))
     })
     this.server.listen(this.conf.port)
     // 监听错误信息
     this.server.on('error', e => {
       if (e.code === 'EADDRINUSE') {
-        log.error(`${this.conf.port}端口正被使用,请重新设置`);
+        log.error(chalk.default.red(`${this.conf.port}端口正被使用,请重新设置`))
       }
     })
 
-    this.onConnections();
+    this.onConnections()
   }
 
   private startHttpServer() {
-    this.httpServer = new HttpServer();
+    this.httpServer = new HttpServer()
   }
 
   /**
@@ -134,7 +137,6 @@ export default class Server {
       Object.assign(socket, { sid: uuid() })
       this.saveClient(socket)
 
-
       socket.on('close', () => {
         this.removeClient(socket)
         console.log('syberos-dev-server:客户端 连接断开')
@@ -154,8 +156,7 @@ export default class Server {
    * @param callback
    */
   private addQueue(filePath: string, callback?: Function) {
-
-    log.verbose('队列等待中   addQueue:', filePath);
+    log.verbose('队列等待中   addQueue:', filePath)
     if (this.queue.length > 0) {
       // 清空数组
       this.queue = []
@@ -177,50 +178,51 @@ export default class Server {
    * @param fileList [] 文件列表
    * @param callback
    */
-  public async writeFileToClients(fs) {
+  public async writeFileToClients(fs, callback) {
     log.verbose('Server writeFileToClients() ')
-    log.verbose('files', fs.length);
-    const fileList: any = [...fs];
+    log.verbose('files', fs.length)
+    const fileList: any = [...fs]
     if (fileList.length === 0) {
       log.info('files', JSON.stringify(fileList))
-      return;
+      return
     }
 
     if (this.sendStatus === SendStatus.PENDING) {
       // 当前状态发送中，加入队列等待
       this.addQueue(fileList)
+      callback && callback(true)
       return
     }
     // 设置问发送状态
     this.sendStatus = SendStatus.PENDING
-    const filePath = path.resolve('.');
+    const filePath = path.resolve('.')
     let count = 0
     const { clients = [] } = this
-    const files = fileList;
-    const splitFiles: any = [];
+    const files = fileList
+    const splitFiles: any = []
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const nf = file.replace(filePath, '');
-      log.verbose('nf', nf);
-      splitFiles.push(nf);
+      const file = files[i]
+      const nf = file.replace(filePath, '')
+      log.verbose('nf', nf)
+      splitFiles.push(nf)
     }
     log.info('----当前客户端数量:', clients.length)
     // console.log('----替换后的地址:', JSON.stringify(splitFiles))
     clients.forEach(async socket => {
       this.uid += 1
       // 获取下载服务地址
-      const serverhost = this.httpServer.getUri();
+      const serverhost = this.httpServer.getUri()
       log.verbose('----serverhost:', serverhost)
       // 发送数据格式
       const fileHead: FileHead = {
         uid: this.uid,
         server: serverhost,
         files: splitFiles
-
       }
-      await this.write(socket, JSON.stringify(fileHead));
-      count += 1;
+      await this.write(socket, JSON.stringify(fileHead))
+      count += 1
     })
+    callback && callback(true)
 
     // 启动定时器扫描发送情况
     this.timer = setInterval(() => {
@@ -234,26 +236,25 @@ export default class Server {
         if (!queue) {
           return
         }
-        this.writeFileToClients(queue.filePath)
+        this.writeFileToClients(queue.filePath, null)
       }
     }, 1000)
   }
 
   readDirSync(dirPath, files: any = [], callback) {
-    const pa = fs.readdirSync(dirPath);
-    const that = this;
-    pa.forEach(function (ele, index) {
-      const info = fs.statSync(path.join(dirPath, ele));
+    const pa = fs.readdirSync(dirPath)
+    const that = this
+    pa.forEach(function(ele, index) {
+      const info = fs.statSync(path.join(dirPath, ele))
       if (info.isDirectory()) {
-        that.readDirSync(path.join(dirPath, ele), files, null);
+        that.readDirSync(path.join(dirPath, ele), files, null)
       } else {
-
-        const filePath = path.join(dirPath, ele);
+        const filePath = path.join(dirPath, ele)
         files.push(filePath)
       }
     })
 
-    if (callback) callback(files);
+    if (callback) callback(files)
   }
 
   /**
@@ -283,8 +284,8 @@ export default class Server {
    * @param buffer
    */
   async write(socket: net.Socket, buffer: string) {
-    return new Promise(function (resole, reject) {
-      socket.write(buffer, function () {
+    return new Promise(function(resole, reject) {
+      socket.write(buffer, function() {
         resole(true)
       })
     })

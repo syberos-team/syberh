@@ -24,6 +24,7 @@
 #include <QIODevice>
 #include <QDateTime>
 #include <QFileInfo>
+#include <QTimer>
 #include "../../helper.h"
 #include "../../util/downloadmanager.h"
 
@@ -36,8 +37,9 @@ class SocketClient:public QObject
 {
     Q_OBJECT
 public:
-    SocketClient(const QString &url, const int &port);
+    Q_INVOKABLE SocketClient(const QString &url, const int &port);
     ~SocketClient();
+    static SocketClient *getInstance(const QString &url, const int &port);
     /**
      * @brief create 创建socket客户端
      * @param url IP地址
@@ -49,6 +51,8 @@ public:
      * @param fqba 文件buffer
      */
     void appendFile(const QByteArray &fqba);
+    QString purl;
+    int pport;
 
 signals:
     // 热更新完成
@@ -59,13 +63,16 @@ public slots:
     void socketError(QAbstractSocket::SocketError error);
     void disconnected();
     void connection();
+    void onProgress();
     void data();
     //下载完成信号
     void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
 
 
 private:
-     DownloadManager *downloadManager;
+     static SocketClient *pSocket;
+    bool m_bServerConnected;
+    DownloadManager *downloadManager;
     Helper *helper;
     /**
      * @brief hotUpdate 热更新实现

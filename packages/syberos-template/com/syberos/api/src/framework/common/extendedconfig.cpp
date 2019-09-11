@@ -11,6 +11,14 @@ ExtendedConfig::ExtendedConfig(QObject *parent) : QObject(parent)
 #ifdef EX_CONFIG
     init();
 #endif
+
+#ifdef TDEBUG
+    qDebug() << Q_FUNC_INFO << " TDEBUG " << TDEBUG<< endl;
+    config->insert("debug",true);
+    QString  serverIp="192.168.100.101";
+    config->insert("serverIp",serverIp);
+
+#endif
 }
 
 void ExtendedConfig::init(){
