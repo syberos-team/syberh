@@ -10,10 +10,10 @@ NativeSdkManager::NativeSdkManager(){
         if(!devTools){
              devTools=DevTools::getInstance();
         }
-        //默认初始化DevTools
-        initHandlerConnect("DevTools*");
-    }
 
+    }
+    //默认初始化DevTools
+    initHandlerConnect("DevTools*");
     qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
 }
 NativeSdkManager::~NativeSdkManager(){
@@ -51,6 +51,13 @@ NativeSdkManager * NativeSdkManager::getInstance(){
     }
     return m_pNativeSdkManager;
 }
+
+void NativeSdkManager::url(const QUrl& url){
+    QVariantMap params;
+    params.insert("url", url.toString());
+    request("Url*","123","openByUrl", params);
+}
+
 void NativeSdkManager::request(QString className,QString callBackID,QString actionName,QVariantMap params){
     NativeSdkHandlerBase * handler = m_NativeSdkFactory.getHandler(className);
     if(handler){

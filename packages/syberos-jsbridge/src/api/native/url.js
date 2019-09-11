@@ -7,7 +7,6 @@ export default function urlMixin(hybrid) {
         os: ['syber'],
         defaultParams: {
             scheme: '',
-            method: '',
             path: '',
             params: {},
         },
@@ -16,7 +15,6 @@ export default function urlMixin(hybrid) {
             const args = innerUtil.compatibleStringParamsToObject(
                 rest,
                 'scheme',
-                'method',
                 'path',
                 'params',
             );

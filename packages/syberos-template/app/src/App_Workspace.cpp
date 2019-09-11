@@ -54,14 +54,15 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
 }
 
 void App_Workspace::openByUrl(const QUrl& url){
-    qDebug() << "----App_Workspace::openByUrl----url:" << url;
-    QString scheme = url.scheme();
-    QString path = url.path();
-    QUrlQuery query(url.query());
-    QVariantMap params;
-    params.insert("scheme", scheme);
-    params.insert("path", path);
-    params.insert("query", query.toString());
-    NativeSdkManager::getInstance()->request("Url*","123","openByUrl",params);
+//    qDebug() << "----App_Workspace::openByUrl----url:" << url;
+//    QString scheme = url.scheme();
+//    QString path = url.path();
+//    QUrlQuery query(url.query());
+//    QVariantMap params;
+//    params.insert("scheme", scheme);
+//    params.insert("path", path);
+//    params.insert("query", query.toString());
+    NativeSdkManager::getInstance()->url(url);
+    //NativeSdkManager::getInstance()->request("Url*","123","openByUrl",params);
 }
 

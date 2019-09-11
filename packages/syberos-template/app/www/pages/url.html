@@ -36,8 +36,7 @@
       switch (id) {
         case 'openUrl':
             syber.url.openUrl({
-                scheme: "send",
-                method: "openPage",
+                scheme: "send://openPage",
                 path: "entrySecondPage?content=跳转页面",
                 params: {
                     name: "zhangsan",
@@ -59,8 +58,9 @@
     /**
      * 注册接收原生的错误信息
      */
-    JSBridge.registerHandler('openUrl', function(result) {
-        console.log("openUrl callback result: "+ JSON.stringify(result));
+    JSBridge.registerHandler('openPage', function(result) {
+        console.log("openPage callback path: "+ result.path);
+        console.log("openPage callback params: "+ JSON.stringify(result.params));
     });
 
   </script>

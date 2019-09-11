@@ -26,6 +26,9 @@
       "apis/fileInfo/removeFileInfos": {
         "title": "removeFileInfos"
       },
+      "apis/filepicker/filepicker": {
+        "title": "filepicker"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -88,6 +91,12 @@
       },
       "apis/system/aboutPhone": {
         "title": "aboutPhone"
+      },
+      "apis/system/battery": {
+        "title": "battery"
+      },
+      "apis/system/networkInfo": {
+        "title": "networkInfo"
       },
       "apis/telephony/dial": {
         "title": "dial"
@@ -194,7 +203,8 @@
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
-      "webview": "webview"
+      "webview": "webview",
+      "文件选择": "文件选择"
     }
   },
   "pages-strings": {
