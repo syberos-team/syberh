@@ -14,7 +14,7 @@ title: getInfo
 | success | function |  |  否     |     |
 
 ### success 回调函数
-> Object类型，属性如下：
+Object类型，属性如下：
 
 属性 | 类型 | 描述
 ---|---|---

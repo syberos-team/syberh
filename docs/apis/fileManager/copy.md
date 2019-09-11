@@ -12,9 +12,15 @@ title: copy
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
 | srcPath | String |  | 是| 源路径 |
 | destPath | String |  | 是 |目标路径 |
-| success | function |  |  否     | 回调（true/false）      |
+| success | function |  |  否     |     |
 
+#### object.success 回调函数参数
 
+#### 参数
+
+| 属性   | 类型    | 必填 | 描述                    |
+| ------ | ------- | ---- | ----------------------- |
+| result | boolean | 是   | 返回 true, 表示执行成功 |
 
 ### 示例代码
 
