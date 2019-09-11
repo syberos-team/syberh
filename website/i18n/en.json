@@ -26,6 +26,21 @@
       "apis/fileInfo/removeFileInfos": {
         "title": "removeFileInfos"
       },
+      "apis/fileManager/copy": {
+        "title": "copy"
+      },
+      "apis/fileManager/fileList": {
+        "title": "fileList"
+      },
+      "apis/fileManager/getInfo": {
+        "title": "getInfo"
+      },
+      "apis/fileManager/move": {
+        "title": "move"
+      },
+      "apis/fileManager/remove": {
+        "title": "remove"
+      },
       "apis/filepicker/filepicker": {
         "title": "filepicker"
       },
@@ -204,7 +219,8 @@
       "网络": "网络",
       "下载": "下载",
       "webview": "webview",
-      "文件选择": "文件选择"
+      "文件选择": "文件选择",
+      "文件管理": "文件管理"
     }
   },
   "pages-strings": {

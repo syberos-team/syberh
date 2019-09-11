@@ -16,6 +16,7 @@ import audioMixin from './native/audio';
 import filepickerMixin from './native/filepicker';
 import networkInfoMixin from './native/networkInfo';
 import batteryMixin from './native/battery';
+import fileManagerMixin from './native/fileManager';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -38,4 +39,5 @@ export default function allNative(hybridJs) {
     filepickerMixin(hybridJs);
     networkInfoMixin(hybridJs);
     batteryMixin(hybridJs);
+    fileManagerMixin(hybridJs);
 }
