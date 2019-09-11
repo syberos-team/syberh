@@ -26,7 +26,8 @@ HEADERS += \
     $$PWD/src/audio.h \
     $$PWD/src/util/chalk.h \
     $$PWD/src/util/downloadmanager.h \
-    $$PWD/src/util/fileutil.h
+    $$PWD/src/util/fileutil.h \
+    $$PWD/src/cellular.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -53,4 +54,5 @@ SOURCES += \
     $$PWD/src/networkInfo.cpp \
     $$PWD/src/util/chalk.cpp \
     $$PWD/src/util/downloadmanager.cpp \
-    $$PWD/src/util/fileutil.cpp
+    $$PWD/src/util/fileutil.cpp \
+    $$PWD/src/cellular.cpp

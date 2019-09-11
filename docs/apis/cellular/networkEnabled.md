@@ -1,10 +1,13 @@
 ---
-title: battery
+title: networkEnabled
 ---
 
-## syber.system.battery(Object object)
+## syber.cellular.networkEnabled(Object object)
 
-获取当前设备的电量信息。
+设置数据网络状态为启用。
+
+### 权限
+需要申请 `syberos.permission.ADMIN_DATA_NETWORK` 敏感权限才可以调用
 
 ### 参数
 
@@ -18,12 +21,10 @@ title: battery
 
 #### object.success 回调函数参数
 #### 参数
-| 属性           | 类型      | 描述                                 |
-| -------------- | ------   | ------------------------------------|
-| isCharging     | boolean  | 是否正在充电                          |
-| level          | Number   | 当前电量，0 - 100 之间                 |
-| capacity       | Number   | 电池容量，0 - 100 之间                 |
-| isValid        | boolean  | 电池是否有效                          |
+| 属性            | 类型      | 描述                                 |
+| -------------- | ------   | ------------------------------------ |
+| isEnabled      | boolean  | 设置数据网络状态为启用， 设置成功返回 true ，失败返回 false 。|
+
 
 #### object.fail回调函数参数
 #### 参数
@@ -35,16 +36,14 @@ title: battery
 
 ### 代码示例
 ```js
-syber.battery.getStatus({
+syber.cellular.networkEnabled({
+    flag:true,
 	success:function(result){
-        console.log('isCharging: ', result.isCharging);
-        console.log('level: ', result.level);
-        console.log('capacity: ', result.capacity);
-        console.log('isValid: ', result.isValid);
+        console.log('isEnabled: ', result.isEnabled);
+
     },
     fail:function(error){
         console.log('fail: ', error.code, error.msg);
     }
 });
 ```
-

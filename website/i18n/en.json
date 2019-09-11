@@ -8,6 +8,12 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/cellular/networkDisabled": {
+        "title": "networkDisabled"
+      },
+      "apis/cellular/networkEnabled": {
+        "title": "networkEnabled"
+      },
       "apis/clipboard/getClipboardData": {
         "title": "getClipboardData"
       },
@@ -94,6 +100,9 @@
       },
       "apis/system/networkInfo": {
         "title": "networkInfo"
+      },
+      "apis/system/networkSetCellularEnabled": {
+        "title": "networkEnabled"
       },
       "apis/telephony/dial": {
         "title": "dial"
@@ -197,6 +206,7 @@
       "电话": "电话",
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
+      "数据网络": "数据网络",
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
