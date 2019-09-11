@@ -13,10 +13,12 @@ import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
 import audioMixin from './native/audio';
+import filepickerMixin from './native/filepicker';
 import networkInfoMixin from './native/networkInfo';
 import batteryMixin from './native/battery';
 import networkDisabledMixin from './native/networkDisabled';
 import networkEnabledMixin from './native/networkEnabled';
+import fileManagerMixin from './native/fileManager';
 
 // const hybridJs = window.syber;
 export default function allNative (hybridJs) {
@@ -40,4 +42,5 @@ export default function allNative (hybridJs) {
   batteryMixin(hybridJs);
   networkDisabledMixin(hybridJs);
   networkEnabledMixin(hybridJs);
+  fileManagerMixin(hybridJs);
 }
