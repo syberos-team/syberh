@@ -38,8 +38,6 @@
         <file>js/readme.md</file>
         <file>js/webview.js</file>
         <file>js/filepicker/filepicker.js</file>
-        <file>js/readme.md</file>
-        <file>js/webview.js</file>
         <file>src/framework/common/errorinfo.cpp</file>
         <file>src/framework/common/errorinfo.h</file>
         <file>src/framework/common/extendedconfig.cpp</file>
@@ -94,5 +92,19 @@
         <file>src/telephony.h</file>
         <file>com_syberos_api.pri</file>
         <file>com_syberos_api.qrc</file>
+        <file>qml/CMenu/qmldir</file>
+        <file>qml/CMenu/CTopTriangleMask.qml</file>
+        <file>qml/CMenu/CMenuItem.qml</file>
+        <file>qml/CMenu/CMenuDiv.qml</file>
+        <file>qml/CMenu/CContentsMenu.qml</file>
+        <file>qml/CMenu/CBottomTriangleMask.qml</file>
+        <file>qml/CMenu/SingletonTool/SingletonTool.qml</file>
+        <file>qml/CMenu/pics/triangle_t.png</file>
+        <file>qml/CMenu/pics/triangle_b.png</file>
+        <file>qml/CMenu/pics/startHandleUp.png</file>
+        <file>qml/CMenu/pics/menuBg.sci</file>
+        <file>qml/CMenu/pics/menuBg.png</file>
+        <file>qml/CMenu/pics/endHandle.png</file>
+        <file>qml/BSelectTool.qml</file>
     </qresource>
 </RCC>

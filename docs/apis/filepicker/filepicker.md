@@ -49,7 +49,7 @@ title: filepicker
 | code | string | 错误码   |
 | msg  | string | 错误消息 |
 
-### **拍照代码示例**
+### **代码示例**
 
 ```javascript
 syber.filepicker.open({

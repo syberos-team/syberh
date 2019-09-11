@@ -6,7 +6,8 @@ title: networkInfo
 
 获取网络信息。
 
-<!-- 支持`Promise` 使用。 -->
+### 权限
+需要申请 `syberos.permission.READ_NETWORK_STATE` 敏感权限才可以调用
 
 ### 参数
 
@@ -21,9 +22,9 @@ title: networkInfo
 #### 参数
 | 属性           | 类型    | 描述                                 |
 | -------------- | ------  | ------------------------------------ |
-| networkType               | string  | 返回当前网络类型。需要申请 syberos.permission.READ_NETWORK_STATE 敏感权限才可以调用|
+| networkType               | string  | 返回当前网络类型。|
 | isNetworkAvailable        | boolean   | 当前网络是否可用。可用返回 true ，不可用返回 false 。      |
-| isWifiConnected           | boolean   | 返回当前WiFi是否处于连接状态。WiFi连接返回 true，否则返回 false 。需要申请 syberos.permission.READ_NETWORK_STATE 敏感权限才可以调用。      |
+| isWifiConnected           | boolean   | 返回当前WiFi是否处于连接状态。WiFi连接返回 true，否则返回 false 。|
 | wifiSignalStrength        | int   |返回当前信号强度。-1 表示WiFi网络不可用，-2 表示获取数据失败。      |
 
 #### object.success.networkType 回调函数参数

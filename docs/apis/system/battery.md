@@ -6,8 +6,6 @@ title: battery
 
 获取当前设备的电量信息。
 
-<!-- 支持`Promise` 使用。 -->
-
 ### 参数
 
 #### Object object

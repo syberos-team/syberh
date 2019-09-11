@@ -17,6 +17,9 @@ import urlMixin from './native/url';
 import filepickerMixin from './native/filepicker';
 import networkInfoMixin from './native/networkInfo';
 import batteryMixin from './native/battery';
+import networkDisabledMixin from './native/networkDisabled';
+import networkEnabledMixin from './native/networkEnabled';
+import fileManagerMixin from './native/fileManager';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -36,8 +39,10 @@ export default function allNative(hybridJs) {
     captureMixin(hybridJs);
     clipboardMixin(hybridJs);
     audioMixin(hybridJs);
-    urlMixin(hybridJs);
-    filepickerMixin(hybridJs);
     networkInfoMixin(hybridJs);
     batteryMixin(hybridJs);
+    networkDisabledMixin(hybridJs);
+    networkEnabledMixin(hybridJs);
+    fileManagerMixin(hybridJs);
+    urlMixin(hybridJs);
 }
