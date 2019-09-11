@@ -14,6 +14,7 @@ Qt.include('modal/toast.js')
 Qt.include('modal/gtoast.js')
 Qt.include('camera/capture.js')
 Qt.include('system/system.js')
+Qt.include('filepicker/filepicker.js')
 // 增加对ES6语法的支持
 polyfill()
 

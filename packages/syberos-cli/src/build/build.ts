@@ -90,11 +90,11 @@ export default class Build {
       // 如果是只打SOP包， 目录名的设备名为 device
       this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${
         this.targetName
-      }${debug ? '-Debug' : ''}`
+        }${debug ? '-Debug' : ''}`
     } else {
       this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${
         debug ? '-Debug' : ''
-      }`
+        }`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -225,7 +225,7 @@ export default class Build {
       const cdbPath = this.locateCdb()
       const cdbPushCmd = `${cdbPath} -s ${
         this.cdbDevice
-      } push -p ${sopPath} /tmp`
+        } push -p ${sopPath} /tmp`
       console.log(cdbPushCmd)
       shelljs.exec(cdbPushCmd)
     } else {
@@ -238,7 +238,7 @@ export default class Build {
   private cdbSop(sopPath: string) {
     const cdbPushCmd = `${this.locateCdb()} -s ${
       this.cdbDevice
-    } push -p ${sopPath} /tmp`
+      } push -p ${sopPath} /tmp`
     console.log(cdbPushCmd)
     shelljs.exec(cdbPushCmd)
   }
@@ -248,7 +248,7 @@ export default class Build {
     const nameSplit = filename.split('-')
     shelljs.exec(
       `expect ${helper.locateScripts('ssh-install-sop.sh')} ${ip} ${port} ${
-        nameSplit[0]
+      nameSplit[0]
       } ${filename}`
     )
   }
@@ -331,12 +331,30 @@ export default class Build {
   }
 
   private makeCommand() {
-    return '/usr/bin/make'
+    const cpu = this.getCpu();
+    return `/usr/bin/make -j${cpu} `;
   }
 
   private buildPkgCommand() {
     const syberosPro = this.locateSyberosPro()
     return `buildpkg ${syberosPro}`
+  }
+
+  /**
+   * 获取CUP进程数
+   */
+  private getCpu() {
+    let ret: number = 4;
+    try {
+      const cmd = `more /proc/cpuinfo |grep "physical id"|grep "0"|wc -l`;
+      const { stdout = 0 } = shelljs.exec(cmd, { async: true });
+      ret = stdout as number;
+      console.log('----------stdout', stdout);
+    } catch (e) {
+      console.error('----------stdout', e);
+    }
+
+    return ret;
   }
 
   /**

@@ -35,14 +35,14 @@ export async function downloadGithubRepoLatestRelease (repoName: string, appPath
         'User-Agent': 'Awesome-Octocat-App'
       }
     })
-    .on('error', reject)
-    .on('complete', () => {
-      const downloadTempPath = path.join(appPath, downloadTemp)
-      if (fs.existsSync(downloadTempPath)) {
-        fs.moveSync(downloadTempPath, path.join(dest, downloadTemp))
-        resolve()
-      }
-    })
-    .pipe(fs.createWriteStream(downloadTemp))
+      .on('error', reject)
+      .on('complete', () => {
+        const downloadTempPath = path.join(appPath, downloadTemp)
+        if (fs.existsSync(downloadTempPath)) {
+          fs.moveSync(downloadTempPath, path.join(dest, downloadTemp))
+          resolve()
+        }
+      })
+      .pipe(fs.createWriteStream(downloadTemp))
   })
 }

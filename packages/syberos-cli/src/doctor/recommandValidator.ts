@@ -11,7 +11,6 @@ const README = ['readme', 'readme.md', 'readme.markdown']
 const GITIGNORE = ['.gitignore']
 const EDITORCONFIG = ['.editorconfig']
 
-
 export default async function ({ appPath }) {
   const PROJECT_PACKAGE_PATH = path.join(appPath, 'package.json')
   const PROJECT_FOLDER_FILES = fs.readdirSync('./')
