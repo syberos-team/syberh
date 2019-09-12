@@ -109,7 +109,7 @@ function getPkgItemByKey(key) {
 exports.getPkgItemByKey = getPkgItemByKey;
 function printPkgVersion() {
     const taroVersion = getPkgVersion();
-    console.log(`SyberOS-Hybrid v${taroVersion}`);
+    console.log(`syberh v${taroVersion}`);
 }
 exports.printPkgVersion = printPkgVersion;
 function shouldUseYarn() {
