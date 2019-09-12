@@ -5,6 +5,7 @@
 #include <QtMultimedia>
 #include <QMediaPlayer>
 #include <QAudioRecorder>
+#include <QMediaContent>
 
 #include "framework/nativesdkhandlerbase.h"
 class Audio : public NativeSdkHandlerBase
@@ -60,6 +61,7 @@ private :
     QMediaPlayer *player;
     QAudioRecorder *recoder;
     QMediaPlaylist *playlist;
+    QMediaContent *mediaContent;
 
     static int typeId;
 };

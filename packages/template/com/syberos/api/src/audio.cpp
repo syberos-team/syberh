@@ -6,6 +6,7 @@
 #include <QQuickView>
 #include <QMetaObject>
 #include <QGuiApplication>
+#include "util/fileutil.h"
 
 int Audio::typeId = qRegisterMetaType<Audio *>();
 
@@ -13,6 +14,7 @@ Audio::Audio(){
     player = new QMediaPlayer;
     recoder = new QAudioRecorder();
     playlist = new QMediaPlaylist;
+    mediaContent = new QMediaContent();
 }
 
 Audio::~Audio(){
@@ -47,9 +49,24 @@ void Audio::submit(QString typeID, QString callBackID, QString actionName, QVari
 void Audio::listRecorder(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "listRecorder" << params << endl;
 
-//    playlist = new QMediaPlaylist;
-//    playlist->addMedia(QUrl(newFile));
-//    emit success(callBackID, QVariant(jsonObject));
+    QString path = Helper::instance()->getInnerStorageRootPath() + "/audio";
+    QFileInfoList fileInfos = FileUtil::fileList(path);
+    if (fileInfos.size() != 0) {
+        for (int i = 0; i < fileInfos.size(); i++) {
+            qDebug() << Q_FUNC_INFO << "fileInfo.filePath" << fileInfos.at(i).filePath() << endl;
+            playlist->addMedia(QUrl(fileInfos.at(i).filePath()));
+
+//            mediaContent = new QMediaContent(QUrl(fileInfos.at(i).filePath()));
+//            qDebug() << Q_FUNC_INFO << "mediaContent" << mediaContent << endl;
+
+        }
+    }
+
+//    QJsonObject jsonObject;
+//    jsonObject.insert("playlist", playlist);
+//    QJsonValue::fromVariant(jsonObject);
+
+//    emit success(callBackID, QVariant(playlist));
 }
 
 void Audio::startRecorder(long callBackID,QVariantMap params){

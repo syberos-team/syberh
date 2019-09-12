@@ -26,7 +26,7 @@
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="recorderList()">录音列表</a>
+          <a class="mui-navigate-right api-class" onclick="listRecorder()">录音列表</a>
         </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" onclick="startRecorder()">录音</a>
@@ -69,10 +69,11 @@
       showTips('注册成功');
     });
 
-    function recorderList() {
-      syberh.audio.recorderList({
+    function listRecorder() {
+      syberh.audio.listRecorder({
         success: function (result) {
-          console.log('success: ', result.path);
+        document.getElementById('text').value = result.playlist
+          console.log('success: ', result.playlist);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
