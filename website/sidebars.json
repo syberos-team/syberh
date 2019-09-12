@@ -6,7 +6,11 @@
     "快速开始": [
       "started-syberos",
       "started-cli",
-      "first-app"
+      "first-app",
+      "specials"
+    ],
+    "进阶指南": [
+      "app-config"
     ]
   },
   "API": {

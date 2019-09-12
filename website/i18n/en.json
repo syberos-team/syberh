@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "Syberh是轻量级SyberOS的 Hybrid App开发框架",
+    "tagline": "Syberh是一款轻量级的支持SyberOS Hybrid App开发框架",
     "docs": {
       "apis/about/desc": {
         "title": "API 说明"
@@ -132,6 +132,9 @@
       "apis/webview/webview": {
         "title": "webview"
       },
+      "app-config": {
+        "title": "APP 配置"
+      },
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
       },
@@ -186,6 +189,9 @@
       "README": {
         "title": "Syberh 介绍"
       },
+      "specials": {
+        "title": "常见问题"
+      },
       "started-cli": {
         "title": "CLI安装及使用"
       },
@@ -194,13 +200,14 @@
       }
     },
     "links": {
-      "文档": "文档",
+      "指南": "指南",
       "API": "API",
       "GitHub": "GitHub"
     },
     "categories": {
       "关于Syberh": "关于Syberh",
       "快速开始": "快速开始",
+      "进阶指南": "进阶指南",
       "关于API": "关于API",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",

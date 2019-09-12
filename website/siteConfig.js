@@ -39,7 +39,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { doc: 'README', label: '文档' },
+    { doc: 'README', label: '指南' },
     { doc: 'apis/about/desc', label: 'API' },
     { href: 'https://github.com/syberos-team/syberh', label: 'GitHub' },
     { search: true }
@@ -81,7 +81,7 @@ const siteConfig = {
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
-    theme: 'tomorrow-night-blue'
+    theme: 'atelier-seaside-dark'
   },
 
   usePrism: true,
