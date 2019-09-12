@@ -37,7 +37,7 @@
     </ul>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
@@ -50,58 +50,58 @@
 
       switch (id) {
         case 'toast-success':
-            syber.modal.toast({
-                title: '正确提示',
-                icon: 'success',
-                duration: 1500,
-                success: function () {
-                  console.log('toast执行成功')
-                },
-                fail: function (error) {
-                  console.info(JSON.stringify(error));
-                }
-            });
+          syberh.modal.toast({
+            title: '正确提示',
+            icon: 'success',
+            duration: 1500,
+            success: function () {
+              console.log('toast执行成功')
+            },
+            fail: function (error) {
+              console.info(JSON.stringify(error));
+            }
+          });
           break;
         case 'toast-error':
-            syber.modal.toast({
-                title: '错误提示',
-                icon: 'error',
-                duration: 1500,
-                success: function () {
-                  console.log('toast执行成功')
-                },
-                fail: function (error) {
-                  console.info(JSON.stringify(error));
-                }
-            });
-            break;
+          syberh.modal.toast({
+            title: '错误提示',
+            icon: 'error',
+            duration: 1500,
+            success: function () {
+              console.log('toast执行成功')
+            },
+            fail: function (error) {
+              console.info(JSON.stringify(error));
+            }
+          });
+          break;
         case 'toast-none':
-            syber.modal.toast({
-                title: '没有图标的提示没有图标的提示',
-                icon: 'none',
-                duration: 1500,
-                success: function () {
-                  console.log('toast执行成功')
-                },
-                fail: function (error) {
-                  console.info(JSON.stringify(error));
-                }
-            });
-            break;
+          syberh.modal.toast({
+            title: '没有图标的提示没有图标的提示',
+            icon: 'none',
+            duration: 1500,
+            success: function () {
+              console.log('toast执行成功')
+            },
+            fail: function (error) {
+              console.info(JSON.stringify(error));
+            }
+          });
+          break;
         case 'gtoast-btn1':
-            syber.modal.gtoast({
-                title: 'gtoast提示（用法1）',
-                success: function () {
-                  console.log('toast执行成功')
-                },
-                fail: function (error) {
-                  console.info(JSON.stringify(error));
-                }
-            });
-            break;
+          syberh.modal.gtoast({
+            title: 'gtoast提示（用法1）',
+            success: function () {
+              console.log('toast执行成功')
+            },
+            fail: function (error) {
+              console.info(JSON.stringify(error));
+            }
+          });
+          break;
         case 'gtoast-btn2':
-            syber.modal.gtoast("gtoast提示（用法2）");
-            break;
+          syberh.modal.gtoast("gtoast提示（用法2）");
+          break;
         default:
           console.error('错误！没有相应API');
       }

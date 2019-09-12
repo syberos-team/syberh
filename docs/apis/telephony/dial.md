@@ -6,7 +6,7 @@ title: dial
 
 <!-- 支持`Promise` 使用。 -->
 
-## syber.telephony.dial(Object object)
+## syberh.telephony.dial(Object object)
 
 ### 参数
 
@@ -30,7 +30,7 @@ title: dial
 ### 代码示例
 
 ```javascript
-syber.telephony.dial({
+syberh.telephony.dial({
   tel: '150xxxxxxxx',
   success: function() {
     console.log('success')
@@ -43,7 +43,7 @@ syber.telephony.dial({
 
 <!-- #### Promise
 ```javascript
-syber.telephony.dial({
+syberh.telephony.dial({
 	tel: "150xxxxxxxx",
 }).then(function() {
 	console.log('success');

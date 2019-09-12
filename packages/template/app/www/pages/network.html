@@ -60,7 +60,7 @@
     </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
@@ -99,7 +99,7 @@
     }
 
     function goGet(dataType) {
-      syber.network.request({
+      syberh.network.request({
         url: 'http://www.baidu.com',
         headers: {
           "Content-Type": "application/json; charset=utf-8"
@@ -116,7 +116,7 @@
       })
     }
     function goPost(dataType) {
-      syber.network.request({
+      syberh.network.request({
         url: 'http://172.16.23.91:8000/post',
         headers: {
           "Content-Type": "application/json; charset=utf-8"
@@ -144,7 +144,7 @@
       })
     }
     function goPut(dataType) {
-      syber.network.request({
+      syberh.network.request({
         url: 'http://172.16.23.91:8000/put',
         headers: {
           "hello": "hi"
@@ -168,7 +168,7 @@
       })
     }
     function goDel() {
-      syber.network.request({
+      syberh.network.request({
         url: 'http://172.16.23.91:8000/delete',
         method: 'delete',
         success: function (result) {

@@ -25,7 +25,7 @@
       width: 50%;
     }
 
-    .mui-dms .mui-input-row label~input{
+    .mui-dms .mui-input-row label~input {
       width: 49%;
     }
   </style>
@@ -62,7 +62,7 @@
 
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
 
@@ -71,7 +71,7 @@
     console.log('Hello world-设置数据网络状态')
 
     function goBack() {
-      syber.webview.goBack({
+      syberh.webview.goBack({
         success: function (result) {
           console.info(result)
         },
@@ -81,11 +81,11 @@
       })
     }
     function baseParamEnabled(param) {
-      syber.cellular.networkEnabled({
+      syberh.cellular.networkEnabled({
         success: function (result) {
           console.info("result-设置数据网络状态开启: " + result.isEnabled)
           document.getElementById("isCellular").value = blankHandle(result.isEnabled);
-         },
+        },
         fail: function (error) {
           console.info(error)
           alert(error.msg);
@@ -94,25 +94,25 @@
     }
 
     function baseParamDisabled(param) {
-      syber.cellular.networkDisabled({
+      syberh.cellular.networkDisabled({
         success: function (result) {
           console.info("result-设置数据网络状态为关闭: " + result.isDisabled)
           document.getElementById("isCellular").value = blankHandle(result.isDisabled);
-         },
+        },
         fail: function (error) {
           console.info(error)
           alert(error.msg);
         }
       });
     }
-    
+
     function blankHandle(param) {
-      if(typeof param === "string"){
+      if (typeof param === "string") {
         return !param ? '' : param;
       }
       return param;
     }
-    
+
 
   </script>
 </body>

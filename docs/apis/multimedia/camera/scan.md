@@ -8,7 +8,7 @@ title: scan
 
 
 
-## syber.barcode.scan（Object object）
+## syberh.barcode.scan（Object object）
 
 扫描二维码，成功则返回条码内容
 
@@ -41,7 +41,7 @@ title: scan
 ### 示例代码
 
 ```
-syber.barcode.scan({
+syberh.barcode.scan({
 	success: function(result){
 		console.log('success: ', result.content);
 	},

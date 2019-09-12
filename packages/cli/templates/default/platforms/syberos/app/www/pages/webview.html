@@ -41,7 +41,7 @@
     <div id="text4"></div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
@@ -52,7 +52,7 @@
       switch (id) {
         case 'redirectTo':
 
-          syber.webview.redirectTo({
+          syberh.webview.redirectTo({
             url: 'index.html',
             success: function (result) {
               console.info(result)
@@ -65,7 +65,7 @@
           break;
         case 'redirectTo2':
           //直接使用地址
-          syber.webview.redirectTo("index.html")
+          syberh.webview.redirectTo("index.html")
 
           break;
         case 'window':
@@ -97,7 +97,7 @@
           console.log('暂未实现')
           break;
         case 'goBack':
-          syber.webview.goBack({
+          syberh.webview.goBack({
             success: function (result) {
               console.info(result)
             },
@@ -107,7 +107,7 @@
           })
           break;
         case 'reload':
-          syber.webview.reload({
+          syberh.webview.reload({
             success: function (result) {
               console.info(result)
             },
@@ -117,7 +117,7 @@
           })
           break;
         case 'reload2':
-          syber.webview.reload()
+          syberh.webview.reload()
           break;
         default:
           console.error('错误！没有相应API');

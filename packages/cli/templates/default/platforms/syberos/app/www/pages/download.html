@@ -31,7 +31,7 @@
     </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
@@ -52,7 +52,7 @@
 
       
       // var first = true;
-      syber.download.start({
+      syberh.download.start({
         'url': 'http://online.qianqian.com/qianqian/info/ffaeb0b4503d0ee83768998b03140732.exe',
         'name': 'qianqian.exe',
         success: function (result) {
@@ -89,7 +89,7 @@
     function cancel(canDownId) {
       // document.getElementById('exec').innerText = '取消下载';
       // var downloadId = document.getElementById('start-downloadID').innerText;
-      syber.download.cancel({
+      syberh.download.cancel({
         'downloadID': canDownId,
         success: function (rs) {
           mui("#progress-"+canDownId).progressbar().setProgress(0);

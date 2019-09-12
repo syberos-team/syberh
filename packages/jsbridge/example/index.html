@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <script src="../test/inner/mockSyberos.js"></script>
-<script src="../dist/syber.js"></script>
+<script src="../dist/syberh.js"></script>
 <body>
     <button style="height: 100px;width: 30%" onclick="start()">test</button>
 
@@ -13,11 +13,11 @@
 </body>
 <script>
 
-    console.log(JSON.stringify(syber.os))
-    console.log(JSON.stringify(syber.Version))
+    console.log(JSON.stringify(syberh.os))
+    console.log(JSON.stringify(syberh.Version))
 
     function start(){
-        syber.Download.start({
+        syberh.Download.start({
             url:'test',
             name:'test',
             success(call){

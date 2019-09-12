@@ -10,7 +10,7 @@ title: takePictureImmediately
 > takePictureImmediately 为syberos中自带的拍照功能
 
 
-## syber.camera.takePictureImmediately(Object object)
+## syberh.camera.takePictureImmediately(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -36,7 +36,7 @@ title: takePictureImmediately
 
 ### **拍照代码示例**
 ``` javascript
-syber.camera.takePictureImmediately({
+syberh.camera.takePictureImmediately({
 	success: function(result){
 		console.log('success: ', result.path);
 	},
@@ -48,7 +48,7 @@ syber.camera.takePictureImmediately({
 
 ### **拍照裁剪代码示例**
 ``` javascript
-syber.camera.takePictureImmediately({
+syberh.camera.takePictureImmediately({
 	enableCut:true,
 	success: function(result){
 		console.log('success: ', result.path);

@@ -7,7 +7,7 @@ title: start
 可以设置文件地址、文件名称等。下载成功则返回下载id、文件路径、文件状态、文件大小等。
 
 
-## syber.download.start(Object object)
+## syberh.download.start(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -40,7 +40,7 @@ title: start
 
 ### 示例代码
 ```javascript
-syber.download.start({
+syberh.download.start({
     'url': 'http://xx/xx/xx.exe',
     'name': 'xxx.exe',
     success: function(result) {
