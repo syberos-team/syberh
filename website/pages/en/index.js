@@ -14,20 +14,20 @@ const GridBlock = CompLibrary.GridBlock
 
 const siteConfig = require(`${process.cwd()}/siteConfig.js`)
 
-function imgUrl(img) {
+function imgUrl (img) {
   return `${siteConfig.baseUrl}img/${img}`
 }
 
-function docUrl(doc, language) {
+function docUrl (doc, language) {
   return `${siteConfig.baseUrl}docs/${language ? language + '/' : ''}${doc}`
 }
 
-function pageUrl(page, language) {
+function pageUrl (page, language) {
   return `${siteConfig.baseUrl}${language ? language + '/' : ''}${page}}`
 }
 
 class Button extends React.Component {
-  render() {
+  render () {
     return (
       <div className="pluginWrapper buttonWrapper">
         <a className="button" href={this.props.href} target={this.props.target}>
@@ -72,7 +72,7 @@ const PromoSection = props => (
 )
 
 class HomeSplash extends React.Component {
-  render() {
+  render () {
     let language = this.props.language || ''
     return (
       <SplashContainer>
@@ -80,7 +80,7 @@ class HomeSplash extends React.Component {
           <ProjectTitle />
           <PromoSection>
             <Button href="/docs/README.html">文档</Button>
-            <Button href="https://github.com/syberos-team/syberos-hybrid">
+            <Button href="https://github.com/syberos-team/syberh">
               Github
             </Button>
           </PromoSection>
@@ -194,7 +194,7 @@ const Showcase = props => {
 }
 
 class Index extends React.Component {
-  render() {
+  render () {
     let language = this.props.language || ''
 
     return (

@@ -21,7 +21,7 @@ const users = [
 ]
 
 const siteConfig = {
-  editUrl: 'http://github.com/syberos-team/syberos-hybrid/edit/master/docs/',
+  editUrl: 'http://github.com/syberos-team/syberh/edit/master/docs/',
   title: 'SyberOS Hybrid' /* title for your website */,
   tagline: 'SyberOS的 快速混合开发框架，助力SyberOS 应用生态。',
   url: 'http://hdoc.syberos.com' /* your website url */,
@@ -42,13 +42,13 @@ const siteConfig = {
     { doc: 'README', label: '文档' },
     // { doc: 'components-desc', label: '组件库' },
     { doc: 'apis/about/desc', label: 'API' },
-    { href: 'https://github.com/syberos-team/syberos-hybrid', label: 'GitHub' },
+    { href: 'https://github.com/syberos-team/syberh', label: 'GitHub' },
     { search: true }
   ],
 
   algolia: {
     apiKey: '64b6b45fe3daab30513f5da83fffd3a5',
-    indexName: 'syberos-hybrid'
+    indexName: 'syberh'
   },
 
   // If you have users set above, you add it here:
