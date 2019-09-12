@@ -86,9 +86,7 @@
       "apis/fileManager/remove"
     ],
     "url": [
-      {
-        "apis/url/url"
-      }
-    ],
+      "apis/url/url"
+    ]
   }
 }
