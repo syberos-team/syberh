@@ -107,7 +107,7 @@ Syberh 提供了命令来一键检测 Syberh 环境及依赖的版本等信息�
 
 Syberh Doctor 就像一个医生一样，可以诊断项目的依赖、设置、结构，以及代码的规范是否存在问题，并尝试给出解决方案。
 
-只需要在终端运行命令：taro doctor，就像图里一样：
+只需要在终端运行命令：syberh doctor：
 
 ```bash
 $ syberh doctor

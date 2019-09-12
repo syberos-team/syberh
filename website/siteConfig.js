@@ -23,7 +23,7 @@ const users = [
 const siteConfig = {
   editUrl: 'http://github.com/syberos-team/syberh/edit/master/docs/',
   title: 'Syberh' /* title for your website */,
-  tagline: 'SyberOS的 Hybrid开发框架，助力SyberOS 应用生态。',
+  tagline: 'Syberh是一款轻量级的支持SyberOS Hybrid App开发框架',
   url: 'https://syberh.syberos.com' /* your website url */,
   baseUrl: '/' /* base url for your project */,
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -31,7 +31,7 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'syberhDocs',
+  projectName: 'docs',
   organizationName: 'YuanXin',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
@@ -40,7 +40,6 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: 'README', label: '文档' },
-    // { doc: 'components-desc', label: '组件库' },
     { doc: 'apis/about/desc', label: 'API' },
     { href: 'https://github.com/syberos-team/syberh', label: 'GitHub' },
     { search: true }
