@@ -5,7 +5,7 @@ title: copy
 文件复制
 
 
-## syber.fileManager.copy(Object object)
+## syberh.fileManager.copy(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -25,7 +25,7 @@ title: copy
 ### 示例代码
 
 ```javascript
-syber.fileManager.copy({
+syberh.fileManager.copy({
     srcPath: '/home/user/22',
     destPath: '/home/user/222',
     success: function(res) {

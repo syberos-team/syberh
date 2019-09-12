@@ -22,7 +22,7 @@
     </ul>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
@@ -35,20 +35,20 @@
 
       switch (id) {
         case 'openUrl':
-            syber.url.openUrl({
-                scheme: "send://openPage",
-                path: "entrySecondPage?content=跳转页面",
-                params: {
-                    name: "zhangsan",
-                    age: "18"
-                },
-                success: function () {
-                  console.log('唤起执行成功')
-                },
-                fail: function (error) {
-                  console.info(JSON.stringify(error));
-                }
-            });
+          syberh.url.openUrl({
+            scheme: "send://openPage",
+            path: "entrySecondPage?content=跳转页面",
+            params: {
+              name: "zhangsan",
+              age: "18"
+            },
+            success: function () {
+              console.log('唤起执行成功')
+            },
+            fail: function (error) {
+              console.info(JSON.stringify(error));
+            }
+          });
           break;
         default:
           console.error('错误！没有相应API');
@@ -58,9 +58,9 @@
     /**
      * 注册接收原生的错误信息
      */
-    JSBridge.registerHandler('openPage', function(result) {
-        console.log("openPage callback path: "+ result.path);
-        console.log("openPage callback params: "+ JSON.stringify(result.params));
+    JSBridge.registerHandler('openPage', function (result) {
+      console.log("openPage callback path: " + result.path);
+      console.log("openPage callback params: " + JSON.stringify(result.params));
     });
 
   </script>

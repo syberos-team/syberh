@@ -2,7 +2,7 @@
 title: aboutPhone
 ---
 
-## syber.system.aboutPhone(Object object)
+## syberh.system.aboutPhone(Object object)
 
 获取手机信息。
 
@@ -54,7 +54,7 @@ title: aboutPhone
 
 ### 代码示例
 ```js
-syber.system.aboutPhone({
+syberh.system.aboutPhone({
 	success:function(result){
         console.log('deviceId: ', result.deviceId);
         console.log('brand: ', result.brand);
@@ -86,7 +86,7 @@ syber.system.aboutPhone({
 
 <!-- #### Promise
 ```javascript
-syber.system.aboutPhone()
+syberh.system.aboutPhone()
     .then(function(result) {
         console.log('deviceId: ', result.deviceId);
         console.log('brand: ', result.brand);

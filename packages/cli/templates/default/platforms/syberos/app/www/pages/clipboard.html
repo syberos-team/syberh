@@ -49,7 +49,7 @@
     <script type="text/javascript" src="../../dist/quick.native.js"></script>
     <script type="text/javascript" src="../../dist/quick.h5.js"></script>
     <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/syberh.min.js"></script>
 
     <script>
         quick.error(function(message) {
@@ -62,7 +62,7 @@
 
         function setClipboardData() {
             var value = document.getElementById('text').value
-            syber.clipboard.setClipboardData({
+            syberh.clipboard.setClipboardData({
                 data: value ,
                 success: function(result) {
                     console.info(result.data)
@@ -74,7 +74,7 @@
         }
 
         function getClipboardData() {
-            syber.clipboard.getClipboardData({
+            syberh.clipboard.getClipboardData({
                 success: function(result) {
                     document.getElementById('text1').value = result.data
                 },

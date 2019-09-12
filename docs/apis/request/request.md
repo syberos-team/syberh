@@ -9,7 +9,7 @@ title: request
 <!-- 支持`Promise` 使用。 -->
 
 
-## syber.network.request(Object object)
+## syberh.network.request(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -43,7 +43,7 @@ title: request
 ### 示例代码
 
 ```javascript
-syber.network.request({
+syberh.network.request({
     url: 'https://*',
     success: function(result) {
         console.log('success',result);            
@@ -56,7 +56,7 @@ syber.network.request({
 
 <!-- #### Promise
 ```javascript
-syber.network.request({
+syberh.network.request({
         url: 'https://*',
     }).then(function(result) {
         console.log('success',result); 
