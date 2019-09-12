@@ -4,7 +4,7 @@ title: API 说明
 
 > API 的封装在陆续进行中， 有时候难免有些 API 没有加入，你可以通过提 PR 或者 issue，来获得帮助。
 
-SyberOS-Hybrid 的 API 是对原生功能调用的 API 的封装。
+syberh 的 API 是对原生功能调用的 API 的封装。
 
 API 调用关乎着整个体验，我们约定所有 API 统一采用如下调用方式
 

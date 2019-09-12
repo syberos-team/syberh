@@ -6,7 +6,7 @@ labels: ''
 assignees: ''
 ---
 
-> Feature Request 请提到 [FeatHub](https://feathub.com/syberos-team/syberos-hybrid)
+> Feature Request 请提到 [FeatHub](https://feathub.com/syberos-team/syberh)
 
 > SyberOS 使用上的问题请提到 [SyberOS 社区——让每一次交流被沉淀]()
 
