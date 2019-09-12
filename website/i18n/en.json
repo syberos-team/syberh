@@ -77,17 +77,17 @@
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/camera/startAudioPlay": {
-        "title": "startAudioPlay"
+      "apis/multimedia/camera/startPlay": {
+        "title": "startPlay"
       },
-      "apis/multimedia/camera/startAudioRecorder": {
-        "title": "startAudioRecorder"
+      "apis/multimedia/camera/startRecorder": {
+        "title": "startRecorder"
       },
-      "apis/multimedia/camera/stopAudioPlay": {
-        "title": "stopAudioPlay"
+      "apis/multimedia/camera/stopPlay": {
+        "title": "stopPlay"
       },
-      "apis/multimedia/camera/stopAudioRecorder": {
-        "title": "stopAudioRecorder"
+      "apis/multimedia/camera/stopRecorder": {
+        "title": "stopRecorder"
       },
       "apis/navigator/navigator": {
         "title": "navigator"
