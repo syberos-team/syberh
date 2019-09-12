@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/syberos-team/syberos-hybrid.git"
+    "url": "git+https://github.com/syberos-team/syberh.git"
   },
   "bin": {
     "syberos": "bin/syberos"
