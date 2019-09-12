@@ -6,7 +6,7 @@ title: startAudioRecorder
 开始录音：对周围环境的声音进行记录，开启成功则返录音路径。
 
 
-## syber.audio.startAudioRecorder()
+## syberh.audio.startAudioRecorder()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -30,7 +30,7 @@ title: startAudioRecorder
 
 ### **代码示例**
 ``` javascript
-syber.audio.startAudioRecorder({
+syberh.audio.startAudioRecorder({
 	success: function(result){
 		console.log('success: ', result.path); 
 	},

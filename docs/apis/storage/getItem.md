@@ -6,7 +6,7 @@ title: getItem
 
 <!-- 支持`Promise` 使用。 -->
 
-## syber.storage.getItem(Object object)
+## syberh.storage.getItem(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -31,7 +31,7 @@ title: getItem
 
 ### 代码示例
 ``` javascript
-syber.storage.getItem({
+syberh.storage.getItem({
     key: 'name',
     success: function(result) {
         console.log('success',result); 
@@ -44,7 +44,7 @@ syber.storage.getItem({
 
 <!-- #### Promise
 ``` javascript
-syber.storage.getItem({
+syberh.storage.getItem({
     key: 'name'
 }).then(function(result) {
     console.log('success',result); 

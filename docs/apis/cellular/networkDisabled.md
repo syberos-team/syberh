@@ -2,7 +2,7 @@
 title: networkDisabled
 ---
 
-## syber.cellular.networkDisabled(Object object)
+## syberh.cellular.networkDisabled(Object object)
 
 设置数据网络状态为关闭。
 
@@ -36,7 +36,7 @@ title: networkDisabled
 
 ### 代码示例
 ```js
-syber.cellular.networkDisabled({
+syberh.cellular.networkDisabled({
     flag:true,
 	success:function(result){
         console.log('isDisabled: ', result.isDisabled);

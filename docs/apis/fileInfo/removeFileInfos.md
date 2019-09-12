@@ -2,7 +2,7 @@
 title: removeFileInfos
 ---
 
-### syber.fileinfos.removeFileInfos(Object object)
+### syberh.fileinfos.removeFileInfos(Object object)
 
 > 删除某个保存的文件
 
@@ -19,7 +19,7 @@ error | Function | 否 | 调用失败的回调函数
 
 ### 示例代码
 ```javascript
-syber.fileinfos.removeFileInfos({
+syberh.fileinfos.removeFileInfos({
       src: 'http://*/TB1x669SXXXXXbdaFXXXXXXXXXX-520-280.jpg',
       success: function(res) {
         console.log(res);
@@ -29,7 +29,7 @@ syber.fileinfos.removeFileInfos({
       }
     });
 	
-syber.fileinfos.removeFileInfos({
+syberh.fileinfos.removeFileInfos({
       src: 'http://*/TB1x669SXXXXXbdaFXXXXXXXXXX-520-280.jpg'
     }).then(function(res) {
 		console.log(res);

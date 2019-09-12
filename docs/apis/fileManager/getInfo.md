@@ -5,7 +5,7 @@ title: getInfo
 文件信息
 
 
-## syber.fileManager.getInfo(Object object)
+## syberh.fileManager.getInfo(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -25,7 +25,7 @@ created | String | yyyy-MM-dd hh:mm:ss
 ### 示例代码
 
 ```javascript
-syber.fileManager.getInfo({
+syberh.fileManager.getInfo({
     srcPath: '/home/user/22',
     success: function(res) {
         console.info(res)
