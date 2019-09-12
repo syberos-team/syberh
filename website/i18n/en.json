@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "SyberOS的 快速混合开发框架，助力SyberOS 应用生态。",
+    "tagline": "SyberOS的 Hybrid开发框架，助力SyberOS 应用生态。",
     "docs": {
       "apis/about/desc": {
         "title": "API 说明"
@@ -132,20 +132,6 @@
       "apis/webview/webview": {
         "title": "webview"
       },
-      "components-desc": {
-        "title": "组件库说明"
-      },
-      "components/modal/modal": {
-        "title": "components/modal/modal"
-      },
-      "components/webview/open-data": {
-        "title": "其他",
-        "sidebar_label": "其他"
-      },
-      "components/webview/web-view": {
-        "title": "WebView",
-        "sidebar_label": "WebView"
-      },
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
       },
@@ -198,10 +184,10 @@
         "title": "拨号"
       },
       "README": {
-        "title": "syberh 介绍"
+        "title": "Syberh 介绍"
       },
       "started-cli": {
-        "title": "安装 cli 及使用"
+        "title": "CLI安装及使用"
       },
       "started-syberos": {
         "title": "安装 SyberOS SDK & PKD"
@@ -405,7 +391,7 @@
       "GitHub": "GitHub"
     },
     "categories": {
-      "关于SYBEROS": "关于SYBEROS",
+      "关于SyberH": "关于SyberH",
       "快速开始": "快速开始",
       "关于API": "关于API",
       "模态弹窗": "模态弹窗",

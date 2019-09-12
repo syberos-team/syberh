@@ -15,23 +15,23 @@ const users = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/docusaurus.svg'.
     image: 'img/syberos.png',
-    infoLink: 'http://hdoc.syberos.com',
+    infoLink: 'https://syberh.syberos.com',
     pinned: true
   }
 ]
 
 const siteConfig = {
   editUrl: 'http://github.com/syberos-team/syberh/edit/master/docs/',
-  title: 'SyberOS Hybrid' /* title for your website */,
-  tagline: 'SyberOS的 快速混合开发框架，助力SyberOS 应用生态。',
-  url: 'http://hdoc.syberos.com' /* your website url */,
+  title: 'Syberh' /* title for your website */,
+  tagline: 'SyberOS的 Hybrid开发框架，助力SyberOS 应用生态。',
+  url: 'https://syberh.syberos.com' /* your website url */,
   baseUrl: '/' /* base url for your project */,
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'HybridDocs',
+  projectName: 'syberhDocs',
   organizationName: 'YuanXin',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
@@ -66,7 +66,7 @@ const siteConfig = {
   },
 
   /* custom fonts for website */
-  /* fonts: {
+  fonts: {
     myFont: [
       "Times New Roman",
       "Serif"
@@ -75,7 +75,7 @@ const siteConfig = {
       "-apple-system",
       "system-ui"
     ]
-  }, */
+  },
 
   // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
   copyright: 'Copyright © ' + new Date().getFullYear() + ' ltp11',
@@ -100,9 +100,6 @@ const siteConfig = {
   scrollToTop: true,
   docsSideNavCollapsible: true
 
-  // You may provide arbitrary config keys to be used as needed by your
-  // template. For example, if you need your repo's URL...
-  //   repoUrl: 'https://github.com/facebook/test-site',
 }
 
 module.exports = siteConfig

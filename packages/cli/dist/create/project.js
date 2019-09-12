@@ -29,7 +29,7 @@ class Project extends creator_1.default {
     }
     init() {
         console.log(chalk_1.default.green(`SYBEROS-CLI 即将创建一个新项目!`));
-        console.log('Need help? Go and open issue: https://github.com/syberos-team/syberos-hybrid');
+        console.log('Need help? Go and open issue: https://github.com/syberos-team/syberh');
         console.log();
     }
     create() {
@@ -103,7 +103,7 @@ class Project extends creator_1.default {
             prompts.push({
                 type: 'input',
                 name: 'sopid',
-                message: '请输入sopid,如【com.syber.myapp】:',
+                message: '请输入sopid,如【com.syberh.myapp】:',
                 validate(input) {
                     if (!input) {
                         return 'sopid不能为空！';
