@@ -1,6 +1,6 @@
 <!--
 请务必阅读贡献者指南:
-https://github.com/syberos-team/syberos-hybrid/blob/master/CONTRIBUTING.md
+https://github.com/syberos-team/syberh/blob/master/CONTRIBUTING.md
 -->
 
 <!-- PULL REQUEST TEMPLATE -->

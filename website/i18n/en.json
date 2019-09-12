@@ -205,6 +205,198 @@
       },
       "started-syberos": {
         "title": "安装 SyberOS SDK & PKD"
+      },
+      "version-1.0.0/apis/about/version-1.0.0-desc": {
+        "title": "API 说明"
+      },
+      "version-1.0.0/apis/cellular/version-1.0.0-networkDisabled": {
+        "title": "networkDisabled"
+      },
+      "version-1.0.0/apis/cellular/version-1.0.0-networkEnabled": {
+        "title": "networkEnabled"
+      },
+      "version-1.0.0/apis/clipboard/version-1.0.0-getClipboardData": {
+        "title": "getClipboardData"
+      },
+      "version-1.0.0/apis/clipboard/version-1.0.0-setClipboardData": {
+        "title": "setClipboardData"
+      },
+      "version-1.0.0/apis/download/version-1.0.0-download-cancel": {
+        "title": "cancel"
+      },
+      "version-1.0.0/apis/download/version-1.0.0-download": {
+        "title": "start"
+      },
+      "version-1.0.0/apis/fileInfo/version-1.0.0-getFileInfos": {
+        "title": "getFileInfos"
+      },
+      "version-1.0.0/apis/fileInfo/version-1.0.0-removeFileInfos": {
+        "title": "removeFileInfos"
+      },
+      "version-1.0.0/apis/fileManager/version-1.0.0-copy": {
+        "title": "copy"
+      },
+      "version-1.0.0/apis/fileManager/version-1.0.0-fileList": {
+        "title": "fileList"
+      },
+      "version-1.0.0/apis/fileManager/version-1.0.0-getInfo": {
+        "title": "getInfo"
+      },
+      "version-1.0.0/apis/fileManager/version-1.0.0-move": {
+        "title": "move"
+      },
+      "version-1.0.0/apis/fileManager/version-1.0.0-remove": {
+        "title": "remove"
+      },
+      "version-1.0.0/apis/filepicker/version-1.0.0-filepicker": {
+        "title": "filepicker"
+      },
+      "version-1.0.0/apis/modal/version-1.0.0-alert": {
+        "title": "alert"
+      },
+      "version-1.0.0/apis/modal/version-1.0.0-confirm": {
+        "title": "confirm"
+      },
+      "version-1.0.0/apis/modal/version-1.0.0-gtoast": {
+        "title": "gtoast"
+      },
+      "version-1.0.0/apis/modal/version-1.0.0-prompt": {
+        "title": "prompt"
+      },
+      "version-1.0.0/apis/modal/version-1.0.0-toast": {
+        "title": "toast"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-capturePhoto": {
+        "title": "takePictureImmediately"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-captureVideoEnd": {
+        "title": "captureVideoEnd"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-captureVideoStart": {
+        "title": "captureVideoStart"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-scan": {
+        "title": "scan"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-startAudioPlay": {
+        "title": "startAudioPlay"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-startAudioRecorder": {
+        "title": "startAudioRecorder"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-stopAudioPlay": {
+        "title": "stopAudioPlay"
+      },
+      "version-1.0.0/apis/multimedia/camera/version-1.0.0-stopAudioRecorder": {
+        "title": "stopAudioRecorder"
+      },
+      "version-1.0.0/apis/navigator/version-1.0.0-navigator": {
+        "title": "navigator"
+      },
+      "version-1.0.0/apis/request/version-1.0.0-request": {
+        "title": "request"
+      },
+      "version-1.0.0/apis/runtime/version-1.0.0-launchApp": {
+        "title": "launchApp"
+      },
+      "version-1.0.0/apis/storage/version-1.0.0-getAllKeys": {
+        "title": "getAllKeys"
+      },
+      "version-1.0.0/apis/storage/version-1.0.0-getItem": {
+        "title": "getItem"
+      },
+      "version-1.0.0/apis/storage/version-1.0.0-removeItem": {
+        "title": "removeItem"
+      },
+      "version-1.0.0/apis/storage/version-1.0.0-setItem": {
+        "title": "setItem"
+      },
+      "version-1.0.0/apis/system/version-1.0.0-aboutPhone": {
+        "title": "aboutPhone"
+      },
+      "version-1.0.0/apis/system/version-1.0.0-battery": {
+        "title": "battery"
+      },
+      "version-1.0.0/apis/system/version-1.0.0-networkInfo": {
+        "title": "networkInfo"
+      },
+      "version-1.0.0/apis/telephony/version-1.0.0-dial": {
+        "title": "dial"
+      },
+      "version-1.0.0/apis/updates/version-1.0.0-manager": {
+        "title": "更新管理",
+        "sidebar_label": "更新管理"
+      },
+      "version-1.0.0/apis/url/version-1.0.0-url": {
+        "title": "openUrl"
+      },
+      "version-1.0.0/apis/webview/version-1.0.0-webview": {
+        "title": "webview"
+      },
+      "version-1.0.0/version-1.0.0-components-desc": {
+        "title": "组件库说明"
+      },
+      "version-1.0.0/components/webview/version-1.0.0-open-data": {
+        "title": "其他",
+        "sidebar_label": "其他"
+      },
+      "version-1.0.0/components/webview/version-1.0.0-web-view": {
+        "title": "WebView",
+        "sidebar_label": "WebView"
+      },
+      "version-1.0.0/version-1.0.0-first-app": {
+        "title": "第一个应用"
+      },
+      "version-1.0.0/qt/about/version-1.0.0-desc": {
+        "title": "C++ 说明"
+      },
+      "version-1.0.0/qt/clipboard/version-1.0.0-clipboard": {
+        "title": "剪贴板"
+      },
+      "version-1.0.0/qt/modal/version-1.0.0-alert": {
+        "title": "alert"
+      },
+      "version-1.0.0/qt/modal/version-1.0.0-confirm": {
+        "title": "confirm"
+      },
+      "version-1.0.0/qt/modal/version-1.0.0-prompt": {
+        "title": "promot"
+      },
+      "version-1.0.0/qt/modal/version-1.0.0-toast": {
+        "title": "toast"
+      },
+      "version-1.0.0/qt/multimedia/camera/version-1.0.0-capture": {
+        "title": "相机"
+      },
+      "version-1.0.0/qt/multimedia/camera/version-1.0.0-scan": {
+        "title": "扫码"
+      },
+      "version-1.0.0/qt/navigator/version-1.0.0-navigator": {
+        "title": "navigator"
+      },
+      "version-1.0.0/qt/request/version-1.0.0-request-c": {
+        "title": "request"
+      },
+      "version-1.0.0/qt/runtime/version-1.0.0-runtime": {
+        "title": "runtime"
+      },
+      "version-1.0.0/qt/storage/version-1.0.0-storage": {
+        "title": "本地存储"
+      },
+      "version-1.0.0/qt/systeminfo/version-1.0.0-systeminfo": {
+        "title": "系统信息"
+      },
+      "version-1.0.0/qt/telephony/version-1.0.0-telephony": {
+        "title": "拨号"
+      },
+      "version-1.0.0/version-1.0.0-README": {
+        "title": "syberh 介绍"
+      },
+      "version-1.0.0/version-1.0.0-started-cli": {
+        "title": "安装 cli 及使用"
+      },
+      "version-1.0.0/version-1.0.0-started-syberos": {
+        "title": "安装 SyberOS SDK & PKD"
       }
     },
     "links": {
