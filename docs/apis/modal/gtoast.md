@@ -10,7 +10,7 @@ title: gtoast
 
 > gtoast 为syberos中自带的toast
 
-## syber.modal.gtoast(Object object)
+## syberh.modal.gtoast(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型  | 默认值 | 必填 | 描述                         |
@@ -29,7 +29,7 @@ title: gtoast
 
 ### 代码示例
 ```javascript
-syber.modal.gtoast({
+syberh.modal.gtoast({
     title: 'This is gtoast',
     success: function () {
         console.log('success');
@@ -42,7 +42,7 @@ syber.modal.gtoast({
 
 <!-- #### Promise
 ```javascript
-syber.modal.gtoast({
+syberh.modal.gtoast({
     title: 'This is gtoast'
 }).catch(function(error) {
 	console.log('fail: ', error.code, error.msg);

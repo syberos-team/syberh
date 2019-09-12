@@ -4,7 +4,7 @@ title: navigator
 
 导航栏组件，主要用于头部导航, 支持`Promise` 化使用
 
-## syber.navigator.setNavigator(Object object)
+## syberh.navigator.setNavigator(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型    | 是否必填 | 描述                            |
@@ -37,7 +37,7 @@ title: navigator
 
 ### 代码示例
 ```javascript
-    syber.navigator.setNavigator({
+    syberh.navigator.setNavigator({
         title: '导航栏',
         leftText: '返回',
         leftIcon: 'back.png',
@@ -54,7 +54,7 @@ title: navigator
 
 #### Promise
 ```javascript
-    syber.navigator.setNavigator({
+    syberh.navigator.setNavigator({
         title: '导航栏',
         leftText: '返回',
         leftIcon: 'back.png',

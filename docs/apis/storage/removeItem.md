@@ -6,7 +6,7 @@ title: removeItem
 
 <!-- 支持`Promise` 使用。 -->
 
-## syber.storage.removeItem(Object object)
+## syberh.storage.removeItem(Object object)
 
 ### 参数
 
@@ -38,7 +38,7 @@ title: removeItem
 ### 代码示例
 
 ```javascript
-syber.storage.removeItem({
+syberh.storage.removeItem({
   key: 'name',
   success: function(result) {
     console.log('success', result)
@@ -51,7 +51,7 @@ syber.storage.removeItem({
 
 <!-- #### Promise
 ``` javascript
-syber.storage.removeItem({
+syberh.storage.removeItem({
     key: 'name'
 }).then(function(result) {
 console.log('success',result);

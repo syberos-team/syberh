@@ -2,7 +2,7 @@
 title: openUrl
 ---
 
-## syber.url.openUrl(Object object)
+## syberh.url.openUrl(Object object)
 
 唤起应用
 
@@ -13,8 +13,8 @@ title: openUrl
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
 | scheme | String | 是 | 协议，格式为：scheme://xxx<br />scheme在sopconfig.xml进行配置，<br />例如：`<url><scheme>app1</scheme></url>`<br />打开应用页面scheme示例为app1://openPage/index.html |
-| path | String | 否 | 打开的页面路径，如果为空则打开首页。<br />path 中 ? 后面的部分会成为 params。<br />目标APP可在 `syber.subscribe` 中获取到这份数据 |
-| param | Object | 否 | param中的参数会拼接到path中?后面。<br />目标APP可在 `syber.subscribe` 中获取到这份数据 |
+| path | String | 否 | 打开的页面路径，如果为空则打开首页。<br />path 中 ? 后面的部分会成为 params。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
+| param | Object | 否 | param中的参数会拼接到path中?后面。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
 
@@ -39,7 +39,7 @@ title: openUrl
 
 ### 代码示例
 ```js
-syber.url.openUrl({
+syberh.url.openUrl({
     scheme:"app1://openPage",
     path:"index.html?name=zhangsan",
     params:{
@@ -75,7 +75,7 @@ syber.url.openUrl({
 | param | Object | 传递的参数，{key1=value1, key2=value2}格式         |
 
 ```
-syber.subscribe('openPage', function(result) {
+syberh.subscribe('openPage', function(result) {
 	console.log("path: "+ result.path);
 	console.log("params: "+ JSON.stringify(result.params));
 });

@@ -8,7 +8,7 @@ title: prompt
 
 <!-- 支持`Promise` 化使用。 -->
 
-## syber.modal.prompt(Object object)
+## syberh.modal.prompt(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型    | 默认值 | 必填 | 描述                         |
@@ -35,7 +35,7 @@ title: prompt
 
 ### 代码示例
 ```javascript
-syber.modal.prompt({
+syberh.modal.prompt({
     content: 'This is a prompt',
     success: function(result) {
         console.log('success',result); 
@@ -48,7 +48,7 @@ syber.modal.prompt({
 
 <!-- #### Promise
 ```javascript
-syber.modal.prompt({
+syberh.modal.prompt({
     content: 'This is a prompt',
 }).then(function(result) {
     console.log('success',result);

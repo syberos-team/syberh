@@ -8,7 +8,7 @@ webview 模块提供了一系列的当前操作接口，例如 goBack、redirect
 
 
 
-## syber.webview.reload()
+## syberh.webview.reload()
 
 重新加载当前页面
 
@@ -35,7 +35,7 @@ webview 模块提供了一系列的当前操作接口，例如 goBack、redirect
 
 ### 代码示例
 ``` javascript
-syber.webview.reload({
+syberh.webview.reload({
   success:function(result){
     console.log('success',result); 
   },
@@ -45,7 +45,7 @@ syber.webview.reload({
 })
 ```
 
-## syber.webview.goBack()
+## syberh.webview.goBack()
 
 返回
 
@@ -75,7 +75,7 @@ syber.webview.reload({
 
 ### 代码示例
 ``` javascript
-syber.webview.goBack({
+syberh.webview.goBack({
   success:function(result){
     console.log('success',result); 
   },
@@ -85,7 +85,7 @@ syber.webview.goBack({
 })
 ```
 
-## syber.webview.redirectTo(Object object)
+## syberh.webview.redirectTo(Object object)
 
 
 跳转到某个地址
@@ -114,7 +114,7 @@ syber.webview.goBack({
 
 ### 代码示例
 ``` javascript
-syber.webview.redirectTo({
+syberh.webview.redirectTo({
   url:'https://baidu.com',
   success:function(result){
     console.log('success',result); 

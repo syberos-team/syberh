@@ -14,31 +14,31 @@
 
 <body>
   <div class="mui-content pt0">
-      <ul class="mui-table-view ">
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="confirm">confirm</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="confirm_no_title">confirm_no_title</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="confirm_small_icon">confirm_small_icon</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="confirm_big_icon">confirm_big_icon</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="confirm_color_text">confirm 修改颜色和文字</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="confirmOrigin()">原生confirm</a>
-        </li>
-      </ul>
-    </div>
-    <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
-    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../common/common.js"></script>
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="confirm">confirm</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="confirm_no_title">confirm_no_title</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="confirm_small_icon">confirm_small_icon</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="confirm_big_icon">confirm_big_icon</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="confirm_color_text">confirm 修改颜色和文字</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="confirmOrigin()">原生confirm</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
 
 
   <script>
@@ -47,7 +47,7 @@
     window.runApi = function (id) {
       switch (id) {
         case 'confirm':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function (res) {
@@ -57,13 +57,13 @@
                 console.log('用户点击了取消')
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.confirm fail')
             }
           })
           break;
         case 'confirm_no_title':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function (res) {
               if (res === true) {
@@ -72,13 +72,13 @@
                 console.log('用户点击了取消')
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.confirm fail')
             }
           })
           break;
         case 'confirm_small_icon':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'success',
@@ -89,13 +89,13 @@
                 console.log('用户点击了取消')
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.confirm fail')
             }
           })
           break;
         case 'confirm_big_icon':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'success',
             success: function (res) {
@@ -105,13 +105,13 @@
                 console.log('用户点击了取消')
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.confirm fail')
             }
           })
           break;
         case 'confirm_color_text':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             confirmText: '确定按钮',
@@ -125,7 +125,7 @@
                 console.log('用户点击了取消')
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.confirm fail')
             }
           })

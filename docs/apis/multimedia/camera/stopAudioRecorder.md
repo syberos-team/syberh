@@ -6,7 +6,7 @@ title: stopAudioRecorder
 结束录音：对录音功能进行停止。
 
 
-## syber.audio.stopAudioRecorder()
+## syberh.audio.stopAudioRecorder()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -24,7 +24,7 @@ title: stopAudioRecorder
 
 ### **代码示例**
 ``` javascript
-syber.audio.stopAudioRecorder({
+syberh.audio.stopAudioRecorder({
 	success: function(result){
 		console.log('success');
 	},
