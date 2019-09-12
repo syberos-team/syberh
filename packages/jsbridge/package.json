@@ -2,7 +2,7 @@
   "name": "@syberos/jsbridge",
   "version": "1.0.0",
   "description": "js-sdk for syberh",
-  "homepage": "https://github.com/syberos-team/syberos-hybrid",
+  "homepage": "https://github.com/syberos-team/syberh",
   "main": "dist/syberh.js",
   "scripts": {
     "test": "mocha",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/syberos-team/syberos-hybrid"
+    "url": "git+https://github.com/syberos-team/syberh"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

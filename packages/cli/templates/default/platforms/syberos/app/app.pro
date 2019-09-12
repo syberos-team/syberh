@@ -48,9 +48,9 @@ web.path = $$INSTALL_DIR
 
 
 #LIBS += -L"/home/lihejia/Desktop/syberos-hysbrid/packages/syberos-template/com/syberos/quazip/lib" -lquazip
-#INCLUDEPATH += /home/lihejia/Desktop/syberos-hybrid/packages/syberos-template/com/syberos/quazip/include/quazip
+#INCLUDEPATH += /home/lihejia/Desktop/syberh/packages/syberos-template/com/syberos/quazip/include/quazip
 
-#quazip.files = /home/lihejia/Desktop/syberos-hybrid/packages/syberos-template/com/syberos/quazip/include/quazip/lib/*
+#quazip.files = /home/lihejia/Desktop/syberh/packages/syberos-template/com/syberos/quazip/include/quazip/lib/*
 #quazip.path = $$INSTALL_DIR/libs
 
 #INSTALLS += quazip
