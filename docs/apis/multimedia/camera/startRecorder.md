@@ -1,12 +1,18 @@
 ---
-title: startAudioRecorder
+title: startRecorder
 ---
 
 
 开始录音：对周围环境的声音进行记录，开启成功则返录音路径。
 
+> 录音功能属于敏感权限,要实现录音必须获取录音权限以及数据存储权限,在sopconfig.xml文件中添加如下字段:
 
-## syberh.audio.startAudioRecorder()
+``` javascript
+<uses-permission syberos:name="syberos.permission.RECORD"/>
+<uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+```
+
+## syberh.audio.startRecorder()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -30,7 +36,7 @@ title: startAudioRecorder
 
 ### **代码示例**
 ``` javascript
-syberh.audio.startAudioRecorder({
+syberh.audio.startRecorder({
 	success: function(result){
 		console.log('success: ', result.path); 
 	},
