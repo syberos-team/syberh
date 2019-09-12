@@ -9,7 +9,7 @@ title: toast
 <!-- 支持`Promise` 使用。 -->
 
 
-## syber.modal.toast(Object object)
+## syberh.modal.toast(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型  | 默认值 | 必填 | 描述                         |
@@ -38,7 +38,7 @@ title: toast
 
 ### 代码示例
 ```javascript
-syber.modal.toast({
+syberh.modal.toast({
     title: '提示',
     icon: 'success',
     success: function () {
@@ -52,7 +52,7 @@ syber.modal.toast({
 
 <!-- #### Promise
 ```javascript
-syber.modal.toast({
+syberh.modal.toast({
     title:"我是没有图标的toast，但是我最大只能14个汉字",
     icon:"none"
 }).then(function() {

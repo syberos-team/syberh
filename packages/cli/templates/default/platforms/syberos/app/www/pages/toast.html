@@ -37,7 +37,7 @@
     </ul>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
@@ -50,7 +50,7 @@
 
       switch (id) {
         case 'toast-success':
-            syber.modal.toast({
+            syberh.modal.toast({
                 title: '正确提示',
                 icon: 'success',
                 duration: 1500,
@@ -63,7 +63,7 @@
             });
           break;
         case 'toast-error':
-            syber.modal.toast({
+            syberh.modal.toast({
                 title: '错误提示',
                 icon: 'error',
                 duration: 1500,
@@ -76,7 +76,7 @@
             });
             break;
         case 'toast-none':
-            syber.modal.toast({
+            syberh.modal.toast({
                 title: '没有图标的提示没有图标的提示',
                 icon: 'none',
                 duration: 1500,
@@ -89,7 +89,7 @@
             });
             break;
         case 'gtoast-btn1':
-            syber.modal.gtoast({
+            syberh.modal.gtoast({
                 title: 'gtoast提示（用法1）',
                 success: function () {
                   console.log('toast执行成功')
@@ -100,7 +100,7 @@
             });
             break;
         case 'gtoast-btn2':
-            syber.modal.gtoast("gtoast提示（用法2）");
+            syberh.modal.gtoast("gtoast提示（用法2）");
             break;
         default:
           console.error('错误！没有相应API');

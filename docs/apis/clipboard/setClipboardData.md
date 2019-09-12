@@ -7,7 +7,7 @@ title: setClipboardData
 <!-- 支持`Promise` 使用。 -->
 
 
-## syber.clipboard.setClipboardData(Object object)
+## syberh.clipboard.setClipboardData(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -33,7 +33,7 @@ title: setClipboardData
 
 ### 示例
 ``` javascript
-syber.clipboard.setClipboardData({
+syberh.clipboard.setClipboardData({
     data:"some of the content setClipboardData",
     success: function(result) {
         console.log('success: ', result.data);
@@ -46,7 +46,7 @@ syber.clipboard.setClipboardData({
 
 <!-- #### Promise
 ``` javascript
-syber.clipboard.setClipboardData({
+syberh.clipboard.setClipboardData({
     data:"some of the content setClipboardData",
 }).then(function(result) {
     console.log('success: ', result.data);

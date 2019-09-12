@@ -6,7 +6,7 @@ title: getAllKeys
 
 <!-- 支持`Promise` 使用。 -->
 
-## syber.storage.getAllKeys(Object object)
+## syberh.storage.getAllKeys(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -30,7 +30,7 @@ title: getAllKeys
 
 ### 代码示例
 ``` javascript
-syber.storage.getAllKeys({
+syberh.storage.getAllKeys({
     success: function(result) {
         console.log('success',result); 
     },
@@ -42,7 +42,7 @@ syber.storage.getAllKeys({
 
 <!-- #### Promise
 ``` javascript
-syber.storage.getAllKeys()
+syberh.storage.getAllKeys()
     .then(function(result) {
         console.log('success',result); 
     }).catch(function(error) {

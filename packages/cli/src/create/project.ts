@@ -133,7 +133,7 @@ export default class Project extends Creator {
       prompts.push({
         type: 'input',
         name: 'sopid',
-        message: '请输入sopid,如【com.syber.myapp】:',
+        message: '请输入sopid,如【com.syberh.myapp】:',
         validate(input) {
           if (!input) {
             return 'sopid不能为空！'

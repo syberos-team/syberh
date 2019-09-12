@@ -31,7 +31,7 @@ function Syber (parent) {
  * render panel
  * @private
  */
-Syber.prototype._render = function () {
+syberh.prototype._render = function () {
   var that = this
   // 初始化插件
   this._initPlugin(RootItem, this._root)
@@ -46,7 +46,7 @@ Syber.prototype._render = function () {
  * @module {string} 插件module
  * @method {string} 请求方法名称
  */
-Syber.prototype.getPlugin = function (module, method) {
+syberh.prototype.getPlugin = function (module, method) {
   var rPlugin = null
   for (var key in this.pluginList) {
     var plugin = this.pluginList[key]
@@ -70,7 +70,7 @@ Syber.prototype.getPlugin = function (module, method) {
  * @param method {string} 请求方法名称
  * @param param {Object} 请求参数
  */
-Syber.prototype.request = function (module, handlerId, method, param) {
+syberh.prototype.request = function (module, handlerId, method, param) {
   var plugin = this.getPlugin(module, method)
   if (!plugin) {
     console.error('Plugin ', module, method, ' 不存在.')
@@ -97,7 +97,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
  *@param parent {Object} 挂载节点
  *@param callback {function}
  */
-Syber.prototype._initPlugin = function (plugin, parent, callback) {
+syberh.prototype._initPlugin = function (plugin, parent, callback) {
   // 如果需要单独打开一个页面的话
   if (plugin.page) {
     this.pageStack(plugin, callback)
@@ -151,7 +151,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
  * 销毁组件
  *@param pluginId {string} 插件ID
  */
-Syber.prototype.destroy = function (pluginId) {
+syberh.prototype.destroy = function (pluginId) {
   var plugin = this.pluginList[pluginId]
   if (!plugin) {
     throw new Error('core.js,destroy(),plugin不存在,id:', pluginId)
@@ -173,7 +173,7 @@ Syber.prototype.destroy = function (pluginId) {
  * @param plugin {Object} 插件
  * @param callback {function} 回调
  */
-Syber.prototype.pageStack = function (plugin, callback) {
+syberh.prototype.pageStack = function (plugin, callback) {
   var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
   plugin.trigger('ready', object)
   if (typeof callback === 'function') {
@@ -184,7 +184,7 @@ Syber.prototype.pageStack = function (plugin, callback) {
 /**
  * add built-in plugins
  */
-Syber.prototype._addBuiltInPlugins = function () {
+syberh.prototype._addBuiltInPlugins = function () {
   // 建立全局webview
   var webview = new WebView()
   WEBVIEWCORE = webview
@@ -215,7 +215,7 @@ Syber.prototype._addBuiltInPlugins = function () {
  * auto run after initialization
  * @private
  */
-Syber.prototype._autoRun = function () {
+syberh.prototype._autoRun = function () {
   this.isInited = true
 
   // init plugins
@@ -228,7 +228,7 @@ Syber.prototype._autoRun = function () {
   this.triggerEvent('ready')
 }
 
-Syber.prototype.addPlugin = function (plugin) {
+syberh.prototype.addPlugin = function (plugin) {
 
   if (this.pluginList[plugin.id] !== undefined) {
     console.debug('Plugin ' + plugin.id + ' has already been added.')
@@ -247,7 +247,7 @@ Syber.prototype.addPlugin = function (plugin) {
  * @param string pluginID
  * @return boolean
  */
-Syber.prototype.removePlugin = function (pluginID) {
+syberh.prototype.removePlugin = function (pluginID) {
   pluginID = (pluginID + '').toLowerCase()
   var plugin = this.pluginList[pluginID]
   // skip if is has not been installed
@@ -268,10 +268,10 @@ Syber.prototype.removePlugin = function (pluginID) {
 }
 
 /**
- * trigger a Syber.option event
+ * trigger a syberh.option event
  * @protect
  */
-Syber.prototype.triggerEvent = function (eventName, param) {
+syberh.prototype.triggerEvent = function (eventName, param) {
   eventName = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1)
   if (isFunction(this.option[eventName])) {
     this.option[eventName].apply(this, param)

@@ -5,7 +5,7 @@ title: move
 文件移动
 
 
-## syber.fileManager.move(Object object)
+## syberh.fileManager.move(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -25,7 +25,7 @@ title: move
 ### 示例代码
 
 ```javascript
-syber.fileManager.move({
+syberh.fileManager.move({
     srcPath: '/home/user/22',
     destPath: '/home/user/222',
     success: function(res) {

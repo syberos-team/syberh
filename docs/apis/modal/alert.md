@@ -10,7 +10,7 @@ title: alert
 
 
 
-## syber.modal.alert(Object object)
+## syberh.modal.alert(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -40,7 +40,7 @@ title: alert
 
 ### 代码示例
 ```javascript
-syber.modal.alert({
+syberh.modal.alert({
     content: 'This is a alert',
     success: function() {
         console.log('success');            
@@ -53,7 +53,7 @@ syber.modal.alert({
 
 <!-- #### Promise
 ```javascript
-syber.modal.alert({
+syberh.modal.alert({
     content: 'This is a alert',
 }).then(function() {
     console.log('success');

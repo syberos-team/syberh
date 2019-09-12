@@ -6,7 +6,7 @@ title: filepicker
 
 > filepicker 为 syberos 中自带的文件选择功能
 
-## syber.filepicker.open(Object object)
+## syberh.filepicker.open(Object object)
 
 ### **参数**
 
@@ -52,7 +52,7 @@ title: filepicker
 ### **代码示例**
 
 ```javascript
-syber.filepicker.open({
+syberh.filepicker.open({
   title: '照片选择',
   showBack: true,
   category: 'image',

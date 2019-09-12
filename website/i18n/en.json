@@ -119,15 +119,15 @@
       "apis/system/networkInfo": {
         "title": "networkInfo"
       },
-      "apis/system/networkSetCellularEnabled": {
-        "title": "networkEnabled"
-      },
       "apis/telephony/dial": {
         "title": "dial"
       },
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
+      },
+      "apis/url/url": {
+        "title": "openUrl"
       },
       "apis/webview/webview": {
         "title": "webview"
@@ -151,9 +151,6 @@
       },
       "first-app": {
         "title": "第一个应用"
-      },
-      "functional-component": {
-        "title": "函数式组件"
       },
       "qt/about/desc": {
         "title": "C++ 说明"
@@ -201,7 +198,7 @@
         "title": "拨号"
       },
       "README": {
-        "title": "SyberOS-Hybrid 介绍"
+        "title": "syberh 介绍"
       },
       "started-cli": {
         "title": "安装 cli 及使用"
@@ -230,7 +227,8 @@
       "下载": "下载",
       "webview": "webview",
       "文件选择": "文件选择",
-      "文件管理": "文件管理"
+      "文件管理": "文件管理",
+      "url": "url"
     }
   },
   "pages-strings": {

@@ -67,7 +67,7 @@
     </ul>
   </div>
   <script type="text/javascript" src="./common/mui/mui.js"></script>
-  <script type="text/javascript" src="./lib/syber.min.js"></script>
+  <script type="text/javascript" src="./lib/syberh.min.js"></script>
   <script type="text/javascript" src="./common/common.js"></script>
   <script type="text/javascript" src="./lib/vconsole.min.js"></script>
   <script>
@@ -75,7 +75,7 @@
     console.log('Hello world')
     window.runApi = function (id) {
       console.log('执行API:' + id)
-      syber.webview.redirectTo({
+      syberh.webview.redirectTo({
         url: id,
         title: '测试页面标题',
         // 横竖屏,默认为1表示竖屏

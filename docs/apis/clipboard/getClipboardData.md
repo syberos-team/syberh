@@ -6,7 +6,7 @@ title: getClipboardData
 
 <!-- 支持`Promise` 使用。 -->
 
-## syber.clipboard.getClipboardData(Object object)
+## syberh.clipboard.getClipboardData(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -30,7 +30,7 @@ title: getClipboardData
 
 ### 代码示例
 ``` javascript
-syber.clipboard.getClipboardData({
+syberh.clipboard.getClipboardData({
 	success:function(result){
         console.log('success: ', result.data);
     },
@@ -42,7 +42,7 @@ syber.clipboard.getClipboardData({
 
 <!-- #### Promise
 ``` javascript
-syber.clipboard.getClipboardData()
+syberh.clipboard.getClipboardData()
     .then(function(result) {
         console.log('success: ', result.data);
     }).catch(function(error) {

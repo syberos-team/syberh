@@ -3,7 +3,7 @@ title: captureVideoEnd
 ---
 
 
-## syber.camera.captureVideoEnd（Object object）
+## syberh.camera.captureVideoEnd（Object object）
 
 结束摄像，成功则返回视频文件路径
 
@@ -37,7 +37,7 @@ title: captureVideoEnd
 ### **示例代码**
 
 ```
-syber.camera.captureVideoEnd({
+syberh.camera.captureVideoEnd({
 	camera: '1',
 	success: function(result){
 		console.log('success: ', result.path);

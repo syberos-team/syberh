@@ -10,7 +10,7 @@ title: confirm
 
 
 
-## syber.modal.confirm(Object object)
+## syberh.modal.confirm(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -48,7 +48,7 @@ title: confirm
 
 ### 代码示例
 ```javascript
-syber.modal.confirm({
+syberh.modal.confirm({
     content: 'This is a confirm',
     success: function (result) {
         console.log('success',result); 
@@ -61,7 +61,7 @@ syber.modal.confirm({
 
 <!-- #### Promise
 ```javascript
-syber.modal.confirm({
+syberh.modal.confirm({
     content: 'This is a confirm',
 }).then(function(result) {
     console.log('success',result);
