@@ -152,6 +152,9 @@ void Url::openByUrl(QString url){
     qDebug() << "openByUrl query: " << query << endl;
 
     QVariantMap params;
+    if(path == ""){
+        path = "index.html";
+    }
     params.insert("path", path);
     params.insert("params", query);
 
