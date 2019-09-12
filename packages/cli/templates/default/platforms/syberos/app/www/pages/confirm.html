@@ -36,7 +36,7 @@
       </ul>
     </div>
     <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/syberh.min.js"></script>
     <script type="text/javascript" src="../lib/vconsole.min.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
 
@@ -47,7 +47,7 @@
     window.runApi = function (id) {
       switch (id) {
         case 'confirm':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function (res) {
@@ -63,7 +63,7 @@
           })
           break;
         case 'confirm_no_title':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function (res) {
               if (res === true) {
@@ -78,7 +78,7 @@
           })
           break;
         case 'confirm_small_icon':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'success',
@@ -95,7 +95,7 @@
           })
           break;
         case 'confirm_big_icon':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'success',
             success: function (res) {
@@ -111,7 +111,7 @@
           })
           break;
         case 'confirm_color_text':
-          syber.modal.confirm({
+          syberh.modal.confirm({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             confirmText: '确定按钮',

@@ -47,8 +47,6 @@ exports.createApp = function (creater, params, helper, cb) {
   const platformsDirName = 'platforms'
   // platforms/syberos/app/www 模板demo目录
   const wwwDirName = path.join('platforms', 'syberos', 'app', 'www')
-  // www根目录
-  const www = 'ww'
   // APP 模板目录
   const syberosDir = 'syberos'
 

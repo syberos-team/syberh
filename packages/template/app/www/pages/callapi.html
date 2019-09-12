@@ -28,18 +28,18 @@
     </ul>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
-    syber.error(function (message) {
+    syberh.error(function (message) {
       alert('错误:' + JSON.stringify(message));
     });
-    syber.config({
+    syberh.config({
       jsApiList: ['pay'],
     });
-    syber.ready(function () {
+    syberh.ready(function () {
       showTips('注册成功');
     });
     window.runApi = function (id) {
@@ -47,10 +47,10 @@
 
       switch (id) {
         case 'alert':
-          syber.modal.alert('hello');
+          syberh.modal.alert('hello');
           break;
         case 'getToken':
-          syber.auth.getToken({
+          syberh.auth.getToken({
             success: function (result) {
               showTips(JSON.stringify(result));
             },
@@ -60,7 +60,7 @@
           });
           break;
         case 'testPay':
-          syber.callApi({
+          syberh.callApi({
             name: 'testPay', // 例如 alert（仅举例）
             mudule: 'pay', // 例如 ui（仅举例）
             success: function (result) {
