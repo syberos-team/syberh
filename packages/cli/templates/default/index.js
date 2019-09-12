@@ -118,9 +118,9 @@ exports.createApp = function (creater, params, helper, cb) {
     'editorconfig',
     path.join(projectPath, '.editorconfig')
   )
-  creater.template(template, 'eslintrc', path.join(projectPath, '.eslintrc'), {
-    typescript
-  })
+  // creater.template(template, 'eslintrc', path.join(projectPath, '.eslintrc'), {
+  //   typescript
+  // })
 
   // 是否创建demo项目
   if (useDemo === true) {
@@ -234,9 +234,9 @@ exports.createApp = function (creater, params, helper, cb) {
         `创建文件: ${projectName}/package.json`
       )}`
     )
-    console.log(
-      `${chalk.green('✔ ')}${chalk.grey(`创建文件: ${projectName}/.eslintrc`)}`
-    )
+    // console.log(
+    //   `${chalk.green('✔ ')}${chalk.grey(`创建文件: ${projectName}/.eslintrc`)}`
+    // )
     console.log(
       `${chalk.green('✔ ')}${chalk.grey(
         `创建文件: ${projectName}/project.config.json`
