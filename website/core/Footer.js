@@ -26,12 +26,12 @@ class Footer extends React.Component {
             <div className="footer-link">
               <h3>社区</h3>
               <p>
-                <a target="_blank" href="https://github.com/syberos-team/syberos-hybrid/issues">
+                <a target="_blank" href="https://github.com/syberos-team/syberh/issues">
                   反馈建议
                 </a>
               </p>
               <p>
-                <a target="_blank" href="https://github.com/syberos-team/syberos-hybrid">
+                <a target="_blank" href="https://github.com/syberos-team/syberh">
                   GitHub
                 </a>
               </p>
