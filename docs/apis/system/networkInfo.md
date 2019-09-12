@@ -2,7 +2,7 @@
 title: networkInfo
 ---
 
-## syber.system.networkInfo(Object object)
+## syberh.system.networkInfo(Object object)
 
 获取网络信息。
 
@@ -47,7 +47,7 @@ title: networkInfo
 
 ### 代码示例
 ```js
-syber.networkInfo.info({
+syberh.networkInfo.info({
 	success:function(result){
         console.log('networkType: ', result.networkType);
         console.log('isNetworkAvailable: ', result.isNetworkAvailable);

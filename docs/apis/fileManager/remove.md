@@ -5,7 +5,7 @@ title: remove
 文件删除
 
 
-## syber.fileManager.remove(Object object)
+## syberh.fileManager.remove(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -25,7 +25,7 @@ title: remove
 ### 示例代码
 
 ```javascript
-syber.fileManager.remove({
+syberh.fileManager.remove({
     srcPath: '/home/user/22',
     recursive: 0,
     success: function(res) {

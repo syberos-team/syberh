@@ -9,7 +9,7 @@ SyberOS-Hybrid 的 API 是对原生功能调用的 API 的封装。
 API 调用关乎着整个体验，我们约定所有 API 统一采用如下调用方式
 
 ```js
-syber.模块名.方法({
+syberh.模块名.方法({
     参数1: "",
     参数2: "",
     success: fucntion(result) {
@@ -24,7 +24,7 @@ syber.模块名.方法({
 代码示例
 
 ```javascript
-syber.modal.alert({
+syberh.modal.alert({
     content: 'This is a alert',
     success: fucntion() {
         console.log('success');
@@ -38,7 +38,7 @@ syber.modal.alert({
 <!-- 同时，为了方便代码书写，API 进行了 `promisify` 化，你可以像使用 Promise 那样进行调用，例如
 
 ``` javascript
-  syber.modal.alert({
+  syberh.modal.alert({
     content: 'This is a alert',
   }).then(function() {
     console.log('success');

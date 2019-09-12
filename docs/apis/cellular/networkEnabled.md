@@ -2,7 +2,7 @@
 title: networkEnabled
 ---
 
-## syber.cellular.networkEnabled(Object object)
+## syberh.cellular.networkEnabled(Object object)
 
 设置数据网络状态为启用。
 
@@ -36,7 +36,7 @@ title: networkEnabled
 
 ### 代码示例
 ```js
-syber.cellular.networkEnabled({
+syberh.cellular.networkEnabled({
     flag:true,
 	success:function(result){
         console.log('isEnabled: ', result.isEnabled);

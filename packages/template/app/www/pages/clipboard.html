@@ -2,87 +2,89 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>auth</title>
-    <link rel="stylesheet" href="../common/mui/mui.css" />
-    <link rel="stylesheet" href="../common/common.css" />
-    <style type="text/css">
-        #pathDiv{  width: 100%;
-            height: auto;
-            word-wrap:break-word;
-            word-break:break-all;
-            overflow: hidden;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>auth</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style type="text/css">
+    #pathDiv {
+      width: 100%;
+      height: auto;
+      word-wrap: break-word;
+      word-break: break-all;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
-  <body>
+<body>
 
-    <div class="mui-content pt0">
-        <ul class="mui-table-view ">
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right api-class" onclick="setClipboardData()">复制</a>
-            </li>
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right api-class" onclick="getClipboardData()">粘贴</a>
-            </li>
-        </ul>
-    </div>
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="setClipboardData()">复制</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="getClipboardData()">粘贴</a>
+      </li>
+    </ul>
+  </div>
 
-    <div class="mui-card-content">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">输入剪切板内容：<input type="text" id="text"/></li>
-      </ul>
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">显示剪切板内容：<input type="text" id="text1"/></li>
-      </ul>
-    </div><br>
-    <img id="img" width="80%" height="80%">
+  <div class="mui-card-content">
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">输入剪切板内容：<input type="text" id="text" /></li>
+    </ul>
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">显示剪切板内容：<input type="text" id="text1" /></li>
+    </ul>
+  </div><br>
+  <img id="img" width="80%" height="80%">
 
-    <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../common/common.js"></script>
-    <script type="text/javascript" src="../../dist/quick.js"></script>
-    <script type="text/javascript" src="../../dist/quick.native.js"></script>
-    <script type="text/javascript" src="../../dist/quick.h5.js"></script>
-    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../../dist/quick.js"></script>
+  <script type="text/javascript" src="../../dist/quick.native.js"></script>
+  <script type="text/javascript" src="../../dist/quick.h5.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
 
-    <script>
-        quick.error(function(message) {
-            alert('错误:' + JSON.stringify(message));
-        });
-        quick.config();
-        quick.ready(function() {
-            showTips('注册成功');
-        });
+  <script>
+    quick.error(function (message) {
+      alert('错误:' + JSON.stringify(message));
+    });
+    quick.config();
+    quick.ready(function () {
+      showTips('注册成功');
+    });
 
-        function setClipboardData() {
-            var value = document.getElementById('text').value
-            syber.clipboard.setClipboardData({
-                data: value ,
-                success: function(result) {
-                    console.info(result.data)
-                },
-                error: function(error) {
-                    console.info(error)
-                }
-            })
+    function setClipboardData() {
+      var value = document.getElementById('text').value
+      syberh.clipboard.setClipboardData({
+        data: value,
+        success: function (result) {
+          console.info(result.data)
+        },
+        error: function (error) {
+          console.info(error)
         }
+      })
+    }
 
-        function getClipboardData() {
-            syber.clipboard.getClipboardData({
-                success: function(result) {
-                    document.getElementById('text1').value = result.data
-                },
-                error: function(error) {
-                    console.info(error)
-                }
-            })
+    function getClipboardData() {
+      syberh.clipboard.getClipboardData({
+        success: function (result) {
+          document.getElementById('text1').value = result.data
+        },
+        error: function (error) {
+          console.info(error)
         }
-    </script>
-  </body>
+      })
+    }
+  </script>
+</body>
+
 </html>

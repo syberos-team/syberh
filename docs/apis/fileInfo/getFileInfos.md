@@ -2,7 +2,7 @@
 title: getFileInfos
 ---
 
-### syber.fileinfos.getFileInfos(Object object)
+### syberh.fileinfos.getFileInfos(Object object)
 
 > 获取文件信息
 
@@ -28,7 +28,7 @@ size | number | 文件大小
 
 ### 示例代码
 ```javascript
-syber.fileinfos.getFileInfos({
+syberh.fileinfos.getFileInfos({
       src: 'http://*/TB1x669SXXXXXbdaFXXXXXXXXXX-520-280.jpg',
       success: function(res) {
         console.log(res);
@@ -37,7 +37,7 @@ syber.fileinfos.getFileInfos({
         console.log(res);
       }});
 	  
-syber.fileinfos.getFileInfos({
+syberh.fileinfos.getFileInfos({
       src: 'http://*/TB1x669SXXXXXbdaFXXXXXXXXXX-520-280.jpg'
 	}).then(function(res) {
 		console.log(res);

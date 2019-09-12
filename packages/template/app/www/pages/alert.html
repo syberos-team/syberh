@@ -14,31 +14,31 @@
 
 <body>
   <div class="mui-content pt0">
-      <ul class="mui-table-view ">
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="alert">alert</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="alert_no_title">alert_no_title</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="alert_small_icon">alert_small_icon</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="alert_big_icon">alert_big_icon</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="alert_color_text">alert 修改颜色和文字</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="alertOrigin()">原生alert</a>
-        </li>
-      </ul>
-    </div>
-    <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
-    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../common/common.js"></script>
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert">alert</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_no_title">alert_no_title</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_small_icon">alert_small_icon</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_big_icon">alert_big_icon</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_color_text">alert 修改颜色和文字</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="alertOrigin()">原生alert</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
 
 
   <script>
@@ -48,7 +48,7 @@
     window.runApi = function (id) {
       switch (id) {
         case 'alert':
-          syber.modal.alert({
+          syberh.modal.alert({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function () {
@@ -57,7 +57,7 @@
           })
           break;
         case 'alert_no_title':
-          syber.modal.alert({
+          syberh.modal.alert({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function () {
               console.log('弹窗标题')
@@ -65,7 +65,7 @@
           })
           break;
         case 'alert_small_icon':
-          syber.modal.alert({
+          syberh.modal.alert({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'success',
@@ -75,7 +75,7 @@
           })
           break;
         case 'alert_big_icon':
-          syber.modal.alert({
+          syberh.modal.alert({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'warning',
             success: function () {
@@ -84,7 +84,7 @@
           })
           break;
         case 'alert_color_text':
-          syber.modal.alert({
+          syberh.modal.alert({
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'warning',
@@ -100,7 +100,7 @@
       }
     }
 
- 
+
     function alertOrigin() {
       alert('我是alert')
     }

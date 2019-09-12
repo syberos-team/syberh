@@ -8,7 +8,7 @@
         <file>js/webview/webview.js</file>
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>
-        <file>js/syber.js</file>
+        <file>js/syberh.js</file>
         <file>js/root/root.js</file>
         <file>js/config.js</file>
         <file>js/modal/alert.js</file>

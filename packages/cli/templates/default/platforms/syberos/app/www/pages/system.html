@@ -168,7 +168,7 @@
 
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
-  <script type="text/javascript" src="../lib/syber.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
 
@@ -177,7 +177,7 @@
        console.log('Hello world-系统信息')
 
        function goBack() {
-         syber.webview.goBack({
+         syberh.webview.goBack({
            success: function (result) {
              console.info(result)
            },
@@ -188,7 +188,7 @@
        }
 
         function baseParam(param){
-            syber.system.aboutPhone({
+            syberh.system.aboutPhone({
               success: function (result) {
                   console.info("result-系统信息: " + result)
 

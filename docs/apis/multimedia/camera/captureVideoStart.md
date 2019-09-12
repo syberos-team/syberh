@@ -5,7 +5,7 @@ title: captureVideoStart
 
 
 
-## syber.camera.captureVideoStart（Object object）
+## syberh.camera.captureVideoStart（Object object）
 
 
 开始摄像功能
@@ -25,7 +25,7 @@ title: captureVideoStart
 ### **示例代码**
 
 ```
-syber.camera.captureVideoStart({
+syberh.camera.captureVideoStart({
 	camera: '1'
 });
 ```

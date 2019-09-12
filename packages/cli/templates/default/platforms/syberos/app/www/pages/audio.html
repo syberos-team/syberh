@@ -51,7 +51,7 @@
     <script type="text/javascript" src="../../dist/quick.native.js"></script>
     <script type="text/javascript" src="../../dist/quick.h5.js"></script>
     <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/syberh.min.js"></script>
 
     <script>
         var vConsole = new VConsole()
@@ -65,7 +65,7 @@
         });
 
         function startAudioRecorder() {
-            syber.audio.startAudioRecorder({
+            syberh.audio.startAudioRecorder({
                 success: function(result){
                     document.getElementById('text').value = result.path
                     console.log('success: ', result.path);
@@ -77,7 +77,7 @@
         }
 
         function stopAudioRecorder() {
-            syber.audio.stopAudioRecorder({
+            syberh.audio.stopAudioRecorder({
                 success: function(result){
                     console.log('success');
                 },
@@ -89,7 +89,7 @@
 
         function startAudioPlay() {
             var path = document.getElementById('text').value
-            syber.audio.startAudioPlay({
+            syberh.audio.startAudioPlay({
                 path: path,
                 success: function(result){
                     console.log('success');
@@ -102,7 +102,7 @@
 
 
         function stopAudioPlay() {
-            syber.audio.stopAudioPlay({
+            syberh.audio.stopAudioPlay({
                 success: function(result){
                     console.log('success');
                 },
