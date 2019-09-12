@@ -3,7 +3,19 @@ export default function audioMixin (hybrid) {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('audio', [{
-    namespace: 'startAudioRecorder',
+    namespace: 'listRecorder',
+    os: ['syber'],
+    defaultParams: {
+    },
+    runCode (...rest) {
+      const args = innerUtil.compatibleStringParamsToObject.call(
+        this,
+        rest,
+      );
+      hybridJs.callInner.apply(this, args);
+    },
+  }, {
+    namespace: 'startRecorder',
     os: ['syber'],
     defaultParams: {
     },
@@ -16,7 +28,7 @@ export default function audioMixin (hybrid) {
     },
   }, {
     namespace: 'audio',
-    namespace: 'stopAudioRecorder',
+    namespace: 'stopRecorder',
     os: ['syber'],
     defaultParams: {
     },
@@ -29,7 +41,7 @@ export default function audioMixin (hybrid) {
     },
   }, {
     namespace: 'audio',
-    namespace: 'startAudioPlay',
+    namespace: 'startPlay',
     os: ['syber'],
     defaultParams: {
       path: '',
@@ -44,7 +56,7 @@ export default function audioMixin (hybrid) {
     },
   }, {
     namespace: 'audio',
-    namespace: 'stopAudioPlay',
+    namespace: 'stopPlay',
     os: ['syber'],
     defaultParams: {
     },

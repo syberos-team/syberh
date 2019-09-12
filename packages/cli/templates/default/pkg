@@ -8,11 +8,11 @@
     "css": "<%= css %>"
   },
   "scripts": {
-    "build:simulator": "syberos build --type simulator",
-    "build:device": "syberos build --type device",
-    "dev:device": "syberos build --type device  --debug",
-    "dev:simulator": "syberos build --type simulator  --debug",
-    "build": "syberos build"
+    "build:simulator": "syberh build --type simulator",
+    "build:device": "syberh build --type device",
+    "dev:device": "syberh build --type device  --debug",
+    "dev:simulator": "syberh build --type simulator  --debug",
+    "build": "syberh build"
   },
   "author": "YuanXin",
   "license": "MIT",

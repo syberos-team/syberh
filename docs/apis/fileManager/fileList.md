@@ -5,7 +5,7 @@ title: fileList
 文件列表
 
 
-## syber.fileManager.fileList(Object object)
+## syberh.fileManager.fileList(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -26,7 +26,7 @@ isDir | boolean | |
 ### 示例代码
 
 ```javascript
-syber.fileManager.fileList({
+syberh.fileManager.fileList({
     srcPath: '/home/user/22',
     success: function(res) {
         for(i = 0; i < res.length; i++) {

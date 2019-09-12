@@ -1,21 +1,23 @@
 {
   "name": "@syberos/jsbridge",
-  "version": "0.0.2-alpha.0",
-  "description": "js-sdk for syberos",
-  "homepage": "https://github.com/syberos-team/syberos-hybrid",
-  "main": "dist/syber.js",
+  "version": "1.0.0",
+  "description": "js-sdk for syberh",
+  "homepage": "https://github.com/syberos-team/syberh",
+  "main": "dist/syberh.js",
   "scripts": {
     "test": "mocha",
     "dist": "webpack --watch"
   },
   "keywords": [
     "syberos",
+    "syberh",
     "jsbridge",
-    "mobile"
+    "mobile",
+    "app"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/syberos-team/syberos-hybrid"
+    "url": "git+https://github.com/syberos-team/syberh"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -51,7 +53,7 @@
     "webpack": "^4.29.0",
     "webpack-cli": "^3.3.7"
   },
-  "author": "syberos",
+  "author": "YuanXin",
   "license": "MIT",
   "gitHead": "ffc4619cd7bdd5b1693a736e18ca30a4b760a5d3"
 }

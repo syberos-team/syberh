@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "SyberOS的 快速混合开发框架，助力SyberOS 应用生态。",
+    "tagline": "Syberh是轻量级SyberOS的 Hybrid App开发框架",
     "docs": {
       "apis/about/desc": {
         "title": "API 说明"
@@ -77,17 +77,17 @@
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/camera/startAudioPlay": {
-        "title": "startAudioPlay"
+      "apis/multimedia/camera/startPlay": {
+        "title": "startPlay"
       },
-      "apis/multimedia/camera/startAudioRecorder": {
-        "title": "startAudioRecorder"
+      "apis/multimedia/camera/startRecorder": {
+        "title": "startRecorder"
       },
-      "apis/multimedia/camera/stopAudioPlay": {
-        "title": "stopAudioPlay"
+      "apis/multimedia/camera/stopPlay": {
+        "title": "stopPlay"
       },
-      "apis/multimedia/camera/stopAudioRecorder": {
-        "title": "stopAudioRecorder"
+      "apis/multimedia/camera/stopRecorder": {
+        "title": "stopRecorder"
       },
       "apis/navigator/navigator": {
         "title": "navigator"
@@ -119,9 +119,6 @@
       "apis/system/networkInfo": {
         "title": "networkInfo"
       },
-      "apis/system/networkSetCellularEnabled": {
-        "title": "networkEnabled"
-      },
       "apis/telephony/dial": {
         "title": "dial"
       },
@@ -129,31 +126,17 @@
         "title": "更新管理",
         "sidebar_label": "更新管理"
       },
+      "apis/url/url": {
+        "title": "openUrl"
+      },
       "apis/webview/webview": {
         "title": "webview"
-      },
-      "components-desc": {
-        "title": "组件库说明"
-      },
-      "components/modal/modal": {
-        "title": "components/modal/modal"
-      },
-      "components/webview/open-data": {
-        "title": "其他",
-        "sidebar_label": "其他"
-      },
-      "components/webview/web-view": {
-        "title": "WebView",
-        "sidebar_label": "WebView"
       },
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
       },
       "first-app": {
         "title": "第一个应用"
-      },
-      "functional-component": {
-        "title": "函数式组件"
       },
       "qt/about/desc": {
         "title": "C++ 说明"
@@ -201,10 +184,10 @@
         "title": "拨号"
       },
       "README": {
-        "title": "SyberOS-Hybrid 介绍"
+        "title": "Syberh 介绍"
       },
       "started-cli": {
-        "title": "安装 cli 及使用"
+        "title": "CLI安装及使用"
       },
       "started-syberos": {
         "title": "安装 SyberOS SDK & PKD"
@@ -216,7 +199,7 @@
       "GitHub": "GitHub"
     },
     "categories": {
-      "关于SYBEROS": "关于SYBEROS",
+      "关于Syberh": "关于Syberh",
       "快速开始": "快速开始",
       "关于API": "关于API",
       "模态弹窗": "模态弹窗",
@@ -230,7 +213,8 @@
       "下载": "下载",
       "webview": "webview",
       "文件选择": "文件选择",
-      "文件管理": "文件管理"
+      "文件管理": "文件管理",
+      "url": "url"
     }
   },
   "pages-strings": {

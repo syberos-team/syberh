@@ -2,7 +2,7 @@
 title: battery
 ---
 
-## syber.system.battery(Object object)
+## syberh.system.battery(Object object)
 
 获取当前设备的电量信息。
 
@@ -35,7 +35,7 @@ title: battery
 
 ### 代码示例
 ```js
-syber.battery.getStatus({
+syberh.battery.getStatus({
 	success:function(result){
         console.log('isCharging: ', result.isCharging);
         console.log('level: ', result.level);

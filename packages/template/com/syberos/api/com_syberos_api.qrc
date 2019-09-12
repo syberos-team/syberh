@@ -8,7 +8,6 @@
         <file>js/webview/webview.js</file>
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>
-        <file>js/syber.js</file>
         <file>js/root/root.js</file>
         <file>js/config.js</file>
         <file>js/modal/alert.js</file>
@@ -106,5 +105,6 @@
         <file>qml/CMenu/pics/menuBg.png</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/BSelectTool.qml</file>
+        <file>js/syber.js</file>
     </qresource>
 </RCC>

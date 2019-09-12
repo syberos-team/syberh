@@ -2,7 +2,7 @@
 title: launchApp
 ---
 
-## syber.runtime.launchApp(Object object)
+## syberh.runtime.launchApp(Object object)
 
 一个应用希望启动另一个应用时调用，支持Promise调用
 
@@ -40,7 +40,7 @@ title: launchApp
 
 ```
 //示例1
-syber.runtime.launchApp({
+syberh.runtime.launchApp({
 	url:"handle:action?param1=1&param2=2",
 	success: function(result){
 		console.log('code: ', result.code);
@@ -52,7 +52,7 @@ syber.runtime.launchApp({
 	}
 });
 
-syber.runtime.launchApp({
+syberh.runtime.launchApp({
 	url:"handle:action?param1=1&param2=2",
 }).then(function(result) {
     console.log('code: ', result.code);
@@ -67,7 +67,7 @@ var params = [];
 params.push("param1=1");
 params.push("param2=2");
 
-syber.runtime.launchApp({
+syberh.runtime.launchApp({
 	appid:"4567890",
 	params:params,
 	success: function(result){
@@ -80,7 +80,7 @@ syber.runtime.launchApp({
 	}
 });
 
-syber.runtime.launchApp({
+syberh.runtime.launchApp({
 	appid:"4567890",
 	params:params
 }).then(function(result) {

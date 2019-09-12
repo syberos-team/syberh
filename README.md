@@ -1,5 +1,5 @@
 
-# syberh
+# Syberh
 
 [![](https://img.shields.io/node/v/@syberos/cli.svg?style=flat-square)](https://www.npmjs.com/package/@syberos/cli)
 [![](https://img.shields.io/npm/v/@syberos/cli.svg?style=flat-square)](https://www.npmjs.com/package/@syberos/cli)
@@ -8,14 +8,12 @@
 
 ## 简介
 
-syberh 框架是对 SyberOS 中支持 Hybrid 开发解决方案，基于 WebView UI 的方案进行实现。syberh 框架主要包括 CLI(开发工具)、JS SDK 和Native SDK 模块。
+Syberh 框架是对 SyberOS(元心操作系统) 中支持 Hybrid 开发解决方案，基于 WebView UI 的方案进行实现。
+Syberh 框架主要包括 CLI(开发工具)、JS SDK 和Native SDK 模块。
 
 ## 实现原理
 
 Hybrid App 的本质，其实是在原生的 App 中，使用 WebView 作为容器直接承载 Web 页面。因此，最核心的点就是 Native 端 与 H5 端 之间的双向通讯层，其实这里也可以理解为我们需要一套跨语言通讯方案，来完成 Native(Qt/Java/xxx) 与 JavaScript 的通讯。这个方案就是我们所说的 JSBridge，而实现的关键便是作为容器的 WebView，一切的原理都是基于 WebView 的机制。
-
-![原理](/img/introduction/1.png)
-
 
 ## 开发工具 CLI
 
@@ -24,18 +22,17 @@ App 快速开发的脚手架,提供简洁的的命令,即可从 APP 的创建到
 创建模板项目
 
 ```bash
-$ syberos init myapp
+$ syberh init myapp
 ```
-
 打包项目
 ```bash
-$ syberos build --type device
+$ syberh build --type device
 ```
 
 快速检查用户本地开发环境
 
 ```bash
-$ syberos doctor
+$ syberh doctor
 ```
 
 ## JS SDK
@@ -45,7 +42,7 @@ $ syberos doctor
 
 ## Native-SDK
 
-原生功能实现,提供标准、可拓展的方式提供给JS端进行调用。
+原生功能实现,提供标准、可拓展的API提供给JS端进行调用。
 > 由于各种各样的原因，Native 容器确保核心交互以及部分重要 API 实现，关于底层容器优化等机制会一直持续完善。
 
 主要实现了以下功能
@@ -68,16 +65,10 @@ $ syberos doctor
 感谢以下所有给 syberh 贡献过代码的开发者：
 
 - 感谢 quickhybrid 作者提供了 jsbridge 的实现逻辑和相关代码
-- 参与者 <a href="https://github.com/syberos-team/syberos-hybrid/graphs/contributors">更多</a>
+- 参与者 <a href="https://github.com/syberos-team/syberh/graphs/contributors">更多</a>
 
-## 开发计划
 
-[开发计划]()
 
 ## 更新日志
 
 本项目遵从 [Angular Style Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)，更新日志由 `conventional-changelog` 自动生成。完整日志请点击 [CHANGELOG.md](./CHANGELOG.md)。
-
-## 开发交流
-
-[官方交流微信群]()

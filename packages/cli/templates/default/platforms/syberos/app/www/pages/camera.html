@@ -45,7 +45,7 @@
     <script type="text/javascript" src="../../dist/quick.native.js"></script>
     <script type="text/javascript" src="../../dist/quick.h5.js"></script>
     <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../lib/syber.min.js"></script>
+    <script type="text/javascript" src="../lib/syberh.min.js"></script>
 
     <script>
         quick.error(function(message) {
@@ -57,7 +57,7 @@
         });
 
         function capturePhoto() {
-            syber.camera.takePictureImmediately({
+            syberh.camera.takePictureImmediately({
                 success: function(result){
                     document.getElementById('pathDiv').innerText = result.path
                     document.getElementById('img').src = result.path
@@ -70,7 +70,7 @@
         }
 
         function shearPhoto() {        
-            syber.camera.takePictureImmediately({
+            syberh.camera.takePictureImmediately({
                 enableCut:true,
                 success: function(result){
                     document.getElementById('pathDiv').innerText = result.path

@@ -14,7 +14,7 @@ res.path = $$INSTALL_DIR/
 meta.files = META-INF
 meta.path = $$INSTALL_DIR/
 
-syber.files = sopconfig.xml
-syber.path = $$INSTALL_DIR/
+syberh.files = sopconfig.xml
+syberh.path = $$INSTALL_DIR/
 
 INSTALLS += res meta syber

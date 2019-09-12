@@ -49,7 +49,7 @@ void Url::submit(QString typeID, QString callBackID, QString actionName, QVarian
 void Url::openUrl(long callBackID, QString scheme, QString path, QVariantMap params){
     using namespace SYBEROS;
 
-    if(scheme == ""){
+    if(scheme.isEmpty()){
         emit failed(callBackID, 500, "Illegal parameters");
         return;
     }
@@ -152,6 +152,9 @@ void Url::openByUrl(QString url){
     qDebug() << "openByUrl query: " << query << endl;
 
     QVariantMap params;
+    if(path.isEmpty()){
+        path = "index.html";
+    }
     params.insert("path", path);
     params.insert("params", query);
 

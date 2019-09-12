@@ -1,15 +1,17 @@
 ---
-title: stopAudioPlay
+title: startPlay
 ---
 
 
-结束播放录音：对录音记录进行停止播放功能。
+播放录音：可以对录音记录进行播放。
 
 
-## syber.audio.stopAudioPlay()
+## syberh.audio.startPlay(Object object)
 ### **参数**
+#### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| path | string |        | 是       | 录音路径                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -24,9 +26,10 @@ title: stopAudioPlay
 
 ### **代码示例**
 ``` javascript
-syber.audio.stopAudioPlay({
+syberh.audio.startPlay({
+  path: "/home/user/audio/20190905_1567662466.aac",
 	success: function(result){
-		console.log('success');
+    console.log('success');    
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);

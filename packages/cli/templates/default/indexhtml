@@ -8,17 +8,17 @@
   <meta name="format-detection" content="telephone=no,address=no">
   <meta name="apple-mobile-web-app-status-bar-style" content="white">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
-  <title>Hello </title>
+  <title>Hello SyberH </title>
   
-  <script type="text/javascript" src="lib/syber.min.js" ></script>
+  <script type="text/javascript" src="lib/syberh.min.js" ></script>
 </head>
 <body>
   <div id="root">
-      <h1>Hello,SyberOS</h1>
-      <p id="os"></p>
+      <h3>Hello,SyberOS</h3>
+      <p id="text"></p>
   </div>
 </body>
 <script>
-    document.getElementById("os").innerHTML= "当前环境:"+JSON.stringify(syber.os)
+    document.getElementById("text").innerHTML= "当前环境:"+JSON.stringify(syberh.os)
 </script>
 </html>

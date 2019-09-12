@@ -6,7 +6,7 @@ title: setItem
 
 <!-- 支持`Promise` 使用。 -->
 
-## syber.storage.setItem(Object object)
+## syberh.storage.setItem(Object object)
 
 ### 参数
 
@@ -39,7 +39,7 @@ title: setItem
 ### 代码示例
 
 ```javascript
-syber.storage.setItem({
+syberh.storage.setItem({
   key: 'name',
   value: 'syber',
   success: function(result) {
@@ -53,7 +53,7 @@ syber.storage.setItem({
 
 <!-- #### Promise
 ``` javascript
-syber.storage.setItem({
+syberh.storage.setItem({
     key: 'name'
 }).then(function(result) {
 console.log('success',result);

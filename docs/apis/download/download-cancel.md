@@ -8,7 +8,7 @@ title: cancel
 设置文件下载id，根据文件下载id可以取消文件下载。
 
 
-## syber.download.cancel(Object object)
+## syberh.download.cancel(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -34,7 +34,7 @@ title: cancel
 
 ### 示例代码
 ```javascript
-syber.download.cancel({
+syberh.download.cancel({
     'downloadID': downloadID,
     success: function (result) {
         console.log('success',result.path);   
