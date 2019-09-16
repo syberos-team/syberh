@@ -91,14 +91,14 @@ exports.createApp = function (creater, params, helper, cb) {
     css,
     sopid,
     example,
-    target
+    targetName
   } = params
 
   // APP 模板目录
   const syberosDir = 'syberos'
 
-  // 默认模拟器target
-  const targetSimulator = target
+  const target = 'target-armv7tnhl-' + targetName
+  const targetSimulator = 'target-i686-' + targetName
 
   const libDir = 'lib'
   const projectPath = path.join(projectDir, projectName)

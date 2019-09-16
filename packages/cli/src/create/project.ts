@@ -22,7 +22,7 @@ interface IProjectConf {
   src?: string
   // 是否创建demo项目
   example?: boolean
-  target: string
+  targetName: string
 }
 
 export default class Project extends Creator {
@@ -46,7 +46,7 @@ export default class Project extends Creator {
         sopid: '',
         appName: '',
         example: false,
-        target: ''
+        targetName: ''
       },
       options
     )
@@ -82,7 +82,19 @@ export default class Project extends Creator {
     const prompts: object[] = []
     const conf = this.conf
 
-    const targetNames = await qtversions.getTargetNames()
+    const targetFullNames = await qtversions.getTargetNames()
+    if (!targetFullNames || targetFullNames.length === 0) {
+      console.log(chalk.red('未安装target，请先安装target'))
+      process.exit(1)
+    }
+    const targetNames: string[] = []
+    for (const targetName of targetFullNames) {
+      const name = targetName.split('-')[2]
+      if (!targetNames.includes(name)) {
+        targetNames.push(name)
+      }
+    }
+
     log.verbose('targetNames: %j', targetNames)
 
     if (conf.example) {
@@ -159,12 +171,12 @@ export default class Project extends Creator {
         }
       })
     }
-    if (!conf.target) {
+    if (!conf.targetName) {
       prompts.push({
         type: 'list',
-        name: 'target',
+        name: 'targetName',
         message: '请选择target：',
-        default: 'target-armv7tnhl-xuanwu',
+        default: 'xuanwu',
         choices: targetNames
       })
     }
