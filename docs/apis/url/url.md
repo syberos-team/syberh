@@ -62,7 +62,7 @@ syberh.url.openUrl({
 
 | 属性    | 类型   | 描述     |
 | ------- | ------ | -------- |
-| openUrl | String | 固定值   |
+| onShow | String | 固定值   |
 | result  | Object | 回调结果 |
 
 #### result 回调函数参数
@@ -75,7 +75,7 @@ syberh.url.openUrl({
 | param | Object | 传递的参数，{key1=value1, key2=value2}格式         |
 
 ```
-syberh.subscribe('openPage', function(result) {
+syberh.subscribe('onShow', function(result) {
 	console.log("path: "+ result.path);
 	console.log("params: "+ JSON.stringify(result.params));
 });
