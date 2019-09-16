@@ -61,7 +61,9 @@ private :
     QMediaPlayer *player;
     QAudioRecorder *recoder;
     QMediaPlaylist *playlist;
-    QMediaContent *mediaContent;
+    QMediaContent mediaContent;
+    QMediaResource mediaResource;
+    QMediaResourceList resourceList;
 
     static int typeId;
 };
