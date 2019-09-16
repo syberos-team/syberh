@@ -1,5 +1,7 @@
 ---
 title: 第一个应用
+id: version-1.1.0-first-app
+original_id: first-app
 ---
 
 ## 创建一个应用
@@ -70,4 +72,5 @@ $ yarn run  build
 应用的图标位于 `platforms/syberos/app/res/app.png` 
 
 通过替换该图片完成应用图标的修改
+
 
