@@ -19,7 +19,7 @@ class Footer extends React.Component {
               <h3>相关资源</h3>
               <p>
                 <a className="link" href="/docs/README.html">
-                  SyberOS-开发文档
+                  Syberh-开发文档
                 </a>
               </p>
             </div>

@@ -26,12 +26,15 @@
 .col {
   flex: 1;
 }
+.fixedHeaderContainer {
+  background: #222222;
+}
 .fixedHeaderContainer header .logo {
   width: 30px;
   height: auto;
 }
 .home_container {
-  background: rgb(40, 43, 46);
+  background: rgb(68,125,241);
 }
 .projectTitle {
   color: #fff;
@@ -48,7 +51,7 @@
 }
 
 .home_container .button:hover {
-  background: rgb(40, 43, 46);
+  background: rgb(68,125,241);
 }
 
 .home_container .buttonWrapper:last-child .button {
@@ -120,4 +123,19 @@ p {
 
 .navItem {
   white-space: nowrap;
+}
+
+@media only screen and (min-width: 1024px) {
+  .navigationSlider {
+    height: 34px;
+    margin-left: 155px;
+    position: relative;
+  }
+}
+
+.fixedHeaderContainer header h3 {
+  color: #fff;
+  font-size: 16px;
+  margin: 20px 0 0 10px;
+  text-decoration: underline;
 }
