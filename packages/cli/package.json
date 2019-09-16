@@ -1,7 +1,7 @@
 {
   "name": "@syberos/cli",
-  "version": "1.1.0",
-  "description": "CLI tool for syberos hybrid",
+  "version": "1.1.0-alpha",
+  "description": "cli tool for syberos hybrid",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -18,11 +18,13 @@
     "url": "git+https://github.com/syberos-team/syberh.git"
   },
   "bin": {
-    "syberos": "bin/syberos"
+    "syberh": "bin/syberh"
   },
   "keywords": [
+    "syberh",
     "syberos",
-    "weapp"
+    "hybrid",
+    "app"
   ],
   "engines": {
     "node": ">=8"

@@ -21,7 +21,7 @@ $ cnpm install -g @syberos/cli
 
 ### 回到某个版本
 需要安装某个固定版本，或者回到某个版本，例如我们要安装 1.1.0 ， 则如下：
-```
+```bash
 # 使用 npm 安装 CLI
 $ npm install -g @syberos/cli@1.1.0
 # OR 使用 yarn 安装 CLI
@@ -44,7 +44,7 @@ $ npm install -g mirror-config-china
 使用命令创建模板项目
 
 ```bash
-$ syberh  init myApp
+$ syberh init myApp
 ```
 
 ![syberos init myApp command screenshot](/img/init_myapp.png)
@@ -66,15 +66,15 @@ $ yarn
 开发过程中可以使用真机或者模拟器运行应用
 
 ```bash
-cd 项目目录
+$ cd 项目目录
 # 调试模式运行于真机
-yarn  run dev:device
+$ yarn run dev:device
 # 调试模式运行于真机
-yarn  run dev:simulator
+$ yarn run dev:simulator
 # 运行于真机
-yarn run  build:device
+$ yarn run build:device
 # 运行于模拟器
-$ yarn run  build:simulator
+$ yarn run build:simulator
 # 只打包不运行
 $ yarn run  build
 ```
@@ -86,17 +86,17 @@ Syberh 提供了更新命令来更新 CLI 工具自身和项目中 Syberh 相关
 更新 Syberh CLI 工具
 ```bash
 #syberh
-syberh update self
+$ syberh update self
 # npm
-npm i -g @syberos/cli@latest
+$ npm i -g @syberos/cli@latest
 # yarn
-yarn global add @syberos/cli@latest
+$ yarn global add @syberos/cli@latest
 ```
 
 更新项目中 Syberh 相关的依赖
 
 ```bash
- syberh update project
+$ syberh update project
 ```
 
 
