@@ -113,6 +113,11 @@
       ],
       "url": [
         "version-1.1.0-apis/url/url"
+      ],
+      "path": [
+        "version-1.1.0-apis/path/extern",
+        "version-1.1.0-apis/path/inner",
+        "version-1.1.0-apis/path/dataRoot"
       ]
     }
   }
