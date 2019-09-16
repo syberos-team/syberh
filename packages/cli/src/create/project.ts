@@ -8,6 +8,7 @@ import Creator from './creator'
 import { shouldUseYarn, shouldUseCnpm, getPkgVersion } from '../util'
 import CONFIG from '../config'
 import log from '../util/log'
+import { qtversions } from '../syberos/configfile'
 
 interface IProjectConf {
   projectName: string
@@ -21,6 +22,7 @@ interface IProjectConf {
   src?: string
   // 是否创建demo项目
   example?: boolean
+  target: string
 }
 
 export default class Project extends Creator {
@@ -43,7 +45,8 @@ export default class Project extends Creator {
         template: 'default',
         sopid: '',
         appName: '',
-        example: false
+        example: false,
+        target: ''
       },
       options
     )
@@ -75,9 +78,12 @@ export default class Project extends Creator {
     })
   }
 
-  ask() {
+  async ask() {
     const prompts: object[] = []
     const conf = this.conf
+
+    const targetNames = await qtversions.getTargetNames()
+    log.verbose('targetNames: %j', targetNames)
 
     if (conf.example) {
       console.log(chalk.green(`正在创建示例项目!`))
@@ -151,6 +157,15 @@ export default class Project extends Creator {
 
           return true
         }
+      })
+    }
+    if (!conf.target) {
+      prompts.push({
+        type: 'list',
+        name: 'target',
+        message: '请选择target：',
+        default: 'target-armv7tnhl-xuanwu',
+        choices: targetNames
       })
     }
     return inquirer.prompt(prompts)

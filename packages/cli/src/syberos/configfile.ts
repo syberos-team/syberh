@@ -7,18 +7,23 @@ import { log } from '../util/log'
 
 const homedir = os.homedir()
 
+type TargetPath = {
+  name: string
+  path: string
+}
 
 interface QtversionsInterface {
   sdkInstallPath(installPath: string): void
   targetInstallPath(targetName: string, installPath: string): void
   getSdkInstallPath(): Promise<string>
   getTargetInstallPath(targetName: string): Promise<string>
-  getTargetInstallPaths(): Promise<string[]>
+  getTargetInstallPaths(): Promise<TargetPath[]>
+  getTargetNames(): Promise<string[]>
 }
 
 
 class Qtversions implements QtversionsInterface {
-
+  private sdkKeyword: string = 'sdk-install-path='
   private path: string
 
   constructor() {
@@ -108,7 +113,7 @@ class Qtversions implements QtversionsInterface {
 
 
   public sdkInstallPath(installPath: string) {
-    const key = 'sdk-install-path='
+    const key = this.sdkKeyword
     this.readReplace(key, installPath).then(lines => {
       this.flush(lines)
     })
@@ -140,19 +145,34 @@ class Qtversions implements QtversionsInterface {
     return ''
   }
 
-  public async getTargetInstallPaths(): Promise<string[]> {
+  public async getTargetInstallPaths(): Promise<TargetPath[]> {
     const lines = await this.readLines()
-    const newLines: string[] = []
+    const targetPaths: TargetPath[] = []
     for (const line of lines) {
       if (!line) {
         continue
       }
-      const idx = line.indexOf('=')
-      if (idx > 0) {
-        newLines.push(line.substring(idx, line.length))
+      if (line.startsWith(this.sdkKeyword)) {
+        continue
+      }
+      const lineArray = line.split('=')
+      if (lineArray && lineArray.length >= 2) {
+        targetPaths.push({
+          name: lineArray[0],
+          path: lineArray[1]
+        })
       }
     }
-    return newLines
+    return targetPaths
+  }
+
+  public async getTargetNames(): Promise<string[]> {
+    const targetPaths = await this.getTargetInstallPaths()
+    const targetNames: string[] = []
+    for (const targetPath of targetPaths) {
+      targetNames.push(targetPath.name)
+    }
+    return targetNames
   }
 
 }
