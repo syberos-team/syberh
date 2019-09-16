@@ -294,6 +294,15 @@
       "version-1.1.0/apis/navigator/version-1.1.0-navigator": {
         "title": "navigator"
       },
+      "version-1.1.0/apis/path/version-1.1.0-dataRoot": {
+        "title": "dataRoot"
+      },
+      "version-1.1.0/apis/path/version-1.1.0-extern": {
+        "title": "extern"
+      },
+      "version-1.1.0/apis/path/version-1.1.0-inner": {
+        "title": "inner"
+      },
       "version-1.1.0/apis/request/version-1.1.0-request": {
         "title": "request"
       },
