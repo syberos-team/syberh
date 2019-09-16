@@ -71,6 +71,5 @@ $ yarn run  build
 
 应用的图标位于 `platforms/syberos/app/res/app.png` 
 
-通过替换该图片完成应用图标的修改
-
+通过替换该图片完成应用图标的修改，[具体配置](/docs/app-config.html)
 
