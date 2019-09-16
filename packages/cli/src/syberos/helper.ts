@@ -4,6 +4,7 @@ import { PROJECT_CONFIG, DEVICES_TYPES } from '../util/constants'
 import { getRootPath } from '../util/index'
 import * as shelljs from 'shelljs'
 import chalk from 'chalk'
+import { qtversions } from './configfile'
 
 /**
  *  读取project.config.json配置文件
@@ -84,8 +85,8 @@ export const homeSubPath = (...subDirs: string[]): string => {
 /**
  * 查找pdk根目录路径
  */
-export const locatePdk = (): string => {
-  return homeSubPath('Syberos-Pdk')
+export const locatePdk = (): Promise<string> => {
+  return qtversions.getSdkInstallPath()
 }
 
 export const locateSdk = (): string => {

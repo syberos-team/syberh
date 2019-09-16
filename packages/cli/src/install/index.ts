@@ -5,7 +5,7 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import chalk from 'chalk'
 import { Install, InstallOption } from './install'
-import { qtversions } from './configfile'
+import { qtversions } from '../syberos/configfile'
 
 
 function sdkAsk(): object[] {
