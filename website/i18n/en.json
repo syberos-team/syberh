@@ -92,6 +92,15 @@
       "apis/navigator/navigator": {
         "title": "navigator"
       },
+      "apis/path/dataRoot": {
+        "title": "dataRoot"
+      },
+      "apis/path/extern": {
+        "title": "extern"
+      },
+      "apis/path/inner": {
+        "title": "inner"
+      },
       "apis/request/request": {
         "title": "request"
       },
@@ -408,7 +417,8 @@
       "webview": "webview",
       "文件选择": "文件选择",
       "文件管理": "文件管理",
-      "url": "url"
+      "url": "url",
+      "path": "path"
     }
   },
   "pages-strings": {

@@ -113,6 +113,11 @@
     ],
     "url": [
       "apis/url/url"
+    ],
+    "path": [
+      "apis/path/extern",
+      "apis/path/inner",
+      "apis/path/dataRoot"
     ]
   }
 }

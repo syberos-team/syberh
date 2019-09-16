@@ -29,7 +29,8 @@ HEADERS += \
     $$PWD/src/url.h \
     $$PWD/src/cellular.h \
     $$PWD/src/framework/nativesdkfactory.h \
-    $$PWD/src/filemanager.h
+    $$PWD/src/filemanager.h \
+    $$PWD/src/path.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -59,5 +60,6 @@ SOURCES += \
     $$PWD/src/util/fileutil.cpp \
     $$PWD/src/url.cpp \
     $$PWD/src/cellular.cpp \
-    $$PWD/src/filemanager.cpp
+    $$PWD/src/filemanager.cpp \
+    $$PWD/src/path.cpp
 
