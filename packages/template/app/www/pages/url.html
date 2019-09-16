@@ -58,7 +58,7 @@
     /**
      * 注册接收原生的错误信息
      */
-    JSBridge.registerHandler('onShow', function (result) {
+    syberh.subscribe('onShow', function (result) {
       console.log("onShow callback path: " + result.path);
       console.log("onShow callback params: " + JSON.stringify(result.params));
     });
