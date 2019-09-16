@@ -11,4 +11,5 @@ program
   .command('update', '更新Sbyerh')
   .command('doctor', 'Diagnose syberh project')
   .command('simulator', 'Start the simulator')
+  .command('install', 'Install sdk and target')
   .parse(process.argv)
