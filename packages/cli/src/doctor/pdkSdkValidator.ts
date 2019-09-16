@@ -3,15 +3,15 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import { IErrorLine } from './interface'
 
-async function buildReport (errors: IErrorLine[]) {
+async function buildReport(errors: IErrorLine[]) {
   return {
     desc: '检查系统编译环境',
     lines: errors
   }
 }
 
-function checkSyberosPdk (): IErrorLine[] {
-  const pdkPath = helper.locatePdk()
+async function checkSyberosPdk(): Promise<IErrorLine[]> {
+  const pdkPath = await helper.locatePdk()
   const errorLines: IErrorLine[] = []
 
   if (!fs.pathExistsSync(pdkPath)) {
@@ -32,8 +32,8 @@ function checkSyberosPdk (): IErrorLine[] {
   return errorLines
 }
 
-function checkTarget (): IErrorLine[] {
-  const pdkPath = helper.locatePdk()
+async function checkTarget(): Promise<IErrorLine[]> {
+  const pdkPath = await helper.locatePdk()
   const errorLines: IErrorLine[] = []
 
   const targetPath = path.join(pdkPath, 'targets')
@@ -57,8 +57,8 @@ function checkTarget (): IErrorLine[] {
   return errorLines
 }
 
-function checkSyberOSSDK (): IErrorLine[] {
-  const sdkPath = helper.locateSdk()
+async function checkSyberOSSDK(): Promise<IErrorLine[]> {
+  const sdkPath = await helper.locateSdk()
   const errorLines: IErrorLine[] = []
   if (!fs.pathExistsSync(sdkPath)) {
     errorLines.push({
@@ -78,9 +78,9 @@ function checkSyberOSSDK (): IErrorLine[] {
   return errorLines
 }
 
-export default function () {
-  const errorLines = checkSyberosPdk()
-  errorLines.push(...checkTarget())
-  errorLines.push(...checkSyberOSSDK())
+export default async function () {
+  const errorLines = await checkSyberosPdk()
+  errorLines.push(...await checkTarget())
+  errorLines.push(...await checkSyberOSSDK())
   return buildReport(errorLines)
 }

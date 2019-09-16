@@ -76,7 +76,7 @@ $ yarn run build:device
 # 运行于模拟器
 $ yarn run build:simulator
 # 只打包不运行
-$ yarn run  build
+$ yarn run build
 ```
 
 ## 更新
@@ -97,7 +97,6 @@ $ yarn global add @syberos/cli@latest
 
 ```bash
 $ syberh update project
-
 ```
 
 
