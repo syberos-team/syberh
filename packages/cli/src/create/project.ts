@@ -4,11 +4,10 @@ import chalk from 'chalk'
 import * as _ from 'lodash'
 import * as inquirer from 'inquirer'
 import * as semver from 'semver'
-
 import Creator from './creator'
-
 import { shouldUseYarn, shouldUseCnpm, getPkgVersion } from '../util'
 import CONFIG from '../config'
+import log from '../util/log'
 
 interface IProjectConf {
   projectName: string
@@ -21,7 +20,7 @@ interface IProjectConf {
   date?: string
   src?: string
   // 是否创建demo项目
-  useDemo?: boolean
+  example?: boolean
 }
 
 export default class Project extends Creator {
@@ -44,14 +43,16 @@ export default class Project extends Creator {
         template: 'default',
         sopid: '',
         appName: '',
-        useDemo: ''
+        example: false
       },
       options
     )
+
+    log.verbose('Project constructor() conf:', this.conf)
   }
 
   init() {
-    console.log(chalk.green(`SYBEROS-CLI 即将创建一个新项目!`))
+    console.log(chalk.green(`CLI 即将创建一个新项目!`))
     console.log(
       'Need help? Go and open issue: https://github.com/syberos-team/syberh'
     )
@@ -78,11 +79,16 @@ export default class Project extends Creator {
     const prompts: object[] = []
     const conf = this.conf
 
-    if (conf.useDemo === true) {
+    if (conf.example) {
       console.log(chalk.green(`正在创建示例项目!`))
-      console.log()
+      this.conf = Object.assign(this.conf, {
+        projectName: 'example',
+        appName: 'example',
+        sopid: 'cosm.sybero.example'
+      })
     }
 
+    // tslint:disable-next-line: strict-type-predicates
     if (typeof conf.projectName !== 'string') {
       prompts.push({
         type: 'input',

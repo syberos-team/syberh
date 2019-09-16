@@ -14,25 +14,25 @@
 
 <body>
   <div class="mui-content pt0">
-      <ul class="mui-table-view ">
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="prompt">prompt</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="prompt_no_title">prompt_no_title</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="prompt_change_text">prompt 修改按钮文字</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="promptOrigin()">原生prompt</a>
-        </li>
-      </ul>
-    </div>
-    <script type="text/javascript" src="../common/mui/mui.js"></script>
-    <script type="text/javascript" src="../lib/syberh.min.js"></script>
-    <script type="text/javascript" src="../lib/vconsole.min.js"></script>
-    <script type="text/javascript" src="../common/common.js"></script>
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="prompt">prompt</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="prompt_no_title">prompt_no_title</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="prompt_change_text">prompt 修改按钮文字</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="promptOrigin()">原生prompt</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
 
 
   <script>
@@ -48,7 +48,7 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.prompt fail')
             }
           })
@@ -60,7 +60,7 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.prompt fail')
             }
           })
@@ -75,7 +75,7 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function() {
+            fail: function () {
               console.log('modal.prompt fail')
             }
           })
@@ -84,7 +84,7 @@
           console.error('错误！没有相应API');
       }
     }
-    
+
     function promptOrigin() {
       var res = prompt('请填写用户名', 'nickname')
       if (res !== '') {

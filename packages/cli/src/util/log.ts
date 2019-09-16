@@ -29,7 +29,8 @@ class Logger {
    * @param logLevel 日志级别字符串，可为空，为空时使用info级别
    */
   constructor(logLevel: string | LogLevelName = 'info') {
-    this.level = this.logLevelName(logLevel)
+
+    this.level = this.logLevelName(logLevel ? logLevel.toLowerCase() : 'info')
     this.printFunction = this.defaultPrintFunction
     this.dateFormatFunction = this.defaultDateFormatFunction
   }
@@ -205,3 +206,4 @@ class Logger {
 }
 
 export const log = new Logger(process.env.DEV_LOG || '');
+export default log;
