@@ -1,6 +1,6 @@
 <!--
 请务必阅读贡献者指南:
-https://github.com/syberos-team/syberh/blob/master/CONTRIBUTING.md
+https://github.com/syberos-team/syberh/blob/master/docs/CONTRIBUTING.md
 -->
 
 <!-- PULL REQUEST TEMPLATE -->
@@ -28,10 +28,10 @@ https://github.com/syberos-team/syberh/blob/master/CONTRIBUTING.md
 
 **这个 PR 涉及以下模块:**
 
-- [ ] syberos-cli
-- [ ] syberos-bridge
-- [ ] syberos-template
-- [ ] syberos-dev-server
-- [ ] syberos-docs
+- [ ] cli
+- [ ] bridge
+- [ ] template
+- [ ] dev-server
+- [ ] docs
 
 **其它需要 Reviewer 或社区知晓的内容：**
