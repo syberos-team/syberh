@@ -1,5 +1,7 @@
 ---
 title: CLI安装及使用
+id: version-1.1.0-started-cli
+original_id: started-cli
 ---
 
 ## 安装
