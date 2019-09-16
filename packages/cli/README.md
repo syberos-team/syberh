@@ -30,10 +30,10 @@ $ npm install -g mirror-config-china
 使用命令创建模板项目
 
 ```bash
-$ syberos init myApp
+$ syberh init myApp
 ```
 
-![syberos init myApp command screenshot](/img/init_myapp.png)
+![syberh init myApp command screenshot](/img/init_myapp.png)
 
 在创建完项目之后，会默认开始安装项目所需要的依赖，安装使用的工具按照 yarn>cnpm>npm 顺序进行检测，一般来说，依赖安装会比较顺利，但某些情况下可能会安装失败，这时候你可以在项目目录下自己使用安装命令进行安装
 
@@ -59,7 +59,7 @@ $ npm install -g mirror-config-china
 ### 检查环境
 
 ```bash
-$ syberos doctor
+$ syberh doctor
 ```
 
 ### 编译打包
@@ -68,18 +68,18 @@ $ syberos doctor
 
 ```bash
 # debug 运行于模拟器
-$ syberos build --type simulator --debug
+$ syberh build --type simulator --debug
 
 # debug运行于手机
-$ syberos build --type device --debug
+$ syberh build --type device --debug
 
 # 只打包不运行
-$ syberos build
+$ syberh build
 ```
 
 ## 更新
 
-更新 Syberos CLI 工具
+更新 syberh CLI 工具
 
 ```bash
 # npm

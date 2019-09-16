@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+const path = require('path')
+const fs = require('fs-extra')
+const program = require('commander')
+const chalk = require('chalk')
+const build = require('../dist/build').default
+const { targetReset } = require('../dist/build/target')
+const { PROJECT_CONFIG } = require('../dist/util/constants')
+const appPath = process.cwd()
+const projectConfPath = path.join(appPath, PROJECT_CONFIG)
+
+program
+  .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
+  .option('--debug', 'debug模式运行,支持热更新')
+  .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
+  .option('--env [env]', 'Env type')
+  .option('--port [port]', 'Specified port')
+  .parse(process.argv)
+
+const { type, debug, port } = program
+let { env } = program
+
+env = process.env.NODE_ENV || env
+
+if (!fs.existsSync(projectConfPath)) {
+  console.log(
+    chalk.red(
+      `找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是SyberOS-Hybrid项目根目录!`
+    )
+  )
+  process.exit(1)
+}
+
+// 检查是否需要重置target
+targetReset(appPath, program)
+
+if (env) {
+  process.env.NODE_ENV = env
+} else {
+  if (debug) {
+    process.env.NODE_ENV = 'development'
+  } else {
+    process.env.NODE_ENV = 'production'
+  }
+}
+
+process.env.SYBEROS_ENV = type
+
+const projectConf = require(projectConfPath)
+
+console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
+
+build(appPath, {
+  type,
+  debug,
+  port: typeof port === 'string' ? port : undefined
+})
