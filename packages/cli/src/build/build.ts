@@ -42,7 +42,6 @@ export default class Build {
       log.verbose('Build constructor(%s, %j)', appPath, config)
       log.verbose('配置参数:%j', this.conf)
     }
-    this.pdkRootPath = helper.locatePdk()
     this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
   }
 
@@ -51,6 +50,8 @@ export default class Build {
    */
   public async buildSop() {
     log.verbose('Build buildSop()')
+    this.pdkRootPath = await helper.locatePdk()
+    log.verbose('pdkRootPath:', this.pdkRootPath)
     // 1、生成编译目录
     this.mkdirBuild()
     // 2、拷贝www路径到模板下
@@ -98,11 +99,11 @@ export default class Build {
       // 如果是只打SOP包， 目录名的设备名为 device
       this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${
         this.targetName
-      }${debug ? '-Debug' : ''}`
+        }${debug ? '-Debug' : ''}`
     } else {
       this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${
         debug ? '-Debug' : ''
-      }`
+        }`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -262,7 +263,7 @@ export default class Build {
 
       const cdbPushCmd = `${cdbPath} -s ${
         this.cdbDevice
-      } push -p ${sopPath} /tmp`
+        } push -p ${sopPath} /tmp`
       log.verbose('执行：', cdbPushCmd)
       shelljs.exec(cdbPushCmd)
     } else {
@@ -278,7 +279,7 @@ export default class Build {
     log.verbose('Build cdbSop(%s)', sopPath)
     const cdbPushCmd = `${this.locateCdb()} -s ${
       this.cdbDevice
-    } push -p ${sopPath} /tmp`
+      } push -p ${sopPath} /tmp`
     log.verbose('执行：', cdbPushCmd)
     shelljs.exec(cdbPushCmd)
   }
