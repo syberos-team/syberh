@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert">alert</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_no_title">alert_no_title</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_small_icon">alert_small_icon</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_big_icon">alert_big_icon</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="alert_color_text">alert 修改颜色和文字</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="alertOrigin()">原生alert</a>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+
+  <script>
+    var vConsole = new VConsole()
+
+
+    window.runApi = function (id) {
+      switch (id) {
+        case 'alert':
+          syberh.modal.alert({
+            title: '标题',
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_no_title':
+          syberh.modal.alert({
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_small_icon':
+          syberh.modal.alert({
+            title: '标题',
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'success',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_big_icon':
+          syberh.modal.alert({
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'warning',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        case 'alert_color_text':
+          syberh.modal.alert({
+            title: '标题',
+            content: '弹窗内容，告知当前状态、信息和解决方法，描述',
+            titleIcon: 'warning',
+            confirmText: '确定按钮',
+            confirmColor: '#ff0000',
+            success: function () {
+              console.log('弹窗标题')
+            }
+          })
+          break;
+        default:
+          console.error('错误！没有相应API');
+      }
+    }
+
+
+    function alertOrigin() {
+      alert('我是alert')
+    }
+  </script>
+</body>
+
+</html>

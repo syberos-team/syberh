@@ -10,18 +10,6 @@
     content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
   <title>Quick Hybrid API</title>
   <link rel="stylesheet" href="common/mui/mui.css" />
-  <link rel="stylesheet" href="common/common.css" />11
-</head>
-
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="pragma" content="no-cache" />
-  <meta http-equiv="cache-control" content="no-cache" />
-  <meta http-equiv="expires" content="0" />
-  <meta name="viewport"
-    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-  <title>Quick Hybrid API</title>
-  <link rel="stylesheet" href="common/mui/mui.css" />
   <link rel="stylesheet" href="common/common.css" />
 </head>
 
@@ -29,7 +17,7 @@
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/webview.html">webview1545</a>
+        <a class="mui-navigate-right api-class" id="./pages/webview.html">webview</a>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/network.html">网络</a>
@@ -42,6 +30,9 @@
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/networkInfo.html">网络状态信息</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/NetworkSetCellular.html">设置数据网络状态</a>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/camera.html">相机</a>
@@ -70,10 +61,13 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/fileManager.html">文件控制</a>
       </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/url.html">URL</a>
+      </li>
     </ul>
   </div>
   <script type="text/javascript" src="./common/mui/mui.js"></script>
-  <script type="text/javascript" src="./lib/syber.min.js"></script>
+  <script type="text/javascript" src="./lib/syberh.min.js"></script>
   <script type="text/javascript" src="./common/common.js"></script>
   <script type="text/javascript" src="./lib/vconsole.min.js"></script>
   <script>
@@ -81,7 +75,7 @@
     console.log('Hello world')
     window.runApi = function (id) {
       console.log('执行API:' + id)
-      syber.webview.redirectTo({
+      syberh.webview.redirectTo({
         url: id,
         title: '测试页面标题',
         // 横竖屏,默认为1表示竖屏

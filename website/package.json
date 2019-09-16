@@ -9,6 +9,7 @@
     "rename-version": "docusaurus-rename-version"
   },
   "devDependencies": {
+    "prismjs": "^1.17.1",
     "docusaurus": "^1.12.0"
   }
 }

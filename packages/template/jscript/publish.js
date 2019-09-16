@@ -1,6 +1,7 @@
 
 const fs = require('fs-extra')
 const path = require('path')
+const log = require('./log').default;
 const stat = fs.stat
 
 function main () {
@@ -16,19 +17,23 @@ function main () {
   ]
   // 获取根目录
   const tempPath = path.resolve('.')
+  log.verbose('template路径:', tempPath)
   const copyTo = path.resolve('../cli/templates/default/platforms/syberos')
-
   fs.emptyDirSync(copyTo)
-  console.log('项目路径:', tempPath)
-  console.log('拷贝至cli路径:', copyTo)
+  log.verbose('cli路径:', copyTo)
   for (let name of files) {
     const src = path.join(tempPath, name)
     copy(src, copyTo)
   }
 
-  console.log('拷贝完成')
+  const wwwPath = path.join(copyTo, 'app', 'www')
+  log.verbose('cli www:', wwwPath)
+  const defaulWWW = path.resolve('../cli/templates/default/www')
+  log.verbose('cli defaulWWW:', defaulWWW)
+  fs.moveSync(wwwPath, defaulWWW, { overwrite: true })
+  log.verbose('cli www move 完成')
+  log.info('template发布完成')
 }
-
 function copy (src, dst) {
   const basename = path.basename(src)
   fs.copySync(src, path.join(dst, basename))
