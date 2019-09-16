@@ -16,12 +16,11 @@ sopconfig 是 sopconfig.xml 的根元素
 | versionName     |  版本名称   |
 
 ### 代码示例
-``` XML
+``` bash
 <sopconfig xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1"
   syberos:sopid="string"
   syberos:versionCode="integer"
   syberos:versionName="string">
-  . . .
 </sopconfig>
 ```
 
@@ -36,12 +35,11 @@ sopconfig 是 sopconfig.xml 的根元素
 | name     |  应用的名称   |
 
 ### 代码示例
-``` XML
+``` bash
 <application syberos:debuggable=["true" | "false"]
   syberos:description="string"
   syberos:icon="path/to/icon/file"
   syberos:name="string" >
-  . . .
 </application>
 ```
 
@@ -53,7 +51,7 @@ sopconfig 是 sopconfig.xml 的根元素
 | scheme     |  描述 uiapp 可以接受哪些 url   |
 
 ### 代码示例
-``` XML
+``` bash
 <url>
   <scheme>string</scheme>
 </url>
@@ -110,7 +108,7 @@ uses-permission 列出了应用所需要的权限。这些权限将在安装时�
 | targetSdkVersion     |  此应用所运行的目标版本号，正整数。默认取syberos:minSdkVersion  |
 
 ### 代码示例
-``` XML
+``` bash
 <uses-sdk syberos:minSdkVersion="integer" syberos:targetSdkVersion="integer" />
 ```
 
@@ -127,14 +125,13 @@ uses-permission 列出了应用所需要的权限。这些权限将在安装时�
 | name     |  应用的名称   |
 
 ### 代码示例
-``` XML
+``` bash
 <uiapp syberos:id="string"
   syberos:exec="string"
   syberos:splash="string"
   syberos:icon="path/to/icon/file"
   syberos:launcher=["true" | "false"]
   syberos:name="string" >
-  . . .
 </uiapp>
 ```
 
@@ -151,14 +148,13 @@ uses-permission 列出了应用所需要的权限。这些权限将在安装时�
 | name     |  应用的名称   |
 
 ### 代码示例
-``` XML
+``` bash
 <htmlapp syberos:id="string"
   syberos:exec="string"
   syberos:splash="string"
   syberos:icon="path/to/icon/file"
   syberos:launcher=["true" | "false"]
   syberos:name="string" >
-  . . .
 </htmlapp>
 ```
 
@@ -174,7 +170,7 @@ uses-permission 列出了应用所需要的权限。这些权限将在安装时�
 | extension     |  文件扩展名   |
 
 ### 代码示例
-``` XML
+``` bash
 <doctype id="jpeg viewer">
   <name>JPEG Viewer by SyberOS</name>
   <action>view</action>
@@ -192,7 +188,7 @@ uses-permission 列出了应用所需要的权限。这些权限将在安装时�
 | action     |  应用可以执行的操作，有效的值share   |
 
 ### 代码示例
-``` XML
+``` bash
 <multidoc id="email sender">
   <action>share</action>
 </multidoc>
@@ -207,10 +203,9 @@ uses-permission 列出了应用所需要的权限。这些权限将在安装时�
 | exec     |  uiapp 对应的可执行文件位置   |
 
 ### 代码示例
-``` XML
+``` bash
 <service syberos:id="string"
   syberos:exec="string" >
-  . . .
 </service>
 ```
 
@@ -222,7 +217,7 @@ receiver 中包含任意个 event，当系统有制定的事件时，此 service
 | event     |  系统的事件名称   |
 
 ### 代码示例
-``` XML
+``` bash
 <receiver>
   <event>string</event>
 </receiver>
@@ -236,6 +231,6 @@ receiver 中包含任意个 event，当系统有制定的事件时，此 service
 | exec     |  支持系统备份恢复接口的可执行文件位置   |
 
 ### 代码示例
-``` XML
+``` bash
 <backup syberos:exec="string" />
 ```
