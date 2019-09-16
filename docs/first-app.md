@@ -48,17 +48,17 @@ myApp
 首次运行需经历编译过程，请稍待片刻。
 
 ```bash
-cd 项目目录
+$ cd 项目目录
 # 调试模式运行于真机
-yarn  run dev:device
+$ yarn run dev:device
 # 调试模式运行于真机
-yarn  run dev:simulator
+$ yarn run dev:simulator
 # 运行于真机
-yarn run  build:device
+$ yarn run build:device
 # 运行于模拟器
-$ yarn run  build:simulator
+$ yarn run build:simulator
 # 只打包不运行
-$ yarn run  build
+$ yarn run build
 ```
 
 ## 进阶

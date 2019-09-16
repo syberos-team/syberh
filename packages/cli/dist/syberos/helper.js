@@ -14,6 +14,7 @@ const constants_1 = require("../util/constants");
 const index_1 = require("../util/index");
 const shelljs = require("shelljs");
 const chalk_1 = require("chalk");
+const configfile_1 = require("./configfile");
 /**
  *  读取project.config.json配置文件
  * @param appPath
@@ -88,7 +89,7 @@ exports.homeSubPath = (...subDirs) => {
  * 查找pdk根目录路径
  */
 exports.locatePdk = () => {
-    return exports.homeSubPath('Syberos-Pdk');
+    return configfile_1.qtversions.getSdkInstallPath();
 };
 exports.locateSdk = () => {
     return exports.homeSubPath('SyberOS-SDK');

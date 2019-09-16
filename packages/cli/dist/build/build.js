@@ -40,7 +40,6 @@ class Build {
             log_1.log.verbose('Build constructor(%s, %j)', appPath, config);
             log_1.log.verbose('配置参数:%j', this.conf);
         }
-        this.pdkRootPath = helper.locatePdk();
         this.targetName = helper.getTargetName(this.appPath, this.conf.adapter);
     }
     /**
@@ -49,6 +48,8 @@ class Build {
     buildSop() {
         return __awaiter(this, void 0, void 0, function* () {
             log_1.log.verbose('Build buildSop()');
+            this.pdkRootPath = yield helper.locatePdk();
+            log_1.log.verbose('pdkRootPath:', this.pdkRootPath);
             // 1、生成编译目录
             this.mkdirBuild();
             // 2、拷贝www路径到模板下

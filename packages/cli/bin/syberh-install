@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+const install = require('../dist/install').default
+
+install()

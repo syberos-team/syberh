@@ -3,7 +3,7 @@ const path = require('path')
 const chalk = require('chalk')
 const { exec } = require('child_process')
 const ora = require('ora')
-const { log } = require('../../dist/util/log');
+const { log } = require('../../dist/util/log')
 const {
   TARGET_NAMES,
   TARGET_SIMULATOR_NAMES
@@ -41,44 +41,43 @@ exports.createPage = function (creater, params, cb) {
 }
 
 function getTemplatePath (template = 'default') {
-  return path.join(getRootPath(), 'templates', template);
+  return path.join(getRootPath(), 'templates', template)
 }
 
-//只创建核心项目
+// 只创建核心项目
 exports.createCore = function () {
-  log.verbose('createCore()');
+  log.verbose('createCore()')
   // cli 下的核心文件
   const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
   const com = path.join(getTemplatePath(), 'platforms', 'syberos', 'com')
-  log.verbose('app path ', app);
-  log.verbose('com path', com);
+  log.verbose('app path ', app)
+  log.verbose('com path', com)
   // project dir
-  const projectDir = path.resolve(process.cwd());
-  log.verbose('projectDir path', projectDir);
+  const projectDir = path.resolve(process.cwd())
+  log.verbose('projectDir path', projectDir)
 
-  const projectSyberosDir = path.join(projectDir, platformsDirName, 'syberos');
-  log.verbose('projectSyberosDir path', projectSyberosDir);
+  const projectSyberosDir = path.join(projectDir, platformsDirName, 'syberos')
+  log.verbose('projectSyberosDir path', projectSyberosDir)
   const projectAppDir = path.join(projectSyberosDir, 'app')
-  log.verbose('projectAppDir path', projectAppDir);
+  log.verbose('projectAppDir path', projectAppDir)
   const projectComDir = path.join(projectDir, platformsDirName, 'syberos', 'com')
-  log.verbose('projectComDir path', projectComDir);
-  //删除 app com 目录 
+  log.verbose('projectComDir path', projectComDir)
+  // 删除 app com 目录
   fs.removeSync(projectAppDir)
   fs.removeSync(projectComDir)
-  log.verbose('removeSync 完成');
+  log.verbose('removeSync 完成')
 
-  //重新拷贝app com 目录
-  log.verbose('开始拷贝cli app目录');
+  // 重新拷贝app com 目录
+  log.verbose('开始拷贝cli app目录')
   fs.copySync(app, projectSyberosDir)
-  log.verbose('开始拷贝cli com目录');
+  log.verbose('开始拷贝cli com目录')
   fs.copySync(com, projectSyberosDir)
-  log.verbose('拷贝app com 目录 完成');
+  log.verbose('拷贝app com 目录 完成')
   console.log(
     `${chalk.green('✔ ')}${chalk.grey(
       `更新 core 完成:`
     )}`
   )
-
 }
 exports.createApp = function (creater, params, helper, cb) {
   const {
@@ -91,16 +90,15 @@ exports.createApp = function (creater, params, helper, cb) {
     src,
     css,
     sopid,
-    example
+    example,
+    target
   } = params
 
   // APP 模板目录
   const syberosDir = 'syberos'
 
-  // 默认设备target
-  const target = TARGET_NAMES['target-armv7tnhl-xuanwu']
   // 默认模拟器target
-  const targetSimulator = TARGET_SIMULATOR_NAMES['target-i686-main_dev']
+  const targetSimulator = target
 
   const libDir = 'lib'
   const projectPath = path.join(projectDir, projectName)
