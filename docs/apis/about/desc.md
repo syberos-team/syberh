@@ -35,7 +35,7 @@ syberh.modal.alert({
 })
 ```
 
-<!-- 同时，为了方便代码书写，API 进行了 `promisify` 化，你可以像使用 Promise 那样进行调用，例如
+同时，为了方便代码书写，API 进行了 `promisify` 化，你可以像使用 Promise 那样进行调用，例如
 
 ``` javascript
   syberh.modal.alert({
@@ -47,4 +47,6 @@ syberh.modal.alert({
   })
 ```
 
-> 因为规划 API 有长期 API 和短期 API 的区别,长期 API 暂时不支持`promise`,所以在使用中具体是否支持 `promise` 需要参见具体的 API 文档说明 -->
+> 因为规划 API 有长期 API 和短期 API 的区别,长期 API 暂时不支持`promise`,所以在使用中具体是否支持 `promise` 需要参见具体的 API 文档说明 
+
+>因浏览器版本不支持`promise`使用,如果开发过程中需要使用promise形式调用,参考以下链接 http://bluebirdjs.com/docs/install.html

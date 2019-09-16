@@ -1,14 +1,12 @@
 ---
-title: stopAudioPlay
-id: version-1.0.0-stopAudioPlay
-original_id: stopAudioPlay
+title: stopPlay
 ---
 
 
 结束播放录音：对录音记录进行停止播放功能。
 
 
-## syberh.audio.stopAudioPlay()
+## syberh.audio.stopPlay()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -26,7 +24,7 @@ original_id: stopAudioPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.stopAudioPlay({
+syberh.audio.stopPlay({
 	success: function(result){
 		console.log('success');
 	},

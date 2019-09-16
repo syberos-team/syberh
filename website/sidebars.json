@@ -1,10 +1,22 @@
 ﻿{
   "docs": {
-    "关于SYBEROS": ["README"],
-    "快速开始": ["started-syberos", "started-cli", "first-app"]
+    "关于Syberh": [
+      "README"
+    ],
+    "快速开始": [
+      "started-syberos",
+      "started-cli",
+      "first-app",
+      "specials"
+    ],
+    "进阶指南": [
+      "app-config"
+    ]
   },
   "API": {
-    "关于API": ["apis/about/desc"],
+    "关于API": [
+      "apis/about/desc"
+    ],
     "模态弹窗": [
       "apis/modal/toast",
       "apis/modal/gtoast",
@@ -16,23 +28,28 @@
       {
         "label": "相机",
         "type": "subcategory",
-        "ids": ["apis/multimedia/camera/capturePhoto"]
+        "ids": [
+          "apis/multimedia/camera/capturePhoto"
+        ]
       },
       {
         "label": "录音",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/camera/startAudioRecorder",
-          "apis/multimedia/camera/stopAudioRecorder",
-          "apis/multimedia/camera/startAudioPlay",
-          "apis/multimedia/camera/stopAudioPlay"
+          "apis/multimedia/camera/listRecorder",
+          "apis/multimedia/camera/startRecorder",
+          "apis/multimedia/camera/stopRecorder",
+          "apis/multimedia/camera/startPlay",
+          "apis/multimedia/camera/stopPlay"
         ]
       }
     ],
     "电话": [
       {
         "type": "subcategory",
-        "ids": ["apis/telephony/dial"]
+        "ids": [
+          "apis/telephony/dial"
+        ]
       }
     ],
     "剪贴板": [
@@ -67,17 +84,26 @@
     "网络": [
       {
         "type": "subcategory",
-        "ids": ["apis/request/request"]
+        "ids": [
+          "apis/request/request"
+        ]
       }
     ],
     "下载": [
       {
         "type": "subcategory",
-        "ids": ["apis/download/download", "apis/download/download-cancel"]
+        "ids": [
+          "apis/download/download",
+          "apis/download/download-cancel"
+        ]
       }
     ],
-    "webview": ["apis/webview/webview"],
-    "文件选择": ["apis/filepicker/filepicker"],
+    "webview": [
+      "apis/webview/webview"
+    ],
+    "文件选择": [
+      "apis/filepicker/filepicker"
+    ],
     "文件管理": [
       "apis/fileManager/move",
       "apis/fileManager/copy",

@@ -1,14 +1,12 @@
 ---
-title: startAudioPlay
-id: version-1.0.0-startAudioPlay
-original_id: startAudioPlay
+title: startPlay
 ---
 
 
 播放录音：可以对录音记录进行播放。
 
 
-## syberh.audio.startAudioPlay(Object object)
+## syberh.audio.startPlay(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -28,7 +26,7 @@ original_id: startAudioPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.startAudioPlay({
+syberh.audio.startPlay({
   path: "/home/user/audio/20190905_1567662466.aac",
 	success: function(result){
     console.log('success');    
