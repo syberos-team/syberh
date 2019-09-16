@@ -14,7 +14,8 @@ Audio::Audio(){
     player = new QMediaPlayer;
     recoder = new QAudioRecorder();
     playlist = new QMediaPlaylist;
-    mediaContent = new QMediaContent();
+//    mediaContent = new QMediaContent();
+//    mediaResource = new QMediaResource();
 }
 
 Audio::~Audio(){
@@ -51,22 +52,24 @@ void Audio::listRecorder(long callBackID,QVariantMap params){
 
     QString path = Helper::instance()->getInnerStorageRootPath() + "/audio";
     QFileInfoList fileInfos = FileUtil::fileList(path);
+    QJsonArray jsonArr;
     if (fileInfos.size() != 0) {
         for (int i = 0; i < fileInfos.size(); i++) {
-            qDebug() << Q_FUNC_INFO << "fileInfo.filePath" << fileInfos.at(i).filePath() << endl;
-            playlist->addMedia(QUrl(fileInfos.at(i).filePath()));
+            QJsonObject jsonObj;
+            jsonObj.insert("path", fileInfos.at(i).filePath());
+            jsonObj.insert("size", fileInfos.at(i).size());
+            jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
 
-//            mediaContent = new QMediaContent(QUrl(fileInfos.at(i).filePath()));
-//            qDebug() << Q_FUNC_INFO << "mediaContent" << mediaContent << endl;
+            qint64 time = fileInfos.at(i).size() / (16000.0 * 2.0);    //总时长
+            qDebug() << Q_FUNC_INFO << "time" << time << endl;
 
+            jsonObj.insert("time", time);
+            jsonArr.append(jsonObj);
         }
+
     }
 
-//    QJsonObject jsonObject;
-//    jsonObject.insert("playlist", playlist);
-//    QJsonValue::fromVariant(jsonObject);
-
-//    emit success(callBackID, QVariant(playlist));
+    emit success(callBackID, jsonArr);
 }
 
 void Audio::startRecorder(long callBackID,QVariantMap params){
@@ -74,6 +77,7 @@ void Audio::startRecorder(long callBackID,QVariantMap params){
 
     QAudioEncoderSettings audioSettings;	//通过QAudioEncoderSettings类进行音频编码设置
     audioSettings.setCodec("audio/AAC");
+    audioSettings.setSampleRate(16000);
     audioSettings.setQuality(QMultimedia::HighQuality);
     recoder->setAudioSettings(audioSettings);
 
