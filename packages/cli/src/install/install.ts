@@ -2,7 +2,6 @@ import chalk from 'chalk'
 import * as path from 'path'
 import * as shelljs from 'shelljs'
 import { log } from '../util/log'
-// import { qtversions } from './configfile'
 import * as helper from '../syberos/helper'
 
 export enum InstallType {
@@ -36,13 +35,13 @@ export class Install {
     return InstallType[type]
   }
 
-  public exec(): void {
+  public async exec() {
     console.log(chalk.green('准备安装', this.option.installType))
     log.verbose('准备安装：%j', this.option)
 
     switch (this.option.installType) {
       case InstallType.sdk:
-        this.sdk();
+        await this.sdk();
         break;
       case InstallType.target:
         this.target();
@@ -55,13 +54,17 @@ export class Install {
   }
 
 
-  private sdk(): void {
-    shelljs.exec(`${helper.locateScripts('PDKInstallManager.sh')} --sdk-install-path=${this.option.installPath} --sudo-password=${this.option.password} --sdk-package=${this.option.sdkPath}`)
+  private async sdk() {
+    const cmd = `${helper.locateScripts('PDKInstallManager.sh')} --sudo-password ${this.option.password} --sdk-install-path ${this.option.installPath} --sdk-package ${this.option.sdkPath}`
+    log.verbose('安装sdk：%s', cmd)
+    shelljs.exec(cmd)
   }
 
   private target(): void {
     const targetInstallPath = path.join(this.option.installPath, 'targets')
-    shelljs.exec(`${helper.locateScripts('PDKInstallManager.sh')} --sdk-install-path=${this.option.installPath} --sudo-password=${this.option.password} --target-install-path=${targetInstallPath}`)
+    const cmd = `${helper.locateScripts('PDKInstallManager.sh')} --sudo-password ${this.option.password} --sdk-install-path ${this.option.installPath} --target-install-path ${targetInstallPath} --target-package ${this.option.targetPath}`
+    log.verbose('安装target：%s', cmd)
+    shelljs.exec(cmd)
   }
 
   // private targetName(): string {

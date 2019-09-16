@@ -7,7 +7,17 @@ import { log } from '../util/log'
 
 const homedir = os.homedir()
 
-class Qtversions {
+
+interface QtversionsInterface {
+  sdkInstallPath(installPath: string): void
+  targetInstallPath(targetName: string, installPath: string): void
+  getSdkInstallPath(): Promise<string>
+  getTargetInstallPath(targetName: string): Promise<string>
+  getTargetInstallPaths(): Promise<string[]>
+}
+
+
+class Qtversions implements QtversionsInterface {
 
   private path: string
 
@@ -60,6 +70,38 @@ class Qtversions {
     })
   }
 
+  private readLine(startsWith: string): Promise<string> {
+    log.verbose('读取行：', this.path)
+    let lineContent: string
+    return new Promise((resolve: (value: string) => void): void => {
+      readline.createInterface({
+        input: fs.createReadStream(this.path)
+      }).on('line', line => {
+        if (line.startsWith(startsWith)) {
+          lineContent = line
+        }
+      }).on('close', () => {
+        log.verbose('读取行内容：%s', lineContent)
+        resolve(lineContent)
+      })
+    })
+  }
+
+  private async readLines(): Promise<string[]> {
+    log.verbose('读取所有行：', this.path)
+    const lines: string[] = []
+    return new Promise((resolve: (value: string[]) => void): void => {
+      readline.createInterface({
+        input: fs.createReadStream(this.path)
+      }).on('line', line => {
+        lines.push(line)
+      }).on('close', () => {
+        log.verbose('读取行内容：%j', lines)
+        resolve(lines)
+      })
+    })
+  }
+
   private flush(lines: string[]) {
     fs.writeFileSync(this.path, lines.join('\n'))
   }
@@ -78,6 +120,39 @@ class Qtversions {
     this.readReplace(key, qmakePath).then(lines => {
       this.flush(lines)
     })
+  }
+
+  public async getSdkInstallPath(): Promise<string> {
+    const startsWith = 'sdk-install-path='
+    const line = await this.readLine(startsWith)
+    if (line) {
+      return line.substring(startsWith.length, line.length)
+    }
+    return ''
+  }
+
+  public async getTargetInstallPath(targetName: string): Promise<string> {
+    const startsWith = targetName + '='
+    const line = await this.readLine(startsWith)
+    if (line) {
+      return line.substring(startsWith.length, line.length)
+    }
+    return ''
+  }
+
+  public async getTargetInstallPaths(): Promise<string[]> {
+    const lines = await this.readLines()
+    const newLines: string[] = []
+    for (const line of lines) {
+      if (!line) {
+        continue
+      }
+      const idx = line.indexOf('=')
+      if (idx > 0) {
+        newLines.push(line.substring(idx, line.length))
+      }
+    }
+    return newLines
   }
 
 }

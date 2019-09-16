@@ -159,39 +159,20 @@ function SelectAnotherPath()
     local newvalue=
     local message=$2
  
-    echo   
-    while true
-    do
-        read -p "$message[y/n]?" overwrite
-        if [ ${overwrite} == "n" ]; then
-            read -p "请输入新的绝对路径:" newvalue
-            if [ -d ${newvalue} ]; then
-                oldpath=$newvalue
-		message="${oldpath}已经存在，是否覆盖"
-                continue
-            else
-                sdk_install_path=${newvalue}
-                SudoExec mkdir -p ${sdk_install_path}
-                break
-            fi
-        else
-	    sdk_install_path=$oldpath
-	    if [ ! -d ${sdk_install_path} ]; then
-		SudoExec mkdir -p ${sdk_install_path}
-		if [ $? -ne 0 ]; then
-		 echo "mkdir ${sdk_install_path} fail"
-                 exit 1
-                fi
-	    else
-		SudoExec rm -rf ${oldpath%/}/*
-		if [ $? -ne 0 ]; then
-		 echo "rm  ${sdk_install_path}/* fail,Device is busy!!!"
-                 exit 1
-                fi
-	    fi
-            break
-        fi
-    done
+    sdk_install_path=$oldpath
+		if [ ! -d ${sdk_install_path} ]; then
+			SudoExec mkdir -p ${sdk_install_path}
+			if [ $? -ne 0 ]; then
+				echo "mkdir ${sdk_install_path} fail"
+				exit 1
+			fi
+		else
+			SudoExec rm -rf ${oldpath%/}/*
+			if [ $? -ne 0 ]; then
+				echo "rm  ${sdk_install_path}/* fail,Device is busy!!!"
+				exit 1
+			fi
+		fi
 }
 
 function silentModeCreatInstallSDKPath()
