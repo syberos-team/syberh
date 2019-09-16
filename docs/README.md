@@ -18,18 +18,18 @@ App 快速开发的脚手架,提供简洁的的命令,即可从 APP 的创建到
 创建模板项目
 
 ```bash
-$ syberos init myapp
+$ syberh init myapp
 ```
 
 打包项目
 ```bash
-$ syberos build --type device
+$ syberh build --type device
 ```
 
 快速检查用户本地开发环境
 
 ```bash
-$ syberos doctor
+$ syberh doctor
 ```
 
 ## JS SDK
