@@ -158,7 +158,7 @@ void Url::openByUrl(QString url){
     params.insert("path", path);
     params.insert("params", query);
 
-    emit subscribe("openPage", params);
+    emit subscribe("onShow", params);
 }
 
 
