@@ -83,7 +83,7 @@ $ yarn run  build
 
 ## 更新
 
-Syberh 提供了更新命令来更新 CLI 工具自身和项目中 Syberh 相关的依赖
+Syberh 提供了更新命令来更新 CLI 工具自身和 升级到最新的core
 
 更新 Syberh CLI 工具
 ```bash
@@ -99,6 +99,7 @@ $ yarn global add @syberos/cli@latest
 
 ```bash
 $ syberh update project
+
 ```
 
 
@@ -114,3 +115,6 @@ Syberh Doctor 就像一个医生一样，可以诊断项目的依赖、设置、
 ```bash
 $ syberh doctor
 ```
+
+API 列表
+
