@@ -1,7 +1,7 @@
 {
   "name": "@syberos/cli",
-  "version": "1.0.2",
-  "description": "CLI tool for syberos hybrid",
+  "version": "1.1.0-alpha",
+  "description": "cli tool for syberos hybrid",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -18,11 +18,13 @@
     "url": "git+https://github.com/syberos-team/syberh.git"
   },
   "bin": {
-    "syberos": "bin/syberos"
+    "syberh": "bin/syberh"
   },
   "keywords": [
+    "syberh",
     "syberos",
-    "weapp"
+    "hybrid",
+    "app"
   ],
   "engines": {
     "node": ">=8"
@@ -31,6 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@syberos/dev-server": "^1.0.4",
+    "@types/inquirer": "^6.5.0",
     "@types/request": "^2.48.1",
     "autoprefixer": "^8.4.1",
     "babel-core": "^6.26.3",

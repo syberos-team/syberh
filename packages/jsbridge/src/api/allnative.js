@@ -20,6 +20,7 @@ import batteryMixin from './native/battery';
 import networkDisabledMixin from './native/networkDisabled';
 import networkEnabledMixin from './native/networkEnabled';
 import fileManagerMixin from './native/fileManager';
+import pathMixin from './native/path';
 
 // const hybridJs = window.syber;
 export default function allNative(hybridJs) {
@@ -45,4 +46,5 @@ export default function allNative(hybridJs) {
     networkEnabledMixin(hybridJs);
     fileManagerMixin(hybridJs);
     urlMixin(hybridJs);
+    pathMixin(hybridJs);
 }

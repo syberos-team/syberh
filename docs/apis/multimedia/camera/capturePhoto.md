@@ -9,6 +9,12 @@ title: takePictureImmediately
 
 > takePictureImmediately 为syberos中自带的拍照功能
 
+> 照相功能属于敏感权限,调用摄像头必须的到相应的权限,在sopconfig.xml文件中添加如下字段:
+
+``` javascript
+<uses-permission syberos:name="syberos.permission.ACCESS_CAMERA"/>
+<uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+```
 
 ## syberh.camera.takePictureImmediately(Object object)
 ### **参数**

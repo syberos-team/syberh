@@ -1,0 +1,123 @@
+{
+    "version-1.1.0-docs": {
+      "关于Syberh": [
+        "version-1.1.0-README"
+      ],
+      "快速开始": [
+        "version-1.1.0-started-syberos",
+        "version-1.1.0-started-cli",
+        "version-1.1.0-first-app",
+        "version-1.1.0-specials"
+      ],
+      "进阶指南": [
+        "version-1.1.0-app-config"
+      ]
+    },
+    "version-1.1.0-API": {
+      "关于API": [
+        "version-1.1.0-apis/about/desc"
+      ],
+      "模态弹窗": [
+        "version-1.1.0-apis/modal/toast",
+        "version-1.1.0-apis/modal/gtoast",
+        "version-1.1.0-apis/modal/alert",
+        "version-1.1.0-apis/modal/confirm",
+        "version-1.1.0-apis/modal/prompt"
+      ],
+      "媒体": [
+        {
+          "label": "相机",
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/multimedia/camera/capturePhoto"
+          ]
+        },
+        {
+          "label": "录音",
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/multimedia/camera/listRecorder",
+            "version-1.1.0-apis/multimedia/camera/startRecorder",
+            "version-1.1.0-apis/multimedia/camera/stopRecorder",
+            "version-1.1.0-apis/multimedia/camera/startPlay",
+            "version-1.1.0-apis/multimedia/camera/stopPlay"
+          ]
+        }
+      ],
+      "电话": [
+        {
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/telephony/dial"
+          ]
+        }
+      ],
+      "剪贴板": [
+        {
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/clipboard/setClipboardData",
+            "version-1.1.0-apis/clipboard/getClipboardData"
+          ]
+        }
+      ],
+      "系统信息": [
+        {
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/system/aboutPhone",
+            "version-1.1.0-apis/system/battery",
+            "version-1.1.0-apis/system/networkInfo"
+          ]
+        }
+      ],
+      "数据网络": [
+        "version-1.1.0-apis/cellular/networkDisabled",
+        "version-1.1.0-apis/cellular/networkEnabled"
+      ],
+      "数据存储": [
+        "version-1.1.0-apis/storage/setItem",
+        "version-1.1.0-apis/storage/getItem",
+        "version-1.1.0-apis/storage/removeItem",
+        "version-1.1.0-apis/storage/getAllKeys"
+      ],
+      "网络": [
+        {
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/request/request"
+          ]
+        }
+      ],
+      "下载": [
+        {
+          "type": "subcategory",
+          "ids": [
+            "version-1.1.0-apis/download/download",
+            "version-1.1.0-apis/download/download-cancel"
+          ]
+        }
+      ],
+      "webview": [
+        "version-1.1.0-apis/webview/webview"
+      ],
+      "文件选择": [
+        "version-1.1.0-apis/filepicker/filepicker"
+      ],
+      "文件管理": [
+        "version-1.1.0-apis/fileManager/move",
+        "version-1.1.0-apis/fileManager/copy",
+        "version-1.1.0-apis/fileManager/fileList",
+        "version-1.1.0-apis/fileManager/getInfo",
+        "version-1.1.0-apis/fileManager/remove"
+      ],
+      "url": [
+        "version-1.1.0-apis/url/url"
+      ],
+      "path": [
+        "version-1.1.0-apis/path/extern",
+        "version-1.1.0-apis/path/inner",
+        "version-1.1.0-apis/path/dataRoot"
+      ]
+    }
+  }

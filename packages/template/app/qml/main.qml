@@ -14,7 +14,7 @@ CPageStackWindow {
             if (status === Component.Ready) {
                 console.log('\n -----------------root', root.width, '\n')
 
-                syberh.render(root)
+                Syberh.render(root)
 
             }
         }

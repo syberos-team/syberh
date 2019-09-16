@@ -58,9 +58,9 @@
     /**
      * 注册接收原生的错误信息
      */
-    JSBridge.registerHandler('openPage', function (result) {
-      console.log("openPage callback path: " + result.path);
-      console.log("openPage callback params: " + JSON.stringify(result.params));
+    syberh.subscribe('onShow', function (result) {
+      console.log("onShow callback path: " + result.path);
+      console.log("onShow callback params: " + JSON.stringify(result.params));
     });
 
   </script>

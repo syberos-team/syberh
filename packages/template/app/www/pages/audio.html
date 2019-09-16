@@ -25,17 +25,20 @@
 
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
+        <!--<li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="listRecorder()">录音列表</a>
+        </li>-->
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="startAudioRecorder()">录音</a>
+        <a class="mui-navigate-right api-class" onclick="startRecorder()">录音</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="stopAudioRecorder()">停止录音</a>
+        <a class="mui-navigate-right api-class" onclick="stopRecorder()">停止录音</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="startAudioPlay()">播放</a>
+        <a class="mui-navigate-right api-class" onclick="startPlay()">播放</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="stopAudioPlay()">停止播放</a>
+        <a class="mui-navigate-right api-class" onclick="stopPlay()">停止播放</a>
       </li>
     </ul>
   </div>
@@ -46,6 +49,7 @@
     </ul>
   </div><br>
 
+  <div align="center" id="pathDiv"></div>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
@@ -66,8 +70,27 @@
       showTips('注册成功');
     });
 
-    function startAudioRecorder() {
-      syberh.audio.startAudioRecorder({
+    function listRecorder() {
+      syberh.audio.listRecorder({
+        success: function (res) {
+            var str = "";
+            for(i = 0; i < res.length; i++) {
+                    str += "path:"+res[i].path+
+                        "  size:"+res[i].size+
+                        "  created:"+res[i].created+
+                        "  time:"+res[i].time+"秒<br>"
+            }
+            document.getElementById('pathDiv').innerHTML = str
+            console.log('success: ', str);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+
+    function startRecorder() {
+      syberh.audio.startRecorder({
         success: function (result) {
           document.getElementById('text').value = result.path
           console.log('success: ', result.path);
@@ -78,8 +101,8 @@
       });
     }
 
-    function stopAudioRecorder() {
-      syberh.audio.stopAudioRecorder({
+    function stopRecorder() {
+      syberh.audio.stopRecorder({
         success: function (result) {
           console.log('success');
         },
@@ -89,9 +112,9 @@
       });
     }
 
-    function startAudioPlay() {
+    function startPlay() {
       var path = document.getElementById('text').value
-      syberh.audio.startAudioPlay({
+      syberh.audio.startPlay({
         path: path,
         success: function (result) {
           console.log('success');
@@ -103,8 +126,8 @@
     }
 
 
-    function stopAudioPlay() {
-      syberh.audio.stopAudioPlay({
+    function stopPlay() {
+      syberh.audio.stopPlay({
         success: function (result) {
           console.log('success');
         },

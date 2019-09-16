@@ -9,6 +9,7 @@ const semver = require("semver");
 const creator_1 = require("./creator");
 const util_1 = require("../util");
 const config_1 = require("../config");
+const log_1 = require("../util/log");
 class Project extends creator_1.default {
     constructor(options) {
         super();
@@ -24,12 +25,13 @@ class Project extends creator_1.default {
             template: 'default',
             sopid: '',
             appName: '',
-            useDemo: ''
+            example: false
         }, options);
+        log_1.default.verbose('Project constructor() conf:', this.conf);
     }
     init() {
-        console.log(chalk_1.default.green(`SYBEROS-CLI 即将创建一个新项目!`));
-        console.log('Need help? Go and open issue: https://github.com/syberos-team/syberos-hybrid');
+        console.log(chalk_1.default.green(`CLI 即将创建一个新项目!`));
+        console.log('Need help? Go and open issue: https://github.com/syberos-team/syberh');
         console.log();
     }
     create() {
@@ -50,10 +52,15 @@ class Project extends creator_1.default {
     ask() {
         const prompts = [];
         const conf = this.conf;
-        if (conf.useDemo === true) {
+        if (conf.example) {
             console.log(chalk_1.default.green(`正在创建示例项目!`));
-            console.log();
+            this.conf = Object.assign(this.conf, {
+                projectName: 'example',
+                appName: 'example',
+                sopid: 'cosm.sybero.example'
+            });
         }
+        // tslint:disable-next-line: strict-type-predicates
         if (typeof conf.projectName !== 'string') {
             prompts.push({
                 type: 'input',
@@ -103,7 +110,7 @@ class Project extends creator_1.default {
             prompts.push({
                 type: 'input',
                 name: 'sopid',
-                message: '请输入sopid,如【com.syber.myapp】:',
+                message: '请输入sopid,如【com.syberh.myapp】:',
                 validate(input) {
                     if (!input) {
                         return 'sopid不能为空！';
