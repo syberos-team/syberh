@@ -249,11 +249,11 @@ WebView.prototype.onSubscribe = function (handlerName,result) {
     return;
   }
 
-  if(handlerName==="openPage"){
+  if(handlerName==="onShow"){
       var params={};
       params.url= result.path;
       params.handlerName=handlerName;
-      params.type = "openPage";
+      params.type = "onShow";
       params.data = result;
       this.trigger('redirectTo', this.object, null, params);
       return;
