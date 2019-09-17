@@ -125,8 +125,6 @@ function WebView (options) {
 
   // 转向某个url
   this.on('redirectTo', function (object, handlerId, param) {
-    print('\n AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ',JSON.stringify(param))
-
 
     try {
       var url = getUrl(param.url)
@@ -250,13 +248,12 @@ WebView.prototype.onSubscribe = function (handlerName,result) {
       this.trigger('reload', this.object);
     return;
   }
-  print('\n BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ')
 
-  if(handlerName==="openPage"){
+  if(handlerName==="onShow"){
       var params={};
       params.url= result.path;
       params.handlerName=handlerName;
-      params.type = "openPage";
+      params.type = "onShow";
       params.data = result;
       this.trigger('redirectTo', this.object, null, params);
       return;
@@ -375,6 +372,7 @@ function getUrl (url) {
     var rurl = 'file://' + filePath
     return rurl
   } else {
-    throw new Error('页面不存在')
+    console.log('页面不存在:', checkPath, '跳转到index.html');
+    return 'file://'+ helper.getWebRootPath() + '/index.html';
   }
 }

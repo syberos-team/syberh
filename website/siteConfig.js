@@ -31,8 +31,8 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'docs',
-  organizationName: 'YuanXin',
+  projectName: 'syberh',
+  organizationName: 'syberos-team',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
@@ -46,7 +46,7 @@ const siteConfig = {
   ],
 
   algolia: {
-    apiKey: '64b6b45fe3daab30513f5da83fffd3a5',
+    apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
     indexName: 'syberh'
   },
 
@@ -81,7 +81,7 @@ const siteConfig = {
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
-    theme: 'atelier-seaside-dark'
+    theme: 'atom-one-dark'
   },
 
   usePrism: true,

@@ -6,6 +6,7 @@
 #include <QQuickView>
 #include <QMetaObject>
 #include <QGuiApplication>
+#include "util/fileutil.h"
 
 int Audio::typeId = qRegisterMetaType<Audio *>();
 
@@ -13,6 +14,8 @@ Audio::Audio(){
     player = new QMediaPlayer;
     recoder = new QAudioRecorder();
     playlist = new QMediaPlaylist;
+//    mediaContent = new QMediaContent();
+//    mediaResource = new QMediaResource();
 }
 
 Audio::~Audio(){
@@ -22,15 +25,17 @@ Audio::~Audio(){
 
 void Audio::request(QString callBackID, QString actionName, QVariantMap params)
 {
-  if (actionName == "startAudioRecorder"){
-      startAudioRecorder(callBackID.toLong(), params);
-  }else if(actionName == "stopAudioRecorder"){
-      stopAudioRecorder(params);
-  }else if(actionName == "startAudioPlay"){
-      startAudioPlay(params);
-  }else if(actionName == "stopAudioPlay"){
-      stopAudioPlay(params);
-  }
+    if (actionName == "listRecorder"){
+        listRecorder(callBackID.toLong(), params);
+    }else if (actionName == "startRecorder"){
+        startRecorder(callBackID.toLong(), params);
+    }else if(actionName == "stopRecorder"){
+        stopRecorder(params);
+    }else if(actionName == "startPlay"){
+        startPlay(params);
+    }else if(actionName == "stopPlay"){
+        stopPlay(params);
+    }
 }
 
 void Audio::submit(QString typeID, QString callBackID, QString actionName, QVariant dataRowList, QVariant attachementes)
@@ -42,11 +47,37 @@ void Audio::submit(QString typeID, QString callBackID, QString actionName, QVari
     Q_UNUSED(attachementes)
 }
 
-void Audio::startAudioRecorder(long callBackID,QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "startAudioRecorder" << params << endl;
+void Audio::listRecorder(long callBackID,QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "listRecorder" << params << endl;
+
+    QString path = Helper::instance()->getInnerStorageRootPath() + "/audio";
+    QFileInfoList fileInfos = FileUtil::fileList(path);
+    QJsonArray jsonArr;
+    if (fileInfos.size() != 0) {
+        for (int i = 0; i < fileInfos.size(); i++) {
+            QJsonObject jsonObj;
+            jsonObj.insert("path", fileInfos.at(i).filePath());
+            jsonObj.insert("size", fileInfos.at(i).size());
+            jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
+
+            qint64 time = fileInfos.at(i).size() / (16000.0 * 2.0);    //总时长
+            qDebug() << Q_FUNC_INFO << "time" << time << endl;
+
+            jsonObj.insert("time", time);
+            jsonArr.append(jsonObj);
+        }
+
+    }
+
+    emit success(callBackID, jsonArr);
+}
+
+void Audio::startRecorder(long callBackID,QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "startRecorder" << params << endl;
 
     QAudioEncoderSettings audioSettings;	//通过QAudioEncoderSettings类进行音频编码设置
     audioSettings.setCodec("audio/AAC");
+    audioSettings.setSampleRate(16000);
     audioSettings.setQuality(QMultimedia::HighQuality);
     recoder->setAudioSettings(audioSettings);
 
@@ -71,9 +102,6 @@ void Audio::startAudioRecorder(long callBackID,QVariantMap params){
         recoder->record();
     }
 
-//    playlist = new QMediaPlaylist;
-//    playlist->addMedia(QUrl(newFile));
-
     QJsonObject jsonObject;
     jsonObject.insert("path", newFile);
 
@@ -83,14 +111,14 @@ void Audio::startAudioRecorder(long callBackID,QVariantMap params){
     emit success(callBackID, QVariant(jsonObject));
 }
 
-void Audio::stopAudioRecorder(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "stopAudioRecorder" << params << endl;
+void Audio::stopRecorder(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "stopRecorder" << params << endl;
 
     recoder->stop();
 }
 
-void Audio::startAudioPlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "startAudioPlay" << params << endl;
+void Audio::startPlay(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "startPlay" << params << endl;
     QString filePath = params.value("path").toString();
 
     player->setMedia(QUrl::fromLocalFile(filePath));
@@ -98,8 +126,8 @@ void Audio::startAudioPlay(QVariantMap params){
     player->play();
 }
 
-void Audio::stopAudioPlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "stopAudioPlay" << params << endl;
+void Audio::stopPlay(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "stopPlay" << params << endl;
 
     player->stop();
 }

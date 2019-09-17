@@ -1,4 +1,12 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const fs = require("fs-extra");
@@ -9,6 +17,8 @@ const semver = require("semver");
 const creator_1 = require("./creator");
 const util_1 = require("../util");
 const config_1 = require("../config");
+const log_1 = require("../util/log");
+const configfile_1 = require("../syberos/configfile");
 class Project extends creator_1.default {
     constructor(options) {
         super();
@@ -24,11 +34,13 @@ class Project extends creator_1.default {
             template: 'default',
             sopid: '',
             appName: '',
-            useDemo: ''
+            example: false,
+            targetName: ''
         }, options);
+        log_1.default.verbose('Project constructor() conf:', this.conf);
     }
     init() {
-        console.log(chalk_1.default.green(`SYBEROS-CLI 即将创建一个新项目!`));
+        console.log(chalk_1.default.green(`CLI 即将创建一个新项目!`));
         console.log('Need help? Go and open issue: https://github.com/syberos-team/syberh');
         console.log();
     }
@@ -48,75 +60,104 @@ class Project extends creator_1.default {
         });
     }
     ask() {
-        const prompts = [];
-        const conf = this.conf;
-        if (conf.useDemo === true) {
-            console.log(chalk_1.default.green(`正在创建示例项目!`));
-            console.log();
-        }
-        if (typeof conf.projectName !== 'string') {
-            prompts.push({
-                type: 'input',
-                name: 'projectName',
-                message: '请输入项目名称:',
-                validate(input) {
-                    if (!input) {
-                        return '项目名不能为空！';
-                    }
-                    if (fs.existsSync(input)) {
-                        return '当前目录已经存在同名项目，请换一个项目名！';
-                    }
-                    return true;
+        return __awaiter(this, void 0, void 0, function* () {
+            const prompts = [];
+            const conf = this.conf;
+            const targetFullNames = yield configfile_1.qtversions.getTargetNames();
+            if (!targetFullNames || targetFullNames.length === 0) {
+                console.log(chalk_1.default.red('未安装target，请先安装target'));
+                process.exit(1);
+            }
+            const targetNames = [];
+            for (const targetName of targetFullNames) {
+                const name = targetName.split('-')[2];
+                if (!targetNames.includes(name)) {
+                    targetNames.push(name);
                 }
-            });
-        }
-        else if (fs.existsSync(conf.projectName)) {
-            prompts.push({
-                type: 'input',
-                name: 'projectName',
-                message: '当前目录已经存在同名项目，请换一个项目名！',
-                validate(input) {
-                    if (!input) {
-                        return '项目名不能为空！';
+            }
+            log_1.default.verbose('targetNames: %j', targetNames);
+            if (conf.example) {
+                console.log(chalk_1.default.green(`正在创建示例项目!`));
+                this.conf = Object.assign(this.conf, {
+                    projectName: 'example',
+                    appName: 'example',
+                    sopid: 'cosm.sybero.example'
+                });
+            }
+            // tslint:disable-next-line: strict-type-predicates
+            if (typeof conf.projectName !== 'string') {
+                prompts.push({
+                    type: 'input',
+                    name: 'projectName',
+                    message: '请输入项目名称:',
+                    validate(input) {
+                        if (!input) {
+                            return '项目名不能为空！';
+                        }
+                        if (fs.existsSync(input)) {
+                            return '当前目录已经存在同名项目，请换一个项目名！';
+                        }
+                        return true;
                     }
-                    if (fs.existsSync(input)) {
-                        return '项目名依然重复！';
+                });
+            }
+            else if (fs.existsSync(conf.projectName)) {
+                prompts.push({
+                    type: 'input',
+                    name: 'projectName',
+                    message: '当前目录已经存在同名项目，请换一个项目名！',
+                    validate(input) {
+                        if (!input) {
+                            return '项目名不能为空！';
+                        }
+                        if (fs.existsSync(input)) {
+                            return '项目名依然重复！';
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-        }
-        if (!conf.appName) {
-            prompts.push({
-                type: 'input',
-                name: 'appName',
-                message: '请输入应用名称:',
-                validate(input) {
-                    if (!input) {
-                        return '应用名称不能为空！';
+                });
+            }
+            if (!conf.appName) {
+                prompts.push({
+                    type: 'input',
+                    name: 'appName',
+                    message: '请输入应用名称:',
+                    validate(input) {
+                        if (!input) {
+                            return '应用名称不能为空！';
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-        }
-        if (!conf.sopid) {
-            prompts.push({
-                type: 'input',
-                name: 'sopid',
-                message: '请输入sopid,如【com.syberh.myapp】:',
-                validate(input) {
-                    if (!input) {
-                        return 'sopid不能为空！';
+                });
+            }
+            if (!conf.sopid) {
+                prompts.push({
+                    type: 'input',
+                    name: 'sopid',
+                    message: '请输入sopid,如【com.syberh.myapp】:',
+                    validate(input) {
+                        if (!input) {
+                            return 'sopid不能为空！';
+                        }
+                        const re = /[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/gi;
+                        if (re.test(input)) {
+                            return 'sopid不能含有中文！';
+                        }
+                        return true;
                     }
-                    const re = /[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/gi;
-                    if (re.test(input)) {
-                        return 'sopid不能含有中文！';
-                    }
-                    return true;
-                }
-            });
-        }
-        return inquirer.prompt(prompts);
+                });
+            }
+            if (!conf.targetName) {
+                prompts.push({
+                    type: 'list',
+                    name: 'targetName',
+                    message: '请选择target：',
+                    default: 'xuanwu',
+                    choices: targetNames
+                });
+            }
+            return inquirer.prompt(prompts);
+        });
     }
     write(cb) {
         const { template } = this.conf;

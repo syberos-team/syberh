@@ -89,6 +89,7 @@ bool DevTools::copyWWW(){
     //获取默认目录
     QString webPath=Helper::instance()->getDefaultWebRootPath();
     Helper::instance()->emptyDir(dataPath);
+    bool ret=FileUtil::chmodr(dataPath);
     FileUtil::remove(dataPath,1);
     return FileUtil::copy(webPath,dataPath);
 

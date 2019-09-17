@@ -3,10 +3,17 @@ const path = require('path')
 const chalk = require('chalk')
 const { exec } = require('child_process')
 const ora = require('ora')
+const { log } = require('../../dist/util/log')
 const {
   TARGET_NAMES,
   TARGET_SIMULATOR_NAMES
 } = require('../../dist/util/constants')
+
+const { getRootPath } = require('../../dist/util')
+
+const {
+  SOURCE_DIR
+} = require('../../dist/config/index').default
 
 const styleExtMap = {
   sass: 'scss',
@@ -14,6 +21,9 @@ const styleExtMap = {
   stylus: 'styl',
   none: 'css'
 }
+
+// syberh app 模块目录
+const platformsDirName = 'platforms'
 
 exports.createPage = function (creater, params, cb) {
   const { page, projectDir, src, template, typescript, css } = params
@@ -30,6 +40,45 @@ exports.createPage = function (creater, params, cb) {
   })
 }
 
+function getTemplatePath (template = 'default') {
+  return path.join(getRootPath(), 'templates', template)
+}
+
+// 只创建核心项目
+exports.createCore = function () {
+  log.verbose('createCore()')
+  // cli 下的核心文件
+  const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
+  const com = path.join(getTemplatePath(), 'platforms', 'syberos', 'com')
+  log.verbose('app path ', app)
+  log.verbose('com path', com)
+  // project dir
+  const projectDir = path.resolve(process.cwd())
+  log.verbose('projectDir path', projectDir)
+
+  const projectSyberosDir = path.join(projectDir, platformsDirName, 'syberos')
+  log.verbose('projectSyberosDir path', projectSyberosDir)
+  const projectAppDir = path.join(projectSyberosDir, 'app')
+  log.verbose('projectAppDir path', projectAppDir)
+  const projectComDir = path.join(projectDir, platformsDirName, 'syberos', 'com')
+  log.verbose('projectComDir path', projectComDir)
+  // 删除 app com 目录
+  fs.removeSync(projectAppDir)
+  fs.removeSync(projectComDir)
+  log.verbose('removeSync 完成')
+
+  // 重新拷贝app com 目录
+  log.verbose('开始拷贝cli app目录')
+  fs.copySync(app, projectSyberosDir)
+  log.verbose('开始拷贝cli com目录')
+  fs.copySync(com, projectSyberosDir)
+  log.verbose('拷贝app com 目录 完成')
+  console.log(
+    `${chalk.green('✔ ')}${chalk.grey(
+      `更新 core 完成:`
+    )}`
+  )
+}
 exports.createApp = function (creater, params, helper, cb) {
   const {
     projectName,
@@ -41,19 +90,15 @@ exports.createApp = function (creater, params, helper, cb) {
     src,
     css,
     sopid,
-    useDemo
+    example,
+    targetName
   } = params
-  // syberos app 模块目录
-  const platformsDirName = 'platforms'
-  // platforms/syberos/app/www 模板demo目录
-  const wwwDirName = path.join('platforms', 'syberos', 'app', 'www')
+
   // APP 模板目录
   const syberosDir = 'syberos'
 
-  // 默认设备target
-  const target = TARGET_NAMES['target-armv7tnhl-xuanwu']
-  // 默认模拟器target
-  const targetSimulator = TARGET_SIMULATOR_NAMES['target-i686-main_dev']
+  const target = 'target-armv7tnhl-' + targetName
+  const targetSimulator = 'target-i686-' + targetName
 
   const libDir = 'lib'
   const projectPath = path.join(projectDir, projectName)
@@ -123,9 +168,9 @@ exports.createApp = function (creater, params, helper, cb) {
   // })
 
   // 是否创建demo项目
-  if (useDemo === true) {
+  if (example) {
     fs.copySync(
-      path.join(creater.templatePath(), template, wwwDirName),
+      path.join(creater.templatePath(), template, SOURCE_DIR),
       path.join(sourceDir)
     )
   } else {
@@ -135,7 +180,6 @@ exports.createApp = function (creater, params, helper, cb) {
 
   switch (css) {
     default:
-      // appCSSName = 'app.css'
       pageCSSName = 'index.css'
       break
   }
@@ -152,17 +196,6 @@ exports.createApp = function (creater, params, helper, cb) {
     }
   )
 
-  // 创建app.pro文件
-  // creater.template(
-  //   template,
-  //   'syberconfig/apppro',
-  //   path.join(platformsDir, syberosDir, 'app', `app.pro`),
-  //   {
-  //     projectName
-  //   }
-  // )
-
-  // 创建sopconfig.xml文件
   creater.template(
     template,
     'syberconfig/sopconfigxml',
@@ -207,10 +240,10 @@ exports.createApp = function (creater, params, helper, cb) {
     )
 
     // 是否创建demo项目
-    if (useDemo === true) {
+    if (example) {
       console.log(
         `${chalk.green('✔ ')}${chalk.grey(
-          `拷贝www模板: ${projectName}/${src}`
+          `创建 example : ${projectName}/${src}`
         )}`
       )
     } else {

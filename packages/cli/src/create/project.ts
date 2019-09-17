@@ -4,11 +4,11 @@ import chalk from 'chalk'
 import * as _ from 'lodash'
 import * as inquirer from 'inquirer'
 import * as semver from 'semver'
-
 import Creator from './creator'
-
 import { shouldUseYarn, shouldUseCnpm, getPkgVersion } from '../util'
 import CONFIG from '../config'
+import log from '../util/log'
+import { qtversions } from '../syberos/configfile'
 
 interface IProjectConf {
   projectName: string
@@ -21,7 +21,8 @@ interface IProjectConf {
   date?: string
   src?: string
   // 是否创建demo项目
-  useDemo?: boolean
+  example?: boolean
+  targetName: string
 }
 
 export default class Project extends Creator {
@@ -44,14 +45,17 @@ export default class Project extends Creator {
         template: 'default',
         sopid: '',
         appName: '',
-        useDemo: ''
+        example: false,
+        targetName: ''
       },
       options
     )
+
+    log.verbose('Project constructor() conf:', this.conf)
   }
 
   init() {
-    console.log(chalk.green(`SYBEROS-CLI 即将创建一个新项目!`))
+    console.log(chalk.green(`CLI 即将创建一个新项目!`))
     console.log(
       'Need help? Go and open issue: https://github.com/syberos-team/syberh'
     )
@@ -74,15 +78,35 @@ export default class Project extends Creator {
     })
   }
 
-  ask() {
+  async ask() {
     const prompts: object[] = []
     const conf = this.conf
 
-    if (conf.useDemo === true) {
-      console.log(chalk.green(`正在创建示例项目!`))
-      console.log()
+    const targetFullNames = await qtversions.getTargetNames()
+    if (!targetFullNames || targetFullNames.length === 0) {
+      console.log(chalk.red('未安装target，请先安装target'))
+      process.exit(1)
+    }
+    const targetNames: string[] = []
+    for (const targetName of targetFullNames) {
+      const name = targetName.split('-')[2]
+      if (!targetNames.includes(name)) {
+        targetNames.push(name)
+      }
     }
 
+    log.verbose('targetNames: %j', targetNames)
+
+    if (conf.example) {
+      console.log(chalk.green(`正在创建示例项目!`))
+      this.conf = Object.assign(this.conf, {
+        projectName: 'example',
+        appName: 'example',
+        sopid: 'cosm.sybero.example'
+      })
+    }
+
+    // tslint:disable-next-line: strict-type-predicates
     if (typeof conf.projectName !== 'string') {
       prompts.push({
         type: 'input',
@@ -145,6 +169,15 @@ export default class Project extends Creator {
 
           return true
         }
+      })
+    }
+    if (!conf.targetName) {
+      prompts.push({
+        type: 'list',
+        name: 'targetName',
+        message: '请选择target：',
+        default: 'xuanwu',
+        choices: targetNames
       })
     }
     return inquirer.prompt(prompts)
