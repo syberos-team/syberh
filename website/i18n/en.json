@@ -74,6 +74,21 @@
       "apis/multimedia/camera/captureVideoStart": {
         "title": "captureVideoStart"
       },
+      "apis/multimedia/camera/continuePlay": {
+        "title": "continuePlay"
+      },
+      "apis/multimedia/camera/continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "apis/multimedia/camera/pausePlay": {
+        "title": "pausePlay"
+      },
+      "apis/multimedia/camera/pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "apis/multimedia/camera/recorderList": {
+        "title": "recorderList"
+      },
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
