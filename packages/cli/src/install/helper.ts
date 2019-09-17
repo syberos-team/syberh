@@ -1,5 +1,4 @@
 import * as fs from 'fs-extra'
-import * as shell from 'shelljs'
 import * as path from 'path'
 
 /**
