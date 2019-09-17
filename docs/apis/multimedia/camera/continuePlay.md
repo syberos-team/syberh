@@ -1,13 +1,13 @@
 ---
-title: stopPlay
+title: continuePlay
 ---
 
 
-结束播放：对语音播放进行停止播放。
+继续播放：可以对暂时停止的录音进行继续播放。
 
 
-## syberh.audio.stopPlay()
-### **参数**
+## syberh.audio.continuePlay(Object object)
+#### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
 | success | function |        | 否       | 回调成功                    |
@@ -24,9 +24,9 @@ title: stopPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.stopPlay({
+syberh.audio.continuePlay({
 	success: function(result){
-		console.log('success');
+    console.log('success');    
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);
