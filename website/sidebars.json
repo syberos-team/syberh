@@ -4,8 +4,9 @@
       "README"
     ],
     "快速开始": [
-      "started-syberos",
       "started-cli",
+      "started-install",
+      "started-ide",
       "first-app",
       "specials"
     ],
