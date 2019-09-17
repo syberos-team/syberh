@@ -127,7 +127,7 @@ $ syberh doctor
 # 初始化项目
 $ syberh init myapp
 # 创建示例项目
-$ syberh init myapp --example
+$ syberh init --example
 ```
 
 ### build
