@@ -120,12 +120,14 @@ $ syberh doctor
 
 | 参数 | 描述 |
 | ---  | --------- |
-| --name [name]  | 项目名称    |
 | --description [description] | 项目介绍    |
 | --example      | 创建示例项目 |
 
 ``` bash
+# 初始化项目
 $ syberh init myapp
+# 创建示例项目
+$ syberh init --example
 ```
 
 ### build
@@ -140,7 +142,10 @@ $ syberh init myapp
 | --port [port]          | Specified port    |
 
 ``` bash
+# 打包并跑在真机上
 $ syberh build --type device
+# debug模式，打包并跑在真机上
+$ syberh build --type device --debug
 ```
 
 ### update
