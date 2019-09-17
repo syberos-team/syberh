@@ -1,17 +1,12 @@
 ---
-title: 安装 SyberOS SDK & PKD
-id: version-1.1.0-started-syberos
-original_id: started-syberos
+title: 安装 IDE
 ---
+
+> SyberOS IDE 为 ***非必须安装*** 的工具。IDE 用于原生应用的开发，当您需要开发原生功能时才需要安装。
 
 ## 安装
 
-Syberos 应用必须在 ubuntu 64位系统下编译打包，推荐使用 Ubuntu 14.04 版本。安装 SyberOS SDK & PKD 前请选确保当前系统为 Ubuntu。
-
-
-**下载地址：**
-
-[百度网盘](https://pan.baidu.com/s/1wxQxmD6K-SMryDiWcuXseQ) 提取码：fcxs 
+Syberos 应用必须在 ubuntu 64 位系统下编译打包，推荐使用 Ubuntu 14.04 版本。安装 SyberOS IDE 前请选确保当前系统为 Ubuntu。
 
 ### 安装 SDK
 
@@ -108,3 +103,7 @@ target:
 ### 注意事项
 
 安装 SDK 与 PDK 时，切勿修改安装路径，SDK安装于用户目录下的 SyberOS-SDK 目录中，PDK安装于用户目录下的 Syberos-Pdk 目录中。
+
+### 下载地址
+
+[百度网盘](https://pan.baidu.com/s/1wxQxmD6K-SMryDiWcuXseQ) 提取码：fcxs 
