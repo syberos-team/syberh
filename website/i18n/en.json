@@ -144,6 +144,9 @@
       "app-config": {
         "title": "APP 配置"
       },
+      "cli-readme": {
+        "title": "CLI使用"
+      },
       "CONTRIBUTING": {
         "title": "CONTRIBUTING"
       },
@@ -202,13 +205,13 @@
         "title": "常见问题"
       },
       "started-cli": {
-        "title": "CLI安装及使用"
+        "title": "安装 CLI"
       },
       "started-ide": {
         "title": "安装 IDE"
       },
       "started-install": {
-        "title": "安装环境"
+        "title": "安装SyberOS SDK"
       },
       "version-1.1.0/apis/about/version-1.1.0-desc": {
         "title": "API 说明"
@@ -349,6 +352,9 @@
       "version-1.1.0/version-1.1.0-app-config": {
         "title": "APP 配置"
       },
+      "version-1.1.0/version-1.1.0-cli-readme": {
+        "title": "CLI使用"
+      },
       "version-1.1.0/version-1.1.0-first-app": {
         "title": "第一个应用"
       },
@@ -401,13 +407,25 @@
         "title": "常见问题"
       },
       "version-1.1.0/version-1.1.0-started-cli": {
-        "title": "CLI安装及使用"
+        "title": "安装 CLI"
       },
       "version-1.1.0/version-1.1.0-started-ide": {
         "title": "安装 IDE"
       },
       "version-1.1.0/version-1.1.0-started-install": {
-        "title": "安装环境"
+        "title": "安装SyberOS SDK"
+      },
+      "version-1.1.1/version-1.1.1-cli-readme": {
+        "title": "CLI使用"
+      },
+      "version-1.1.1/version-1.1.1-first-app": {
+        "title": "第一个应用"
+      },
+      "version-1.1.1/version-1.1.1-started-cli": {
+        "title": "安装 CLI"
+      },
+      "version-1.1.1/version-1.1.1-started-install": {
+        "title": "安装SyberOS SDK"
       }
     },
     "links": {
