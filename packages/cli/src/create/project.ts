@@ -8,6 +8,7 @@ import Creator from './creator'
 import { shouldUseYarn, shouldUseCnpm, getPkgVersion } from '../util'
 import CONFIG from '../config'
 import log from '../util/log'
+import { qtversions } from '../syberos/configfile'
 
 interface IProjectConf {
   projectName: string
@@ -21,6 +22,7 @@ interface IProjectConf {
   src?: string
   // 是否创建demo项目
   example?: boolean
+  targetName: string
 }
 
 export default class Project extends Creator {
@@ -43,7 +45,8 @@ export default class Project extends Creator {
         template: 'default',
         sopid: '',
         appName: '',
-        example: false
+        example: false,
+        targetName: ''
       },
       options
     )
@@ -75,9 +78,24 @@ export default class Project extends Creator {
     })
   }
 
-  ask() {
+  async ask() {
     const prompts: object[] = []
     const conf = this.conf
+
+    const targetFullNames = await qtversions.getTargetNames()
+    if (!targetFullNames || targetFullNames.length === 0) {
+      console.log(chalk.red('未安装target，请先安装target'))
+      process.exit(1)
+    }
+    const targetNames: string[] = []
+    for (const targetName of targetFullNames) {
+      const name = targetName.split('-')[2]
+      if (!targetNames.includes(name)) {
+        targetNames.push(name)
+      }
+    }
+
+    log.verbose('targetNames: %j', targetNames)
 
     if (conf.example) {
       console.log(chalk.green(`正在创建示例项目!`))
@@ -151,6 +169,15 @@ export default class Project extends Creator {
 
           return true
         }
+      })
+    }
+    if (!conf.targetName) {
+      prompts.push({
+        type: 'list',
+        name: 'targetName',
+        message: '请选择target：',
+        default: 'xuanwu',
+        choices: targetNames
       })
     }
     return inquirer.prompt(prompts)

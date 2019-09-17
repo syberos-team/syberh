@@ -78,12 +78,12 @@ $ yarn run build:device
 # 运行于模拟器
 $ yarn run build:simulator
 # 只打包不运行
-$ yarn run  build
+$ yarn run build
 ```
 
 ## 更新
 
-Syberh 提供了更新命令来更新 CLI 工具自身和项目中 Syberh 相关的依赖
+Syberh 提供了更新命令来更新 CLI 工具自身和 升级到最新的core
 
 更新 Syberh CLI 工具
 ```bash
@@ -113,4 +113,72 @@ Syberh Doctor 就像一个医生一样，可以诊断项目的依赖、设置、
 
 ```bash
 $ syberh doctor
+```
+
+## API 列表
+
+### init [projectName]
+> 初始化项目
+
+| 参数 | 描述 |
+| ---  | --------- |
+| --description [description] | 项目介绍    |
+| --example      | 创建示例项目 |
+
+``` bash
+# 初始化项目
+$ syberh init myapp
+# 创建示例项目
+$ syberh init myapp --example
+```
+
+### build
+> 打包运行项目
+
+| 参数 | 描述 |
+| ------  | ----------- |
+| --type [typeName]      | 运行编译类型,device:真机 simulator:模拟器    |
+| --debug                | debug模式运行,支持热更新    |
+| --target [targetName]  | 重置target,device:真机 simulator:模拟器    |
+| --env [env]            | Env type    |
+| --port [port]          | Specified port    |
+
+``` bash
+# 打包并跑在真机上
+$ syberh build --type device
+# debug模式，打包并跑在真机上
+$ syberh build --type device --debug
+```
+
+### update
+> 更新cli工具或者更新核心文件
+
+| 参数 | 描述 |
+| ------  | ----------- |
+| self      | 更新cli工具    |
+| project      | 更新当前项目核心文件    |
+
+``` bash
+$ syberh update self
+```
+
+### doctor
+> 快速检查用户本地开发环境
+
+``` bash
+$ syberh doctor
+```
+
+### simulator
+> 启动模拟器
+
+``` bash
+$ syberh simulator
+```
+
+### install
+> 通过命令行模式安装sdk和target
+
+``` bash
+$ syberh install
 ```

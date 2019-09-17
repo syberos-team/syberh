@@ -3,7 +3,7 @@ title: startPlay
 ---
 
 
-播放录音：可以对录音记录进行播放。
+开始播放语音：可以对语音文件进行播放。
 
 
 ## syberh.audio.startPlay(Object object)
@@ -11,7 +11,7 @@ title: startPlay
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
-| path | string |        | 是       | 录音路径                           |
+| path | string |        | 是       | 语言路径                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 

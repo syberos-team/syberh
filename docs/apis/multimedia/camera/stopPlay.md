@@ -3,7 +3,7 @@ title: stopPlay
 ---
 
 
-结束播放录音：对录音记录进行停止播放功能。
+结束播放：对语音播放进行停止播放。
 
 
 ## syberh.audio.stopPlay()

@@ -1,6 +1,11 @@
 {
   "private": true,
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/jsbridge",
+    "packages/template",
+    "packages/cli",
+    "packages/dev-server"
+  ],
   "npmClient": "yarn",
   "command": {
     "publish": {

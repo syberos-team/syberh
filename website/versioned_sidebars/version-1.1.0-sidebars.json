@@ -4,8 +4,9 @@
         "version-1.1.0-README"
       ],
       "快速开始": [
-        "version-1.1.0-started-syberos",
         "version-1.1.0-started-cli",
+        "version-1.1.0-started-install",
+        "version-1.1.0-started-ide",
         "version-1.1.0-first-app",
         "version-1.1.0-specials"
       ],
@@ -113,6 +114,11 @@
       ],
       "url": [
         "version-1.1.0-apis/url/url"
+      ],
+      "path": [
+        "version-1.1.0-apis/path/extern",
+        "version-1.1.0-apis/path/inner",
+        "version-1.1.0-apis/path/dataRoot"
       ]
     }
   }
