@@ -204,8 +204,11 @@
       "started-cli": {
         "title": "CLI安装及使用"
       },
-      "started-syberos": {
-        "title": "安装 SyberOS SDK & PKD"
+      "started-ide": {
+        "title": "安装 IDE"
+      },
+      "started-install": {
+        "title": "安装环境"
       },
       "version-1.1.0/apis/about/version-1.1.0-desc": {
         "title": "API 说明"
@@ -400,8 +403,11 @@
       "version-1.1.0/version-1.1.0-started-cli": {
         "title": "CLI安装及使用"
       },
-      "version-1.1.0/version-1.1.0-started-syberos": {
-        "title": "安装 SyberOS SDK & PKD"
+      "version-1.1.0/version-1.1.0-started-ide": {
+        "title": "安装 IDE"
+      },
+      "version-1.1.0/version-1.1.0-started-install": {
+        "title": "安装环境"
       }
     },
     "links": {

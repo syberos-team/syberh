@@ -35,7 +35,7 @@ class Project extends creator_1.default {
             sopid: '',
             appName: '',
             example: false,
-            target: ''
+            targetName: ''
         }, options);
         log_1.default.verbose('Project constructor() conf:', this.conf);
     }
@@ -63,7 +63,18 @@ class Project extends creator_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const prompts = [];
             const conf = this.conf;
-            const targetNames = yield configfile_1.qtversions.getTargetNames();
+            const targetFullNames = yield configfile_1.qtversions.getTargetNames();
+            if (!targetFullNames || targetFullNames.length === 0) {
+                console.log(chalk_1.default.red('未安装target，请先安装target'));
+                process.exit(1);
+            }
+            const targetNames = [];
+            for (const targetName of targetFullNames) {
+                const name = targetName.split('-')[2];
+                if (!targetNames.includes(name)) {
+                    targetNames.push(name);
+                }
+            }
             log_1.default.verbose('targetNames: %j', targetNames);
             if (conf.example) {
                 console.log(chalk_1.default.green(`正在创建示例项目!`));
@@ -136,12 +147,12 @@ class Project extends creator_1.default {
                     }
                 });
             }
-            if (!conf.target) {
+            if (!conf.targetName) {
                 prompts.push({
                     type: 'list',
-                    name: 'target',
+                    name: 'targetName',
                     message: '请选择target：',
-                    default: 'target-armv7tnhl-xuanwu',
+                    default: 'xuanwu',
                     choices: targetNames
                 });
             }
