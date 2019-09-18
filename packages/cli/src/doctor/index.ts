@@ -1,11 +1,10 @@
 import pdkSdkValidator from './pdkSdkValidator'
-
+import syberhValidator from './syberhValidator';
+import sdkValidator from './sdkValidator';
 export default {
   validators: [
-    pdkSdkValidator
-    // configValidator,
-    // packageValidator
-    // recommandValidator,
-    // eslintValidator
+    pdkSdkValidator,
+    syberhValidator,
+    sdkValidator
   ]
 }

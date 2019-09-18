@@ -4,35 +4,19 @@ const chalk = require('chalk')
 const { exec } = require('child_process')
 const ora = require('ora')
 const { log } = require('../../dist/util/log')
-const {
-  TARGET_NAMES,
-  TARGET_SIMULATOR_NAMES
-} = require('../../dist/util/constants')
-
 const { getRootPath } = require('../../dist/util')
-
 const {
   SOURCE_DIR
 } = require('../../dist/config/index').default
-
-const styleExtMap = {
-  sass: 'scss',
-  less: 'less',
-  stylus: 'styl',
-  none: 'css'
-}
 
 // syberh app 模块目录
 const platformsDirName = 'platforms'
 
 exports.createPage = function (creater, params, cb) {
-  const { page, projectDir, src, template, typescript, css } = params
+  const { projectDir, src, template } = params
   let pageCSSName
   const sourceDir = path.join(projectDir, src)
-  const currentStyleExt = styleExtMap[css] || 'css'
-
   creater.template(template, 'scss', path.join(sourceDir, 'www', pageCSSName))
-
   creater.fs.commit(() => {
     if (typeof cb === 'function') {
       cb()
@@ -50,8 +34,10 @@ exports.createCore = function () {
   // cli 下的核心文件
   const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
   const com = path.join(getTemplatePath(), 'platforms', 'syberos', 'com')
+  const versionPath = path.join(getTemplatePath(), 'platforms', 'syberos', 'VERSION')
   log.verbose('app path ', app)
   log.verbose('com path', com)
+  log.verbose('versionConfig', versionPath)
   // project dir
   const projectDir = path.resolve(process.cwd())
   log.verbose('projectDir path', projectDir)
@@ -62,20 +48,24 @@ exports.createCore = function () {
   log.verbose('projectAppDir path', projectAppDir)
   const projectComDir = path.join(projectDir, platformsDirName, 'syberos', 'com')
   log.verbose('projectComDir path', projectComDir)
+  const projectVersionPath = path.join(projectDir, platformsDirName, 'syberos', 'VERSION')
+  log.verbose('projectVersionPath', projectVersionPath)
   // 删除 app com 目录
-  fs.removeSync(projectAppDir)
-  fs.removeSync(projectComDir)
+  fs.ensureDirSync(projectAppDir)
+  fs.ensureDirSync(projectComDir)
   log.verbose('removeSync 完成')
 
   // 重新拷贝app com 目录
   log.verbose('开始拷贝cli app目录')
-  fs.copySync(app, projectSyberosDir)
+  fs.copySync(app, projectAppDir)
   log.verbose('开始拷贝cli com目录')
-  fs.copySync(com, projectSyberosDir)
+  fs.copySync(com, projectComDir)
   log.verbose('拷贝app com 目录 完成')
+  fs.copySync(versionPath, projectVersionPath)
+  log.verbose('拷贝VERSION完成')
   console.log(
     `${chalk.green('✔ ')}${chalk.grey(
-      `更新 core 完成:`
+      `更新 [project]完成:`
     )}`
   )
 }
@@ -86,7 +76,6 @@ exports.createApp = function (creater, params, helper, cb) {
     appName,
     template,
     typescript,
-    date,
     src,
     css,
     sopid,
