@@ -6,7 +6,7 @@ original_id: first-app
 
 ## 创建一个应用
 
-使用 @syberos/cli 工具能够快速的创建一个应用。以下说明建立在已正确安装 [`SDK & PDK`](started-syberos.html) 和 [`CLI`](started-cli.html)
+使用 @syberos/cli 工具能够快速的创建一个应用。以下说明建立在已正确安装 [`SDK & PDK`](started-install.html) 和 [`CLI`](started-cli.html)
 
 使用命令创建模板项目
 
@@ -71,5 +71,5 @@ $ yarn run build
 
 应用的图标位于 `platforms/syberos/app/res/app.png` 
 
-通过替换该图片完成应用图标的修改，[具体配置](/docs/app-config.html)
+通过替换该图片完成应用图标的修改，[具体配置](./app-config.html)
 
