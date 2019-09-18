@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const helper = require("../syberos/helper");
 const fs = require("fs-extra");
+const shelljs = require("shelljs");
 const path = require("path");
 const log_1 = require("../util/log");
 function buildReport(errors) {
@@ -20,6 +21,24 @@ function buildReport(errors) {
         };
     });
 }
+function checkExpect() {
+    return __awaiter(this, void 0, void 0, function* () {
+        log_1.log.verbose('checkExpect()');
+        const errorLines = [];
+        const cmd = 'whereis expect';
+        const { stdout } = shelljs.exec(cmd);
+        log_1.log.verbose('stdout:', stdout);
+        if (stdout.indexOf('/usr/bin/expect') === -1) {
+            log_1.log.warn('未找到expect :', stdout);
+            errorLines.push({
+                desc: `expect 未安装`,
+                valid: false,
+                solution: `请执行升级命令:  sudo apt-get install expect`
+            });
+        }
+        return errorLines;
+    });
+}
 function checkSyberosPdk() {
     return __awaiter(this, void 0, void 0, function* () {
         log_1.log.verbose('checkSyberosPdk() start');
@@ -28,7 +47,7 @@ function checkSyberosPdk() {
         if (!fs.pathExistsSync(pdkPath)) {
             errorLines.push({
                 desc: '没有检查到Syberos-Pdk目录:' + pdkPath,
-                valid: true,
+                valid: false,
                 solution: '请重新安装sdk，并使用默认的安装路径，切勿修改sdk安装路径'
             });
             return errorLines;
@@ -36,7 +55,7 @@ function checkSyberosPdk() {
         if (!fs.existsSync(path.join(pdkPath, 'sdk', 'sdk-root', 'syberos-sdk-chroot'))) {
             errorLines.push({
                 desc: '无效的Syberos-Pdk目录:' + pdkPath,
-                valid: true,
+                valid: false,
                 solution: '请重新安装sdk，并使用默认的安装路径，切勿修改sdk安装路径'
             });
         }
@@ -52,7 +71,7 @@ function checkTarget() {
         if (!fs.pathExistsSync(targetPath)) {
             errorLines.push({
                 desc: '没有检查到targets目录:' + targetPath,
-                valid: true,
+                valid: false,
                 solution: '请安装target，并使用默认的安装路径，切勿修改target安装路径'
             });
             return errorLines;
@@ -61,7 +80,7 @@ function checkTarget() {
         if (!dirs || dirs.length < 1 || !dirs.some((d) => { return d.startsWith('target-'); })) {
             errorLines.push({
                 desc: '未安装任何target',
-                valid: true,
+                valid: false,
                 solution: '请安装target，并使用默认的安装路径，切勿修改target安装路径'
             });
             return errorLines;
@@ -86,7 +105,7 @@ function checkSyberOSSDK() {
         if (!fs.existsSync(path.join(sdkPath, 'ide', 'bin', 'qtcSyberIDE'))) {
             errorLines.push({
                 desc: '无效的SyberOS-SDK目录:' + sdkPath,
-                valid: true,
+                valid: false,
                 solution: '请重新安装SyberOS SDK'
             });
         }
@@ -95,7 +114,8 @@ function checkSyberOSSDK() {
 }
 function default_1() {
     return __awaiter(this, void 0, void 0, function* () {
-        const errorLines = yield checkSyberosPdk();
+        const errorLines = yield checkExpect();
+        errorLines.push(...yield checkSyberosPdk());
         errorLines.push(...yield checkTarget());
         errorLines.push(...yield checkSyberOSSDK());
         return buildReport(errorLines);

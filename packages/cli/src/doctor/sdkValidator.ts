@@ -21,7 +21,7 @@ async function checkSdk() {
     errorLines.push({
       desc: ` sdk 有新版本`,
       valid: true,
-      solution: `请执行升级命令, syberh update project`
+      solution: `请执行升级命令: syberh update project`
     })
   } else {
     try {
@@ -41,7 +41,7 @@ async function checkSdk() {
           errorLines.push({
             desc: ` sdk 有新版本`,
             valid: true,
-            solution: `请执行升级命令, syberh update project`
+            solution: `请执行升级命令:  syberh update project`
           })
         }
       }
