@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/com/syberos/api">
         <file>js/camera/capture.js</file>
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>

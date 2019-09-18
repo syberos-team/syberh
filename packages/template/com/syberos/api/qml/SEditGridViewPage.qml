@@ -187,7 +187,7 @@ CPage {
     function createListPreview(){
         if(!listPreview){
 
-            listPreview = pageStack.getCachedPage(Qt.resolvedUrl("qrc:/com_syberos_api/qml/SImageListPreview.qml"),
+            listPreview = pageStack.getCachedPage(Qt.resolvedUrl("qrc:/com/syberos/api/qml/SImageListPreview.qml"),
                                                   "SImageListPreviewPage")
             listPreview.model = Qt.binding(function(){return model})
         }
@@ -248,12 +248,12 @@ CPage {
                     if(0 === index) {
                         mainPage.previewed(mainPage.curIndex)
                         // 跳转到预览页面
-//                        createListPreview()
-//                        if(listPreview){
-//                            listPreview.currentIndex = mainPage.selectedIndexes[0]
-//                            STATUS.setArr(mainPage.selectedIndexes)
-//                            pageStack.push(listPreview)
-//                        }
+                        createListPreview()
+                        if(listPreview){
+                            listPreview.currentIndex = mainPage.selectedIndexes[0]
+                            STATUS.setArr(mainPage.selectedIndexes)
+                            pageStack.push(listPreview)
+                        }
                     } else if(1 === index) {
                         console.log('确定---', photoBrowser.selectedIndexes)
                         mainPage.sure(photoBrowser.selectedIndexes)
