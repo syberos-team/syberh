@@ -11,16 +11,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const helper = require("../syberos/helper");
 const fs = require("fs-extra");
 const path = require("path");
+const log_1 = require("../util/log");
 function buildReport(errors) {
     return __awaiter(this, void 0, void 0, function* () {
         return {
-            desc: '检查系统编译环境',
+            desc: '检查SyberOS编译环境',
             lines: errors
         };
     });
 }
 function checkSyberosPdk() {
     return __awaiter(this, void 0, void 0, function* () {
+        log_1.log.verbose('checkSyberosPdk() start');
         const pdkPath = yield helper.locatePdk();
         const errorLines = [];
         if (!fs.pathExistsSync(pdkPath)) {
@@ -43,6 +45,7 @@ function checkSyberosPdk() {
 }
 function checkTarget() {
     return __awaiter(this, void 0, void 0, function* () {
+        log_1.log.verbose('checkTarget() start');
         const pdkPath = yield helper.locatePdk();
         const errorLines = [];
         const targetPath = path.join(pdkPath, 'targets');
@@ -68,12 +71,14 @@ function checkTarget() {
 }
 function checkSyberOSSDK() {
     return __awaiter(this, void 0, void 0, function* () {
-        const sdkPath = yield helper.locateSdk();
+        log_1.log.verbose('checkSyberOSSDK() start');
+        const sdkPath = helper.locateSdk();
+        log_1.log.verbose('sdkPath() sdkPath', sdkPath);
         const errorLines = [];
         if (!fs.pathExistsSync(sdkPath)) {
             errorLines.push({
                 desc: '没有检查到SyberOS-SDK目录:' + sdkPath,
-                valid: true,
+                valid: false,
                 solution: '请重新安装SyberOS SDK'
             });
             return errorLines;

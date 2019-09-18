@@ -4,7 +4,7 @@ import * as npmCheck from 'npm-check'
 const isPkgInstalled = _.get('isInstalled')
 const isPkgNotInstalled = _.negate(isPkgInstalled)
 
-async function checkPkgs ({ appPath }) {
+async function checkPkgs({ appPath }) {
   let errorLines: any[] = []
   const pkgs = await npmCheck({
     cwd: appPath
@@ -20,7 +20,7 @@ async function checkPkgs ({ appPath }) {
   }
 }
 
-function pkgsNotInstalled (pkgs) {
+function pkgsNotInstalled(pkgs) {
   const uninstalledPkgs = _.filter(isPkgNotInstalled, pkgs)
   const lines = _.map(pkg => Object({
     desc: `使用到的依赖 ${pkg.moduleName} 还没有安装`,
