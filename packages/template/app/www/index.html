@@ -34,11 +34,13 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/NetworkSetCellular.html">设置数据网络状态</a>
       </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/camera.html">相机</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/audio.html">录音</a>
+      <li class="mui-table-view-cell mui-collapse">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" id="./pages/camera.html">相机</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" id="./pages/audio.html">录音</a>
+        </li>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/telephony.html">通信</a>
@@ -92,6 +94,15 @@
         },
         error: function (error) {
           showTips('失败:' + JSON.stringify(error))
+        }
+      })
+    }
+
+    function test() {
+      syberh.image.choose({
+        count: 3,
+        success: function(arr) {
+          console.log('选择图片---', arr)
         }
       })
     }
