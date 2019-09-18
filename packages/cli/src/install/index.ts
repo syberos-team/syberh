@@ -6,7 +6,7 @@ import * as path from 'path'
 import chalk from 'chalk'
 import { Install, InstallOption } from './install'
 import { qtversions } from '../syberos/configfile'
-
+import * as helper from './helper'
 
 function sdkAsk(): object[] {
   const prompts: object[] = []
@@ -31,6 +31,7 @@ function sdkAsk(): object[] {
     type: 'input',
     name: 'sdkPath',
     message: 'sdk安装包的路径：',
+    default: helper.sdkPackagePath(),
     validate: val => {
       if (!val) {
         return '请输入sdk安装包的路径';
@@ -81,26 +82,43 @@ function targetAsk(): object[] {
       return answers.installType === 'target'
     }
   })
-  prompts.push({
-    type: 'input',
-    name: 'targetPath',
-    message: 'target安装包的路径：',
-    validate: val => {
-      if (!val) {
-        return '请输入target安装包的路径';
-      }
-      if (!fs.existsSync(val)) {
-        return 'target安装包的路径无效，安装包不存在'
-      }
-      if (!fs.lstatSync(val).isFile()) {
-        return 'target安装包的路径无效，路径不是有效的安装包'
-      }
-      return true;
-    },
-    when: answers => {
-      return answers.installType === 'target'
+
+  const targetPathvalidator = (val: any) => {
+    if (!val) {
+      return '请输入target安装包的路径';
     }
-  })
+    if (!fs.existsSync(val)) {
+      return 'target安装包的路径无效，安装包不存在'
+    }
+    if (!fs.lstatSync(val).isFile()) {
+      return 'target安装包的路径无效，路径不是有效的安装包'
+    }
+    return true;
+  }
+
+  const targetPaths = helper.targetPackagePaths()
+  if (targetPaths && targetPaths.length > 0) {
+    prompts.push({
+      type: 'list',
+      name: 'targetPath',
+      message: 'target安装包的路径：',
+      choices: targetPaths,
+      validate: targetPathvalidator,
+      when: answers => {
+        return answers.installType === 'target'
+      }
+    })
+  } else {
+    prompts.push({
+      type: 'input',
+      name: 'targetPath',
+      message: 'target安装包的路径：',
+      validate: targetPathvalidator,
+      when: answers => {
+        return answers.installType === 'target'
+      }
+    })
+  }
   return prompts
 }
 
