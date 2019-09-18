@@ -194,7 +194,7 @@ CPage {
     }
 
     contentAreaItem: Item{
-        CPhotoAndVideoBrowser{
+        SPhotoAndVideoBrowser{
             id: photoBrowser
             anchors.fill: parent
             anchors.topMargin: titleBarLoader.height
@@ -215,7 +215,7 @@ CPage {
             height: item.height
             active: titleBarActive
             enabled: !photoBrowser.animating
-            sourceComponent: CPhotoEditTitleBar{
+            sourceComponent: SPhotoEditTitleBar{
                 editView: photoBrowser
                 titleText: CPhotoTranslate.photosAndVideos
 
@@ -233,7 +233,7 @@ CPage {
             active: toolBarActive
             enabled: !photoBrowser.animating
 
-            sourceComponent: CPhotoToolBar{
+            sourceComponent: SPhotoToolBar{
                 id: photoToolBar
                 property QtObject deleteDialogObject: null
 
@@ -284,11 +284,11 @@ CPage {
 
     }
 
-    CPhotoAndVideoModel{
+    SPhotoAndVideoModel{
         id: defaultModel
     }
 
-    CPhotoAlternate{
+    SPhotoAlternate{
         active: mainPage.active && photoBrowser.count === 0 && !defaultModel.busy
     }
 

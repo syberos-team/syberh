@@ -9,7 +9,7 @@ function Choose () {
     module: 'image',
     page: true,
     methods: ['choose'],
-    source: '../qml/CEditGridViewPage.qml'
+    source: '../qml/SEditGridViewPage.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
