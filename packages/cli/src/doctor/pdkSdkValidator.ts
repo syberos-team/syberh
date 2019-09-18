@@ -1,16 +1,18 @@
 import * as helper from '../syberos/helper'
 import * as fs from 'fs-extra'
 import * as path from 'path'
+import { log } from '../util/log';
 import { IErrorLine } from './interface'
 
 async function buildReport(errors: IErrorLine[]) {
   return {
-    desc: '检查系统编译环境',
+    desc: '检查SyberOS编译环境',
     lines: errors
   }
 }
 
 async function checkSyberosPdk(): Promise<IErrorLine[]> {
+  log.verbose('checkSyberosPdk() start')
   const pdkPath = await helper.locatePdk()
   const errorLines: IErrorLine[] = []
 
@@ -33,6 +35,7 @@ async function checkSyberosPdk(): Promise<IErrorLine[]> {
 }
 
 async function checkTarget(): Promise<IErrorLine[]> {
+  log.verbose('checkTarget() start')
   const pdkPath = await helper.locatePdk()
   const errorLines: IErrorLine[] = []
 
@@ -58,12 +61,14 @@ async function checkTarget(): Promise<IErrorLine[]> {
 }
 
 async function checkSyberOSSDK(): Promise<IErrorLine[]> {
-  const sdkPath = await helper.locateSdk()
+  log.verbose('checkSyberOSSDK() start')
+  const sdkPath = helper.locateSdk()
+  log.verbose('sdkPath() sdkPath', sdkPath)
   const errorLines: IErrorLine[] = []
   if (!fs.pathExistsSync(sdkPath)) {
     errorLines.push({
       desc: '没有检查到SyberOS-SDK目录:' + sdkPath,
-      valid: true,
+      valid: false,
       solution: '请重新安装SyberOS SDK'
     })
     return errorLines
