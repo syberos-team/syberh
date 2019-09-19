@@ -28,7 +28,10 @@
   <div class="mui-content pt0 syberMainPage">
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="test()">照片</a>
+        <a class="mui-navigate-right api-class" onclick="selectImage()">照片</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" onclick="selectImage123()">照片</a>
       </li>
       <li class="mui-table-view-cell mui-collapse">
           <a class="mui-navigate-right" href="#">模态弹窗</a>
@@ -132,14 +135,51 @@
       })
     }
 
-    function test() {
-      syberh.image.choose({
+    // function chooseImage() {
+    //   syberh.image.choose({
+    //     count: 3,
+    //     success: function(arr) {
+    //       console.log('选择图片---', arr)
+    //     }
+    //   })
+    // }
+
+    // function capturePhoto() {
+    //   syberh.camera.takePictureImmediately({
+    //     success: function (result) {
+    //       document.getElementById('pathDiv').innerText = result.path
+    //       document.getElementById('img').src = result.path
+    //       console.log('success: ', result.path);
+    //     },
+    //     fail: function (error) {
+    //       console.log('fail: ', error.code, error.msg);
+    //     }
+    //   });
+    // }
+
+    function selectImage() {
+      syberh.image.select({
         count: 3,
-        success: function(arr) {
-          console.log('选择图片---', arr)
+        sourceType: ['album', 'camera'],
+        success: function(res) {
+          console.log('打开选项---', res)
         }
       })
     }
+
+    function selectImage123() {
+      syberh.image.select({
+        count: 3,
+        sourceType: ['album'],
+        success: function(res) {
+          console.log('打开选项---', res)
+        }
+      })
+    }
+
+    
+
+    
   </script>
 </body>
 

@@ -144,7 +144,10 @@ CPage {
     signal previewed(int index)
 
     /*! 确定按钮点击信号，index为缩略图的索引值 */
-    signal sure(var arr)
+    signal confirm(var arr)
+
+    /*! 取消按钮点击信号 */
+    signal cancel()
 
     /*!
         \qmlmethod CEditGridViewPage::isSelected(int index)
@@ -219,8 +222,8 @@ CPage {
                 editView: photoBrowser
                 titleText: CPhotoTranslate.photosAndVideos
 
-                onLeftItemTriggered: {
-                    pageStack.pop();
+                onCanceled: {
+                    mainPage.cancel()
                 }
             }
         }
@@ -256,7 +259,7 @@ CPage {
                         }
                     } else if(1 === index) {
                         console.log('确定---', photoBrowser.selectedIndexes)
-                        mainPage.sure(photoBrowser.selectedIndexes)
+                        mainPage.confirm(photoBrowser.selectedIndexes)
                         pageStack.pop()
                     }
                     toolButtonClicked(index)

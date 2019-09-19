@@ -14,6 +14,7 @@ import "./default/CPhotoTranslate"
     图片应用主窗口的TitleBar
 */
 CEditTitleBar{
+    id: sPhotoEdittitleBar
     width: parent.width
 
     leftItemEnabled: false
@@ -37,6 +38,7 @@ CEditTitleBar{
         pixelSize: editLeftItemPixelSize
         backgroundEnabled: editLeftItemBackgroundEnabled
         onClicked: {
+            sPhotoEdittitleBar.canceled()
             pageStack.pop()
         }
     }

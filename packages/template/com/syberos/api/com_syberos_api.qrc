@@ -130,5 +130,6 @@
         <file>qml/SPhotoEditTitleBar.qml</file>
         <file>qml/SPhotoToolBar.qml</file>
         <file>qml/SImageSelector.qml</file>
+        <file>js/image/select.js</file>
     </qresource>
 </RCC>

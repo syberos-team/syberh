@@ -21,7 +21,7 @@ function Choose () {
         component.maxSelectCount = that.param.count || 9
 
         // 用户点击确定按钮
-        component.sure.connect(function(arr) {
+        component.confirm.connect(function(arr) {
             var newArr = []
             var lstModel = component.model
             arr.forEach(function(item) {
@@ -34,6 +34,14 @@ function Choose () {
             console.log('newArr---', JSON.stringify(newArr))
 
             WEBVIEWCORE.trigger('success', that.handlerId, newArr)
+            // 注销qml组件
+            SYBEROS.destroy(defaultOpts.id)
+        })
+
+        // 用户点击取消按钮
+        component.cancel.connect(function() {
+            console.log('监听到---取消按钮')
+            WEBVIEWCORE.trigger('success', that.handlerId)
             // 注销qml组件
             SYBEROS.destroy(defaultOpts.id)
         })
