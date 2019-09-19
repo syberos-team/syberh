@@ -5,8 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "DEV_LOG=verbose node jscript/publish.js",
-    "publish": "DEV_LOG=verbose node jscript/publish.js",
+    "build": "DEV_LOG=verbose node jscript/build.js",
+    "publish": "DEV_LOG=verbose node jscript/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
