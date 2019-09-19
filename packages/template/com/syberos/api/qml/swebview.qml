@@ -3,6 +3,7 @@ import QtWebKit 3.0
 import QtQuick.Window 2.2
 import QtWebKit.experimental 1.0
 import com.syberos.basewidgets 2.0
+import com.syberos.filemanager.filepicker 1.0
 
 WebView {
     id: webview
@@ -10,13 +11,13 @@ WebView {
     //接受消息信号
     signal receiveMessage(var message)
     signal downLoadConfirmRequest
-     //加载信号
+    //加载信号
     signal reloadSuccess(var loadProgress)
     //返回键信号
     signal keyOnReleased(var event)
     property var _contentY: 0
     property url curHoverUrl: ""
-     property var syberObject
+    property var syberObject
     anchors.topMargin: gScreenInfo.statusBarHeight
     anchors.fill:parent
 
@@ -41,6 +42,9 @@ WebView {
         receiveMessage(message)
 
     }
+
+    experimental.itemSelector:ItemSelector{}
+
     experimental.alertDialog: SAlert {
         id: salert
         messageText: model.message
@@ -141,6 +145,37 @@ WebView {
             show()
         }
     }
+    experimental.filePicker: SyberosFilesPicker{
+        id: picker
+        width: gAppUtils.pageStackWindow.width
+        height: gAppUtils.pageStackWindow.height
+
+        Connections {
+            target: picker
+            onOk: {
+                console.log("on ok", picker.status)
+                console.log("on Page set file save path", picker.dirPath)
+                model.accept(picker.filesPath);
+            }
+            onCancel: {
+                model.rejected();
+            }
+        }
+
+        Keys.onReleased: {
+            if (event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
+                model.rejected();
+                event.accepted =true;
+            }
+        }
+
+        Component.onCompleted:{
+            parent = gAppUtils.pageStackWindow;
+            visible = true;
+            status = CPageStatus.WillShow;
+            focus = true
+        }
+    }
 
     experimental.preferences.minimumFontSize: 13
     experimental.gpsEnable: false
@@ -174,5 +209,29 @@ WebView {
     Component.onCompleted: {
         console.log("Component.onCompleted====")
         webview.SetJavaScriptCanOpenWindowsAutomatically(false)
+    }
+
+    onSms: {
+        console.log("onsmsonsmonsmonsmonsmonsmonsmonsmonsmonsmonsmssssssssss", url, body);
+        gApp.openUrl("sms:?body=" + body);
+    }
+
+    onMailto: {
+        console.log("onMailtoonMailtonMailtonMailtonMailtonMailtonMailtonMailto", url, body);
+        gApp.openUrl("email:writeMail?address="+ url + "&content=" + body + "&attach=");
+    }
+
+    onTel: {
+        //电话拨打功能,暂未实现
+        //console.log("onTelonTeonTeonTeonTeonTeonTeonTeonTeonTeonTeonTelllllllllll", telNum);
+//        telNumber = telNum;
+//        if (!gAppUtils.pageStackWindow.confirmDialog)
+//        {
+//            gAppUtils.pageStackWindow.createConfirmDialog(mainPage)
+//        }
+
+//        gAppUtils.pageStackWindow.confirmDialog.messageText = os.i18n.ctr(qsTr("are you sure to call the number: ")) + telNum  //确定呼叫:
+//        gAppUtils.pageStackWindow.confirmDialog.requestShow()
+//        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
     }
 }

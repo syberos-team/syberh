@@ -51,7 +51,7 @@ myApp
 $ cd 项目目录
 # 调试模式运行于真机
 $ yarn run dev:device
-# 调试模式运行于真机
+# 调试模式运行于模拟器
 $ yarn run dev:simulator
 # 运行于真机
 $ yarn run build:device
