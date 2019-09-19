@@ -135,7 +135,7 @@ Rectangle {
             hideAnimation.stop();
         }
 
-        accepted();
+//        accepted();
         closeTimer.stop();
     }
 
