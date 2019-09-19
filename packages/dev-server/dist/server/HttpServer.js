@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const fs = require("fs-extra");
+const os = require("os");
 const bodyParser = require("body-parser");
 const path = require("path");
 const internal_ip_1 = require("internal-ip");
@@ -63,11 +64,31 @@ class HttpServer {
             });
             server = app.listen(this.port, () => __awaiter(this, void 0, void 0, function* () {
                 console.log('http Server started.');
-                const host = yield internal_ip_1.default.v4();
+                const host = yield this.getIP();
                 const port = server.address().port;
                 uri = `http://${host}:${port}`;
                 log_1.default.info('http Server started.', uri);
             }));
+        });
+    }
+    getIP() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let sip;
+            const ifaces = os.networkInterfaces();
+            Object.keys(ifaces).forEach(function (dev) {
+                ifaces[dev].forEach(function (details) {
+                    if (details.family === 'IPv4') {
+                        // 优先使用192.168.100.x段ip
+                        if (details.address.indexOf('192.168.100.10') >= 0) {
+                            sip = details.address;
+                        }
+                    }
+                });
+            });
+            if (!sip) {
+                sip = yield internal_ip_1.default.v4();
+            }
+            return sip;
         });
     }
     /**
