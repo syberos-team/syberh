@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import * as path from 'path'
 import { log } from '../util/log'
 import * as helper from '../syberos/helper'
+import * as shelljs from 'shelljs'
 
 export enum InstallType {
   sdk = 'sdk',
@@ -56,14 +57,14 @@ export class Install {
   private async sdk() {
     const cmd = `${helper.locateScripts('PDKInstallManager.sh')} --sudo-password ${this.option.password} --sdk-install-path ${this.option.installPath} --sdk-package ${this.option.sdkPath}`
     log.verbose('安装sdk：%s', cmd)
-    // shelljs.exec(cmd)
+    shelljs.exec(cmd)
   }
 
   private target(): void {
     const targetInstallPath = path.join(this.option.installPath, 'targets')
     const cmd = `${helper.locateScripts('PDKInstallManager.sh')} --sudo-password ${this.option.password} --sdk-install-path ${this.option.installPath} --target-install-path ${targetInstallPath} --target-package ${this.option.targetPath}`
     log.verbose('安装target：%s', cmd)
-    // shelljs.exec(cmd)
+    shelljs.exec(cmd)
   }
 
   // private targetName(): string {
