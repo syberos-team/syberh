@@ -5,56 +5,47 @@
   <meta charset="utf-8">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
-  <meta name="format-detection" content="telephone=yes"/>
+  <meta name="format-detection" content="telephone=yes" />
   <meta http-equiv="expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>page</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
-
 </head>
 
 <body>
-
   <div class="mui-content pt0">
-    <ul class="mui-table-view ">
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="redirectTo">redirectTo(打开新页面)</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="redirectTo2">redirectTo2</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="goBack">goBack(返回)</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="reload">reload(重载页面)</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="reload2">reload2(重载页面)</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="window">窗口信息</a>
-      </li>
+    <div class="mui-card">
+      <ul class="mui-table-view ">
+        <li class="mui-table-view-cell mui-collapse mui-active">
+          <a class="mui-navigate-right" href="#">redirectTo</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>url:</label>
+              <input id="url" type="text" value="index.html">
+            </div>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="redirectTo()">redirectTo</button>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
+              onclick="redirectTo2()">redirectTo2</button>
+          </div>
+        </li>
 
-      <li class="mui-table-view-cell">
-        <input id="file1" type="file" name="file1" multiple="multiple" accept=".doc，.jpg">
-      </li>
+        <li class="mui-table-view-cell mui-collapse mui-active">
 
-      <li class="mui-table-view-cell">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right " id="onclick=" reload()">reload</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" onclick="reload2()">reload2</a>
+        </li>
 
-        <select>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
-        </select>
-      </li>
-    </ul>
-    <div id="text"></div>
-    <div id="text2"></div>
-    <div id="text3"></div>
-    <div id="text4"></div>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" onclick="goBack()">goBack</a>
+        </li>
+
+      </ul>
+    </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
@@ -62,83 +53,58 @@
   <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
-    window.runApi = function (id) {
-      console.log('执行API:' + id);
+    var vConsole = new VConsole()
 
-      switch (id) {
-        case 'redirectTo':
+    function redirectTo() {
+      var url = document.getElementById('url').value;
+      console.debug(url);
+      syberh.webview.redirectTo({
+        url: url,
+        success: function (result) {
+          console.info(result)
+          showTips(JSON.stringify(result))
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+        }
+      })
+    }
 
-          syberh.webview.redirectTo({
-            url: 'index.html',
-            success: function (result) {
-              console.info(result)
-            },
-            fail: function (error) {
-              print(error)
-            }
-          })
+    function redirectTo2() {
+      var url = document.getElementById('url').value;
+      syberh.webview.redirectTo(url)
+    }
 
-          break;
-        case 'redirectTo2':
-          //直接使用地址
-          syberh.webview.redirectTo("index.html")
+    function reload() {
+      syberh.webview.reload({
+        success: function (result) {
+          syberh.modal.gtoast(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          syberh.modal.gtoast(JSON.stringify(error))
+          console.info(error)
+        }
+      })
+    }
 
-          break;
-        case 'window':
+    function reload2() {
+      syberh.webview.reload()
+    }
 
-          var w = window.innerWidth
-          var w2 = document.documentElement.clientWidth
-          var w3 = document.body.clientWidth
+    function goBack() {
+      syberh.webview.goBack({
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(error)
+        }
+      })
+    }
 
-
-          var h = window.innerHeight
-          var h2 = document.documentElement.clientHeight
-          var h3 = document.body.clientHeight
-
-          var sh = window.screen.height
-          var sw = window.screen.width
-
-          var x = document.getElementById("text");
-          var x2 = document.getElementById("text2");
-          var x3 = document.getElementById("text3");
-          var x4 = document.getElementById("text4");
-          x.innerHTML = "浏览器内窗宽度：" + w + "，高度：" + h + "。";
-          x2.innerHTML = "浏览器内窗宽度：" + w2 + "，高度：" + h2 + "。";
-          x3.innerHTML = "浏览器内窗宽度：" + w3 + "，高度：" + h3 + "。";
-          x4.innerHTML = "浏览器分辨率宽度：" + sw + "，高度：" + sh + "。";
-
-          break;
-
-        case 'close':
-          console.log('暂未实现')
-          break;
-        case 'goBack':
-          syberh.webview.goBack({
-            success: function (result) {
-              console.info(result)
-            },
-            fail: function (error) {
-              console.info(error)
-            }
-          })
-          break;
-        case 'reload':
-          syberh.webview.reload({
-            success: function (result) {
-              console.info(result)
-            },
-            fail: function (error) {
-              console.info(error)
-            }
-          })
-          break;
-        case 'reload2':
-          syberh.webview.reload()
-          break;
-        default:
-          console.error('错误！没有相应API');
-      }
-    };
   </script>
 
 </body>
