@@ -100,7 +100,6 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
   let hasTargetSimulator = false
   for (const targetPath of targetPaths) {
     if (targetPath.includes(`/${projectConfig.target}/`)) {
-      console.log('>>>>>>>>>>target ', targetPath)
       const errline = checkPathExists(targetPath)
       if (errline) {
         errorLines.push(errline)
@@ -111,7 +110,6 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
     }
     if (projectConfig.targetSimulator) {
       if (targetPath.includes(`/${projectConfig.targetSimulator}/`)) {
-        console.log('>>>>>>>>>>targetSimulator ', targetPath)
         const errline = checkPathExists(targetPath)
         if (errline) {
           errorLines.push(errline)
