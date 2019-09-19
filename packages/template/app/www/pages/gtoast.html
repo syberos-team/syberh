@@ -14,22 +14,20 @@
 
 <body>
     <div class="mui-content pt0">
-      <div class="mui-card-content mui-dms">
-        <div class="mui-card">
-          <div class="mui-input-row">
+      <form class="mui-input-group">
+          <div class="mui-input-row"  style="height: auto">
               <label>title:</label>
-              <input type="text" id="title1" value="提示信息" class="mui-input-clear" />
+              <textarea class="mui-input-clear" id="title1" cols="30" rows="2">提示信息</textarea>
           </div>
           <div class="mui-input-row">
               <button type="button" class="mui-btn mui-btn-primary" onclick="btnClick()">确定</button>
           </div>
-          <div class="mui-input-row">
+          <div class="mui-card-footer">
               <h4>响应信息:</h4>
               <div id="resultMsg"></div>
           </div>
-        </div>
-      </div>
-    </div>
+      </form>
+   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>

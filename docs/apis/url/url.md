@@ -27,7 +27,7 @@ title: openUrl
 #### 参数
 | 属性           | 类型    | 描述                                 |
 | -------------- | ------  | ------------------------------------ |
-| result | String | 返回 success, 表示唤起成功 |
+| result | String | 返回 success, 表示已执行唤起 |
 
 #### object.fail回调函数参数
 #### 参数
