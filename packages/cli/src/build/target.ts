@@ -3,28 +3,27 @@ import chalk from 'chalk'
 import * as inquirer from 'inquirer'
 import * as path from 'path'
 import {
-  TARGET_NAMES,
   DEVICES_TYPES,
-  TARGET_SIMULATOR_NAMES,
   PROJECT_CONFIG
 } from '../util/constants'
 import { getProjectConfig } from '../syberos/helper'
+import { qtversions } from '../syberos/configfile'
 
 /**
  * 重置设备的target
  * @param device
  */
-export const targetChoices = (device: DEVICES_TYPES) => {
+export const targetChoices = async (device: DEVICES_TYPES) => {
+  const targets = await qtversions.getInstallTargets()
   const prompts: object[] = []
   if (device === DEVICES_TYPES.SIMULATOR) {
     // 如果为模拟器
-    const targetChoices: object[] = []
-    for (const dd in TARGET_SIMULATOR_NAMES) {
-      targetChoices.push({
-        name: dd,
-        value: TARGET_SIMULATOR_NAMES[dd]
-      })
-    }
+    const targetChoices = targets.map((val) => {
+      if (val.name.includes('i686')) {
+        return val.name
+      }
+      return ''
+    }).filter((val) => { return val })
     prompts.push({
       type: 'list',
       name: 'targetSimulator',
@@ -34,14 +33,13 @@ export const targetChoices = (device: DEVICES_TYPES) => {
   }
 
   if (device === DEVICES_TYPES.DEVICE) {
-    // 如果为模拟器
-    const targetChoices: object[] = []
-    for (const dd in TARGET_NAMES) {
-      targetChoices.push({
-        name: dd,
-        value: TARGET_NAMES[dd]
-      })
-    }
+    // 如果为真机
+    const targetChoices = targets.map((val) => {
+      if (val.name.includes('armv7tnhl')) {
+        return val.name
+      }
+      return ''
+    }).filter((val) => { return val })
     prompts.push({
       type: 'list',
       name: 'target',
@@ -58,7 +56,7 @@ export const targetChoices = (device: DEVICES_TYPES) => {
  * @param appPath app path
  * @param program 参数
  */
-export const targetReset = (appPath: string, program: any) => {
+export const targetReset = async (appPath: string, program: any) => {
   const { type, target } = program
   try {
     // 校验是否需要重新设置target
@@ -81,23 +79,40 @@ export const targetReset = (appPath: string, program: any) => {
       reset = true
     }
     if (reset) {
-      targetChoices(targetName).then(answers => {
-        Object.assign(projectConfig, answers)
-        // 格式化重写project.config.json
-        fs.writeJSONSync(path.join(appPath, PROJECT_CONFIG), projectConfig, {
-          spaces: '\t',
-          EOL: '\n'
-        })
-
-        console.log(
-          chalk.green(
-            `target重置完成,\n ${JSON.stringify(projectConfig, null, '\t')}`
-          )
-        )
+      const answers = await targetChoices(targetName)
+      Object.assign(projectConfig, answers)
+      // 格式化重写project.config.json
+      fs.writeJSONSync(path.join(appPath, PROJECT_CONFIG), projectConfig, {
+        spaces: '\t',
+        EOL: '\n'
       })
+
+      console.log(
+        chalk.green(
+          `target重置完成,\n ${JSON.stringify(projectConfig, null, '\t')}`
+        )
+      )
     } else {
       console.log(chalk.bgGreen('检验target完成'))
     }
+
+    //   targetChoices(targetName).then(answers => {
+    //     Object.assign(projectConfig, answers)
+    //     // 格式化重写project.config.json
+    //     fs.writeJSONSync(path.join(appPath, PROJECT_CONFIG), projectConfig, {
+    //       spaces: '\t',
+    //       EOL: '\n'
+    //     })
+
+    //     console.log(
+    //       chalk.green(
+    //         `target重置完成,\n ${JSON.stringify(projectConfig, null, '\t')}`
+    //       )
+    //     )
+    //   })
+    // } else {
+    //   console.log(chalk.bgGreen('检验target完成'))
+    // }
   } catch (e) {
     console.error('e', e)
     throw new Error(`请检查配置文件${PROJECT_CONFIG}格式，目前非JSON格式`)
