@@ -14,7 +14,7 @@ program
   .option('--debug', 'debug模式运行,支持热更新')
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
-  .option('--port [port]', 'Specified port')
+  .option('--port [port]', '使用')
   .parse(process.argv)
 
 const { type, debug, port } = program

@@ -44,6 +44,7 @@ export default function allNative(hybridJs) {
     batteryMixin(hybridJs);
     networkDisabledMixin(hybridJs);
     networkEnabledMixin(hybridJs);
+    filepickerMixin(hybridJs);
     fileManagerMixin(hybridJs);
     urlMixin(hybridJs);
     pathMixin(hybridJs);

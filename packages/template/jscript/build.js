@@ -1,8 +1,8 @@
 
 const fs = require('fs-extra')
 const path = require('path')
-const log = require('./log').default;
-const stat = fs.stat
+const pkgJSON = require('../package.json')
+const log = require('./log').default
 
 function main () {
   // 定义拷贝的文件或者目录
@@ -13,10 +13,14 @@ function main () {
     'META-INF',
     'app.pro',
     'sopconfig.xml',
-    'syberos.pri'
+    'syberos.pri',
+    'VERSION'
   ]
   // 获取根目录
   const tempPath = path.resolve('.')
+
+  syncVersion()
+
   log.verbose('template路径:', tempPath)
   const copyTo = path.resolve('../cli/templates/default/platforms/syberos')
   fs.emptyDirSync(copyTo)
@@ -34,6 +38,18 @@ function main () {
   log.verbose('cli www move 完成')
   log.info('template发布完成')
 }
+
+function syncVersion () {
+  log.verbose('syncVersion()')
+  const pkgVersion = pkgJSON.version
+  log.verbose('syncVersion:', pkgVersion)
+  const vpath = path.resolve('.', 'VERSION')
+  log.verbose('vpath:', vpath)
+  const versionConfig = fs.readJSONSync(vpath)
+  log.verbose('versionConfig:', versionConfig)
+  fs.writeJsonSync(vpath, { version: pkgVersion })
+}
+
 function copy (src, dst) {
   const basename = path.basename(src)
   fs.copySync(src, path.join(dst, basename))

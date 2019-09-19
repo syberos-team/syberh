@@ -402,10 +402,9 @@ export default class Build {
     let ret: any = 4
     try {
       ret = os.cpus().length
-      console.log(chalk.green(`getCpu() stdout :${ret}`))
-      log.verbose(chalk.green(`getCpu() stdout :${ret}`))
+      log.verbose(chalk.green(`getCpu() length :${ret}`))
     } catch (e) {
-      log.error('----------stdout', e)
+      log.error('getCpu', e)
     }
     return ret
   }

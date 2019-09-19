@@ -13,7 +13,7 @@ public:
      *@param className类名 默认为空
      *@param method 方法名 默认为空
      */
-    static Chalk *green(QString &str,QString className="",QString method="");
+    static void green(QString &str,QString className="",QString method="");
 private:
     Chalk(QObject *parent = 0);
 };
