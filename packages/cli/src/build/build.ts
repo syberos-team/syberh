@@ -7,14 +7,11 @@ import { AppBuildConfig, DEVICES_TYPES } from '../util/constants'
 import * as helper from '../syberos/helper'
 import config from '../config/index'
 import { log } from '../util/log'
+import * as sop from './sop'
 
 export default class Build {
   private conf: any = {}
   private appPath: string
-  // 是否支持cdb
-  private isSupportCdb: boolean = false
-  // cdb模式的设备名
-  private cdbDevice: string
   // pdk根路径
   private pdkRootPath: string
   private targetName: string
@@ -50,7 +47,7 @@ export default class Build {
    */
   public async buildSop() {
     log.verbose('Build buildSop()')
-    this.pdkRootPath = await helper.locatePdk()
+    this.pdkRootPath = await helper.locateSdk()
     log.verbose('pdkRootPath:', this.pdkRootPath)
     // 1、生成编译目录
     this.mkdirBuild()
@@ -157,7 +154,7 @@ export default class Build {
   private async installSop() {
     log.verbose('Build installSop()')
     console.log(chalk.green('开始安装sop包...'))
-    const { adapter } = this.conf
+    const { adapter, sopid, projectName } = this.conf
 
     let adapterConfig: any
     // 检查安装至模拟器还是真机
@@ -182,158 +179,25 @@ export default class Build {
       console.log(chalk.green('准备启动模拟器'))
       await helper.startvm()
     }
-    // 检查是否支持cdb
-    this.checkCdb()
+
+    const cdbSop = new sop.CdbSop(this.pdkRootPath, this.targetName, sopid, projectName)
     // 非模拟器，支持cdb
-    if (!this.useSimulator && this.isSupportCdb) {
+    if (!this.useSimulator && cdbSop.isSupportCdb()) {
       // 发送
-      this.cdbSop(sopPath)
+      cdbSop.send(sopPath)
       // 安装
-      this.cdbInstallSop(path.basename(sopPath))
+      cdbSop.install(path.basename(sopPath))
       // 启动
-      this.cdbStartApp()
+      cdbSop.startApp()
     } else {
+      const sshSop = new sop.SshSop(adapterConfig.ip, adapterConfig.port, sopid, projectName)
       // 发送
-      this.scpSop(adapterConfig.ip, adapterConfig.port, sopPath)
+      sshSop.send(sopPath)
       // 安装
-      this.sshInstallSop(
-        adapterConfig.ip,
-        adapterConfig.port,
-        path.basename(sopPath)
-      )
+      sshSop.install(path.basename(sopPath))
       // 启动
-      this.sshStartApp(adapterConfig.ip, adapterConfig.port)
+      sshSop.startApp()
     }
-  }
-
-  private checkCdb() {
-    log.verbose('Build checkCdb()')
-    // 安装至模拟器时，不使用cdb
-    if (this.useSimulator) {
-      return
-    }
-    const cdbPath = this.locateCdb()
-    log.verbose('%s devices', cdbPath)
-
-    const cdbCmd = `${cdbPath} devices`
-    log.verbose('执行：', cdbCmd)
-    let result = shelljs.exec(`${cdbPath} devices`)
-    log.verbose('执行结果：', result)
-
-    // 出现no permissions时，需要重启cdb服务
-    if (result.stdout.indexOf('no permissions') > 0) {
-      console.log(
-        chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...')
-      )
-
-      let cmd = `${cdbPath} kill-server`
-      log.verbose('执行：', cmd)
-      shelljs.exec(cmd)
-
-      cmd = `sudo ${cdbPath} start-server`
-      log.verbose('执行：', cmd)
-      shelljs.exec(cmd)
-
-      cmd = `${cdbPath} devices`
-      log.verbose('执行：', cmd)
-      result = shelljs.exec(cmd)
-    }
-
-    this.isSupportCdb = result.stdout.indexOf('-SyberOS') > 0
-
-    const lastIdx = result.stdout.indexOf('-SyberOS')
-    const prefixSub = result.stdout.substring(0, lastIdx + 8)
-    const firstIdx = prefixSub.lastIndexOf('\n')
-    this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
-
-    log.verbose(
-      'isSupportCdb:%s, cdbDevice:%s',
-      this.isSupportCdb,
-      this.cdbDevice
-    )
-  }
-
-  private scpSop(ip: string, port: number, sopPath: string) {
-    log.verbose('Build scpSop(%s, %d, %s)', ip, port, sopPath)
-    console.log(chalk.green('准备发送sop包'))
-    log.verbose('ip:%s, port:%d, sopPath:%s', ip, port, sopPath)
-    // 非模拟器，支持cdb
-    if (!this.useSimulator && this.isSupportCdb) {
-      const cdbPath = this.locateCdb()
-
-      const cdbPushCmd = `${cdbPath} -s ${
-        this.cdbDevice
-        } push -p ${sopPath} /tmp`
-      log.verbose('执行：', cdbPushCmd)
-      shelljs.exec(cdbPushCmd)
-    } else {
-      const cmd = `expect ${helper.locateScripts(
-        'scp-sop.sh'
-      )} ${ip} ${port} ${sopPath}`
-      log.verbose('执行：', cmd)
-      shelljs.exec(cmd)
-    }
-  }
-
-  private cdbSop(sopPath: string) {
-    log.verbose('Build cdbSop(%s)', sopPath)
-    const cdbPushCmd = `${this.locateCdb()} -s ${
-      this.cdbDevice
-      } push -p ${sopPath} /tmp`
-    log.verbose('执行：', cdbPushCmd)
-    shelljs.exec(cdbPushCmd)
-  }
-
-  private sshInstallSop(ip: string, port: number, filename: string) {
-    log.verbose('Build sshInstallSop(%s, %d, %s)', ip, port, filename)
-    console.log(chalk.green('准备安装sop包'))
-    log.verbose(filename)
-
-    const nameSplit = filename.split('-')
-
-    const cmd = `expect ${helper.locateScripts(
-      'ssh-install-sop.sh'
-    )} ${ip} ${port} ${nameSplit[0]} ${filename}`
-    log.verbose('执行：', cmd)
-    shelljs.exec(cmd)
-  }
-
-  private cdbInstallSop(filename: string) {
-    log.verbose('Build cdbInstallSop(%s)', filename)
-    console.log(chalk.green('准备安装sop包'))
-    log.verbose(filename)
-
-    const cmd = `expect ${helper.locateScripts(
-      'cdb-install-sop.sh'
-    )} ${this.locateCdb()} ${this.cdbDevice} ${filename}`
-    log.verbose('执行：', cmd)
-    shelljs.exec(cmd)
-  }
-
-  private sshStartApp(ip: string, port: number) {
-    log.verbose('Build sshStartApp(%s, %d)', ip, port)
-    const { sopid, projectName } = this.conf
-    console.log(chalk.green('准备启动app'))
-    log.verbose('%s:%s:uiapp', sopid, projectName)
-
-    const cmd = `expect ${helper.locateScripts(
-      'ssh-start-app.sh'
-    )} ${ip} ${port} ${sopid} ${projectName}`
-    log.verbose('执行：', cmd)
-    shelljs.exec(cmd)
-  }
-
-  private cdbStartApp() {
-    log.verbose('Build cdbStartApp()')
-    const { sopid, projectName } = this.conf
-    console.log(chalk.green('准备启动app'))
-    log.verbose('%s:%s:uiapp', sopid, projectName)
-
-    const cmd = `expect ${helper.locateScripts(
-      'cdb-start-app.sh'
-    )} ${this.locateCdb()} ${this.cdbDevice} ${sopid} ${projectName}`
-    log.verbose('执行：', cmd)
-    shelljs.exec(cmd)
   }
 
   private execKchroot(subCommand: string = '') {
@@ -439,20 +303,5 @@ export default class Build {
     log.verbose('Build locateSyberosPro()')
     return path.join(this.appPath, 'platforms', 'syberos', 'app.pro')
   }
-  /**
-   * 查找cdb路径
-   */
-  private locateCdb(): string {
-    log.verbose('Build locateCdb()')
-    return path.join(
-      this.pdkRootPath,
-      'targets',
-      this.targetName,
-      'usr',
-      'lib',
-      'qt5',
-      'bin',
-      'cdb'
-    )
-  }
+
 }

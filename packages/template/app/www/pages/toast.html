@@ -14,27 +14,32 @@
 
 <body>
 
-  <div class="mui-content pt0">
-    <ul class="mui-table-view ">
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="toast-success">成功提示</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="toast-error">错误提示</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="toast-none">无icon提示</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="gtoast-btn1">GToast提示(用法1)</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="gtoast-btn2">GToast提示(用法2)</a>
-      </li>
-      <li class="mui-table-view-cell" style="display: none">
-        <a class="mui-navigate-right api-class" id="close">close(关闭页面)</a>
-      </li>
-    </ul>
+    <div class="mui-content pt0">
+      <form class="mui-input-group">
+        <div class="mui-input-row"  style="height: auto">
+            <label>title:</label>
+            <textarea class="mui-input-clear" id="title1" cols="30" rows="2">提示信息</textarea>
+        </div>
+        <div class="mui-input-row">
+            <label>icon:</label>
+            <select id="icon">
+              <option value="success">success</option>
+              <option value="error">error</option>
+              <option value="none">none</option>
+            </select>
+        </div>
+        <div class="mui-input-row">
+            <label>duration:</label>
+            <input type="text" id="duration" value="1500" class="mui-input-clear" />
+        </div>
+        <div class="mui-input-row">
+            <button type="button" class="mui-btn mui-btn-primary" onclick="btnClick()">确定</button>
+        </div>
+        <div class="mui-card-footer">
+            <h4>响应信息:</h4>
+            <div id="resultMsg"></div>
+        </div>
+    </form>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
@@ -45,67 +50,23 @@
 
     var vConsole = new VConsole();
 
-    window.runApi = function (id) {
-      console.log('执行API:' + id);
+    function btnClick(){
+        var title = document.getElementById("title1").value;
+        var icon = document.getElementById("icon").value;
+        var duration = document.getElementById("duration").value;
 
-      switch (id) {
-        case 'toast-success':
-          syberh.modal.toast({
-            title: '正确提示',
-            icon: 'success',
-            duration: 1500,
-            success: function () {
-              console.log('toast执行成功')
-            },
-            fail: function (error) {
-              console.info(JSON.stringify(error));
-            }
-          });
-          break;
-        case 'toast-error':
-          syberh.modal.toast({
-            title: '错误提示',
-            icon: 'error',
-            duration: 1500,
-            success: function () {
-              console.log('toast执行成功')
-            },
-            fail: function (error) {
-              console.info(JSON.stringify(error));
-            }
-          });
-          break;
-        case 'toast-none':
-          syberh.modal.toast({
-            title: '没有图标的提示没有图标的提示',
-            icon: 'none',
-            duration: 1500,
-            success: function () {
-              console.log('toast执行成功')
-            },
-            fail: function (error) {
-              console.info(JSON.stringify(error));
-            }
-          });
-          break;
-        case 'gtoast-btn1':
-          syberh.modal.gtoast({
-            title: 'gtoast提示（用法1）',
-            success: function () {
-              console.log('toast执行成功')
-            },
-            fail: function (error) {
-              console.info(JSON.stringify(error));
-            }
-          });
-          break;
-        case 'gtoast-btn2':
-          syberh.modal.gtoast("gtoast提示（用法2）");
-          break;
-        default:
-          console.error('错误！没有相应API');
-      }
-    };
+        syberh.modal.toast({
+          title: title,
+          icon: icon,
+          duration: duration,
+          success: function () {
+            document.getElementById("resultMsg").innerHTML = "toast执行成功";
+          },
+          fail: function (error) {
+            document.getElementById("resultMsg").innerHTML = JSON.stringify(error);
+          }
+        });
+    }
   </script>
 
 </body>

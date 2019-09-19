@@ -279,18 +279,18 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
 }
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
-  print('\n request handlerId', typeof handlerId)
+  print('\n request handlerId', typeof handlerId, handlerId, "errorCode", typeof errorCode, errorCode, errorMsg)
   var webviewId = this.getWebViewIdByHandlerId(handlerId)
   var webview = this.getWebView(webviewId)
 
   var obj = {
     responseId: Number(handlerId),
     responseData: {
-      code: 0,
+      code: Number(errorCode),
       msg: errorMsg
     }
   }
-  print('\n request failed ', JSON.stringify(obj))
+  print('\n request failed ', JSON.stringify(obj), obj.responseData.code)
   webview.experimental.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + JSON.stringify(obj) + ')'
   )
