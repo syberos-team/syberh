@@ -1,39 +1,135 @@
 <RCC>
     <qresource prefix="/com/syberos/api">
-        <file>qmldir</file>
-        <file>qml/swebview.qml</file>
-        <file>qml/root.qml</file>
-        <file>js/util/tool.js</file>
-        <file>js/util/polyfill.js</file>
-        <file>js/webview/webview.js</file>
+        <file>js/camera/capture.js</file>
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>
-        <file>js/root/root.js</file>
-        <file>js/config.js</file>
+        <file>js/filepicker/filepicker.js</file>
+        <file>js/image/choose.js</file>
         <file>js/modal/alert.js</file>
         <file>js/modal/confirm.js</file>
-        <file>qml/SButton.qml</file>
-        <file>qml/SConfirm.qml</file>
-        <file>qml/SAlert.qml</file>
         <file>js/modal/prompt.js</file>
-        <file>qml/SCollisionIndicator.qml</file>
-        <file>qml/SToast.qml</file>
         <file>js/modal/toast.js</file>
-        <file>res/success_primary_big.png</file>
-        <file>res/success_primary.png</file>
-        <file>res/toast-fail.png</file>
-        <file>res/toast-success.png</file>
-        <file>res/warning_big.png</file>
-        <file>res/warning.png</file>
-        <file>qml/SCamera.qml</file>
-        <file>js/camera/capture.js</file>
-        <file>qml/SInputDialog.qml</file>
+        <file>js/root/root.js</file>
         <file>js/system/system.js</file>
+        <file>js/util/polyfill.js</file>
+        <file>js/util/tool.js</file>
+        <file>js/webview/webview.js</file>
+        <file>js/config.js</file>
+        <file>js/readme.html</file>
+        <file>js/readme.md</file>
+        <file>js/syber.js</file>
+        <file>js/webview.js</file>
+        <file>qml/CMenu/pics/endHandle.png</file>
+        <file>qml/CMenu/pics/menuBg.png</file>
+        <file>qml/CMenu/pics/menuBg.sci</file>
+        <file>qml/CMenu/pics/startHandleUp.png</file>
+        <file>qml/CMenu/pics/triangle_b.png</file>
+        <file>qml/CMenu/pics/triangle_t.png</file>
+        <file>qml/CMenu/SingletonTool/SingletonTool.qml</file>
+        <file>qml/CMenu/CBottomTriangleMask.qml</file>
+        <file>qml/CMenu/CContentsMenu.qml</file>
+        <file>qml/CMenu/CMenuDiv.qml</file>
+        <file>qml/CMenu/CMenuItem.qml</file>
+        <file>qml/CMenu/CTopTriangleMask.qml</file>
+        <file>qml/CMenu/qmldir</file>
+        <file>qml/default/CPhotoShareDialog/CPhotoShareDialog.qml</file>
+        <file>qml/default/CPhotoShareDialog/qmldir</file>
+        <file>qml/default/CPhotoTranslate/CPhotoTranslate.qml</file>
+        <file>qml/default/CPhotoTranslate/qmldir</file>
+        <file>qml/root.qml</file>
+        <file>qml/SAlert.qml</file>
+        <file>qml/SButton.qml</file>
+        <file>qml/SCamera.qml</file>
+        <file>qml/SCheckGridView.qml</file>
+        <file>qml/SCheckViewModel.qml</file>
+        <file>qml/SCollisionIndicator.qml</file>
+        <file>qml/SConfirm.qml</file>
         <file>qml/SDelegateComponent.qml</file>
+        <file>qml/SEditTitleBar.qml</file>
         <file>qml/SFilesPicker.qml</file>
         <file>qml/SFilesPickerView.qml</file>
         <file>qml/Sfm.js</file>
+        <file>qml/SInputDialog.qml</file>
+        <file>qml/status.js</file>
+        <file>qml/SToast.qml</file>
         <file>qml/SUI.js</file>
+        <file>qml/swebview.qml</file>
+        <file>res/success_primary.png</file>
+        <file>res/success_primary_big.png</file>
+        <file>res/toast-fail.png</file>
+        <file>res/toast-success.png</file>
+        <file>res/warning.png</file>
+        <file>res/warning_big.png</file>
+        <file>src/framework/common/errorinfo.cpp</file>
+        <file>src/framework/common/errorinfo.h</file>
+        <file>src/framework/common/extendedconfig.cpp</file>
+        <file>src/framework/common/extendedconfig.h</file>
+        <file>src/framework/common/networkstatus.cpp</file>
+        <file>src/framework/common/networkstatus.h</file>
+        <file>src/framework/devtools/devtools.cpp</file>
+        <file>src/framework/devtools/devtools.h</file>
+        <file>src/framework/devtools/socketclient.cpp</file>
+        <file>src/framework/devtools/socketclient.h</file>
+        <file>src/framework/nativesdkfactory.cpp</file>
+        <file>src/framework/nativesdkfactory.h</file>
+        <file>src/framework/nativesdkhandlerbase.cpp</file>
+        <file>src/framework/nativesdkhandlerbase.h</file>
+        <file>src/framework/nativesdkmanager.cpp</file>
+        <file>src/framework/nativesdkmanager.h</file>
+        <file>src/util/chalk.cpp</file>
+        <file>src/util/chalk.h</file>
+        <file>src/util/downloadmanager.cpp</file>
+        <file>src/util/downloadmanager.h</file>
+        <file>src/util/fileutil.cpp</file>
+        <file>src/util/fileutil.h</file>
+        <file>src/audio.cpp</file>
+        <file>src/audio.h</file>
+        <file>src/battery.cpp</file>
+        <file>src/battery.h</file>
+        <file>src/camera.cpp</file>
+        <file>src/camera.h</file>
+        <file>src/cellular.cpp</file>
+        <file>src/cellular.h</file>
+        <file>src/clipboard.cpp</file>
+        <file>src/clipboard.h</file>
+        <file>src/download.cpp</file>
+        <file>src/download.h</file>
+        <file>src/filemanager.cpp</file>
+        <file>src/filemanager.h</file>
+        <file>src/helper.cpp</file>
+        <file>src/helper.h</file>
+        <file>src/httpclient.cpp</file>
+        <file>src/httpclient.h</file>
+        <file>src/loadqmlhandler.cpp</file>
+        <file>src/loadqmlhandler.h</file>
+        <file>src/loadqmlwidget.cpp</file>
+        <file>src/loadqmlwidget.h</file>
+        <file>src/network.cpp</file>
+        <file>src/network.h</file>
+        <file>src/networkInfo.cpp</file>
+        <file>src/networkInfo.h</file>
+        <file>src/path.cpp</file>
+        <file>src/path.h</file>
+        <file>src/storage.cpp</file>
+        <file>src/storage.h</file>
+        <file>src/system.cpp</file>
+        <file>src/system.h</file>
+        <file>src/telephony.cpp</file>
+        <file>src/telephony.h</file>
+        <file>src/url.cpp</file>
+        <file>src/url.h</file>
+        <file>com_syberos_api.pri</file>
+        <file>com_syberos_api.qrc</file>
+        <file>qmldir</file>
+        <file>qml/SEditGridViewPage.qml</file>
+        <file>qml/SImageListPreview.qml</file>
+        <file>qml/SPhotoAlternate.qml</file>
+        <file>qml/SPhotoAndVideoBrowser.qml</file>
+        <file>qml/SPhotoAndVideoModel.qml</file>
+        <file>qml/SPhotoEditTitleBar.qml</file>
+        <file>qml/SPhotoToolBar.qml</file>
+        <file>qml/SImageSelector.qml</file>
+        <file>js/image/select.js</file>
         <file>js/readme.md</file>
         <file>js/webview.js</file>
         <file>js/filepicker/filepicker.js</file>

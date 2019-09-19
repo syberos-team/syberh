@@ -102,7 +102,7 @@ export default class Project extends Creator {
       this.conf = Object.assign(this.conf, {
         projectName: 'example',
         appName: 'example',
-        sopid: 'cosm.sybero.example'
+        sopid: 'com.syberos.example'
       })
     }
 
