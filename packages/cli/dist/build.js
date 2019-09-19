@@ -9,7 +9,7 @@ function build(appPath, buildConfig) {
                 buildForDevice(appPath, { debug, port });
                 break;
             case "simulator" /* SIMULATOR */:
-                buildForSimulator(appPath, { debug });
+                buildForSimulator(appPath, { debug, port });
                 break;
             default:
                 console.log(chalk_1.default.red('输入类型错误，目前只支持 device(真机)/simulator类型'));
@@ -17,25 +17,16 @@ function build(appPath, buildConfig) {
     }
     else {
         // 默认打SOP包
-        buildSop(appPath, { debug });
+        buildSop(appPath, { debug, port });
     }
 }
 exports.default = build;
-function buildForDevice(appPath, { debug }) {
-    require('./build/index').build(appPath, {
-        debug,
-        adapter: "device" /* DEVICE */
-    });
+function buildForDevice(appPath, buildConfig) {
+    require('./build/index').build(appPath, Object.assign({}, buildConfig, { adapter: "device" /* DEVICE */ }));
 }
-function buildForSimulator(appPath, { debug }) {
-    require('./build/index').build(appPath, {
-        debug,
-        adapter: "simulator" /* SIMULATOR */
-    });
+function buildForSimulator(appPath, buildConfig) {
+    require('./build/index').build(appPath, Object.assign({}, buildConfig, { adapter: "simulator" /* SIMULATOR */ }));
 }
-function buildSop(appPath, { debug }) {
-    require('./build/index').build(appPath, {
-        debug,
-        onlyBuildSop: true
-    });
+function buildSop(appPath, buildConfig) {
+    require('./build/index').build(appPath, Object.assign({}, buildConfig, { onlyBuildSop: true }));
 }

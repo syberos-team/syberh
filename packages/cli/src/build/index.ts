@@ -4,13 +4,16 @@ import * as os from 'os'
 import { AppBuildConfig } from '../util/constants'
 import Build from './build'
 import { getProjectConfig, locateScripts } from '../syberos/helper'
+import { log } from '../util/log';
 
 /**
  * 编译APP
  * @param appPath 工程目录
  * @param param1 参数信息
  */
-export async function build (appPath: string, config: AppBuildConfig) {
+export async function build(appPath: string, config: AppBuildConfig) {
+  log.verbose('build() start')
+  log.verbose('config:', JSON.stringify(config))
   const newConfig = { ...config, ...getProjectConfig(appPath) }
   const serverPort = 4399
   if (!newConfig.port) {
@@ -36,10 +39,12 @@ export async function build (appPath: string, config: AppBuildConfig) {
     }
     Object.assign(newConfig, { serverIp: sip })
   }
+
+  log.verbose('config:', JSON.stringify(newConfig))
   const { debug = false } = config
   if (debug) {
     const serverjs = locateScripts('devServer.js')
-    child_process.fork(serverjs)
+    child_process.fork(serverjs, [newConfig.port])
   }
   const build = new Build(appPath, newConfig)
   if (newConfig.onlyBuildSop === true) {

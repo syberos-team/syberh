@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import { BUILD_TYPES } from './util/constants'
 import { IBuildConfig } from './util/types'
 
-export default function build (appPath, buildConfig: IBuildConfig) {
+export default function build(appPath, buildConfig: IBuildConfig) {
   const { type, debug, port } = buildConfig
 
   if (type) {
@@ -13,7 +13,7 @@ export default function build (appPath, buildConfig: IBuildConfig) {
         buildForDevice(appPath, { debug, port })
         break
       case BUILD_TYPES.SIMULATOR:
-        buildForSimulator(appPath, { debug })
+        buildForSimulator(appPath, { debug, port })
         break
 
       default:
@@ -23,27 +23,27 @@ export default function build (appPath, buildConfig: IBuildConfig) {
     }
   } else {
     // 默认打SOP包
-    buildSop(appPath, { debug })
+    buildSop(appPath, { debug, port })
   }
 }
 
-function buildForDevice (appPath: string, { debug }: IBuildConfig) {
+function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
   require('./build/index').build(appPath, {
-    debug,
+    ...buildConfig,
     adapter: BUILD_TYPES.DEVICE
   })
 }
 
-function buildForSimulator (appPath: string, { debug }: IBuildConfig) {
+function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
   require('./build/index').build(appPath, {
-    debug,
+    ...buildConfig,
     adapter: BUILD_TYPES.SIMULATOR
   })
 }
 
-function buildSop (appPath: string, { debug }: IBuildConfig) {
+function buildSop(appPath: string, buildConfig: IBuildConfig) {
   require('./build/index').build(appPath, {
-    debug,
+    ...buildConfig,
     onlyBuildSop: true
   })
 }
