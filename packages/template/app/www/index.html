@@ -16,7 +16,6 @@
       padding: 8px !important;
       background: #f7f7f7;
     }
-
     .secondMenu > p {
       color: inherit;
       font-size: 17px;
@@ -27,12 +26,6 @@
 <body>
   <div class="mui-content pt0 syberMainPage">
     <ul class="mui-table-view">
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="selectImage()">照片</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="selectImage123()">照片</a>
-      </li>
       <li class="mui-table-view-cell mui-collapse">
           <a class="mui-navigate-right" href="#">模态弹窗</a>
           <ul class="mui-collapse-content">
@@ -65,19 +58,21 @@
         <a class="mui-navigate-right api-class" id="./pages/telephony.html">电话</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/network.html">网络</a>
+        <a class="mui-navigate-right api-class" id="./pages/clipboard.html">剪贴板</a>
       </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/system.html">系统信息</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/battery.html">电池信息</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/networkInfo.html">网络状态信息</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/NetworkSetCellular.html">设置数据网络状态</a>
+      <li class="mui-table-view-cell mui-collapse">
+          <a class="mui-navigate-right" href="#">系统信息</a>
+          <ul class="mui-collapse-content">
+              <li class="mui-table-view-cell secondMenu">
+                <p class="mui-navigate-right api-class" id="./pages/system.html">aboutPhone</p>
+              </li>
+              <li class="mui-table-view-cell secondMenu">
+                <p class="mui-navigate-right api-class" id="./pages/battery.html">battery</p>
+              </li>
+              <li class="mui-table-view-cell secondMenu">
+                <p class="mui-navigate-right api-class" id="./pages/networkInfo.html">networkInfo</p>
+              </li>
+          </ul>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/NetworkSetCellular.html">数据网络</a>
@@ -135,30 +130,6 @@
         }
       })
     }
-
-    function selectImage() {
-      syberh.image.select({
-        count: 3,
-        sourceType: ['album', 'camera'],
-        success: function(res) {
-          console.log('打开选项---', res)
-        }
-      })
-    }
-
-    function selectImage123() {
-      syberh.image.select({
-        count: 3,
-        sourceType: ['album'],
-        success: function(res) {
-          console.log('打开选项---', res)
-        }
-      })
-    }
-
-    
-
-    
   </script>
 </body>
 
