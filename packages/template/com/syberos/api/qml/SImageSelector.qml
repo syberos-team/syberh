@@ -21,13 +21,19 @@ CListDialog{
             // 用户点击确定按钮
             imageComponent.confirm.connect(function(arr){
                 var newArr = []
+                var urlArr = []
                 arr.forEach(function(item) {
                     newArr.push({
                         path: imageComponent.model.get(item).url + '',
                         size: imageComponent.model.get(item).fileSize
                     })
+                    urlArr.push(imageComponent.model.get(item).url + '')
                 })
-                selectedDialog.receiveUrls(newArr)
+                var result = {
+                    tempFilePaths: urlArr,
+                    tempFiles: newArr
+                }
+                selectedDialog.receiveUrls(result)
             })
 
             // 用户点击取消按钮
@@ -42,7 +48,12 @@ CListDialog{
                 var size = fileutil.getInfoSize(filePath)
                 filePath = "file://"+filePath;
                 var arr = [{ path: filePath, size: size }]
-                selectedDialog.receiveUrls(arr)
+                var urlArr = [filePath]
+                var result = {
+                    tempFilePaths: urlArr,
+                    tempFiles: arr
+                }
+                selectedDialog.receiveUrls(result)
             })
         }
     }

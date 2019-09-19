@@ -50,6 +50,9 @@
       "apis/filepicker/filepicker": {
         "title": "filepicker"
       },
+      "apis/image/select": {
+        "title": "select"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -454,7 +457,8 @@
       "文件选择": "文件选择",
       "文件管理": "文件管理",
       "url": "url",
-      "path": "path"
+      "path": "path",
+      "图片": "图片"
     }
   },
   "pages-strings": {

@@ -27,14 +27,6 @@
   <div class="mui-content pt0 syberMainPage">
     <ul class="mui-table-view">
       <li class="mui-table-view-cell mui-collapse">
-          <a class="mui-navigate-right" href="#">照片</a>
-          <ul class="mui-collapse-content">
-            <li class="mui-table-view-cell secondMenu">
-              <p class="mui-navigate-right api-class" id="./pages/selectImage.html">图片选择</p>
-            </li>
-          </ul>
-        </li>
-      <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">模态弹窗</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu">
@@ -112,11 +104,24 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/fileManager.html">文件管理</a>
       </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/url.html">url</a>
+      <li class="mui-table-view-cell mui-collapse">
+        <a class="mui-navigate-right" id="#">url</a>
+        <ul class="mui-collapse-content">
+            <li class="mui-table-view-cell secondMenu">
+              <p class="mui-navigate-right api-class" id="./pages/url.html">openUrl</p>
+            </li>
+        </ul>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/path.html">path</a>
+      </li>
+      <li class="mui-table-view-cell mui-collapse">
+          <a class="mui-navigate-right" href="#">图片</a>
+          <ul class="mui-collapse-content">
+            <li class="mui-table-view-cell secondMenu">
+              <p class="mui-navigate-right api-class" id="./pages/selectImage.html">图片选择</p>
+            </li>
+          </ul>
       </li>
     </ul>
 
@@ -144,34 +149,6 @@
         },
         error: function (error) {
           showTips('失败:' + JSON.stringify(error))
-        }
-      })
-    }
-
-    function selectImage() {
-      syberh.image.select({
-        count: 3,
-        sourceType: ['album'],
-        success: function(res) {
-          console.log('从相册选择照片', res)
-        }
-      })
-    }
-    function selectImage2() {
-      syberh.image.select({
-        count: 3,
-        sourceType: ['album', 'camera'],
-        success: function(res) {
-          console.log('选择照片/拍照', res)
-        }
-      })
-    }
-    function selectImage3() {
-      syberh.image.select({
-        count: 3,
-        sourceType: ['camera'],
-        success: function(res) {
-          console.log('拍照', res)
         }
       })
     }

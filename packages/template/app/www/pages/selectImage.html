@@ -20,6 +20,7 @@
         -webkit-box-align: center;
         -webkit-align-items: center;
         align-items: center;
+        background-color: #fff;
     }
     .weui-uploader__input-box{
         float: left;
@@ -83,9 +84,9 @@
         <div class="mui-input-row">
             <label>图片来源</label>
             <select name="sourceType">
+              <option value="['camera','album']">拍照或相册</option>
               <option value="['camera']">拍照</option>
               <option value="['album']">相册</option>
-              <option value="['camera','album']">拍照或相册</option>
             </select>
         </div>
         <div class="mui-input-row">
@@ -130,11 +131,13 @@
       syberh.image.select({
         count: count,
         sourceType: sourceType,
-        success: function (arr) {
-          console.log('success', JSON.stringify(arr))
-          arr.forEach(function(item) {
+        success: function (res) {
+          console.log('选择图片成功', JSON.stringify(res))
+          // tempFilePath可以作为img标签的src属性显示图片
+          var tempFilePaths = res.tempFilePaths
+          tempFilePaths.forEach(function(item) {
               var parent = document.getElementById('uploaderFiles')
-              var img = '<image class="weui-uploader__file" style="display: block" src=' + item.path +' />'
+              var img = '<image class="weui-uploader__file" style="display: block" src=' + item +' />'
               parent.innerHTML += img
           })
         }
