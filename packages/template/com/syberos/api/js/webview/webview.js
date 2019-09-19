@@ -21,27 +21,27 @@ function WebView (options) {
 
   // 定义数组,保存所有webivew
   this._webviews = {}
-  this.currentWebview=null;
+  this.currentWebview = null
   this.key = 0
   // 在原生调用完对应的方法后,会执行对应的回调函数id，并删除
   this.responseCallbacks = {}
   // 长期存在的回调，调用后不会删除
   this.responseCallbacksLongTerm = {}
   //
-  this.loadSuccess=0;
+  this.loadSuccess = 0
   var that = this
 
   this.on('ready', function (webview) {
     // var webview = data.object
     SYBEROS.body = webview
     that._webviews[that.id] = webview
-    that.currentWebview=webview
+    that.currentWebview = webview
     // 成功回调绑定函数
     NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
     NativeSdkManager.failed.connect(that.onFailed.bind(that))
     // 绑定订阅函数
-    NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that));
+    NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that))
 
     // 绑定消息接受信号
     webview.receiveMessage.connect(function (message) {
@@ -52,8 +52,8 @@ function WebView (options) {
       that.trigger('keyRelease', webview, event)
     })
 
-    NativeSdkManager.request("DevTools*", 12378, '', '')
-    NativeSdkManager.request("Url*", 151010, '', '')
+    NativeSdkManager.request('DevTools*', 12378, '', '')
+    NativeSdkManager.request('Url*', 151010, '', '')
   })
 
   /**
@@ -107,9 +107,9 @@ function WebView (options) {
     // 绑定进度事件
     object.reloadSuccess.connect(function (loadProgress) {
       if (loadProgress === 100) {
-          if(handlerId){
-              that.trigger('success', handlerId, true)
-          }
+        if (handlerId) {
+          that.trigger('success', handlerId, true)
+        }
       }
     })
   })
@@ -125,7 +125,6 @@ function WebView (options) {
 
   // 转向某个url
   this.on('redirectTo', function (object, handlerId, param) {
-
     try {
       var url = getUrl(param.url)
       object.url = url
@@ -134,31 +133,27 @@ function WebView (options) {
       that.firstConnect = false
 
       // 只做一次信号绑定,防止多次信号被触发
-      if(!that.firstConnect) {
-          // 设置绑定信号
-          that.firstConnect = true
+      if (!that.firstConnect) {
+        // 设置绑定信号
+        that.firstConnect = true
 
-          object.reloadSuccess.connect(function (loadProgress) {
-
-              if (that.loadSuccess===0 && loadProgress===100) {
-                  that.loadSuccess=1;
-
-              }else if (that.loadSuccess===1){
-                   print('\n loadSuccess ',loadProgress)
-                  if(handlerId){
-                      that.trigger('success', handlerId, true)
-                  }else{
-                      if(param.type){
-                          print('\n subscribeEvaluate ',param.type)
-                          that.subscribeEvaluate(param.handlerName,param.data);
-
-                      }
-                  }
-                  that.loadSuccess=0;
+        object.reloadSuccess.connect(function (loadProgress) {
+          if (that.loadSuccess === 0 && loadProgress === 100) {
+            that.loadSuccess = 1
+          } else if (that.loadSuccess === 1) {
+            print('\n loadSuccess ', loadProgress)
+            if (handlerId) {
+              that.trigger('success', handlerId, true)
+            } else {
+              if (param.type) {
+                print('\n subscribeEvaluate ', param.type)
+                that.subscribeEvaluate(param.handlerName, param.data)
+              }
             }
-            })
-        }
-
+            that.loadSuccess = 0
+          }
+        })
+      }
     } catch (error) {
       console.error(error.message)
       that.trigger('failed', handlerId, 0, error.message)
@@ -230,7 +225,7 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   // gToast.requestToast('request sucess：' + JSON.stringify(result))
   // 返回内容
   var resObj = {
-      //handlerName:"handleError",
+    // handlerName:"handleError",
     responseId: Number(handlerId),
     responseData: {
       result: result
@@ -241,63 +236,61 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   )
 }
 
-
-WebView.prototype.onSubscribe = function (handlerName,result) {
-  console.log('-----------subscribe----------',handlerName,result)
-  if(handlerName==="DevToolsReload"){
-      this.trigger('reload', this.object);
-    return;
+WebView.prototype.onSubscribe = function (handlerName, result) {
+  console.log('-----------subscribe----------', handlerName, result)
+  if (handlerName === 'DevToolsReload') {
+    this.trigger('reload', this.object)
+    return
   }
 
-  if(handlerName==="onShow"){
-      var params={};
-      params.url= result.path;
-      params.handlerName=handlerName;
-      params.type = "onShow";
-      params.data = result;
-      this.trigger('redirectTo', this.object, null, params);
-      return;
+  if (handlerName === 'onShow') {
+    var params = {}
+    params.url = result.path
+    params.handlerName = handlerName
+    params.type = 'onShow'
+    params.data = result
+    this.trigger('redirectTo', this.object, null, params)
+    return
   }
 
   var resObj = {
-    handlerName:handlerName,
+    handlerName: handlerName,
     data: {
       result: result
     }
   }
   print('\n onSubscribe ', JSON.stringify(resObj))
-  var webview=this.currentWebview;
+  var webview = this.currentWebview
   webview.experimental.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
   )
 }
 
-
-WebView.prototype.subscribeEvaluate = function (handlerName,data) {
-    var resObj = {
-      handlerName:handlerName,
-      data: data
-    }
-    print('\n onSubscribe ', JSON.stringify(resObj))
-    var webview=this.currentWebview;
-    webview.experimental.evaluateJavaScript(
-      'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
-    )
+WebView.prototype.subscribeEvaluate = function (handlerName, data) {
+  var resObj = {
+    handlerName: handlerName,
+    data: data
+  }
+  print('\n onSubscribe ', JSON.stringify(resObj))
+  var webview = this.currentWebview
+  webview.experimental.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  )
 }
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
-  print('\n request handlerId', typeof handlerId)
+  print('\n request handlerId', typeof handlerId, handlerId, "errorCode", typeof errorCode, errorCode, errorMsg)
   var webviewId = this.getWebViewIdByHandlerId(handlerId)
   var webview = this.getWebView(webviewId)
 
   var obj = {
     responseId: Number(handlerId),
     responseData: {
-      code: 0,
+      code: Number(errorCode),
       msg: errorMsg
     }
   }
-  print('\n request failed ', JSON.stringify(obj))
+  print('\n request failed ', JSON.stringify(obj), obj.responseData.code)
   webview.experimental.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + JSON.stringify(obj) + ')'
   )
@@ -361,18 +354,18 @@ function getUrl (url) {
   }
 
   var filePath = helper.getWebRootPath() + '/' + url
-  var checkPath;
+  var checkPath
   console.log('--------filePath', filePath)
-  if(filePath.indexOf("?")>=0){
-    checkPath=filePath.split("?")[0];
-  }else{
-    checkPath=filePath;
+  if (filePath.indexOf('?') >= 0) {
+    checkPath = filePath.split('?')[0]
+  } else {
+    checkPath = filePath
   }
   if (helper.exists(checkPath)) {
     var rurl = 'file://' + filePath
     return rurl
   } else {
-    console.log('页面不存在:', checkPath, '跳转到index.html');
-    return 'file://'+ helper.getWebRootPath() + '/index.html';
+    console.log('页面不存在:', checkPath, '跳转到index.html')
+    return 'file://' + helper.getWebRootPath() + '/index.html'
   }
 }

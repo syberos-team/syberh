@@ -32,26 +32,26 @@ if (!fs.existsSync(projectConfPath)) {
 }
 
 // 检查是否需要重置target
-targetReset(appPath, program)
-
-if (env) {
-  process.env.NODE_ENV = env
-} else {
-  if (debug) {
-    process.env.NODE_ENV = 'development'
+targetReset(appPath, program).then(() => {
+  if (env) {
+    process.env.NODE_ENV = env
   } else {
-    process.env.NODE_ENV = 'production'
+    if (debug) {
+      process.env.NODE_ENV = 'development'
+    } else {
+      process.env.NODE_ENV = 'production'
+    }
   }
-}
 
-process.env.SYBEROS_ENV = type
+  process.env.SYBEROS_ENV = type
 
-const projectConf = require(projectConfPath)
+  const projectConf = require(projectConfPath)
 
-console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
+  console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
-build(appPath, {
-  type,
-  debug,
-  port: typeof port === 'string' ? port : undefined
+  build(appPath, {
+    type,
+    debug,
+    port: typeof port === 'string' ? port : undefined
+  })
 })
