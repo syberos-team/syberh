@@ -17,7 +17,7 @@ title: request
 | url | String |  | 是| 目标服务器 URL |
 | method | String | GET | 否 |请求类型，支持GET/POST/PUT/DELETE |
 | dataType | String | json | 否 | 返回格式，json/text |
-| header | Object | | 否 | 例：{"key","val"} |
+| header | Object | | 否 | 设置请求的header。Content-Type 默认为 application/x-www-form-urlencoded |
 | data | Object | | 否 | 参数，例：{"key","val"} |
 | success | function |  |  否     | 回调成功      |
 | fail   | function |  |  否     | 回调失败      |
