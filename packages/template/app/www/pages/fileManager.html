@@ -21,11 +21,11 @@
 			<div class="mui-collapse-content">
 				<div class="mui-input-group">
 					<div class="mui-input-row">
-						<label onclick="moveSrcClick()">源文件</label>
+						<label onclick="moveSrcClick()">源文件(点我)</label>
 						<input type="text" class="mui-input-clear" id="move-src">
 					</div>
 					<div class="mui-input-row">
-						<label onclick="moveDestClick()">目标路径</label>
+						<label >目标路径</label>
 						<input type="text" class="mui-input-clear" id="move-dest">
 					</div>
 					<div class="mui-button-row">
@@ -39,7 +39,7 @@
 			<div class="mui-collapse-content">
 				<div class="mui-input-group">
 					<div class="mui-input-row">
-						<label>源文件</label>
+						<label onclick="copySrcClick()">源文件(点我)</label>
 						<input type="text" class="mui-input-clear" id="copy-src">
 					</div>
 					<div class="mui-input-row">
@@ -58,7 +58,7 @@
 				<div class="mui-input-group">
 					<div class="mui-input-row">
 						<label>源文件</label>
-						<input type="text" class="mui-input-clear" id="list-src">
+						<input type="text" class="mui-input-clear" id="list-src" value="/data/data">
 					</div>
 					<div class="mui-button-row">
 						<button type="button" class="mui-btn mui-btn-primary" onclick="list()">列表</button>
@@ -71,7 +71,7 @@
 			<div class="mui-collapse-content">
 				<div class="mui-input-group">
 					<div class="mui-input-row">
-						<label>源文件</label>
+						<label onclick="infoSrcClick()">源文件(点我)</label>
 						<input type="text" class="mui-input-clear" id="info-src">
 					</div>
 					<div class="mui-button-row">
@@ -85,7 +85,7 @@
 			<div class="mui-collapse-content">
 				<div class="mui-input-group">
 					<div class="mui-input-row">
-						<label>源文件</label>
+						<label onclick="delSrcClick()">源文件(点我)</label>
 						<input type="text" class="mui-input-clear" id="remove-src">
 					</div>
 					<div class="mui-input-row mui-radio">
@@ -103,6 +103,8 @@
 			</div>
 		</li>
 	</ul>
+
+	<textarea id="show-rsp" cols="30" rows="10"></textarea>
      
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -112,14 +114,87 @@
 
   <script>
 
-    var vConsole = new VConsole();
+	var vConsole = new VConsole();
+	
+	function moveSrcClick() {
+		syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        success: function (result) {
+          if (result.confirm) {
+            console.log('用户点击确定， 文件路径为=》', result.path)
+            document.getElementById("move-src").value = result.path.replace("file://", "");
+          } else if (result.cancel) {
+            console.log('用户点击取消')
+          }
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+	}
+
+	function copySrcClick() {
+		syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        success: function (result) {
+          if (result.confirm) {
+            console.log('用户点击确定， 文件路径为=》', result.path)
+            document.getElementById("copy-src").value = result.path.replace("file://", "");
+          } else if (result.cancel) {
+            console.log('用户点击取消')
+          }
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+	}
+
+	function infoSrcClick() {
+		syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        success: function (result) {
+          if (result.confirm) {
+            console.log('用户点击确定， 文件路径为=》', result.path)
+            document.getElementById("info-src").value = result.path.replace("file://", "");
+          } else if (result.cancel) {
+            console.log('用户点击取消')
+          }
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+	}
+
+	function delSrcClick() {
+		syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        success: function (result) {
+          if (result.confirm) {
+            console.log('用户点击确定， 文件路径为=》', result.path)
+            document.getElementById("remove-src").value = result.path.replace("file://", "");
+          } else if (result.cancel) {
+            console.log('用户点击取消')
+          }
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+	}
 
     function move() {
       syberh.fileManager.move({
         srcPath: document.getElementById("move-src").value,
         destPath: document.getElementById("move-dest").value,
         success: function(res) {
-          console.info(res)
+		//   console.info(res)
+		  document.getElementById("show-rsp").value = "移动：" + JSON.stringify(res);
         }
       });
     }
@@ -128,7 +203,8 @@
         srcPath: document.getElementById("copy-src").value,
         destPath: document.getElementById("copy-dest").value,
         success: function(res) {
-          console.info(res)
+		//   console.info(res)
+		  document.getElementById("show-rsp").value = "拷贝：" + JSON.stringify(res);
         }
       })
     }
@@ -136,12 +212,13 @@
       syberh.fileManager.fileList({
         srcPath: document.getElementById("list-src").value,
         success: function(res) {
-			for(i = 0; i < res.length; i++) {
-				console.info(res[i].path)
-				console.info(res[i].size)
-				console.info(res[i].created)
-				console.info(res[i].isDir)
-			}
+			// for(i = 0; i < res.length; i++) {
+			// 	console.info(res[i].path)
+			// 	console.info(res[i].size)
+			// 	console.info(res[i].created)
+			// 	console.info(res[i].isDir)
+			// }
+			document.getElementById("show-rsp").value = "列表：" + JSON.stringify(res);
         }
       })
     }
@@ -149,7 +226,8 @@
       syberh.fileManager.getInfo({
         srcPath: document.getElementById("info-src").value,
         success: function(res) {
-          console.info(JSON.stringify(res))
+		//   console.info(JSON.stringify(res))
+		  document.getElementById("show-rsp").value = "信息：" + JSON.stringify(res);
         }
       })
     }
@@ -166,7 +244,8 @@
 		srcPath: document.getElementById("remove-src").value,
 		recursive: method,
         success: function(res) {
-          console.info(JSON.stringify(res))
+		//   console.info(JSON.stringify(res))
+		  document.getElementById("show-rsp").value = "删除：" + JSON.stringify(res);
         }
       })
     }
