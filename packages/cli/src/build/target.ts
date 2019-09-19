@@ -15,6 +15,10 @@ import { qtversions } from '../syberos/configfile'
  */
 export const targetChoices = async (device: DEVICES_TYPES) => {
   const targets = await qtversions.getInstallTargets()
+  if (!targets || targets.length === 0) {
+    console.log(chalk.yellow('未检测到已安装的target，请先安装target'))
+    process.exit(1)
+  }
   const prompts: object[] = []
   if (device === DEVICES_TYPES.SIMULATOR) {
     // 如果为模拟器

@@ -21,6 +21,10 @@ const configfile_1 = require("../syberos/configfile");
  */
 exports.targetChoices = (device) => __awaiter(this, void 0, void 0, function* () {
     const targets = yield configfile_1.qtversions.getInstallTargets();
+    if (!targets || targets.length === 0) {
+        console.log(chalk_1.default.yellow('未检测到已安装的target，请先安装target'));
+        process.exit(1);
+    }
     const prompts = [];
     if (device === "simulator" /* SIMULATOR */) {
         // 如果为模拟器
