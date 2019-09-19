@@ -4,7 +4,6 @@
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>
         <file>js/filepicker/filepicker.js</file>
-        <file>js/image/choose.js</file>
         <file>js/modal/alert.js</file>
         <file>js/modal/confirm.js</file>
         <file>js/modal/prompt.js</file>

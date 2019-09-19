@@ -3,72 +3,67 @@ import com.syberos.basewidgets 2.0
 
 CListDialog{
     id: selectedDialog
-    property var sourceType:['camera', 'album']
     signal receiveUrls(var urls)
     property int count:9
     titleText: "选择图片"
-    onNotifySelectedItems: {
-        console.log("choice indexes ======> ", itemsIndex)
-        toPage(itemsIndex[0])
+    buttonAreaComponent: null
+
+    onDelegateItemTriggered: {
+        toPage(index)
     }
 
-//    function show(){
-//        if (sourceType === ['album']) {
-//            // 弹出框
-//            var obj= PageStack.push("qrc:/com/syberos/api/qml/SEditGridViewPage.qml")
-//            obj.confirm.connect(function(arr){
-//                console.log('九宫格页面---' , arr)
-//                selectedDialog.receiveUrls(arr)
-//            })
-
-//        } else if (sourceType === ['camera']) {
-
-//        }
-//    }
-
     function toPage(idx) {
-        console.log('toPage toPage toPage', selectedDialog.count)
-        if (idx === 0) {
+        if (model[idx] === "从手机相册选择") {
             var imageComponent= pageStack.push("qrc:/com/syberos/api/qml/SEditGridViewPage.qml")
 
             imageComponent.maxSelectCount = selectedDialog.count || 9
 
             // 用户点击确定按钮
             imageComponent.confirm.connect(function(arr){
-                console.log('九宫格页面---' , arr)
-                selectedDialog.receiveUrls(arr)
+                var newArr = []
+                arr.forEach(function(item) {
+                    newArr.push({
+                        path: imageComponent.model.get(item).url + '',
+                        size: imageComponent.model.get(item).fileSize
+                    })
+                })
+                selectedDialog.receiveUrls(newArr)
             })
 
             // 用户点击取消按钮
             imageComponent.cancel.connect(function() {
                 console.log('监听到---取消按钮')
-                WEBVIEWCORE.trigger('success', that.handlerId)
             })
-        } else if (idx === 1) {
+        } else if (model[idx] === "相机") {
             var cameraComponent= pageStack.push("qrc:/com/syberos/api/qml/SCamera.qml")
 
-            cameraComponent.imageConfirmed.connect(function(filePath) { //处理信号
-                console.log('-------------------------------------takePictureImmediately', filePath)
+            cameraComponent.imageConfirmed.connect(function(filePath) {
                 pageStack.pop(root)
+                var size = fileutil.getInfoSize(filePath)
                 filePath = "file://"+filePath;
-                var arr = [{ path: filePath }]
+                var arr = [{ path: filePath, size: size }]
                 selectedDialog.receiveUrls(arr)
             })
         }
     }
 
-//    function transformSourceType(arr) {
-//        var newArr = []
-//        var obj = {'camera': '拍照', 'album': '从手机相册选择'}
-//        arr.forEach(function(item) {
-//            newArr.push(obj(item))
-//        })
-//        return newArr
-//    }
-
-
-    Component.onCompleted: {
-        model = selectedDialog.sourceType
-        select([0],true);
+    function open(obj){
+        selectedDialog.count = Number(obj.count)
+        model = transformType(eval(obj.sourceType))
+        selectedDialog.show()
     }
+
+    function transformType(arr) {
+        var newArr = []
+        for (var i=0; i < arr.length; i++) {
+            var item = arr[i]
+            if (item === 'camera') {
+                newArr.push('相机')
+            } else if (item === 'album') {
+                newArr.push('从手机相册选择')
+            }
+        }
+        return newArr
+    }
+
 }

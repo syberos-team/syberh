@@ -22,11 +22,10 @@ function Select () {
 
     console.log('\n')
     console.log('alert request', component.z)
-    console.log('\n', param)
+    console.log('paramparamparamparamparam', JSON.stringify(param))
 
-    component.count = this.param.count
-    component.sourceType = this.param.sourceType
-    component.show()
+    component.count = param.count
+    component.open(param)
 
     // 只做一次信号绑定,防止多次信号被触发
     if(!that.firstConnect) {
@@ -37,7 +36,7 @@ function Select () {
       component.receiveUrls.connect(function(arr) {
           console.log('image select receive---', arr)
           // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
-          WEBVIEWCORE.trigger('success',that.handlerId)
+          WEBVIEWCORE.trigger('success',that.handlerId, arr)
           // 清理相关参数信息
           that.clearParam()
       })
