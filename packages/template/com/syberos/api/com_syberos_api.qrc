@@ -36,7 +36,6 @@
         <file>qml/default/CPhotoShareDialog/qmldir</file>
         <file>qml/default/CPhotoTranslate/CPhotoTranslate.qml</file>
         <file>qml/default/CPhotoTranslate/qmldir</file>
-        <file>qml/BSelectTool.qml</file>
         <file>qml/root.qml</file>
         <file>qml/SAlert.qml</file>
         <file>qml/SButton.qml</file>
@@ -131,5 +130,24 @@
         <file>qml/SPhotoToolBar.qml</file>
         <file>qml/SImageSelector.qml</file>
         <file>js/image/select.js</file>
+        <file>js/readme.md</file>
+        <file>js/webview.js</file>
+        <file>js/filepicker/filepicker.js</file>
+        <file>qml/CMenu/qmldir</file>
+        <file>qml/CMenu/CTopTriangleMask.qml</file>
+        <file>qml/CMenu/CMenuItem.qml</file>
+        <file>qml/CMenu/CMenuDiv.qml</file>
+        <file>qml/CMenu/CContentsMenu.qml</file>
+        <file>qml/CMenu/CBottomTriangleMask.qml</file>
+        <file>qml/CMenu/SingletonTool/SingletonTool.qml</file>
+        <file>qml/CMenu/pics/triangle_t.png</file>
+        <file>qml/CMenu/pics/triangle_b.png</file>
+        <file>qml/CMenu/pics/startHandleUp.png</file>
+        <file>qml/CMenu/pics/menuBg.sci</file>
+        <file>qml/CMenu/pics/menuBg.png</file>
+        <file>qml/CMenu/pics/endHandle.png</file>
+        <file>js/syber.js</file>
+        <file>qml/ItemSelector.qml</file>
+        <file>qml/SSelectTool.qml</file>
     </qresource>
 </RCC>

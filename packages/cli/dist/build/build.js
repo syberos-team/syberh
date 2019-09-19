@@ -340,11 +340,10 @@ class Build {
         let ret = 4;
         try {
             ret = os.cpus().length;
-            console.log(chalk_1.default.green(`getCpu() stdout :${ret}`));
-            log_1.log.verbose(chalk_1.default.green(`getCpu() stdout :${ret}`));
+            log_1.log.verbose(chalk_1.default.green(`getCpu() length :${ret}`));
         }
         catch (e) {
-            log_1.log.error('----------stdout', e);
+            log_1.log.error('getCpu', e);
         }
         return ret;
     }

@@ -107,6 +107,7 @@
         <a class="mui-navigate-right api-class" id="./pages/path.html">path</a>
       </li>
     </ul>
+
   </div>
   <script type="text/javascript" src="./common/mui/mui.js"></script>
   <script type="text/javascript" src="./lib/syberh.min.js"></script>
@@ -134,28 +135,6 @@
         }
       })
     }
-
-    // function chooseImage() {
-    //   syberh.image.choose({
-    //     count: 3,
-    //     success: function(arr) {
-    //       console.log('选择图片---', arr)
-    //     }
-    //   })
-    // }
-
-    // function capturePhoto() {
-    //   syberh.camera.takePictureImmediately({
-    //     success: function (result) {
-    //       document.getElementById('pathDiv').innerText = result.path
-    //       document.getElementById('img').src = result.path
-    //       console.log('success: ', result.path);
-    //     },
-    //     fail: function (error) {
-    //       console.log('fail: ', error.code, error.msg);
-    //     }
-    //   });
-    // }
 
     function selectImage() {
       syberh.image.select({

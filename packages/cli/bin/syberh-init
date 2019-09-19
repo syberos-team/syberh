@@ -13,8 +13,6 @@ program
 const args = program.args
 const { template = 'default', description, name, css = 'none', example = false } = program
 let typescript
-// 是否创建示例项目
-let useDemo = false
 
 /**
  * 非标准做法
