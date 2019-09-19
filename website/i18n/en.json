@@ -429,6 +429,45 @@
       },
       "version-1.1.0/version-1.1.0-started-install": {
         "title": "安装SyberOS SDK"
+      },
+      "version-1.1.1-alpha.1/apis/fileManager/version-1.1.1-alpha.1-fileList": {
+        "title": "fileList"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-continuePlay": {
+        "title": "continuePlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-pausePlay": {
+        "title": "pausePlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-recorderList": {
+        "title": "recorderList"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-startPlay": {
+        "title": "startPlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-stopPlay": {
+        "title": "stopPlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-stopRecorder": {
+        "title": "stopRecorder"
+      },
+      "version-1.1.1-alpha.1/apis/request/version-1.1.1-alpha.1-request": {
+        "title": "request"
+      },
+      "version-1.1.1-alpha.1/apis/system/version-1.1.1-alpha.1-networkInfo": {
+        "title": "networkInfo"
+      },
+      "version-1.1.1-alpha.1/apis/url/version-1.1.1-alpha.1-url": {
+        "title": "openUrl"
+      },
+      "version-1.1.1-alpha.1/version-1.1.1-alpha.1-started-cli": {
+        "title": "安装 CLI"
       }
     },
     "links": {
