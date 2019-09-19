@@ -7,7 +7,7 @@ import { log } from '../util/log'
 
 const homedir = os.homedir()
 
-type TargetPath = {
+export type TargetPath = {
   name: string
   path: string
 }
@@ -17,7 +17,8 @@ interface QtversionsInterface {
   targetInstallPath(targetName: string, installPath: string): void
   getSdkInstallPath(): Promise<string>
   getTargetInstallPath(targetName: string): Promise<string>
-  getTargetInstallPaths(): Promise<TargetPath[]>
+  getInstallTargets(): Promise<TargetPath[]>
+  getTargetInstallPaths(): Promise<string[]>
   getTargetNames(): Promise<string[]>
 }
 
@@ -145,7 +146,25 @@ class Qtversions implements QtversionsInterface {
     return ''
   }
 
-  public async getTargetInstallPaths(): Promise<TargetPath[]> {
+  public async getTargetInstallPaths(): Promise<string[]> {
+    const lines = await this.readLines()
+    const paths: string[] = []
+    for (const line of lines) {
+      if (!line) {
+        continue
+      }
+      if (line.startsWith(this.sdkKeyword)) {
+        continue
+      }
+      const lineArray = line.split('=')
+      if (lineArray && lineArray.length >= 2) {
+        paths.push(lineArray[1])
+      }
+    }
+    return paths
+  }
+
+  public async getInstallTargets(): Promise<TargetPath[]> {
     const lines = await this.readLines()
     const targetPaths: TargetPath[] = []
     for (const line of lines) {
@@ -167,7 +186,7 @@ class Qtversions implements QtversionsInterface {
   }
 
   public async getTargetNames(): Promise<string[]> {
-    const targetPaths = await this.getTargetInstallPaths()
+    const targetPaths = await this.getInstallTargets()
     const targetNames: string[] = []
     for (const targetPath of targetPaths) {
       targetNames.push(targetPath.name)

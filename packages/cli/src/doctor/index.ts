@@ -1,9 +1,9 @@
-import pdkSdkValidator from './pdkSdkValidator'
+import targetSdkValidator from './targetSdkValidator'
 import syberhValidator from './syberhValidator';
 import sdkValidator from './sdkValidator';
 export default {
   validators: [
-    pdkSdkValidator,
+    targetSdkValidator,
     syberhValidator,
     sdkValidator
   ]
