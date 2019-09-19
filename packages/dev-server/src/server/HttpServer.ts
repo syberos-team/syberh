@@ -1,6 +1,7 @@
 
 import * as express from 'express'
 import * as fs from 'fs-extra'
+import * as os from 'os';
 import * as bodyParser from 'body-parser'
 import * as path from 'path'
 import ip from 'internal-ip'
@@ -63,13 +64,37 @@ export default class HttpServer {
       }
     })
 
+
+
     server = app.listen(this.port, async () => {
       console.log('http Server started.')
-      const host = await ip.v4()
+      const host = await this.getIP();
       const port = server.address().port;
+
       uri = `http://${host}:${port}`;
       log.info('http Server started.', uri)
     })
+  }
+
+  async getIP() {
+    let sip
+    const ifaces = os.networkInterfaces()
+    Object.keys(ifaces).forEach(function (dev) {
+      ifaces[dev].forEach(function (details) {
+        if (details.family === 'IPv4') {
+          // 优先使用192.168.100.x段ip
+          if (details.address.indexOf('192.168.100.10') >= 0) {
+            sip = details.address
+          }
+        }
+      })
+    })
+
+    if (!sip) {
+      sip = await ip.v4()
+    }
+
+    return sip
   }
   /**
    * 返回端口
