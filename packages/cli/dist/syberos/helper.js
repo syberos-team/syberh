@@ -88,10 +88,13 @@ exports.homeSubPath = (...subDirs) => {
 /**
  * 查找pdk根目录路径
  */
-exports.locatePdk = () => {
+exports.locateSdk = () => {
     return configfile_1.qtversions.getSdkInstallPath();
 };
-exports.locateSdk = () => {
+exports.locateAllTarget = () => {
+    return configfile_1.qtversions.getTargetInstallPaths();
+};
+exports.locateIde = () => {
     return exports.homeSubPath('SyberOS-SDK');
 };
 /**
@@ -106,7 +109,7 @@ exports.locateScripts = (shFilename) => {
  * @param port  模拟器ssh端口，默认5555
  */
 exports.startvm = (port = 5555) => __awaiter(this, void 0, void 0, function* () {
-    const emulatorPath = path.join(exports.locateSdk(), 'emulator');
+    const emulatorPath = path.join(exports.locateIde(), 'emulator');
     console.log(`模拟器<${port}>：${emulatorPath}`);
     const pid = shelljs.exec('pgrep "emulator-x86"');
     if (pid.trim()) {
