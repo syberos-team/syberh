@@ -10,10 +10,59 @@
   <title>page</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .mui-input-row label {
+      width: 40%;
+    }
+    .mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+      width: 60%;
+    }
+  </style>
 </head>
 
 <body>
   <div class="mui-content pt0">
+
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>标题</label>
+            <input type="text" class="mui-input-clear" name="title" value="标题">
+        </div>
+        <div class="mui-input-row">
+            <label>标题图标</label>
+            <select name="titleIcon">
+              <option value="">none</option>
+              <option value="success">success</option>
+              <option value="warning">warning</option>
+            </select>
+        </div>
+        <div class="mui-input-row" style="height: auto">
+            <label>显示内容</label>
+            <textarea class="mui-input-clear" cols="30" rows="5" name="content">弹窗内容，告知当前状态、信息和解决方法，描述</textarea>
+        </div>
+        <div class="mui-input-row">
+            <label>确认按钮文字</label>
+            <input type="text" class="mui-input-clear" name="confirmText" value="确定">
+        </div>
+        <div class="mui-input-row">
+            <label>确认按钮颜色</label>
+            <input type="text" class="mui-input-clear" name="confirmColor" value="#007aff">
+        </div>
+        <div class="mui-input-row">
+            <label>取消按钮文字</label>
+            <input type="text" class="mui-input-clear" name="cancelText" value="取消">
+        </div>
+        <div class="mui-input-row">
+            <label>取消按钮颜色</label>
+            <input type="text" class="mui-input-clear" name="cancelColor" value="#000000">
+        </div>
+        <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-primary" onclick="customConfirm()">确认</button>
+        </div>
+    </form>
+    <br />
+    <br />
+  
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="confirm">confirm</a>
@@ -143,6 +192,30 @@
       } else if (res === false) {
         console.log('用户点击了取消')
       }
+    }
+
+    // form表单可配置demo
+    function customConfirm() {
+      var title = document.querySelector("input[name='title']").value
+      var titleIcon = document.querySelector("select[name='titleIcon']").value
+      var content = document.querySelector("textarea[name='content']").value
+      var confirmText = document.querySelector("input[name='confirmText']").value
+      var confirmColor = document.querySelector("input[name='confirmColor']").value
+      var cancelText = document.querySelector("input[name='cancelText']").value
+      var cancelColor = document.querySelector("input[name='cancelColor']").value
+
+      syberh.modal.confirm({
+        title: title,
+        titleIcon: titleIcon,
+        content: content,
+        confirmText: confirmText,
+        confirmColor: confirmColor,
+        cancelText: cancelText,
+        cancelColor: cancelColor,
+        success: function () {
+          console.log('success')
+        }
+      })
     }
 
   </script>

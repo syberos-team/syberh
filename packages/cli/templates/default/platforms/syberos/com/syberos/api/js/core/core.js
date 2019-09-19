@@ -19,7 +19,7 @@ function Syber (parent) {
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast', 'capture', 'system', 'filepicker']
+    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast', 'capture', 'system', 'filepicker', 'choose', 'select']
   }
 
   // add 内置 plugins
@@ -197,7 +197,9 @@ Syber.prototype._addBuiltInPlugins = function () {
     toast: { proto: Toast },
     capture: { proto: Capture },
     system: { proto: System },
-    filepicker: { proto: FilePicker }
+    filepicker: { proto: FilePicker },
+    choose: { proto: Choose },
+    select: { proto: Select }
   }
   if (!!list && isArray(list)) {
     for (var i = 0; i < list.length; i++) {
