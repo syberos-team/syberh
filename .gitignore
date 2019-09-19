@@ -18,3 +18,4 @@ packages/cli/dist
 packages/dev-server/dist
 packages/dev-server/www
 fetch.sh
+.markdown
