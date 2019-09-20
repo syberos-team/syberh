@@ -126,7 +126,7 @@
       "apis/path/dataRoot"
     ],
     "图片": [
-      "apis/image/select"
+      "apis/image/chooseImage"
     ]
   }
 }

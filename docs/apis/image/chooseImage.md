@@ -1,5 +1,5 @@
 ---
-title: select
+title: chooseImage
 ---
 
 从本地相册选择图片或使用相机拍照。
@@ -7,12 +7,12 @@ title: select
 <!-- 支持`Promise` 使用。 -->
 
 
-## syberh.image.select(Object object)
+## syberh.image.chooseImage(Object object)
 ### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
-| count | number |  | 否 | 最多可以选择的图片张数 |
+| count | number | 9 | 否 | 最多可以选择的图片张数 |
 | sourceType | Array.<string> |  ['album', 'camera']  | 否 | 标题图标 |
 | success | function |  |  否     | 回调成功      |
 | fail   | function |  |  否     | 回调失败      |
@@ -51,13 +51,14 @@ title: select
 
 ### 代码示例
 ```javascript
-syberh.image.select({
+syberh.image.chooseImage({
     count: count,
     sourceType: sourceType,
     success: function (res) {
         console.log('选择图片成功', res)
         // tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
+        var tempFiles = res.tempFiles
     },
     fail: function(error) {
         console.log('fail: ', error.code, error.msg)

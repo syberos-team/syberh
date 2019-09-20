@@ -50,8 +50,8 @@
       "apis/filepicker/filepicker": {
         "title": "filepicker"
       },
-      "apis/image/select": {
-        "title": "select"
+      "apis/image/chooseImage": {
+        "title": "chooseImage"
       },
       "apis/modal/alert": {
         "title": "alert"
