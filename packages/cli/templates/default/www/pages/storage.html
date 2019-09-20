@@ -79,6 +79,14 @@
         <p id="getAllKeys-result">&nbsp;</p>
       </div>
     </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="removeAll()">删除全部</button>
+      </div>
+      <div class="mui-card-footer">
+        <p id="removeAll-result">&nbsp;</p>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
@@ -127,6 +135,16 @@
         },
         fail: function (error) {
           document.getElementById('getAllKeys-result').innerText = JSON.stringify(error)
+        }
+      })
+    }
+    function removeAll() {
+      syberh.storage.removeAll({
+        success: function (result) {
+          document.getElementById('removeAll-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          document.getElementById('removeAll-result').innerText = JSON.stringify(error)
         }
       })
     }

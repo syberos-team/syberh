@@ -124,6 +124,9 @@
       "apis/path/extern",
       "apis/path/inner",
       "apis/path/dataRoot"
+    ],
+    "图片": [
+      "apis/image/chooseImage"
     ]
   }
 }
