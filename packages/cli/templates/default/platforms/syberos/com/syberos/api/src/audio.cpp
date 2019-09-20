@@ -14,8 +14,6 @@ Audio::Audio(){
     player = new QMediaPlayer;
     recoder = new QAudioRecorder();
     playlist = new QMediaPlaylist;
-//    mediaContent = new QMediaContent();
-//    mediaResource = new QMediaResource();
 }
 
 Audio::~Audio(){
@@ -25,14 +23,22 @@ Audio::~Audio(){
 
 void Audio::request(QString callBackID, QString actionName, QVariantMap params)
 {
-    if (actionName == "listRecorder"){
-        listRecorder(callBackID.toLong(), params);
+    if (actionName == "recorderList"){
+        recorderList(callBackID.toLong(), params);
     }else if (actionName == "startRecorder"){
         startRecorder(callBackID.toLong(), params);
+    }else if (actionName == "pauseRecorder"){
+        pauseRecorder(params);
+    }else if (actionName == "continueRecorder"){
+        continueRecorder(params);
     }else if(actionName == "stopRecorder"){
         stopRecorder(params);
     }else if(actionName == "startPlay"){
         startPlay(params);
+    }else if(actionName == "pausePlay"){
+        pausePlay(params);
+    }else if(actionName == "continuePlay"){
+        continuePlay(params);
     }else if(actionName == "stopPlay"){
         stopPlay(params);
     }
@@ -47,26 +53,30 @@ void Audio::submit(QString typeID, QString callBackID, QString actionName, QVari
     Q_UNUSED(attachementes)
 }
 
-void Audio::listRecorder(long callBackID,QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "listRecorder" << params << endl;
+void Audio::recorderList(long callBackID,QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "recorderList" << params << endl;
 
     QString path = Helper::instance()->getInnerStorageRootPath() + "/audio";
-    QFileInfoList fileInfos = FileUtil::fileList(path);
+    QFileInfoList fileInfos = FileUtil::fileList(path);// 获取录音文件目录下所有文件
     QJsonArray jsonArr;
+
     if (fileInfos.size() != 0) {
         for (int i = 0; i < fileInfos.size(); i++) {
-            QJsonObject jsonObj;
-            jsonObj.insert("path", fileInfos.at(i).filePath());
-            jsonObj.insert("size", fileInfos.at(i).size());
-            jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
 
-            qint64 time = fileInfos.at(i).size() / (16000.0 * 2.0);    //总时长
-            qDebug() << Q_FUNC_INFO << "time" << time << endl;
+            QString filePath = fileInfos.at(i).filePath();
+            qDebug() << Q_FUNC_INFO << "filePath" << filePath << endl;
 
-            jsonObj.insert("time", time);
-            jsonArr.append(jsonObj);
+            if(filePath.right(4) == ".aac"){//过滤掉非.acc录音文件
+                QJsonObject jsonObj;
+                jsonObj.insert("path", filePath);
+                jsonObj.insert("size", fileInfos.at(i).size());
+                jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
+
+                qint64 time = fileInfos.at(i).size() / (16000.0 * 2.0);    //总时长
+                jsonObj.insert("time", time);
+                jsonArr.append(jsonObj);
+            }
         }
-
     }
 
     emit success(callBackID, jsonArr);
@@ -76,8 +86,8 @@ void Audio::startRecorder(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "startRecorder" << params << endl;
 
     QAudioEncoderSettings audioSettings;	//通过QAudioEncoderSettings类进行音频编码设置
-    audioSettings.setCodec("audio/AAC");
-    audioSettings.setSampleRate(16000);
+    audioSettings.setCodec("audio/AAC");    //编码
+    audioSettings.setSampleRate(16000);     //采样率
     audioSettings.setQuality(QMultimedia::HighQuality);
     recoder->setAudioSettings(audioSettings);
 
@@ -87,6 +97,7 @@ void Audio::startRecorder(long callBackID,QVariantMap params){
     if(!dir.exists()){
         dir.mkpath(path);
     }
+
     //配置保存的路径及文件名
     QDateTime time = QDateTime::currentDateTime();   //获取当前时间
     int timeT = time.toTime_t();                     //将当前时间转为时间戳
@@ -111,6 +122,17 @@ void Audio::startRecorder(long callBackID,QVariantMap params){
     emit success(callBackID, QVariant(jsonObject));
 }
 
+void Audio::pauseRecorder(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "pauseRecorder" << params << endl;
+    recoder->parent();
+}
+
+void Audio::continueRecorder(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "continueRecorder" << params << endl;
+
+    recoder->record();
+}
+
 void Audio::stopRecorder(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "stopRecorder" << params << endl;
 
@@ -123,6 +145,21 @@ void Audio::startPlay(QVariantMap params){
 
     player->setMedia(QUrl::fromLocalFile(filePath));
     player->setVolume(50);
+
+    player->play();
+    qint64 times = player->duration();//音频长度
+    int volume = player->volume();//音量
+    qDebug() << Q_FUNC_INFO << "times" << times << "-------volume" << volume<< endl;
+
+}
+
+void Audio::pausePlay(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "pausePlay" << params << endl;
+    player->pause();
+}
+
+void Audio::continuePlay(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "continuePlay" << params << endl;
     player->play();
 }
 

@@ -33,7 +33,7 @@ target.path = $$INSTALL_DIR/bin
 qm.files = *.qm
 qm.path = $$INSTALL_DIR/qm
 
-res.files = res/app.png
+res.files = res/*.png
 res.path = $$INSTALL_DIR/res
 
 web.files = www
