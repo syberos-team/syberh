@@ -13,13 +13,11 @@ import { log } from '../util/log';
  */
 export async function build(appPath: string, config: AppBuildConfig) {
   log.verbose('build() start')
-  log.verbose('config:', JSON.stringify(config))
   const newConfig = { ...config, ...getProjectConfig(appPath) }
   const serverPort = 4399
   if (!newConfig.port) {
     Object.assign(newConfig, { port: serverPort })
   }
-
   if (!newConfig.serverIp) {
     let sip
     const ifaces = os.networkInterfaces()
@@ -27,7 +25,7 @@ export async function build(appPath: string, config: AppBuildConfig) {
       ifaces[dev].forEach(function (details) {
         if (details.family === 'IPv4') {
           // 优先使用192.168.100.x段ip
-          if (details.address.indexOf('192.168.100.') >= 0) {
+          if (details.address.indexOf('192.168.100.10') >= 0) {
             sip = details.address
           }
         }
@@ -39,7 +37,6 @@ export async function build(appPath: string, config: AppBuildConfig) {
     }
     Object.assign(newConfig, { serverIp: sip })
   }
-
   log.verbose('config:', JSON.stringify(newConfig))
   const { debug = false } = config
   if (debug) {

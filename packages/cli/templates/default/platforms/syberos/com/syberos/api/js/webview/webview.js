@@ -21,6 +21,7 @@ function WebView (options) {
 
   // 定义数组,保存所有webivew
   this._webviews = {}
+  this.currentUrl = null
   this.currentWebview = null
   this.key = 0
   // 在原生调用完对应的方法后,会执行对应的回调函数id，并删除
@@ -36,6 +37,9 @@ function WebView (options) {
     SYBEROS.body = webview
     that._webviews[that.id] = webview
     that.currentWebview = webview
+    if (that.currentUrl) {
+      webview.url = that.currentUrl
+    }
     // 成功回调绑定函数
     NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
@@ -53,7 +57,7 @@ function WebView (options) {
     })
 
     NativeSdkManager.request('DevTools*', 12378, '', '')
-    NativeSdkManager.request('Url*', 151010, '', '')
+    NativeSdkManager.request('Package*', 151010, '', '')
   })
 
   /**
@@ -123,7 +127,23 @@ function WebView (options) {
     }
   })
 
-  // 转向某个url
+  // 关闭所有页面，打开某个页面
+  this.on('reLaunch', function (object, handlerId, param) {
+
+  })
+  // 保留当前页面，跳转到某个页面
+  this.on('navigateTo', function (object, handlerId, param) {
+    logger.verbose('navigateTo',JSON.stringify(param))
+    var webview = new WebView({
+      autoCreate: true,
+      page: true
+    })
+
+    webview.currentUrl = param.url
+    SYBEROS.addPlugin(webview)
+  })
+
+  // 关闭当前页面，跳转到某个页面
   this.on('redirectTo', function (object, handlerId, param) {
     try {
       var url = getUrl(param.url)
@@ -279,7 +299,7 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
 }
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
-  print('\n request handlerId', typeof handlerId, handlerId, "errorCode", typeof errorCode, errorCode, errorMsg)
+  print('\n request handlerId', typeof handlerId, handlerId, 'errorCode', typeof errorCode, errorCode, errorMsg)
   var webviewId = this.getWebViewIdByHandlerId(handlerId)
   var webview = this.getWebView(webviewId)
 

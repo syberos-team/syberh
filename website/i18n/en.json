@@ -50,6 +50,9 @@
       "apis/filepicker/filepicker": {
         "title": "filepicker"
       },
+      "apis/image/chooseImage": {
+        "title": "chooseImage"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -107,6 +110,12 @@
       "apis/navigator/navigator": {
         "title": "navigator"
       },
+      "apis/package/openDocument": {
+        "title": "openDocument"
+      },
+      "apis/package/openUrl": {
+        "title": "openUrl"
+      },
       "apis/path/dataRoot": {
         "title": "dataRoot"
       },
@@ -127,6 +136,9 @@
       },
       "apis/storage/getItem": {
         "title": "getItem"
+      },
+      "apis/storage/removeAll": {
+        "title": "removeAll"
       },
       "apis/storage/removeItem": {
         "title": "removeItem"
@@ -149,9 +161,6 @@
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
-      },
-      "apis/url/url": {
-        "title": "openUrl"
       },
       "apis/webview/webview": {
         "title": "webview"
@@ -453,8 +462,10 @@
       "webview": "webview",
       "文件选择": "文件选择",
       "文件管理": "文件管理",
-      "url": "url",
-      "path": "path"
+      "应用管理": "应用管理",
+      "path": "path",
+      "图片": "图片",
+      "url": "url"
     }
   },
   "pages-strings": {

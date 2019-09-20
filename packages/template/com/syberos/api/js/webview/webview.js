@@ -57,7 +57,7 @@ function WebView (options) {
     })
 
     NativeSdkManager.request('DevTools*', 12378, '', '')
-    NativeSdkManager.request('Url*', 151010, '', '')
+    NativeSdkManager.request('Package*', 151010, '', '')
   })
 
   /**

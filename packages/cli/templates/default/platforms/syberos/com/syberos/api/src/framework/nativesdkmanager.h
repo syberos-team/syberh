@@ -68,7 +68,15 @@ public:
       *@brief 唤起应用方法
       *@url 请求信息
       */
-    Q_INVOKABLE void url(const QUrl& url);
+    Q_INVOKABLE void openByUrl(const QUrl& url);
+
+    /**
+      *@brief 唤起应用方法
+      *@action 要执行的操作
+      *@mimetype 文件类型信息
+      *@filePath 文件路径
+      */
+    Q_INVOKABLE void openByDocument(const QString& action, const QString& mimetype, const QString& filePath);
 signals:
     /**
       *@brief signal 请求成功信号

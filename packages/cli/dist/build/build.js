@@ -19,6 +19,8 @@ const log_1 = require("../util/log");
 const sop = require("./sop");
 class Build {
     constructor(appPath, config) {
+        // 日志级别
+        this.devLog = process.env.DEV_LOG || 'info';
         this.conf = {};
         // 是否安装至模拟器
         this.useSimulator = false;
@@ -226,7 +228,10 @@ class Build {
         const qmake = this.locateQmake();
         const syberosPro = this.locateSyberosPro();
         const qmakeConfig = debug ? 'qml_debug' : 'release';
-        const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString('hex');
+        const exConfigObj = Object.assign({}, this.conf);
+        exConfigObj.DEV_LOG = this.devLog;
+        log_1.log.verbose('扩展参数：%j', exConfigObj);
+        const exConfig = Buffer.from(JSON.stringify(exConfigObj), 'utf8').toString('hex');
         return `${qmake} ${syberosPro} -r -spec linux-g++ CONFIG+=${qmakeConfig} EX_CONFIG=${exConfig}`;
     }
     makeCommand() {

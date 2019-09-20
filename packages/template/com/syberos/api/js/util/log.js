@@ -44,7 +44,6 @@ function Logger () {
       case 'info':
         return LogLevel.info
       case 'verbose':
-        console.log('--LogLevel.verbose-', LogLevel)
         return LogLevel.verbose
       default:
         return LogLevel.info
@@ -171,9 +170,4 @@ function Logger () {
   this.warn = warn.bind(this)
   this.verbose = verbose.bind(this)
   this.info = info.bind(this)
-
-  console.log('-------------获取用于打印的日志级别标识---', this.levelName)
-  console.log('-------------获取用于打印的日志级别标识---', this.level)
-
-  // this.info('test', this.levelName)
 }

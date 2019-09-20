@@ -4,7 +4,6 @@
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>
         <file>js/filepicker/filepicker.js</file>
-        <file>js/image/choose.js</file>
         <file>js/modal/alert.js</file>
         <file>js/modal/confirm.js</file>
         <file>js/modal/prompt.js</file>
@@ -18,7 +17,6 @@
         <file>js/readme.html</file>
         <file>js/readme.md</file>
         <file>js/syber.js</file>
-        <file>js/webview.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/CMenu/pics/menuBg.png</file>
         <file>qml/CMenu/pics/menuBg.sci</file>
@@ -68,9 +66,10 @@
         <file>qml/SPhotoAndVideoModel.qml</file>
         <file>qml/SPhotoEditTitleBar.qml</file>
         <file>qml/SPhotoToolBar.qml</file>
-        <file>qml/SImageSelector.qml</file>
-        <file>js/image/select.js</file>
         <file>qml/ItemSelector.qml</file>
         <file>qml/SSelectTool.qml</file>
+        <file>js/util/log.js</file>
+        <file>js/image/chooseImage.js</file>
+        <file>qml/SChooseImage.qml</file>
     </qresource>
 </RCC>
