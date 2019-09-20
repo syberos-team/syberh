@@ -35,12 +35,17 @@
     <uses-permission syberos:name="syberos.permission.RECORD"/>
     <uses-permission syberos:name="syberos.permission.VIBRATE"/>
     <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
+
     <application syberos:debuggable="true" syberos:name="hybrid" syberos:description="syberos hybrid app" syberos:icon="res/app.png">
         <uiapp syberos:name="" syberos:icon="res/app.png" syberos:splash="res/splash.png" syberos:id="app" syberos:exec="bin/app" syberos:launcher="true" syberos:background="">
             <url syberos:id="">
                 <scheme>syberos</scheme>
             </url>
-            <doctype syberos:id=""/>
+            <doctype syberos:id="">
+                <action>openPage</action>
+                <mime-type>*/*</mime-type>
+                <extension>*</extension>
+	          </doctype>
         </uiapp>
     </application>
 </sopconfig>

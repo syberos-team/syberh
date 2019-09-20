@@ -6,7 +6,8 @@
 #include "../com/syberos/api/src/helper.h"
 #include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
-#include "../com/syberos/api/src/url.h"
+#include "../com/syberos/api/src/package.h"
+#include "../com/syberos/api/src/util/fileutil.h"
 
 App_Workspace::App_Workspace()
     : CWorkspace()
@@ -23,6 +24,10 @@ App_Workspace::App_Workspace()
 
     NativeSdkManager * nativeSdkManager = NativeSdkManager::getInstance();
     m_view->rootContext()->setContextProperty("NativeSdkManager",nativeSdkManager);
+
+    FileUtil * fileutil = new FileUtil;
+    m_view->rootContext()->setContextProperty("fileutil",fileutil);
+
     m_view->setSource(QUrl("qrc:/qml/main.qml"));
     m_view->showFullScreen();
 
@@ -50,6 +55,9 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
 }
 
 void App_Workspace::openByUrl(const QUrl& url){
-    NativeSdkManager::getInstance()->url(url);
+    NativeSdkManager::getInstance()->openByUrl(url);
 }
 
+void App_Workspace::openByDocument(const QString& action, const QString& mimetype, const QString& file){
+    NativeSdkManager::getInstance()->openByDocument(action, mimetype, file);
+}

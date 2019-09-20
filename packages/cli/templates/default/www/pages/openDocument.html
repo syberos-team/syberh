@@ -18,11 +18,11 @@
     <form class="mui-input-group">
       <div class="mui-input-row">
         <label>sopid:</label>
-        <input type="text" id="sopid" value="com.syberh.myapp1" class="mui-input-clear" />
+        <input type="text" id="sopid" value="com.syberh.myaap1" class="mui-input-clear" />
       </div>
       <div class="mui-input-row">
         <label>uiappid:</label>
-        <input type="text" id="uiappid" value="myapp1" class="mui-input-clear" />
+        <input type="text" id="uiappid" value="myaap1" class="mui-input-clear" />
       </div>
       <div class="mui-input-row">
         <label>action:</label>
@@ -36,9 +36,9 @@
         <label>mimeType:</label>
         <input type="text" id="mimeType" value="*/*" class="mui-input-clear" />
       </div>
-      <div class="mui-input-row" style="height: auto">
+      <div class="mui-input-row">
         <label>filePath:</label>
-        <textarea class="mui-input-clear" id="filePath" cols="30" rows="5">/data/data/com.syberos.demo/test.txt</textarea>
+        <input type="filePath" id="filePath" value="/data/data/com.syberh.myaap1/test.txt" class="mui-input-clear" />
       </div>
       <div class="mui-input-row">
         <label>key1:</label>
@@ -105,10 +105,6 @@
       });
     }
 
-    syberh.subscribe('onShow', function(result) {
-        console.log("path: "+ result.path);
-        console.log("params: "+ JSON.stringify(result.params));
-    });
   </script>
 
 </body>
