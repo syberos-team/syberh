@@ -33,12 +33,20 @@ function build(appPath, buildConfig) {
     });
 }
 exports.default = build;
+function diagnoseFastfail(buildConfig) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!buildConfig.nodoctor) {
+            const hasFail = yield index_1.default();
+            if (hasFail) {
+                process.exit(0);
+            }
+        }
+    });
+}
 function buildForDevice(appPath, buildConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const projectConfig = helper_1.getProjectConfig(appPath);
-        if (!buildConfig.nodoctor) {
-            yield index_1.default();
-        }
+        yield diagnoseFastfail(buildConfig);
         yield b.build(appPath, {
             target: projectConfig.target,
             debug: buildConfig.debug,
@@ -49,9 +57,7 @@ function buildForDevice(appPath, buildConfig) {
 function buildForSimulator(appPath, buildConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const projectConfig = helper_1.getProjectConfig(appPath);
-        if (!buildConfig.nodoctor) {
-            yield index_1.default();
-        }
+        yield diagnoseFastfail(buildConfig);
         yield b.build(appPath, {
             target: projectConfig.targetSimulator,
             debug: buildConfig.debug,
@@ -62,9 +68,7 @@ function buildForSimulator(appPath, buildConfig) {
 function buildSop(appPath, buildConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const projectConfig = helper_1.getProjectConfig(appPath);
-        if (!buildConfig.nodoctor) {
-            yield index_1.default();
-        }
+        yield diagnoseFastfail(buildConfig);
         yield b.build(appPath, {
             target: projectConfig.target,
             debug: buildConfig.debug,
