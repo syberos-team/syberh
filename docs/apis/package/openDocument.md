@@ -4,7 +4,7 @@ title: openDocument
 
 ## syberh.package.openDocument(Object object)
 
-唤起应用，打开如果path传值了，就打开对应页面，然后处理参数，如果path为空，则在当前页面处理
+唤起应用，如果path传值了，就打开对应页面，然后处理参数，如果path为空，则在当前页面处理
 
 此功能需要在被唤起应用的sopconfig.xml中配置doctype [具体配置](../../app-config.html#doctype)
 
@@ -33,8 +33,11 @@ title: openDocument
 参数可以自由扩展。以上参数如需打开文档时候传入
 ```
 
-#### object.success 回调函数参数
+> 元心系统支持沙盒机制，即：每个应用都有自己对应的沙盒，每个应用程序之间不能相互访问非本程序的沙盒<br/>
+> 如果想跨应用处理文件，则需要给filePath传值，然后此接口会将应用唤起，并将该文件拷贝到被唤起应用的沙盒内。
 
+#### object.success 回调函数参数
+值
 #### 参数
 | 属性           | 类型    | 描述                                 |
 | -------------- | ------  | ------------------------------------ |
@@ -58,6 +61,7 @@ syberh.package.openDocument({
     params:{
         mimeType:"*/*",
         filePath:"/data/data/com.syberh.myaap1/test.txt",
+              
         age:18,
         sex:'male'
     },
@@ -69,6 +73,8 @@ syberh.package.openDocument({
     }
 });
 ```
+
+> 被唤起应用示例放到了git上，地址：https://github.com/talicoasdf/myapp1
 
 ### 应用被唤起回调
 
