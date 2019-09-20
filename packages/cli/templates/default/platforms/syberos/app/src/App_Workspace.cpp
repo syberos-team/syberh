@@ -44,10 +44,21 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
         qDebug()<< "Start by Home";
         break;
     case CWorkspace::URL:
+        {
+            QString urlStr = params.at(0);
+            QUrl url(urlStr);
+            NativeSdkManager::getInstance()->openByUrl(url);
+        }
         break;
     case CWorkspace::EVENT:
         break;
     case CWorkspace::DOCUMENT:
+        if(params.size() >= 3){
+            QString action = params.at(0);
+            QString mimetype = params.at(1);
+            QString file = params.at(2);
+            NativeSdkManager::getInstance()->openByDocument(action, mimetype, file);
+        }
         break;
     default:
         break;

@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 Qt.include('util/polyfill.js')
 Qt.include('util/tool.js')
+Qt.include('util/log.js')
 Qt.include('config.js')
 Qt.include('core/core.js')
 Qt.include('core/plugin.js')
@@ -15,6 +16,7 @@ Qt.include('modal/gtoast.js')
 Qt.include('camera/capture.js')
 Qt.include('system/system.js')
 Qt.include('filepicker/filepicker.js')
+Qt.include('image/choose.js')
 Qt.include('image/chooseImage.js')
 // 增加对ES6语法的支持
 polyfill()
@@ -35,6 +37,4 @@ function render (root) {
     var SyberOS = new Syber(root)
     SYBEROS = SyberOS
   }
-
-  // SyberOS.addPlugin(new Camera())
 }
