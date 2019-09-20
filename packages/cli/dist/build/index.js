@@ -13,6 +13,7 @@ const ip = require("internal-ip");
 const os = require("os");
 const build_1 = require("./build");
 const helper_1 = require("../syberos/helper");
+const log_1 = require("../util/log");
 /**
  * 编译APP
  * @param appPath 工程目录
@@ -20,6 +21,8 @@ const helper_1 = require("../syberos/helper");
  */
 function build(appPath, config) {
     return __awaiter(this, void 0, void 0, function* () {
+        log_1.log.verbose('build() start');
+        log_1.log.verbose('config:', JSON.stringify(config));
         const newConfig = Object.assign({}, config, helper_1.getProjectConfig(appPath));
         const serverPort = 4399;
         if (!newConfig.port) {
@@ -43,10 +46,11 @@ function build(appPath, config) {
             }
             Object.assign(newConfig, { serverIp: sip });
         }
+        log_1.log.verbose('config:', JSON.stringify(newConfig));
         const { debug = false } = config;
         if (debug) {
             const serverjs = helper_1.locateScripts('devServer.js');
-            child_process.fork(serverjs);
+            child_process.fork(serverjs, [newConfig.port]);
         }
         const build = new build_1.default(appPath, newConfig);
         if (newConfig.onlyBuildSop === true) {
