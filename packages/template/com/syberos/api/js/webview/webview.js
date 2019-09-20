@@ -37,9 +37,7 @@ function WebView (options) {
     SYBEROS.body = webview
     that._webviews[that.id] = webview
     that.currentWebview = webview
-    if (that.currentUrl) {
-      webview.url = that.currentUrl
-    }
+
     // 成功回调绑定函数
     NativeSdkManager.success.connect(that.onSuccess.bind(that))
     // 错误回调绑定函数
