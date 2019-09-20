@@ -65,6 +65,21 @@ export default function audioMixin (hybrid) {
     },
   }, {
     namespace: 'audio',
+    namespace: 'delRecorder',
+    os: ['syber'],
+    defaultParams: {
+      path: '',
+    },
+    runCode (...rest) {
+      const args = innerUtil.compatibleStringParamsToObject.call(
+        this,
+        rest,
+        'path',
+      );
+      hybridJs.callInner.apply(this, args);
+    },
+  }, {
+    namespace: 'audio',
     namespace: 'startPlay',
     os: ['syber'],
     defaultParams: {
