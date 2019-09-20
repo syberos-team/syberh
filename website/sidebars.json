@@ -116,8 +116,9 @@
       "apis/fileManager/getInfo",
       "apis/fileManager/remove"
     ],
-    "url": [
-      "apis/url/url"
+    "应用管理": [
+      "apis/package/openUrl",
+      "apis/package/openDocument"
     ],
     "path": [
       "apis/path/extern",

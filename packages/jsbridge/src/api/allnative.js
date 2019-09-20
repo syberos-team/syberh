@@ -13,7 +13,7 @@ import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
 import audioMixin from './native/audio';
-import urlMixin from './native/url';
+import packageMixin from './native/package';
 import filepickerMixin from './native/filepicker';
 import networkInfoMixin from './native/networkInfo';
 import batteryMixin from './native/battery';
@@ -45,6 +45,6 @@ export default function allNative(hybridJs) {
     networkDisabledMixin(hybridJs);
     networkEnabledMixin(hybridJs);
     fileManagerMixin(hybridJs);
-    urlMixin(hybridJs);
+    packageMixin(hybridJs);
     pathMixin(hybridJs);
 }

@@ -5,7 +5,7 @@
 #include <qqml.h>
 #include "../com/syberos/api/src/helper.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
-#include "../com/syberos/api/src/url.h"
+#include "../com/syberos/api/src/package.h"
 
 App_Workspace::App_Workspace()
     : CWorkspace()
@@ -54,15 +54,10 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
 }
 
 void App_Workspace::openByUrl(const QUrl& url){
-//    qDebug() << "----App_Workspace::openByUrl----url:" << url;
-//    QString scheme = url.scheme();
-//    QString path = url.path();
-//    QUrlQuery query(url.query());
-//    QVariantMap params;
-//    params.insert("scheme", scheme);
-//    params.insert("path", path);
-//    params.insert("query", query.toString());
-    NativeSdkManager::getInstance()->url(url);
-    //NativeSdkManager::getInstance()->request("Url*","123","openByUrl",params);
+    NativeSdkManager::getInstance()->openByUrl(url);
 }
 
+void App_Workspace::openByDocument(const QString& action, const QString& mimetype, const QString& file){
+
+    NativeSdkManager::getInstance()->openByDocument(action, mimetype, file);
+}

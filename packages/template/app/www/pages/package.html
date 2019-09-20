@@ -17,7 +17,10 @@
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="openUrl">openUrl唤起应用</a>
+        <a class="mui-navigate-right api-class" id="openUrl">openUrl</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="openDocument">openDocument</a>
       </li>
     </ul>
   </div>
@@ -35,7 +38,7 @@
 
       switch (id) {
         case 'openUrl':
-          syberh.url.openUrl({
+          syberh.package.openUrl({
             scheme: "send://openPage",
             path: "entrySecondPage?content=跳转页面",
             params: {
@@ -50,6 +53,26 @@
             }
           });
           break;
+        case 'openDocument':
+            syberh.package.openDocument({
+              sopid:"com.mycompany.appdemo",
+              uiappid:"appui",
+              action:"openPage",
+              path:"entrySecondPage?content=跳转页面",
+              params:{
+                mimeType:"*/*",
+                filePath:"/data/data/com.syberos.demo/test.txt",
+                age:18,
+                sex:'male'
+              },
+              success: function () {
+                console.log('唤起执行成功')
+              },
+              fail: function (error) {
+                console.info(JSON.stringify(error));
+              }
+            });
+            break;
         default:
           console.error('错误！没有相应API');
       }
