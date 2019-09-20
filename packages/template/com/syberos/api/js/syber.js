@@ -21,6 +21,8 @@ Qt.include('image/chooseImage.js')
 // 增加对ES6语法的支持
 polyfill()
 
+logger.verbose('logger test')
+
 // 根目录节点
 var _root = null
 var _helper = null

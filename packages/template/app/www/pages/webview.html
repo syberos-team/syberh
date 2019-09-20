@@ -44,7 +44,17 @@
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" onclick="navigateTo()">navigateTo</a>
+          <a class="mui-navigate-right" href="#">navigateTo</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>url:</label>
+              <input id="url2" type="text" value="./pages/webview.html">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
+              onclick="navigateTo()">navigateTo</button>
+          </div>
+
         </li>
 
       </ul>
@@ -109,8 +119,9 @@
     }
 
     function navigateTo() {
+      var url = document.getElementById('url2').value;
       syberh.webview.navigateTo({
-        url:'./pages/path.html',
+        url: url,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)

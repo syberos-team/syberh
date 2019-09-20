@@ -4,6 +4,7 @@ import QtQuick.Window 2.2
 import QtWebKit.experimental 1.0
 import com.syberos.basewidgets 2.0
 import com.syberos.filemanager.filepicker 1.0
+import "../js/util/log.js" as LOG
 
 WebView {
     id: webview
@@ -28,6 +29,7 @@ WebView {
     experimental.deviceHeight:Screen.height
     experimental.objectName: 'qml'
     Keys.onReleased: {
+        LOG.logger.verbose('SWebview qml Keys.onReleased',Keys.onReleased)
         console.log("----- ", "WebView (event): ",
                     event.key, "\r\n")
         keyOnReleased(event)
@@ -36,8 +38,6 @@ WebView {
 
     experimental.preferences.navigatorQtObjectEnabled: true
     experimental.onMessageReceived: {
-        console.log("----- ", "WebView received Message: ",
-                    message.data, "\r\n")
 
         receiveMessage(message)
 
@@ -201,7 +201,7 @@ WebView {
     }
 
     onLoadProgressChanged: {
-        console.log("onLoadProgressChanged", loadProgress)
+        LOG.logger.verbose('SWebview qml onLoadProgressChanged',loadProgress)
         reloadSuccess(loadProgress)
 
     }
@@ -224,14 +224,14 @@ WebView {
     onTel: {
         //电话拨打功能,暂未实现
         //console.log("onTelonTeonTeonTeonTeonTeonTeonTeonTeonTeonTeonTelllllllllll", telNum);
-//        telNumber = telNum;
-//        if (!gAppUtils.pageStackWindow.confirmDialog)
-//        {
-//            gAppUtils.pageStackWindow.createConfirmDialog(mainPage)
-//        }
+        //        telNumber = telNum;
+        //        if (!gAppUtils.pageStackWindow.confirmDialog)
+        //        {
+        //            gAppUtils.pageStackWindow.createConfirmDialog(mainPage)
+        //        }
 
-//        gAppUtils.pageStackWindow.confirmDialog.messageText = os.i18n.ctr(qsTr("are you sure to call the number: ")) + telNum  //确定呼叫:
-//        gAppUtils.pageStackWindow.confirmDialog.requestShow()
-//        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
+        //        gAppUtils.pageStackWindow.confirmDialog.messageText = os.i18n.ctr(qsTr("are you sure to call the number: ")) + telNum  //确定呼叫:
+        //        gAppUtils.pageStackWindow.confirmDialog.requestShow()
+        //        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
     }
 }

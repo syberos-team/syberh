@@ -94,10 +94,10 @@
         <a class="mui-navigate-right" href="#">webview</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu ">
-            <a class="mui-navigate-right api-class" id="./pages/webview.html">API</a>
+            <p class="mui-navigate-right api-class" id="./pages/webview.html">API</p>
           </li>
           <li class="mui-table-view-cell secondMenu api-class">
-            <a class="mui-navigate-right api-class" id="./pages/webview-ext.html">拓展</a>
+            <p class="mui-navigate-right api-class" id="./pages/webview-ext.html">拓展</p>
           </li>
         </ul>
       </li>
@@ -141,15 +141,9 @@
     var vConsole = new VConsole()
     window.runApi = function (id) {
       console.log('执行API:' + id)
-      syberh.webview.redirectTo({
+      syberh.webview.navigateTo({
         url: id,
         title: '测试页面标题',
-        // 横竖屏,默认为1表示竖屏
-        orientation: '1',
-        // 额外数据
-        data: {
-          key1: 'value1'
-        },
         success: function (result) {
           showTips(JSON.stringify(result))
         },
