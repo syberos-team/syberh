@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QUrlQuery>
+#include <QException>
 #include <QQuickView>
 #include <QMetaObject>
 #include <QGuiApplication>
@@ -34,7 +35,7 @@ void Audio::request(QString callBackID, QString actionName, QVariantMap params)
     }else if(actionName == "stopRecorder"){
         stopRecorder(params);
     }else if(actionName == "delRecorder"){
-        delRecorder(params);
+        delRecorder(callBackID.toLong(),params);
     }else if(actionName == "startPlay"){
         startPlay(params);
     }else if(actionName == "pausePlay"){
@@ -84,8 +85,32 @@ void Audio::recorderList(long callBackID,QVariantMap params){
 //    emit success(callBackID, jsonArr);
 
     //从数据库中获取录音列表
-    QJsonArray jsonArr = historydata->selectMetadata();
+    QJsonArray jsonArr;
+    try  {
+        jsonArr = historydata->selectMetadata();
+    } catch (QException e) {
+        emit failed(callBackID, 500, "查询录音列表失败");
+    }
+
     emit success(callBackID, jsonArr);
+}
+
+void Audio::delRecorder(long callBackID, QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "delRecorder" << params << endl;
+    QString filePath = params.value("path").toString();
+
+    try  {
+        //删除本机记录
+        FileUtil::remove(filePath,0);
+        //删除数据库中记录
+        historydata->removeMetadata(filePath);
+    } catch (QException e) {
+        emit failed(callBackID, 500, "删除录音失败");
+    }
+
+    QJsonObject jsonObject;
+    jsonObject.insert("result", true);
+    emit success(callBackID, jsonObject);
 }
 
 void Audio::startRecorder(long callBackID,QVariantMap params){
@@ -150,15 +175,6 @@ void Audio::stopRecorder(QVariantMap params){
     //在数据库中修改录音记录，增加文件大小、总时长
     FileInfo fileInfo = FileUtil::getInfo(currPath);
     historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
-}
-
-void Audio::delRecorder(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "delRecorder" << params << endl;
-    QString filePath = params.value("path").toString();
-    //删除本机记录
-    FileUtil::remove(filePath,0);
-    //删除数据库中记录
-    historydata->removeMetadata(filePath);
 }
 
 void Audio::startPlay(QVariantMap params){

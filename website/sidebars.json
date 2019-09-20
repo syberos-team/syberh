@@ -38,6 +38,7 @@
         "type": "subcategory",
         "ids": [
           "apis/multimedia/camera/recorderList",
+          "apis/multimedia/camera/delRecorder",
           "apis/multimedia/camera/startRecorder",
           "apis/multimedia/camera/pauseRecorder",
           "apis/multimedia/camera/continueRecorder",

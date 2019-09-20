@@ -80,6 +80,9 @@
       "apis/multimedia/camera/continueRecorder": {
         "title": "continueRecorder"
       },
+      "apis/multimedia/camera/delRecorder": {
+        "title": "delRecorder"
+      },
       "apis/multimedia/camera/pausePlay": {
         "title": "pausePlay"
       },

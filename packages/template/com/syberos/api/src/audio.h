@@ -27,6 +27,15 @@ public:
      *         失败则返回错误码
      */
     void recorderList(long callBackID, QVariantMap params);
+
+    /**
+     * @brief delRecorder 删除录音
+     * @param params 参数
+     * @return 成功则无返回
+     *         失败则返回错误码
+     */
+    void delRecorder(long callBackID,QVariantMap params);
+
     /**
      * @brief startRecorder 开始录音
      * @param params 参数
@@ -58,14 +67,6 @@ public:
      *         失败则返回错误码
      */
     void stopRecorder(QVariantMap params);
-
-    /**
-     * @brief delRecorder 删除录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void delRecorder(QVariantMap params);
 
     /**
      * @brief startPlay 播放录音

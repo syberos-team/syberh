@@ -293,7 +293,7 @@
       syberh.audio.delRecorder({
         path: path,
         success: function (result) {
-          console.log('success');
+          console.log('success',result.result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
