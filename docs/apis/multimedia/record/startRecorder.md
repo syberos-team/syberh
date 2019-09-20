@@ -12,7 +12,7 @@ title: startRecorder
 <uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
 ```
 
-## syberh.audio.startRecorder()
+## syberh.record.startRecorder()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -36,7 +36,7 @@ title: startRecorder
 
 ### **代码示例**
 ``` javascript
-syberh.audio.startRecorder({
+syberh.record.startRecorder({
 	success: function(result){
 		console.log('success: ', result.path); 
 	},

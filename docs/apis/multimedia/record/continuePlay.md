@@ -6,7 +6,7 @@ title: continuePlay
 继续播放：可以对暂时停止的录音进行继续播放。
 
 
-## syberh.audio.continuePlay(Object object)
+## syberh.record.continuePlay(Object object)
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -24,7 +24,7 @@ title: continuePlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.continuePlay({
+syberh.record.continuePlay({
 	success: function(result){
     console.log('success');    
 	},

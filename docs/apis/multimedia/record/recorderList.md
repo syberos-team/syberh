@@ -6,7 +6,7 @@ title: recorderList
 录音列表：显示录音文件夹下的所有AAC格式录音记录。
 
 
-## syberh.audio.recorderList()
+## syberh.record.recorderList()
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -33,7 +33,7 @@ title: recorderList
 
 ### **代码示例**
 ``` javascript
-syberh.audio.recorderList({
+syberh.record.recorderList({
 	success: function(result){
       for(i = 0; i < result.length; i++) {
         console.log('success'，result[i].path，result[i].size，result[i].time,result[i].created);    

@@ -13,7 +13,7 @@ title: pauseRecorder
 ```
 
 
-## syberh.audio.pauseRecorder(Object object)
+## syberh.record.pauseRecorder(Object object)
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -31,7 +31,7 @@ title: pauseRecorder
 
 ### **代码示例**
 ``` javascript
-syberh.audio.pauseRecorder({
+syberh.record.pauseRecorder({
 	success: function(result){
     console.log('success');    
 	},

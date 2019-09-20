@@ -6,7 +6,7 @@ title: startPlay
 开始播放语音：可以对语音文件进行播放。
 
 
-## syberh.audio.startPlay(Object object)
+## syberh.record.startPlay(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -26,8 +26,8 @@ title: startPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.startPlay({
-  path: "/home/user/audio/20190905_1567662466.aac",
+syberh.record.startPlay({
+  path: "/home/user/record/20190905_1567662466.aac",
 	success: function(result){
     console.log('success');    
 	},

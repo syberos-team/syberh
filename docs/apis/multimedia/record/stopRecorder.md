@@ -12,7 +12,7 @@ title: stopRecorder
 <uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
 ```
 
-## syberh.audio.stopRecorder()
+## syberh.record.stopRecorder()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -30,7 +30,7 @@ title: stopRecorder
 
 ### **代码示例**
 ``` javascript
-syberh.audio.stopRecorder({
+syberh.record.stopRecorder({
 	success: function(result){
 		console.log('success');
 	},

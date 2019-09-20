@@ -6,7 +6,7 @@ title: stopPlay
 结束播放：对语音播放进行停止播放。
 
 
-## syberh.audio.stopPlay()
+## syberh.record.stopPlay()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -24,7 +24,7 @@ title: stopPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.stopPlay({
+syberh.record.stopPlay({
 	success: function(result){
 		console.log('success');
 	},

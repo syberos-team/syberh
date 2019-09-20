@@ -13,7 +13,7 @@ title: continueRecorder
 ```
 
 
-## syberh.audio.continueRecorder(Object object)
+## syberh.record.continueRecorder(Object object)
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -31,7 +31,7 @@ title: continueRecorder
 
 ### **代码示例**
 ``` javascript
-syberh.audio.continueRecorder({
+syberh.record.continueRecorder({
 	success: function(result){
     console.log('success');    
 	},

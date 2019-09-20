@@ -6,7 +6,7 @@ title: pausePlay
 暂停播放：可以对语音进行暂时停止播放。
 
 
-## syberh.audio.pausePlay(Object object)
+## syberh.record.pausePlay(Object object)
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -24,7 +24,7 @@ title: pausePlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.pausePlay({
+syberh.record.pausePlay({
 	success: function(result){
     console.log('success');    
 	},
