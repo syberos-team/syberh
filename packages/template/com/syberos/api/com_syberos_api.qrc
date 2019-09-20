@@ -67,9 +67,9 @@
         <file>qml/SPhotoAndVideoModel.qml</file>
         <file>qml/SPhotoEditTitleBar.qml</file>
         <file>qml/SPhotoToolBar.qml</file>
-        <file>qml/SImageSelector.qml</file>
-        <file>js/image/select.js</file>
         <file>qml/ItemSelector.qml</file>
         <file>qml/SSelectTool.qml</file>
+        <file>js/image/chooseImage.js</file>
+        <file>qml/SChooseImage.qml</file>
     </qresource>
 </RCC>

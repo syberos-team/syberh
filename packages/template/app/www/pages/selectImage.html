@@ -128,18 +128,19 @@
         return
       }
 
-      syberh.image.select({
+      syberh.image.chooseImage({
         count: count,
         sourceType: sourceType,
         success: function (res) {
           console.log('选择图片成功', JSON.stringify(res))
           // tempFilePath可以作为img标签的src属性显示图片
           var tempFilePaths = res.tempFilePaths
+          var doms = ''
+          var parent = document.getElementById('uploaderFiles')
           tempFilePaths.forEach(function(item) {
-              var parent = document.getElementById('uploaderFiles')
-              var img = '<image class="weui-uploader__file" style="display: block" src=' + item +' />'
-              parent.innerHTML += img
+              doms += '<image class="weui-uploader__file" style="display: block" src=' + item +' />'
           })
+          parent.innerHTML += doms
         }
       })
     }

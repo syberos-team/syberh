@@ -1,15 +1,15 @@
 /* eslint-disable no-undef */
 
 /***
- * modal.select()
+ * image.chooseImage(Object object)
  */
-function Select () {
+function ChooseImage () {
   var defaultOpts = {
-    id: 'select',
-    name: 'select',
+    id: 'chooseImage',
+    name: 'chooseImage',
     module: 'image',
-    methods: ['select'],
-    source: '../qml/SImageSelector.qml'
+    methods: ['chooseImage'],
+    source: '../qml/SChooseImage.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
@@ -17,10 +17,9 @@ function Select () {
   this.firstConnect = false
 
   var that = this
-  this.on('select', function (object, handlerId, param) {
+  this.on('chooseImage', function (object, handlerId, param) {
     var component = object || that.object
 
-    component.count = param.count
     component.open(param)
 
     // 只做一次信号绑定,防止多次信号被触发
@@ -28,9 +27,9 @@ function Select () {
       // 设置绑定信号
       that.firstConnect = true
 
-      // 确认事件receiveMessage
+      // 确认事件 receiveUrls
       component.receiveUrls.connect(function(result) {
-          console.log('image select receive---', result)
+          console.log('chooseImage 返回值是---', result)
           // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
           WEBVIEWCORE.trigger('success',that.handlerId, result)
           // 清理相关参数信息
@@ -41,4 +40,4 @@ function Select () {
   })
 }
 
-Select.prototype = SyberPlugin.prototype
+ChooseImage.prototype = SyberPlugin.prototype
