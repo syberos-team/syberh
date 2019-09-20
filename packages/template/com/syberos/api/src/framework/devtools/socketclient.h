@@ -79,9 +79,9 @@ private:
      */
     void updateWebRoot();
     //需要下载的个数
-    int total=0;
+    int total;
 
-    int downloadTotal=0;
+    int downloadTotal;
 
     /**
      * 获取临时目录地址,如果不存在则创建
@@ -105,15 +105,15 @@ private:
     QString zfilePath;
 
     //传输ID
-    int uid=-1;
+    int uid;
     // 文件名称
     QString fileName;
     //文件大小
-    int fileSize=-1;
+    int fileSize;
     //已经发送进来的大小
-    int hasSend=0;
+    int hasSend;
     //临时目录名称
-    QString TEMP_PATH_NAME="tmp";
+    QString TEMP_PATH_NAME;
 };
 
 #endif // SOCKETCLIENT_H

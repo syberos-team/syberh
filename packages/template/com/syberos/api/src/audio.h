@@ -7,7 +7,9 @@
 #include <QAudioRecorder>
 #include <QMediaContent>
 
+#include "historydata.h"
 #include "framework/nativesdkhandlerbase.h"
+
 class Audio : public NativeSdkHandlerBase
 {
     Q_OBJECT
@@ -25,6 +27,15 @@ public:
      *         失败则返回错误码
      */
     void recorderList(long callBackID, QVariantMap params);
+
+    /**
+     * @brief delRecorder 删除录音
+     * @param params 参数
+     * @return 成功则无返回
+     *         失败则返回错误码
+     */
+    void delRecorder(long callBackID,QVariantMap params);
+
     /**
      * @brief startRecorder 开始录音
      * @param params 参数
@@ -92,9 +103,10 @@ public:
 private :
     QMediaPlayer *player;
     QAudioRecorder *recoder;
-    QMediaPlaylist *playlist;
+    HistoryData *historydata;
 
     static int typeId;
+    QString currPath;
 };
 
 #endif // SYSTEMINFO_H

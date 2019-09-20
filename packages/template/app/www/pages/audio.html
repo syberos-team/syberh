@@ -10,13 +10,29 @@
   <title>auth</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
-  <style type="text/css">
-    #pathDiv {
-      width: 100%;
-      height: auto;
-      word-wrap: break-word;
-      word-break: break-all;
-      overflow: hidden;
+  <style>
+    .li_items {
+      position: relative;
+      display: -webkit-flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .li_items_right {
+      position: absolute;
+      top: 48px;
+      right: 5px;
+    }
+
+    .li_items_icon {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+
+    .items_info {
+      margin-top: 15px;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -24,44 +40,37 @@
 <body>
 
   <div class="mui-content pt0">
-    <ul class="mui-table-view ">
+    <ul class="mui-table-view">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="recorderList()">录音列表</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="startRecorder()">录音</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="pauseRecorder()">暂停录音</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="continueRecorder()">继续录音</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="stopRecorder()">停止录音</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="startPlay()">播放</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="pausePlay()">暂停播放</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="continuePlay()">继续播放</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="stopPlay()">停止播放</a>
+        <a class="mui-navigate-right api-class" onclick="refresh()">录音列表(刷新)</a>
       </li>
     </ul>
   </div>
 
-  <div class="mui-card-content">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell">文件保存路径：<input type="text" id="text" /></li>
-    </ul>
+  <div id="content"></div>
+  <div><input type="text" id="text" style="display:none" /></div>
+
+  <div> 播放操作：
+    <div align="center" id="startPlay">播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" />
+    </div>
+    <div align="center" id="pausePlay">暂停:<img height="35" width="35" src="../images/stop.png" onclick="pausePlay()" />
+    </div>
+    <div align="center" id="continuePlay">继续:<img height="35" width="35" src="../images/play.png"
+        onclick="continuePlay()" /></div>
+    <div align="center" id="stopPlay">停止:<img height="35" width="35" src="../images/stop.png" onclick="stopPlay()" />
+    </div>
   </div><br>
 
-  <div align="center" id="pathDiv"></div>
+  <div> 录制操作：
+    <div align="center" id="startRecorder">录音:<img height="35" width="35" src="../images/playR.png"
+        onclick="startRecorder()" /></div>
+    <div align="center" id="pauseRecorder">暂停:<img height="35" width="35" src="../images/stopR.png"
+        onclick="pauseRecorder()" /></div>
+    <div align="center" id="continueRecorder">继续:<img height="35" width="35" src="../images/playR.png"
+        onclick="continueRecorder()" /></div>
+    <div align="center" id="stopRecorder">停止:<img height="35" width="35" src="../images/stopR.png"
+        onclick="stopRecorder()" /></div>
+  </div><br>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
@@ -70,40 +79,43 @@
   <script type="text/javascript" src="../../dist/quick.h5.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../common/jquery-1.7.min.js"></script>
 
   <script>
-    var vConsole = new VConsole()
+    var vConsole = new VConsole();
+    $(document).ready(function () {
+      $("#pausePlay").hide();
+      $("#continuePlay").hide();
+      $("#stopPlay").hide();
 
-    quick.error(function (message) {
-      alert('错误:' + JSON.stringify(message));
-    });
-    quick.config();
-    quick.ready(function () {
-      showTips('注册成功');
+      $("#pauseRecorder").hide();
+      $("#continueRecorder").hide();
+      $("#stopRecorder").hide();
+
+      //初始化加载录音列表
+      refresh();
     });
 
-    function recorderList() {
+    function refresh() {
       syberh.audio.recorderList({
-        success: function (res) {
-            var str = "";
-            str += "<table border='1'>";
-            str += "<tr>";
-              str += "<td>路径</td>";
-              str += "<td>大小</td>";
-              //str += "<td>时长</td>";
-              str += "<td>创建时间</td>";
-            str += "</tr>";
-            for(i = 0; i < res.length; i++) {
-                    str += "<tr>";
-                      str += "<td><a onclick='startPlays(&quot;"+res[i].path+"&quot;)'>"+res[i].path+"</a></td>";
-                      str += "<td>"+res[i].size+"</td>";
-                      //str += "<td>"+res[i].time+"</td>";
-                      str += "<td>"+res[i].created+"</td>";
-                    str += "</tr>";
-            }
-            str += "</table>";
-            document.getElementById('pathDiv').innerHTML = str
-            console.log('success: ', str);
+        success: function (result) {
+          var str = "<li class=\"mui-table-view-cell\">";
+          str += "<a class=\"mui-navigate-right api-class\">录音列表</a>";
+          str += "</li>";
+
+          for (i = 0; i < result.length; i++) {
+            str += "<li class=\"mui-table-view-cell\">"
+              + "<div onclick=\"getPath('" + result[i].fileName + "','" + result[i].path + "')\" >" + result[i].fileName + "</span>"
+              + "<img class=\"li_items_right li_items_icon\" height=35 width=35 src=\"../images/deleteR.png\" "
+              + "onclick=\"delRecorder('"+ result[i].fileName +"','"+ result[i].path +"')\" />";
+
+            str += "<div class=\"items_info\"><span class=\"li_items\">" + result[i].created + "</span>"
+              + "<span class=\"li_items_right\">" + result[i].duration + "</span></div>"
+              + "</li>";
+          }
+
+          $("li").html(str);
+          console.log('success: ', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -111,7 +123,104 @@
       });
     }
 
+    function getPath(fileName, path) {
+      $("#content").html("<spen style=\"color:Red\">已选中录音:" + fileName + "</spen><br>");
+      document.getElementById('text').value = path;
+
+      $("#startPlay").show();
+      $("#pausePlay").hide();
+      $("#continuePlay").hide();
+      $("#stopPlay").hide();
+    }
+
+    //点击开始播放。隐藏播放、继续播放，显示暂停播放、停止播放
+    function startPlay() {
+      var path = document.getElementById('text').value;
+      if (path === 'undefined' || path === null || path === "") {
+        alert("请选择录音记录，没有请先录音");
+      } else {
+        $("#content").html("<spen style=\"color:Red\">开始播放录音</spen><br>");
+
+        $("#startPlay").hide();
+        $("#pausePlay").show();
+        $("#continuePlay").hide();
+        $("#stopPlay").show();
+
+        syberh.audio.startPlay({
+          path: path,
+          success: function (result) {
+            console.log('success');
+          },
+          fail: function (error) {
+            console.log('fail: ', error.code, error.msg);
+          }
+        });
+      }
+    }
+    //点击暂停播放。隐藏播放、暂停播放，显示继续播放、停止播放
+    function pausePlay() {
+      $("#content").html("<spen style=\"color:Red\">暂停播放录音</spen><br>");
+
+      $("#startPlay").hide();
+      $("#pausePlay").hide();
+      $("#continuePlay").show();
+      $("#stopPlay").show();
+
+      syberh.audio.pausePlay({
+        success: function (result) {
+          console.log('success');
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+    //点击继续播放。隐藏播放、继续播放，显示暂停播放、停止播放
+    function continuePlay() {
+      $("#content").html("<spen style=\"color:Red\">继续播放录音</spen><br>");
+
+      $("#startPlay").hide();
+      $("#pausePlay").show();
+      $("#continuePlay").hide();
+      $("#stopPlay").show();
+
+      syberh.audio.continuePlay({
+        success: function (result) {
+          console.log('success');
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+    //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
+    function stopPlay() {
+      $("#content").html("<spen style=\"color:Red\">停止播放录音</spen><br>");
+
+      $("#startPlay").show();
+      $("#pausePlay").hide();
+      $("#continuePlay").hide();
+      $("#stopPlay").hide();
+
+      syberh.audio.stopPlay({
+        success: function (result) {
+          console.log('success');
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+
+    //点击开始录音。隐藏录音、继续录音，显示暂停录音、停止录音
     function startRecorder() {
+      $("#content").html("<spen style=\"color:Red\">开始录音</spen><br>");
+
+      $("#startRecorder").hide();
+      $("#pauseRecorder").show();
+      $("#continueRecorder").hide();
+      $("#stopRecorder").show();
+
       syberh.audio.startRecorder({
         success: function (result) {
           document.getElementById('text').value = result.path
@@ -122,8 +231,15 @@
         }
       });
     }
-
+    //点击暂停录音。隐藏录音、暂停录音，显示继续录音、停止录音
     function pauseRecorder() {
+      $("#content").html("<spen style=\"color:Red\">暂停录音</spen><br>");
+
+      $("#startRecorder").hide();
+      $("#pauseRecorder").hide();
+      $("#continueRecorder").show();
+      $("#stopRecorder").show();
+
       syberh.audio.pauseRecorder({
         success: function (result) {
           console.log('success: ');
@@ -133,8 +249,15 @@
         }
       });
     }
-
+    //点击继续录音。隐藏录音、继续录音，显示暂停录音、停止录音
     function continueRecorder() {
+      $("#content").html("<spen style=\"color:Red\">继续录音</spen><br>");
+
+      $("#startRecorder").hide();
+      $("#pauseRecorder").show();
+      $("#continueRecorder").hide();
+      $("#stopRecorder").show();
+
       syberh.audio.continueRecorder({
         success: function (result) {
           console.log('success: ');
@@ -144,8 +267,15 @@
         }
       });
     }
-
+    //点击停止录音。显示录音,隐藏继续录音、暂停录音、停止录音
     function stopRecorder() {
+      $("#content").html("<spen style=\"color:Red\">停止录音</spen><br>");
+
+      $("#startRecorder").show();
+      $("#pauseRecorder").hide();
+      $("#continueRecorder").hide();
+      $("#stopRecorder").hide();
+
       syberh.audio.stopRecorder({
         success: function (result) {
           console.log('success');
@@ -154,67 +284,26 @@
           console.log('fail: ', error.code, error.msg);
         }
       });
-    }
 
-    function startPlay() {
-      var path = document.getElementById('text').value
-      syberh.audio.startPlay({
+      refresh();
+    }
+    //删除录音
+    function delRecorder(fileName,path) {
+      $("#content").html("<spen style=\"color:Red\">删除录音:" + fileName + "</spen><br>");
+      syberh.audio.delRecorder({
         path: path,
         success: function (result) {
-          console.log('success');
+          console.log('success',result.result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
         }
       });
-    }
 
-    function startPlays(path) {
-      document.getElementById('text').value = path
-      syberh.audio.startPlay({
-        path: path,
-        success: function (result) {
-          console.log('success');
-        },
-        fail: function (error) {
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
-    }
-
-    function pausePlay() {
-      syberh.audio.pausePlay({
-        success: function (result) {
-          console.log('success');
-        },
-        fail: function (error) {
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
-    }
-
-    function continuePlay() {
-      syberh.audio.continuePlay({
-        success: function (result) {
-          console.log('success');
-        },
-        fail: function (error) {
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
-    }
-
-    function stopPlay() {
-      syberh.audio.stopPlay({
-        success: function (result) {
-          console.log('success');
-        },
-        fail: function (error) {
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
+      refresh();
     }
   </script>
+
 </body>
 
 </html>
