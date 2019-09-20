@@ -38,15 +38,15 @@
         "label": "录音",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/camera/recorderList",
-          "apis/multimedia/camera/startRecorder",
-          "apis/multimedia/camera/pauseRecorder",
-          "apis/multimedia/camera/continueRecorder",
-          "apis/multimedia/camera/stopRecorder",
-          "apis/multimedia/camera/startPlay",
-          "apis/multimedia/camera/pausePlay",
-          "apis/multimedia/camera/continuePlay",
-          "apis/multimedia/camera/stopPlay"
+          "apis/multimedia/record/recorderList",
+          "apis/multimedia/record/startRecorder",
+          "apis/multimedia/record/pauseRecorder",
+          "apis/multimedia/record/continueRecorder",
+          "apis/multimedia/record/stopRecorder",
+          "apis/multimedia/record/startPlay",
+          "apis/multimedia/record/pausePlay",
+          "apis/multimedia/record/continuePlay",
+          "apis/multimedia/record/stopPlay"
         ]
       }
     ],

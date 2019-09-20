@@ -1,4 +1,4 @@
-#include "audio.h"
+#include "record.h"
 #include "helper.h"
 
 #include <QDebug>
@@ -9,20 +9,20 @@
 #include <QGuiApplication>
 #include "util/fileutil.h"
 
-int Audio::typeId = qRegisterMetaType<Audio *>();
+int Record::typeId = qRegisterMetaType<Record *>();
 
-Audio::Audio(){
+Record::Record(){
     player = new QMediaPlayer();
     recoder = new QAudioRecorder();
     historydata = new HistoryData();
 }
 
-Audio::~Audio(){
+Record::~Record(){
     delete player;
     delete recoder;
 }
 
-void Audio::request(QString callBackID, QString actionName, QVariantMap params)
+void Record::request(QString callBackID, QString actionName, QVariantMap params)
 {
     if (actionName == "recorderList"){
         recorderList(callBackID.toLong(), params);
@@ -47,7 +47,7 @@ void Audio::request(QString callBackID, QString actionName, QVariantMap params)
     }
 }
 
-void Audio::submit(QString typeID, QString callBackID, QString actionName, QVariant dataRowList, QVariant attachementes)
+void Record::submit(QString typeID, QString callBackID, QString actionName, QVariant dataRowList, QVariant attachementes)
 {
     Q_UNUSED(typeID)
     Q_UNUSED(callBackID)
@@ -56,10 +56,10 @@ void Audio::submit(QString typeID, QString callBackID, QString actionName, QVari
     Q_UNUSED(attachementes)
 }
 
-void Audio::recorderList(long callBackID,QVariantMap params){
+void Record::recorderList(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "recorderList" << params << endl;
 
-//    QString path = Helper::instance()->getInnerStorageRootPath() + "/audio";
+//    QString path = Helper::instance()->getInnerStorageRootPath() + "/record";
 //    QFileInfoList fileInfos = FileUtil::fileList(path);// 获取录音文件目录下所有文件
 //    QJsonArray jsonArr;
 
@@ -95,7 +95,7 @@ void Audio::recorderList(long callBackID,QVariantMap params){
     emit success(callBackID, jsonArr);
 }
 
-void Audio::delRecorder(long callBackID, QVariantMap params){
+void Record::delRecorder(long callBackID, QVariantMap params){
     qDebug() << Q_FUNC_INFO << "delRecorder" << params << endl;
     QString filePath = params.value("path").toString();
 
@@ -113,7 +113,7 @@ void Audio::delRecorder(long callBackID, QVariantMap params){
     emit success(callBackID, jsonObject);
 }
 
-void Audio::startRecorder(long callBackID,QVariantMap params){
+void Record::startRecorder(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "startRecorder" << params << endl;
 
     QAudioEncoderSettings audioSettings;	//通过QAudioEncoderSettings类进行音频编码设置
@@ -122,7 +122,7 @@ void Audio::startRecorder(long callBackID,QVariantMap params){
     recoder->setAudioSettings(audioSettings);
 
     //获取用户文件存储地址
-    QString path = Helper::instance()->getInnerStorageRootPath() + "/audio";
+    QString path = Helper::instance()->getInnerStorageRootPath() + "/record";
     QDir dir(path);
     if(!dir.exists()){
         dir.mkpath(path);
@@ -156,18 +156,18 @@ void Audio::startRecorder(long callBackID,QVariantMap params){
     emit success(callBackID, QVariant(jsonObject));
 }
 
-void Audio::pauseRecorder(QVariantMap params){
+void Record::pauseRecorder(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pauseRecorder" << params << endl;
     recoder->pause();
 }
 
-void Audio::continueRecorder(QVariantMap params){
+void Record::continueRecorder(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "continueRecorder" << params << endl;
 
     recoder->record();
 }
 
-void Audio::stopRecorder(QVariantMap params){
+void Record::stopRecorder(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "stopRecorder" << params << endl;
 
     recoder->stop();
@@ -177,7 +177,7 @@ void Audio::stopRecorder(QVariantMap params){
     historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
 }
 
-void Audio::startPlay(QVariantMap params){
+void Record::startPlay(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "startPlay" << params << endl;
     QString filePath = params.value("path").toString();
 
@@ -186,17 +186,17 @@ void Audio::startPlay(QVariantMap params){
     player->play();
 }
 
-void Audio::pausePlay(QVariantMap params){
+void Record::pausePlay(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pausePlay" << params << endl;
     player->pause();
 }
 
-void Audio::continuePlay(QVariantMap params){
+void Record::continuePlay(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "continuePlay" << params << endl;
     player->play();
 }
 
-void Audio::stopPlay(QVariantMap params){
+void Record::stopPlay(QVariantMap params){
     qDebug() << Q_FUNC_INFO << "stopPlay" << params << endl;
 
     player->stop();

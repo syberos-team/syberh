@@ -10,12 +10,12 @@
 #include "historydata.h"
 #include "framework/nativesdkhandlerbase.h"
 
-class Audio : public NativeSdkHandlerBase
+class Record : public NativeSdkHandlerBase
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE Audio();
-    ~Audio();
+    Q_INVOKABLE Record();
+    ~Record();
 
     void request(QString callBackID,QString actionName,QVariantMap params);
     void submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes);
