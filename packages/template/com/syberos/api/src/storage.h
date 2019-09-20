@@ -33,6 +33,10 @@ public:
      */
     void removeItem(QString callbackId, QString key);
     /**
+     * @brief removeAll 删除所有的键值对
+     */
+    void removeAll(QString callbackId);
+    /**
      * @brief getAllKeys 返回一个包含全部已存储项键名的数组
      * @param callbackId 回调ID，用于标识每一次的调用
      */
@@ -42,6 +46,10 @@ public:
 
 private:
     CCryptoStorageManager* manager;
+    /**
+     * 检查key，通过参数控制是否发送失败信号
+     */
+    bool checkKey(QString callbackId, QString key, bool sendFailSign = false);
 };
 
 #endif // STORAGE_H

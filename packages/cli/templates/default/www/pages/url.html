@@ -15,16 +15,14 @@
 <body>
 
   <div class="mui-content pt0">
-    <div class="mui-card-content mui-dms">
-      <div class="mui-card">
-        <h3>openUrl唤起应用</h3>
+    <form class="mui-input-group">
         <div class="mui-input-row">
             <label>scheme:</label>
             <input type="text" id="scheme" value="myapp1://openPage" class="mui-input-clear" />
         </div>
-        <div class="mui-input-row">
+        <div class="mui-input-row" style="height: auto">
             <label>path:</label>
-            <input type="text" id="path" value="second.html?content=test" class="mui-input-clear" />
+            <textarea class="mui-input-clear" id="path" cols="30" rows="5">second.html?content=test</textarea>
         </div>
         <div class="mui-input-row">
             <label>key1:</label>
@@ -45,12 +43,11 @@
         <div class="mui-input-row">
             <button type="button" class="mui-btn mui-btn-primary" onclick="btnClick()">确定</button>
         </div>
-        <div class="mui-input-row">
+        <div class="mui-card-footer">
             <h4>响应信息:</h4>
             <div id="resultMsg"></div>
         </div>
-      </div>
-    </div>
+    </form>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>

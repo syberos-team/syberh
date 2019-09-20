@@ -15,9 +15,10 @@ program
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
   .option('--port [port]', '使用')
+  .option('--nodoctor', '构建时不执行环境检查')
   .parse(process.argv)
 
-const { type, debug, port } = program
+const { type, debug, port, nodoctor } = program
 let { env } = program
 
 env = process.env.NODE_ENV || env
@@ -52,6 +53,7 @@ targetReset(appPath, program).then(() => {
   build(appPath, {
     type,
     debug,
-    port: typeof port === 'string' ? port : undefined
+    port: typeof port === 'string' ? port : undefined,
+    nodoctor
   })
 })
