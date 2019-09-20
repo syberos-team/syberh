@@ -29,11 +29,18 @@ export default async function build(appPath, buildConfig: IBuildConfig) {
   }
 }
 
+async function diagnoseFastfail(buildConfig: IBuildConfig) {
+  if (!buildConfig.nodoctor) {
+    const hasFail = await diagnose()
+    if (hasFail) {
+      process.exit(0)
+    }
+  }
+}
+
 async function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
   const projectConfig = getProjectConfig(appPath)
-  if (!buildConfig.nodoctor) {
-    await diagnose()
-  }
+  await diagnoseFastfail(buildConfig)
   await b.build(appPath, {
     target: projectConfig.target,
     debug: buildConfig.debug,
@@ -43,9 +50,7 @@ async function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
 
 async function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
   const projectConfig = getProjectConfig(appPath)
-  if (!buildConfig.nodoctor) {
-    await diagnose()
-  }
+  await diagnoseFastfail(buildConfig)
   await b.build(appPath, {
     target: projectConfig.targetSimulator,
     debug: buildConfig.debug,
@@ -55,9 +60,7 @@ async function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
 
 async function buildSop(appPath: string, buildConfig: IBuildConfig) {
   const projectConfig = getProjectConfig(appPath)
-  if (!buildConfig.nodoctor) {
-    await diagnose()
-  }
+  await diagnoseFastfail(buildConfig)
   await b.build(appPath, {
     target: projectConfig.target,
     debug: buildConfig.debug,

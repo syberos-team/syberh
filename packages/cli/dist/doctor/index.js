@@ -33,7 +33,9 @@ const NOTE_INVALID = chalk_1.default.red('[✗] ');
 const titleChalk = chalk_1.default.hex('#aaa');
 const lineChalk = chalk_1.default.hex('#fff');
 const solutionChalk = chalk_1.default.hex('#999');
+// 返回是否有致命错误
 function printReport(reports) {
+    let hasError = false;
     _.forEach(report => {
         console.log('\n' + titleChalk(report.desc));
         if (report.raw) {
@@ -51,9 +53,12 @@ function printReport(reports) {
             if (line.solution) {
                 console.log('      ' + solutionChalk(line.solution));
             }
+            hasError = (!line.valid);
         }, report.lines);
     }, reports);
+    return hasError;
 }
+// 返回是否有致命错误
 function diagnose() {
     return __awaiter(this, void 0, void 0, function* () {
         const PROJECT_CONF_PATH = path.join(process.cwd(), constants_1.PROJECT_CONFIG);
@@ -73,7 +78,7 @@ function diagnose() {
         }), validators.validators);
         const reports = yield Promise.all(reportsP);
         spinner.succeed('诊断完成');
-        printReport(reports);
+        return printReport(reports);
     });
 }
 exports.default = diagnose;
