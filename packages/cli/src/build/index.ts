@@ -10,7 +10,7 @@ import { getProjectConfig, locateScripts } from '../syberos/helper'
  * @param appPath 工程目录
  * @param param1 参数信息
  */
-export async function build (appPath: string, config: AppBuildConfig) {
+export async function build(appPath: string, config: AppBuildConfig) {
   const newConfig = { ...config, ...getProjectConfig(appPath) }
   const serverPort = 4399
   if (!newConfig.port) {
