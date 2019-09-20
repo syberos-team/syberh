@@ -17,12 +17,28 @@
   <div class="mui-content pt0">
     <form class="mui-input-group">
       <div class="mui-input-row">
-        <label>scheme:</label>
-        <input type="text" id="scheme" value="myapp1://openPage" class="mui-input-clear" />
+        <label>sopid:</label>
+        <input type="text" id="sopid" value="com.syberh.myaap1" class="mui-input-clear" />
+      </div>
+      <div class="mui-input-row">
+        <label>uiappid:</label>
+        <input type="text" id="uiappid" value="myaap1" class="mui-input-clear" />
+      </div>
+      <div class="mui-input-row">
+        <label>action:</label>
+        <input type="text" id="action" value="openPage" class="mui-input-clear" />
       </div>
       <div class="mui-input-row" style="height: auto">
         <label>path:</label>
-        <textarea class="mui-input-clear" id="path" cols="30" rows="5">second.html?content=test</textarea>
+        <textarea class="mui-input-clear" id="path" cols="30" rows="5">second.html?name=zhangsan</textarea>
+      </div>
+      <div class="mui-input-row">
+        <label>mimeType:</label>
+        <input type="text" id="mimeType" value="*/*" class="mui-input-clear" />
+      </div>
+      <div class="mui-input-row">
+        <label>filePath:</label>
+        <input type="filePath" id="filePath" value="/data/data/com.syberh.myaap1/test.txt" class="mui-input-clear" />
       </div>
       <div class="mui-input-row">
         <label>key1:</label>
@@ -31,14 +47,6 @@
       <div class="mui-input-row">
         <label>key2:</label>
         <input type="text" id="value2" value="def" class="mui-input-clear" />
-      </div>
-      <div class="mui-input-row">
-        <label>key3:</label>
-        <input type="text" id="value3" value="123" class="mui-input-clear" />
-      </div>
-      <div class="mui-input-row">
-        <label>key4:</label>
-        <input type="text" id="value4" value="456" class="mui-input-clear" />
       </div>
       <div class="mui-input-row">
         <button type="button" class="mui-btn mui-btn-primary" onclick="btnClick()">确定</button>
@@ -59,36 +67,40 @@
     var vConsole = new VConsole();
 
     function btnClick() {
-      var scheme = document.getElementById("scheme").value;
+      var sopid = document.getElementById("sopid").value;
+      var uiappid = document.getElementById("uiappid").value;
+      var action = document.getElementById("action").value;
       var path = document.getElementById("path").value;
+      var mimeType = document.getElementById("mimeType").value;
+      var filePath = document.getElementById("filePath").value;
       var value1 = document.getElementById("value1").value;
       var value2 = document.getElementById("value2").value;
-      var value3 = document.getElementById("value3").value;
-      var value4 = document.getElementById("value4").value;
 
       var params = {};
+      if (mimeType) {
+        params["mimeType"] = mimeType;
+      }
+      if (filePath) {
+        params["filePath"] = filePath;
+      }
       if (value1) {
         params["key1"] = value1;
       }
-      if (value2) {
-        params["key2"] = value2;
-      }
-      if (value3) {
-        params["key3"] = value3;
-      }
-      if (value4) {
-        params["key4"] = value4;
+      if (value1) {
+        params["key2"] = value1;
       }
 
-      syberh.url.openUrl({
-        scheme: scheme,
-        path: path,
+      syberh.package.openDocument({
+        sopid: sopid,
+        uiappid: uiappid,
+        action: action,
+        path: "second.html?name=zhangsan",
         params: params,
         success: function (result) {
-          document.getElementById("resultMsg").innerHTML = result;
+          console.log('result: ', result);
         },
         fail: function (error) {
-          document.getElementById("resultMsg").innerHTML = JSON.stringify(error);
+          console.log('fail: ', error.code, error.msg);
         }
       });
     }

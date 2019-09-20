@@ -38,7 +38,7 @@ title: openDocument
 #### 参数
 | 属性           | 类型    | 描述                                 |
 | -------------- | ------  | ------------------------------------ |
-| result | String | 返回 success, 表示唤起成功 |
+| result | String | 返回 success, 表示已执行唤起 |
 
 #### object.fail回调函数参数
 #### 参数
@@ -51,13 +51,13 @@ title: openDocument
 ### 代码示例
 ```js
 syberh.package.openDocument({
-    sopid:"com.syberos.demo",
-    uiappid:"app",
+    sopid:"com.syberh.myaap1",
+    uiappid:"myaap1",
     action:"openPage",
-    path:"index.html?name=zhangsan",
+    path:"second.html?name=zhangsan",
     params:{
         mimeType:"*/*",
-        filePath:"test.txt",
+        filePath:"/data/data/com.syberh.myaap1/test.txt",
         age:18,
         sex:'male'
     },

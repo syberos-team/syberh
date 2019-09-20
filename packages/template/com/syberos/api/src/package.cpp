@@ -222,7 +222,7 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
     }
     path = convertParamToUrl(path, pathParam);
     action = path;
-    qDebug() << "final request action: " << action << endl;
+    qDebug() << "openDocument request: " << action << endl;
 
     qApp->runDocument(sopId, uiappId, action, mimeType, filePath);
     emit success(callBackID, "success");
