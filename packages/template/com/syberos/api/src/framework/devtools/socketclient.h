@@ -70,7 +70,10 @@ public slots:
 
 
 private:
-     static SocketClient *pSocket;
+     QTimer *timer;
+    //连接重试次数
+    int connectCount=0;
+    static SocketClient *pSocket;
     bool m_bServerConnected;
     DownloadManager *downloadManager;
     Helper *helper;

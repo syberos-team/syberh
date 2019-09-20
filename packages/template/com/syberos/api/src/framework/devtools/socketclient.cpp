@@ -45,7 +45,7 @@ void SocketClient::create(const QString &url, const int &port){
     //        QString ss = QVariant(s).toString();
     //        qDebug() <<Q_FUNC_INFO <<ss << port<<endl;
     //    }
-    QTimer *timer = new QTimer(this);
+    timer= new QTimer(this);
     //绑定常用信号
     connect(socketClient, &QTcpSocket::readyRead,this, &SocketClient::data);
     connect(socketClient, &QTcpSocket::disconnected,this, &SocketClient::disconnected);
@@ -60,6 +60,12 @@ void SocketClient::create(const QString &url, const int &port){
 
 void SocketClient::socketError(QAbstractSocket::SocketError error){
     Q_UNUSED(error);
+    if(connectCount<3){
+        connectCount+=1;
+    }else{
+        timer->stop();
+         qDebug() <<Q_FUNC_INFO <<"stop timer";
+    }
     qDebug() <<Q_FUNC_INFO <<"socketError";
 
 }

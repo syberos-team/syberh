@@ -80,7 +80,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   plugin.setParam(handlerId, param)
 
   if (plugin.isReady) {
-    //console.log('plugin isReady', plugin.id)
+    // console.log('plugin isReady', plugin.id)
     // 直接调用
     plugin.trigger(method, plugin.object, handlerId, param)
     return
@@ -156,7 +156,7 @@ Syber.prototype.destroy = function (pluginId) {
   if (!plugin) {
     throw new Error('core.js,destroy(),plugin不存在,id:', pluginId)
   }
-
+  this.removePlugin(pluginId)
   var component = plugin.component
   if (component) {
     component.destroy()
@@ -166,6 +166,7 @@ Syber.prototype.destroy = function (pluginId) {
     plugin.object = null
     plugin.incubator = null
   }
+  pageStack.deleteCachedPage(pluginId)
 }
 
 /**
@@ -174,7 +175,17 @@ Syber.prototype.destroy = function (pluginId) {
  * @param callback {function} 回调
  */
 Syber.prototype.pageStack = function (plugin, callback) {
-  var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
+  logger.verbose('Syber pageStack() start')
+  var object = null
+  var cachePage = pageStack.getCachedPage(Qt.resolvedUrl(plugin.source),
+    plugin.id)
+  logger.verbose('Syber pageStack() cachePage', cachePage)
+  if (cachePage) {
+    object = pageStack.push(cachePage)
+  } else {
+    object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
+  }
+
   plugin.trigger('ready', object)
   if (typeof callback === 'function') {
     callback(object)
@@ -230,9 +241,8 @@ Syber.prototype._autoRun = function () {
 }
 
 Syber.prototype.addPlugin = function (plugin) {
-
   if (this.pluginList[plugin.id] !== undefined) {
-    console.debug('Plugin ' + plugin.id + ' has already been added.')
+    logger.error('Plugin ' + plugin.id + ' has already been added.')
     return false
   }
   this.pluginList[plugin.id] = plugin
