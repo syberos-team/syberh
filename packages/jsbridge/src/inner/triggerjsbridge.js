@@ -3,16 +3,16 @@
  */
 export default function generateJSBridgeTrigger(JSBridge) {
     /**
-     * 有三大类型，短期回调，延时回调，长期回调，其中长期回调中又有一个event比较特殊
-     * @param {JSON} options 配置参数，包括
-     * handlerName 方法名
-     * data 额外参数
-     * isLongCb 是否是长期回调，如果是，则会生成一个长期回调id，以长期回调的形式存在
-     * proto 对应方法的模块名
-     * 其它 代表相应的头部
-     * @param {Function} resolve promise中成功回调函数
-     * @param {Function} reject promise中失败回调函数
-     */
+   * 有三大类型，短期回调，延时回调，长期回调，其中长期回调中又有一个event比较特殊
+   * @param {JSON} options 配置参数，包括
+   * handlerName 方法名
+   * data 额外参数
+   * isLongCb 是否是长期回调，如果是，则会生成一个长期回调id，以长期回调的形式存在
+   * proto 对应方法的模块名
+   * 其它 代表相应的头部
+   * @param {Function} resolve promise中成功回调函数
+   * @param {Function} reject promise中失败回调函数
+   */
     return function callJsBridge(options, resolve, reject) {
         const success = options.success;
         const fail = options.fail;
@@ -25,7 +25,7 @@ export default function generateJSBridgeTrigger(JSBridge) {
 
         // 统一的回调处理
         const cbFunc = (res) => {
-            if (res.code === 0) {
+            if (res.code) {
                 fail && fail(res);
                 // 长期回调不走promise
                 !isLongCb && reject && reject(res);
@@ -43,11 +43,11 @@ export default function generateJSBridgeTrigger(JSBridge) {
 
         if (isLongCb) {
             /**
-             * 长期回调的做法，需要注册一个长期回调id,每一个方法都有一个固定的长期回调id
-             * 短期回调的做法(短期回调执行一次后会自动销毁)
-             * 但长期回调不会销毁，因此可以持续触发，例如下拉刷新
-             * 长期回调id通过函数自动生成，每次会获取一个唯一的id
-             */
+       * 长期回调的做法，需要注册一个长期回调id,每一个方法都有一个固定的长期回调id
+       * 短期回调的做法(短期回调执行一次后会自动销毁)
+       * 但长期回调不会销毁，因此可以持续触发，例如下拉刷新
+       * 长期回调id通过函数自动生成，每次会获取一个唯一的id
+       */
             const longCbId = JSBridge.getLongCallbackId();
 
             if (isEvent) {

@@ -29,12 +29,13 @@ title: networkInfo
 
 #### object.success.networkType 回调函数参数
 #### 网络类型 
-| 返回类型                        | 值            | 描述                                 |
-| --------------                | ------        | ------------------------------------ |
-| CNetworkManager::None         | 0             | 无网络                                |
-| CNetworkManager::Wifi	        | 1             | WiFi网络                              |
-| CNetworkManager::Cellular	    | 2             | 数据网络                               |
-| CNetworkManager::Ethernet	    | 3             | 以太网网络                             |
+
+| 值            | 描述                                 |
+| ------        | ------------------------------------ |
+| 0             | 无网络                                |
+| 1             | WiFi网络                              |
+| 2             | 数据网络                               |
+| 3             | 以太网网络                             |
 
 
 #### object.fail回调函数参数

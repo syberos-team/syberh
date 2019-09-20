@@ -27,9 +27,9 @@
 
   window.showTips = function (msg, isAlert) {
     if (isAlert) {
-      quick.ui.alert(msg, '提示')
+      syberh.modal.alert(msg)
     } else {
-      quick.ui.toast(msg)
+      syberh.modal.gtoast(msg)
     }
   }
 }())

@@ -35,8 +35,9 @@
     <uses-permission syberos:name="syberos.permission.RECORD"/>
     <uses-permission syberos:name="syberos.permission.VIBRATE"/>
     <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
-    <application syberos:description="SyberOS Hybrid App开发" syberos:name="hybrid" syberos:icon="res/app.png" syberos:debuggable="true">
-        <uiapp syberos:exec="bin/app" syberos:name="" syberos:id="app" syberos:icon="res/app.png" syberos:background="" syberos:splash="res/hybrid-team.png" syberos:launcher="true">
+
+    <application syberos:debuggable="true" syberos:name="hybrid" syberos:description="syberos hybrid app" syberos:icon="res/app.png">
+        <uiapp syberos:name="" syberos:icon="res/app.png" syberos:splash="res/splash.png" syberos:id="app" syberos:exec="bin/app" syberos:launcher="true" syberos:background="">
             <url syberos:id="">
                 <scheme>syberos</scheme>
             </url>
@@ -44,7 +45,7 @@
                 <action>openPage</action>
                 <mime-type>*/*</mime-type>
                 <extension>*</extension>
-	    </doctype>
+	          </doctype>
         </uiapp>
     </application>
 </sopconfig>

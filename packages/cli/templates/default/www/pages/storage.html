@@ -105,7 +105,7 @@
           document.getElementById('getItem-result').innerText = JSON.stringify(result)
         },
         fail: function (error) {
-          document.getElementById('getItem-result').innerText = JSON.stringify(result)
+          document.getElementById('getItem-result').innerText = JSON.stringify(error)
         }
       })
     }
@@ -116,7 +116,7 @@
           document.getElementById('removeItem-result').innerText = JSON.stringify(result)
         },
         fail: function (error) {
-          document.getElementById('removeItem-result').innerText = JSON.stringify(result)
+          document.getElementById('removeItem-result').innerText = JSON.stringify(error)
         }
       })
     }
@@ -126,7 +126,7 @@
           document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
         },
         fail: function (error) {
-          document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
+          document.getElementById('getAllKeys-result').innerText = JSON.stringify(error)
         }
       })
     }

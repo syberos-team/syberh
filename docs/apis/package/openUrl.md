@@ -12,9 +12,9 @@ title: openUrl
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| scheme | String | 是 | 协议，格式为：scheme://xxx<br />scheme在sopconfig.xml进行配置，[具体配置](../../app-config.html#url)<br />例如：`<url><scheme>app1</scheme></url>`<br />打开应用页面scheme示例为app1://openPage/index.html |
+| scheme | String | 是 | 协议，格式为：scheme://xxx<br />scheme在sopconfig.xml进行配置，<br />例如：`<url><scheme>app1</scheme></url>`<br />打开应用页面scheme示例为myapp1://openPage |
 | path | String | 否 | 打开的页面路径，如果为空则打开首页。<br />path 中 ? 后面的部分会成为 params。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
-| param | Object | 否 | param中的参数会拼接到path中?后面。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
+| params | Object | 否 | params中的参数会拼接到path中?后面。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
 
@@ -27,7 +27,7 @@ title: openUrl
 #### 参数
 | 属性           | 类型    | 描述                                 |
 | -------------- | ------  | ------------------------------------ |
-| result | String | 返回 success, 表示唤起成功 |
+| result | String | 返回 success, 表示已执行唤起 |
 
 #### object.fail回调函数参数
 #### 参数
