@@ -25,7 +25,7 @@ $ sudo dpkg -i *.deb
 
 ```bash
 # 添加执行权限
-$ sudo chomd a+x SyberOS-sdk_compile.build253-SDK-20170220.run
+$ sudo chmod a+x SyberOS-sdk_compile.build253-SDK-20170220.run
 # 安装
 $ ./SyberOS-sdk_compile.build253-SDK-20170220.run
 ```

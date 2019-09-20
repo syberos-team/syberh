@@ -85,7 +85,8 @@
       "apis/storage/setItem",
       "apis/storage/getItem",
       "apis/storage/removeItem",
-      "apis/storage/getAllKeys"
+      "apis/storage/getAllKeys",
+      "apis/storage/removeAll"
     ],
     "网络": [
       {
@@ -117,8 +118,9 @@
       "apis/fileManager/getInfo",
       "apis/fileManager/remove"
     ],
-    "url": [
-      "apis/url/url"
+    "应用管理": [
+      "apis/package/openUrl",
+      "apis/package/openDocument"
     ],
     "path": [
       "apis/path/extern",
