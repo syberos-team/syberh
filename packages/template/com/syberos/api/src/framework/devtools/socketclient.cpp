@@ -8,6 +8,13 @@ SocketClient::SocketClient(const QString &url, const int &port)
     bool debug=ExtendedConfig::instance()->get("debug").toBool();
     purl=url;
     pport=port;
+    total=0;
+    downloadTotal=0;
+    uid=-1;
+    fileSize=-1;
+    hasSend=0;
+    TEMP_PATH_NAME="tmp";
+
     if(debug){
         qDebug() <<Q_FUNC_INFO << "SocketClient dubug:true" <<endl;
        create(url,port);

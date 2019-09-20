@@ -1,15 +1,17 @@
 ---
-title: stopPlay
+title: startPlay
 ---
 
 
-结束播放：对语音播放进行停止播放。
+开始播放语音：可以对语音文件进行播放。
 
 
-## syberh.audio.stopPlay()
+## syberh.record.startPlay(Object object)
 ### **参数**
+#### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| path | string |        | 是       | 语言路径                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -24,9 +26,10 @@ title: stopPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.stopPlay({
+syberh.record.startPlay({
+  path: "/home/user/record/20190905_1567662466.aac",
 	success: function(result){
-		console.log('success');
+    console.log('success');    
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);

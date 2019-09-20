@@ -12,7 +12,7 @@ import systemMixin from './native/system';
 import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
-import audioMixin from './native/audio';
+import recordMixin from './native/record';
 import packageMixin from './native/package';
 import filepickerMixin from './native/filepicker';
 import networkInfoMixin from './native/networkInfo';
@@ -25,31 +25,31 @@ import imageMixin from './native/image';
 
 
 // const hybridJs = window.syber;
-export default function allNative(hybridJs) {
-    // 下载模块
-    downloadMixin(hybridJs);
-    modalMixin(hybridJs);
-    webviewMix(hybridJs);
-    runtimeMixin(hybridJs);
-    deviceMixin(hybridJs);
-    pageMixin(hybridJs);
-    navigatorMixin(hybridJs);
-    utilMixin(hybridJs);
-    telephonyMixin(hybridJs);
-    storageMixin(hybridJs);
-    systemMixin(hybridJs);
-    networkMixin(hybridJs);
-    captureMixin(hybridJs);
-    clipboardMixin(hybridJs);
-    audioMixin(hybridJs);
-    networkInfoMixin(hybridJs);
-    batteryMixin(hybridJs);
-    networkDisabledMixin(hybridJs);
-    networkEnabledMixin(hybridJs);
-    filepickerMixin(hybridJs);
-    fileManagerMixin(hybridJs);
-    packageMixin(hybridJs);
-    pathMixin(hybridJs);
-    filepickerMixin(hybridJs);
-    imageMixin(hybridJs);
+export default function allNative (hybridJs) {
+  // 下载模块
+  downloadMixin(hybridJs);
+  modalMixin(hybridJs);
+  webviewMix(hybridJs);
+  runtimeMixin(hybridJs);
+  deviceMixin(hybridJs);
+  pageMixin(hybridJs);
+  navigatorMixin(hybridJs);
+  utilMixin(hybridJs);
+  telephonyMixin(hybridJs);
+  storageMixin(hybridJs);
+  systemMixin(hybridJs);
+  networkMixin(hybridJs);
+  captureMixin(hybridJs);
+  clipboardMixin(hybridJs);
+  recordMixin(hybridJs);
+  networkInfoMixin(hybridJs);
+  batteryMixin(hybridJs);
+  networkDisabledMixin(hybridJs);
+  networkEnabledMixin(hybridJs);
+  filepickerMixin(hybridJs);
+  fileManagerMixin(hybridJs);
+  packageMixin(hybridJs);
+  pathMixin(hybridJs);
+  filepickerMixin(hybridJs);
+  imageMixin(hybridJs);
 }
