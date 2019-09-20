@@ -31,19 +31,19 @@
         <a class="mui-navigate-right" href="#">模态弹窗</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/alert.html">alert</p>
+            <a class="mui-navigate-right api-class" id="./pages/alert.html">alert</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/confirm.html">confirm</p>
+            <a class="mui-navigate-right api-class" id="./pages/confirm.html">confirm</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/prompt.html">prompt</p>
+            <a class="mui-navigate-right api-class" id="./pages/prompt.html">prompt</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/toast.html">toast</p>
+            <a class="mui-navigate-right api-class" id="./pages/toast.html">toast</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/gtoast.html">gtoast</p>
+            <a class="mui-navigate-right api-class" id="./pages/gtoast.html">gtoast</a>
           </li>
         </ul>
       </li>
@@ -51,10 +51,10 @@
         <a class="mui-navigate-right" href="#">媒体</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/camera.html">相机</p>
+            <a class="mui-navigate-right api-class" id="./pages/camera.html">相机</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/audio.html">录音</p>
+            <a class="mui-navigate-right api-class" id="./pages/audio.html">录音</a>
           </li>
         </ul>
       </li>
@@ -68,13 +68,13 @@
         <a class="mui-navigate-right" href="#">系统信息</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/system.html">aboutPhone</p>
+            <a class="mui-navigate-right api-class" id="./pages/system.html">aboutPhone</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/battery.html">battery</p>
+            <a class="mui-navigate-right api-class" id="./pages/battery.html">battery</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/networkInfo.html">networkInfo</p>
+            <a class="mui-navigate-right api-class" id="./pages/networkInfo.html">networkInfo</a>
           </li>
         </ul>
       </li>
@@ -93,11 +93,11 @@
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">webview</a>
         <ul class="mui-collapse-content">
-          <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/webview.html">API</p>
+          <li class="mui-table-view-cell secondMenu ">
+            <a class="mui-navigate-right api-class" id="./pages/webview.html">API</a>
           </li>
-          <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/webview-ext.html">拓展</p>
+          <li class="mui-table-view-cell secondMenu api-class">
+            <a class="mui-navigate-right api-class" id="./pages/webview-ext.html">拓展</a>
           </li>
         </ul>
       </li>
@@ -112,10 +112,10 @@
         <a class="mui-navigate-right" id="#">应用管理</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/openUrl.html">openUrl</p>
+            <a class="mui-navigate-right api-class" id="./pages/openUrl.html">openUrl</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/openDocument.html">openDocument</p>
+            <a class="mui-navigate-right api-class" id="./pages/openDocument.html">openDocument</a>
           </li>
         </ul>
       </li>
@@ -126,7 +126,7 @@
         <a class="mui-navigate-right" href="#">图片</a>
         <ul class="mui-collapse-content">
           <li class="mui-table-view-cell secondMenu">
-            <p class="mui-navigate-right api-class" id="./pages/chooseImage.html">图片选择</p>
+            <a class="mui-navigate-right api-class" id="./pages/chooseImage.html">图片选择</a>
           </li>
         </ul>
       </li>
@@ -139,7 +139,6 @@
   <script type="text/javascript" src="./lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
-    console.log('Hello world')
     window.runApi = function (id) {
       console.log('执行API:' + id)
       syberh.webview.redirectTo({

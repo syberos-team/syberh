@@ -55,6 +55,8 @@ syberh.package.openUrl({
 });
 ```
 
+> 被唤起应用示例放到了git上，地址：https://github.com/talicoasdf/myapp1
+
 ### 应用被唤起回调
 
 #### 参数
