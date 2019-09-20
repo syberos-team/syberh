@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sopconfig syberos:versionCode="1" syberos:shareUserId="" syberos:versionName="1.0.0" xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1" syberos:sopid="com.syberos.demo">
+<sopconfig syberos:versionCode="1" xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1" syberos:sopid="com.syberos.demo" syberos:shareUserId="" syberos:versionName="1.0.0">
     <uses-permission syberos:name="syberos.permission.ACCESS_ALARM"/>
     <uses-permission syberos:name="syberos.permission.ACCESS_APP_PERMISSION"/>
     <uses-permission syberos:name="syberos.permission.ACCESS_BLACKLIST"/>
@@ -34,13 +34,17 @@
     <uses-permission syberos:name="syberos.permission.READ_NETWORK_STATE"/>
     <uses-permission syberos:name="syberos.permission.RECORD"/>
     <uses-permission syberos:name="syberos.permission.VIBRATE"/>
-    <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
-    <application syberos:debuggable="true" syberos:name="hybrid" syberos:description="syberos hybrid app" syberos:icon="res/app.png">
-        <uiapp syberos:name="" syberos:icon="res/app.png" syberos:splash="res/splash.png" syberos:id="app" syberos:exec="bin/app" syberos:launcher="true" syberos:background="">
+    <uses-sdk syberos:minSdkVersion="" syberos:targetSdkVersion=""/>
+    <application syberos:description="syberos hybrid app" syberos:name="hybrid" syberos:icon="res/app.png" syberos:debuggable="true">
+        <uiapp syberos:exec="bin/app" syberos:name="" syberos:launcher="true" syberos:id="app" syberos:icon="res/app.png" syberos:background="" syberos:splash="res/splash.png">
             <url syberos:id="">
                 <scheme>syberos</scheme>
             </url>
-            <doctype syberos:id=""/>
+            <doctype syberos:id="">
+                <action>openPage</action>
+                <mime-type>*/*</mime-type>
+                <extension>*</extension>
+            </doctype>
         </uiapp>
     </application>
 </sopconfig>

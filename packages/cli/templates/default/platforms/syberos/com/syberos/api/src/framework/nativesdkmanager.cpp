@@ -49,10 +49,19 @@ NativeSdkManager * NativeSdkManager::getInstance(){
     return m_pNativeSdkManager;
 }
 
-void NativeSdkManager::url(const QUrl& url){
+void NativeSdkManager::openByUrl(const QUrl& url){
     QVariantMap params;
     params.insert("url", url.toString());
-    request("Url*","123","openByUrl", params);
+    request("Package*","123","openByUrl", params);
+}
+
+void NativeSdkManager::openByDocument(const QString& action, const QString& mimetype,
+                                      const QString& filePath){
+    QVariantMap params;
+    params.insert("action", action);
+    params.insert("mimetype", mimetype);
+    params.insert("filePath", filePath);
+    request("Package*","321","openByDocument", params);
 }
 
 void NativeSdkManager::request(QString className,QString callBackID,QString actionName,QVariantMap params){

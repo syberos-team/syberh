@@ -6,7 +6,7 @@
 #include "../com/syberos/api/src/helper.h"
 #include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
-#include "../com/syberos/api/src/url.h"
+#include "../com/syberos/api/src/package.h"
 #include "../com/syberos/api/src/util/fileutil.h"
 
 App_Workspace::App_Workspace()
@@ -44,10 +44,21 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
         qDebug()<< "Start by Home";
         break;
     case CWorkspace::URL:
+        {
+            QString urlStr = params.at(0);
+            QUrl url(urlStr);
+            NativeSdkManager::getInstance()->openByUrl(url);
+        }
         break;
     case CWorkspace::EVENT:
         break;
     case CWorkspace::DOCUMENT:
+        if(params.size() >= 3){
+            QString action = params.at(0);
+            QString mimetype = params.at(1);
+            QString file = params.at(2);
+            NativeSdkManager::getInstance()->openByDocument(action, mimetype, file);
+        }
         break;
     default:
         break;
@@ -55,6 +66,9 @@ void App_Workspace::onLaunchComplete(Option option, const QStringList& params)
 }
 
 void App_Workspace::openByUrl(const QUrl& url){
-    NativeSdkManager::getInstance()->url(url);
+    NativeSdkManager::getInstance()->openByUrl(url);
 }
 
+void App_Workspace::openByDocument(const QString& action, const QString& mimetype, const QString& file){
+    NativeSdkManager::getInstance()->openByDocument(action, mimetype, file);
+}

@@ -53,7 +53,7 @@ function WebView (options) {
     })
 
     NativeSdkManager.request('DevTools*', 12378, '', '')
-    NativeSdkManager.request('Url*', 151010, '', '')
+    NativeSdkManager.request('Package*', 151010, '', '')
   })
 
   /**
@@ -279,7 +279,7 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
 }
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
-  print('\n request handlerId', typeof handlerId, handlerId, "errorCode", typeof errorCode, errorCode, errorMsg)
+  print('\n request handlerId', typeof handlerId, handlerId, 'errorCode', typeof errorCode, errorCode, errorMsg)
   var webviewId = this.getWebViewIdByHandlerId(handlerId)
   var webview = this.getWebView(webviewId)
 

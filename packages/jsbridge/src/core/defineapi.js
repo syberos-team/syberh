@@ -21,15 +21,15 @@ export default function defineapiMixin(hybrid) {
     const callInner = hybridJs.callInner;
 
     /**
-     * 存放所有的代理 api对象
-     * 每一个命名空间下的每一个os都可以执行
-     * proxyapi[namespace][os]
-     */
+* 存放所有的代理 api对象
+* 每一个命名空间下的每一个os都可以执行
+* proxyapi[namespace][os]
+*/
     const proxysApis = {};
 
     /**
-     * 存放所有的代理 module对象
-     */
+* 存放所有的代理 module对象
+*/
     const proxysModules = {};
 
     const supportOsArray = ['syber', 'h5'];
@@ -51,7 +51,7 @@ export default function defineapiMixin(hybrid) {
         const parentNamespaceArray = /[.]/.test(namespace)
             ? namespace.replace(/[.][^.]+$/, '').split('.')
             : [];
-            
+
         parentNamespaceArray.forEach((item) => {
             apiParent[item] = apiParent[item] || {};
             apiParent = apiParent[item];
@@ -61,7 +61,7 @@ export default function defineapiMixin(hybrid) {
     }
 
     function proxyApiNamespace(apiParent, apiName, finalNameSpace, api) {
-        // 代理API，将apiParent里的apiName代理到Proxy执行
+    // 代理API，将apiParent里的apiName代理到Proxy执行
         Object.defineProperty(apiParent, apiName, {
             configurable: true,
             enumerable: true,
@@ -70,13 +70,13 @@ export default function defineapiMixin(hybrid) {
                 const nameSpaceApi = proxysApis[finalNameSpace];
                 // 得到当前是哪一个环境，获得对应环境下的代理对象
                 const proxyObj = nameSpaceApi[getCurrProxyApiOs(os)] || nameSpaceApi.h5;
-                
+
                 if (proxyObj) {
                     /**
-                     * 返回代理对象，所以所有的api都会通过这个代理函数
-                     * 注意引用问题，如果直接返回原型链式的函数对象，由于是在getter中，里面的this会被改写
-                     * 所以需要通过walk后主动返回
-                     */
+* 返回代理对象，所以所有的api都会通过这个代理函数
+* 注意引用问题，如果直接返回原型链式的函数对象，由于是在getter中，里面的this会被改写
+* 所以需要通过walk后主动返回
+*/
                     return proxyObj.walk();
                 }
 
@@ -94,11 +94,11 @@ export default function defineapiMixin(hybrid) {
             },
         });
     }
-    
+
     /**
-     * 监听模块，防止被篡改
-     * @param {String} moduleName 模块名
-     */
+* 监听模块，防止被篡改
+* @param {String} moduleName 模块名
+*/
     function observeModule(moduleName) {
         Object.defineProperty(hybridJs, moduleName, {
             configurable: true,
@@ -118,13 +118,13 @@ export default function defineapiMixin(hybrid) {
     }
 
     /**
-     * 在某一个模块下拓展一个API
-     * @param {String} moduleName 模块名
-     * @param {String} apiParam api对象,包含
-     * namespace 命名空间
-     * os 支持的环境
-     * defaultParams 默认参数
-     */
+* 在某一个模块下拓展一个API
+* @param {String} moduleName 模块名
+* @param {String} apiParam api对象,包含
+* namespace 命名空间
+* os 支持的环境
+* defaultParams 默认参数
+*/
     function extendApi(moduleName, apiParam) {
         if (!apiParam || !apiParam.namespace) {
             return;
@@ -134,7 +134,7 @@ export default function defineapiMixin(hybrid) {
             // 这样，模块只允许初次定义以及之后的赋值，其它操作都会被内部拒绝
             observeModule(moduleName);
         }
-        
+
         const api = apiParam;
         const modlue = hybridJs[moduleName];
         const apiNamespace = api.namespace;
@@ -189,12 +189,12 @@ export default function defineapiMixin(hybrid) {
             oldProxyNamespace[notUseOs] && oldProxyNamespace[notUseOs].dispose();
         });
     }
-    
+
     /**
-     * 拓展整个对象的模块
-     * @param {String} moduleName 模块名
-     * @param {Array} apis 对应的api数组
-     */
+* 拓展整个对象的模块
+* @param {String} moduleName 模块名
+* @param {Array} apis 对应的api数组
+*/
     function extendModule(moduleName, apis) {
         if (!apis || !Array.isArray(apis)) {
             return;
@@ -208,7 +208,7 @@ export default function defineapiMixin(hybrid) {
             extendApi(moduleName, apis[i]);
         }
     }
-    
+
     hybridJs.extendModule = extendModule;
     hybridJs.extendApi = extendApi;
 }
