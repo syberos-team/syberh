@@ -110,6 +110,12 @@
       "apis/navigator/navigator": {
         "title": "navigator"
       },
+      "apis/package/openDocument": {
+        "title": "openDocument"
+      },
+      "apis/package/openUrl": {
+        "title": "openUrl"
+      },
       "apis/path/dataRoot": {
         "title": "dataRoot"
       },
@@ -155,9 +161,6 @@
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
-      },
-      "apis/url/url": {
-        "title": "openUrl"
       },
       "apis/webview/webview": {
         "title": "webview"
@@ -459,9 +462,10 @@
       "webview": "webview",
       "文件选择": "文件选择",
       "文件管理": "文件管理",
-      "url": "url",
+      "应用管理": "应用管理",
       "path": "path",
-      "图片": "图片"
+      "图片": "图片",
+      "url": "url"
     }
   },
   "pages-strings": {
