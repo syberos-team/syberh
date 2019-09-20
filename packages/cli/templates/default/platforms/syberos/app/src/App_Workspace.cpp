@@ -7,6 +7,7 @@
 #include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
 #include "../com/syberos/api/src/url.h"
+#include "../com/syberos/api/src/util/fileutil.h"
 
 App_Workspace::App_Workspace()
     : CWorkspace()
@@ -23,6 +24,10 @@ App_Workspace::App_Workspace()
 
     NativeSdkManager * nativeSdkManager = NativeSdkManager::getInstance();
     m_view->rootContext()->setContextProperty("NativeSdkManager",nativeSdkManager);
+
+    FileUtil * fileutil = new FileUtil;
+    m_view->rootContext()->setContextProperty("fileutil",fileutil);
+
     m_view->setSource(QUrl("qrc:/qml/main.qml"));
     m_view->showFullScreen();
 
