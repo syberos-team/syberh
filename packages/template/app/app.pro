@@ -42,14 +42,8 @@ web.path = $$INSTALL_DIR
 INSTALLS += target qm web res
 
 DISTFILES += \
-    res/app.png \
-    www/images/stopR.png \
-    www/images/stop.png \
-    www/images/playR.png \
-    www/images/play.png \
-    www/images/deleteR.png
+    res/app.png
 
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
 
 #DEFINES += TDEBUG
-
