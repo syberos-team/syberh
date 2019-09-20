@@ -26,11 +26,11 @@ HEADERS += \
     $$PWD/src/util/chalk.h \
     $$PWD/src/util/downloadmanager.h \
     $$PWD/src/util/fileutil.h \
+    $$PWD/src/url.h \
     $$PWD/src/cellular.h \
     $$PWD/src/framework/nativesdkfactory.h \
     $$PWD/src/filemanager.h \
-    $$PWD/src/path.h \
-    $$PWD/src/package.h
+    $$PWD/src/path.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -58,7 +58,7 @@ SOURCES += \
     $$PWD/src/util/chalk.cpp \
     $$PWD/src/util/downloadmanager.cpp \
     $$PWD/src/util/fileutil.cpp \
+    $$PWD/src/url.cpp \
     $$PWD/src/cellular.cpp \
     $$PWD/src/filemanager.cpp \
-    $$PWD/src/path.cpp \
-    $$PWD/src/package.cpp
+    $$PWD/src/path.cpp
