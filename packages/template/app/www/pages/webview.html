@@ -33,7 +33,7 @@
         <li class="mui-table-view-cell mui-collapse mui-active">
 
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right " id="onclick=" reload()">reload</a>
+          <a class="mui-navigate-right " onclick="reload()">reload</a>
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" onclick="reload2()">reload2</a>
@@ -42,6 +42,9 @@
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" onclick="navigateTo()">navigateTo</a>
         </li>
 
       </ul>
@@ -94,6 +97,20 @@
 
     function goBack() {
       syberh.webview.goBack({
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(error)
+        }
+      })
+    }
+
+    function navigateTo() {
+      syberh.webview.navigateTo({
+        url:'./pages/path.html',
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)

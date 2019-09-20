@@ -18,7 +18,6 @@
         <file>js/readme.html</file>
         <file>js/readme.md</file>
         <file>js/syber.js</file>
-        <file>js/webview.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/CMenu/pics/menuBg.png</file>
         <file>qml/CMenu/pics/menuBg.sci</file>
@@ -72,5 +71,6 @@
         <file>js/image/select.js</file>
         <file>qml/ItemSelector.qml</file>
         <file>qml/SSelectTool.qml</file>
+        <file>js/util/log.js</file>
     </qresource>
 </RCC>

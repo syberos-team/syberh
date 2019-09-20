@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 Qt.include('util/polyfill.js')
 Qt.include('util/tool.js')
+Qt.include('util/log.js')
 Qt.include('config.js')
 Qt.include('core/core.js')
 Qt.include('core/plugin.js')
@@ -17,6 +18,7 @@ Qt.include('system/system.js')
 Qt.include('filepicker/filepicker.js')
 Qt.include('image/choose.js')
 Qt.include('image/select.js')
+
 // 增加对ES6语法的支持
 polyfill()
 
