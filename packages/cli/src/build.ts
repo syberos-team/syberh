@@ -25,43 +25,27 @@ export default async function build(appPath, buildConfig: IBuildConfig) {
     }
   } else {
     // 默认打SOP包
-    await buildSop(appPath, buildConfig)
+    buildSop(appPath, buildConfig)
   }
 }
 
-async function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
-  const projectConfig = getProjectConfig(appPath)
-  if (!buildConfig.nodoctor) {
-    await diagnose()
-  }
-  await b.build(appPath, {
-    target: projectConfig.target,
-    debug: buildConfig.debug,
-    adapter: DEVICES_TYPES.DEVICE
+function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
+  require('./build/index').build(appPath, {
+    ...buildConfig,
+    adapter: BUILD_TYPES.DEVICE
   })
 }
 
-async function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
-  const projectConfig = getProjectConfig(appPath)
-  if (!buildConfig.nodoctor) {
-    await diagnose()
-  }
-  await b.build(appPath, {
-    target: projectConfig.targetSimulator,
-    debug: buildConfig.debug,
-    adapter: DEVICES_TYPES.SIMULATOR
+function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
+  require('./build/index').build(appPath, {
+    ...buildConfig,
+    adapter: BUILD_TYPES.SIMULATOR
   })
 }
 
-async function buildSop(appPath: string, buildConfig: IBuildConfig) {
-  const projectConfig = getProjectConfig(appPath)
-  if (!buildConfig.nodoctor) {
-    await diagnose()
-  }
-  await b.build(appPath, {
-    target: projectConfig.target,
-    debug: buildConfig.debug,
-    adapter: DEVICES_TYPES.DEVICE,
+function buildSop(appPath: string, buildConfig: IBuildConfig) {
+  require('./build/index').build(appPath, {
+    ...buildConfig,
     onlyBuildSop: true
   })
 }

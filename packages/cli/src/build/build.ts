@@ -10,6 +10,9 @@ import { log } from '../util/log'
 import * as sop from './sop'
 
 export default class Build {
+  // 日志级别
+  private devLog: string = process.env.DEV_LOG || 'info'
+
   private conf: any = {}
   private appPath: string
   // pdk根路径
@@ -238,7 +241,11 @@ export default class Build {
 
     const qmakeConfig = debug ? 'qml_debug' : 'release'
 
-    const exConfig = Buffer.from(JSON.stringify(this.conf), 'utf8').toString(
+    const exConfigObj = { ...this.conf }
+    exConfigObj.DEV_LOG = this.devLog
+
+    log.verbose('扩展参数：%j', exConfigObj)
+    const exConfig = Buffer.from(JSON.stringify(exConfigObj), 'utf8').toString(
       'hex'
     )
     return `${qmake} ${syberosPro} -r -spec linux-g++ CONFIG+=${qmakeConfig} EX_CONFIG=${exConfig}`

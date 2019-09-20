@@ -16,6 +16,14 @@ export default function authMixin(hybrid) {
             os: ['syber'],
         },
         {
+            namespace: 'navigateTo',
+            os: ['syber'],
+        },
+        {
+            namespace: 'reLaunch',
+            os: ['syber'],
+        },
+        {
             namespace: 'redirectTo',
             os: ['syber'],
             defaultParams: {

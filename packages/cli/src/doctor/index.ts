@@ -26,7 +26,9 @@ const titleChalk = chalk.hex('#aaa')
 const lineChalk = chalk.hex('#fff')
 const solutionChalk = chalk.hex('#999')
 
-function printReport(reports) {
+// 返回是否有致命错误
+function printReport(reports): boolean {
+  let hasError: boolean = false
   _.forEach(report => {
     console.log('\n' + titleChalk(report.desc))
 
@@ -49,11 +51,14 @@ function printReport(reports) {
       if (line.solution) {
         console.log('      ' + solutionChalk(line.solution))
       }
+      hasError = (!line.valid)
     }, report.lines)
   }, reports)
+  return hasError
 }
 
-export default async function diagnose(): Promise<void> {
+// 返回是否有致命错误
+export default async function diagnose(): Promise<boolean> {
   const PROJECT_CONF_PATH = path.join(process.cwd(), PROJECT_CONFIG)
 
   log.verbose('PROJECT_CONF_PATH:', PROJECT_CONF_PATH)
@@ -75,5 +80,5 @@ export default async function diagnose(): Promise<void> {
   }), validators.validators)
   const reports = await Promise.all(reportsP)
   spinner.succeed('诊断完成')
-  printReport(reports)
+  return printReport(reports)
 }

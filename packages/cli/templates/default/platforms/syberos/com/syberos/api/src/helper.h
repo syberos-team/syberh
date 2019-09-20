@@ -21,6 +21,9 @@ public:
     Q_INVOKABLE QString getDataRootPath();
     Q_INVOKABLE QString getExternStorageRootPath();
     Q_INVOKABLE QString getInnerStorageRootPath();
+    //获取日志级别
+    Q_INVOKABLE QString logLevelName();
+
     //获取data/data/x/www路径
     Q_INVOKABLE QString getDataWebRootPath();
     //文件是否存在
