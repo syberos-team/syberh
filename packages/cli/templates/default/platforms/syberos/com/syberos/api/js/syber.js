@@ -15,8 +15,7 @@ Qt.include('modal/gtoast.js')
 Qt.include('camera/capture.js')
 Qt.include('system/system.js')
 Qt.include('filepicker/filepicker.js')
-Qt.include('image/choose.js')
-Qt.include('image/select.js')
+Qt.include('image/chooseImage.js')
 // 增加对ES6语法的支持
 polyfill()
 
