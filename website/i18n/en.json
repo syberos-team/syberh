@@ -131,6 +131,9 @@
       "apis/storage/getItem": {
         "title": "getItem"
       },
+      "apis/storage/removeAll": {
+        "title": "removeAll"
+      },
       "apis/storage/removeItem": {
         "title": "removeItem"
       },
