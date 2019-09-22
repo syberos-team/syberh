@@ -31,6 +31,42 @@ function Logger () {
     }
   }
 
+  function sprintf () {
+    var args = arguments
+    var text = args[0]
+    var res = []
+    var i = 1
+    var rtext = text.replace(/%((%)|s|d)/g, function (m) {
+      // m is the matched format, e.g. %s, %d
+      var val = null
+      if (m[2]) {
+        val = m[2]
+      } else {
+        val = args[i]
+        // A switch statement so that the formatter can be extended. Default is %s
+        switch (m) {
+          case '%d':
+            val = parseFloat(val)
+            if (isNaN(val)) {
+              val = 0
+            }
+            break
+        }
+        i++
+      }
+      return val
+    })
+    if (rtext) {
+      res.push(rtext)
+    }
+    // 处理剩余参数
+    for (var s = i; s < arguments.length; s++) {
+      res.push(arguments[s])
+    }
+
+    return res
+  }
+
   /**
     * 字符串格式的日志级别转换成枚举类型
     * @param logLevel 日志级别，默认为info
@@ -44,7 +80,6 @@ function Logger () {
       case 'info':
         return LogLevel.info
       case 'verbose':
-        console.log('--LogLevel.verbose-', LogLevel)
         return LogLevel.verbose
       default:
         return LogLevel.info
@@ -101,14 +136,17 @@ function Logger () {
   function log () {
     var timestamp = this.dateFormatFunction(new Date())
     var len = arguments.length
+    // const args = Array.prototype.slice.call(arguments, 3) || []
     var logLevel = arguments[0]
     var msg = this.printFunction(this.getLevelTag(logLevel), timestamp)
     var funcArgs = []
     for (var sum = 1; sum < len; sum += 1) {
       funcArgs.push(arguments[sum])
     }
-    funcArgs.unshift(msg)
-    console.log.apply(this, funcArgs)
+
+    var res = sprintf.apply(null, funcArgs) || []
+    res.unshift(msg)
+    console.log.apply(console, res)
   }
   /**
    * 打印warn日志，支持格式化字符：%s, %d, %j
@@ -171,9 +209,4 @@ function Logger () {
   this.warn = warn.bind(this)
   this.verbose = verbose.bind(this)
   this.info = info.bind(this)
-
-  console.log('-------------获取用于打印的日志级别标识---', this.levelName)
-  console.log('-------------获取用于打印的日志级别标识---', this.level)
-
-  // this.info('test', this.levelName)
 }

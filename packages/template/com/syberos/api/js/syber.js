@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 Qt.include('util/polyfill.js')
 Qt.include('util/tool.js')
 Qt.include('util/log.js')
@@ -21,20 +19,27 @@ Qt.include('image/chooseImage.js')
 // 增加对ES6语法的支持
 polyfill()
 
-logger.verbose('logger test')
-
 // 根目录节点
 var _root = null
-var _helper = null
+var _spage = null
 
-var webviews = []
-
-var webView = null
-
-function render (root) {
-  if (root) {
-    _root = root
+/**
+ * 初始化syberh core
+ * @param {object} root 渲染的根节点 
+ * @param {object} spage page
+ */
+function init (root, spage) {
+  if (!root) {
+    logger.error("init() ,渲染节点错误错误")
+    throw new Error("渲染节点错误错误")
   }
+  if (!spage) {
+    logger.error("init() ,当前默认webview节点错误")
+    throw new Error("当前默认webview节点错误")
+  }
+
+  _root = root
+  _spage = spage
   if (!SYBEROS) {
     var SyberOS = new Syber(root)
     SYBEROS = SyberOS

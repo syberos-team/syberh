@@ -44,12 +44,53 @@ function uuid (_length) {
   ).toString(36)
 }
 
+/**
+ * determines whether the passed value is a specific type
+ * @param mixed value
+ * @return boolean
+ */
+function isNumber (value) {
+  return Object.prototype.toString.call(value) == '[object Number]';
+}
+function isString (value) {
+  return Object.prototype.toString.call(value) == '[object String]';
+}
 function isArray (value) {
   return Object.prototype.toString.call(value) === '[object Array]'
 }
 
 function isFunction (value) {
   return Object.prototype.toString.call(value) === '[object Function]'
+}
+function isBoolean (value) {
+  return Object.prototype.toString.call(value) == '[object Boolean]';
+}
+function isUndefined (value) {
+  return value === undefined;
+}
+function isNull (value) {
+  return value === null;
+}
+function isSymbol (value) {
+  return Object.prototype.toString.call(value) == '[object Symbol]';
+}
+
+function isObject (value) {
+  return (
+    Object.prototype.toString.call(value) == '[object Object]'
+    ||
+    // if it isn't a primitive value, then it is a common object
+    (
+      !isNumber(value) &&
+      !isString(value) &&
+      !isBoolean(value) &&
+      !isArray(value) &&
+      !isNull(value) &&
+      !isFunction(value) &&
+      !isUndefined(value) &&
+      !isSymbol(value)
+    )
+  );
 }
 
 function getStrLength (inputStr) {

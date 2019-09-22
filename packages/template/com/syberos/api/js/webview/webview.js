@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+
 // 正常加载
 var WebviewStatusShow = 0
 // 被pop打开
@@ -10,9 +9,9 @@ function WebView (options) {
   var defaultOpts = {
     id: 'webview',
     name: 'webview',
-    module: 'webview',
-    source: '../qml/swebview.qml',
-    methods: ['reload', 'goBack', 'redirectTo', 'navigateTo'],
+    module: 'router',
+    //source: '../qml/SWebview.qml',
+    methods: ['reload', 'goBack', 'redirectTo', 'navigateTo', 'navigateBack', 'reLaunch'],
     autoCreate: true
   }
   if (options) {
@@ -20,40 +19,72 @@ function WebView (options) {
   }
 
   SyberPlugin.call(this, defaultOpts)
-
-  this.currentUrl = null
-  this.key = 0
-
-  this.loadSuccess = 0
+  //当前url
+  this.currentUrl = null;
+  this.key = 0;
+  //是否加载成功
+  this.loadSuccessEvent = 0;
+  //是否绑定LoadProgress 信号
+  this.loadProgressConnect = false;
+  //消息队列,用来处理loadSuccess消息
+  this.messageQueue = []
   var that = this
-
-  this.on('ready', function (webview) {
-    logger.verbose('webview:[%s] ,on  ready() start', that.id, pageStack.depth)
-    logger.verbose('pageStack depth', pageStack.depth)
-    SYBEROS.body = webview
-    swebviewCache[that.id] = webview
+  //回退
+  this.navigateBack = navigateBack.bind(this)
+  this.dog = dog.bind(this);
+  this.pushQueue = pushQueue.bind(this);
+  this.on('ready', function (object) {
+    logger.verbose('webview:[%s] ,on  ready() start', that.id, pageStack && pageStack.depth)
+    logger.verbose('pageStack depth', pageStack && pageStack.depth)
+    swebviewCache[that.id] = object
     swebviews.push(that)
-    currentWebview = { id: that.id, webview: webview }
+    currentWebview = that
     if (that.currentUrl) {
       logger.verbose('currentUrl:', that.currentUrl)
-      webview.url = that.currentUrl
-      that.trigger('reload', webview)
+      object.openUrl(that.currentUrl);
+      //发送onShow订阅
+      that.pushQueue('subscribe', {
+        handlerName: 'onShow',
+        result: { ready: true }
+      })
     }
-    // 成功回调绑定函数
-    NativeSdkManager.success.connect(that.onSuccess.bind(that))
-    // 错误回调绑定函数
-    NativeSdkManager.failed.connect(that.onFailed.bind(that))
-    // 绑定订阅函数
-    NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that))
+    if (!that.loadProgressConnect) {
+      // 设置绑定信号
+      that.loadProgressConnect = true
+      //页面加载信号
+      object.onLoadProgress.connect(function (loadProgress) {
+        if (that.loadSuccessEvent === 0 && loadProgress === 100) {
+          that.loadSuccessEvent = 1
+        } else if (that.loadSuccessEvent === 1) {
+          logger.verbose('on ready() onLoadProgress success: ', loadProgress)
+          //调用任务狗
+          that.dog();
+          that.loadSuccessEvent = 0
+        }
+      })
+    }
+    //只保证一个webview注册nativesdk
+    if (!registrNativeSdkManager) {
+      registrNativeSdkManager = true;
+      logger.verbose('on ready registrNativeSdkManager:[%s]', registrNativeSdkManager);
+      // 成功回调绑定函数
+      NativeSdkManager.success.connect(that.onSuccess.bind(that))
+      // 错误回调绑定函数
+      NativeSdkManager.failed.connect(that.onFailed.bind(that))
+      // 绑定订阅函数
+      NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that))
+
+      logger.verbose('on ready registrNativeSdkManager:[%s] 绑定完成', registrNativeSdkManager);
+    }
 
     // 绑定消息接受信号
-    webview.receiveMessage.connect(function (message) {
+    object.receiveMessage.connect(function (message) {
       that.onMessageReceived(message, that.id)
     })
     // 绑定keys监听事件
-    webview.keyOnReleased.connect(function (event) {
+    object.keyOnReleased.connect(function (event) {
       logger.verbose(' webview.keyOnReleased:[%s]', that.id)
-      that.trigger('keyRelease', webview, event)
+      that.trigger('keyRelease', object, event)
     })
 
     NativeSdkManager.request('DevTools*', 12378, '', '')
@@ -66,15 +97,6 @@ function WebView (options) {
     // 页面被pop唤起,注销上一级页面
     if (status === WebviewStatusPop) {
       logger.verbose('Webivew:[%s] ,当前打开方式为pop，开始注销上一层', that.id, status)
-      var idx = getUpperWebview()
-      var dwebview = swebviews[idx]
-      // 注销上一层
-      if (dwebview) {
-        logger.verbose('Webivew:[%s] , 开始destroy', dwebview.id)
-        SYBEROS.destroy(dwebview.id)
-        swebviews.splice(idx, 1)
-        logger.verbose('Webivew:[%s] , destroy完成 ,当前数量: %d', dwebview.id, swebviews.length)
-      }
     }
   })
 
@@ -86,29 +108,23 @@ function WebView (options) {
    * 监听手机key
    */
   this.on('keyRelease', function (webview, event) {
-    logger.verbose('webview:[%s] , on  keyRelease() ', that.id, event.key)
-    logger.verbose('currentWebview: [%s] ', currentWebview.id)
+    logger.verbose('webview:[%s] , on keyRelease() ,key:[%s] ,currentWebview: [%s]', that.id, event.key, currentWebview.id)
     // 处理返回键事件
     if (KEYCODE_BACK === event.key) {
-      logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%s]:', that.id, webview.canGoBack)
-      if (currentWebview.id === that.id && webview.canGoBack) {
+      logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%s]:', that.id, webview.canGoBack())
+      if (currentWebview.id === that.id && webview.canGoBack()) {
         event.accepted = true
         webview.goBack()
       } else {
-        event.accepted = true
-        // 如果当前有多个weview,则减少栈数
-        logger.verbose('webviewdepth : [ %d ]', webviewdepth)
-        if (webviewdepth > 0) {
-          var idx = getLowerWebview()
-          var dwebview = swebviews[idx]
-          pageStack.pop()
-          webviewdepth -= 1
-          currentWebview = { id: dwebview.id, webview: dwebview.object }
-          dwebview.trigger('show', WebviewStatusPop)
-          // 阻止事件
-          return
-        }
-        logger.verbose('webview:[%s] 不能回退:[%s]', that.id, webview.canGoBack)
+        that.navigateBack({}, function (res) {
+          if (res) {
+            // 阻止回退事件
+            if (event) {
+              event.accepted = true
+            }
+          }
+        });
+        logger.verbose('webview:[%s] 不能回退:[%s]', that.id, webview.canGoBack())
       }
     }
   })
@@ -148,7 +164,7 @@ function WebView (options) {
     logger.verbose('webview:[%s]  ,on reload()', that.id)
     object.reload()
     // 绑定进度事件
-    object.reloadSuccess.connect(function (loadProgress) {
+    object.onLoadProgress.connect(function (loadProgress) {
       if (loadProgress === 100) {
         if (handlerId) {
           that.trigger('success', handlerId, true)
@@ -159,8 +175,8 @@ function WebView (options) {
   // 回退
   this.on('goBack', function (object, handlerId) {
     logger.verbose('webview:[%s] on goBack()', that.id)
-    if (object.canGoBack) {
-      logger.verbose('object.canGoBack', object.canGoBack)
+    if (object.canGoBack()) {
+      logger.verbose('object.canGoBack', object.canGoBack())
       object.goBack()
       that.trigger('success', handlerId, true)
     } else {
@@ -168,8 +184,55 @@ function WebView (options) {
     }
   })
 
+  // 保留当前页面，跳转到某个页面
+  this.on('navigateBack', function (object, handlerId, param) {
+    logger.verbose('Webview:[%s],on navigateBack() start', that.id)
+    logger.verbose('handlerId:%s ,param:', that.id, handlerId, JSON.stringify(param))
+    if (!isNumber(param.delta)) {
+      var msg = 'delta参数类型错误';
+      that.trigger('fail', 1001, msg)
+      return;
+    }
+    that.navigateBack(param, function (res, msg) {
+      if (res) {
+        that.trigger('success', handlerId, res)
+      } else {
+        that.trigger('fail', 1001, msg)
+      }
+    });
+  })
+
   // 关闭所有页面，打开某个页面
   this.on('reLaunch', function (object, handlerId, param) {
+    logger.verbose('webview:[%s] on reLaunch', that.id, JSON.stringify(param))
+    logger.verbose('navigateTo swebviews:[%d]', swebviews.length)
+    logger.verbose('webviewdepth:[%d]', webviewdepth)
+    var url = getUrl(param.url)
+    try {
+      that.navigateBack({ delta: webviewMaxDepth }, function (res, msg) {
+        logger.verbose('reLaunch navigateBack()', res, msg)
+        currentWebview.object.openUrl(url)
+        if (res) {
+          that.pushQueue('request', {
+            handlerId: handlerId,
+            result: res
+          })
+          currentWebview.trigger('success', handlerId, res)
+        } else {
+          that.pushQueue('request', {
+            errorCode: 5001,
+            handlerId: handlerId,
+            result: msg
+          })
+
+        }
+
+      })
+    } catch (error) {
+      logger.error('redirectTo error', error.message)
+      that.trigger('failed', handlerId, 2001, error.message)
+    }
+
 
   })
   // 保留当前页面，跳转到某个页面
@@ -178,7 +241,7 @@ function WebView (options) {
     logger.verbose('navigateTo swebviews:[%d]', swebviews.length)
     logger.verbose('webviewdepth:[%d]', webviewdepth)
     var dwevview = null
-    // 假如在最顶层,则使用底层
+    // 如果已经是最大栈,则使用底层栈
     if (webviewdepth + 1 > webviewMaxDepth) {
       var idx = getUpperWebview()
       logger.verbose('当前为最多栈数,使用历史栈:[%d]', idx)
@@ -186,55 +249,183 @@ function WebView (options) {
       webviewdepth += 1
       SYBEROS.request(dwevview.module, handlerId, 'redirectTo', param)
     } else {
-      var wpId = 'webview_' + (swebviews.length + 1)
+      var wpId = 'router_' + (swebviews.length + 1)
       logger.verbose('开始创建新的webview:[%s]', wpId)
       dwevview = new WebView({
         id: wpId,
         module: wpId,
+        source: '../qml/SWebview.qml',
         autoCreate: true,
         page: true
       })
-      dwevview.currentUrl = getUrl(param.url)
+      dwevview.param = { surl: param.url },
+        dwevview.currentUrl = getUrl(param.url)
+      SYBEROS.addPlugin(dwevview)
       // 设定webview的深度为2
       webviewdepth += 1
-      SYBEROS.addPlugin(dwevview)
+      that.pushQueue('request', {
+        handlerId: handlerId,
+        result: true
+      })
     }
   })
 
-  // 关闭当前页面，跳转到某个页面
+  // 不关闭当前页面，跳转到某个页面
   this.on('redirectTo', function (object, handlerId, param) {
     try {
       logger.verbose('webview:[%s] on redirectTo', that.id, JSON.stringify(param))
       var url = getUrl(param.url)
-      object.url = url
-      // 是否第一次绑定接受信号
-      that.firstConnect = false
-      // 只做一次信号绑定,防止多次信号被触发
-      if (!that.firstConnect) {
-        // 设置绑定信号
-        that.firstConnect = true
-        object.reloadSuccess.connect(function (loadProgress) {
-          if (that.loadSuccess === 0 && loadProgress === 100) {
-            that.loadSuccess = 1
-          } else if (that.loadSuccess === 1) {
-            logger.verbose('on redirectTo() reloadSuccess: ', loadProgress)
-            if (handlerId) {
-              that.trigger('success', handlerId, true)
-            } else {
-              if (param.type) {
-                logger.verbose('开始执行 subscribeEvaluate ', param.type)
-                that.subscribeEvaluate(param.handlerName, param.data)
-              }
-            }
-            that.loadSuccess = 0
-          }
+      object.openUrl(url)
+      if (handlerId) {
+        that.pushQueue('request', {
+          handlerId: handlerId,
+          result: true
         })
       }
+
+      // // 是否第一次绑定接受信号
+      // that.firstConnect = false
+      // // 只做一次信号绑定,防止多次信号被触发
+      // if (!that.firstConnect) {
+      //   // 设置绑定信号
+      //   that.firstConnect = true
+      //   object.onLoadProgress.connect(function (loadProgress) {
+      //     if (that.loadSuccess === 0 && loadProgress === 100) {
+      //       that.loadSuccess = 1
+      //     } else if (that.loadSuccess === 1) {
+      //       logger.verbose('on redirectTo() reloadSuccess: ', loadProgress)
+      //       if (handlerId) {
+      //         that.trigger('success', handlerId, true)
+      //       } else {
+      //         if (param.type) {
+      //           logger.verbose('开始执行 subscribeEvaluate ', param.type)
+      //           that.subscribeEvaluate(param.handlerName, param.data)
+      //         }
+      //       }
+      //       that.loadSuccess = 0
+      //     }
+      //   })
+      // }
     } catch (error) {
       logger.error('redirectTo error', error.message)
-      that.trigger('failed', handlerId, 0, error.message)
+      that.trigger('failed', handlerId, 2001, error.message)
     }
   })
+  /**
+   * 任务狗，用来处理队列中的消息
+   */
+  function dog () {
+    logger.verbose('dog()')
+    var queue = this.messageQueue;
+    logger.verbose('dog() 处理消息数:%d', queue.length)
+    for (var i = 0; i < queue.length; i++) {
+      var obj = queue.shift()
+      logger.verbose('消息内容:%s', JSON.stringify(obj))
+      if (obj.type === 'request') {
+        if (obj.errorCode) {
+          this.trigger('fail', obj.handlerId, obj.result)
+        }
+        this.trigger('success', obj.handlerId, obj.result)
+        continue;
+      }
+      if (obj.type === 'subscribe') {
+        this.subscribeEvaluate(obj.handlerName, obj.result)
+        continue;
+      }
+    }
+  }
+  /**
+   * 存入队列任务
+   * @param {string} type 消息类型 request,subscribe 
+   * @param {Object} object 消息构造体 {result,handlerName||handlerId}
+   */
+  function pushQueue (type, object) {
+    logger.verbose('pushQueue() type:%s ,content:%s', type, JSON.stringify(object))
+    var obj = {}
+    //合并相同任务
+    if (object.handlerName === 'subscribe') {
+      var queue = this.messageQueue;
+      var same = false;
+      for (var i = 0; i < queue.length; i++) {
+        var handlerName = object.handlerName;
+        if (handlerName === queue[i].handlerName) {
+          logger.verbose('存在相同的handlerName', handlerName)
+          if (isObject(object.result)) {
+            same = true;
+            var nresult = Object.assign(object.result, queue[i].result)
+            var nobj = Object.assign({}, queue[i], nresult)
+            queue.splice(i, 1, nobj);
+            break;
+          } else {
+            logger.verbose('object.result 不是object,不做合并处理', handlerName)
+          }
+        }
+      }
+      if (!same) {
+        Object.assign(obj, object, { type: type })
+        this.messageQueue.push(obj);
+        return;
+      }
+    }
+    Object.assign(obj, object, { type: type })
+    logger.verbose('pushQueue() content:%s', type, JSON.stringify(obj))
+    this.messageQueue.push(obj);
+  }
+
+  /**
+   * 回退方法
+   * @param {object} param 参数
+   * @param {function} callback 回调方法
+   */
+  function navigateBack (param, callback) {
+    logger.verbose('webview navigateBack() 当前页面栈数: [ %d ]', swebviews.length)
+    logger.verbose('webview navigateBack() 栈的深度: [ %d ]', pageStack.depth)
+    var delta = param && param.delta || 1;
+    var reLaunch = false;
+    // 如果当前有多个weview,则减少栈数
+    if (swebviews.length > 1) {
+      //如果 delta 大于现有页面数，则返回首页
+      if (delta >= swebviews.length) {
+        reLaunch = true;
+        //去除的层数
+        delta = swebviews.length - 1;
+        logger.verbose('delta数大于或者当前栈,处理完结果为: [ %d ]', delta)
+      }
+      logger.verbose('navigateBack() delta: [ %d ]', delta)
+      for (var j = 0; j < delta; j++) {
+        //从后面层数获取
+        //var ds = swebviews.length - 1;
+        logger.verbose('navigateBack() ds: [ %d ]', j)
+        //var idx = getLowerWebview()
+        var dwebview = swebviews.pop();
+        webviewdepth -= 1
+        //dwebview.trigger('show', WebviewStatusPop)
+        if (dwebview) {
+          // 开始注销
+          logger.verbose('Webivew:[%s] , 开始destroy', dwebview.id)
+          SYBEROS.destroy(dwebview.id)
+          pageStack.pop();
+          //swebviews.splice(idx, 1)
+          logger.verbose('Webivew:[%s] , destroy完成 ,当前数量: %d', dwebview.id, swebviews.length)
+        }
+      }
+      var topVebview = swebviews[swebviews.length - 1];
+      if (reLaunch) {
+        logger.verbose('reLaunch:[%s]')
+        var source = '../qml/SWebview.qml';
+        pageStack.pop(null, true)
+      }
+      currentWebview = topVebview
+      logger.verbose('topVebview:[%s],当前swebviews数量: [%d],栈的深度: [%d]', topVebview.id, swebviews.length, pageStack.depth)
+      topVebview.trigger('show', WebviewStatusPop)
+      if (typeof callback === 'function') callback(true)
+    } else {
+      logger.verbose('navigateBack() 当前页面栈数为: [ %d ],不做处理', swebviews.length)
+      var msg = '当前为首页,无法退回'
+      logger.verbose('navigateBack() msg:%s', msg)
+      if (typeof callback === 'function') callback(false, msg)
+    }
+  }
 }
 
 WebView.prototype = SyberPlugin.prototype
@@ -263,7 +454,13 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
     funcArgs = model.data
   }
 
-  logger.verbose('onMessageReceived() content:', handlerId, method, funcArgs)
+  if (module === 'webview') {
+    logger.verbose(JSON.stringify(currentWebview.module))
+    module = currentWebview.module
+    logger.verbose('onMessageReceived() laset module ', module)
+  }
+
+
   // 如果为ui模块
   if (SYBEROS.getPlugin(module, method)) {
     // 请求qml动态模块
@@ -279,12 +476,13 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
 WebView.prototype.onSuccess = function (handlerId, result) {
   logger.verbose('webview:[%s] ,onSuccess() start', this.id, handlerId)
   if (!handlerId) {
-    return
+    logger.warn('Webview onSuccess() handlerId is null')
+    return;
   }
+  var webviewId = this.getWebViewIdByHandlerId(handlerId)
+  var msgWebview = this.getWebView(webviewId)
 
-  var webview = currentWebview.webview
-
-  if (!webview) {
+  if (!msgWebview) {
     logger.error('Webview onSuccess() webview %s 未找到', webviewId)
     return
   }
@@ -296,9 +494,12 @@ WebView.prototype.onSuccess = function (handlerId, result) {
       result: result
     }
   }
-  logger.verbose('Webview onSuccess() return', handlerId, JSON.stringify(resObj))
-  webview.experimental.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  var res = JSON.stringify(resObj)
+  logger.verbose('Webview onSuccess() return', handlerId, res)
+
+  var webview = msgWebview.object
+  webview.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + res + ')'
   )
 }
 
@@ -311,10 +512,12 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
   if (handlerName === 'onShow') {
     var params = {}
     params.url = result.path
-    params.handlerName = handlerName
-    params.type = 'onShow'
-    params.data = result
+    this.pushQueue('subscribe', {
+      handlerName: handlerName,
+      result: result
+    })
     this.trigger('redirectTo', this.object, null, params)
+
     return
   }
   var resObj = {
@@ -323,10 +526,11 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
       result: result
     }
   }
-  logger.verbose('onSubscribe() res:', JSON.stringify(resObj))
-  var webview = currentWebview.webview
-  webview.experimental.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  var res = JSON.stringify(resObj)
+  logger.verbose('onSubscribe() res:', res)
+  var webview = currentWebview.object
+  webview.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + res + ')'
   )
 }
 
@@ -336,17 +540,28 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
     handlerName: handlerName,
     data: data
   }
-  logger.verbose('subscribeEvaluate() res:', JSON.stringify(resObj))
-  var webview = currentWebview
-  webview.experimental.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + JSON.stringify(resObj) + ')'
+  var res = JSON.stringify(resObj);
+  logger.verbose('subscribeEvaluate() res:', res)
+  var webview = currentWebview.object
+  webview.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + res + ')'
   )
 }
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
   logger.verbose('Webview:%s , onFailed() start', this.id, handlerId, errorCode, errorMsg)
+  if (!handlerId) {
+    logger.warn('Webview onFailed() handlerId is null')
+    return;
+  }
   var webviewId = this.getWebViewIdByHandlerId(handlerId)
-  var webview = currentWebview.webview
+  var msgWebview = this.getWebView(webviewId)
+
+  if (!msgWebview) {
+    logger.error('Webview onFailed() webview %s 未找到', webviewId)
+    return
+  }
+  var webview = msgWebview.object
 
   var obj = {
     responseId: Number(handlerId),
@@ -355,9 +570,10 @@ WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
       msg: errorMsg
     }
   }
-  logger.verbose('onFailed() res: ', JSON.stringify(obj))
-  webview.experimental.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + JSON.stringify(obj) + ')'
+  var res = JSON.stringify(obj);
+  logger.verbose('onFailed() res: ', res)
+  webview.evaluateJavaScript(
+    'JSBridge._handleMessageFromNative(' + res + ')'
   )
 }
 
@@ -371,7 +587,8 @@ WebView.prototype.getWebViewIdByHandlerId = function (handlerId) {
     logger.error('getWebViewIdByHandlerId() webview未找到', webviewId)
     return
   }
-  deleteresponseCallbacks[handlerId]
+  delete responseCallbacks[handlerId]
+  logger.verbose('getWebViewIdByHandlerId() end webviewId:[%s]', webviewId)
   return webviewId
 }
 
@@ -387,7 +604,16 @@ WebView.prototype.getAll = function () {
 }
 
 WebView.prototype.getWebView = function (id) {
-  return swebviewCache[id]
+  var rwebview = currentWebview;
+  if (id !== rwebview) {
+    for (var i = 0; i < swebviews.length; i++) {
+      if (id === swebviews[i].id) {
+        rwebview = swebviews[i]
+        break;
+      }
+    }
+  }
+  return rwebview
 }
 
 /**
@@ -409,7 +635,7 @@ function getUrl (url) {
     throw new Error('url不存在', url)
   }
   // 如果是网络地址,直接返回
-  if (url.startsWith('http') || url.startsWith('https')) {
+  if (/^(http|https|ftp|\/\/)/g.test(url)) {
     logger.verbose('http||https  url:', url)
     return url
   }

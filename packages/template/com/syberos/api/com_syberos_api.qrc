@@ -50,7 +50,6 @@
         <file>qml/status.js</file>
         <file>qml/SToast.qml</file>
         <file>qml/SUI.js</file>
-        <file>qml/swebview.qml</file>
         <file>res/success_primary.png</file>
         <file>res/success_primary_big.png</file>
         <file>res/toast-fail.png</file>
@@ -70,5 +69,7 @@
         <file>js/util/log.js</file>
         <file>js/image/chooseImage.js</file>
         <file>qml/SChooseImage.qml</file>
+        <file>qml/SWebview.qml</file>
+        <file>qml/SPage.qml</file>
     </qresource>
 </RCC>

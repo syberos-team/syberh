@@ -8,7 +8,7 @@
   <meta name="format-detection" content="telephone=yes" />
   <meta http-equiv="expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>page</title>
+  <title>路由页面(router)</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
 </head>
@@ -17,6 +17,15 @@
   <div class="mui-content pt0">
     <div class="mui-card">
       <ul class="mui-table-view ">
+        <li class="mui-table-view-cell mui-collapse mui-active">
+          <a class="mui-navigate-right" href="#">reLaunch</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>url:</label>
+              <input id="url3" type="text" value="index.html">
+            </div>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="reLaunch()">reLaunch</button>
+        </li>
         <li class="mui-table-view-cell mui-collapse mui-active">
           <a class="mui-navigate-right" href="#">redirectTo</a>
           <div class="mui-collapse-content">
@@ -44,7 +53,24 @@
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
         </li>
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" onclick="navigateTo()">navigateTo</a>
+          <a class="mui-navigate-right" href="#">navigateTo</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>url:</label>
+              <input id="url2" type="text" value="pages/router.html">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo()">确定</button>
+          </div>
+
+        </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">navigateBack</a>
+          <div class="mui-collapse-content">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateBack()">确定</button>
+          </div>
+
         </li>
 
       </ul>
@@ -58,10 +84,25 @@
   <script>
     var vConsole = new VConsole()
 
+    function reLaunch() {
+      var url = document.getElementById('url').value;
+      console.debug(url);
+      syberh.router.reLaunch({
+        url: url,
+        data: { age: 12, name: 'lihejia' },
+        success: function (result) {
+          console.info(result)
+          showTips(JSON.stringify(result))
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+        }
+      })
+    }
     function redirectTo() {
       var url = document.getElementById('url').value;
       console.debug(url);
-      syberh.webview.redirectTo({
+      syberh.router.redirectTo({
         url: url,
         success: function (result) {
           console.info(result)
@@ -75,11 +116,11 @@
 
     function redirectTo2() {
       var url = document.getElementById('url').value;
-      syberh.webview.redirectTo(url)
+      syberh.router.redirectTo(url)
     }
 
     function reload() {
-      syberh.webview.reload({
+      syberh.router.reload({
         success: function (result) {
           syberh.modal.gtoast(JSON.stringify(result))
           console.info(result)
@@ -92,11 +133,11 @@
     }
 
     function reload2() {
-      syberh.webview.reload()
+      syberh.router.reload()
     }
 
     function goBack() {
-      syberh.webview.goBack({
+      syberh.router.goBack({
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
@@ -109,8 +150,9 @@
     }
 
     function navigateTo() {
-      syberh.webview.navigateTo({
-        url:'./pages/path.html',
+      var url = document.getElementById('url2').value;
+      syberh.router.navigateTo({
+        url: url,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
@@ -121,6 +163,24 @@
         }
       })
     }
+
+    function navigateBack() {
+
+      syberh.router.navigateBack({
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(error)
+        }
+      })
+    }
+
+    syberh.subscribe('onShow', function (result) {
+      console.log("result: ", JSON.stringify(result));
+    });
 
   </script>
 
