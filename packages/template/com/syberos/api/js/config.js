@@ -20,3 +20,6 @@ var webviewMaxDepth = 5
 var responseCallbacks = {}
 // 长期存在的回调，调用后不会删除
 var responseCallbacksLongTerm = {}
+
+//是否注册NativeSdkManager
+var registrNativeSdkManager = false;

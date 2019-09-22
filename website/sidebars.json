@@ -19,6 +19,9 @@
     "关于API": [
       "apis/about/desc"
     ],
+    "路由": [
+      "apis/router/router"
+    ],
     "模态弹窗": [
       "apis/modal/toast",
       "apis/modal/gtoast",
@@ -104,9 +107,6 @@
           "apis/download/download-cancel"
         ]
       }
-    ],
-    "webview": [
-      "apis/webview/webview"
     ],
     "文件选择": [
       "apis/filepicker/filepicker"
