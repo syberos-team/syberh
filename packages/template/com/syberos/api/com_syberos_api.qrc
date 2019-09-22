@@ -46,7 +46,6 @@
         <file>qml/SEditTitleBar.qml</file>
         <file>qml/SFilesPicker.qml</file>
         <file>qml/SFilesPickerView.qml</file>
-        <file>qml/Sfm.js</file>
         <file>qml/SInputDialog.qml</file>
         <file>qml/status.js</file>
         <file>qml/SToast.qml</file>
