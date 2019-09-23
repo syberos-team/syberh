@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 /***
- * capture.alert(Object)
+ * capture.takePictureImmediately(Object)
  */
 function Capture () {
   var defaultOpts = {
@@ -13,9 +13,6 @@ function Capture () {
   }
   SyberPlugin.call(this, defaultOpts)
 
-  // 开关
-  this.imageConfirmedFlag = false
-
   var that = this
   this.on('takePictureImmediately', function (object) {
 
@@ -26,22 +23,17 @@ function Capture () {
 //        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
 //    })
 
-//    if (!that.imageConfirmedFlag) {
-        object.imageConfirmed.connect(function(filePath) { //处理信号
-            console.log('-------------------------------------takePictureImmediately', filePath)
-            that.imageConfirmedFlag = true
-            pageStack.pop(root)
-            filePath = "file://"+filePath;
-            WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
-        })
-//    }
+    object.imageConfirmed.connect(function(filePath) { //处理信号
+        that.imageConfirmedFlag = true
+        pageStack.pop(currentWebview.object);
+        filePath = "file://"+filePath;
+        WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath });
+        SYBEROS.destroy(defaultOpts.id);
+    })
+
 
   })
 
-  this.on('ready', function () {
-    console.log('\n')
-    console.log('Capture ready')
-  })
 }
 
 Capture.prototype = SyberPlugin.prototype
