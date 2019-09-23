@@ -19,7 +19,7 @@ const defaultInstallOptions = {
     dev: false,
     peerDependencies: true
 };
-exports.taroPluginPrefix = '@tarojs/plugin-';
+exports.syberhPluginPrefix = '@syberos/plugin-';
 function resolveNpm(pluginName, root) {
     if (!npmCached[pluginName]) {
         return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ function resolveNpmSync(pluginName, root) {
             const installOptions = {
                 dev: false
             };
-            if (pluginName.indexOf(exports.taroPluginPrefix) >= 0) {
+            if (pluginName.indexOf(exports.syberhPluginPrefix) >= 0) {
                 installOptions.dev = true;
             }
             installNpmPkg(pluginName, installOptions);
@@ -129,11 +129,11 @@ function installNpmPkg(pkgList, options) {
 }
 exports.installNpmPkg = installNpmPkg;
 exports.callPlugin = (pluginName, content, file, config, root) => __awaiter(this, void 0, void 0, function* () {
-    const pluginFn = yield getNpmPkg(`${exports.taroPluginPrefix}${pluginName}`, root);
+    const pluginFn = yield getNpmPkg(`${exports.syberhPluginPrefix}${pluginName}`, root);
     return pluginFn(content, file, config);
 });
 exports.callPluginSync = (pluginName, content, file, config, root) => {
-    const pluginFn = getNpmPkgSync(`${exports.taroPluginPrefix}${pluginName}`, root);
+    const pluginFn = getNpmPkgSync(`${exports.syberhPluginPrefix}${pluginName}`, root);
     return pluginFn(content, file, config);
 };
 function getNpmPkgSync(npmName, root) {
@@ -154,7 +154,7 @@ function getNpmPkg(npmName, root) {
                 const installOptions = {
                     dev: false
                 };
-                if (npmName.indexOf(exports.taroPluginPrefix) >= 0) {
+                if (npmName.indexOf(exports.syberhPluginPrefix) >= 0) {
                     installOptions.dev = true;
                 }
                 installNpmPkg(npmName, installOptions);

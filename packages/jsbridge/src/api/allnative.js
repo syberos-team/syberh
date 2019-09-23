@@ -22,6 +22,7 @@ import networkEnabledMixin from './native/networkEnabled';
 import fileManagerMixin from './native/fileManager';
 import pathMixin from './native/path';
 import imageMixin from './native/image';
+import uploadMixin from './native/upload';
 
 
 // const hybridJs = window.syber;
@@ -52,4 +53,5 @@ export default function allNative (hybridJs) {
   pathMixin(hybridJs);
   filepickerMixin(hybridJs);
   imageMixin(hybridJs);
+  uploadMixin(hybridJs);
 }

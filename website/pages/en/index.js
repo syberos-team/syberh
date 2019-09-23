@@ -134,7 +134,7 @@ const LearnHow = props => (
     {[
       {
         content: 'Talk about learning how to use this',
-        image: imgUrl('logo-taro.png'),
+        image: imgUrl('syberos.png'),
         imageAlign: 'right',
         title: 'Learn How'
       }
@@ -147,7 +147,7 @@ const TryOut = props => (
     {[
       {
         content: 'Talk about trying this out',
-        image: imgUrl('logo-taro.png'),
+        image: imgUrl('syberos.png'),
         imageAlign: 'left',
         title: 'Try it Out'
       }
@@ -160,7 +160,7 @@ const Description = props => (
     {[
       {
         content: 'This is another description of how this project is useful',
-        image: imgUrl('logo-taro.png'),
+        image: imgUrl('syberos.png'),
         imageAlign: 'right',
         title: 'Description'
       }

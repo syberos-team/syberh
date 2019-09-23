@@ -65,7 +65,7 @@ Rectangle {
                 if (curPath === fileUtils.innerStoragePath || curPath === "/mnt/sdcard") {
                     typeModel.path = "";
                 } else {
-                    typeModel.path = Tools.getDir(typeModel.path);
+                    typeModel.path = Tool.getDir(typeModel.path);
                 }
             } else {
                 filesPicker.cancel();

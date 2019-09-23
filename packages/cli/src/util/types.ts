@@ -274,7 +274,7 @@ interface IDisplayConfig extends IDefaultDisplayConfig {
   }
 }
 
-export interface ITaroManifestConfig {
+export interface ISyberhManifestConfig {
   npm?: INpmConfig,
   /**
    * 应用包名，确认与原生应用的包名不一致，推荐采用 com.company.module 的格式，如：com.example.demo
@@ -310,7 +310,7 @@ export interface ITaroManifestConfig {
   logLevel?: LogLevel
 }
 
-export interface IManifestConfig extends ITaroManifestConfig {
+export interface IManifestConfig extends ISyberhManifestConfig {
   /**
    * 系统配置信息
    */
@@ -349,5 +349,5 @@ export interface IProjectConfig {
   copy?: ICopyOptions,
   weapp?: IMiniAppConfig,
   h5?: IH5Config,
-  quickApp?: ITaroManifestConfig
+  quickApp?: ISyberhManifestConfig
 }

@@ -133,6 +133,10 @@
       "apis/path/extern",
       "apis/path/inner",
       "apis/path/dataRoot"
+    ],
+    "上传": [
+      "apis/upload/upload",
+      "apis/upload/upload-cancel"
     ]
   }
 }
