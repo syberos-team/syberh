@@ -64,9 +64,9 @@ function diffUrl (url, diffUrl) {
   } else {
     checkPath = diffUrl
   }
-  var purl = JSON.parse(url)
-  logger.verbose('tool diffUrl() purl: %s', purl, typeof purl)
-  var ret = purl.indexOf(checkPath) === -1 ? false : true;
+
+  logger.verbose('tool diffUrl() checkPath: %s', checkPath)
+  var ret = url.indexOf(checkPath) === -1 ? false : true;
   logger.verbose('tool diffUrl() ret: %s', ret)
   return ret
 }
