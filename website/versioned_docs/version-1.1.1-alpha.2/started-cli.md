@@ -1,5 +1,7 @@
 ---
 title: 安装 CLI
+id: version-1.1.1-alpha.2-started-cli
+original_id: started-cli
 ---
 
 ## 安装
@@ -8,15 +10,13 @@ Syberh 项目基于 node，请确保已具备较新的 node 环境（>=8.0.0,推
 
 ### cli 工具安装
 
+首先，你需要使用 npm 或者 yarn 全局安装`@syberos/cli`，或者直接使用[npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b):
+
 安装 yarn
 
 ```shell
 npm install -g yarn
 ```
-
-首先，你需要使用 npm 或者 yarn 全局安装`@syberos/cli`:
-
-
 ```bash
 # 使用 npm 安装 CLI
 $ npm install -g @syberos/cli
