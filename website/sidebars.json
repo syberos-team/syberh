@@ -51,6 +51,13 @@
           "apis/multimedia/record/continuePlay",
           "apis/multimedia/record/stopPlay"
         ]
+      },{
+        "label": "图片",
+        "type": "subcategory",
+        "ids": [
+          "apis/image/chooseImage",
+          "apis/image/previewImage"
+        ]
       }
     ],
     "电话": [
@@ -126,9 +133,6 @@
       "apis/path/extern",
       "apis/path/inner",
       "apis/path/dataRoot"
-    ],
-    "图片": [
-      "apis/image/chooseImage"
     ]
   }
 }
