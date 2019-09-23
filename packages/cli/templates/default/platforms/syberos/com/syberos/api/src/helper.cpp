@@ -18,10 +18,26 @@
 #include <QLocale>
 
 
+
 Helper::Helper(QObject *parent) : QObject(parent) {
     env = new CEnvironment(this);
     appInfo = new CAppInfo();
     extendConfig=ExtendedConfig::instance();
+}
+
+QString Helper::logLevelName(){
+   QString levelName=ExtendedConfig::instance()->get("DEV_LOG").toString();
+   if(levelName.isEmpty()){
+     bool debug=  ExtendedConfig::instance()->get("debug").toBool();
+     if(debug){
+         levelName="verbose";
+     }else{
+         levelName="info";
+     }
+   }
+
+   qDebug() <<Q_FUNC_INFO << "levelName" << levelName <<endl;
+   return levelName;
 }
 
 bool Helper::exists(QString filePath){

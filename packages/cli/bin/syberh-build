@@ -6,6 +6,7 @@ const chalk = require('chalk')
 const build = require('../dist/build').default
 const { targetReset } = require('../dist/build/target')
 const { PROJECT_CONFIG } = require('../dist/util/constants')
+const { log } = require('../dist/util/log')
 const appPath = process.cwd()
 const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 
@@ -14,12 +15,20 @@ program
   .option('--debug', 'debug模式运行,支持热更新')
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
-  .option('--port [port]', '使用')
+  .option('--port [port]', '使用指定端口启动热更新服务')
+  .option('--nodoctor', '构建时不执行环境检查')
   .parse(process.argv)
 
-const { type, debug, port } = program
-let { env } = program
-
+const { type, debug, nodoctor } = program
+let { port, env } = program
+log.verbose('debug:', debug)
+log.verbose('env:', env)
+log.verbose('type:', type)
+port = parseInt(port)
+log.verbose('port:', typeof port, port)
+if (isNaN(port)) {
+  port = undefined
+}
 env = process.env.NODE_ENV || env
 
 if (!fs.existsSync(projectConfPath)) {
@@ -52,6 +61,7 @@ targetReset(appPath, program).then(() => {
   build(appPath, {
     type,
     debug,
-    port: typeof port === 'string' ? port : undefined
+    port,
+    nodoctor
   })
 })

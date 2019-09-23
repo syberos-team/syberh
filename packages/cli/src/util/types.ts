@@ -15,7 +15,7 @@ export interface INpmConfig {
   name: string
 }
 
-export interface IResolvedCache  {
+export interface IResolvedCache {
   [key: string]: {
     main: string,
     files: string[]
@@ -49,7 +49,8 @@ export interface IBuildConfig {
   debug?: boolean,
   platform?: string,
   port?: number,
-  release?: boolean
+  release?: boolean,
+  nodoctor?: boolean
 }
 
 export interface IMiniAppBuildConfig {

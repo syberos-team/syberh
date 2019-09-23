@@ -4,10 +4,11 @@ export default function imageMixin(hybrid) {
 
     hybridJs.extendModule('image', [
         {
-            namespace: 'choose',
+            namespace: 'chooseImage',
             os: ['syber'],
             defaultParams: {
                 count: 9,
+                sourceType: ['camera', 'album'],
             },
             runCode(...rest) {
                 // 兼容字符串形式
@@ -15,18 +16,7 @@ export default function imageMixin(hybrid) {
                     this,
                     rest,
                     'count',
-                );
-                hybridJs.callInner.apply(this, args);
-            },
-        }, {
-            namespace: 'select',
-            os: ['syber'],
-            defaultParams: {},
-            runCode(...rest) {
-                // 兼容字符串形式
-                const args = innerUtil.compatibleStringParamsToObject.call(
-                    this,
-                    rest,
+                    'sourceType',
                 );
                 hybridJs.callInner.apply(this, args);
             },

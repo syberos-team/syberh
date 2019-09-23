@@ -131,10 +131,25 @@ FileInfo FileUtil::getInfo(QString srcPath)
 
     return file;
 }
+
+qint64 FileUtil::getInfoSize(QString srcPath)
+{
+    FileInfo file;
+    if (!exists(srcPath)) {
+        return 0;
+    }
+    QFileInfo fileinfo(srcPath);
+
+    file.size = fileinfo.size();
+
+    return file.size;
+}
+
 bool FileUtil::exists(QString srcPath)
 {
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
 }
+
 
 

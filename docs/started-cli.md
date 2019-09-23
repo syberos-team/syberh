@@ -31,8 +31,6 @@ $ cnpm install -g @syberos/cli
 ```bash
 # 使用 npm 安装 CLI
 $ npm install -g @syberos/cli@1.1.0
-# OR 使用 yarn 安装 CLI
-$ yarn global add @syberos/cli@1.1.0
 # OR 安装了 cnpm，使用 cnpm 安装 CLI
 $ cnpm install -g @syberos/cli@1.1.0
 ```
