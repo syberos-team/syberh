@@ -11,7 +11,7 @@ const { PROJECT_CONFIG } = require('../dist/util/constants')
 const { createCore } = require('../templates/default/index');
 const projectConfPath = path.join(process.cwd(), PROJECT_CONFIG)
 
-// 这里没有使用 command 的形式：taro-update-self
+// 这里没有使用 command 的形式：syberh-update-self
 program.parse(process.argv)
 
 const args = program.args
