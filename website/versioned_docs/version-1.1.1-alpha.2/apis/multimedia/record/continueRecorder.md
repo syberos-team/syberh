@@ -1,14 +1,21 @@
 ---
-title: pausePlay
-id: version-1.1.1-alpha.1-pausePlay
-original_id: pausePlay
+title: continueRecorder
+id: version-1.1.1-alpha.2-continueRecorder
+original_id: continueRecorder
 ---
 
 
-暂停播放：可以对语音进行暂时停止播放。
+继续录音：可以对暂时停止的录音进行继续录制。
+
+> 录音功能属于敏感权限,要实现录音必须获取录音权限以及数据存储权限,在sopconfig.xml文件中添加如下字段:
+
+``` javascript
+<uses-permission syberos:name="syberos.permission.RECORD"/>
+<uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+```
 
 
-## syberh.audio.pausePlay(Object object)
+## syberh.record.continueRecorder(Object object)
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -26,7 +33,7 @@ original_id: pausePlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.pausePlay({
+syberh.record.continueRecorder({
 	success: function(result){
     console.log('success');    
 	},
