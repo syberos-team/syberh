@@ -93,7 +93,7 @@ CEditListViewDelegate {
                 }
                 Text {
                     id: modifyDateItem
-                    visible: !(filePath == fileUtils.innerStoragePath||filePath == "/mnt/sdcard")
+                    visible: !(filePath === fileUtils.innerStoragePath||filePath == "/mnt/sdcard")
                     text: Qt.formatDateTime(lastModified, "yyyy-M-d h:mm") //fileModifyDate
                     font.pixelSize: UI.FILE_INFO_SIZE
                     color: UI.FILE_INFO_COLOR

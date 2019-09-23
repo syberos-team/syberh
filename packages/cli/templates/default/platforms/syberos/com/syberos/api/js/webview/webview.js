@@ -256,6 +256,7 @@ function WebView (options) {
         module: wpId,
         source: '../qml/SWebview.qml',
         autoCreate: true,
+        removePlugin: true,
         page: true
       })
       dwevview.param = { surl: param.url },
