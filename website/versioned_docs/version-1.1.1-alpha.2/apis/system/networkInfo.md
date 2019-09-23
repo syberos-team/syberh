@@ -1,6 +1,6 @@
 ---
 title: networkInfo
-id: version-1.1.1-alpha.1-networkInfo
+id: version-1.1.1-alpha.2-networkInfo
 original_id: networkInfo
 ---
 

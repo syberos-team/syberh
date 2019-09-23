@@ -1,14 +1,20 @@
 ---
-title: stopPlay
-id: version-1.1.1-alpha.1-stopPlay
-original_id: stopPlay
+title: stopRecorder
+id: version-1.1.1-alpha.2-stopRecorder
+original_id: stopRecorder
 ---
 
 
-结束播放：对语音播放进行停止播放。
+结束录音：对周围环境的声音进行停止录制。
 
+> 录音功能属于敏感权限,要实现录音必须获取录音权限以及数据存储权限,在sopconfig.xml文件中添加如下字段:
 
-## syberh.audio.stopPlay()
+``` javascript
+<uses-permission syberos:name="syberos.permission.RECORD"/>
+<uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+```
+
+## syberh.record.stopRecorder()
 ### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -26,7 +32,7 @@ original_id: stopPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.stopPlay({
+syberh.record.stopRecorder({
 	success: function(result){
 		console.log('success');
 	},
