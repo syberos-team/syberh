@@ -15,7 +15,7 @@ export default async function ({ appPath }) {
   const PROJECT_PACKAGE_PATH = path.join(appPath, 'package.json')
   const PROJECT_FOLDER_FILES = fs.readdirSync('./')
   if (!fs.existsSync(PROJECT_PACKAGE_PATH)) {
-    console.log(chalk.red(`找不到${PROJECT_PACKAGE_PATH}，请确定当前目录是Taro项目根目录!`))
+    console.log(chalk.red(`找不到${PROJECT_PACKAGE_PATH}，请确定当前目录是syberh项目根目录!`))
     process.exit(1)
   }
   const projectPackage = require(PROJECT_PACKAGE_PATH)
@@ -43,7 +43,7 @@ export default async function ({ appPath }) {
     errorLines.push({
       desc: '没有检查到常见的 linter (eslint/jslint/jshint/tslint), 配置 linter 可以帮助提升项目质量',
       valid: true,
-      solution: 'Taro 还提供了定制的 ESLint 规则, 可以帮助开发者避免一些常见的问题. 使用 taro cli 创建新项目即可体验'
+      solution: 'syberh 还提供了定制的 ESLint 规则, 可以帮助开发者避免一些常见的问题. 使用 syberh cli 创建新项目即可体验'
     })
   }
   if (!hasReadme) {
