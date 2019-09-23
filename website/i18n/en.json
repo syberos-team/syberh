@@ -77,34 +77,37 @@
       "apis/multimedia/camera/captureVideoStart": {
         "title": "captureVideoStart"
       },
-      "apis/multimedia/camera/continuePlay": {
-        "title": "continuePlay"
-      },
-      "apis/multimedia/camera/continueRecorder": {
-        "title": "continueRecorder"
-      },
-      "apis/multimedia/camera/pausePlay": {
-        "title": "pausePlay"
-      },
-      "apis/multimedia/camera/pauseRecorder": {
-        "title": "pauseRecorder"
-      },
-      "apis/multimedia/camera/recorderList": {
-        "title": "recorderList"
-      },
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/camera/startPlay": {
+      "apis/multimedia/record/continuePlay": {
+        "title": "continuePlay"
+      },
+      "apis/multimedia/record/continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "apis/multimedia/record/delRecorder": {
+        "title": "delRecorder"
+      },
+      "apis/multimedia/record/pausePlay": {
+        "title": "pausePlay"
+      },
+      "apis/multimedia/record/pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "apis/multimedia/record/recorderList": {
+        "title": "recorderList"
+      },
+      "apis/multimedia/record/startPlay": {
         "title": "startPlay"
       },
-      "apis/multimedia/camera/startRecorder": {
+      "apis/multimedia/record/startRecorder": {
         "title": "startRecorder"
       },
-      "apis/multimedia/camera/stopPlay": {
+      "apis/multimedia/record/stopPlay": {
         "title": "stopPlay"
       },
-      "apis/multimedia/camera/stopRecorder": {
+      "apis/multimedia/record/stopRecorder": {
         "title": "stopRecorder"
       },
       "apis/navigator/navigator": {
@@ -127,6 +130,9 @@
       },
       "apis/request/request": {
         "title": "request"
+      },
+      "apis/router/router": {
+        "title": "路由(router)"
       },
       "apis/runtime/launchApp": {
         "title": "launchApp"
@@ -161,9 +167,6 @@
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
-      },
-      "apis/webview/webview": {
-        "title": "webview"
       },
       "app-config": {
         "title": "APP 配置"
@@ -438,6 +441,45 @@
       },
       "version-1.1.0/version-1.1.0-started-install": {
         "title": "安装SyberOS SDK"
+      },
+      "version-1.1.1-alpha.1/apis/fileManager/version-1.1.1-alpha.1-fileList": {
+        "title": "fileList"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-continuePlay": {
+        "title": "continuePlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-pausePlay": {
+        "title": "pausePlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-recorderList": {
+        "title": "recorderList"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-startPlay": {
+        "title": "startPlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-stopPlay": {
+        "title": "stopPlay"
+      },
+      "version-1.1.1-alpha.1/apis/multimedia/camera/version-1.1.1-alpha.1-stopRecorder": {
+        "title": "stopRecorder"
+      },
+      "version-1.1.1-alpha.1/apis/request/version-1.1.1-alpha.1-request": {
+        "title": "request"
+      },
+      "version-1.1.1-alpha.1/apis/system/version-1.1.1-alpha.1-networkInfo": {
+        "title": "networkInfo"
+      },
+      "version-1.1.1-alpha.1/apis/url/version-1.1.1-alpha.1-url": {
+        "title": "openUrl"
+      },
+      "version-1.1.1-alpha.1/version-1.1.1-alpha.1-started-cli": {
+        "title": "安装 CLI"
       }
     },
     "links": {
@@ -450,6 +492,7 @@
       "快速开始": "快速开始",
       "进阶指南": "进阶指南",
       "关于API": "关于API",
+      "路由": "路由",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",
       "电话": "电话",
@@ -459,12 +502,12 @@
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
-      "webview": "webview",
       "文件选择": "文件选择",
       "文件管理": "文件管理",
       "应用管理": "应用管理",
       "path": "path",
       "图片": "图片",
+      "webview": "webview",
       "url": "url"
     }
   },
