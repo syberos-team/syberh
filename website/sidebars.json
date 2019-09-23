@@ -129,6 +129,10 @@
     ],
     "图片": [
       "apis/image/chooseImage"
+    ],
+    "上传": [
+      "apis/upload/upload",
+      "apis/upload/upload-cancel"
     ]
   }
 }
