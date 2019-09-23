@@ -1,11 +1,8 @@
 import chalk from 'chalk'
 import * as _ from 'lodash'
 
-import { BUILD_TYPES, DEVICES_TYPES } from './util/constants'
+import { BUILD_TYPES } from './util/constants'
 import { IBuildConfig } from './util/types'
-import diagnose from './doctor/index'
-import * as b from './build/index'
-import { getProjectConfig } from './syberos/helper'
 
 export default async function build(appPath, buildConfig: IBuildConfig) {
 

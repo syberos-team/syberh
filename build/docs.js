@@ -5,7 +5,7 @@ const spinner = ora('Publishing gitbooks...').start()
 
 cp.exec('npm run docs', err => {
   if (!err) {
-    ghPages.publish('./website/build/taro', err => {
+    ghPages.publish('./website/build/syberh', err => {
       if (!err) {
         spinner.succeed('Publish successfully.')
       } else {

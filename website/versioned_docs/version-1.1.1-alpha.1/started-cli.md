@@ -1,5 +1,7 @@
 ---
 title: 安装 CLI
+id: version-1.1.1-alpha.1-started-cli
+original_id: started-cli
 ---
 
 ## 安装
@@ -31,6 +33,8 @@ $ cnpm install -g @syberos/cli
 ```bash
 # 使用 npm 安装 CLI
 $ npm install -g @syberos/cli@1.1.0
+# OR 使用 yarn 安装 CLI
+$ yarn global add @syberos/cli@1.1.0
 # OR 安装了 cnpm，使用 cnpm 安装 CLI
 $ cnpm install -g @syberos/cli@1.1.0
 ```
