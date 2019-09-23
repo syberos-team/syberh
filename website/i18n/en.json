@@ -372,10 +372,6 @@
       "version-1.1.0/apis/telephony/version-1.1.0-dial": {
         "title": "dial"
       },
-      "version-1.1.0/apis/updates/version-1.1.0-manager": {
-        "title": "更新管理",
-        "sidebar_label": "更新管理"
-      },
       "version-1.1.0/apis/url/version-1.1.0-url": {
         "title": "openUrl"
       },
