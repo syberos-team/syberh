@@ -45,6 +45,33 @@ function uuid (_length) {
 }
 
 /**
+ * 是否同一个url
+ * @param {string} url 
+ * @param {string} diffUrl
+ * @returns {boolean}  
+ */
+function diffUrl (url, diffUrl) {
+  logger.verbose('tool diffUrl() url:%s', url, typeof url)
+  logger.verbose('tool diffUrl() diffUrl:', diffUrl)
+
+  if (!url || !diffUrl) {
+    logger.verbose('tool diffUrl() url or diffUrl is undefined')
+    return false;
+  }
+  var checkPath
+  if (diffUrl.indexOf('?') >= 0) {
+    checkPath = diffUrl.split('?')[0]
+  } else {
+    checkPath = diffUrl
+  }
+  var purl = JSON.parse(url)
+  logger.verbose('tool diffUrl() purl: %s', purl, typeof purl)
+  var ret = purl.indexOf(checkPath) === -1 ? false : true;
+  logger.verbose('tool diffUrl() ret: %s', ret)
+  return ret
+}
+
+/**
  * determines whether the passed value is a specific type
  * @param mixed value
  * @return boolean
