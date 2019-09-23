@@ -13,7 +13,7 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
 import org.nemomobile.thumbnailer 1.0
-import "Sfm.js" as FM
+import "../js/util/tool.js" as Tool
 import "SUI.js" as UI
 
 CEditListViewDelegate {
@@ -76,7 +76,7 @@ CEditListViewDelegate {
                 anchors.right: parent.right
                 anchors.rightMargin: UI.DEFAULT_MARGIN_RIGHT
                 font.pixelSize: UI.FILE_NAME_SIZE
-                text: filePath == fileUtils.innerStoragePath ? qsTr("手机") : (filePath == "/mnt/sdcard" ? qsTr("SD卡") : fileName) //typeModel.data(index, fileName) //model.fileName
+                text: filePath === fileUtils.innerStoragePath ? qsTr("手机") : (filePath == "/mnt/sdcard" ? qsTr("SD卡") : fileName) //typeModel.data(index, fileName) //model.fileName
                 wrapMode: Text.NoWrap
                 elide: Text.ElideMiddle
             }
@@ -86,7 +86,7 @@ CEditListViewDelegate {
 
                 Text {
                     id: fileSizeItem
-                    text: fileUtils.isFile(filePath) ? FM.getSizeStr(fileSize) :
+                    text: fileUtils.isFile(filePath) ? Tool.getSizeStr(fileSize) :
                                                        qsTr("%n 项", "", fileSize)
                     font.pixelSize: UI.FILE_INFO_SIZE
                     color: UI.FILE_INFO_COLOR
