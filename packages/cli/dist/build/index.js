@@ -22,7 +22,6 @@ const log_1 = require("../util/log");
 function build(appPath, config) {
     return __awaiter(this, void 0, void 0, function* () {
         log_1.log.verbose('build() start');
-        log_1.log.verbose('config:', JSON.stringify(config));
         const newConfig = Object.assign({}, config, helper_1.getProjectConfig(appPath));
         const serverPort = 4399;
         if (!newConfig.port) {
@@ -35,7 +34,7 @@ function build(appPath, config) {
                 ifaces[dev].forEach(function (details) {
                     if (details.family === 'IPv4') {
                         // 优先使用192.168.100.x段ip
-                        if (details.address.indexOf('192.168.100.') >= 0) {
+                        if (details.address.indexOf('192.168.100.10') >= 0) {
                             sip = details.address;
                         }
                     }

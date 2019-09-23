@@ -148,6 +148,10 @@ export default function authMixin (hybrid) {
         );
         hybridJs.callInner.apply(this, args);
       },
+    },
+    {
+      namespace: 'getCurrentPages',
+      os: ['syber']
     }
   ]);
 }

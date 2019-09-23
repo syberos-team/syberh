@@ -49,7 +49,7 @@ $ syberh doctor
 3. 负责和 C++代码进行通讯
 
 
-## 🤝 参与共建 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+## 🤝 参与共建 
 
 请参考[贡献指南](https://github.com/syberos-team/syberh/blob/master/docs/CONTRIBUTING.md).
 
