@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>auth</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .li_items {
+      position: relative;
+      display: -webkit-flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .li_items_right {
+      position: absolute;
+      top: 48px;
+      right: 5px;
+    }
+
+    .li_items_icon {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+
+    .items_info {
+      margin-top: 15px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class">音频</a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="content"></div>
+  <div><input type="text" id="path" value="/home/user/record/20190923_1569232241.aac"/></div>
+  <div><input type="text" id="position" value="0"/></div>
+
+  <div> 播放操作：
+    <div align="center" id="startPlay">播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" />
+    </div>
+    <div align="center" id="pausePlay">暂停:<img height="35" width="35" src="../images/stop.png" onclick="pausePlay()" />
+    </div>
+    <div align="center" id="continuePlay">继续:<img height="35" width="35" src="../images/play.png" onclick="continuePlay()" /></div>
+    <div align="center" id="stopPlay">停止:<img height="35" width="35" src="../images/stop.png" onclick="stopPlay()" />
+    </div>
+  </div><br>
+
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../../dist/quick.js"></script>
+  <script type="text/javascript" src="../../dist/quick.native.js"></script>
+  <script type="text/javascript" src="../../dist/quick.h5.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../common/jquery-1.7.min.js"></script>
+
+  <script>
+    var vConsole = new VConsole();
+    $(document).ready(function () {
+      $("#pausePlay").hide();
+      $("#continuePlay").hide();
+      $("#stopPlay").hide();
+      $("#content").html("<spen style=\"color:Red\">请输入音频地址</spen><br>");
+    });
+
+    //点击开始播放。隐藏播放、继续播放，显示暂停播放、停止播放
+    function startPlay() {
+      var path = document.getElementById('path').value;
+      var position = document.getElementById('position').value;
+      if (path === 'undefined' || path === null || path === "") {
+        alert("请输入音频地址");
+      } else {
+        $("#content").html("<spen style=\"color:Red\">开始播放音频</spen><br>");
+
+        $("#startPlay").hide();
+        $("#pausePlay").show();
+        $("#continuePlay").hide();
+        $("#stopPlay").show();
+
+        syberh.audio.startPlay({
+          path: path,
+          position: position,
+          success: function (result) {
+            console.log('success');
+          },
+          fail: function (error) {
+            console.log('fail: ', error.code, error.msg);
+          }
+        });
+      }
+    }
+    //点击暂停播放。隐藏播放、暂停播放，显示继续播放、停止播放
+    function pausePlay() {
+      $("#content").html("<spen style=\"color:Red\">暂停播放音频</spen><br>");
+
+      $("#startPlay").hide();
+      $("#pausePlay").hide();
+      $("#continuePlay").show();
+      $("#stopPlay").show();
+
+      syberh.audio.pausePlay({
+        success: function (result) {
+          console.log('success');
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+    //点击继续播放。隐藏播放、继续播放，显示暂停播放、停止播放
+    function continuePlay() {
+      var position = document.getElementById('position').value;
+      $("#content").html("<spen style=\"color:Red\">继续播放音频</spen><br>");
+
+      $("#startPlay").hide();
+      $("#pausePlay").show();
+      $("#continuePlay").hide();
+      $("#stopPlay").show();
+
+      syberh.audio.continuePlay({
+        position: position,
+        success: function (result) {
+          console.log('success');
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+    //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
+    function stopPlay() {
+      $("#content").html("<spen style=\"color:Red\">停止播放音频</spen><br>");
+
+      $("#startPlay").show();
+      $("#pausePlay").hide();
+      $("#continuePlay").hide();
+      $("#stopPlay").hide();
+
+      syberh.audio.stopPlay({
+        success: function (result) {
+          console.log('success');
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
