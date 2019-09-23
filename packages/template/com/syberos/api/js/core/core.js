@@ -171,12 +171,25 @@ Syber.prototype.destroy = function (pluginId) {
     logger.verbose('Syber destroy() page  pageStack.pop()')
     //pageStack.pop()
   }
-  this.removePlugin(pluginId)
+
   var component = plugin.component
   if (component) {
     component.destroy()
     // 释放
-    plugin = undefined
+    plugin.component = undefined;
+    logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin))
+  }
+  plugin.isReady = undefined;
+  plugin.object = undefined;
+  plugin.param = {};
+  plugin.incubator = undefined;
+  plugin.handlerId = undefined;
+  logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin))
+  logger.verbose('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin)
+  if (plugin.removePlugin) {
+    logger.info('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin)
+    this.removePlugin(pluginId)
+    plugin = undefined;
   }
   // pageStack.deleteCachedPage(pluginId)
 }

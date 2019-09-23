@@ -13,6 +13,7 @@ function SyberPlugin (opts) {
   this.source = opts.source
   this.isReady = false
   this.page = opts.page || false
+  this.removePlugin = opts.removePlugin || false
   //是否缓存当前页面,page=true时生效
   this.cachePage = opts.cachePage || false
   //是否有转场效果,默认是有转场效果,page=true时生效 ,true:立即打开
