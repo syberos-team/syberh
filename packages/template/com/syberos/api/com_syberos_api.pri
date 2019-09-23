@@ -34,7 +34,8 @@ HEADERS += \
     $$PWD/src/record.h \
     $$PWD/src/util/uploadmanager.h \
     $$PWD/src/upload.h \
-    $$PWD/src/audio.h
+    $$PWD/src/audio.h \
+    $$PWD/src/util/log.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -69,5 +70,5 @@ SOURCES += \
     $$PWD/src/record.cpp \
     $$PWD/src/util/uploadmanager.cpp \
     $$PWD/src/upload.cpp \
-    $$PWD/src/audio.cpp
-
+    $$PWD/src/audio.cpp \
+    $$PWD/src/util/log.cpp
