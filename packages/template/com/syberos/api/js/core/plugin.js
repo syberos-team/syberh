@@ -13,6 +13,11 @@ function SyberPlugin (opts) {
   this.source = opts.source
   this.isReady = false
   this.page = opts.page || false
+  this.removePlugin = opts.removePlugin || false
+  //是否缓存当前页面,page=true时生效
+  this.isCache = opts.isCache || false
+  //是否有转场效果,默认是有转场效果,page=true时生效 ,true:立即打开
+  this.immediate = opts.immediate || false
   // Syber
   this.syber = null
   // 挂载的qml
@@ -78,8 +83,6 @@ SyberPlugin.prototype.trigger = function () {
   for (var sum = 1; sum < len; sum += 1) {
     funcArgs.push(arguments[sum])
   }
-
-  //console.log('event name',this.eventList[eventName])
 
   if (typeof this.eventList[eventName] === 'function') {
     // registered by `.on()` method

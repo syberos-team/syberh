@@ -17,9 +17,9 @@ const defaultInstallOptions: IInstallOptions = {
   peerDependencies: true
 }
 
-export const taroPluginPrefix = '@tarojs/plugin-'
+export const syberhPluginPrefix = '@syberos/plugin-'
 
-export function resolveNpm (pluginName: string, root): Promise<string> {
+export function resolveNpm(pluginName: string, root): Promise<string> {
   if (!npmCached[pluginName]) {
     return new Promise((resolve, reject) => {
       resolvePath(`${pluginName}`, { basedir: root }, (err, res) => {
@@ -34,7 +34,7 @@ export function resolveNpm (pluginName: string, root): Promise<string> {
   return Promise.resolve(npmCached[pluginName])
 }
 
-export function resolveNpmSync (pluginName: string, root): string {
+export function resolveNpmSync(pluginName: string, root): string {
   try {
     if (!npmCached[pluginName]) {
       const res = resolvePath.sync(pluginName, { basedir: root })
@@ -47,7 +47,7 @@ export function resolveNpmSync (pluginName: string, root): string {
       const installOptions: IInstallOptions = {
         dev: false
       }
-      if (pluginName.indexOf(taroPluginPrefix) >= 0) {
+      if (pluginName.indexOf(syberhPluginPrefix) >= 0) {
         installOptions.dev = true
       }
       installNpmPkg(pluginName, installOptions)
@@ -57,7 +57,7 @@ export function resolveNpmSync (pluginName: string, root): string {
   }
 }
 
-export function installNpmPkg (pkgList: string[] | string, options: IInstallOptions) {
+export function installNpmPkg(pkgList: string[] | string, options: IInstallOptions) {
   if (!pkgList) {
     return
   }
@@ -126,22 +126,22 @@ export function installNpmPkg (pkgList: string[] | string, options: IInstallOpti
 }
 
 export const callPlugin: pluginFunction = async (pluginName: string, content: string | null, file: string, config: object, root: string) => {
-  const pluginFn = await getNpmPkg(`${taroPluginPrefix}${pluginName}`, root)
+  const pluginFn = await getNpmPkg(`${syberhPluginPrefix}${pluginName}`, root)
   return pluginFn(content, file, config)
 }
 
 export const callPluginSync: pluginFunction = (pluginName: string, content: string | null, file: string, config: object, root: string) => {
-  const pluginFn = getNpmPkgSync(`${taroPluginPrefix}${pluginName}`, root)
+  const pluginFn = getNpmPkgSync(`${syberhPluginPrefix}${pluginName}`, root)
   return pluginFn(content, file, config)
 }
 
-export function getNpmPkgSync (npmName: string, root: string) {
+export function getNpmPkgSync(npmName: string, root: string) {
   const npmPath = resolveNpmSync(npmName, root)
   const npmFn = require(npmPath)
   return npmFn
 }
 
-export async function getNpmPkg (npmName: string, root: string) {
+export async function getNpmPkg(npmName: string, root: string) {
   let npmPath
   try {
     npmPath = resolveNpmSync(npmName, root)
@@ -151,7 +151,7 @@ export async function getNpmPkg (npmName: string, root: string) {
       const installOptions: IInstallOptions = {
         dev: false
       }
-      if (npmName.indexOf(taroPluginPrefix) >= 0) {
+      if (npmName.indexOf(syberhPluginPrefix) >= 0) {
         installOptions.dev = true
       }
       installNpmPkg(npmName, installOptions)

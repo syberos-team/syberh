@@ -1,5 +1,3 @@
-/* eslint-disable new-cap */
-/* eslint-disable no-undef */
 /**
  * Syber core Function
  */
@@ -11,21 +9,22 @@ function Syber (parent) {
   this.modules = {}
   // 根节点
   // eslint-disable-next-line node/no-deprecated-api
-  this._root = parent || root
+  this._root = parent
 
   this.body = null
 
   if (!this._root) {
+    logger.error('Syber() root 不存在')
     throw new Error('root 不存在')
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'gtoast', 'capture', 'system', 'filepicker', 'chooseImage']
+    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'capture', 'system', 'filepicker', 'chooseImage']
   }
 
   // add 内置 plugins
   this._addBuiltInPlugins()
 
-  this._render()
+  this._autoRun()
 }
 /**
  * render panel
@@ -71,6 +70,7 @@ Syber.prototype.getPlugin = function (module, method) {
  * @param param {Object} 请求参数
  */
 Syber.prototype.request = function (module, handlerId, method, param) {
+  logger.verbose("core request(),module:[%s],method:[%s]", module, method)
   var plugin = this.getPlugin(module, method)
   if (!plugin) {
     console.error('Plugin ', module, method, ' 不存在.')
@@ -78,9 +78,8 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   }
   // 参数处理
   plugin.setParam(handlerId, param)
-
   if (plugin.isReady) {
-    //console.log('plugin isReady', plugin.id)
+    // console.log('plugin isReady', plugin.id)
     // 直接调用
     plugin.trigger(method, plugin.object, handlerId, param)
     return
@@ -98,14 +97,21 @@ Syber.prototype.request = function (module, handlerId, method, param) {
  *@param callback {function}
  */
 Syber.prototype._initPlugin = function (plugin, parent, callback) {
+  logger.verbose('core.js _initPlugin()', plugin.id)
   // 如果需要单独打开一个页面的话
   if (plugin.page) {
     this.pageStack(plugin, callback)
   } else {
     if (!plugin.source) {
       plugin.isReady = true
-      // data数据
-      plugin.trigger('ready')
+      //对webview进行特殊处理
+      if (plugin.id === 'webview') {
+        plugin.object = _spage;
+        plugin.trigger('ready', _spage)
+      } else {
+        plugin.trigger('ready', _spage)
+      }
+
       if (typeof callback === 'function') callback()
       return
     }
@@ -117,7 +123,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
     }
     plugin.component = component
 
-    var _parent = plugin.id === 'webview' ? this.body : root
+    var _parent = _root
     var incubator = component.incubateObject(_parent)
     if (incubator) {
       plugin.incubator = incubator
@@ -152,20 +158,40 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
  *@param pluginId {string} 插件ID
  */
 Syber.prototype.destroy = function (pluginId) {
+  logger.verbose('Syber destroy() pluginId:%s', pluginId)
+  if (!pluginId) {
+    return;
+  }
   var plugin = this.pluginList[pluginId]
   if (!plugin) {
+    logger.verbose('Syber destroy() pluginId: [%s] 不存在', pluginId)
     throw new Error('core.js,destroy(),plugin不存在,id:', pluginId)
+  }
+  if (plugin.page) {
+    logger.verbose('Syber destroy() page  pageStack.pop()')
+    //pageStack.pop()
   }
 
   var component = plugin.component
   if (component) {
     component.destroy()
     // 释放
-    plugin.component = null
-    plugin.isReady = false
-    plugin.object = null
-    plugin.incubator = null
+    plugin.component = undefined;
+    logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin))
   }
+  plugin.isReady = undefined;
+  plugin.object = undefined;
+  plugin.param = {};
+  plugin.incubator = undefined;
+  plugin.handlerId = undefined;
+  logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin))
+  logger.verbose('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin)
+  if (plugin.removePlugin) {
+    logger.info('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin)
+    this.removePlugin(pluginId)
+    plugin = undefined;
+  }
+  // pageStack.deleteCachedPage(pluginId)
 }
 
 /**
@@ -174,11 +200,27 @@ Syber.prototype.destroy = function (pluginId) {
  * @param callback {function} 回调
  */
 Syber.prototype.pageStack = function (plugin, callback) {
-  var object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
+  logger.verbose('Syber pageStack() start')
+  var object = null
+  var cachePage
+  if (plugin.cachePage) {
+    cachePage = pageStack.getCachedPage(Qt.resolvedUrl(plugin.source),
+      plugin.id)
+    logger.verbose('Syber pageStack() cachePage', cachePage)
+  }
+  logger.verbose('Syber pageStack() param: %s ,immediate : %s', JSON.stringify(plugin.param), plugin.immediate)
+  if (cachePage) {
+    object = pageStack.push(cachePage, plugin.param, plugin.immediate)
+  } else {
+    object = pageStack.push(Qt.resolvedUrl(plugin.source), plugin.param)
+  }
+  plugin.object = object;
+  plugin.isReady = true;
   plugin.trigger('ready', object)
   if (typeof callback === 'function') {
     callback(object)
   }
+  logger.verbose('Syber pageStack() end')
 }
 
 /**
@@ -230,9 +272,9 @@ Syber.prototype._autoRun = function () {
 }
 
 Syber.prototype.addPlugin = function (plugin) {
-
+  logger.verbose('Syber addPlugin() plugin:%s', JSON.stringify(plugin))
   if (this.pluginList[plugin.id] !== undefined) {
-    console.debug('Plugin ' + plugin.id + ' has already been added.')
+    logger.error('Plugin ' + plugin.id + ' has already been added.')
     return false
   }
   this.pluginList[plugin.id] = plugin

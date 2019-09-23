@@ -9,9 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
-const index_1 = require("./doctor/index");
-const b = require("./build/index");
-const helper_1 = require("./syberos/helper");
 function build(appPath, buildConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         if (buildConfig.type) {
@@ -28,52 +25,17 @@ function build(appPath, buildConfig) {
         }
         else {
             // 默认打SOP包
-            yield buildSop(appPath, buildConfig);
+            buildSop(appPath, buildConfig);
         }
     });
 }
 exports.default = build;
-function diagnoseFastfail(buildConfig) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!buildConfig.nodoctor) {
-            const hasFail = yield index_1.default();
-            if (hasFail) {
-                process.exit(0);
-            }
-        }
-    });
-}
 function buildForDevice(appPath, buildConfig) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const projectConfig = helper_1.getProjectConfig(appPath);
-        yield diagnoseFastfail(buildConfig);
-        yield b.build(appPath, {
-            target: projectConfig.target,
-            debug: buildConfig.debug,
-            adapter: "device" /* DEVICE */
-        });
-    });
+    require('./build/index').build(appPath, Object.assign({}, buildConfig, { adapter: "device" /* DEVICE */ }));
 }
 function buildForSimulator(appPath, buildConfig) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const projectConfig = helper_1.getProjectConfig(appPath);
-        yield diagnoseFastfail(buildConfig);
-        yield b.build(appPath, {
-            target: projectConfig.targetSimulator,
-            debug: buildConfig.debug,
-            adapter: "simulator" /* SIMULATOR */
-        });
-    });
+    require('./build/index').build(appPath, Object.assign({}, buildConfig, { adapter: "simulator" /* SIMULATOR */ }));
 }
 function buildSop(appPath, buildConfig) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const projectConfig = helper_1.getProjectConfig(appPath);
-        yield diagnoseFastfail(buildConfig);
-        yield b.build(appPath, {
-            target: projectConfig.target,
-            debug: buildConfig.debug,
-            adapter: "device" /* DEVICE */,
-            onlyBuildSop: true
-        });
-    });
+    require('./build/index').build(appPath, Object.assign({}, buildConfig, { onlyBuildSop: true }));
 }

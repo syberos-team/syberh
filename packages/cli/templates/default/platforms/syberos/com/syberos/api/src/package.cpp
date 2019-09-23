@@ -182,8 +182,6 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
 
     using namespace SYBEROS;
 
-    qDebug() << "openDocument come in1: " << endl;
-
     if(sopId.isEmpty()){
         emit failed(callBackID, 500, "sopid is empty");
         return;
@@ -199,7 +197,6 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
         mimeType = "*";
     }
     QString filePath = params.value("filePath").toString();
-    qDebug() << "openDocument come in2: " << endl;
 
     if(action != "openPage"){
         qApp->runDocument(sopId, uiappId, action, mimeType, filePath);
@@ -208,7 +205,6 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
     }
 
     params.insert("action", action);
-    qDebug() << "openDocument come in3: " << endl;
     QVariantMap pathParam;
     QVariantMap::Iterator it = params.begin();
     while(it != params.end())

@@ -17,7 +17,6 @@
         <file>js/readme.html</file>
         <file>js/readme.md</file>
         <file>js/syber.js</file>
-        <file>js/webview.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/CMenu/pics/menuBg.png</file>
         <file>qml/CMenu/pics/menuBg.sci</file>
@@ -47,12 +46,10 @@
         <file>qml/SEditTitleBar.qml</file>
         <file>qml/SFilesPicker.qml</file>
         <file>qml/SFilesPickerView.qml</file>
-        <file>qml/Sfm.js</file>
         <file>qml/SInputDialog.qml</file>
         <file>qml/status.js</file>
         <file>qml/SToast.qml</file>
         <file>qml/SUI.js</file>
-        <file>qml/swebview.qml</file>
         <file>res/success_primary.png</file>
         <file>res/success_primary_big.png</file>
         <file>res/toast-fail.png</file>
@@ -69,7 +66,10 @@
         <file>qml/SPhotoToolBar.qml</file>
         <file>qml/ItemSelector.qml</file>
         <file>qml/SSelectTool.qml</file>
+        <file>js/util/log.js</file>
         <file>js/image/chooseImage.js</file>
         <file>qml/SChooseImage.qml</file>
+        <file>qml/SWebview.qml</file>
+        <file>qml/SPage.qml</file>
     </qresource>
 </RCC>

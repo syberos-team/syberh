@@ -77,34 +77,37 @@
       "apis/multimedia/camera/captureVideoStart": {
         "title": "captureVideoStart"
       },
-      "apis/multimedia/camera/continuePlay": {
-        "title": "continuePlay"
-      },
-      "apis/multimedia/camera/continueRecorder": {
-        "title": "continueRecorder"
-      },
-      "apis/multimedia/camera/pausePlay": {
-        "title": "pausePlay"
-      },
-      "apis/multimedia/camera/pauseRecorder": {
-        "title": "pauseRecorder"
-      },
-      "apis/multimedia/camera/recorderList": {
-        "title": "recorderList"
-      },
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/camera/startPlay": {
+      "apis/multimedia/record/continuePlay": {
+        "title": "continuePlay"
+      },
+      "apis/multimedia/record/continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "apis/multimedia/record/delRecorder": {
+        "title": "delRecorder"
+      },
+      "apis/multimedia/record/pausePlay": {
+        "title": "pausePlay"
+      },
+      "apis/multimedia/record/pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "apis/multimedia/record/recorderList": {
+        "title": "recorderList"
+      },
+      "apis/multimedia/record/startPlay": {
         "title": "startPlay"
       },
-      "apis/multimedia/camera/startRecorder": {
+      "apis/multimedia/record/startRecorder": {
         "title": "startRecorder"
       },
-      "apis/multimedia/camera/stopPlay": {
+      "apis/multimedia/record/stopPlay": {
         "title": "stopPlay"
       },
-      "apis/multimedia/camera/stopRecorder": {
+      "apis/multimedia/record/stopRecorder": {
         "title": "stopRecorder"
       },
       "apis/navigator/navigator": {
@@ -127,6 +130,9 @@
       },
       "apis/request/request": {
         "title": "request"
+      },
+      "apis/router/router": {
+        "title": "路由(router)"
       },
       "apis/runtime/launchApp": {
         "title": "launchApp"
@@ -162,8 +168,11 @@
         "title": "更新管理",
         "sidebar_label": "更新管理"
       },
-      "apis/webview/webview": {
-        "title": "webview"
+      "apis/upload/upload-cancel": {
+        "title": "cancel"
+      },
+      "apis/upload/upload": {
+        "title": "start"
       },
       "app-config": {
         "title": "APP 配置"
@@ -363,10 +372,6 @@
       "version-1.1.0/apis/telephony/version-1.1.0-dial": {
         "title": "dial"
       },
-      "version-1.1.0/apis/updates/version-1.1.0-manager": {
-        "title": "更新管理",
-        "sidebar_label": "更新管理"
-      },
       "version-1.1.0/apis/url/version-1.1.0-url": {
         "title": "openUrl"
       },
@@ -438,6 +443,69 @@
       },
       "version-1.1.0/version-1.1.0-started-install": {
         "title": "安装SyberOS SDK"
+      },
+      "version-1.1.1-alpha.2/apis/fileManager/version-1.1.1-alpha.2-fileList": {
+        "title": "fileList"
+      },
+      "version-1.1.1-alpha.2/apis/image/version-1.1.1-alpha.2-chooseImage": {
+        "title": "chooseImage"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-continuePlay": {
+        "title": "continuePlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-delRecorder": {
+        "title": "delRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-pausePlay": {
+        "title": "pausePlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-recorderList": {
+        "title": "recorderList"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-startPlay": {
+        "title": "startPlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-startRecorder": {
+        "title": "startRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-stopPlay": {
+        "title": "stopPlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-stopRecorder": {
+        "title": "stopRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/package/version-1.1.1-alpha.2-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.1.1-alpha.2/apis/package/version-1.1.1-alpha.2-openUrl": {
+        "title": "openUrl"
+      },
+      "version-1.1.1-alpha.2/apis/request/version-1.1.1-alpha.2-request": {
+        "title": "request"
+      },
+      "version-1.1.1-alpha.2/apis/router/version-1.1.1-alpha.2-router": {
+        "title": "路由(router)"
+      },
+      "version-1.1.1-alpha.2/apis/storage/version-1.1.1-alpha.2-removeAll": {
+        "title": "removeAll"
+      },
+      "version-1.1.1-alpha.2/apis/system/version-1.1.1-alpha.2-networkInfo": {
+        "title": "networkInfo"
+      },
+      "version-1.1.1-alpha.2/version-1.1.1-alpha.2-first-app": {
+        "title": "第一个应用"
+      },
+      "version-1.1.1-alpha.2/version-1.1.1-alpha.2-README": {
+        "title": "Syberh 介绍"
+      },
+      "version-1.1.1-alpha.2/version-1.1.1-alpha.2-started-cli": {
+        "title": "安装 CLI"
       }
     },
     "links": {
@@ -450,6 +518,7 @@
       "快速开始": "快速开始",
       "进阶指南": "进阶指南",
       "关于API": "关于API",
+      "路由": "路由",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",
       "电话": "电话",
@@ -459,12 +528,13 @@
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
-      "webview": "webview",
       "文件选择": "文件选择",
       "文件管理": "文件管理",
       "应用管理": "应用管理",
       "path": "path",
       "图片": "图片",
+      "上传": "上传",
+      "webview": "webview",
       "url": "url"
     }
   },
