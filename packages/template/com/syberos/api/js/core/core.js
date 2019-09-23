@@ -108,10 +108,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
       if (plugin.id === 'webview') {
         plugin.object = _spage;
         plugin.trigger('ready', _spage)
-      } else {
-        plugin.trigger('ready', _spage)
       }
-
       if (typeof callback === 'function') callback()
       return
     }
@@ -169,7 +166,6 @@ Syber.prototype.destroy = function (pluginId) {
   }
   if (plugin.page) {
     logger.verbose('Syber destroy() page  pageStack.pop()')
-    //pageStack.pop()
   }
 
   var component = plugin.component
@@ -203,7 +199,7 @@ Syber.prototype.pageStack = function (plugin, callback) {
   logger.verbose('Syber pageStack() start')
   var object = null
   var cachePage
-  if (plugin.cachePage) {
+  if (plugin.isCache) {
     cachePage = pageStack.getCachedPage(Qt.resolvedUrl(plugin.source),
       plugin.id)
     logger.verbose('Syber pageStack() cachePage', cachePage)
