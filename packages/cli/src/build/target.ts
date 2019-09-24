@@ -8,6 +8,7 @@ import {
 } from '../util/constants'
 import { getProjectConfig } from '../syberos/helper'
 import { qtversions } from '../syberos/configfile'
+import { log } from '../util/log'
 
 /**
  * 重置设备的target
@@ -65,7 +66,7 @@ export const targetReset = async (appPath: string, program: any) => {
   try {
     // 校验是否需要重新设置target
     const projectConfig = getProjectConfig(appPath)
-    console.log('projectConf', JSON.stringify(projectConfig))
+    log.verbose('projectConf %j', projectConfig)
     // 是否需要重设target
     let reset = false
     let targetName = target
@@ -97,7 +98,7 @@ export const targetReset = async (appPath: string, program: any) => {
         )
       )
     } else {
-      console.log(chalk.bgGreen('检验target完成'))
+      log.verbose('检验target完成')
     }
 
     //   targetChoices(targetName).then(answers => {

@@ -160,7 +160,7 @@
         url: inpUrl,
         dataType: dataType,
         success: function (result) {
-          document.getElementById("show-rsp").value = "GET请求响应：<br/>" + JSON.stringify(error);
+          document.getElementById("show-rsp").value = "GET请求响应：<br/>" + JSON.stringify(result);
           console.info(JSON.stringify(result))
         },
         fail: function (error) {

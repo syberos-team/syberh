@@ -15,6 +15,7 @@ const path = require("path");
 const constants_1 = require("../util/constants");
 const helper_1 = require("../syberos/helper");
 const configfile_1 = require("../syberos/configfile");
+const log_1 = require("../util/log");
 /**
  * 重置设备的target
  * @param device
@@ -68,7 +69,7 @@ exports.targetReset = (appPath, program) => __awaiter(this, void 0, void 0, func
     try {
         // 校验是否需要重新设置target
         const projectConfig = helper_1.getProjectConfig(appPath);
-        console.log('projectConf', JSON.stringify(projectConfig));
+        log_1.log.verbose('projectConf %j', projectConfig);
         // 是否需要重设target
         let reset = false;
         let targetName = target;
@@ -96,7 +97,7 @@ exports.targetReset = (appPath, program) => __awaiter(this, void 0, void 0, func
             console.log(chalk_1.default.green(`target重置完成,\n ${JSON.stringify(projectConfig, null, '\t')}`));
         }
         else {
-            console.log(chalk_1.default.bgGreen('检验target完成'));
+            log_1.log.verbose('检验target完成');
         }
         //   targetChoices(targetName).then(answers => {
         //     Object.assign(projectConfig, answers)
