@@ -47,18 +47,15 @@
     </ul>
   </div>
 
-  <div>音频地址：<input type="text" id="path" value=""/></div>
+  <div>音频地址：<input type="text" id="path" value="/home/user/record/20190923_1569232241.aac"/></div>
   <div>指定时间：<input type="text" id="position" value="0"/></div>
-  <div id="content"></div>
+  <div id="content"><spen style="color:Red">请输入音频地址</spen></div>
 
   <div> 播放操作：
-    <div align="center" id="startPlay">播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" />
-    </div>
-    <div align="center" id="pausePlay">暂停:<img height="35" width="35" src="../images/stop.png" onclick="pausePlay()" />
-    </div>
-    <div align="center" id="continuePlay">继续:<img height="35" width="35" src="../images/play.png" onclick="continuePlay()" /></div>
-    <div align="center" id="stopPlay">停止:<img height="35" width="35" src="../images/stop.png" onclick="stopPlay()" />
-    </div>
+    <div align="center" id="start">播放:<img height="35" width="35" src="../images/play.png" onclick="start()" /></div>
+    <div align="center" id="pause" style="display: none" >暂停:<img height="35" width="35" src="../images/stop.png" onclick="pause()" /></div>
+    <div align="center" id="resume" style="display: none" >继续:<img height="35" width="35" src="../images/play.png" onclick="resume()" /></div>
+    <div align="center" id="stop" style="display: none" >停止:<img height="35" width="35" src="../images/stop.png" onclick="stop()" /></div>
   </div><br>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -72,15 +69,9 @@
 
   <script>
     var vConsole = new VConsole();
-    $(document).ready(function () {
-      $("#pausePlay").hide();
-      $("#continuePlay").hide();
-      $("#stopPlay").hide();
-      $("#content").html("<spen style=\"color:Red\">请输入音频地址</spen><br>");
-    });
 
     //点击开始播放。隐藏播放、继续播放，显示暂停播放、停止播放
-    function startPlay() {
+    function start() {
       var path = document.getElementById('path').value;
       var position = document.getElementById('position').value;
       if (path === 'undefined' || path === null || path === "") {
@@ -88,12 +79,12 @@
       } else {
         $("#content").html("<spen style=\"color:Red\">开始播放音频</spen><br>");
 
-        $("#startPlay").hide();
-        $("#pausePlay").show();
-        $("#continuePlay").hide();
-        $("#stopPlay").show();
+        $("#start").hide();
+        $("#pause").show();
+        $("#resume").hide();
+        $("#stop").show();
 
-        syberh.audio.startPlay({
+        syberh.audio.start({
           path: path,
           position: position,
           success: function (result) {
@@ -106,15 +97,15 @@
       }
     }
     //点击暂停播放。隐藏播放、暂停播放，显示继续播放、停止播放
-    function pausePlay() {
+    function pause() {
       $("#content").html("<spen style=\"color:Red\">暂停播放音频</spen><br>");
 
-      $("#startPlay").hide();
-      $("#pausePlay").hide();
-      $("#continuePlay").show();
-      $("#stopPlay").show();
+      $("#start").hide();
+      $("#pause").hide();
+      $("#resume").show();
+      $("#stop").show();
 
-      syberh.audio.pausePlay({
+      syberh.audio.pause({
         success: function (result) {
           console.log('success');
         },
@@ -124,16 +115,16 @@
       });
     }
     //点击继续播放。隐藏播放、继续播放，显示暂停播放、停止播放
-    function continuePlay() {
+    function resume() {
       var position = document.getElementById('position').value;
       $("#content").html("<spen style=\"color:Red\">继续播放音频</spen><br>");
 
-      $("#startPlay").hide();
-      $("#pausePlay").show();
-      $("#continuePlay").hide();
-      $("#stopPlay").show();
+      $("#start").hide();
+      $("#pause").show();
+      $("#resume").hide();
+      $("#stop").show();
 
-      syberh.audio.continuePlay({
+      syberh.audio.resume({
         position: position,
         success: function (result) {
           console.log('success');
@@ -144,15 +135,15 @@
       });
     }
     //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
-    function stopPlay() {
+    function stop() {
       $("#content").html("<spen style=\"color:Red\">停止播放音频</spen><br>");
 
-      $("#startPlay").show();
-      $("#pausePlay").hide();
-      $("#continuePlay").hide();
-      $("#stopPlay").hide();
+      $("#start").show();
+      $("#pause").hide();
+      $("#resume").hide();
+      $("#stop").hide();
 
-      syberh.audio.stopPlay({
+      syberh.audio.stop({
         success: function (result) {
           console.log('success');
         },

@@ -3,7 +3,6 @@
 
 #include <QDebug>
 #include <QUrlQuery>
-#include <QException>
 #include <QQuickView>
 #include <QMetaObject>
 #include <QGuiApplication>
@@ -23,14 +22,14 @@ void Audio::request(QString callBackID, QString actionName, QVariantMap params)
 {
     qDebug() << Q_FUNC_INFO << "request" << callBackID << endl;
 
-    if(actionName == "startPlay"){
-        startPlay(params);
-    }else if(actionName == "pausePlay"){
-        pausePlay(params);
-    }else if(actionName == "continuePlay"){
-        continuePlay(params);
-    }else if(actionName == "stopPlay"){
-        stopPlay(params);
+    if(actionName == "start"){
+        start(params);
+    }else if(actionName == "pause"){
+        pause(params);
+    }else if(actionName == "resume"){
+        resume(params);
+    }else if(actionName == "stop"){
+        stop(params);
     }
 }
 
@@ -43,29 +42,34 @@ void Audio::submit(QString typeID, QString callBackID, QString actionName, QVari
     Q_UNUSED(attachementes)
 }
 
-void Audio::startPlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "startPlay" << params << endl;
+void Audio::start(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "start" << params << endl;
+
     QString filePath = params.value("path").toString();
     int position = params.value("position").toInt();
 
     player->setMedia(QUrl::fromLocalFile(filePath));
     player->setVolume(50);
-
     player->play();
+
+    //有指定时间参数，从指定位置开始播放
     if(position != 0){
-        player->setPosition(player->position() + (1000*position));//从指定位置开始播放
+        player->setPosition(player->position() + (1000*position));
     }
 }
 
-void Audio::pausePlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "pausePlay" << params << endl;
+void Audio::pause(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "pause" << params << endl;
+
     player->pause();
 }
 
-void Audio::continuePlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "continuePlay" << params << endl;
+void Audio::resume(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     int position = params.value("position").toInt();
+
+    //有指定时间参数，从指定位置开始播放
     if(position != 0){
         player->stop();
         player->play();
@@ -75,8 +79,8 @@ void Audio::continuePlay(QVariantMap params){
     }
 }
 
-void Audio::stopPlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "stopPlay" << params << endl;
+void Audio::stop(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "stop" << params << endl;
 
     player->stop();
 }
