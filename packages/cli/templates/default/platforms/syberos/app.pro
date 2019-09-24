@@ -6,6 +6,8 @@
 include (syberos.pri)
 TEMPLATE = subdirs
 
+CONFIG += C++11
+
 SUBDIRS += app tests
 
 res.files = res

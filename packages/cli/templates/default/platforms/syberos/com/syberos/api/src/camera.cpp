@@ -1,19 +1,15 @@
 #include "camera.h"
 #include "helper.h"
+
 #include <QObject>
 #include <QDebug>
+#include <QException>
 #include <QCameraInfo>
 #include <QCameraImageCapture>
 
 int Camera::typeId = qRegisterMetaType<Camera *>();
-Camera::Camera()
-{
-
-}
-Camera::~Camera()
-{
-
-}
+Camera::Camera(){}
+Camera::~Camera(){}
 
 void Camera::request(QString callBackID, QString actionName, QVariantMap params)
 {
@@ -32,14 +28,16 @@ void Camera::submit(QString typeID, QString callBackID, QString actionName, QVar
     Q_UNUSED(attachementes)
 }
 
-void  Camera::changeCameraImagePath(long callBackID,QVariantMap params){
+void Camera::changeCameraImagePath(long callBackID,QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "changeCameraImagePath" << params << endl;
     QString filePath = params.value("path").toString();
 
     QFile file(filePath);
     if(!file.exists()){
-        qDebug() << Q_FUNC_INFO << "file not exists" << filePath << endl;
+        qDebug() << Q_FUNC_INFO << "文件地址不存在：" << filePath << endl;
     }
 
+    //设置系统相机路径
     QString path = Helper::instance()->getInnerStorageRootPath() + "/DCIM";
     QDir dir(path);
     if(!dir.exists()){
@@ -47,33 +45,33 @@ void  Camera::changeCameraImagePath(long callBackID,QVariantMap params){
     }
     QFileInfo fileInfo(file);
 
+    //设置文件名
     QDateTime time = QDateTime::currentDateTime();   //获取当前时间
     int timeT = time.toTime_t();                     //将当前时间转为时间戳
     QStringList filenameArr = fileInfo.fileName().split(".");
     QString filename = filenameArr[0]+"_"+ QString::number(timeT)+"."+filenameArr[1];
-    qDebug() << Q_FUNC_INFO << "filename" << filename << endl;
-
     QString newFile = path + "/" + filename;
-    qDebug() << Q_FUNC_INFO << "copy" << filePath << newFile << endl;
 
-    bool rs = QFile::copy(filePath, newFile);
-    qDebug() << Q_FUNC_INFO << "copy result" << rs << endl;
-
-    bool removeRs = file.remove();
-    qDebug() << Q_FUNC_INFO << "remove result" << removeRs << endl;
+    try  {
+        //将照片复制到系统相册后，删除原地址照片
+        QFile::copy(filePath, newFile);
+        file.remove();
+    } catch (QException e) {
+        qDebug() << Q_FUNC_INFO << "将照片移动到系统相册失败" << endl;
+        emit failed(callBackID, 500, "在数据库中添加录音记录失败");
+        return;
+    }
 
     QJsonObject jsonObject;
-    jsonObject.insert("imgPath", newFile);
-
-    QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
-    qDebug() << Q_FUNC_INFO << "imgPath: " << jsonObjectValue.toString() << endl;
+    jsonObject.insert("path", newFile);
+    QJsonValue::fromVariant(jsonObject);
+    emit success(callBackID, QVariant(jsonObject));
 
 //    camera = new QCamera;
 //    QCameraInfo cameraInfo(camera);
-//    cameraInfo.orientation();
+//    cameraInfo.orientation();//获取照片角度
 //    qDebug() << Q_FUNC_INFO << "cameraInfo.orientation(): " << cameraInfo.orientation() << endl;
 
-    emit success(callBackID, QVariant(jsonObject));
 }
 
 

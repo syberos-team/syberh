@@ -8,7 +8,7 @@ function Capture () {
     id: 'camera',
     module: 'camera',
     page: true,
-    methods: ['takePictureImmediately'],
+    methods: ['takePhoto'],
     source: '../qml/SCamera.qml'
   }
   SyberPlugin.call(this, defaultOpts)
@@ -17,18 +17,15 @@ function Capture () {
   this.imageConfirmedFlag = false
 
   var that = this
-  this.on('takePictureImmediately', function (object) {
+  this.on('takePhoto', function (object) {
 
-//    console.log('-------------------------------------object', object)
 //    object.back.connect(function (path) {
-//        console.log('-------------------------------------message',path)
 //        pageStack.pop()
 //        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
 //    })
 
 //    if (!that.imageConfirmedFlag) {
         object.imageConfirmed.connect(function(filePath) { //处理信号
-            console.log('-------------------------------------takePictureImmediately', filePath)
             that.imageConfirmedFlag = true
             pageStack.pop(root)
             filePath = "file://"+filePath;

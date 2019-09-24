@@ -6,12 +6,22 @@
 #include "../com/syberos/api/src/helper.h"
 #include "../com/syberos/api/src/framework/nativesdkmanager.h"
 #include "../com/syberos/api/src/framework/common/extendedconfig.h"
+#include "../com/syberos/api/src/util/log.h"
 #include "../com/syberos/api/src/package.h"
 #include "../com/syberos/api/src/util/fileutil.h"
 
 App_Workspace::App_Workspace()
     : CWorkspace()
 {
+    // 设置日志级别
+    QString devLog = ExtendedConfig::instance()->get(EX_DEV_LOG).toString();
+    if(devLog.isEmpty()){
+      bool debug=  ExtendedConfig::instance()->get(EX_DEBUG).toBool();
+      if(debug){
+          devLog=LOG_VERBOSE;
+      }
+    }
+    Log::instance()->setLevel(devLog);
 
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     m_view->engine()->addImportPath("qrc:/");
