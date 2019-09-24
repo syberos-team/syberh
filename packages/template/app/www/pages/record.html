@@ -42,34 +42,26 @@
   <div class="mui-content pt0">
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="refresh()">录音列表(刷新)</a>
+        <a class="mui-navigate-right api-class">录音列表</a>
       </li>
     </ul>
   </div>
 
-  <div id="content"></div>
+  <div id="content"><spen style="color:Red">请选择录音记录</spen></div>
   <div><input type="text" id="text" style="display:none" /></div>
 
   <div> 播放操作：
-    <div align="center" id="startPlay">播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" />
-    </div>
-    <div align="center" id="pausePlay">暂停:<img height="35" width="35" src="../images/stop.png" onclick="pausePlay()" />
-    </div>
-    <div align="center" id="continuePlay">继续:<img height="35" width="35" src="../images/play.png"
-        onclick="continuePlay()" /></div>
-    <div align="center" id="stopPlay">停止:<img height="35" width="35" src="../images/stop.png" onclick="stopPlay()" />
-    </div>
+    <div align="center" id="startPlay" >播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" /></div>
+    <div align="center" id="pausePlay" style="display: none" >暂停:<img height="35" width="35" src="../images/stop.png" onclick="pausePlay()" /></div>
+    <div align="center" id="continuePlay" style="display: none" >继续:<img height="35" width="35" src="../images/play.png" onclick="continuePlay()" /></div>
+    <div align="center" id="stopPlay" style="display: none" >停止:<img height="35" width="35" src="../images/stop.png" onclick="stopPlay()" /></div>
   </div><br>
 
   <div> 录制操作：
-    <div align="center" id="startRecorder">录音:<img height="35" width="35" src="../images/playR.png"
-        onclick="startRecorder()" /></div>
-    <div align="center" id="pauseRecorder">暂停:<img height="35" width="35" src="../images/stopR.png"
-        onclick="pauseRecorder()" /></div>
-    <div align="center" id="continueRecorder">继续:<img height="35" width="35" src="../images/playR.png"
-        onclick="continueRecorder()" /></div>
-    <div align="center" id="stopRecorder">停止:<img height="35" width="35" src="../images/stopR.png"
-        onclick="stopRecorder()" /></div>
+    <div align="center" id="startRecorder" >录音:<img height="35" width="35" src="../images/playR.png" onclick="startRecorder()" /></div>
+    <div align="center" id="pauseRecorder" style="display: none" >暂停:<img height="35" width="35" src="../images/stopR.png" onclick="pauseRecorder()" /></div>
+    <div align="center" id="continueRecorder" style="display: none" >继续:<img height="35" width="35" src="../images/playR.png" onclick="continueRecorder()" /></div>
+    <div align="center" id="stopRecorder" style="display: none" >停止:<img height="35" width="35" src="../images/stopR.png" onclick="stopRecorder()" /></div>
   </div><br>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -84,13 +76,6 @@
   <script>
     var vConsole = new VConsole();
     $(document).ready(function () {
-      $("#pausePlay").hide();
-      $("#continuePlay").hide();
-      $("#stopPlay").hide();
-
-      $("#pauseRecorder").hide();
-      $("#continueRecorder").hide();
-      $("#stopRecorder").hide();
 
       //初始化加载录音列表
       refresh();
@@ -146,7 +131,7 @@
         $("#continuePlay").hide();
         $("#stopPlay").show();
 
-        syberh.audio.startPlay({
+        syberh.audio.start({
           path: path,
           success: function (result) {
             console.log('success');
@@ -166,7 +151,7 @@
       $("#continuePlay").show();
       $("#stopPlay").show();
 
-      syberh.audio.pausePlay({
+      syberh.audio.pause({
         success: function (result) {
           console.log('success');
         },
@@ -184,7 +169,7 @@
       $("#continuePlay").hide();
       $("#stopPlay").show();
 
-      syberh.audio.continuePlay({
+      syberh.audio.resume({
         success: function (result) {
           console.log('success');
         },
@@ -202,7 +187,7 @@
       $("#continuePlay").hide();
       $("#stopPlay").hide();
 
-      syberh.audio.stopPlay({
+      syberh.audio.stop({
         success: function (result) {
           console.log('success');
         },
@@ -221,7 +206,7 @@
       $("#continueRecorder").hide();
       $("#stopRecorder").show();
 
-      syberh.record.startRecorder({
+      syberh.record.start({
         success: function (result) {
           document.getElementById('text').value = result.path
           console.log('success: ', result.path);
@@ -240,7 +225,7 @@
       $("#continueRecorder").show();
       $("#stopRecorder").show();
 
-      syberh.record.pauseRecorder({
+      syberh.record.pause({
         success: function (result) {
           console.log('success: ');
         },
@@ -258,7 +243,7 @@
       $("#continueRecorder").hide();
       $("#stopRecorder").show();
 
-      syberh.record.continueRecorder({
+      syberh.record.resume({
         success: function (result) {
           console.log('success: ');
         },
@@ -276,7 +261,7 @@
       $("#continueRecorder").hide();
       $("#stopRecorder").hide();
 
-      syberh.record.stopRecorder({
+      syberh.record.stop({
         success: function (result) {
           console.log('success');
         },
@@ -290,7 +275,7 @@
     //删除录音
     function delRecorder(fileName,path) {
       $("#content").html("<spen style=\"color:Red\">删除录音:" + fileName + "</spen><br>");
-      syberh.record.delRecorder({
+      syberh.record.remove({
         path: path,
         success: function (result) {
           console.log('success',result.result);

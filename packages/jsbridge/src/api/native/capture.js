@@ -3,7 +3,7 @@ export default function captureMixin(hybrid) {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('camera', [{
-        namespace: 'takePictureImmediately',
+        namespace: 'takePhoto',
         os: ['syber'],
         defaultParams: {
             enableCut: false,

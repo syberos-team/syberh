@@ -3,7 +3,7 @@ export default function audioMixin(hybrid) {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('audio', [{
-        namespace: 'startPlay',
+        namespace: 'start',
         os: ['syber'],
         defaultParams: {
             path: '',
@@ -19,10 +19,10 @@ export default function audioMixin(hybrid) {
             hybridJs.callInner.apply(this, args);
         },
     }, {
-        namespace: 'pausePlay',
+        namespace: 'pause',
         os: ['syber'],
     }, {
-        namespace: 'continuePlay',
+        namespace: 'resume',
         os: ['syber'],
         defaultParams: {
             position: 0,
@@ -36,7 +36,7 @@ export default function audioMixin(hybrid) {
             hybridJs.callInner.apply(this, args);
         },
     }, {
-        namespace: 'stopPlay',
+        namespace: 'stop',
         os: ['syber'],
     }]);
 }
