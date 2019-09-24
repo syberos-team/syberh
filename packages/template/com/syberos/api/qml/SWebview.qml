@@ -86,6 +86,8 @@ CPage{
         id:root
         anchors.fill:parent
 
+
+
         WebView {
             id: swebview
             focus: true
