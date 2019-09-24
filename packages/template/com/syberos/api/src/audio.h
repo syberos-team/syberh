@@ -1,13 +1,14 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#ifndef AUDIO_H
+#define AUDIO_H
 
 #include <QObject>
 #include <QtMultimedia>
 #include <QMediaPlayer>
-#include <QAudioRecorder>
 #include <QMediaContent>
 
+#include "historydata.h"
 #include "framework/nativesdkhandlerbase.h"
+
 class Audio : public NativeSdkHandlerBase
 {
     Q_OBJECT
@@ -19,46 +20,7 @@ public:
     void submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes);
 
     /**
-     * @brief recorderList 录音列表
-     * @param params 参数
-     * @return 成功则返回录音文件列表
-     *         失败则返回错误码
-     */
-    void recorderList(long callBackID, QVariantMap params);
-    /**
-     * @brief startRecorder 开始录音
-     * @param params 参数
-     * @return 成功则返回录音文件路径
-     *         失败则返回错误码
-     */
-    void startRecorder(long callBackID, QVariantMap params);
-
-    /**
-     * @brief pauseRecorder 暂停录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void pauseRecorder(QVariantMap params);
-
-    /**
-     * @brief continueRecorder 继续录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void continueRecorder(QVariantMap params);
-
-    /**
-     * @brief stopRecorder 结束录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void stopRecorder(QVariantMap params);
-
-    /**
-     * @brief startPlay 播放录音
+     * @brief startPlay 播放音频
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
@@ -66,7 +28,7 @@ public:
     void startPlay(QVariantMap params);
 
     /**
-     * @brief pausePlay 暂停播放
+     * @brief pausePlay 暂停音频
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
@@ -74,7 +36,7 @@ public:
     void pausePlay(QVariantMap params);
 
     /**
-     * @brief continuePlay 继续播放
+     * @brief continuePlay 继续音频
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
@@ -82,7 +44,7 @@ public:
     void continuePlay(QVariantMap params);
 
     /**
-     * @brief stopPlay 结束播放录音
+     * @brief stopPlay 结束播放音频
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
@@ -91,10 +53,9 @@ public:
 
 private :
     QMediaPlayer *player;
-    QAudioRecorder *recoder;
-    QMediaPlaylist *playlist;
 
     static int typeId;
+    QString currPath;
 };
 
-#endif // SYSTEMINFO_H
+#endif

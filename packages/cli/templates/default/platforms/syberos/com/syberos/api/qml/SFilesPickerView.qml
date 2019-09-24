@@ -13,8 +13,8 @@
 */
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
+import "../js/util/tool.js" as Tool
 import "SUI.js" as UI
-import "Sfm.js" as FM
 
 Rectangle {
     id: fileListRect
@@ -34,7 +34,7 @@ Rectangle {
                 if (curPath === fileUtils.innerStoragePath || curPath === "/mnt/sdcard") {
                     typeModel.path = "";
                 } else {
-                    typeModel.path = FM.getDir(typeModel.path);
+                    typeModel.path = Tool.getDir(typeModel.path);
                 }
             } else {
                 toptitle.leftItemTriggered();
@@ -65,7 +65,7 @@ Rectangle {
                 if (curPath === fileUtils.innerStoragePath || curPath === "/mnt/sdcard") {
                     typeModel.path = "";
                 } else {
-                    typeModel.path = FM.getDir(typeModel.path);
+                    typeModel.path = Tool.getDir(typeModel.path);
                 }
             } else {
                 filesPicker.cancel();

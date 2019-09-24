@@ -16,7 +16,7 @@ function Toast () {
   var that = this
   this.on('gtoast',function(){
     if(!that.param.title){
-        WEBVIEWCORE.trigger( 'failed', that.handlerId, 0, "提示的内容不能为空");
+        WEBVIEWCORE.trigger( 'failed', that.handlerId, 1003, "提示的内容不能为空");
         return;
     }
     gToast.requestToast(that.param.title);
@@ -27,7 +27,7 @@ function Toast () {
     var component = object || that.object
 
     if(!that.param.title){
-        WEBVIEWCORE.trigger( 'failed', that.handlerId, 0, "提示的内容不能为空");
+        WEBVIEWCORE.trigger( 'failed', that.handlerId, 1003, "提示的内容不能为空");
         return;
     }
 
@@ -40,11 +40,11 @@ function Toast () {
 
     var strlength = getStrLength(that.param.title);
     if(that.param.icon !== "none" && strlength > 14){
-        WEBVIEWCORE.trigger( 'failed', that.handlerId, 0, "有图标时最多7个汉字长度的文本");
+        WEBVIEWCORE.trigger('failed', that.handlerId, 1003, "有图标时最多7个汉字长度的文本");
         return;
     }
     if(that.param.icon === "none" && strlength > 28 ){
-        WEBVIEWCORE.trigger('failed',that.handlerId, 0, "无图标时最多显示两行文本（14个汉字长度）");
+        WEBVIEWCORE.trigger('failed',that.handlerId, 1003, "无图标时最多显示两行文本（14个汉字长度）");
         component.hide();
         return;
     }
