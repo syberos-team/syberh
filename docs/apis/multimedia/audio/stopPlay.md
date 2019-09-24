@@ -1,13 +1,13 @@
 ---
-title: pausePlay
+title: stopPlay
 ---
 
 
-暂停播放：可以对语音进行暂时停止播放。
+结束播放：对音频文件进行停止播放。
 
 
-## syberh.record.pausePlay(Object object)
-#### Object object
+## syberh.audio.stopPlay()
+### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
 | success | function |        | 否       | 回调成功                    |
@@ -24,9 +24,9 @@ title: pausePlay
 
 ### **代码示例**
 ``` javascript
-syberh.record.pausePlay({
+syberh.audio.stopPlay({
 	success: function(result){
-    console.log('success');    
+		console.log('success');
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);

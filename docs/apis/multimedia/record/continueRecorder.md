@@ -13,7 +13,7 @@ title: continueRecorder
 ```
 
 
-## syberh.record.continueRecorder(Object object)
+## syberh.record.continueRecorder()
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|

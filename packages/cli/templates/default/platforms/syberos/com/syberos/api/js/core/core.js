@@ -108,10 +108,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
       if (plugin.id === 'webview') {
         plugin.object = _spage;
         plugin.trigger('ready', _spage)
-      } else {
-        plugin.trigger('ready', _spage)
       }
-
       if (typeof callback === 'function') callback()
       return
     }
@@ -169,14 +166,26 @@ Syber.prototype.destroy = function (pluginId) {
   }
   if (plugin.page) {
     logger.verbose('Syber destroy() page  pageStack.pop()')
-    //pageStack.pop()
   }
-  this.removePlugin(pluginId)
+
   var component = plugin.component
   if (component) {
     component.destroy()
     // 释放
-    plugin = undefined
+    plugin.component = undefined;
+    logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin))
+  }
+  plugin.isReady = undefined;
+  plugin.object = undefined;
+  plugin.param = {};
+  plugin.incubator = undefined;
+  plugin.handlerId = undefined;
+  logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin))
+  logger.verbose('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin)
+  if (plugin.removePlugin) {
+    logger.info('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin)
+    this.removePlugin(pluginId)
+    plugin = undefined;
   }
   // pageStack.deleteCachedPage(pluginId)
 }
@@ -190,7 +199,7 @@ Syber.prototype.pageStack = function (plugin, callback) {
   logger.verbose('Syber pageStack() start')
   var object = null
   var cachePage
-  if (plugin.cachePage) {
+  if (plugin.isCache) {
     cachePage = pageStack.getCachedPage(Qt.resolvedUrl(plugin.source),
       plugin.id)
     logger.verbose('Syber pageStack() cachePage', cachePage)

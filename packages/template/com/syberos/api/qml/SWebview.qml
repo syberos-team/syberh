@@ -40,6 +40,10 @@ CPage{
     function loading(){
       return swebview.loading;
     }
+    //return swebview url
+    function getCurrentUrl(){
+      return swebview.url.toString();
+    }
     //打开url
     function openUrl(url){
       LOG.logger.verbose('swebview openUrl()',url)
@@ -81,6 +85,8 @@ CPage{
     contentAreaItem:Rectangle{
         id:root
         anchors.fill:parent
+
+
 
         WebView {
             id: swebview
