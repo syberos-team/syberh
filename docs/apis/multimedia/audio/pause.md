@@ -1,16 +1,15 @@
 ---
-title: continuePlay
+title: pause
 ---
 
 
-继续播放：可以对暂时停止的音频文件进行继续播放，可以从指定的时间开始播放。
+暂停播放：对音频文件进行暂时停止播放。
 
 
-## syberh.audio.continuePlay(Object object)
+## syberh.audio.pause()
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
-| position | int |    0    | 否       | 指定播放时间（秒）                  |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -25,7 +24,7 @@ title: continuePlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.continuePlay({
+syberh.audio.pause({
 	success: function(result){
     console.log('success');    
 	},
