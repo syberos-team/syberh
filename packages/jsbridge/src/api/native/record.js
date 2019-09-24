@@ -3,7 +3,7 @@ export default function recordMixin (hybrid) {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('record', [{
-    namespace: 'recorderList',
+    namespace: 'list',
     os: ['syber']
   }, {
     namespace: 'startRecorder',

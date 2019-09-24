@@ -34,9 +34,9 @@
     <uses-permission syberos:name="syberos.permission.READ_NETWORK_STATE"/>
     <uses-permission syberos:name="syberos.permission.RECORD"/>
     <uses-permission syberos:name="syberos.permission.VIBRATE"/>
-    <uses-sdk syberos:minSdkVersion="" syberos:targetSdkVersion=""/>
-    <application syberos:description="syberos hybrid app" syberos:name="hybrid" syberos:icon="res/app.png" syberos:debuggable="true">
-        <uiapp syberos:exec="bin/app" syberos:name="" syberos:launcher="true" syberos:id="app" syberos:icon="res/app.png" syberos:background="" syberos:splash="res/splash.png">
+    <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
+    <application syberos:icon="res/app.png" syberos:description="syberos hybrid app" syberos:debuggable="true" syberos:name="syberh示例">
+        <uiapp syberos:icon="res/app.png" syberos:launcher="true" syberos:id="app" syberos:splash="res/splash.png" syberos:background="" syberos:exec="bin/app" syberos:name="">
             <url syberos:id="">
                 <scheme>syberos</scheme>
             </url>
