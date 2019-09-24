@@ -17,12 +17,52 @@ export class ConnectChecker {
 
   isCdbEnabled(): boolean {
     log.verbose('ConnectChecker isCdbEnabled()')
+    const result = this.execCdbDevices()
+    return result.indexOf('-SyberOS') > 0
+  }
+
+  isSshEnabled(): boolean {
+    log.verbose('ConnectChecker isSshEnabled()')
+    const interfaces = os.networkInterfaces()
+    log.verbose('检查本机IP：%j', interfaces)
+    for (const devName in interfaces) {
+      for (const ipAddr of interfaces[devName]) {
+        if (ipAddr.address && ipAddr.address.startsWith(IP_CHECK)) {
+          log.verbose('IP：%j', ipAddr);
+          return true
+        } else if (ipAddr.mac === '00:22:33:44:55:66') {
+          console.log(chalk.yellow('当前连接的设备可能需要手动配置ip，请配置ip后再次尝试'))
+        }
+      }
+    }
+    return false
+  }
+
+
+  findCdbDevice(): string | null {
+    const result = this.execCdbDevices()
+    const isSupportCdb = result.indexOf('-SyberOS') > 0
+    if (isSupportCdb) {
+      const lastIdx = result.indexOf('-SyberOS')
+      const prefixSub = result.substring(0, lastIdx + 8)
+      const firstIdx = prefixSub.lastIndexOf('\n')
+      return result.substring(firstIdx + 1, lastIdx + 8)
+    }
+    return null
+  }
+
+  private execCdbDevices(): string {
+    log.verbose('ConnectChecker isCdbEnabled()')
     const cdbPath = this.locateCdb()
     log.verbose('%s devices', cdbPath)
 
     const cdbCmd = `${cdbPath} devices`
     log.verbose('执行：', cdbCmd)
+    // 关闭控制台输出命令执行结果
+    shelljs.config.silent = true
     let result = shelljs.exec(`${cdbPath} devices`)
+    // 执行完成后重新打开
+    shelljs.config.silent = false
     log.verbose('执行结果：', result)
 
     // 出现no permissions时，需要重启cdb服务
@@ -41,24 +81,7 @@ export class ConnectChecker {
       log.verbose('执行：', cmd)
       result = shelljs.exec(cmd)
     }
-    return result.stdout.indexOf('-SyberOS') > 0
-  }
-
-  isSshEnabled(): boolean {
-    log.verbose('ConnectChecker isSshEnabled()')
-    const interfaces = os.networkInterfaces()
-    log.verbose('检查本机IP：%j', interfaces)
-    for (const devName in interfaces) {
-      for (const ipAddr of interfaces[devName]) {
-        if (ipAddr.address && ipAddr.address.startsWith(IP_CHECK)) {
-          log.verbose('IP：%j', ipAddr);
-          return true
-        } else if (ipAddr.mac === '00:22:33:44:55:66') {
-          console.log(chalk.yellow('当前连接的设备可能需要手动配置ip，请配置ip后再次尝试'))
-        }
-      }
-    }
-    return false
+    return result.stdout || ''
   }
 
 

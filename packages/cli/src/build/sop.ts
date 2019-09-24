@@ -3,6 +3,7 @@ import chalk from 'chalk'
 import * as path from 'path'
 import { log } from '../util/log'
 import * as helper from '../syberos/helper'
+import * as connect from './connect'
 
 interface ICdbSop {
   isSupportCdb(): boolean
@@ -34,40 +35,14 @@ export class CdbSop implements ICdbSop {
 
   isSupportCdb(): boolean {
     log.verbose('CdbSop isSupportCdb()')
-    const cdbPath = this.locateCdb()
-    log.verbose('%s devices', cdbPath)
 
-    const cdbCmd = `${cdbPath} devices`
-    log.verbose('执行：', cdbCmd)
-    let result = shelljs.exec(`${cdbPath} devices`)
-    log.verbose('执行结果：', result)
-
-    // 出现no permissions时，需要重启cdb服务
-    if (result.stdout.indexOf('no permissions') > 0) {
-      console.log(chalk.yellow('正在重启cdb服务，启动过程中可能需要输入当前用户的密码...'))
-
-      let cmd = `${cdbPath} kill-server`
-      log.verbose('执行：', cmd)
-      shelljs.exec(cmd)
-
-      cmd = `sudo ${cdbPath} start-server`
-      log.verbose('执行：', cmd)
-      shelljs.exec(cmd)
-
-      cmd = `${cdbPath} devices`
-      log.verbose('执行：', cmd)
-      result = shelljs.exec(cmd)
-    }
-
-    const isSupportCdb = result.stdout.indexOf('-SyberOS') > 0
-    if (isSupportCdb) {
-      const lastIdx = result.stdout.indexOf('-SyberOS')
-      const prefixSub = result.stdout.substring(0, lastIdx + 8)
-      const firstIdx = prefixSub.lastIndexOf('\n')
-      this.cdbDevice = result.stdout.substring(firstIdx + 1, lastIdx + 8)
+    const checker = new connect.ConnectChecker(this.pdkRootPath, this.targetName)
+    const cdbDevice = checker.findCdbDevice()
+    if (cdbDevice) {
+      this.cdbDevice = cdbDevice
     }
     log.verbose('isSupportCdb:%s, cdbDevice:%s', this.isSupportCdb, this.cdbDevice)
-    return isSupportCdb
+    return !!cdbDevice
   }
 
 
