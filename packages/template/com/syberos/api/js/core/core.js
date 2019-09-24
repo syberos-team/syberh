@@ -79,7 +79,7 @@ Syber.prototype.request = function (module, handlerId, method, param) {
   // 参数处理
   plugin.setParam(handlerId, param)
   if (plugin.isReady) {
-    // console.log('plugin isReady', plugin.id)
+    logger.verbose('plugin isReady', plugin.id)
     // 直接调用
     plugin.trigger(method, plugin.object, handlerId, param)
     return
@@ -115,12 +115,12 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
 
     var component = Qt.createComponent(plugin.source)
     if (component.status === Component.Error) {
-      console.error('\n initPlugin Error', component.status)
+      logger.error('\n initPlugin Error', component.status)
       return
     }
     plugin.component = component
 
-    var _parent = _root
+    var _parent =currentWebview.object||_root
     var incubator = component.incubateObject(_parent)
     if (incubator) {
       plugin.incubator = incubator

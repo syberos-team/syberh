@@ -25,18 +25,18 @@ Rectangle {
     property real scaleFactor: Screen.width / 1080
 
     /*! 提示的内容 */
-    property string title: ""
+    //property string title: ""
     /*! 提示的延迟时间 */
-    property real duration: 1500
+    readonly property real duration: 1500
     /*! 图标 */
-    property string icon: "success"
+    //property string icon: "success"
     /*! 图标路径 */
-    property string iconPath: ""
+    //property string iconPath: ""
     /*! 一行文本的字符数（英文） */
-    property real textLength: 14
+    readonly property real textLength: 14
 
-   /*! 成功信号，动画执行完发射 */
-   signal accepted()
+    /*! 成功信号，动画执行完发射 */
+    signal accepted()
 
     width: unit.dp(330)
     height: scaleFactor * 330
@@ -56,14 +56,14 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             width: scaleFactor * 141
             height: scaleFactor * 141
-            source: iconPath
+            source: ""
         }
 
         Text {
             id: toastText
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: scaleFactor * 40
-            text: stoast.title
+            text: ""
             color: "white"
         }
     }
@@ -94,31 +94,69 @@ Rectangle {
             closeTimer.stop()
             if(!hideAnimation.running){
                 hideAnimation.start();
+                //触发发送结束信号的定时器
+                emitSignalTimer.start();
             }
         }
     }
 
-    function parseIcon(){
-        console.log("-------------unit-----------",unit.dp(330))
+    Timer{
+        id: emitSignalTimer
+        interval: hideAnimation.duration
+        repeat: false
+        triggeredOnStart: false
+
+        onTriggered: {
+            accepted();
+        }
+    }
+
+    /*! 显示弹层。 */
+    function show(title, icon, duration) {
+
+        hide();
+
+        if(!title){
+            return "提示的内容不能为空";
+        }
+
+        if(!icon){
+            icon = "success";
+        }
+
+        var strlength = getStrLength(title);
+        if(icon !== "none" && strlength > 14){
+            return "有图标时最多7个汉字长度的文本";
+        }
+
+        if(icon === "none" && strlength > 28 ){
+            return "无图标时最多显示两行文本（14个汉字长度）";
+        }
+
         stoast.width = stoast.scaleFactor * 330
         stoast.height = stoast.scaleFactor * 330
         toastIcon.visible = true;
 
         if(icon === "success"){
-            stoast.iconPath = "qrc:/com/syberos/api/res/toast-success.png";
+            toastIcon.source = "qrc:/com/syberos/api/res/toast-success.png";
+            toastText.text = title;
         }else if(icon === "error"){
-            stoast.iconPath = "qrc:/com/syberos/api/res/toast-fail.png";
+            toastIcon.source = "qrc:/com/syberos/api/res/toast-fail.png";
+            toastText.text = title;
         }else if(icon === "none"){
             toastIcon.visible = false;
-            stoast.title = getOutputStr(stoast.title, stoast.textLength);
+            toastText.text = getOutputStr(title, stoast.textLength);
             stoast.width = stoast.scaleFactor * toastText.contentWidth + 80
             stoast.height = stoast.scaleFactor * toastText.contentHeight + 80
         }
-    }
 
-    /*! 显示弹层。 */
-    function show() {
-        parseIcon();
+        if(duration){
+            if (!(/(^[1-9]\d*$)/.test(duration))) {
+                return "duration只能是正整数";
+            }
+            closeTimer.interval = parseInt(duration) + parseInt(showAnimation.duration);
+        }
+
         if(!showAnimation.running){
             showAnimation.start();
         }
@@ -138,7 +176,27 @@ Rectangle {
         closeTimer.stop();
     }
 
-    /*! 获取最终展现字符串。 */
+    /*! 获取字符串长度。 */
+    function getStrLength(inputStr){
+      var currLength = 0
+      if (!inputStr) {
+        return currLength
+      }
+
+      for (var i = 0; i < inputStr.length; i++) {
+        var item = inputStr.charAt(i)
+        // 中文字符的长度经编码之后大于4
+        if (escape(item).length > 4) {
+          currLength += 2
+        } else {
+          currLength += 1
+        }
+      }
+      return currLength
+    }
+
+
+    /*! 获取最终展现字符串。每行14英文字符的长度*/
     function getOutputStr(inputStr, maxRowLength){
 
         if(!inputStr){
