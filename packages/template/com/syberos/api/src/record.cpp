@@ -12,20 +12,18 @@
 int Record::typeId = qRegisterMetaType<Record *>();
 
 Record::Record(){
-    player = new QMediaPlayer();
     recoder = new QAudioRecorder();
     historydata = new HistoryData();
 }
 
 Record::~Record(){
-    delete player;
     delete recoder;
 }
 
 void Record::request(QString callBackID, QString actionName, QVariantMap params)
 {
-    if (actionName == "recorderList"){
-        recorderList(callBackID.toLong(), params);
+    if (actionName == "list"){
+        list(callBackID.toLong(), params);
     }else if (actionName == "startRecorder"){
         startRecorder(callBackID.toLong(), params);
     }else if (actionName == "pauseRecorder"){
@@ -36,14 +34,6 @@ void Record::request(QString callBackID, QString actionName, QVariantMap params)
         stopRecorder(params);
     }else if(actionName == "delRecorder"){
         delRecorder(callBackID.toLong(),params);
-    }else if(actionName == "startPlay"){
-        startPlay(params);
-    }else if(actionName == "pausePlay"){
-        pausePlay(params);
-    }else if(actionName == "continuePlay"){
-        continuePlay(params);
-    }else if(actionName == "stopPlay"){
-        stopPlay(params);
     }
 }
 
@@ -56,7 +46,7 @@ void Record::submit(QString typeID, QString callBackID, QString actionName, QVar
     Q_UNUSED(attachementes)
 }
 
-void Record::recorderList(long callBackID,QVariantMap params){
+void Record::list(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "recorderList" << params << endl;
 
 //    QString path = Helper::instance()->getInnerStorageRootPath() + "/record";
@@ -175,29 +165,4 @@ void Record::stopRecorder(QVariantMap params){
     //在数据库中修改录音记录，增加文件大小、总时长
     FileInfo fileInfo = FileUtil::getInfo(currPath);
     historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
-}
-
-void Record::startPlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "startPlay" << params << endl;
-    QString filePath = params.value("path").toString();
-
-    player->setMedia(QUrl::fromLocalFile(filePath));
-    player->setVolume(50);
-    player->play();
-}
-
-void Record::pausePlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "pausePlay" << params << endl;
-    player->pause();
-}
-
-void Record::continuePlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "continuePlay" << params << endl;
-    player->play();
-}
-
-void Record::stopPlay(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "stopPlay" << params << endl;
-
-    player->stop();
 }

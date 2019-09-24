@@ -180,7 +180,6 @@ QJsonArray HistoryData::selectMetadata() {
             QStringList list = query.value("path").toString().split("/");
             QString fileName = list.at(list.count()-1);
 
-            qDebug() << "-----fileName:" << fileName  << endl;
             jsonObj.insert("fileName", fileName);
             jsonObj.insert("path", query.value("path").toString());
             jsonObj.insert("size", query.value("size").toInt());
@@ -217,7 +216,5 @@ QString HistoryData::formatTime(int duration) {
     if (mins < 10){ if(mins == 0) minsStr = "00"; else minsStr = "0" + QString::number(mins); }else{ minsStr = QString::number(mins);}
     if (hours < 10){ if(hours == 0) hoursStr = "00"; else hoursStr = "0" + QString::number(hours); }else{ hoursStr = QString::number(hours); }
 
-    qDebug() << Q_FUNC_INFO << "hours" << hours << "mins" << mins << "secs" << secs << endl;
-    qDebug() << Q_FUNC_INFO << "hoursStr" << hoursStr << "minsStr" << minsStr << "secsStr" << secsStr << endl;
     return hoursStr + ":" + minsStr + ":" + secsStr;
 }
