@@ -45,11 +45,17 @@
           "apis/multimedia/record/startRecorder",
           "apis/multimedia/record/pauseRecorder",
           "apis/multimedia/record/continueRecorder",
-          "apis/multimedia/record/stopRecorder",
-          "apis/multimedia/record/startPlay",
-          "apis/multimedia/record/pausePlay",
-          "apis/multimedia/record/continuePlay",
-          "apis/multimedia/record/stopPlay"
+          "apis/multimedia/record/stopRecorder"
+        ]
+      },
+      {
+        "label": "音频",
+        "type": "subcategory",
+        "ids": [
+          "apis/multimedia/audio/startPlay",
+          "apis/multimedia/audio/pausePlay",
+          "apis/multimedia/audio/continuePlay",
+          "apis/multimedia/audio/stopPlay"
         ]
       }
     ],

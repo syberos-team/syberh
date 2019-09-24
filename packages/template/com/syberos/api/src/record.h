@@ -21,12 +21,12 @@ public:
     void submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes);
 
     /**
-     * @brief recorderList 录音列表
+     * @brief list 录音列表
      * @param params 参数
      * @return 成功则返回录音文件列表
      *         失败则返回错误码
      */
-    void recorderList(long callBackID, QVariantMap params);
+    void list(long callBackID, QVariantMap params);
 
     /**
      * @brief delRecorder 删除录音
@@ -68,40 +68,7 @@ public:
      */
     void stopRecorder(QVariantMap params);
 
-    /**
-     * @brief startPlay 播放录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void startPlay(QVariantMap params);
-
-    /**
-     * @brief pausePlay 暂停播放
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void pausePlay(QVariantMap params);
-
-    /**
-     * @brief continuePlay 继续播放
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void continuePlay(QVariantMap params);
-
-    /**
-     * @brief stopPlay 结束播放录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void stopPlay(QVariantMap params);
-
 private :
-    QMediaPlayer *player;
     QAudioRecorder *recoder;
     HistoryData *historydata;
 

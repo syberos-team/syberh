@@ -2,6 +2,10 @@
 #define EXTENDEDCONFIG_H
 
 #include <QObject>
+
+// 日志打印级别
+#define EX_DEV_LOG "DEV_LOG"
+
 /**
  * 由编译时传入的参数EX_CONFIG获取配置信息，传入的参数为json格式并已转换为16进制字符串
  * 该类为单例，每次调用instance方法获取配置信息对象

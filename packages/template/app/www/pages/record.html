@@ -97,7 +97,7 @@
     });
 
     function refresh() {
-      syberh.record.recorderList({
+      syberh.record.list({
         success: function (result) {
           var str = "<li class=\"mui-table-view-cell\">";
           str += "<a class=\"mui-navigate-right api-class\">录音列表</a>";
@@ -146,7 +146,7 @@
         $("#continuePlay").hide();
         $("#stopPlay").show();
 
-        syberh.record.startPlay({
+        syberh.audio.startPlay({
           path: path,
           success: function (result) {
             console.log('success');
@@ -166,7 +166,7 @@
       $("#continuePlay").show();
       $("#stopPlay").show();
 
-      syberh.record.pausePlay({
+      syberh.audio.pausePlay({
         success: function (result) {
           console.log('success');
         },
@@ -184,7 +184,7 @@
       $("#continuePlay").hide();
       $("#stopPlay").show();
 
-      syberh.record.continuePlay({
+      syberh.audio.continuePlay({
         success: function (result) {
           console.log('success');
         },
@@ -202,7 +202,7 @@
       $("#continuePlay").hide();
       $("#stopPlay").hide();
 
-      syberh.record.stopPlay({
+      syberh.audio.stopPlay({
         success: function (result) {
           console.log('success');
         },

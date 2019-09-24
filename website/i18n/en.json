@@ -68,6 +68,18 @@
       "apis/modal/toast": {
         "title": "toast"
       },
+      "apis/multimedia/audio/continuePlay": {
+        "title": "continuePlay"
+      },
+      "apis/multimedia/audio/pausePlay": {
+        "title": "pausePlay"
+      },
+      "apis/multimedia/audio/startPlay": {
+        "title": "startPlay"
+      },
+      "apis/multimedia/audio/stopPlay": {
+        "title": "stopPlay"
+      },
       "apis/multimedia/camera/capturePhoto": {
         "title": "takePictureImmediately"
       },
@@ -80,17 +92,11 @@
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/record/continuePlay": {
-        "title": "continuePlay"
-      },
       "apis/multimedia/record/continueRecorder": {
         "title": "continueRecorder"
       },
       "apis/multimedia/record/delRecorder": {
         "title": "delRecorder"
-      },
-      "apis/multimedia/record/pausePlay": {
-        "title": "pausePlay"
       },
       "apis/multimedia/record/pauseRecorder": {
         "title": "pauseRecorder"
@@ -98,14 +104,8 @@
       "apis/multimedia/record/recorderList": {
         "title": "recorderList"
       },
-      "apis/multimedia/record/startPlay": {
-        "title": "startPlay"
-      },
       "apis/multimedia/record/startRecorder": {
         "title": "startRecorder"
-      },
-      "apis/multimedia/record/stopPlay": {
-        "title": "stopPlay"
       },
       "apis/multimedia/record/stopRecorder": {
         "title": "stopRecorder"
