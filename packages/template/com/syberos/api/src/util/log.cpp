@@ -5,8 +5,9 @@
 #include <qlogging.h>
 #include <QMutexLocker>
 #include <stdio.h>
+#include <qlogging.h>
 
-#define DATETIME_FMT "yyyy-MM-dd HH:mm:ss"
+#define DATETIME_FMT "HH:mm:ss"
 
 Log* Log::logger = NULL;
 
@@ -18,12 +19,40 @@ static Log::Level currentLevel;
 
 static QMutex mutex;
 
+void changeQDebugLevel(Log::Level qDebugLev){
+    mutex.lock();
+    qDebugLevel = qDebugLev;
+    mutex.unlock();
+}
+
 void output(QtMsgType type, const QMessageLogContext &context, const QString &msg){
     Q_UNUSED(type);
 
     if(qDebugLevel < currentLevel){
         return;
     }
+
+    // 当qml中打印日志时，按照qDebug日志级别打印
+    if(QString::fromLocal8Bit(context.category) == "qml"){
+        switch(type){
+        case QtDebugMsg:
+            changeQDebugLevel(Log::VERBOSE);
+            break;
+        case QtWarningMsg:
+            changeQDebugLevel(Log::WARNING);
+            break;
+        case QtCriticalMsg:
+            changeQDebugLevel(Log::ERROR);
+            break;
+        case QtFatalMsg:
+            changeQDebugLevel(Log::ERROR);
+            break;
+        default:
+            changeQDebugLevel(Log::INFO);
+            break;
+        }
+    }
+
     QString levelName = Log::levelName(qDebugLevel);
     QString datetime = QDateTime::currentDateTime().toString(DATETIME_FMT);
     fprintf(stderr, "%4s | %s - [%5d] %s | %s\n",
@@ -33,7 +62,7 @@ void output(QtMsgType type, const QMessageLogContext &context, const QString &ms
             context.function,
             msg.toUtf8().constData());
     // 修改qDebug打印的日志级别为默认的info级别
-    qDebugLevel = Log::INFO;
+    changeQDebugLevel(Log::INFO);
 }
 
 Log::Log(QObject *parent) : QObject(parent){
@@ -100,22 +129,22 @@ bool Log::isErrorEnabled(){
 }
 
 QDebug Log::verbose(){
-    setQDebugLevel(Log::VERBOSE);
+    changeQDebugLevel(Log::VERBOSE);
     return qDebug();
 }
 
 QDebug Log::info(){
-    setQDebugLevel(Log::INFO);
+    changeQDebugLevel(Log::INFO);
     return qDebug();
 }
 
 QDebug Log::warn(){
-    setQDebugLevel(Log::WARNING);
+    changeQDebugLevel(Log::WARNING);
     return qDebug();
 }
 
 QDebug Log::error(){
-    setQDebugLevel(Log::ERROR);
+    changeQDebugLevel(Log::ERROR);
     return qDebug();
 }
 
@@ -156,13 +185,4 @@ QDebug Log::white(){
 const char* Log::end(){
     return "\033[0m";
 }
-
-
-
-void Log::setQDebugLevel(Log::Level qDebugLev){
-    mutex.lock();
-    qDebugLevel = qDebugLev;
-    mutex.unlock();
-}
-
 

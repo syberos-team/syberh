@@ -69,11 +69,6 @@ private:
     Log(const Log &) Q_DECL_EQ_DELETE;
     Log& operator=(Log log) Q_DECL_EQ_DELETE;
 
-    /**
-      设置qDebug打印日志的级别
-     */
-    void setQDebugLevel(Log::Level qDebugLevel);
-
     static Log* logger;
 };
 
