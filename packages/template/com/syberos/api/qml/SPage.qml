@@ -1,9 +1,6 @@
 import QtQuick 2.0
-import QtWebKit 3.0
 import QtQuick.Window 2.2
-import QtWebKit.experimental 1.0
 import com.syberos.basewidgets 2.0
-import com.syberos.filemanager.filepicker 1.0
 import "../js/util/log.js" as LOG
 import "../js/syber.js" as Syberh
 

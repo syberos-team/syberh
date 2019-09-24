@@ -13,7 +13,7 @@ title: pauseRecorder
 ```
 
 
-## syberh.record.pauseRecorder(Object object)
+## syberh.record.pauseRecorder()
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|

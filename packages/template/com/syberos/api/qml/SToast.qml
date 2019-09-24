@@ -17,6 +17,8 @@ reserved.
 import QtQuick 2.3
 import QtQuick.Window 2.2
 import com.syberos.basewidgets 2.0
+import "../js/util/tool.js" as Tool
+
 
 Rectangle {
     id: stoast;
@@ -91,7 +93,7 @@ Rectangle {
         triggeredOnStart: false
 
         onTriggered: {
-            closeTimer.stop()
+            closeTimer.stop();
             if(!hideAnimation.running){
                 hideAnimation.start();
                 //触发发送结束信号的定时器
@@ -102,11 +104,12 @@ Rectangle {
 
     Timer{
         id: emitSignalTimer
-        interval: hideAnimation.duration
+        interval: hideAnimation.duration + 100
         repeat: false
         triggeredOnStart: false
 
         onTriggered: {
+            emitSignalTimer.stop();
             accepted();
         }
     }
@@ -124,7 +127,7 @@ Rectangle {
             icon = "success";
         }
 
-        var strlength = getStrLength(title);
+        var strlength = Tool.getStrLength(title);
         if(icon !== "none" && strlength > 14){
             return "有图标时最多7个汉字长度的文本";
         }
@@ -145,7 +148,7 @@ Rectangle {
             toastText.text = title;
         }else if(icon === "none"){
             toastIcon.visible = false;
-            toastText.text = getOutputStr(title, stoast.textLength);
+            toastText.text = Tool.getOutputStr(title, stoast.textLength);
             stoast.width = stoast.scaleFactor * toastText.contentWidth + 80
             stoast.height = stoast.scaleFactor * toastText.contentHeight + 80
         }
@@ -176,58 +179,6 @@ Rectangle {
         closeTimer.stop();
     }
 
-    /*! 获取字符串长度。 */
-    function getStrLength(inputStr){
-      var currLength = 0
-      if (!inputStr) {
-        return currLength
-      }
-
-      for (var i = 0; i < inputStr.length; i++) {
-        var item = inputStr.charAt(i)
-        // 中文字符的长度经编码之后大于4
-        if (escape(item).length > 4) {
-          currLength += 2
-        } else {
-          currLength += 1
-        }
-      }
-      return currLength
-    }
-
-
-    /*! 获取最终展现字符串。每行14英文字符的长度*/
-    function getOutputStr(inputStr, maxRowLength){
-
-        if(!inputStr){
-            return "";
-        }
-
-        var currLength = 0;
-        var outputStr = "";
-        var lineBreak = false;
-        for(var i = 0; i < inputStr.length; i++){
-            var item = inputStr.charAt(i);
-            //中文字符的长度经编码之后大于4
-            if(escape(item).length > 4){
-                currLength += 2;
-            }else{
-                currLength += 1;
-            }
-            outputStr = outputStr.concat(item);
-            //如果未换行且已达到单行字符串最大长度，则给文本换行
-            if(!lineBreak && currLength >= maxRowLength){
-                outputStr = outputStr.concat("\n");
-                lineBreak = true;
-            }
-        }
-
-        //如果只有一行，则将换行符去掉
-        if(outputStr.indexOf("\n") == outputStr.length-1){
-            outputStr = outputStr.replace("\n", "");
-        }
-        return outputStr;
-    }
 }
 
 
