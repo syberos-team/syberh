@@ -13,9 +13,6 @@ function Capture () {
   }
   SyberPlugin.call(this, defaultOpts)
 
-  // 开关
-  this.imageConfirmedFlag = false
-
   var that = this
   this.on('takePhoto', function (object) {
 
@@ -24,21 +21,15 @@ function Capture () {
 //        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
 //    })
 
-//    if (!that.imageConfirmedFlag) {
-        object.imageConfirmed.connect(function(filePath) { //处理信号
-            that.imageConfirmedFlag = true
-            pageStack.pop(root)
-            filePath = "file://"+filePath;
-            WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
-        })
-//    }
+    object.imageConfirmed.connect(function(filePath) { //处理信号
+        that.imageConfirmedFlag = true
+        pageStack.pop()
+        filePath = "file://"+filePath;
+        WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
+    })
 
   })
 
-  this.on('ready', function () {
-    console.log('\n')
-    console.log('Capture ready')
-  })
 }
 
 Capture.prototype = SyberPlugin.prototype

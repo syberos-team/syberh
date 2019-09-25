@@ -65,7 +65,8 @@
         "ids": [
           "apis/image/chooseImage",
           "apis/image/previewImage",
-          "apis/image/saveImageToPhotosAlbum"
+          "apis/image/saveImageToPhotosAlbum",
+          "apis/image/getImageInfo"
         ]
       }
     ],

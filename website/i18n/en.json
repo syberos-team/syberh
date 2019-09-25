@@ -53,6 +53,9 @@
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
+      "apis/image/getImageInfo": {
+        "title": "getImageInfo"
+      },
       "apis/image/previewImage": {
         "title": "previewImage"
       },
