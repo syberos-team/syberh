@@ -68,11 +68,11 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/audio/continue": {
-        "title": "continue"
-      },
       "apis/multimedia/audio/pause": {
         "title": "pause"
+      },
+      "apis/multimedia/audio/resume": {
+        "title": "resume"
       },
       "apis/multimedia/audio/start": {
         "title": "start"
@@ -92,17 +92,17 @@
       "apis/multimedia/camera/takePhoto": {
         "title": "takePhoto"
       },
-      "apis/multimedia/record/continue": {
-        "title": "continue"
-      },
-      "apis/multimedia/record/delete": {
-        "title": "delete"
-      },
       "apis/multimedia/record/list": {
         "title": "list"
       },
       "apis/multimedia/record/pause": {
         "title": "pause"
+      },
+      "apis/multimedia/record/remove": {
+        "title": "remove"
+      },
+      "apis/multimedia/record/resume": {
+        "title": "resume"
       },
       "apis/multimedia/record/start": {
         "title": "start"
@@ -233,6 +233,9 @@
       },
       "README": {
         "title": "Syberh 介绍"
+      },
+      "return_code": {
+        "title": "全局返回码"
       },
       "specials": {
         "title": "常见问题"
