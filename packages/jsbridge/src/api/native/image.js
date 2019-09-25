@@ -54,6 +54,17 @@ export default function imageMixin(hybrid) {
                 );
                 hybridJs.callInner.apply(this, args);
             },
+        }, {
+            namespace: 'getImageInfo',
+            os: ['syber'],
+            runCode(...rest) {
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                    'path',
+                );
+                hybridJs.callInner.apply(this, args);
+            },
         },
     ]);
 }

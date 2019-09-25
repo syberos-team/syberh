@@ -25,6 +25,15 @@ private:
      *      失败则发送失败信号。
      */
     void saveImageToPhotosAlbum(long callBackID, QString filePath);
+
+
+    /**
+     * @brief getImageInfo 获取图片的详细
+     * @param callBackID 任务Id
+     * @return 成功则发送成功信号。
+     *      失败则发送失败信号。
+     */
+    void getImageInfo(long callBackID, QVariantMap params);
 };
 
 #endif // IMAGE_H
