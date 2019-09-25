@@ -91,6 +91,12 @@ bool DevTools::copyWWW(){
     Helper::instance()->emptyDir(dataPath);
     FileUtil::chmodr(dataPath);
     FileUtil::remove(dataPath,1);
-    return FileUtil::copy(webPath,dataPath);
-
+    RespResult resp = FileUtil::copy(webPath,dataPath.replace("/www", ""));
+    if (resp.flag){
+        FileUtil::chmodr(dataPath);
+        return true;
+    } else {
+        qDebug()<<Q_FUNC_INFO<<"copyWWW failed " + resp.msg <<endl;
+        return false;
+    }
 }

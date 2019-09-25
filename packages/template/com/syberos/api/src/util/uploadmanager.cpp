@@ -45,10 +45,19 @@ void UploadManager::uploadFile(QString reqUrl, QString localFile)
 
     file->setParent(multiPart);
 
-    multiPart->append(imagePart);
+    multiPart->append(imagePart);  
 
-    QUrl url(reqUrl);
-    QNetworkRequest request(url);
+    QNetworkRequest request;
+
+    QString urlAddr = reqUrl.toLower();
+    if(urlAddr.startsWith("https")){
+        QSslConfiguration config;
+        config.setPeerVerifyMode(QSslSocket::VerifyNone);
+        config.setProtocol(QSsl::UnknownProtocol);
+        request.setSslConfiguration(config);
+    }
+    request.setUrl(reqUrl);
+
 
     m_reply = m_networkManager->post(request, multiPart);
 
