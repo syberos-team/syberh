@@ -53,8 +53,14 @@
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
+      "apis/image/getImageInfo": {
+        "title": "getImageInfo"
+      },
       "apis/image/previewImage": {
         "title": "previewImage"
+      },
+      "apis/image/saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
       },
       "apis/modal/alert": {
         "title": "alert"

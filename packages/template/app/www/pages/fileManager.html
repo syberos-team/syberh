@@ -22,11 +22,11 @@
 				<div class="mui-input-group">
 					<div class="mui-input-row">
 						<label onclick="moveSrcClick()">源文件(点我)</label>
-						<input type="text" class="mui-input-clear" id="move-src">
+						<input type="text" class="mui-input-clear" id="move-src" value="/data/data/com.syberos.camera/inbox">
 					</div>
 					<div class="mui-input-row">
 						<label >目标路径</label>
-						<input type="text" class="mui-input-clear" id="move-dest">
+						<input type="text" class="mui-input-clear" id="move-dest" value="/data/data/com.syberos.demo/www/pages">
 					</div>
 					<div class="mui-button-row">
 						<button type="button" class="mui-btn mui-btn-primary" onclick="move()">移动</button>
@@ -105,6 +105,7 @@
 	</ul>
 
 	<textarea id="show-rsp" cols="30" rows="10"></textarea>
+	
      
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -195,7 +196,10 @@
         success: function(res) {
 		//   console.info(res)
 		  document.getElementById("show-rsp").value = "移动：" + JSON.stringify(res);
-        }
+        },
+		fail: function(res){
+			document.getElementById("show-rsp").value = "移动：" + JSON.stringify(res);
+		}
       });
     }
     function copy() {
@@ -205,7 +209,10 @@
         success: function(res) {
 		//   console.info(res)
 		  document.getElementById("show-rsp").value = "拷贝：" + JSON.stringify(res);
-        }
+        },
+		fail: function(res){
+			document.getElementById("show-rsp").value = "拷贝：" + JSON.stringify(res);
+		}
       })
     }
     function list() {

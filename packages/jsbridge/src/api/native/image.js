@@ -39,5 +39,32 @@ export default function imageMixin(hybrid) {
                 hybridJs.callInner.apply(this, args);
             },
         },
+        {
+            namespace: 'saveImageToPhotosAlbum',
+            os: ['syber'],
+            defaultParams: {
+                filePath: '',
+            },
+            runCode(...rest) {
+                // 兼容字符串形式
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                    'filePath',
+                );
+                hybridJs.callInner.apply(this, args);
+            },
+        }, {
+            namespace: 'getImageInfo',
+            os: ['syber'],
+            runCode(...rest) {
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                    'path',
+                );
+                hybridJs.callInner.apply(this, args);
+            },
+        },
     ]);
 }
