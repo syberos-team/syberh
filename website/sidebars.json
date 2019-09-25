@@ -1,4 +1,4 @@
-{
+﻿{
   "docs": {
     "关于Syberh": [
       "README"
@@ -135,7 +135,8 @@
       "apis/path/dataRoot"
     ],
     "图片": [
-      "apis/image/chooseImage"
+      "apis/image/chooseImage",
+      "apis/image/saveImageToPhotosAlbum"
     ],
     "上传": [
       "apis/upload/upload",
