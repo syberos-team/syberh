@@ -25,6 +25,8 @@ void Image::request(QString callBackID, QString actionName, QVariantMap params)
 
         QString filePath = params.value("filePath").toString();
         saveImageToPhotosAlbum(callBackIDLong, filePath);
+    }else if(actionName == "getImageInfo"){
+        getImageInfo(callBackID.toLong(),params);
     }
 }
 
@@ -77,4 +79,33 @@ void Image::saveImageToPhotosAlbum(long callBackID, QString filePath){
     }
 
     emit success(callBackID, newFile);
+}
+
+
+void Image::getImageInfo(long callBackID, QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "getImageInfo" << params << endl;
+
+    QString filePath = params.value("path").toString();
+
+    QFile file(filePath);
+    if(!file.exists()){
+        qDebug() << Q_FUNC_INFO << "图片不存在：" << filePath << endl;
+        emit failed(callBackID, 500, "图片不存在");
+        return;
+    }
+
+    QJsonObject jsonObject;
+
+    QImage imageInfo = QImage(filePath);
+    jsonObject.insert("width", imageInfo.width());
+    jsonObject.insert("height", imageInfo.height());
+
+    QFileInfo fileInfo(file);
+    jsonObject.insert("fileName", fileInfo.fileName());
+    jsonObject.insert("size", fileInfo.size());
+    jsonObject.insert("created", fileInfo.created().toString("yyyy-MM-dd hh:mm:ss"));
+
+    QStringList filenameArr = fileInfo.fileName().split(".");
+    jsonObject.insert("type", filenameArr[filenameArr.length()-1]);
+    emit success(callBackID, QVariant(jsonObject));
 }
