@@ -23,7 +23,7 @@
     "release:lerna": "lerna publish --force-publish=* --exact --skip-temp-tag",
     "release:beta": "lerna publish --force-publish=* --exact --skip-temp-tag  --preid=beta --npm-tag=beta",
     "release": "npm-run-all build release:lerna && npm run changelog && node ./build/docs-version.js",
-    "publish-l": "lerna publish --conventional-commits --independent"
+    "publish-l": "lerna publish --conventional-commits"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
