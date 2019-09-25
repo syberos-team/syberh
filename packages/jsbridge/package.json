@@ -4,6 +4,9 @@
   "description": "js-sdk for syberh",
   "homepage": "https://github.com/syberos-team/syberh",
   "main": "dist/syberh.min.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "mocha",
     "build": "webpack",

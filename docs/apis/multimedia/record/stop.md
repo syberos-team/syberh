@@ -1,13 +1,19 @@
 ---
-title: continuePlay
+title: stop
 ---
 
 
-继续播放：可以对暂时停止的录音进行继续播放。
+结束录音：对周围环境的声音进行停止录制。
 
+> 录音功能属于敏感权限,要实现录音必须获取录音权限以及数据存储权限,在sopconfig.xml文件中添加如下字段:
 
-## syberh.record.continuePlay(Object object)
-#### Object object
+``` javascript
+<uses-permission syberos:name="syberos.permission.RECORD"/>
+<uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
+```
+
+## syberh.record.stop()
+### **参数**
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
 | success | function |        | 否       | 回调成功                    |
@@ -24,9 +30,9 @@ title: continuePlay
 
 ### **代码示例**
 ``` javascript
-syberh.record.continuePlay({
+syberh.record.stop({
 	success: function(result){
-    console.log('success');    
+		console.log('success');
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);

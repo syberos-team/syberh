@@ -8,6 +8,7 @@ import * as helper from '../syberos/helper'
 import config from '../config/index'
 import { log } from '../util/log'
 import * as sop from './sop'
+import * as connect from './connect'
 
 export default class Build {
   // 日志级别
@@ -46,12 +47,49 @@ export default class Build {
   }
 
   /**
+   * 开始编译， 并在设备上运行
+   */
+  public async start() {
+    log.verbose('Build start()')
+
+    this.pdkRootPath = await helper.locateSdk()
+    log.verbose('pdkRootPath:', this.pdkRootPath)
+
+    // 检查设备连接
+    this.checkConnect(this.pdkRootPath, this.targetName)
+
+    console.log(chalk.green('开始编译'))
+    log.verbose('appPath:%s, conf:%j', this.appPath, this.conf)
+
+    // 执行编译
+    await this.buildSop()
+    // 安装sop
+    await this.installSop()
+  }
+
+  /**
+   * 检查手机是否连接
+   */
+  private checkConnect(pdkRootPath: string, targetName: string) {
+    log.verbose('Build checkConnect(%s, %s)', pdkRootPath, targetName)
+    const { adapter } = this.conf
+    if (DEVICES_TYPES.DEVICE !== adapter) {
+      log.verbose('当前设备类型为：%s, 无须检查设备连接')
+      return
+    }
+    const checker = new connect.ConnectChecker(pdkRootPath, targetName)
+    if (checker.isCdbEnabled() || checker.isSshEnabled()) {
+      return
+    }
+    console.log(chalk.red('未检测到设备'))
+    process.exit(0)
+  }
+
+  /**
    * 开始编译
    */
   public async buildSop() {
     log.verbose('Build buildSop()')
-    this.pdkRootPath = await helper.locateSdk()
-    log.verbose('pdkRootPath:', this.pdkRootPath)
     // 1、生成编译目录
     this.mkdirBuild()
     // 2、拷贝www路径到模板下
@@ -69,20 +107,6 @@ export default class Build {
       console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
       shelljs.exit(0)
     }
-  }
-
-  /**
-   * 开始编译， 并在设备上运行
-   */
-  public async start() {
-    console.log(chalk.green('开始编译'))
-    log.verbose('Build start()')
-    log.verbose('appPath:%s, conf:%j', this.appPath, this.conf)
-
-    // 执行编译
-    await this.buildSop()
-    // 安装sop
-    await this.installSop()
   }
 
   /**

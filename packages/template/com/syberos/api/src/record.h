@@ -21,12 +21,12 @@ public:
     void submit(QString typeID,QString callBackID,QString actionName,QVariant dataRowList, QVariant attachementes);
 
     /**
-     * @brief recorderList 录音列表
+     * @brief list 录音列表
      * @param params 参数
      * @return 成功则返回录音文件列表
      *         失败则返回错误码
      */
-    void recorderList(long callBackID, QVariantMap params);
+    void list(long callBackID, QVariantMap params);
 
     /**
      * @brief delRecorder 删除录音
@@ -34,74 +34,41 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void delRecorder(long callBackID,QVariantMap params);
+    void remove(long callBackID,QVariantMap params);
 
     /**
-     * @brief startRecorder 开始录音
+     * @brief start 开始录音
      * @param params 参数
      * @return 成功则返回录音文件路径
      *         失败则返回错误码
      */
-    void startRecorder(long callBackID, QVariantMap params);
+    void start(long callBackID, QVariantMap params);
 
     /**
-     * @brief pauseRecorder 暂停录音
+     * @brief pause 暂停录音
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void pauseRecorder(QVariantMap params);
+    void pause(QVariantMap params);
 
     /**
-     * @brief continueRecorder 继续录音
+     * @brief resume 继续录音
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void continueRecorder(QVariantMap params);
+    void resume(QVariantMap params);
 
     /**
-     * @brief stopRecorder 结束录音
+     * @brief stop 结束录音
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void stopRecorder(QVariantMap params);
-
-    /**
-     * @brief startPlay 播放录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void startPlay(QVariantMap params);
-
-    /**
-     * @brief pausePlay 暂停播放
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void pausePlay(QVariantMap params);
-
-    /**
-     * @brief continuePlay 继续播放
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void continuePlay(QVariantMap params);
-
-    /**
-     * @brief stopPlay 结束播放录音
-     * @param params 参数
-     * @return 成功则无返回
-     *         失败则返回错误码
-     */
-    void stopPlay(QVariantMap params);
+    void stop(long callBackID,QVariantMap params);
 
 private :
-    QMediaPlayer *player;
     QAudioRecorder *recoder;
     HistoryData *historydata;
 

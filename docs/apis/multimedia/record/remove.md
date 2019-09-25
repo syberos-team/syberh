@@ -1,25 +1,27 @@
 ---
-title: stopRecorder
+title: remove
 ---
 
 
-结束录音：对周围环境的声音进行停止录制。
+删除录音：对录音文件进行删除。
 
-> 录音功能属于敏感权限,要实现录音必须获取录音权限以及数据存储权限,在sopconfig.xml文件中添加如下字段:
 
-``` javascript
-<uses-permission syberos:name="syberos.permission.RECORD"/>
-<uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
-```
-
-## syberh.record.stopRecorder()
-### **参数**
+## syberh.record.remove(Object object)
+### 参数
+#### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| path | string |        | 是       | 录音路径                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
-**object.fail回调函数**
+#### object.success回调函数 
+#### 参数
+| 属性     | 类型    | 必填 | 描述                     |
+| ---------- | ------- | -------- | ---------------------- |
+| result | boolean  | 是     | 返回true, 表示执行成功  |
+
+#### object.fail回调函数
 #### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
@@ -28,11 +30,12 @@ title: stopRecorder
 
 
 
-### **代码示例**
+### 代码示例
 ``` javascript
-syberh.record.stopRecorder({
+syberh.record.remove({
+  path: "/home/user/record/xxx.aac",
 	success: function(result){
-		console.log('success');
+    console.log('success',result);    
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);

@@ -71,8 +71,17 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/camera/capturePhoto": {
-        "title": "takePictureImmediately"
+      "apis/multimedia/audio/pause": {
+        "title": "pause"
+      },
+      "apis/multimedia/audio/resume": {
+        "title": "resume"
+      },
+      "apis/multimedia/audio/start": {
+        "title": "start"
+      },
+      "apis/multimedia/audio/stop": {
+        "title": "stop"
       },
       "apis/multimedia/camera/captureVideoEnd": {
         "title": "captureVideoEnd"
@@ -83,35 +92,26 @@
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/record/continuePlay": {
-        "title": "continuePlay"
+      "apis/multimedia/camera/takePhoto": {
+        "title": "takePhoto"
       },
-      "apis/multimedia/record/continueRecorder": {
-        "title": "continueRecorder"
+      "apis/multimedia/record/list": {
+        "title": "list"
       },
-      "apis/multimedia/record/delRecorder": {
-        "title": "delRecorder"
+      "apis/multimedia/record/pause": {
+        "title": "pause"
       },
-      "apis/multimedia/record/pausePlay": {
-        "title": "pausePlay"
+      "apis/multimedia/record/remove": {
+        "title": "remove"
       },
-      "apis/multimedia/record/pauseRecorder": {
-        "title": "pauseRecorder"
+      "apis/multimedia/record/resume": {
+        "title": "resume"
       },
-      "apis/multimedia/record/recorderList": {
-        "title": "recorderList"
+      "apis/multimedia/record/start": {
+        "title": "start"
       },
-      "apis/multimedia/record/startPlay": {
-        "title": "startPlay"
-      },
-      "apis/multimedia/record/startRecorder": {
-        "title": "startRecorder"
-      },
-      "apis/multimedia/record/stopPlay": {
-        "title": "stopPlay"
-      },
-      "apis/multimedia/record/stopRecorder": {
-        "title": "stopRecorder"
+      "apis/multimedia/record/stop": {
+        "title": "stop"
       },
       "apis/navigator/navigator": {
         "title": "navigator"

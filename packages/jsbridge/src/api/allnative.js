@@ -23,35 +23,37 @@ import fileManagerMixin from './native/fileManager';
 import pathMixin from './native/path';
 import imageMixin from './native/image';
 import uploadMixin from './native/upload';
+import audioMixin from './native/audio';
 
 
 // const hybridJs = window.syber;
-export default function allNative (hybridJs) {
-  // 下载模块
-  downloadMixin(hybridJs);
-  modalMixin(hybridJs);
-  routerMix(hybridJs);
-  runtimeMixin(hybridJs);
-  deviceMixin(hybridJs);
-  pageMixin(hybridJs);
-  navigatorMixin(hybridJs);
-  utilMixin(hybridJs);
-  telephonyMixin(hybridJs);
-  storageMixin(hybridJs);
-  systemMixin(hybridJs);
-  networkMixin(hybridJs);
-  captureMixin(hybridJs);
-  clipboardMixin(hybridJs);
-  recordMixin(hybridJs);
-  networkInfoMixin(hybridJs);
-  batteryMixin(hybridJs);
-  networkDisabledMixin(hybridJs);
-  networkEnabledMixin(hybridJs);
-  filepickerMixin(hybridJs);
-  fileManagerMixin(hybridJs);
-  packageMixin(hybridJs);
-  pathMixin(hybridJs);
-  filepickerMixin(hybridJs);
-  imageMixin(hybridJs);
-  uploadMixin(hybridJs);
+export default function allNative(hybridJs) {
+    // 下载模块
+    downloadMixin(hybridJs);
+    modalMixin(hybridJs);
+    routerMix(hybridJs);
+    runtimeMixin(hybridJs);
+    deviceMixin(hybridJs);
+    pageMixin(hybridJs);
+    navigatorMixin(hybridJs);
+    utilMixin(hybridJs);
+    telephonyMixin(hybridJs);
+    storageMixin(hybridJs);
+    systemMixin(hybridJs);
+    networkMixin(hybridJs);
+    captureMixin(hybridJs);
+    clipboardMixin(hybridJs);
+    recordMixin(hybridJs);
+    networkInfoMixin(hybridJs);
+    batteryMixin(hybridJs);
+    networkDisabledMixin(hybridJs);
+    networkEnabledMixin(hybridJs);
+    filepickerMixin(hybridJs);
+    fileManagerMixin(hybridJs);
+    packageMixin(hybridJs);
+    pathMixin(hybridJs);
+    filepickerMixin(hybridJs);
+    imageMixin(hybridJs);
+    uploadMixin(hybridJs);
+    audioMixin(hybridJs);
 }

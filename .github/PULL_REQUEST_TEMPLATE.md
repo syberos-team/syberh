@@ -29,7 +29,7 @@ https://github.com/syberos-team/syberh/blob/master/docs/CONTRIBUTING.md
 **这个 PR 涉及以下模块:**
 
 - [ ] cli
-- [ ] bridge
+- [ ] jsbridge
 - [ ] template
 - [ ] dev-server
 - [ ] docs

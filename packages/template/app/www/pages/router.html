@@ -44,10 +44,6 @@
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right " onclick="reload()">reload</a>
         </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" onclick="reload2()">reload2</a>
-        </li>
-
         </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
@@ -66,7 +62,21 @@
         </li>
 
         <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">getCurrentPages</a>
+          <div class="mui-collapse-content">
+            <div>页面层数:<p id="depth"></p>
+            </div>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
+              onclick="getCurrentPages()">确定</button>
+          </div>
+
+        </li>
+        <li class="mui-table-view-cell">
           <a class="mui-navigate-right" href="#">navigateBack</a>
+          <div class="mui-input-row">
+            <label>delta:</label>
+            <input id="delta" type="number" value="1">
+          </div>
           <div class="mui-collapse-content">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateBack()">确定</button>
           </div>
@@ -165,8 +175,9 @@
     }
 
     function navigateBack() {
-
+      var delta = Number(document.getElementById('delta').value)
       syberh.router.navigateBack({
+        delta: delta,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
@@ -177,6 +188,24 @@
         }
       })
     }
+
+
+    function getCurrentPages() {
+      syberh.router.getCurrentPages({
+        success: function (result) {
+          console.info(result)
+          document.getElementById("depth").innerHTML = result.depth
+          showTips(JSON.stringify(result.depth))
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(error)
+        }
+      })
+    }
+
+
+
 
     syberh.subscribe('onShow', function (result) {
       console.log("result: ", JSON.stringify(result));

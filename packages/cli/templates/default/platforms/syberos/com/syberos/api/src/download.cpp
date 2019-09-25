@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QFile>
+#include "framework/common/errorinfo.h"
 
 //key 既是downloadID也是callbackId
 static QMap<QString, TaskInfo*> tasks;
@@ -83,7 +84,7 @@ void Download::submit(QString typeID,QString callBackID,QString actionName,QVari
 void Download::start(QString callbackId, QString url, QString name, QString storage){
     // 检查网络
     if (!netWorkConnected()) {
-        emit failed(callbackId.toLong(),NETWORK_ERROR,ErrorInfo::m_errorCode.value(NETWORK_ERROR));
+        emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::getErrorMessage(ErrorInfo::NetworkError));
         return;
     }
 
