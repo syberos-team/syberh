@@ -5,19 +5,11 @@ import com.syberos.photos.extension 1.0
 CPage {
     id: mainPage
 
+    /*! 图片的url数组 */
     property var urls: []
-    property string current
-    /*!
-        \qmlproperty variant CEditGridViewPage::toolButtonNames
-        工具栏上按钮的名字，它的值应该是一个数组
-    */
-    property variant toolButtonNames: ["取消", "取消12323"]
 
-    /*!
-        \qmlproperty variant CEditGridViewPage::toolButtonNames
-        工具栏上按钮的名字，它的值应该是一个数组
-    */
-    property bool returnEable: false
+    /*! 当前的url */
+    property string current
 
     /*! 按钮的高度，默认值为60*/
     property int buttonHeight: 80
@@ -37,21 +29,9 @@ CPage {
 
     // 监听返回事件，取消按钮点击才生效
     Keys.onReleased: {
-        console.log('listPreview Keys.onReleased',Keys.onReleased)
-
         if(event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
             event.accepted = true
-
-            if(returnEable) {
-                // 成功信号
-                success()
-                // 重置
-                returnEable = false
-                // 点击取消返回页面
-                pageStack.pop()
-            }
         }
-
     }
 
 
@@ -87,8 +67,6 @@ CPage {
        onReleased: {
            // 成功信号
            success()
-           // 重置
-           returnEable = false
            // 点击取消返回页面
            pageStack.pop()
            disabledTimer.restart()
@@ -115,7 +93,6 @@ CPage {
 
         listPreview.model = lstModel
 
-
         urls.forEach(function (item) {
             lstModel.append({url: item})
         })
@@ -125,5 +102,6 @@ CPage {
     }
 
     SPhotoPreviewModel{ id: lstModel }
+
 }
 

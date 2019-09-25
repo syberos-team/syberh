@@ -1,8 +1,6 @@
 import QtQuick 2.0
 
-
+// previewModel
 ListModel {
-//    ListElement {
-//        url: 'file:///home/user/IMG_20190919_093358.jpg'
-//    }
+
 }
