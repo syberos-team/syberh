@@ -1,9 +1,9 @@
 ---
-title: pauseRecorder
+title: resume
 ---
 
 
-暂停录音：可以对录音进行暂时停止。
+继续录音：对暂时停止的录音进行继续录制。
 
 > 录音功能属于敏感权限,要实现录音必须获取录音权限以及数据存储权限,在sopconfig.xml文件中添加如下字段:
 
@@ -13,7 +13,7 @@ title: pauseRecorder
 ```
 
 
-## syberh.record.pauseRecorder()
+## syberh.record.resume()
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
@@ -31,7 +31,7 @@ title: pauseRecorder
 
 ### **代码示例**
 ``` javascript
-syberh.record.pauseRecorder({
+syberh.record.resume({
 	success: function(result){
     console.log('success');    
 	},

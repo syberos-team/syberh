@@ -1,8 +1,11 @@
 import chalk from 'chalk'
 import * as _ from 'lodash'
 
-import { BUILD_TYPES } from './util/constants'
+import { BUILD_TYPES, DEVICES_TYPES } from './util/constants'
 import { IBuildConfig } from './util/types'
+import diagnose from './doctor/index'
+import * as b from './build/index'
+import { getProjectConfig } from './syberos/helper'
 
 export default async function build(appPath, buildConfig: IBuildConfig) {
 
@@ -22,27 +25,46 @@ export default async function build(appPath, buildConfig: IBuildConfig) {
     }
   } else {
     // 默认打SOP包
-    buildSop(appPath, buildConfig)
+    await buildSop(appPath, buildConfig)
   }
 }
 
-function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
-  require('./build/index').build(appPath, {
-    ...buildConfig,
-    adapter: BUILD_TYPES.DEVICE
+async function diagnoseFastfail(buildConfig: IBuildConfig) {
+  if (!buildConfig.nodoctor) {
+    const hasFail = await diagnose()
+    if (hasFail) {
+      process.exit(0)
+    }
+  }
+}
+
+async function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
+  const projectConfig = getProjectConfig(appPath)
+  await diagnoseFastfail(buildConfig)
+  await b.build(appPath, {
+    target: projectConfig.target,
+    debug: buildConfig.debug,
+    adapter: DEVICES_TYPES.DEVICE
   })
 }
 
-function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
-  require('./build/index').build(appPath, {
-    ...buildConfig,
-    adapter: BUILD_TYPES.SIMULATOR
+async function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
+  const projectConfig = getProjectConfig(appPath)
+  await diagnoseFastfail(buildConfig)
+  await b.build(appPath, {
+    target: projectConfig.targetSimulator,
+    debug: buildConfig.debug,
+    adapter: DEVICES_TYPES.SIMULATOR
   })
 }
 
-function buildSop(appPath: string, buildConfig: IBuildConfig) {
-  require('./build/index').build(appPath, {
-    ...buildConfig,
+async function buildSop(appPath: string, buildConfig: IBuildConfig) {
+  const projectConfig = getProjectConfig(appPath)
+  await diagnoseFastfail(buildConfig)
+  await b.build(appPath, {
+    target: projectConfig.target,
+    debug: buildConfig.debug,
+    adapter: DEVICES_TYPES.DEVICE,
     onlyBuildSop: true
   })
 }

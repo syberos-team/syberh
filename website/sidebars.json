@@ -34,28 +34,29 @@
         "label": "相机",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/camera/capturePhoto"
+          "apis/multimedia/camera/takePhoto"
         ]
       },
       {
         "label": "录音",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/record/recorderList",
-          "apis/multimedia/record/startRecorder",
-          "apis/multimedia/record/pauseRecorder",
-          "apis/multimedia/record/continueRecorder",
-          "apis/multimedia/record/stopRecorder"
+          "apis/multimedia/record/list",
+          "apis/multimedia/record/start",
+          "apis/multimedia/record/pause",
+          "apis/multimedia/record/resume",
+          "apis/multimedia/record/stop",
+          "apis/multimedia/record/remove"
         ]
       },
       {
         "label": "音频",
         "type": "subcategory",
         "ids": [
-          "apis/multimedia/audio/startPlay",
-          "apis/multimedia/audio/pausePlay",
-          "apis/multimedia/audio/continuePlay",
-          "apis/multimedia/audio/stopPlay"
+          "apis/multimedia/audio/start",
+          "apis/multimedia/audio/pause",
+          "apis/multimedia/audio/resume",
+          "apis/multimedia/audio/stop"
         ]
       }
     ],

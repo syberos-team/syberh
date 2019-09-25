@@ -34,39 +34,39 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void delRecorder(long callBackID,QVariantMap params);
+    void remove(long callBackID,QVariantMap params);
 
     /**
-     * @brief startRecorder 开始录音
+     * @brief start 开始录音
      * @param params 参数
      * @return 成功则返回录音文件路径
      *         失败则返回错误码
      */
-    void startRecorder(long callBackID, QVariantMap params);
+    void start(long callBackID, QVariantMap params);
 
     /**
-     * @brief pauseRecorder 暂停录音
+     * @brief pause 暂停录音
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void pauseRecorder(QVariantMap params);
+    void pause(QVariantMap params);
 
     /**
-     * @brief continueRecorder 继续录音
+     * @brief resume 继续录音
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void continueRecorder(QVariantMap params);
+    void resume(QVariantMap params);
 
     /**
-     * @brief stopRecorder 结束录音
+     * @brief stop 结束录音
      * @param params 参数
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void stopRecorder(QVariantMap params);
+    void stop(long callBackID,QVariantMap params);
 
 private :
     QAudioRecorder *recoder;
