@@ -57,7 +57,7 @@ CListDialog{
         })
 
         // 相机取消信号
-        cameraComponent.back.connect(function () {
+        cameraComponent.imageCancele.connect(function () {
             selectedDialog.cameraCancel()
         })
     }
