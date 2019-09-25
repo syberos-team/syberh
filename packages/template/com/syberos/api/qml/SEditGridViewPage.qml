@@ -243,6 +243,9 @@ CPage {
                 onAnimationVisibleChanged:{
                     names = []
                     names = toolButtonNames
+                    // 有了按钮区域以后，先吧按钮置灰
+                    photoToolBar.enabledIndexes([0,1], false)
+                    photoToolBar.lastEnabled = false
                 }
                 onClicked: {
                     var tmpIndex=0;
@@ -263,9 +266,10 @@ CPage {
 
                         if(listPreview){
                             listPreview.currentIndex = 0
-//                            STATUS.setArr(mainPage.selectedIndexes)
                             pageStack.push(listPreview)
                         }
+
+
                     } else if(1 === index) {
                         console.log('确定---', photoBrowser.selectedIndexes)
                         mainPage.confirm(photoBrowser.selectedIndexes)

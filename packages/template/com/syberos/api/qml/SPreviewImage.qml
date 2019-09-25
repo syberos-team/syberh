@@ -5,17 +5,14 @@ import com.syberos.photos.extension 1.0
 CPage {
     id: mainPage
 
+    /*! 图片的url数组 */
     property var urls: []
+
+    /*! 当前的url */
     property string current
-    /*!
-        \qmlproperty variant CEditGridViewPage::toolButtonNames
-        工具栏上按钮的名字，它的值应该是一个数组
-    */
-    property variant toolButtonNames: ["取消", "取消12323"]
 
     /*!
-        \qmlproperty variant CEditGridViewPage::toolButtonNames
-        工具栏上按钮的名字，它的值应该是一个数组
+        是否可以返回
     */
     property bool returnEable: false
 
@@ -115,7 +112,6 @@ CPage {
 
         listPreview.model = lstModel
 
-
         urls.forEach(function (item) {
             lstModel.append({url: item})
         })
@@ -125,5 +121,6 @@ CPage {
     }
 
     SPhotoPreviewModel{ id: lstModel }
+
 }
 

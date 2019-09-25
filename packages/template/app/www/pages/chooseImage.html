@@ -143,17 +143,17 @@
     }
 
     function previewImg(idx) {
-      console.log('previewImg curPath curPath curPath', idx)
+      console.log('previewImg curPath', idx)
       var imgDoms = document.getElementsByClassName('previewImg')
-      console.log('imgDoms---', imgDoms)
       var urls = []
       for (var i = 0; i<imgDoms.length; i++) {
         urls.push(imgDoms[i].src)
       }
       console.log('urls---', urls)
+
       syberh.image.previewImage({
         urls: urls,
-        current: imgDoms[idx],
+        current: urls[idx],
         success: function () {
           console.log('image.previewImage success')
         },
