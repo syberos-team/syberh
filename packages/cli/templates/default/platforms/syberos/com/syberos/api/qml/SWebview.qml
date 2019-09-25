@@ -86,6 +86,8 @@ CPage{
         id:root
         anchors.fill:parent
 
+
+
         WebView {
             id: swebview
             focus: true
@@ -252,7 +254,7 @@ CPage{
             }
 
             onLoadProgressChanged: {
-                LOG.logger.verbose('SWebview qml onLoadProgressChanged',loadProgress)
+                console.info('SWebview qml onLoadProgressChanged',loadProgress)
                 onLoadProgress(loadProgress)
             }
 

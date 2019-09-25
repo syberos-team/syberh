@@ -1,5 +1,5 @@
 ---
-title: takePictureImmediately
+title: takePhoto
 ---
 
 
@@ -7,16 +7,16 @@ title: takePictureImmediately
 
 可以对拍摄后的照片进行裁剪，拍摄成功则返回图片路径。
 
-> takePictureImmediately 为syberos中自带的拍照功能
+> takePhoto 为syberos中自带的拍照功能
 
-> 照相功能属于敏感权限,调用摄像头必须的到相应的权限,在sopconfig.xml文件中添加如下字段:
+> 拍照功能属于敏感权限,调用摄像头必须获取相机和数据存储权限,在sopconfig.xml文件中添加如下字段:
 
 ``` javascript
 <uses-permission syberos:name="syberos.permission.ACCESS_CAMERA"/>
 <uses-permission syberos:name="syberos.permission.ACCESS_STORAGE"/>
 ```
 
-## syberh.camera.takePictureImmediately(Object object)
+## syberh.camera.takePhoto(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -42,7 +42,7 @@ title: takePictureImmediately
 
 ### **拍照代码示例**
 ``` javascript
-syberh.camera.takePictureImmediately({
+syberh.camera.takePhoto({
 	success: function(result){
 		console.log('success: ', result.path);
 	},
@@ -54,7 +54,7 @@ syberh.camera.takePictureImmediately({
 
 ### **拍照裁剪代码示例**
 ``` javascript
-syberh.camera.takePictureImmediately({
+syberh.camera.takePhoto({
 	enableCut:true,
 	success: function(result){
 		console.log('success: ', result.path);
