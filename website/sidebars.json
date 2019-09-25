@@ -1,4 +1,4 @@
-{
+﻿{
   "docs": {
     "关于Syberh": [
       "README"
@@ -57,6 +57,15 @@
           "apis/multimedia/audio/pause",
           "apis/multimedia/audio/resume",
           "apis/multimedia/audio/stop"
+        ]
+      },
+      {
+        "label": "图片",
+        "type": "subcategory",
+        "ids": [
+          "apis/image/chooseImage",
+          "apis/image/previewImage",
+          "apis/image/saveImageToPhotosAlbum"
         ]
       }
     ],
@@ -133,9 +142,6 @@
       "apis/path/extern",
       "apis/path/inner",
       "apis/path/dataRoot"
-    ],
-    "图片": [
-      "apis/image/chooseImage"
     ],
     "上传": [
       "apis/upload/upload",

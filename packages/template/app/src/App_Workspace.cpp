@@ -15,6 +15,12 @@ App_Workspace::App_Workspace()
 {
     // 设置日志级别
     QString devLog = ExtendedConfig::instance()->get(EX_DEV_LOG).toString();
+    if(devLog.isEmpty()){
+      bool debug=  ExtendedConfig::instance()->get(EX_DEBUG).toBool();
+      if(debug){
+          devLog=LOG_VERBOSE;
+      }
+    }
     Log::instance()->setLevel(devLog);
 
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
