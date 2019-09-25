@@ -12,7 +12,8 @@
     "进阶指南": [
       "cli-readme",
       "app-config",
-      "started-ide"
+      "started-ide",
+      "return_code"
     ]
   },
   "API": {
