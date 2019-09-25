@@ -134,26 +134,30 @@
           var tempFilePaths = res.tempFilePaths
           var doms = ''
           var parent = document.getElementById('uploaderFiles')
-          tempFilePaths.forEach(function(item, idx) {
-              doms += '<image class="weui-uploader__file previewImg" style="display: block" src=' + item +' onclick=previewImg('+ idx +') />'
+
+          tempFilePaths.forEach(function(item) {
+              doms += '<image class="weui-uploader__file previewImg" style="display: block" src=' + item +' onclick=previewImg(this) />'
           })
           parent.innerHTML += doms
         }
       })
     }
 
-    function previewImg(idx) {
-      console.log('previewImg curPath', idx)
+    function previewImg(e) {
+      var curPath = e.src
+      console.log('previewImg curPath', e.src)
+      
       var imgDoms = document.getElementsByClassName('previewImg')
       var urls = []
       for (var i = 0; i<imgDoms.length; i++) {
         urls.push(imgDoms[i].src)
       }
+
       console.log('urls---', urls)
 
       syberh.image.previewImage({
         urls: urls,
-        current: urls[idx],
+        current: curPath,
         success: function () {
           console.log('image.previewImage success')
         },

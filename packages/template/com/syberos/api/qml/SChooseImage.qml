@@ -3,11 +3,29 @@ import com.syberos.basewidgets 2.0
 
 CListDialog{
     id: selectedDialog
+
+    // 选取图片成功信号
     signal receiveUrls(var urls)
+
+    // 选取图片成功信号
+    signal cameraSuccess(var filePath)
+
+    // 相机取消信号
+    signal cameraCancel()
+
+    // 相机取消信号
+    signal albumCancel()
+
+    // 默认选取图片数量
     property int count:9
+
+    // 去掉标题控件
     titleAreaComponent: null
+
+    // 去掉底部按钮控件
     buttonAreaComponent: null
 
+    // 监听点击某一项
     onDelegateItemTriggered: {
         toPage(index)
     }
@@ -24,8 +42,9 @@ CListDialog{
     function toCamera() {
         var cameraComponent= pageStack.push("qrc:/com/syberos/api/qml/SCamera.qml")
 
+        // 相机成功信号
         cameraComponent.imageConfirmed.connect(function(filePath) {
-            pageStack.pop(root)
+
             var size = fileutil.getInfoSize(filePath)
             filePath = "file://"+filePath;
             var arr = [{ path: filePath, size: size }]
@@ -34,7 +53,12 @@ CListDialog{
                 tempFilePaths: urlArr,
                 tempFiles: arr
             }
-            selectedDialog.receiveUrls(result)
+            selectedDialog.cameraSuccess(result)
+        })
+
+        // 相机取消信号
+        cameraComponent.back.connect(function () {
+            selectedDialog.cameraCancel()
         })
     }
 
@@ -65,6 +89,7 @@ CListDialog{
         // 用户点击取消按钮
         imageComponent.cancel.connect(function() {
             console.log('监听到---取消按钮')
+            selectedDialog.albumCancel()
         })
     }
 
