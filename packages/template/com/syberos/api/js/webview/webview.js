@@ -190,7 +190,7 @@ function WebView (options) {
       object.goBack()
       that.trigger('success', handlerId, true)
     } else {
-      that.trigger('failed', handlerId, 1013, false)
+      that.trigger('failed', handlerId, 2007, false)
     }
   })
 
@@ -200,14 +200,14 @@ function WebView (options) {
     logger.verbose('handlerId:%s ,param:', that.id, handlerId, JSON.stringify(param))
     if (!isNumber(param.delta)) {
       var msg = 'delta参数类型错误';
-      that.trigger('fail', 1001, msg)
+      that.trigger('fail', 6004, msg)
       return;
     }
     that.navigateBack(param, function (res, msg) {
       if (res) {
         that.trigger('success', handlerId, res)
       } else {
-        that.trigger('fail', 1001, msg)
+        that.trigger('fail', 9999, msg)
       }
     });
   })
@@ -232,7 +232,7 @@ function WebView (options) {
         } else {
           that.pushQueue('request', {
             url: param.url,
-            errorCode: 5001,
+            errorCode: 9999,
             handlerId: handlerId,
             result: msg
           })
@@ -242,7 +242,7 @@ function WebView (options) {
       })
     } catch (error) {
       logger.error('reLaunch error', error.message)
-      that.trigger('failed', handlerId, 2001, error.message)
+      that.trigger('failed', handlerId, 9999, error.message)
     }
 
 
@@ -304,7 +304,7 @@ function WebView (options) {
       }
     } catch (error) {
       logger.error('redirectTo error', error.message)
-      that.trigger('failed', handlerId, 2001, error.message)
+      that.trigger('failed', handlerId, 9999, error.message)
     }
   })
   /**

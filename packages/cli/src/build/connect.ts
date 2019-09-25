@@ -1,10 +1,27 @@
 import { log } from '../util/log'
 import * as shelljs from 'shelljs'
 import chalk from 'chalk'
-import * as os from 'os'
 import * as path from 'path'
 
-const IP_CHECK = '192.168.100.'
+const expectScript = {
+  // 测试ssh连接
+  testSsh(ip: string, port: number): string {
+    return `expect<<EOF 
+log_user 1
+set timeout 1000
+spawn ssh -o ConnectTimeout=2 -p ${port} developer@${ip} "pwd"
+expect {
+  "(yes/no)?" {send "yes\r"; exp_continue}
+  "password:" {send "system\r"}
+}
+expect eof
+EOF`
+  }
+}
+
+
+
+
 
 export class ConnectChecker {
   private pdkRootPath: string
@@ -21,21 +38,14 @@ export class ConnectChecker {
     return result.indexOf('-SyberOS') > 0
   }
 
-  isSshEnabled(): boolean {
+  isSshEnabled(ip: string, port: number): boolean {
     log.verbose('ConnectChecker isSshEnabled()')
-    const interfaces = os.networkInterfaces()
-    log.verbose('检查本机IP：%j', interfaces)
-    for (const devName in interfaces) {
-      for (const ipAddr of interfaces[devName]) {
-        if (ipAddr.address && ipAddr.address.startsWith(IP_CHECK)) {
-          log.verbose('IP：%j', ipAddr);
-          return true
-        } else if (ipAddr.mac === '00:22:33:44:55:66') {
-          console.log(chalk.yellow('当前连接的设备可能需要手动配置ip，请配置ip后再次尝试'))
-        }
-      }
-    }
-    return false
+
+    shelljs.config.silent = true
+    const result = shelljs.exec(expectScript.testSsh(ip, port))
+    shelljs.config.silent = false
+    log.verbose('ssh连接测试结果：\n >> stdout:%s \n >> stderr:%s', result.stdout, result.stderr)
+    return result.stdout.includes('/data/developer')
   }
 
 
