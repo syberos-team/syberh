@@ -86,7 +86,10 @@
             title: '标题',
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function () {
-              console.log('弹窗标题')
+              console.log('alert success')
+            },
+            fail: function(error) {
+                console.log('alert fail: ', error.code, error.msg);
             }
           })
           break;
@@ -94,7 +97,10 @@
           syberh.modal.alert({
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             success: function () {
-              console.log('弹窗标题')
+              console.log('alert success')
+            },
+            fail: function(error) {
+                console.log('alert fail: ', error.code, error.msg);
             }
           })
           break;
@@ -104,7 +110,10 @@
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'success',
             success: function () {
-              console.log('弹窗标题')
+              console.log('alert success')
+            },
+            fail: function(error) {
+                console.log('alert fail: ', error.code, error.msg);
             }
           })
           break;
@@ -113,7 +122,10 @@
             content: '弹窗内容，告知当前状态、信息和解决方法，描述',
             titleIcon: 'warning',
             success: function () {
-              console.log('弹窗标题')
+              console.log('alert success')
+            },
+            fail: function(error) {
+                console.log('alert fail: ', error.code, error.msg);
             }
           })
           break;
@@ -125,12 +137,15 @@
             confirmText: '确定按钮',
             confirmColor: '#ff0000',
             success: function () {
-              console.log('弹窗标题')
+              console.log('alert success')
+            },
+            fail: function(error) {
+                console.log('alert fail: ', error.code, error.msg);
             }
           })
           break;
         default:
-          console.error('错误！没有相应API');
+          alertOrigin();
       }
     }
 
@@ -154,7 +169,10 @@
         confirmText: confirmText,
         confirmColor: confirmColor,
         success: function () {
-          console.log('success')
+          console.log('alert success')
+        },
+        fail: function(error) {
+            console.log('alert fail: ', error.code, error.msg);
         }
       })
     }

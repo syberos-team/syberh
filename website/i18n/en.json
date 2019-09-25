@@ -53,6 +53,15 @@
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
+      "apis/image/getImageInfo": {
+        "title": "getImageInfo"
+      },
+      "apis/image/previewImage": {
+        "title": "previewImage"
+      },
+      "apis/image/saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -535,8 +544,8 @@
       "文件管理": "文件管理",
       "应用管理": "应用管理",
       "path": "path",
-      "图片": "图片",
       "上传": "上传",
+      "图片": "图片",
       "webview": "webview",
       "url": "url"
     }
