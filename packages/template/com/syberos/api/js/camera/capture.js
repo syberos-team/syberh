@@ -23,9 +23,9 @@ function Capture () {
 
     object.imageConfirmed.connect(function(filePath) { //处理信号
         that.imageConfirmedFlag = true
-        pageStack.pop()
-        filePath = "file://"+filePath;
+        pageStack.pop(currentWebview.object)
         WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
+        SYBEROS.destroy(that.id)
     })
 
   })
