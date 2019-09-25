@@ -64,7 +64,8 @@
         "type": "subcategory",
         "ids": [
           "apis/image/chooseImage",
-          "apis/image/previewImage"
+          "apis/image/previewImage",
+          "apis/image/saveImageToPhotosAlbum"
         ]
       }
     ],
