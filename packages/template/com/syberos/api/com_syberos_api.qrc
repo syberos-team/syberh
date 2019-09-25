@@ -71,5 +71,8 @@
         <file>qml/SChooseImage.qml</file>
         <file>qml/SWebview.qml</file>
         <file>qml/SPage.qml</file>
+        <file>js/image/previewImage.js</file>
+        <file>qml/SPreviewImage.qml</file>
+        <file>qml/SPhotoPreviewModel.qml</file>
     </qresource>
 </RCC>

@@ -53,6 +53,9 @@
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
+      "apis/image/previewImage": {
+        "title": "previewImage"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -68,11 +71,11 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/audio/continue": {
-        "title": "continue"
-      },
       "apis/multimedia/audio/pause": {
         "title": "pause"
+      },
+      "apis/multimedia/audio/resume": {
+        "title": "resume"
       },
       "apis/multimedia/audio/start": {
         "title": "start"
@@ -92,17 +95,17 @@
       "apis/multimedia/camera/takePhoto": {
         "title": "takePhoto"
       },
-      "apis/multimedia/record/continue": {
-        "title": "continue"
-      },
-      "apis/multimedia/record/delete": {
-        "title": "delete"
-      },
       "apis/multimedia/record/list": {
         "title": "list"
       },
       "apis/multimedia/record/pause": {
         "title": "pause"
+      },
+      "apis/multimedia/record/remove": {
+        "title": "remove"
+      },
+      "apis/multimedia/record/resume": {
+        "title": "resume"
       },
       "apis/multimedia/record/start": {
         "title": "start"
@@ -532,8 +535,8 @@
       "文件管理": "文件管理",
       "应用管理": "应用管理",
       "path": "path",
-      "图片": "图片",
       "上传": "上传",
+      "图片": "图片",
       "webview": "webview",
       "url": "url"
     }
