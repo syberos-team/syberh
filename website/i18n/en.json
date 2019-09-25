@@ -53,6 +53,15 @@
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
+      "apis/image/getImageInfo": {
+        "title": "getImageInfo"
+      },
+      "apis/image/previewImage": {
+        "title": "previewImage"
+      },
+      "apis/image/saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -68,20 +77,17 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/audio/continuePlay": {
-        "title": "continuePlay"
+      "apis/multimedia/audio/pause": {
+        "title": "pause"
       },
-      "apis/multimedia/audio/pausePlay": {
-        "title": "pausePlay"
+      "apis/multimedia/audio/resume": {
+        "title": "resume"
       },
-      "apis/multimedia/audio/startPlay": {
-        "title": "startPlay"
+      "apis/multimedia/audio/start": {
+        "title": "start"
       },
-      "apis/multimedia/audio/stopPlay": {
-        "title": "stopPlay"
-      },
-      "apis/multimedia/camera/capturePhoto": {
-        "title": "takePictureImmediately"
+      "apis/multimedia/audio/stop": {
+        "title": "stop"
       },
       "apis/multimedia/camera/captureVideoEnd": {
         "title": "captureVideoEnd"
@@ -92,23 +98,26 @@
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/record/continueRecorder": {
-        "title": "continueRecorder"
+      "apis/multimedia/camera/takePhoto": {
+        "title": "takePhoto"
       },
-      "apis/multimedia/record/delRecorder": {
-        "title": "delRecorder"
+      "apis/multimedia/record/list": {
+        "title": "list"
       },
-      "apis/multimedia/record/pauseRecorder": {
-        "title": "pauseRecorder"
+      "apis/multimedia/record/pause": {
+        "title": "pause"
       },
-      "apis/multimedia/record/recorderList": {
-        "title": "recorderList"
+      "apis/multimedia/record/remove": {
+        "title": "remove"
       },
-      "apis/multimedia/record/startRecorder": {
-        "title": "startRecorder"
+      "apis/multimedia/record/resume": {
+        "title": "resume"
       },
-      "apis/multimedia/record/stopRecorder": {
-        "title": "stopRecorder"
+      "apis/multimedia/record/start": {
+        "title": "start"
+      },
+      "apis/multimedia/record/stop": {
+        "title": "stop"
       },
       "apis/navigator/navigator": {
         "title": "navigator"
@@ -233,6 +242,9 @@
       },
       "README": {
         "title": "Syberh 介绍"
+      },
+      "return_code": {
+        "title": "全局返回码"
       },
       "specials": {
         "title": "常见问题"
@@ -532,8 +544,8 @@
       "文件管理": "文件管理",
       "应用管理": "应用管理",
       "path": "path",
-      "图片": "图片",
       "上传": "上传",
+      "图片": "图片",
       "webview": "webview",
       "url": "url"
     }

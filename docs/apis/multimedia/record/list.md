@@ -1,20 +1,27 @@
 ---
-title: startPlay
+title: list
 ---
 
 
-开始播放语音：输入音频文件地址，可以对音频文件进行播放，也可以从指定的时间开始播放（默认从头开始播放）。
+录音列表：显示录音文件夹下的所有AAC格式录音记录。
 
 
-## syberh.audio.startPlay(Object object)
-### **参数**
+## syberh.record.list()
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
-| path | string |        | 是       | 音频路径                           |
-| position | int |    0    | 否       | 指定播放时间（秒）                  |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
+
+**object.success回调函数**
+#### 参数
+| 属性 | 类型   | 描述         |
+| ---- | ------ | ------------ |
+| fileName | String | 录音名称 |
+| path | String | 录音路径 |
+| size | number | 录音大小 |
+| duration | String | 录音时长(00:00:01) |
+| created | String | 创建时间(yyyy-MM-dd hh:mm:ss) |
 
 **object.fail回调函数**
 #### 参数
@@ -27,10 +34,11 @@ title: startPlay
 
 ### **代码示例**
 ``` javascript
-syberh.audio.startPlay({
-  path: "/home/user/record/20190905_1567662466.aac",
+syberh.record.list({
 	success: function(result){
-    console.log('success');    
+      for(i = 0; i < result.length; i++) {
+        console.log('success'，result[i].fileName，result[i].path，result[i].size，result[i].duration,result[i].created);    
+      }
 	},
 	fail: function(error){
 		console.log('fail: ', error.code, error.msg);

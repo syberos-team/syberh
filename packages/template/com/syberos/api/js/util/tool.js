@@ -120,7 +120,8 @@ function isObject (value) {
   );
 }
 
-function getStrLength (inputStr) {
+/*! 获取字符串长度。 */
+function getStrLength(inputStr){
   var currLength = 0
   if (!inputStr) {
     return currLength
@@ -136,4 +137,38 @@ function getStrLength (inputStr) {
     }
   }
   return currLength
+}
+
+
+/*! 获取最终展现字符串。每行14英文字符的长度*/
+function getOutputStr(inputStr, maxRowLength){
+
+    if(!inputStr){
+        return "";
+    }
+
+    var currLength = 0;
+    var outputStr = "";
+    var lineBreak = false;
+    for(var i = 0; i < inputStr.length; i++){
+        var item = inputStr.charAt(i);
+        //中文字符的长度经编码之后大于4
+        if(escape(item).length > 4){
+            currLength += 2;
+        }else{
+            currLength += 1;
+        }
+        outputStr = outputStr.concat(item);
+        //如果未换行且已达到单行字符串最大长度，则给文本换行
+        if(!lineBreak && currLength >= maxRowLength){
+            outputStr = outputStr.concat("\n");
+            lineBreak = true;
+        }
+    }
+
+    //如果只有一行，则将换行符去掉
+    if(outputStr.indexOf("\n") == outputStr.length-1){
+        outputStr = outputStr.replace("\n", "");
+    }
+    return outputStr;
 }

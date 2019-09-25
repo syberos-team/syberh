@@ -33,6 +33,17 @@ function Confirm () {
     component.acceptedButtonText = that.param.confirmText || '确定'
     component.acceptButtonColor = that.param.confirmColor || '#007aff'
 
+
+    if(that.param.title.length > 7){
+        WEBVIEWCORE.trigger('failed', that.handlerId, 1003, "标题最多7个汉字");
+        return;
+    }
+
+    if(that.param.confirmText.length > 4 || that.param.cancelText.length > 4){
+        WEBVIEWCORE.trigger('failed', that.handlerId, 1003, "按钮最多4个汉字");
+        return;
+    }
+
     component.show()
 
 

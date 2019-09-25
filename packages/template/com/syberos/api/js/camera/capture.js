@@ -8,40 +8,28 @@ function Capture () {
     id: 'camera',
     module: 'camera',
     page: true,
-    methods: ['takePictureImmediately'],
+    methods: ['takePhoto'],
     source: '../qml/SCamera.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
-  // 开关
-  this.imageConfirmedFlag = false
-
   var that = this
-  this.on('takePictureImmediately', function (object) {
+  this.on('takePhoto', function (object) {
 
-//    console.log('-------------------------------------object', object)
 //    object.back.connect(function (path) {
-//        console.log('-------------------------------------message',path)
 //        pageStack.pop()
 //        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
 //    })
 
-//    if (!that.imageConfirmedFlag) {
-        object.imageConfirmed.connect(function(filePath) { //处理信号
-            console.log('-------------------------------------takePictureImmediately', filePath)
-            that.imageConfirmedFlag = true
-            pageStack.pop(root)
-            filePath = "file://"+filePath;
-            WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
-        })
-//    }
+    object.imageConfirmed.connect(function(filePath) { //处理信号
+        that.imageConfirmedFlag = true
+        pageStack.pop(currentWebview.object)
+        WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
+        SYBEROS.destroy(that.id)
+    })
 
   })
 
-  this.on('ready', function () {
-    console.log('\n')
-    console.log('Capture ready')
-  })
 }
 
 Capture.prototype = SyberPlugin.prototype

@@ -17,6 +17,7 @@ const helper = require("../syberos/helper");
 const index_1 = require("../config/index");
 const log_1 = require("../util/log");
 const sop = require("./sop");
+const connect = require("./connect");
 class Build {
     constructor(appPath, config) {
         // 日志级别
@@ -44,13 +45,46 @@ class Build {
         this.targetName = helper.getTargetName(this.appPath, this.conf.adapter);
     }
     /**
+     * 开始编译， 并在设备上运行
+     */
+    start() {
+        return __awaiter(this, void 0, void 0, function* () {
+            log_1.log.verbose('Build start()');
+            this.pdkRootPath = yield helper.locateSdk();
+            log_1.log.verbose('pdkRootPath:', this.pdkRootPath);
+            // 检查设备连接
+            this.checkConnect(this.pdkRootPath, this.targetName);
+            console.log(chalk_1.default.green('开始编译'));
+            log_1.log.verbose('appPath:%s, conf:%j', this.appPath, this.conf);
+            // 执行编译
+            yield this.buildSop();
+            // 安装sop
+            yield this.installSop();
+        });
+    }
+    /**
+     * 检查手机是否连接
+     */
+    checkConnect(pdkRootPath, targetName) {
+        log_1.log.verbose('Build checkConnect(%s, %s)', pdkRootPath, targetName);
+        const { adapter } = this.conf;
+        if ("device" /* DEVICE */ !== adapter) {
+            log_1.log.verbose('当前设备类型为：%s, 无须检查设备连接');
+            return;
+        }
+        const checker = new connect.ConnectChecker(pdkRootPath, targetName);
+        if (checker.isCdbEnabled() || checker.isSshEnabled(this.adapterConfig.device.ip, this.adapterConfig.device.port)) {
+            return;
+        }
+        console.log(chalk_1.default.red('未检测到设备'));
+        process.exit(0);
+    }
+    /**
      * 开始编译
      */
     buildSop() {
         return __awaiter(this, void 0, void 0, function* () {
             log_1.log.verbose('Build buildSop()');
-            this.pdkRootPath = yield helper.locateSdk();
-            log_1.log.verbose('pdkRootPath:', this.pdkRootPath);
             // 1、生成编译目录
             this.mkdirBuild();
             // 2、拷贝www路径到模板下
@@ -66,20 +100,6 @@ class Build {
                 console.log(chalk_1.default.blue('打包完成，SOP包的位置是=>'), sopPath);
                 shelljs.exit(0);
             }
-        });
-    }
-    /**
-     * 开始编译， 并在设备上运行
-     */
-    start() {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(chalk_1.default.green('开始编译'));
-            log_1.log.verbose('Build start()');
-            log_1.log.verbose('appPath:%s, conf:%j', this.appPath, this.conf);
-            // 执行编译
-            yield this.buildSop();
-            // 安装sop
-            yield this.installSop();
         });
     }
     /**

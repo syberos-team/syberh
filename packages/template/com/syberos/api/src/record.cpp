@@ -24,16 +24,16 @@ void Record::request(QString callBackID, QString actionName, QVariantMap params)
 {
     if (actionName == "list"){
         list(callBackID.toLong(), params);
-    }else if (actionName == "startRecorder"){
-        startRecorder(callBackID.toLong(), params);
-    }else if (actionName == "pauseRecorder"){
-        pauseRecorder(params);
-    }else if (actionName == "continueRecorder"){
-        continueRecorder(params);
-    }else if(actionName == "stopRecorder"){
-        stopRecorder(params);
-    }else if(actionName == "delRecorder"){
-        delRecorder(callBackID.toLong(),params);
+    }else if (actionName == "start"){
+        start(callBackID.toLong(), params);
+    }else if (actionName == "pause"){
+        pause(params);
+    }else if (actionName == "resume"){
+        resume(params);
+    }else if(actionName == "stop"){
+        stop(callBackID.toLong(),params);
+    }else if(actionName == "remove"){
+        remove(callBackID.toLong(),params);
     }
 }
 
@@ -47,7 +47,7 @@ void Record::submit(QString typeID, QString callBackID, QString actionName, QVar
 }
 
 void Record::list(long callBackID,QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "recorderList" << params << endl;
+    qDebug() << Q_FUNC_INFO << "list" << params << endl;
 
 //    QString path = Helper::instance()->getInnerStorageRootPath() + "/record";
 //    QFileInfoList fileInfos = FileUtil::fileList(path);// 获取录音文件目录下所有文件
@@ -75,39 +75,21 @@ void Record::list(long callBackID,QVariantMap params){
 //    emit success(callBackID, jsonArr);
 
     //从数据库中获取录音列表
-    QJsonArray jsonArr;
     try  {
-        jsonArr = historydata->selectMetadata();
+        QJsonArray jsonArr = historydata->selectMetadata();
+        emit success(callBackID, jsonArr);
     } catch (QException e) {
+        qDebug() << Q_FUNC_INFO << "查询录音列表失败" << endl;
         emit failed(callBackID, 500, "查询录音列表失败");
     }
-
-    emit success(callBackID, jsonArr);
 }
 
-void Record::delRecorder(long callBackID, QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "delRecorder" << params << endl;
-    QString filePath = params.value("path").toString();
+void Record::start(long callBackID,QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "start" << params << endl;
 
-    try  {
-        //删除本机记录
-        FileUtil::remove(filePath,0);
-        //删除数据库中记录
-        historydata->removeMetadata(filePath);
-    } catch (QException e) {
-        emit failed(callBackID, 500, "删除录音失败");
-    }
-
-    QJsonObject jsonObject;
-    jsonObject.insert("result", true);
-    emit success(callBackID, jsonObject);
-}
-
-void Record::startRecorder(long callBackID,QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "startRecorder" << params << endl;
-
-    QAudioEncoderSettings audioSettings;	//通过QAudioEncoderSettings类进行音频编码设置
-    audioSettings.setCodec("audio/AAC");    //编码
+    //通过QAudioEncoderSettings类进行音频设置
+    QAudioEncoderSettings audioSettings;
+    audioSettings.setCodec("audio/AAC");
     audioSettings.setQuality(QMultimedia::HighQuality);
     recoder->setAudioSettings(audioSettings);
 
@@ -123,46 +105,78 @@ void Record::startRecorder(long callBackID,QVariantMap params){
     int timeT = time.toTime_t();                     //将当前时间转为时间戳
     QString timeStr = time.toString("yyyyMMdd");
 
-    QString newFile = path + "/" +  timeStr + "_" + QString::number(timeT) + ".aac";
+    QString newFile = path + "/" +  timeStr + "_" + QString::number(timeT) + ".aac"; 
+    currPath = newFile;
     QFile file(newFile);
 
     if(file.open(QFile::WriteOnly)){
+        //设置文件权限
         file.setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner|QFileDevice::ReadUser);
         file.close();
-        recoder->setOutputLocation(QUrl(file.fileName()));	//设置保存的路径及文件名
+        //设置保存的路径及文件名
+        recoder->setOutputLocation(QUrl(file.fileName()));
         recoder->record();
+    }
+
+    try  {
+        //在数据库中添加录音记录，文件大小、总时长默认0
+        historydata->insertMetadata(newFile,0,0,time.toString("yyyy-MM-dd hh:mm:ss"));
+    } catch (QException e) {
+        qDebug() << Q_FUNC_INFO << "在数据库中添加录音记录失败" << endl;
+        emit failed(callBackID, 500, "在数据库中添加录音记录失败");
+        return;
     }
 
     QJsonObject jsonObject;
     jsonObject.insert("path", newFile);
-
     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
-    qDebug() << Q_FUNC_INFO << "recPath" << jsonObjectValue.toString() << endl;
-
-    //在数据库中添加录音记录，文件大小、总时长默认0
-    historydata->insertMetadata(newFile,0,0,time.toString("yyyy-MM-dd hh:mm:ss"));
-    currPath = newFile;
+    qDebug() << Q_FUNC_INFO << "result" << jsonObjectValue.toString() << endl;
 
     emit success(callBackID, QVariant(jsonObject));
 }
 
-void Record::pauseRecorder(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "pauseRecorder" << params << endl;
+void Record::pause(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "pause" << params << endl;
     recoder->pause();
 }
 
-void Record::continueRecorder(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "continueRecorder" << params << endl;
+void Record::resume(QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     recoder->record();
 }
 
-void Record::stopRecorder(QVariantMap params){
-    qDebug() << Q_FUNC_INFO << "stopRecorder" << params << endl;
+void Record::stop(long callBackID, QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "stop" << params << endl;
 
     recoder->stop();
 
-    //在数据库中修改录音记录，增加文件大小、总时长
-    FileInfo fileInfo = FileUtil::getInfo(currPath);
-    historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
+     try  {
+        //在数据库中修改录音记录，增加文件大小、总时长
+        FileInfo fileInfo = FileUtil::getInfo(currPath);
+        historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
+    } catch (QException e) {
+         qDebug() << Q_FUNC_INFO << "在数据库中修改录音记录失败"  << endl;
+         emit failed(callBackID, 500, "在数据库中修改录音记录失败");
+    }
+}
+
+void Record::remove(long callBackID, QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "remove" << params << endl;
+    QString filePath = params.value("path").toString();
+
+    try  {
+        //删除本机记录
+        FileUtil::remove(filePath,0);
+        //删除数据库中记录
+        historydata->removeMetadata(filePath);
+    } catch (QException e) {
+        qDebug() << Q_FUNC_INFO << "删除录音失败" << endl;
+        emit failed(callBackID, 500, "删除录音失败");
+        return;
+    }
+
+    QJsonObject jsonObject;
+    jsonObject.insert("result", true);
+    emit success(callBackID, jsonObject);
 }

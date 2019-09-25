@@ -15,8 +15,39 @@ FileUtil::FileUtil()
 {
 
 }
-bool FileUtil::move(QString srcPath, QString destPath)
+RespResult FileUtil::move(QString srcPath, QString destPath)
 {
+
+    RespResult respResult;
+    // 判断目标文件是否存在
+    QFileInfo destInfo(destPath);
+    if (!destInfo.exists()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + destPath + "，不存在。";
+        return respResult;
+    }
+    // 判断目标文件是否是文件夹
+    if (!destInfo.isDir()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + destPath + "，不是文件夹。";
+        return respResult;
+    }
+    // 判断目标文件是否有写权限
+    if (!destInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + destPath + "，权限不足。";
+        return respResult;
+    }
+
+    // 判断文件读写权限
+    // 如果文件没有权限，exists 为false
+    QFileInfo srcInfo(srcPath);
+    if (!srcInfo.exists() || !srcInfo.isReadable() || !srcInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + srcPath + "，不存在或权限不足。";
+        return respResult;
+    }
+
     QProcess *proc = new QProcess();
     QString cmd="mv -f " + srcPath + " " + destPath;
     proc->start(cmd);
@@ -24,10 +55,14 @@ bool FileUtil::move(QString srcPath, QString destPath)
 
     QString errTmp = proc->readAllStandardError();
     if (errTmp == "") {
-        return true;
+        respResult.flag = true;
+        return respResult;
     } else {
-        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
-        return false;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;       
+        respResult.flag = false;
+        respResult.msg = errTmp;
+        return respResult;
+
     }
 }
 
@@ -57,20 +92,54 @@ bool FileUtil::chmodr(QString path)
     return true;
 }
 
-bool FileUtil::copy(QString srcPath, QString destPath)
+RespResult FileUtil::copy(QString srcPath, QString destPath)
 {
+
+    RespResult respResult;
+    // 判断目标文件是否存在
+    QFileInfo destInfo(destPath);
+    if (!destInfo.exists()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + destPath + "，不存在。";
+        return respResult;
+    }
+    // 判断目标文件是否是文件夹
+    if (!destInfo.isDir()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + destPath + "，不是文件夹。";
+        return respResult;
+    }
+    // 判断目标文件是否有写权限
+    if (!destInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + destPath + "，权限不足。";
+        return respResult;
+    }
+
+    QFileInfo srcInfo(srcPath);
+    // 判断文件读写权限
+    // 如果文件没有权限，exists 为false
+    if (!srcInfo.exists() || !srcInfo.isReadable()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + srcPath + "，不存在或权限不足。";
+        return respResult;
+    }
+
     QProcess *proc = new QProcess();
     proc->start("cp -rf " + srcPath + " " + destPath);
     proc->waitForFinished();
 
-    errno = 0;
-    chmodr(destPath);
     QString errTmp = proc->readAllStandardError();
+
     if (errTmp == "") {
-        return true;
+        respResult.flag = true;
+        return respResult;
     } else {
-        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
-        return false;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;      
+        respResult.flag = false;
+        respResult.msg = errTmp;
+        return respResult;
+
     }
 }
 
@@ -98,8 +167,23 @@ FileUtil::FileType FileUtil::fileType(QString srcPath)
     }
 }
 
-bool FileUtil::remove(QString srcPath, int recursive)
+RespResult FileUtil::remove(QString srcPath, int recursive)
 {
+    RespResult respResult;
+
+    QFileInfo srcInfo(srcPath);
+    if (!srcInfo.exists()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + srcPath + "，不存在。";
+        return respResult;
+    }
+    // 判断文件读写权限
+    if (!srcInfo.isReadable() || !srcInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.msg = "文件路径：" + srcPath + "，权限不足。";
+        return respResult;
+    }
+
     QProcess *proc = new QProcess();
     if (recursive == 0) {
         proc->start("rm -f " + srcPath);
@@ -110,11 +194,16 @@ bool FileUtil::remove(QString srcPath, int recursive)
     proc->waitForFinished();
 
     QString errTmp = proc->readAllStandardError();
+
     if (errTmp == "") {
-        return true;
+        respResult.flag = true;
+        return respResult;
     } else {
-        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
-        return false;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;       
+        respResult.flag = false;
+        respResult.msg = errTmp;
+        return respResult;
+
     }
 }
 FileInfo FileUtil::getInfo(QString srcPath)
@@ -149,6 +238,29 @@ bool FileUtil::exists(QString srcPath)
 {
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
+}
+RespResult FileUtil::rename(QString srcPath, QString newName)
+{
+    RespResult respResult;
+
+    QFileInfo srcInfo(srcPath);
+    if (!srcInfo.exists()) {
+        respResult.flag = false;
+        respResult.msg = "文件：" + srcPath + "，不存在。";
+        return respResult;
+    }
+    // 判断文件读写权限
+    if (!srcInfo.isReadable() || !srcInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.msg = "文件：" + srcPath + "，权限不足。";
+        return respResult;
+    }
+    QFile srcFile(srcPath);
+
+    respResult.flag = srcFile.rename(newName);
+
+    return respResult;
+
 }
 
 
