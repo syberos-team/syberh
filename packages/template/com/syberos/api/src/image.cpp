@@ -47,6 +47,13 @@ void Image::saveImageToPhotosAlbum(long callBackID, QString filePath){
         return;
     }
 
+    bool ret = Helper::instance()->isPicture(filePath);
+    if(!ret){
+        qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
+        emit failed(callBackID, 500, "不是图片文件");
+        return;
+    }
+
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "文件不存在：" << filePath << endl;

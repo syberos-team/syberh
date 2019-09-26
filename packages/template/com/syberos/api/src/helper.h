@@ -39,6 +39,13 @@ public:
      */
      Q_INVOKABLE bool emptyDir(const QString &path);
 
+    /**
+     * @brief isPicture 判断是否是图片
+     * @param filepath
+     */
+     Q_INVOKABLE bool isPicture(QString filepath);
+
+
 private:
     explicit Helper(QObject *parent = 0);
     Helper(const Helper &) Q_DECL_EQ_DELETE;
