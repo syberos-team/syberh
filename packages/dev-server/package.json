@@ -1,6 +1,6 @@
 {
   "name": "@syberos/dev-server",
-  "version": "1.1.1-alpha.7",
+  "version": "1.1.1-alpha.3",
   "description": "syberos dev server ",
   "main": "dist/index.js",
   "license": "MIT",
