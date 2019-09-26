@@ -12,7 +12,8 @@
     "进阶指南": [
       "cli-readme",
       "app-config",
-      "started-ide"
+      "started-ide",
+      "return_code"
     ]
   },
   "API": {
@@ -65,7 +66,8 @@
         "ids": [
           "apis/image/chooseImage",
           "apis/image/previewImage",
-          "apis/image/saveImageToPhotosAlbum"
+          "apis/image/saveImageToPhotosAlbum",
+          "apis/image/getImageInfo"
         ]
       }
     ],

@@ -73,7 +73,7 @@ class Build {
             return;
         }
         const checker = new connect.ConnectChecker(pdkRootPath, targetName);
-        if (checker.isCdbEnabled() || checker.isSshEnabled()) {
+        if (checker.isCdbEnabled() || checker.isSshEnabled(this.adapterConfig.device.ip, this.adapterConfig.device.port)) {
             return;
         }
         console.log(chalk_1.default.red('未检测到设备'));

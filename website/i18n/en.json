@@ -53,6 +53,9 @@
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
+      "apis/image/getImageInfo": {
+        "title": "getImageInfo"
+      },
       "apis/image/previewImage": {
         "title": "previewImage"
       },
@@ -239,6 +242,9 @@
       },
       "README": {
         "title": "Syberh 介绍"
+      },
+      "return_code": {
+        "title": "全局返回码"
       },
       "specials": {
         "title": "常见问题"

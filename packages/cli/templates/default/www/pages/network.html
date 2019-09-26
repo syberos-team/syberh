@@ -183,7 +183,7 @@
         data: params,
         success: function (result) {
           if (dataType == 'json' || !dataType) {
-            document.getElementById("show-rsp").value = "POST请求响应JSON：<br/>" + JSON.stringify(error);
+            document.getElementById("show-rsp").value = "POST请求响应JSON：<br/>" + JSON.stringify(result);
           } else {
             document.getElementById("show-rsp").value = "POST请求响应TEXT：<br/>" + result;
           }
@@ -210,7 +210,7 @@
         data: params,
         success: function (result) {
           if (dataType == 'json' || !dataType) {
-            document.getElementById("show-rsp").value = "put请求响应JSON：<br/>" + JSON.stringify(error);
+            document.getElementById("show-rsp").value = "put请求响应JSON：<br/>" + JSON.stringify(result);
           } else {
             document.getElementById("show-rsp").value = "put请求响应TEXT：<br/>" + result;
           }
@@ -231,7 +231,7 @@
         headers: headers,
         method: 'delete',
         success: function (result) {
-          document.getElementById("show-rsp").value = "delete请求响应：<br/>" + JSON.stringify(error);
+          document.getElementById("show-rsp").value = "delete请求响应：<br/>" + JSON.stringify(result);
           // console.info(result)
         },
         fail: function (error) {

@@ -17,41 +17,41 @@ CPage{
     property var surl
     //是否能回退
     function canGoBack(){
-      return swebview.canGoBack;
+        return swebview.canGoBack;
     }
-   
+
     function canGoForward(){
-      return swebview.canGoForward
+        return swebview.canGoForward
     }
     //Go backward within the browser's session history, if possible. (Equivalent to the window.history.back() DOM method.)
     function goBack(){
-      swebview.goBack();
+        swebview.goBack();
     }
     //Go forward within the browser's session history, if possible. (Equivalent to the window.history.forward() DOM method.)
     function goForward(){
-      swebview.goForward();
+        swebview.goForward();
     }
 
     //return the swebview
     function getWebview(){
         return swebview
     }
-     //Returns true if the HTML page is currently loading, false otherwise.
+    //Returns true if the HTML page is currently loading, false otherwise.
     function loading(){
-      return swebview.loading;
+        return swebview.loading;
     }
     //return swebview url
     function getCurrentUrl(){
-      return swebview.url.toString();
+        return swebview.url.toString();
     }
     //打开url
     function openUrl(url){
-      LOG.logger.verbose('swebview openUrl()',url)
-      if(swebview.loading){
-          LOG.logger.verbose('swebview loading',swebview.loading)
-        swebview.stop();
-      }
-      swebview.url=url;
+        LOG.logger.verbose('swebview openUrl()',url)
+        if(swebview.loading){
+            LOG.logger.verbose('swebview loading',swebview.loading)
+            swebview.stop();
+        }
+        swebview.url=url;
     }
     //停止当前所有动作
     function stop(){
@@ -248,13 +248,13 @@ CPage{
                 logger.verbose("onNavigationRequested",helper.getWebRootPath())
             }
 
-           
+
             onUrlChanged: {
-                console.log("url is:", url)
+                LOG.logger.verbose('SWebview onUrlChanged',loadProgress)
             }
 
             onLoadProgressChanged: {
-                console.info('SWebview qml onLoadProgressChanged',loadProgress)
+                LOG.logger.verbose('SWebview qml onLoadProgressChanged',loadProgress)
                 onLoadProgress(loadProgress)
             }
 

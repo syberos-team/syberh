@@ -13,32 +13,31 @@ function Capture () {
   }
   SyberPlugin.call(this, defaultOpts)
 
-  // 开关
-  this.imageConfirmedFlag = false
-
   var that = this
   this.on('takePhoto', function (object) {
+      var component = object || that.object
 
-//    object.back.connect(function (path) {
-//        pageStack.pop()
+//    component.back.connect(function (path) {
+//        pageStack.pop(currentWebview.object)
 //        WEBVIEWCORE.trigger('success', that.handlerId, { path: path })
+//        SYBEROS.destroy(that.id)
 //    })
 
-//    if (!that.imageConfirmedFlag) {
-        object.imageConfirmed.connect(function(filePath) { //处理信号
-            that.imageConfirmedFlag = true
-            pageStack.pop(root)
-            filePath = "file://"+filePath;
-            WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath })
-        })
-//    }
+    component.imageConfirmed.connect(function(filePath) {
+        that.imageConfirmedFlag = true;
+        pageStack.pop(currentWebview.object);
+        WEBVIEWCORE.trigger('success', that.handlerId, { path: filePath });
+        SYBEROS.destroy(that.id);
+    });
+
+    component.imageCancele.connect(function() {
+        pageStack.pop(currentWebview.object);
+        WEBVIEWCORE.trigger('success',that.handlerId);
+        SYBEROS.destroy(that.id);
+    });
 
   })
 
-  this.on('ready', function () {
-    console.log('\n')
-    console.log('Capture ready')
-  })
 }
 
 Capture.prototype = SyberPlugin.prototype

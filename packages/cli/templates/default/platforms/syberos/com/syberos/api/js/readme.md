@@ -77,10 +77,10 @@ myPlugin.on('ready', function() {
 
 ## 3. 添加到 Syber
 
-最后一步，就是将写好的插件添加到 vConsole 中：
+最后一步，就是将写好的插件添加到 SYBEROS 中：
 
 ```javascript
-syberOS.addPlugin(pluginObject)
+SYBEROS.addPlugin(pluginObject)
 ```
 
 ## 其他

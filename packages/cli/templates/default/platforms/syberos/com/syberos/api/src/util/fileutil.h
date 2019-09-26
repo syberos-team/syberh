@@ -12,6 +12,15 @@ struct FileInfo
     QString created;
 };
 
+struct RespResult
+{
+    bool flag;
+    // flag 为false msg为错误描述
+    QString msg;
+};
+
+
+
 class FileUtil : public QObject
 {
     Q_OBJECT
@@ -32,14 +41,14 @@ public:
      * @param destPath      目标路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    Q_INVOKABLE static bool move(QString srcPath, QString destPath);
+    Q_INVOKABLE static RespResult move(QString srcPath, QString destPath);
     /**
      * @brief copy          复制
      * @param srcPath       源路径
      * @param destPath      目标路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    Q_INVOKABLE static bool copy(QString srcPath, QString destPath);
+    Q_INVOKABLE static RespResult copy(QString srcPath, QString destPath);
     /**
      * @brief fileList      获取文件列表
      * @param srcPath       源路径
@@ -60,7 +69,7 @@ public:
      * @param recursive    是否递归删除 0：否，1：是
      * @return
      */
-    Q_INVOKABLE static bool remove(QString srcPath, int recursive);
+    Q_INVOKABLE static RespResult remove(QString srcPath, int recursive);
 
     /**
      * @brief getInfo       获取文件信息
@@ -89,6 +98,14 @@ public:
      * @return
      */
     Q_INVOKABLE static bool chmodr(QString path);
+
+    /**
+     * @brief rename        重命名
+     * @param srcPath       源路径
+     * @param newName       新名称
+     * @return
+     */
+    Q_INVOKABLE static RespResult rename(QString srcPath, QString newName);
 
 };
 
