@@ -17,9 +17,6 @@
   <div class="mui-content pt0">
     <form class="mui-input-group">
       <div class="mui-input-row">
-        <button type="button" class="mui-btn mui-btn-primary" onclick="selectFile()">选图</button>
-      </div>
-      <div class="mui-input-row">
         <label>filePath:</label>
         <input type="text" id="filePath" value="/home/user/IMG_20170120_054612.jpg" class="mui-input-clear" />
       </div>
@@ -40,24 +37,6 @@
   <script>
 
     var vConsole = new VConsole();
-
-    function selectFile() {
-        syberh.filepicker.open({
-            title: '文件选择',
-            showBack: true,
-            success: function (result) {
-                if (result.confirm) {
-                    document.getElementById("filePath").value = result.path.replace("file://", "");
-                } else if (result.cancel) {
-                    console.log('用户点击取消')
-                }
-            },
-            fail: function (error) {
-                console.log('filepicker open fail', error)
-            }
-        });
-    }
-
 
     function btnClick() {
       var filePath = document.getElementById("filePath").value;

@@ -49,16 +49,18 @@ export class ConnectChecker {
   }
 
 
-  findCdbDevice(): string | null {
+  findCdbDevice(): string | undefined {
+    log.verbose('ConnectChecker findCdbDevice()')
     const result = this.execCdbDevices()
-    const isSupportCdb = result.indexOf('-SyberOS') > 0
+    const isSupportCdb = result.toLowerCase().includes('-syber')
     if (isSupportCdb) {
-      const lastIdx = result.indexOf('-SyberOS')
-      const prefixSub = result.substring(0, lastIdx + 8)
-      const firstIdx = prefixSub.lastIndexOf('\n')
-      return result.substring(firstIdx + 1, lastIdx + 8)
+      const deviceNames = result.split('\n').map(dev => dev.replace('device', '').trim())
+      log.verbose('发现cdb设备：%j', deviceNames)
+      const device = deviceNames.filter(dev => dev.toLowerCase().includes('-syber'))[0]
+      log.verbose('选中cdb设备：%s', device)
+      return device ? device.trim() : undefined
     }
-    return null
+    return undefined
   }
 
   private execCdbDevices(): string {

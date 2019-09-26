@@ -32,6 +32,12 @@ void Upload::request(QString callBackID, QString actionName, QVariantMap params)
 }
 void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
 {
+    // 检查网络
+    if (!netWorkConnected()) {
+        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::getErrorMessage(ErrorInfo::NetworkError));
+        return;
+    }
+
     UploadManager *uploadManager = new UploadManager();
     uploadManager->setUploadId(callBackID);
     uploadManager->uploadFile(reqUrl, filePath);

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Quick Hybrid API</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <div class="mui-content pt0">
+
+    <div class="mui-card">
+      <div class="mui-input-row">
+        <label>地址</label>
+        <input type="text" id="path" class="mui-input-clear" value="/home/user/DCIM/Camera/IMG_20190925_105843.jpg"/><!--/home/user/DCIM/Camera/IMG_20190925_105843.jpg-->
+      </div>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="getImageInfo()">获取图片信息</button>
+      </div>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-input-row">
+        <label>文件名</label>
+        <input type="text" id="fileName" readonly="readonly" class="mui-input-clear" />
+      </div>
+    </div>
+
+      <div class="mui-card">
+        <div class="mui-input-row">
+          <label>宽度</label>
+          <input type="text" id="width" readonly="readonly" class="mui-input-clear" />
+        </div>
+      </div>
+
+      <div class="mui-card">
+        <div class="mui-input-row">
+          <label>高度</label>
+          <input type="text" id="height" readonly="readonly" class="mui-input-clear" />
+        </div>
+      </div>
+
+      <div class="mui-card">
+        <div class="mui-input-row">
+          <label>类型</label>
+          <input type="text" id="type" readonly="readonly" class="mui-input-clear" />
+        </div>
+      </div>
+
+    <div class="mui-card">
+      <div class="mui-input-row">
+        <label>大小</label>
+        <input type="text" id="size" readonly="readonly" class="mui-input-clear" />
+      </div>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-input-row">
+        <label>创建时间</label>
+        <input type="text" id="created" readonly="readonly" class="mui-input-clear" />
+      </div>
+    </div>
+
+
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+
+  <script>
+    var vConsole = new VConsole()
+
+    function getImageInfo() {
+      var path = document.getElementById('path').value;
+
+      if (path === 'undefined' || path === null || path === "") {
+        alert("请输入图片地址");
+      } else {
+          syberh.image.getImageInfo({
+            path: path,
+            success: function (result) {
+              document.getElementById("fileName").value = result.fileName;
+              document.getElementById("width").value = result.width;
+              document.getElementById("height").value = result.height;
+              document.getElementById("type").value = result.type;
+              document.getElementById("size").value = result.size;
+              document.getElementById("created").value = result.created;
+              console.log('success',JSON.stringify(result));
+            },
+            fail: function (error) {
+                console.log('fail: ', error.code, error.msg);
+            }
+          });
+      }
+    }
+
+  </script>
+</body>
+
+</html>
