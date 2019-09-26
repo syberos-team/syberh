@@ -169,3 +169,11 @@ bool Helper::isPicture(QString filepath)
     qDebug() <<Q_FUNC_INFO << "isPicture, mime: " << filepath << mime.name() <<endl;
     return mime.name().startsWith("image/");
 }
+
+bool Helper::isAudio(QString filepath)
+{
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForFile(filepath);
+    qDebug() <<Q_FUNC_INFO << "isAudio, mime: " << filepath << mime.name() <<endl;
+    return mime.name().startsWith("audio/");
+}
