@@ -24,6 +24,8 @@ import pathMixin from './native/path';
 import imageMixin from './native/image';
 import uploadMixin from './native/upload';
 import audioMixin from './native/audio';
+import brightnessInfoMixin from './native/brightnessInfo';
+import vibratorMixin from './native/vibrateInfo';
 
 
 // const hybridJs = window.syber;
@@ -56,4 +58,6 @@ export default function allNative(hybridJs) {
     imageMixin(hybridJs);
     uploadMixin(hybridJs);
     audioMixin(hybridJs);
+    brightnessInfoMixin(hybridJs);
+    vibratorMixin(hybridJs);
 }
