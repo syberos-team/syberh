@@ -96,23 +96,12 @@ Rectangle {
             closeTimer.stop();
             if(!hideAnimation.running){
                 hideAnimation.start();
-                //触发发送结束信号的定时器
-                emitSignalTimer.start();
+
             }
         }
     }
 
-    Timer{
-        id: emitSignalTimer
-        interval: hideAnimation.duration + 100
-        repeat: false
-        triggeredOnStart: false
 
-        onTriggered: {
-            emitSignalTimer.stop();
-            accepted();
-        }
-    }
 
     /*! 显示弹层。 */
     function show(title, icon, duration) {
@@ -136,6 +125,15 @@ Rectangle {
             return "无图标时最多显示两行文本（14个汉字长度）";
         }
 
+        if(duration){
+            if (!(/(^[1-9]\d*$)/.test(duration))) {
+                return "duration只能是正整数";
+            }
+            closeTimer.interval = parseInt(duration) + parseInt(showAnimation.duration);
+        }
+
+
+        accepted();
         stoast.width = stoast.scaleFactor * 330
         stoast.height = stoast.scaleFactor * 330
         toastIcon.visible = true;
@@ -151,13 +149,6 @@ Rectangle {
             toastText.text = Tool.getOutputStr(title, stoast.textLength);
             stoast.width = stoast.scaleFactor * toastText.contentWidth + 80
             stoast.height = stoast.scaleFactor * toastText.contentHeight + 80
-        }
-
-        if(duration){
-            if (!(/(^[1-9]\d*$)/.test(duration))) {
-                return "duration只能是正整数";
-            }
-            closeTimer.interval = parseInt(duration) + parseInt(showAnimation.duration);
         }
 
         if(!showAnimation.running){
