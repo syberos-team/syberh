@@ -1,7 +1,7 @@
 {
   "name": "@syberos/hybrid",
   "private": true,
-  "description": "SYBER OS HTML5开发 APP框架",
+  "description": "SYBEROS Hybrei App框架",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -61,7 +61,6 @@
     "lerna": "^3.16.4",
     "lint-staged": "^8.1.0",
     "nerv-markdown-loader": "0.0.1",
-    "node-sass": "^4.7.2",
     "npm-run-all": "^4.1.2",
     "ora": "^2.1.0",
     "rimraf": "^2.6.2",
@@ -72,7 +71,6 @@
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-postcss": "^1.6.1",
-    "sass-loader": "^6.0.7",
     "shelljs": "^0.8.1",
     "style-loader": "^0.20.3",
     "tslint": "^5.12.0",
