@@ -42,9 +42,8 @@ Rectangle {
 
     width: unit.dp(330)
     height: scaleFactor * 330
-
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.verticalCenter: parent.verticalCenter
+    x: Screen.width/ 2 - width / 2
+    y: Screen.height  / 2 - height / 2 - gScreenInfo.statusBarHeight
 
     color: "#000000"
     radius: 6
@@ -132,8 +131,8 @@ Rectangle {
             closeTimer.interval = parseInt(duration) + parseInt(showAnimation.duration);
         }
 
-
         accepted();
+
         stoast.width = stoast.scaleFactor * 330
         stoast.height = stoast.scaleFactor * 330
         toastIcon.visible = true;
