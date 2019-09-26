@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/syberos-team/syberh/compare/v1.1.1-alpha.4...v1.1.1) (2019-09-26)
+
+
+
+
+**Note:** Version bump only for package @syberos/hybrid
+
 <a name=""></a>
 # [](https://github.com/hanagm/syberh/compare/v1.1.1-alpha.3...v) (2019-09-25)
 
@@ -234,6 +247,3 @@
 * **template:** 修改接受请求事件为request ([74e0c68](https://github.com/hanagm/syberh/commit/74e0c68))
 * **template:** 删除es6构建 ([ace8e9f](https://github.com/hanagm/syberh/commit/ace8e9f))
 * **template:** 调整c++代码结构，合并子模块子项目 ([2332722](https://github.com/hanagm/syberh/commit/2332722))
-
-
-
