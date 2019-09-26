@@ -11,4 +11,7 @@ expect {
   "(yes/no)?" {send "yes\r"; exp_continue}
   "password:" {send "system\r"}
 }
+interact {         
+  timeout 60 {send "\x20"} 
+}
 expect eof
