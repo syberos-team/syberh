@@ -91,7 +91,7 @@
         </div>
         <div class="mui-input-row">
             <label>数量限制</label>
-            <input type="number" class="mui-input-clear" name="count" value="9">
+            <input type="number" class="mui-input-clear" name="count" value="9" />
         </div>
         <div class="mui-button-row">
             <button type="button" class="mui-btn mui-btn-primary" onclick="customSelectImage()">确认</button>
@@ -100,9 +100,6 @@
 
     <div class="weui-cell">
         <ul class="weui-uploader__files" id="uploaderFiles"></ul>
-        <!-- <div class="weui-uploader__input-box">
-            <input id="uploaderInput" class="weui-uploader__input">
-        </div> -->
     </div>
 
   </div>
@@ -137,10 +134,35 @@
           var tempFilePaths = res.tempFilePaths
           var doms = ''
           var parent = document.getElementById('uploaderFiles')
+
           tempFilePaths.forEach(function(item) {
-              doms += '<image class="weui-uploader__file" style="display: block" src=' + item +' />'
+              doms += '<image class="weui-uploader__file previewImg" style="display: block" src=' + item +' onclick=previewImg(this) />'
           })
           parent.innerHTML += doms
+        }
+      })
+    }
+
+    function previewImg(e) {
+      var curPath = e.src
+      console.log('previewImg curPath', e.src)
+      
+      var imgDoms = document.getElementsByClassName('previewImg')
+      var urls = []
+      for (var i = 0; i<imgDoms.length; i++) {
+        urls.push(imgDoms[i].src)
+      }
+
+      console.log('urls---', urls)
+
+      syberh.image.previewImage({
+        urls: urls,
+        current: curPath,
+        success: function () {
+          console.log('image.previewImage success')
+        },
+        fail: function(error) {
+          console.log('image.previewImage fail: ', error.code, error.msg)
         }
       })
     }

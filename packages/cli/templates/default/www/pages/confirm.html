@@ -62,7 +62,7 @@
     </form>
     <br />
     <br />
-  
+
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="confirm">confirm</a>
@@ -180,7 +180,7 @@
           })
           break;
         default:
-          console.error('错误！没有相应API');
+          confirmOrigin();
       }
     }
 
@@ -212,8 +212,11 @@
         confirmColor: confirmColor,
         cancelText: cancelText,
         cancelColor: cancelColor,
-        success: function () {
-          console.log('success')
+        success: function (res) {
+          console.log('success', res)
+        },
+        fail: function(error) {
+          console.log('fail: ', error.code, error.msg);
         }
       })
     }

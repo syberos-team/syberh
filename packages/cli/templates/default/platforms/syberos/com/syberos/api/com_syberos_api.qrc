@@ -71,5 +71,13 @@
         <file>qml/SChooseImage.qml</file>
         <file>qml/SWebview.qml</file>
         <file>qml/SPage.qml</file>
+        <file>js/image/previewImage.js</file>
+        <file>qml/SPreviewImage.qml</file>
+        <file>qml/SPhotoPreviewModel.qml</file>
+        <file>res/switch.png</file>
+        <file>res/start.png</file>
+        <file>res/save.png</file>
+        <file>res/backCapture.png</file>
+        <file>res/back.png</file>
     </qresource>
 </RCC>

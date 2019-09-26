@@ -9,9 +9,9 @@ public:
     //错误码
     enum ErrorCode {
         //网络错误
-        NetworkError = 400,
+        NetworkError = 4000,
         //未知的错误
-        UnknowError = 500
+        UnknowError = 9999
     };
 
     static void init();

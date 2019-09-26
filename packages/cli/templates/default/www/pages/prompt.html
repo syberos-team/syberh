@@ -77,8 +77,8 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function () {
-              console.log('modal.prompt fail')
+            fail: function(error) {
+              console.log('modal.prompt fail: ', error.code, error.msg);
             }
           })
           break;
@@ -89,8 +89,8 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function () {
-              console.log('modal.prompt fail')
+            fail: function(error) {
+              console.log('modal.prompt fail: ', error.code, error.msg);
             }
           })
           break;
@@ -104,13 +104,13 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function () {
-              console.log('modal.prompt fail')
+            fail: function(error) {
+              console.log('modal.prompt fail: ', error.code, error.msg);
             }
           })
           break;
         default:
-          console.error('错误！没有相应API');
+          promptOrigin();
       }
     }
 
@@ -131,8 +131,13 @@
         title: title,
         confirmText: confirmText,
         cancelText: cancelText,
-        success: function () {
-          console.log('success')
+        success: function (res) {
+          if (res !== '') {
+            console.log('用户输入的值 =》', res)
+          }
+        },
+        fail: function(error) {
+          console.log('modal.prompt fail: ', error.code, error.msg);
         }
       })
     }
