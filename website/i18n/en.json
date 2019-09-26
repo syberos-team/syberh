@@ -8,6 +8,24 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/brightness/brightnessInfo": {
+        "title": "brightnessInfo"
+      },
+      "apis/brightness/setAdaptiveDimmingEnabled": {
+        "title": "setAdaptiveDimmingEnabled"
+      },
+      "apis/brightness/setAmbientLightSensorEnabled": {
+        "title": "setAmbientLightSensorEnabled"
+      },
+      "apis/brightness/setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "apis/brightness/setBrightness": {
+        "title": "setBrightness"
+      },
+      "apis/brightness/setDimTimeout": {
+        "title": "setDimTimeout"
+      },
       "apis/cellular/networkDisabled": {
         "title": "networkDisabled"
       },
@@ -182,6 +200,18 @@
       },
       "apis/upload/upload": {
         "title": "start"
+      },
+      "apis/vibrator/setTouchVibrationSoundEnabled": {
+        "title": "setTouchVibrationSoundEnabled"
+      },
+      "apis/vibrator/setVibratingEnabled": {
+        "title": "setVibratingEnabled"
+      },
+      "apis/vibrator/vibrate": {
+        "title": "vibrate"
+      },
+      "apis/vibrator/vibrateInfo": {
+        "title": "vibrateInfo"
       },
       "app-config": {
         "title": "APP 配置"
@@ -545,6 +575,7 @@
       "应用管理": "应用管理",
       "path": "path",
       "上传": "上传",
+      "设备": "设备",
       "图片": "图片",
       "webview": "webview",
       "url": "url"
