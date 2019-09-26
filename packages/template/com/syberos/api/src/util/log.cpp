@@ -66,7 +66,7 @@ void output(QtMsgType type, const QMessageLogContext &context, const QString &ms
 }
 
 Log::Log(QObject *parent) : QObject(parent){
-    qInstallMessageHandler(output);
+    //qInstallMessageHandler(output);
 
     levelNameMap.insert(Log::VERBOSE, "VERB");
     levelNameMap.insert(Log::INFO, "INFO");
