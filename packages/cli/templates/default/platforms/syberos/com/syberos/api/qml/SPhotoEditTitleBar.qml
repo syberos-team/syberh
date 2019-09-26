@@ -39,7 +39,6 @@ CEditTitleBar{
         backgroundEnabled: editLeftItemBackgroundEnabled
         onClicked: {
             sPhotoEdittitleBar.canceled()
-            pageStack.pop()
         }
     }
 
