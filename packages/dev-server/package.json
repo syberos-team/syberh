@@ -22,7 +22,6 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "@syberos/cli": "1.1.1-alpha.7",
     "archiver": "^2.1.1",
     "autoprefixer": "^8.4.1",
     "body-parser": "^1.19.0",
