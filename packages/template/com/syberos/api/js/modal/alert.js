@@ -34,12 +34,12 @@ function Alert () {
     component.acceptButtonColor = that.param.confirmColor || '#007aff'
 
 
-    if(that.param.title.length > 7){
+    if(that.param.title && that.param.title.length > 7){
         WEBVIEWCORE.trigger('failed', that.handlerId, 1003, "标题最多7个汉字");
         return;
     }
 
-    if(that.param.confirmText.length > 4){
+    if(that.param.confirmText && that.param.confirmText.length > 4){
         WEBVIEWCORE.trigger('failed', that.handlerId, 1003, "按钮最多4个汉字");
         return;
     }
