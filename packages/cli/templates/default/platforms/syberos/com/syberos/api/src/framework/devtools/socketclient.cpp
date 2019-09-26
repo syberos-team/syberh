@@ -61,7 +61,7 @@ void SocketClient::create(const QString &url, const int &port){
     connect(timer, SIGNAL(timeout()), this, SLOT(onProgress()));
     //timer.setInterval(2000);
     timer->start(30000);
-    qDebug()<< "SocketClient create() 成功";
+    qDebug()<< "热更新服务 create()成功";
 
 }
 
@@ -83,12 +83,12 @@ void SocketClient::socketError(QAbstractSocket::SocketError error){
  */
 void SocketClient::disconnected(){
     m_bServerConnected = false;
-    qDebug() <<Q_FUNC_INFO<<"SocketClient 断开链接:";
+    qDebug() <<Q_FUNC_INFO<<"热更新服务断开链接:";
     //重连操作
 }
 
 void SocketClient::connection(){
-    QString str("Socket连接成功");
+    QString str("热更新服务[客户端]连接成功");
     m_bServerConnected = true;
     Chalk::green(str,"SocketClient","connection()");
 }
