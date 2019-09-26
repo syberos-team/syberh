@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>runtime · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# class Runtime"/><meta name="docsearch:version" content="1.1.1-alpha.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="runtime · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="# class Runtime"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>1.1.1-alpha.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/README.html" target="_self">指南</a></li><li class=""><a href="/docs/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/qt/runtime/runtime.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">runtime</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="class-runtime"></a><a href="#class-runtime" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>class Runtime</h1>
+<p><code>runtime</code> 模块管理运行环境，可用于获取当前运行环境信息、与其它程序进行通讯等。</p>
+<h2><a class="anchor" aria-hidden="true" id="方法"></a><a href="#方法" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>方法</h2>
+<h3><a class="anchor" aria-hidden="true" id="void-launchappqstring-callbackid-qstring-url"></a><a href="#void-launchappqstring-callbackid-qstring-url" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>void launchApp(QString callbackId, QString url)</h3>
+<p>一个应用希望启动另一个应用时调用</p>
+<h4><a class="anchor" aria-hidden="true" id="参数"></a><a href="#参数" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>QString</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>url</td><td>QString</td><td>是</td><td>app地址</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="成功信号"></a><a href="#成功信号" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>成功信号</h4>
+<p><strong>emit success(long responseID, QVariant result);</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>responseID</td><td>long</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>result</td><td>QString</td><td>是</td><td>success</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="void-launchappqstring-callbackid-qstring-appid-qstringlist-params"></a><a href="#void-launchappqstring-callbackid-qstring-appid-qstringlist-params" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>void launchApp(QString callbackId, QString appid, QStringList params)</h3>
+<p>当一个应用希望启动本包中的另一个应用时</p>
+<h4><a class="anchor" aria-hidden="true" id="参数-1"></a><a href="#参数-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>QString</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>appid</td><td>QString</td><td>是</td><td>app地址</td></tr>
+<tr><td>params</td><td>QStringList</td><td>否</td><td>参数列表</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="成功信号-1"></a><a href="#成功信号-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>成功信号</h4>
+<p><strong>emit success(long responseID, QVariant result);</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>responseID</td><td>long</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>result</td><td>QString</td><td>是</td><td>success</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="失败信号"></a><a href="#失败信号" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>失败信号</h2>
+<h3><a class="anchor" aria-hidden="true" id="emit-failedlong-responseid-qvariant-errorcode-qstring-errormsg"></a><a href="#emit-failedlong-responseid-qvariant-errorcode-qstring-errormsg" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>emit failed(long responseID, QVariant errorCode, QString errorMsg);</h3>
+<h4><a class="anchor" aria-hidden="true" id="参数-2"></a><a href="#参数-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<ul>
+<li>callbackId:   回调ID，用于标识每一次的调用</li>
+<li>errorCode:    错误码</li>
+<li>result:   错误信息</li>
+</ul>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>long</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>errorCode</td><td>long</td><td>是</td><td>错误码</td></tr>
+<tr><td>errorMsg</td><td>QString</td><td>是</td><td>错误信息</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#方法">方法</a><ul class="toc-headings"><li><a href="#void-launchappqstring-callbackid-qstring-url">void launchApp(QString callbackId, QString url)</a></li><li><a href="#void-launchappqstring-callbackid-qstring-appid-qstringlist-params">void launchApp(QString callbackId, QString appid, QStringList params)</a></li></ul></li><li><a href="#失败信号">失败信号</a><ul class="toc-headings"><li><a href="#emit-failedlong-responseid-qvariant-errorcode-qstring-errormsg">emit failed(long responseID, QVariant errorCode, QString errorMsg);</a></li></ul></li></ul></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

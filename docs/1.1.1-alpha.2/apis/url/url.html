@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>openUrl · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## syberh.url.openUrl(Object object)"/><meta name="docsearch:version" content="1.1.1-alpha.2"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="openUrl · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="## syberh.url.openUrl(Object object)"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>1.1.1-alpha.2</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/1.1.1-alpha.2/README.html" target="_self">指南</a></li><li class=""><a href="/docs/1.1.1-alpha.2/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/apis/url/url.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">openUrl</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="syberhurlopenurlobject-object"></a><a href="#syberhurlopenurlobject-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>syberh.url.openUrl(Object object)</h2>
+<p>唤起应用</p>
+<h3><a class="anchor" aria-hidden="true" id="参数"></a><a href="#参数" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h3>
+<h4><a class="anchor" aria-hidden="true" id="object-object"></a><a href="#object-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Object object</h4>
+<table>
+<thead>
+<tr><th>属性</th><th>类型</th><th>必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>scheme</td><td>String</td><td>是</td><td>协议，格式为：<a href="scheme://xxx">scheme://xxx</a><br />scheme在sopconfig.xml进行配置，<br />例如：<code>&lt;url&gt;&lt;scheme&gt;app1&lt;/scheme&gt;&lt;/url&gt;</code><br />打开应用页面scheme示例为<a href="app1://openPage/index.html">app1://openPage/index.html</a></td></tr>
+<tr><td>path</td><td>String</td><td>否</td><td>打开的页面路径，如果为空则打开首页。<br />path 中 ? 后面的部分会成为 params。<br />目标APP可在 <code>syberh.subscribe</code> 中获取到这份数据</td></tr>
+<tr><td>param</td><td>Object</td><td>否</td><td>param中的参数会拼接到path中?后面。<br />目标APP可在 <code>syberh.subscribe</code> 中获取到这份数据</td></tr>
+<tr><td>success</td><td>function</td><td>否</td><td>成功回调</td></tr>
+<tr><td>fail</td><td>function</td><td>否</td><td>失败回调</td></tr>
+</tbody>
+</table>
+<pre><code class="hljs">最终参数会拼接成：scheme://openPage/path<span class="hljs-built_in">?key</span>=<span class="hljs-keyword">value</span><span class="hljs-built_in">&amp;key</span>=<span class="hljs-keyword">value</span>格式，去唤起应用
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="objectsuccess-回调函数参数"></a><a href="#objectsuccess-回调函数参数" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>object.success 回调函数参数</h4>
+<h4><a class="anchor" aria-hidden="true" id="参数-1"></a><a href="#参数-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<table>
+<thead>
+<tr><th>属性</th><th>类型</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>result</td><td>String</td><td>返回 success, 表示唤起成功</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="objectfail回调函数参数"></a><a href="#objectfail回调函数参数" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>object.fail回调函数参数</h4>
+<h4><a class="anchor" aria-hidden="true" id="参数-2"></a><a href="#参数-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<table>
+<thead>
+<tr><th>属性</th><th>类型</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>code</td><td>String</td><td>错误码</td></tr>
+<tr><td>msg</td><td>String</td><td>错误信息</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="代码示例"></a><a href="#代码示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>代码示例</h3>
+<pre><code class="hljs css language-js">syberh<span class="token punctuation">.</span>url<span class="token punctuation">.</span><span class="token function">openUrl</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    scheme<span class="token punctuation">:</span><span class="token string">"app1://openPage"</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">:</span><span class="token string">"index.html?name=zhangsan"</span><span class="token punctuation">,</span>
+    params<span class="token punctuation">:</span><span class="token punctuation">{</span>
+        age<span class="token punctuation">:</span><span class="token number">18</span><span class="token punctuation">,</span>
+        sex<span class="token punctuation">:</span><span class="token string">'male'</span>
+    <span class="token punctuation">}</span>
+    <span class="token function-variable function">success</span><span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">result</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'path: '</span><span class="token punctuation">,</span> result<span class="token punctuation">.</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'params: '</span><span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>params<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function-variable function">fail</span><span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'fail: '</span><span class="token punctuation">,</span> error<span class="token punctuation">.</span>code<span class="token punctuation">,</span> error<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="应用被唤起回调"></a><a href="#应用被唤起回调" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>应用被唤起回调</h3>
+<h4><a class="anchor" aria-hidden="true" id="参数-3"></a><a href="#参数-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<table>
+<thead>
+<tr><th>属性</th><th>类型</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>onShow</td><td>String</td><td>固定值</td></tr>
+<tr><td>result</td><td>Object</td><td>回调结果</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="result-回调函数参数"></a><a href="#result-回调函数参数" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>result 回调函数参数</h4>
+<h4><a class="anchor" aria-hidden="true" id="参数-4"></a><a href="#参数-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>参数</h4>
+<table>
+<thead>
+<tr><th>属性</th><th>类型</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>path</td><td>String</td><td>跳转的页面路径，index.html?key1=value1&amp;key2=value2</td></tr>
+<tr><td>param</td><td>Object</td><td>传递的参数，{key1=value1, key2=value2}格式</td></tr>
+</tbody>
+</table>
+<pre><code class="hljs">syberh.subscribe(<span class="hljs-string">'onShow'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"path: "</span>+ result.path);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"params: "</span>+ <span class="hljs-built_in">JSON</span>.stringify(result.params));
+});
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#syberhurlopenurlobject-object">syberh.url.openUrl(Object object)</a><ul class="toc-headings"><li><a href="#参数">参数</a></li><li><a href="#代码示例">代码示例</a></li><li><a href="#应用被唤起回调">应用被唤起回调</a></li></ul></li></ul></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

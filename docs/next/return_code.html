@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>全局返回码 · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&gt; 每次调用接口时，可能获得正确或错误的返回码，开发者可以根据返回码信息调试接口，排查错误。"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="全局返回码 · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="&gt; 每次调用接口时，可能获得正确或错误的返回码，开发者可以根据返回码信息调试接口，排查错误。"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/next/README.html" target="_self">指南</a></li><li class=""><a href="/docs/next/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>进阶指南</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">关于Syberh<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/next/README.html">Syberh 介绍</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">快速开始<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/next/started-cli.html">安装 CLI</a></li><li class="navListItem"><a class="navItem" href="/docs/next/started-install.html">安装SyberOS SDK</a></li><li class="navListItem"><a class="navItem" href="/docs/next/first-app.html">第一个应用</a></li><li class="navListItem"><a class="navItem" href="/docs/next/specials.html">常见问题</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">进阶指南<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/next/cli-readme.html">CLI使用</a></li><li class="navListItem"><a class="navItem" href="/docs/next/app-config.html">APP 配置</a></li><li class="navListItem"><a class="navItem" href="/docs/next/started-ide.html">安装 IDE</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/next/return_code.html">全局返回码</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/return_code.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">全局返回码</h1></header><article><div><span><blockquote>
+<p>每次调用接口时，可能获得正确或错误的返回码，开发者可以根据返回码信息调试接口，排查错误。</p>
+</blockquote>
+<p><strong>全局返回码说明如下：</strong></p>
+<table>
+<thead>
+<tr><th>返回码</th><th>说明</th><th>解决方法</th></tr>
+</thead>
+<tbody>
+<tr><td>1001</td><td>该API无法在当前OS下运行</td><td></td></tr>
+<tr><td>1002</td><td>不允许更改JSSDK的API</td><td></td></tr>
+<tr><td>1003</td><td>不允许更改JSSDK的模块</td><td></td></tr>
+<tr><td>1004</td><td>调用了不存在的api</td><td></td></tr>
+<tr><td>1005</td><td>调用错误，该组件api对应的proto不存在</td><td></td></tr>
+<tr><td>1006</td><td>非容器下无法调用自定义组件API</td><td></td></tr>
+<tr><td>1007</td><td>对应的event事件在该环境下不存在</td><td></td></tr>
+<tr><td>1008</td><td>初始化版本号错误，请检查容器api的实现情况</td><td></td></tr>
+<tr><td>2001</td><td>ready回调不允许多次设置</td><td></td></tr>
+<tr><td>2002</td><td>config不允许多次调用</td><td></td></tr>
+<tr><td>2003</td><td>config校验错误</td><td></td></tr>
+<tr><td>2004</td><td>不支持当前容器版本，请确保容器与前端库版本匹配</td><td></td></tr>
+<tr><td>2005</td><td>当前JSSDK库小于容器版本，请将前端库升级到最新版本</td><td></td></tr>
+<tr><td>2006</td><td>webview异常</td><td></td></tr>
+<tr><td>2007</td><td>goback()异常</td><td>webview多层时可能会触发,可使用navigateBack方法返回</td></tr>
+<tr><td>3000</td><td>捕获到一处原生容器错误</td><td></td></tr>
+<tr><td>4000</td><td>网络错误</td></tr>
+<tr><td>4004</td><td>不合法的媒体文件类型</td><td></td></tr>
+<tr><td>4005</td><td>不合法的文件类型</td><td></td></tr>
+<tr><td>4006</td><td>不合法的文件大小</td><td></td></tr>
+<tr><td>4007</td><td>不合法的媒体文件 id</td><td></td></tr>
+<tr><td>4009</td><td>不合法的图片文件大小</td><td></td></tr>
+<tr><td>4010</td><td>不合法的语音文件大小</td><td></td></tr>
+<tr><td>4011</td><td>不合法的视频文件大小</td><td></td></tr>
+<tr><td>4012</td><td>不合法的缩略图文件大小</td><td></td></tr>
+<tr><td>4035</td><td>不合法的参数</td><td></td></tr>
+<tr><td>4038</td><td>不合法的请求格式</td><td></td></tr>
+<tr><td>4039</td><td>不合法的 URL 长度</td><td></td></tr>
+<tr><td>4048</td><td>无效的url</td><td></td></tr>
+<tr><td>4019</td><td>类型错误</td><td></td></tr>
+<tr><td>4020</td><td>不支持的图片格式</td><td></td></tr>
+<tr><td>4021</td><td>权限错误</td><td></td></tr>
+<tr><td>6001</td><td>参数错误</td><td></td></tr>
+<tr><td>6002</td><td>系统错误</td><td></td></tr>
+<tr><td>6003</td><td>部分参数为空</td><td></td></tr>
+<tr><td>6004</td><td>参数类型错误</td><td></td></tr>
+<tr><td>9001</td><td>上传文件缺失</td><td></td></tr>
+<tr><td>6002</td><td>上传素材的文件类型不合法</td><td></td></tr>
+<tr><td>6003</td><td>上传素材的文件尺寸不合法</td><td></td></tr>
+<tr><td>6004</td><td>上传失败</td><td></td></tr>
+<tr><td>9000</td><td>文件无操作权限</td><td></td></tr>
+<tr><td>9999</td><td>未知错误</td><td></td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/started-ide.html"><span class="arrow-prev">← </span><span>安装 IDE</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

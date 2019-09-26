@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>安装 CLI · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## 安装"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="安装 CLI · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="## 安装"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/next/README.html" target="_self">指南</a></li><li class=""><a href="/docs/next/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>快速开始</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">关于Syberh<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/next/README.html">Syberh 介绍</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">快速开始<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem navListItemActive"><a class="navItem" href="/docs/next/started-cli.html">安装 CLI</a></li><li class="navListItem"><a class="navItem" href="/docs/next/started-install.html">安装SyberOS SDK</a></li><li class="navListItem"><a class="navItem" href="/docs/next/first-app.html">第一个应用</a></li><li class="navListItem"><a class="navItem" href="/docs/next/specials.html">常见问题</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">进阶指南<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/next/cli-readme.html">CLI使用</a></li><li class="navListItem"><a class="navItem" href="/docs/next/app-config.html">APP 配置</a></li><li class="navListItem"><a class="navItem" href="/docs/next/started-ide.html">安装 IDE</a></li><li class="navListItem"><a class="navItem" href="/docs/next/return_code.html">全局返回码</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/started-cli.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">安装 CLI</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="安装"></a><a href="#安装" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装</h2>
+<p>Syberh 项目基于 node，请确保已具备较新的 node 环境（&gt;=8.0.0,推荐使用<code>v10.16.2</code>)，强烈建议使用 node 版本管理工具 <a href="https://github.com/creationix/nvm">nvm</a> 来管理 node，这样不仅可以很方便地切换 node 版本，而且全局安装时候也不用加 sudo 了。</p>
+<h3><a class="anchor" aria-hidden="true" id="cli-工具安装"></a><a href="#cli-工具安装" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cli 工具安装</h3>
+<p>安装 yarn</p>
+<pre><code class="hljs css language-shell"><span class="token function">npm</span> <span class="token function">install</span> -g <span class="token function">yarn</span>
+</code></pre>
+<p>首先，你需要使用 npm 或者 yarn 全局安装<code>@syberos/cli</code>:</p>
+<pre><code class="hljs css language-bash"><span class="token comment"># 使用 npm 安装 CLI</span>
+$ <span class="token function">npm</span> <span class="token function">install</span> -g @syberos/cli
+<span class="token comment"># OR 使用 yarn 安装 CLI</span>
+$ <span class="token function">yarn</span> global <span class="token function">add</span> @syberos/cli
+<span class="token comment"># OR 安装了 cnpm，使用 cnpm 安装 CLI</span>
+$ cnpm <span class="token function">install</span> -g @syberos/cli
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="回到某个版本"></a><a href="#回到某个版本" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>回到某个版本</h3>
+<p>需要安装某个固定版本，或者回到某个版本，例如我们要安装 1.1.0 ， 则如下：</p>
+<pre><code class="hljs css language-bash"><span class="token comment"># 使用 npm 安装 CLI</span>
+$ <span class="token function">npm</span> <span class="token function">install</span> -g @syberos/cli@1.1.0
+<span class="token comment"># OR 安装了 cnpm，使用 cnpm 安装 CLI</span>
+$ cnpm <span class="token function">install</span> -g @syberos/cli@1.1.0
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="注意事项"></a><a href="#注意事项" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>注意事项</h3>
+<p>值得一提的是，如果安装过程出现<code>sass</code>相关的安装错误，请在安装<a href="https://www.npmjs.com/package/mirror-config-china"><code>mirror-config-china</code></a>后重试。</p>
+<pre><code class="hljs css language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> -g mirror-config-china
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="更多"></a><a href="#更多" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>更多</h2>
+<p>CLI更多详见<a href="./cli-readme.html">具体说明</a></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/README.html"><span class="arrow-prev">← </span><span>Syberh 介绍</span></a><a class="docs-next button" href="/docs/next/started-install.html"><span class="function-name-prevnext">安装SyberOS SDK</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#安装">安装</a><ul class="toc-headings"><li><a href="#cli-工具安装">cli 工具安装</a></li><li><a href="#回到某个版本">回到某个版本</a></li><li><a href="#注意事项">注意事项</a></li></ul></li><li><a href="#更多">更多</a></li></ul></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

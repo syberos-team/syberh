@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>CONTRIBUTING · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# syberh Contributing Guide"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="CONTRIBUTING · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="# syberh Contributing Guide"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/next/README.html" target="_self">指南</a></li><li class=""><a href="/docs/next/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/CONTRIBUTING.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">CONTRIBUTING</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="syberh-contributing-guide"></a><a href="#syberh-contributing-guide" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>syberh Contributing Guide</h1>
+<p>我们非常欢迎社区的开发者向 syberh 做出贡献。在提交贡献之前，请花一些时间阅读以下内容，保证贡献是符合规范并且能帮助到社区。</p>
+<h2><a class="anchor" aria-hidden="true" id="issue-报告指南"></a><a href="#issue-报告指南" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Issue 报告指南</h2>
+<p>如果提交的是 Bug 报告，请务必遵守 <a href="https://github.com/syberos-team/syberh/blob/master/.github/ISSUE_TEMPLATE/bug_report.md"><code>Bug report</code></a> 模板。</p>
+<p>如果提交的是功能需求，请在 issue 的标题的起始处增加 <code>[Feature request]</code> 字符。</p>
+<h2><a class="anchor" aria-hidden="true" id="开发配置"></a><a href="#开发配置" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>开发配置</h2>
+<p>你需要保证你的 Node.js 版本大于 8，把仓库 Clone 到本地。运行以下命令：</p>
+<p>修改 npm 源</p>
+<pre><code class="hljs css language-shell"><span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npm.taobao.org
+</code></pre>
+<p>本项目使用<a href="https://yarn.bootcss.com/">Yarn</a></p>
+<p>安装 yarn</p>
+<pre><code class="hljs css language-shell"><span class="token function">npm</span> <span class="token function">install</span> -g <span class="token function">yarn</span>
+</code></pre>
+<p>本项目使用<a href="https://github.com/lerna/lerna#readme">lerna</a></p>
+<p>安装 lerna</p>
+<pre><code class="hljs css language-shell"><span class="token function">npm</span> <span class="token function">install</span> lerna -g
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="安装依赖"></a><a href="#安装依赖" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装依赖</h2>
+<pre><code class="hljs css language-shell">lerna bootstrap
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="启动环境"></a><a href="#启动环境" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>启动环境</h2>
+<p>运行开发环境</p>
+<pre><code class="hljs css language-shell">lerna run dev
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="提交-commit"></a><a href="#提交-commit" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>提交 commit</h2>
+<p>整个 syberh 仓库遵从 <a href="https://github.com/angular/angular.js/blob/f3377da6a748007c11fde090890ee58fae4cefa5/CONTRIBUTING.md#commit">Angular Style Commit Message Conventions</a>，在输入 commit message 的时候请务必遵从此规范。</p>
+<h2><a class="anchor" aria-hidden="true" id="代码风格"></a><a href="#代码风格" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>代码风格</h2>
+<ul>
+<li><code>JavaScript</code>：JavaScript 风格遵从 <a href="https://github.com/standard/standard">JavaScript Standard Style</a>。</li>
+<li><code>TypeScript</code>：TypeScript 风格也是 <a href="https://github.com/standard/standard">JavaScript Standard Style</a> 的变种，详情请看相关包目录下的 <code>tslint.json</code> 和 <code>tsconfig.json</code>。</li>
+<li>样式：遵循相关包目录下的 <code>.stylelintrc</code> 风格。</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="pull-request-指南"></a><a href="#pull-request-指南" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pull Request 指南</h2>
+<ol>
+<li>务必保证 <code>npm run build</code> 能够编译成功；</li>
+<li>务必保证提交到代码遵循相关包中的 <code>.eslintrc</code>, <code>.tslintrc</code>, <code>.stylelintrc</code> 所规定的规范；</li>
+<li>当相关包的 <code>package.json</code> 含有 <code>npm test</code> 命令时，必须保证所有测试用例都需要通过；</li>
+<li>当相关包有测试用例时，请给你提交的代码也添加相应的测试用例；</li>
+<li>提交代码 commit 时，commit 信息需要遵循 <a href="https://github.com/angular/angular.js/blob/f3377da6a748007c11fde090890ee58fae4cefa5/CONTRIBUTING.md#commit">Angular Style Commit Message Conventions</a>。</li>
+<li>如果提交到代码非常多或功能复杂，可以把 PR 分成几个 commit 一起提交。我们在合并时会会根据情况 squash。</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="credits"></a><a href="#credits" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Credits</h2>
+<p>感谢以下所有给 syberh 贡献过代码的开发者：</p>
+<ul>
+<li>感谢 quickhybrid 作者提供了 jsbridge 的实现逻辑和相关代码</li>
+<li>参与者 <a href="https://github.com/syberos-team/syberh/graphs/contributors">更多</a></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#issue-报告指南">Issue 报告指南</a></li><li><a href="#开发配置">开发配置</a></li><li><a href="#安装依赖">安装依赖</a></li><li><a href="#启动环境">启动环境</a></li><li><a href="#提交-commit">提交 commit</a></li><li><a href="#代码风格">代码风格</a></li><li><a href="#pull-request-指南">Pull Request 指南</a></li><li><a href="#credits">Credits</a></li></ul></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
