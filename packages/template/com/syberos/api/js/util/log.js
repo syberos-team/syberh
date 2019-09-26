@@ -138,14 +138,14 @@ function Logger () {
     var len = arguments.length
     // const args = Array.prototype.slice.call(arguments, 3) || []
     var logLevel = arguments[0]
-    var msg = this.printFunction(this.getLevelTag(logLevel), timestamp)
+    //var msg = this.printFunction(this.getLevelTag(logLevel), timestamp)
     var funcArgs = []
     for (var sum = 1; sum < len; sum += 1) {
       funcArgs.push(arguments[sum])
     }
 
     var res = sprintf.apply(null, funcArgs) || []
-    res.unshift(msg)
+    //res.unshift(msg)
     console.log.apply(console, res)
   }
   /**

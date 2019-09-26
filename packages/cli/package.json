@@ -1,13 +1,12 @@
 {
   "name": "@syberos/cli",
   "version": "1.1.1-alpha.3",
-  "description": "cli tool for syberos hybrid",
+  "description": "cli tool for syberh",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "test": "jest",
     "build": "run-s clean prod",
     "dev": "tsc -w",
     "prod": "tsc",
@@ -35,7 +34,7 @@
   "author": "YuanXin",
   "license": "MIT",
   "dependencies": {
-    "@syberos/dev-server": "^1.1.1-alpha.3",
+    "@syberos/dev-server": "1.0.6",
     "autoprefixer": "^8.4.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "chalk": "2.4.2",
