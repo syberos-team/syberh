@@ -90,9 +90,8 @@ SYBEROS.addPlugin(pluginObject)
 统一通过 webview 的 success/failed 事件进行返回
 
 ```
-
-WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true })
-WEBVIEWCORE.trigger('failed', that.handlerId, errorCode,errorMsg)
+this.success(handlerId, { confirm: true })
+this.failed(handlerId, errorCode,errorMsg)
 
 ```
 
