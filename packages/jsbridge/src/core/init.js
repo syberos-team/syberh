@@ -78,7 +78,7 @@ export default function initMixin (hybrid) {
         }
       };
 
-      if (hybridJs.os.Syber) {
+      if (hybridJs.os.syberos) {
         // 暂时检查环境默认就进行，因为框架默认注册了基本api的，并且这样2.也可以给予相应提示
         checkEnvAndPrompt();
 

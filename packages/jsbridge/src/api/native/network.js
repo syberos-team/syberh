@@ -4,7 +4,7 @@ export default function networkMixin(hybrid) {
     hybridJs.extendModule('network', [
         {
             namespace: 'request',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 /** 请求地址 */
                 url: '',

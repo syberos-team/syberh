@@ -9,7 +9,7 @@ export default function uploadMixin (hybrid) {
 
   hybridJs.extendModule('upload', [{
     namespace: 'start',
-    os: ['syber'],
+    os: ['syberos'],
     defaultParams: {
       /** 上传地址 */
       url: '',
@@ -29,7 +29,7 @@ export default function uploadMixin (hybrid) {
     }
   }, {
     namespace: 'cancel',
-    os: ['syber'],
+    os: ['syberos'],
     defaultParams: {
       uploadID: ''
     },

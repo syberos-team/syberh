@@ -34,17 +34,20 @@ void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
 {
     // 检查网络
     if (!netWorkConnected()) {
-        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::getErrorMessage(ErrorInfo::NetworkError));
+        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError));
         return;
     }
 
     UploadManager *uploadManager = new UploadManager();
-    uploadManager->setUploadId(callBackID);
-    uploadManager->uploadFile(reqUrl, filePath);
+
 
     connect(uploadManager, SIGNAL(signalUploadProcess(QString, qint64, qint64)), this, SLOT(onUploadProgress(QString, qint64, qint64)));
     connect(uploadManager, SIGNAL(signalReplyFinished(QString)), this, SLOT(onFinished(QString)));
     connect(uploadManager, SIGNAL(signalError(QString, qint64, QString)), this, SLOT(onError(QString, qint64, QString)));
+    connect(uploadManager, SIGNAL(signalStarted(QString)), this, SLOT(onStarted(QString)));
+    uploadManager->setUploadId(callBackID);
+    uploadManager->uploadFile(reqUrl, filePath);
+
 
     // 当前任务记录到tasks
     TaskInfo *taskInfo = new TaskInfo();
@@ -52,8 +55,7 @@ void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
     taskInfo->uploadManager = uploadManager;
     tasks.insert(callBackID, taskInfo);
 
-    QJsonObject json = successJson(callBackID, Started, 0, 0);
-    emit success(callBackID.toLong(), json);
+
 
 }
 
@@ -76,15 +78,20 @@ void Upload::deleteTask(QString taskId)
 {
     TaskInfo *taskInfo = tasks.value(taskId);
     if (taskInfo!=NULL) {
+
+        delete taskInfo->uploadManager;
+        taskInfo->uploadManager = NULL;
+
         delete taskInfo;
         taskInfo = NULL;
         tasks.remove(taskId);
+
     }
 }
 
 void Upload::onUploadProgress(QString callBackID, qint64 bytesReceived, qint64 bytesTotal)
 {
-//    qDebug() << Q_FUNC_INFO << "！！！！！-----------上传文件，onUploadProgress." << endl;
+    qDebug() << Q_FUNC_INFO << "！！！！！-----------上传文件，onUploadProgress." << endl;
 
 
     // 由于发送error信号后，程序还会执行此信号 所以做一下判断拦截
@@ -108,7 +115,7 @@ void Upload::onUploadProgress(QString callBackID, qint64 bytesReceived, qint64 b
 void Upload::onFinished(QString callBackID)
 {
 
-//    qDebug() << Q_FUNC_INFO << "！！！！！-----------上传文件，onFinished." << endl;
+    qDebug() << Q_FUNC_INFO << "！！！！！-----------上传文件，onFinished." << endl;
 
     // 由于发送error信号后，程序还会执行此信号 所以做一下判断拦截
     if (m_error) {
@@ -122,12 +129,19 @@ void Upload::onFinished(QString callBackID)
     QJsonObject json = successJson(callBackID, Completed, m_bytesTotal, m_bytesTotal);
     emit success(callBackID.toLong(), json);
 }
+
 void Upload::onError(QString callBackID, qint64 statusCode, QString error)
 {
     // 任务异常，删除任务
     deleteTask(callBackID);
     m_error = true;
     emit failed(callBackID.toLong(), statusCode, error);
+}
+
+void Upload::onStarted(QString callBackID)
+{
+    QJsonObject json = successJson(callBackID, Started, 0, 0);
+    emit success(callBackID.toLong(), json);
 }
 
 

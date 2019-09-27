@@ -39,6 +39,8 @@ SocketClient::~SocketClient(){
 }
 
 void SocketClient::create(const QString &url, const int &port){
+    Q_UNUSED(url);
+    Q_UNUSED(port);
     m_bServerConnected = false;
     socketClient = new QTcpSocket();
     timer= new QTimer(this);
@@ -60,7 +62,7 @@ void SocketClient::socketError(QAbstractSocket::SocketError error){
         connectCount+=1;
     }else{
         timer->stop();
-         qDebug() <<Q_FUNC_INFO <<"stop timer";
+        qDebug() <<Q_FUNC_INFO <<"stop timer";
     }
     qDebug() <<Q_FUNC_INFO <<"socketError";
 
@@ -108,8 +110,13 @@ void SocketClient::data(){
         QString url=serverHost+"?path="+filePath;
         int lst=webroot.lastIndexOf("/www");
         QString rpath=webroot.mid(0,lst);
-         log->red() <<Q_FUNC_INFO << rpath <<log->end();
+        log->red() <<Q_FUNC_INFO << rpath <<log->end();
         QString downloadPath=rpath+filePath;
+         QFile toFile(downloadPath);
+        if(toFile.exists()){
+             log->verbose()<<Q_FUNC_INFO <<"删除历史文件" <<endl;
+            toFile.remove();
+        }
         downloadManager->downloadFile(url,downloadPath );
         connect(downloadManager, &DownloadManager::signalReplyFinished, this, &SocketClient::onReplyFinished);
     }

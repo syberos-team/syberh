@@ -4,7 +4,7 @@ export default function networkSetCellularEnabledMixin(hybrid) {
 
     hybridJs.extendModule('cellular', [{
         namespace: 'networkDisabled',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {

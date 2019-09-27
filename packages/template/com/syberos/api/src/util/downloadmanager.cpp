@@ -49,7 +49,6 @@ QString DownloadManager::getDownloadFileSuffix() {
 
 // 开始下载文件，传入下载链接和文件的路径
 void DownloadManager::downloadFile(QString url , QString fileName){
-    qDebug() << url << fileName <<endl;
     // 防止多次点击开始下载按钮，进行多次下载，只有在停止标志变量为true时才进行下载;
     if (m_isStop) {
         m_isStop = false;
@@ -104,6 +103,8 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
         connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+
+        emit signalStarted(m_downloadId, m_path);
     }
 }
 

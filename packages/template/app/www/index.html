@@ -28,7 +28,7 @@
   <div class="mui-content pt0 syberMainPage">
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="pages/router.html">路由(router)</a>
+        <a class="mui-navigate-right api-class" id="pages/router.html">路由1</a>
       </li>
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">模态弹窗</a>
@@ -65,7 +65,7 @@
         </ul>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="pages/telephony.html">电话</a>
+        <a class="mui-navigate-right api-class" id="pages/telephony.html">电话1</a>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="pages/clipboard.html">剪贴板</a>
@@ -167,6 +167,8 @@
   <script type="text/javascript" src="lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
+
+    console.log("当前版本:", syberh.os.version)
     window.runApi = function (id) {
       console.log('执行API:' + id)
       syberh.router.navigateTo({
