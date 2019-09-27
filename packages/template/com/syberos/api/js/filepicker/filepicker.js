@@ -21,19 +21,16 @@ function FilePicker () {
         component.titleText = that.param.title || ""
         component.leftItemEnabled = that.param.showBack || false
         component.categoryType = that.param.category || "all"
+        component.count = that.param.count || 1
 
 
-        component.ok.connect(function(filePath) { //处理选择文件信号
-            filePath = "file://"+filePath;
-            WEBVIEWCORE.trigger('success', that.handlerId, { confirm:true, path: filePath })
-            // 注销qml组件
-            SYBEROS.destroy(defaultOpts.id)
+        component.ok.connect(function(filesPath) { //处理选择文件信号
+            console.log('filepicker.ok filesPath: ', filesPath)
+            that.success(that.handlerId, { files: filesPath })
         })
 
         component.cancel.connect(function() { //处理取消信号
-            WEBVIEWCORE.trigger('success', that.handlerId, { cancel: true })
-            // 注销qml组件
-            SYBEROS.destroy(defaultOpts.id)
+            that.success(that.handlerId)
         })
 
     })
