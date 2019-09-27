@@ -1,6 +1,6 @@
 #include "socketclient.h"
-#include "../../util/chalk.h"
 #include "../../util/fileutil.h"
+#include "../../util/log.h"
 SocketClient *SocketClient::pSocket=NULL;
 SocketClient::SocketClient(const QString &url, const int &port)
 {
@@ -17,10 +17,9 @@ SocketClient::SocketClient(const QString &url, const int &port)
 
     if(debug){
         qDebug() <<Q_FUNC_INFO << "SocketClient dubug:true" <<endl;
-       create(url,port);
+        create(url,port);
         getOrCreateTempPath();
     }
-
     qDebug() <<Q_FUNC_INFO << "SocketClient init success" <<endl;
 }
 
@@ -36,22 +35,12 @@ SocketClient *SocketClient::getInstance(const QString &url, const int &port){
 
 
 SocketClient::~SocketClient(){
-
+    socketClient->deleteLater();
 }
 
 void SocketClient::create(const QString &url, const int &port){
-    qDebug() <<Q_FUNC_INFO <<url << port<<endl;
     m_bServerConnected = false;
     socketClient = new QTcpSocket();
-    //socketClient -> abort();
-    //    socketClient->connectToHost(url, port);
-
-
-    //    if(socketClient->waitForReadyRead(1000)){
-    //        QByteArray s = socketClient->readAll();
-    //        QString ss = QVariant(s).toString();
-    //        qDebug() <<Q_FUNC_INFO <<ss << port<<endl;
-    //    }
     timer= new QTimer(this);
     //绑定常用信号
     connect(socketClient, &QTcpSocket::readyRead,this, &SocketClient::data);
@@ -83,26 +72,26 @@ void SocketClient::socketError(QAbstractSocket::SocketError error){
  */
 void SocketClient::disconnected(){
     m_bServerConnected = false;
-    qDebug() <<Q_FUNC_INFO<<"热更新服务断开链接:";
+    log->red() <<Q_FUNC_INFO  <<"热更新服务断开链接" <<log->end();
     //重连操作
+    timer->start(3000);
+
 }
 
 void SocketClient::connection(){
-    QString str("热更新服务[客户端]连接成功");
     m_bServerConnected = true;
-    Chalk::green(str,"SocketClient","connection()");
+    log->green() <<Q_FUNC_INFO  <<"热更新服务[客户端]连接成功" <<log->end();
+    timer->stop();
 }
 
 
 void SocketClient::data(){
     QByteArray qba= socketClient->readAll(); //读取
     QString ss=QVariant(qba).toString();
+    log->green() << qba << log->end();
     int lastIndex=ss.lastIndexOf("}");
-
     //截取json字符串
     QString jsonString=ss.mid(0,lastIndex+1);
-    //剩余字符
-    QString surString=ss.mid(lastIndex+1);
     QJsonDocument obj=QJsonDocument::fromJson(jsonString.toUtf8());
     QJsonObject dataContent= obj.object();
     QJsonArray fileArray =dataContent.take("files").toArray();
@@ -110,28 +99,17 @@ void SocketClient::data(){
     QString serverHost=dataContent.take("server").toString();
 
     total=fileArray.size();
+    QString webroot=Helper::instance()->getDataWebRootPath();
     FileUtil::remove(tempPath+"/www",1);
     for (int npcIndex = 0; npcIndex < fileArray.size(); ++npcIndex) {
         QString filePath = fileArray[npcIndex].toString();
-        DownloadManager *downloadManager=new DownloadManager(this);
+        DownloadManager *downloadManager =new DownloadManager(this);
         downloadManager->setDownloadId(uid);
         QString url=serverHost+"?path="+filePath;
-        QString webroot=Helper::instance()->getDataWebRootPath();
         int lst=webroot.lastIndexOf("/www");
-        QString rpath=webroot.mid(0,lst+1);
-        QString downloadPath=rpath+"/"+filePath;
-        //创建目录
-        int li=downloadPath.lastIndexOf("/");
-        QString dirPath= downloadPath.mid(0,li+1);
-        QFile dfile(downloadPath);
-        if(dfile.exists()){
-            dfile.remove();
-        }
-        QDir dir(dirPath);
-        if(!dir.exists()){
-            dir.mkpath(dir.absolutePath());
-        }
-
+        QString rpath=webroot.mid(0,lst);
+         log->red() <<Q_FUNC_INFO << rpath <<log->end();
+        QString downloadPath=rpath+filePath;
         downloadManager->downloadFile(url,downloadPath );
         connect(downloadManager, &DownloadManager::signalReplyFinished, this, &SocketClient::onReplyFinished);
     }
@@ -144,6 +122,7 @@ void SocketClient::onReplyFinished(QString downloadId, QString path, int statusC
     Q_UNUSED(path);
     Q_UNUSED(statusCode);
     Q_UNUSED(errorMessage);
+    log->red() <<Q_FUNC_INFO << downloadId <<log->end();
     downloadTotal+=1;
     if(total==downloadTotal){
         updateWebRoot();
@@ -152,10 +131,6 @@ void SocketClient::onReplyFinished(QString downloadId, QString path, int statusC
 
 void SocketClient::updateWebRoot(){
     this->initParams();
-    QString dataRoot= Helper::instance()->getDataWebRootPath();
-    QString tmpwww=tempPath+"/www/";
-    //FileUtil::remove(dataRoot,1);
-    //FileUtil::copy(tmpwww,dataRoot);
     emit update();
 
 }
