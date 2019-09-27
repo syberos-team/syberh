@@ -121,7 +121,7 @@ function isObject (value) {
 }
 
 /*! 获取字符串长度。 */
-function getStrLength(inputStr){
+function getStrLength (inputStr) {
   var currLength = 0
   if (!inputStr) {
     return currLength
@@ -140,35 +140,70 @@ function getStrLength(inputStr){
 }
 
 
+
+/**
+ * url地址转换
+ * @param {string} url
+ */
+function getUrl (url) {
+  logger.verbose('getUrl() url', url)
+  if (!url) {
+    throw new Error('url不存在', url)
+  }
+  // 如果是网络地址,直接返回
+  if (/^(http|https|ftp|\/\/)/g.test(url)) {
+    logger.verbose('http||https  url:', url)
+    return url
+  }
+
+  var filePath = helper.getWebRootPath() + '/' + url
+  var checkPath
+  logger.verbose('filePath:', filePath)
+  if (filePath.indexOf('?') >= 0) {
+    checkPath = filePath.split('?')[0]
+  } else {
+    checkPath = filePath
+  }
+  if (helper.exists(checkPath)) {
+    var rurl = 'file://' + filePath
+    return rurl
+  } else {
+    throw new Error('url不存在', url);
+    // logger.verbose('页面不存在:', checkPath, '跳转到index.html')
+    // return 'file://' + helper.getWebRootPath() + '/index.html'
+  }
+}
+
+
 /*! 获取最终展现字符串。每行14英文字符的长度*/
-function getOutputStr(inputStr, maxRowLength){
+function getOutputStr (inputStr, maxRowLength) {
 
-    if(!inputStr){
-        return "";
-    }
+  if (!inputStr) {
+    return "";
+  }
 
-    var currLength = 0;
-    var outputStr = "";
-    var lineBreak = false;
-    for(var i = 0; i < inputStr.length; i++){
-        var item = inputStr.charAt(i);
-        //中文字符的长度经编码之后大于4
-        if(escape(item).length > 4){
-            currLength += 2;
-        }else{
-            currLength += 1;
-        }
-        outputStr = outputStr.concat(item);
-        //如果未换行且已达到单行字符串最大长度，则给文本换行
-        if(!lineBreak && currLength >= maxRowLength){
-            outputStr = outputStr.concat("\n");
-            lineBreak = true;
-        }
+  var currLength = 0;
+  var outputStr = "";
+  var lineBreak = false;
+  for (var i = 0; i < inputStr.length; i++) {
+    var item = inputStr.charAt(i);
+    //中文字符的长度经编码之后大于4
+    if (escape(item).length > 4) {
+      currLength += 2;
+    } else {
+      currLength += 1;
     }
+    outputStr = outputStr.concat(item);
+    //如果未换行且已达到单行字符串最大长度，则给文本换行
+    if (!lineBreak && currLength >= maxRowLength) {
+      outputStr = outputStr.concat("\n");
+      lineBreak = true;
+    }
+  }
 
-    //如果只有一行，则将换行符去掉
-    if(outputStr.indexOf("\n") == outputStr.length-1){
-        outputStr = outputStr.replace("\n", "");
-    }
-    return outputStr;
+  //如果只有一行，则将换行符去掉
+  if (outputStr.indexOf("\n") == outputStr.length - 1) {
+    outputStr = outputStr.replace("\n", "");
+  }
+  return outputStr;
 }

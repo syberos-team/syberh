@@ -32,6 +32,17 @@ function SyberPlugin (opts) {
   this.component = null
   this.incubator = null
   this.eventList = {}
+
+  this.success = success.bind(this)
+  this.failed = failed.bind(this)
+  function success (handlerId, result) {
+    WEBVIEWCORE.trigger('success', handlerId, result);
+    SYBEROS.destroy(this.id);
+  }
+  function failed (handlerId, errorCode, msg) {
+    WEBVIEWCORE.trigger('failed', handlerId, errorCode, msg);
+    SYBEROS.destroy(this.id);
+  }
 }
 
 /**

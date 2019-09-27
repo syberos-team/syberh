@@ -3,8 +3,9 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QDir>
+#include <QDateTime>
 
-#define DOWNLOAD_FILE_SUFFIX    "_tmp"
+#define DATETIME_FMT "yyyyMMddhhmmss"
 
 DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_networkManager(NULL)
@@ -18,6 +19,8 @@ DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_downloadId("")
         , m_storage(Internal)
 {
+    m_tmpFileSuffix = "." + QDateTime::currentDateTime().toString(DATETIME_FMT);
+
     m_networkManager = new QNetworkAccessManager(this);
     m_storageManager = new CStorageManager(this);
 }
@@ -41,7 +44,7 @@ QString DownloadManager::getDownloadUrl(){
 }
 // 获取临时文件后缀
 QString DownloadManager::getDownloadFileSuffix() {
-    return DOWNLOAD_FILE_SUFFIX;
+    return m_tmpFileSuffix;
 }
 
 // 开始下载文件，传入下载链接和文件的路径
@@ -55,7 +58,7 @@ void DownloadManager::downloadFile(QString url , QString fileName){
 //      QString fileName = m_url.fileName();
 
         // 将当前文件名设置为临时文件名，下载完成时修改回来;
-        m_fileName = fileName + DOWNLOAD_FILE_SUFFIX;
+        m_fileName = fileName + m_tmpFileSuffix;
 
         m_path = fileName;
 
@@ -240,7 +243,7 @@ void DownloadManager::onFinished(){
         // 重命名临时文件;
         QFileInfo fileInfo(m_fileName);
         if (fileInfo.exists()) {
-            int index = m_fileName.lastIndexOf(DOWNLOAD_FILE_SUFFIX);
+            int index = m_fileName.lastIndexOf(m_tmpFileSuffix);
             QString realName = m_fileName.left(index);
             QFile::rename(m_fileName, realName);
         }
