@@ -7,6 +7,7 @@
 #include <QMetaObject>
 #include <QGuiApplication>
 #include "util/fileutil.h"
+#include "framework/common/errorinfo.h"
 
 int Audio::typeId = qRegisterMetaType<Audio *>();
 
@@ -50,21 +51,21 @@ void Audio::start(long callBackID,QVariantMap params){
 
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
-        emit failed(callBackID, 500, "文件路径不能为空");
+        emit failed(callBackID, ErrorInfo::IllegalParamError, "不合法的参数:path不能为空");
         return;
     }
 
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "音频不存在：" << filePath << endl;
-        emit failed(callBackID, 500, "音频不存在");
+        emit failed(callBackID, ErrorInfo::InvalidURLError, "无效的url:音频文件不存在");
         return;
     }
 
     bool ret = Helper::instance()->isAudio(filePath);
     if(!ret){
         qDebug() << Q_FUNC_INFO << "不是音频文件" << endl;
-        emit failed(callBackID, 500, "不是音频文件");
+        emit failed(callBackID, ErrorInfo::IllegalMediaTypeError, "不合法的媒体文件类型:不是音频文件");
         return;
     }
 
