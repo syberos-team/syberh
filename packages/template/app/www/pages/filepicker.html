@@ -65,7 +65,9 @@
         count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          if (result && result.files) {
+            document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          }
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -81,7 +83,9 @@
         count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          if (result && result.files) {
+            document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          }
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -97,7 +101,9 @@
         count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          if (result && result.files) {
+            document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          }
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -113,7 +119,9 @@
         count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          if (result && result.files) {
+            document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          }
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -129,7 +137,9 @@
         count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          if (result && result.files) {
+            document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          }
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -145,7 +155,9 @@
         count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          if (result && result.files) {
+            document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
+          }
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
