@@ -3,6 +3,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include "./util/log.h"
+#include "./framework/common/errorinfo.h"
 
 int Storage::typeId = qRegisterMetaType<Storage *>();
 
@@ -30,7 +31,7 @@ void Storage::request(QString callbackId,QString actionName,QVariantMap params){
     }else if(actionName=="removeAll"){
         removeAll(callbackId);
     }else {
-        emit failed(callbackId.toLong(), 500, "Invalid call");
+        emit failed(callbackId.toLong(), ErrorInfo::InvalidCall, ErrorInfo::message(ErrorInfo::InvalidCall, "方法不存在"));
     }
 }
 
@@ -47,7 +48,7 @@ void Storage::setItem(QString callbackId, QString key, QVariant value){
         return;
     }
     if(value.isNull() || !value.isValid()){
-        emit failed(callbackId.toLong(), 500, "键值不能为空");
+        emit failed(callbackId.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "键值不能为空"));
         return;
     }
     manager->setValue(key, value, CStorageBasic::PolicyAlways);
@@ -114,14 +115,14 @@ void Storage::getAllKeys(QString callbackId){
 bool Storage::checkKey(QString callbackId, QString key, bool sendFailSign){
     if(key==""){
         if(sendFailSign){
-            emit failed(callbackId.toLong(), 500, "键名不能为空");
+            emit failed(callbackId.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "键名不能为空"));
         }
         return false;
     }
     qDebug() << Q_FUNC_INFO << "key length:" << key.length();
     if(key.length() > 40){
         if(sendFailSign){
-            emit failed(callbackId.toLong(), 500, "键名长度超长，最大长度40");
+            emit failed(callbackId.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "键名长度超长，最大长度40"));
         }
         return false;
     }
