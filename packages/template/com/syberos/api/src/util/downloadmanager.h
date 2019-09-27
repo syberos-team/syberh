@@ -76,6 +76,9 @@ private:
     qint64 storageFreeSize();
 
 signals:
+
+    void signalStarted(QString downloadId, QString path);
+
     void signalDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal);
 
     void signalReplyFinished(QString downloadId, QString path, int statusCode, QString error);

@@ -133,8 +133,7 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
     fileNames.insert(path, path);
 
     downloadManager->downloadFile(url, path);
-    QJsonObject json = successJson(callbackId, path, Started, 0, 0);
-    emit success(callbackId.toLong(), json);
+
 }
 
 void Download::cancel(QString callbackId, QString downloadID){
@@ -178,6 +177,10 @@ void Download::removeTask(QString downloadId){
             disconnect(taskInfo->downloadManager, &DownloadManager::signalReplyFinished, this, &Download::onReplyFinished);
             disconnect(taskInfo->downloadManager, &DownloadManager::signalDownloadError, this, &Download::onDownloadError);
             tasks.remove(downloadId);
+
+            taskInfo->downloadManager->deleteLater();
+            taskInfo->downloadManager = NULL;
+
             delete taskInfo;
             taskInfo = NULL;
         }
@@ -225,4 +228,9 @@ void Download::onDownloadError(QString downloadId, QNetworkReply::NetworkError c
     qDebug() << Q_FUNC_INFO << "download failed " << code << error << endl;
     emit failed(downloadId.toLong(), 500, error);
     removeTask(downloadId);
+}
+void Download::onStarted(QString downloadId, QString path)
+{
+    QJsonObject json = successJson(downloadId, path, Started, 0, 0);
+    emit success(downloadId.toLong(), json);
 }
