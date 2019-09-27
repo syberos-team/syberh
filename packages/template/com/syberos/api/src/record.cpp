@@ -8,6 +8,7 @@
 #include <QMetaObject>
 #include <QGuiApplication>
 #include "util/fileutil.h"
+#include "framework/common/errorinfo.h"
 
 int Record::typeId = qRegisterMetaType<Record *>();
 
@@ -56,7 +57,7 @@ void Record::list(long callBackID,QVariantMap params){
         emit success(callBackID, jsonArr);
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "查询录音列表失败" << endl;
-        emit failed(callBackID, 6002, "系统错误:查询录音列表失败");
+        emit failed(callBackID, ErrorInfo::systemError, "系统错误:查询录音列表失败");
     }
 }
 
@@ -99,7 +100,7 @@ void Record::start(long callBackID,QVariantMap params){
         historydata->insertMetadata(newFile,0,0,time.toString("yyyy-MM-dd hh:mm:ss"));
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "在数据库中添加录音记录失败" << endl;
-        emit failed(callBackID, 6002, "系统错误:在数据库中添加录音记录失败");
+        emit failed(callBackID, ErrorInfo::systemError, "系统错误:在数据库中添加录音记录失败");
         return;
     }
 
@@ -136,7 +137,7 @@ void Record::stop(long callBackID, QVariantMap params){
         historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
     } catch (QException e) {
          qDebug() << Q_FUNC_INFO << "在数据库中修改录音记录失败"  << endl;
-         emit failed(callBackID, 6002, "系统错误:在数据库中修改录音记录失败");
+         emit failed(callBackID, ErrorInfo::systemError, "系统错误:在数据库中修改录音记录失败");
          return;
     }
     emit success(callBackID, true);
@@ -153,7 +154,7 @@ void Record::remove(long callBackID, QVariantMap params){
         historydata->removeMetadata(filePath);
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "删除录音失败" << endl;
-        emit failed(callBackID, 6002, "系统错误:删除录音失败");
+        emit failed(callBackID, ErrorInfo::systemError, "系统错误:删除录音失败");
         return;
     }
 
