@@ -548,6 +548,88 @@
       },
       "version-1.1.1-alpha.2/version-1.1.1-alpha.2-started-cli": {
         "title": "安装 CLI"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-copy": {
+        "title": "copy"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-fileList": {
+        "title": "fileList"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-move": {
+        "title": "move"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-remove": {
+        "title": "remove"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-chooseImage": {
+        "title": "chooseImage"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-getImageInfo": {
+        "title": "getImageInfo"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-previewImage": {
+        "title": "previewImage"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-pause": {
+        "title": "pause"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-resume": {
+        "title": "resume"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-start": {
+        "title": "start"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-stop": {
+        "title": "stop"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/camera/version-1.1.1-alpha.3-takePhoto": {
+        "title": "takePhoto"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-list": {
+        "title": "list"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-pause": {
+        "title": "pause"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-remove": {
+        "title": "remove"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-resume": {
+        "title": "resume"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-start": {
+        "title": "start"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-stop": {
+        "title": "stop"
+      },
+      "version-1.1.1-alpha.3/apis/package/version-1.1.1-alpha.3-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.1.1-alpha.3/apis/router/version-1.1.1-alpha.3-router": {
+        "title": "路由(router)"
+      },
+      "version-1.1.1-alpha.3/apis/updates/version-1.1.1-alpha.3-manager": {
+        "title": "更新管理",
+        "sidebar_label": "更新管理"
+      },
+      "version-1.1.1-alpha.3/apis/upload/version-1.1.1-alpha.3-upload-cancel": {
+        "title": "cancel"
+      },
+      "version-1.1.1-alpha.3/apis/upload/version-1.1.1-alpha.3-upload": {
+        "title": "start"
+      },
+      "version-1.1.1-alpha.3/qt/request/version-1.1.1-alpha.3-request-c": {
+        "title": "request"
+      },
+      "version-1.1.1-alpha.3/version-1.1.1-alpha.3-return_code": {
+        "title": "全局返回码"
+      },
+      "version-1.1.1-alpha.3/version-1.1.1-alpha.3-started-cli": {
+        "title": "安装 CLI"
       }
     },
     "links": {
