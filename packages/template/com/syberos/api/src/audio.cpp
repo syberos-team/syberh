@@ -25,11 +25,11 @@ void Audio::request(QString callBackID, QString actionName, QVariantMap params)
     if(actionName == "start"){
         start(callBackID.toLong(),params);
     }else if(actionName == "pause"){
-        pause(params);
+        pause(callBackID.toLong(),params);
     }else if(actionName == "resume"){
-        resume(params);
+        resume(callBackID.toLong(),params);
     }else if(actionName == "stop"){
-        stop(params);
+        stop(callBackID.toLong(),params);
     }
 }
 
@@ -47,7 +47,6 @@ void Audio::start(long callBackID,QVariantMap params){
 
     QString filePath = params.value("path").toString();
     int position = params.value("position").toInt();
-
 
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
@@ -69,7 +68,6 @@ void Audio::start(long callBackID,QVariantMap params){
         return;
     }
 
-
     player->setMedia(QUrl::fromLocalFile(filePath));
     player->setVolume(50);
     player->play();
@@ -78,16 +76,17 @@ void Audio::start(long callBackID,QVariantMap params){
     if(position != 0){
         player->setPosition(player->position() + (1000*position));
     }
-    emit success(callBackID, "success");
+    emit success(callBackID, true);
 }
 
-void Audio::pause(QVariantMap params){
+void Audio::pause(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pause" << params << endl;
 
     player->pause();
+    emit success(callBackID, true);
 }
 
-void Audio::resume(QVariantMap params){
+void Audio::resume(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     int position = params.value("position").toInt();
@@ -100,10 +99,12 @@ void Audio::resume(QVariantMap params){
     }else{
         player->play();
     }
+    emit success(callBackID, true);
 }
 
-void Audio::stop(QVariantMap params){
+void Audio::stop(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "stop" << params << endl;
 
     player->stop();
+    emit success(callBackID, true);
 }
