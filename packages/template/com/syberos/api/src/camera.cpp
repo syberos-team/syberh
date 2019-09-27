@@ -35,6 +35,8 @@ void Camera::changeCameraImagePath(long callBackID,QVariantMap params){
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "文件地址不存在：" << filePath << endl;
+        emit failed(callBackID, 4048, "无效的url:照片文件不存在");
+        return;
     }
 
     //设置系统相机路径
@@ -58,7 +60,7 @@ void Camera::changeCameraImagePath(long callBackID,QVariantMap params){
         file.remove();
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "将照片移动到系统相册失败" << endl;
-        emit failed(callBackID, 500, "在数据库中添加录音记录失败");
+        emit failed(callBackID, 6002, "系统错误:将照片移动到系统相册失败");
         return;
     }
 

@@ -43,21 +43,21 @@ void Image::saveImageToPhotosAlbum(long callBackID, QString filePath){
 
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
-        emit failed(callBackID, 500, "文件路径不能为空");
+        emit failed(callBackID, 4035, "不合法的参数:filePath不能为空");
         return;
     }
 
     bool ret = Helper::instance()->isPicture(filePath);
     if(!ret){
         qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
-        emit failed(callBackID, 500, "不是图片文件");
+        emit failed(callBackID, 4004, "不合法的媒体文件类型:不是图片文件");
         return;
     }
 
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "文件不存在：" << filePath << endl;
-        emit failed(callBackID, 500, "文件不存在");
+        emit failed(callBackID, 4048, "无效的url:图片不存在");
         return;
     }
 
@@ -81,7 +81,7 @@ void Image::saveImageToPhotosAlbum(long callBackID, QString filePath){
         QFile::copy(filePath, newFile);
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "保存图片到系统相册失败" << endl;
-        emit failed(callBackID, 500, "保存图片到系统相册失败");
+        emit failed(callBackID, 6002, "系统错误:保存图片到系统相册失败");
         return;
     }
 
@@ -96,21 +96,21 @@ void Image::getImageInfo(long callBackID, QVariantMap params){
 
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
-        emit failed(callBackID, 500, "文件路径不能为空");
+        emit failed(callBackID, 4035, "不合法的参数:path不能为空");
         return;
     }
 
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "图片不存在：" << filePath << endl;
-        emit failed(callBackID, 500, "图片不存在");
+        emit failed(callBackID, 4048, "无效的url:图片不存在");
         return;
     }
 
     bool ret = Helper::instance()->isPicture(filePath);
     if(!ret){
         qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
-        emit failed(callBackID, 500, "不是图片文件");
+        emit failed(callBackID, 4004, "不合法的媒体文件类型:不是图片文件");
         return;
     }
 
