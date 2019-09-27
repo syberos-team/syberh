@@ -18,6 +18,7 @@ Record::Record(){
 
 Record::~Record(){
     delete recoder;
+    delete historydata;
 }
 
 void Record::request(QString callBackID, QString actionName, QVariantMap params)
@@ -27,9 +28,9 @@ void Record::request(QString callBackID, QString actionName, QVariantMap params)
     }else if (actionName == "start"){
         start(callBackID.toLong(), params);
     }else if (actionName == "pause"){
-        pause(params);
+        pause(callBackID.toLong(),params);
     }else if (actionName == "resume"){
-        resume(params);
+        resume(callBackID.toLong(),params);
     }else if(actionName == "stop"){
         stop(callBackID.toLong(),params);
     }else if(actionName == "remove"){
@@ -135,15 +136,18 @@ void Record::start(long callBackID,QVariantMap params){
     emit success(callBackID, QVariant(jsonObject));
 }
 
-void Record::pause(QVariantMap params){
+void Record::pause(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pause" << params << endl;
+
     recoder->pause();
+    emit success(callBackID, true);
 }
 
-void Record::resume(QVariantMap params){
+void Record::resume(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     recoder->record();
+    emit success(callBackID, true);
 }
 
 void Record::stop(long callBackID, QVariantMap params){
@@ -158,7 +162,9 @@ void Record::stop(long callBackID, QVariantMap params){
     } catch (QException e) {
          qDebug() << Q_FUNC_INFO << "在数据库中修改录音记录失败"  << endl;
          emit failed(callBackID, 500, "在数据库中修改录音记录失败");
+         return;
     }
+    emit success(callBackID, true);
 }
 
 void Record::remove(long callBackID, QVariantMap params){
@@ -176,7 +182,5 @@ void Record::remove(long callBackID, QVariantMap params){
         return;
     }
 
-    QJsonObject jsonObject;
-    jsonObject.insert("result", true);
-    emit success(callBackID, jsonObject);
+    emit success(callBackID, true);
 }
