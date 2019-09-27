@@ -9,6 +9,7 @@
 #include "../com/syberos/api/src/util/log.h"
 #include "../com/syberos/api/src/package.h"
 #include "../com/syberos/api/src/util/fileutil.h"
+#include "../com/syberos/api/src/framework/common/errorinfo.h"
 
 App_Workspace::App_Workspace()
     : CWorkspace()
@@ -22,6 +23,9 @@ App_Workspace::App_Workspace()
       }
     }
     Log::instance()->setLevel(devLog);
+
+    // 初始化错误信息
+    ErrorInfo::init();
 
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     m_view->engine()->addImportPath("qrc:/");

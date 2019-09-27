@@ -14,7 +14,6 @@
         <file>js/util/tool.js</file>
         <file>js/webview/webview.js</file>
         <file>js/config.js</file>
-        <file>js/readme.html</file>
         <file>js/readme.md</file>
         <file>js/syber.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>

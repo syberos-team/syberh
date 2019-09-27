@@ -1,6 +1,7 @@
 #include "telephony.h"
 #include <cgui_application.h>
 #include <QDebug>
+#include "./framework/common/errorinfo.h"
 
 int Telephony::typeId = qRegisterMetaType<Telephony *>();
 
@@ -23,7 +24,7 @@ void Telephony::request(QString callBackID,QString actionName,QVariantMap params
         qApp->openUrl("dial://showdialpage?" + tel);
         emit success(callBackID.toLong(), "");
     }else{
-        emit failed(callBackID.toLong(), 500, "Invalid call");
+        emit failed(callBackID.toLong(), ErrorInfo::InvalidCall, ErrorInfo::message(ErrorInfo::InvalidCall, "方法不存在"));
     }
 }
 

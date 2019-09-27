@@ -95,7 +95,7 @@ CPage{
             property url curHoverUrl: ""
             anchors.fill:parent
             url:surl
-            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
+            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+";"
             experimental.minimumScale: false
             experimental.preferredMinimumContentsWidth: Screen.width
             experimental.deviceWidth:Screen.width
