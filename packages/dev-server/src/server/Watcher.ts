@@ -19,6 +19,8 @@ export default class Watcher {
       throw new Error('socket server is undefind')
     }
 
+    log.verbose('Watcher constructor() path', path)
+
     this.server = server
     if (Array.isArray(path)) {
       path.forEach(dirPath => {

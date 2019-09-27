@@ -49,6 +49,7 @@ QString DownloadManager::getDownloadFileSuffix() {
 
 // 开始下载文件，传入下载链接和文件的路径
 void DownloadManager::downloadFile(QString url , QString fileName){
+    qDebug() << url << fileName <<endl;
     // 防止多次点击开始下载按钮，进行多次下载，只有在停止标志变量为true时才进行下载;
     if (m_isStop) {
         m_isStop = false;
@@ -257,6 +258,7 @@ void DownloadManager::onFinished(){
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
 void DownloadManager::onError(QNetworkReply::NetworkError code){
+    qDebug () << Q_FUNC_INFO << "下载过程中出现错误" <<endl;
     emit signalDownloadError(m_downloadId, code, m_reply->errorString());
     closeDownload();
 }
