@@ -4,7 +4,7 @@ export default function fileManagerMixin(hybrid) {
     hybridJs.extendModule('fileManager', [
         {
             namespace: 'copy',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 srcPath: '',
                 destPath: '',
@@ -12,7 +12,7 @@ export default function fileManagerMixin(hybrid) {
         },
         {
             namespace: 'move',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 srcPath: '',
                 destPath: '',
@@ -20,21 +20,21 @@ export default function fileManagerMixin(hybrid) {
         },
         {
             namespace: 'fileList',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 srcPath: '',
             },
         },
         {
             namespace: 'getInfo',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 srcPath: '',
             },
         },
         {
             namespace: 'remove',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 srcPath: '',
                 recursive: 0,

@@ -4,7 +4,7 @@ export default function clipboardMixin(hybrid) {
 
     hybridJs.extendModule('clipboard', [{
         namespace: 'setClipboardData',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             data: '',
         },
@@ -19,7 +19,7 @@ export default function clipboardMixin(hybrid) {
         },
     },{
         namespace: 'getClipboardData',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             data: '',
         },
