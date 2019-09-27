@@ -13,13 +13,13 @@ public:
         //未知的错误
         UnknowError = 9999,
         //不合法的参数
-        illegalParamError = 4035,
+        IllegalParamError = 4035,
         //不合法的媒体文件类型
-        illegalMediaTypeError = 4004,
+        IllegalMediaTypeError = 4004,
         //无效的url
-        invalidURLError = 4048,
+        InvalidURLError = 4048,
         //系统错误
-        systemError = 6002
+        SystemError = 6002
     };
 
     static void init();
