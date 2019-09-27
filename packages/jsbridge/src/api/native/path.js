@@ -4,15 +4,15 @@ export default function pathMixin(hybrid) {
     hybridJs.extendModule('path', [
         {
             namespace: 'inner',
-            os: ['syber'],
+            os: ['syberos'],
         },
         {
             namespace: 'extern',
-            os: ['syber'],
+            os: ['syberos'],
         },
         {
             namespace: 'dataRoot',
-            os: ['syber'],
+            os: ['syberos'],
         },
     ]);
 }

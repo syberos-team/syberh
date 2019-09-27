@@ -8,7 +8,7 @@ export default function storageMixin(hybrid) {
 
     hybridJs.extendModule('storage', [{
         namespace: 'setItem',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             // 键名
             key: '',
@@ -27,7 +27,7 @@ export default function storageMixin(hybrid) {
         },
     }, {
         namespace: 'getItem',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             // 键名
             key: '',
@@ -44,7 +44,7 @@ export default function storageMixin(hybrid) {
         },
     }, {
         namespace: 'removeItem',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             // 键名
             key: '',
@@ -59,10 +59,10 @@ export default function storageMixin(hybrid) {
         },
     }, {
         namespace: 'getAllKeys',
-        os: ['syber'],
+        os: ['syberos'],
     }, {
         namespace: 'removeAll',
-        os: ['syber'],
+        os: ['syberos'],
         runCode(...rest) {
             // 兼容字符串形式
             const args = innerUtil.compatibleStringParamsToObject.call(this, rest);

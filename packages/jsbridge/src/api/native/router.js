@@ -5,19 +5,19 @@ export default function authMixin (hybrid) {
   hybridJs.extendModule('router', [
     {
       namespace: 'reload',
-      os: ['syber'],
+      os: ['syberos'],
     },
     {
       namespace: 'goBack',
-      os: ['syber'],
+      os: ['syberos'],
     },
     {
       namespace: 'goForward',
-      os: ['syber'],
+      os: ['syberos'],
     },
     {
       namespace: 'reLaunch',
-      os: ['syber'],
+      os: ['syberos'],
       defaultParams: {
         url: '',
         data: {}
@@ -55,7 +55,7 @@ export default function authMixin (hybrid) {
     },
     {
       namespace: 'navigateTo',
-      os: ['syber'],
+      os: ['syberos'],
       defaultParams: {
         url: '',
         data: {}
@@ -93,11 +93,11 @@ export default function authMixin (hybrid) {
     },
     {
       namespace: 'reLaunch',
-      os: ['syber'],
+      os: ['syberos'],
     },
     {
       namespace: 'redirectTo',
-      os: ['syber'],
+      os: ['syberos'],
       defaultParams: {
         url: '',
         data: {}
@@ -135,7 +135,7 @@ export default function authMixin (hybrid) {
     },
     {
       namespace: 'navigateBack',
-      os: ['syber'],
+      os: ['syberos'],
       defaultParams: {
         delta: 1,
       },
@@ -151,7 +151,7 @@ export default function authMixin (hybrid) {
     },
     {
       namespace: 'getCurrentPages',
-      os: ['syber']
+      os: ['syberos']
     }
   ]);
 }
