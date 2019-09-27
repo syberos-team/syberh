@@ -104,6 +104,8 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
         connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+
+        emit signalStarted(m_downloadId, m_path);
     }
 }
 
