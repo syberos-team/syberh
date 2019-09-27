@@ -45,6 +45,12 @@ public:
      */
      Q_INVOKABLE bool isPicture(QString filepath);
 
+    /**
+     * @brief isAudio 判断是否是音频
+     * @param filepath
+     */
+     Q_INVOKABLE bool isAudio(QString filepath);
+
 
 private:
     explicit Helper(QObject *parent = 0);

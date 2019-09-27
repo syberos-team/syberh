@@ -25,12 +25,9 @@ function Toast () {
         logger.verbose('component.show ret:',ret)
         that.failed(that.handlerId, 6001, ret);
         return;
+    }else{
+       that.success(that.handlerId);
     }
-    // 确认事件
-    component.accepted.connect(function() {
-      // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
-      that.success(that.handlerId);
-    });
   });
 }
 

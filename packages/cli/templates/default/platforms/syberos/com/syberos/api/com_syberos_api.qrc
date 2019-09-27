@@ -79,5 +79,6 @@
         <file>res/save.png</file>
         <file>res/backCapture.png</file>
         <file>res/back.png</file>
+        <file>js/modal/gtoast.js</file>
     </qresource>
 </RCC>

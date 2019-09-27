@@ -59,8 +59,7 @@ function WebView (options) {
         if (that.loadSuccessEvent === 0 && loadProgress === 100) {
           that.loadSuccessEvent = 1
         } else if (that.loadSuccessEvent === 1 && loadProgress === 100) {
-          logger.verbose('on ready() loadingStatus : ', that.object.loading())
-          logger.verbose('on ready() onLoadProgress success: ', loadProgress)
+          logger.verbose(' webview:[%s] ,on ready() onLoadProgress success: ', that.id, loadProgress)
           //调用任务狗
           that.dog();
           that.loadSuccessEvent = 0
@@ -217,28 +216,13 @@ function WebView (options) {
     logger.verbose('webview:[%s] on reLaunch', that.id, JSON.stringify(param))
     logger.verbose('reLaunch swebviews:[%d]', swebviews.length)
     logger.verbose('webviewdepth:[%d]', webviewdepth)
-    var url = getUrl(param.url)
+
     try {
+      var url = getUrl(param.url)
+      swebviews[0].object.openUrl(url)
+      currentWebview.trigger('success', handlerId, true)
       that.navigateBack({ delta: webviewMaxDepth }, function (res, msg) {
         logger.verbose('reLaunch navigateBack()', res, msg)
-        currentWebview.object.openUrl(url)
-        if (res) {
-          that.pushQueue('request', {
-            url: param.url,
-            handlerId: handlerId,
-            result: res
-          })
-          currentWebview.trigger('success', handlerId, res)
-        } else {
-          that.pushQueue('request', {
-            url: param.url,
-            errorCode: 9999,
-            handlerId: handlerId,
-            result: msg
-          })
-
-        }
-
       })
     } catch (error) {
       logger.error('reLaunch error', error.message)
@@ -260,11 +244,6 @@ function WebView (options) {
       dwevview = swebviews[idx]
       webviewdepth += 1
       SYBEROS.request(dwevview.module, handlerId, 'redirectTo', param)
-      that.pushQueue('request', {
-        url: param.url,
-        handlerId: handlerId,
-        result: true
-      })
     } else {
       var wpId = 'router_' + (swebviews.length + 1)
       logger.verbose('开始创建新的webview:[%s]', wpId)
@@ -281,12 +260,11 @@ function WebView (options) {
       SYBEROS.addPlugin(dwevview)
       // 设定webview的深度为2
       webviewdepth += 1
-      that.pushQueue('request', {
-        url: param.url,
-        handlerId: handlerId,
-        result: true
-      })
     }
+    that.trigger('success',
+      handlerId,
+      true
+    )
   })
 
   // 不关闭当前页面，跳转到某个页面
@@ -294,13 +272,13 @@ function WebView (options) {
     try {
       logger.verbose('webview:[%s] on redirectTo', that.id, JSON.stringify(param))
       var url = getUrl(param.url)
-      object.openUrl(url)
+      currentWebview.object.openUrl(url)
+      currentWebview.trigger('success', handlerId, true)
       if (handlerId) {
-        that.pushQueue('request', {
-          url: param.url,
-          handlerId: handlerId,
-          result: true
-        })
+        that.trigger('success',
+          handlerId,
+          true
+        )
       }
     } catch (error) {
       logger.error('redirectTo error', error.message)
@@ -313,9 +291,7 @@ function WebView (options) {
   function dog () {
     logger.verbose('dog()')
     var queue = this.messageQueue;
-
     var currentUrl = this.object.getCurrentUrl();
-
     logger.verbose('dog() 处理消息数:%d', queue.length)
     for (var i = 0; i < queue.length; i++) {
       var obj = queue[i];
@@ -414,13 +390,13 @@ function WebView (options) {
         }
       }
       var topVebview = swebviews[swebviews.length - 1];
+      currentWebview = topVebview
       if (swebviews.length === 1) {
         logger.verbose('返回最顶层:[%d]', swebviews.length)
-        pageStack.pop(null, false)
+        pageStack.pop(swebviews[0].object)
       } else {
         pageStack.pop(topVebview.object)
       }
-      currentWebview = topVebview
       logger.verbose('topVebview:[%s],当前swebviews数量: [%d],栈的深度: [%d]', topVebview.id, swebviews.length, pageStack.depth)
       topVebview.trigger('show', WebviewStatusPop)
       if (typeof callback === 'function') callback(true)
@@ -630,37 +606,6 @@ function getIndexPath () {
   var url = 'file://' + helper.getWebRootPath() + '/index.html'
   logger.verbose('getIndexPath()', url)
   return url
-}
-/**
- * url地址转换
- * @param {string} url
- */
-function getUrl (url) {
-  logger.verbose('getUrl() url', url)
-  if (!url) {
-    throw new Error('url不存在', url)
-  }
-  // 如果是网络地址,直接返回
-  if (/^(http|https|ftp|\/\/)/g.test(url)) {
-    logger.verbose('http||https  url:', url)
-    return url
-  }
-
-  var filePath = helper.getWebRootPath() + '/' + url
-  var checkPath
-  logger.verbose('filePath:', filePath)
-  if (filePath.indexOf('?') >= 0) {
-    checkPath = filePath.split('?')[0]
-  } else {
-    checkPath = filePath
-  }
-  if (helper.exists(checkPath)) {
-    var rurl = 'file://' + filePath
-    return rurl
-  } else {
-    logger.verbose('页面不存在:', checkPath, '跳转到index.html')
-    return 'file://' + helper.getWebRootPath() + '/index.html'
-  }
 }
 
 
