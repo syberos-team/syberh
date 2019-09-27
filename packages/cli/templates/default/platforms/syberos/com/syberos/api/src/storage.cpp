@@ -19,18 +19,6 @@ Storage::~Storage(){
 void Storage::request(QString callbackId,QString actionName,QVariantMap params){
     qDebug() << "callbackId:" << callbackId << "actionName:" << actionName << "params:" << params << endl;
 
-//    Log::instance()->warn() << ">>>>>>>>>>>!!!!!! warn";
-
-//    Log::instance()->black() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->red() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->green() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->yellow() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->blue() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->violet() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->skyBlue() << "!!!!!" << "abc" << Log::instance()->end();
-//    Log::instance()->white() << "!!!!!" << "abc" << Log::instance()->end();
-
-
     if (actionName=="setItem"){
         setItem(callbackId, params.value("key").toString(), params.value("value"));
     }else if(actionName=="getItem") {

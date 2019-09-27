@@ -47,6 +47,13 @@ void Image::saveImageToPhotosAlbum(long callBackID, QString filePath){
         return;
     }
 
+    bool ret = Helper::instance()->isPicture(filePath);
+    if(!ret){
+        qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
+        emit failed(callBackID, 500, "不是图片文件");
+        return;
+    }
+
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "文件不存在：" << filePath << endl;
@@ -87,10 +94,23 @@ void Image::getImageInfo(long callBackID, QVariantMap params){
 
     QString filePath = params.value("path").toString();
 
+    if(filePath.isEmpty()){
+        qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
+        emit failed(callBackID, 500, "文件路径不能为空");
+        return;
+    }
+
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "图片不存在：" << filePath << endl;
         emit failed(callBackID, 500, "图片不存在");
+        return;
+    }
+
+    bool ret = Helper::instance()->isPicture(filePath);
+    if(!ret){
+        qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
+        emit failed(callBackID, 500, "不是图片文件");
         return;
     }
 
