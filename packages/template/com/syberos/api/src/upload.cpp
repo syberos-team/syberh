@@ -34,7 +34,7 @@ void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
 {
     // 检查网络
     if (!netWorkConnected()) {
-        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::getErrorMessage(ErrorInfo::NetworkError));
+        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError));
         return;
     }
 

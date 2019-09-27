@@ -44,7 +44,7 @@ void Image::saveImageToPhotosAlbum(long callBackID, QString filePath){
 
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
-        emit failed(callBackID, ErrorInfo::IllegalParamError, "不合法的参数:filePath不能为空");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "不合法的参数:filePath不能为空");
         return;
     }
 
@@ -97,7 +97,7 @@ void Image::getImageInfo(long callBackID, QVariantMap params){
 
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
-        emit failed(callBackID, ErrorInfo::IllegalParamError, "不合法的参数:path不能为空");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "不合法的参数:path不能为空");
         return;
     }
 
