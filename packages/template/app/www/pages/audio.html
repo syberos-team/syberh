@@ -47,15 +47,20 @@
     </ul>
   </div>
 
-  <div>音频地址：<input type="text" id="path" value=""/></div>
-  <div>指定时间：<input type="text" id="position" value="0"/></div>
-  <div id="content"><spen style="color:Red">请输入音频地址</spen></div>
+  <div><button type="button" onclick="selectFile()" class="mui-btn mui-btn-primary">选择音频地址</button>
+    <input type="text" id="path" value="" class="mui-text" /></div>
+  <div>指定时间：<input type="text" id="position" value="0" /></div>
+  <div id="content"></div>
+
 
   <div> 播放操作：
     <div align="center" id="start">播放:<img height="35" width="35" src="../images/play.png" onclick="start()" /></div>
-    <div align="center" id="pause" style="display: none" >暂停:<img height="35" width="35" src="../images/stop.png" onclick="pause()" /></div>
-    <div align="center" id="resume" style="display: none" >继续:<img height="35" width="35" src="../images/play.png" onclick="resume()" /></div>
-    <div align="center" id="stop" style="display: none" >停止:<img height="35" width="35" src="../images/stop.png" onclick="stop()" /></div>
+    <div align="center" id="pause" style="display: none">暂停:<img height="35" width="35" src="../images/stop.png"
+        onclick="pause()" /></div>
+    <div align="center" id="resume" style="display: none">继续:<img height="35" width="35" src="../images/play.png"
+        onclick="resume()" /></div>
+    <div align="center" id="stop" style="display: none">停止:<img height="35" width="35" src="../images/stop.png"
+        onclick="stop()" /></div>
   </div><br>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -70,44 +75,67 @@
   <script>
     var vConsole = new VConsole();
 
+    function selectFile() {
+      syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        category: 2,
+        success: function (result) {
+
+          if (result.confirm) {
+            $("#start").show();
+            $("#pause").hide();
+            $("#resume").hide();
+            $("#stop").hide();
+            document.getElementById("path").value = result.path.replace("file://", "");
+          } else if (result.cancel) {
+            console.log('用户点击取消')
+          }
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+    }
+
     //点击开始播放。隐藏播放、继续播放，显示暂停播放、停止播放
     function start() {
       var path = document.getElementById('path').value;
       var position = document.getElementById('position').value;
       if (path === 'undefined' || path === null || path === "") {
-        alert("请输入音频地址");
+        alert("请选择音频地址");
       } else {
-        $("#content").html("<spen style=\"color:Red\">开始播放音频</spen><br>");
-
-        $("#start").hide();
-        $("#pause").show();
-        $("#resume").hide();
-        $("#stop").show();
 
         syberh.audio.start({
           path: path,
           position: position,
           success: function (result) {
-            console.log('success');
+
+            $("#start").hide();
+            $("#pause").show();
+            $("#resume").hide();
+            $("#stop").show();
+            $("#content").html("<spen style=\"color:Red\">提示：开始播放音频</spen><br>");
+            console.log('success', result);
           },
           fail: function (error) {
             console.log('fail: ', error.code, error.msg);
+            $("#content").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
           }
         });
       }
     }
     //点击暂停播放。隐藏播放、暂停播放，显示继续播放、停止播放
     function pause() {
-      $("#content").html("<spen style=\"color:Red\">暂停播放音频</spen><br>");
-
-      $("#start").hide();
-      $("#pause").hide();
-      $("#resume").show();
-      $("#stop").show();
-
       syberh.audio.pause({
         success: function (result) {
-          console.log('success');
+
+          $("#start").hide();
+          $("#pause").hide();
+          $("#resume").show();
+          $("#stop").show();
+          $("#content").html("<spen style=\"color:Red\">提示：暂停播放音频</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -117,17 +145,16 @@
     //点击继续播放。隐藏播放、继续播放，显示暂停播放、停止播放
     function resume() {
       var position = document.getElementById('position').value;
-      $("#content").html("<spen style=\"color:Red\">继续播放音频</spen><br>");
-
-      $("#start").hide();
-      $("#pause").show();
-      $("#resume").hide();
-      $("#stop").show();
-
       syberh.audio.resume({
         position: position,
         success: function (result) {
-          console.log('success');
+
+          $("#start").hide();
+          $("#pause").show();
+          $("#resume").hide();
+          $("#stop").show();
+          $("#content").html("<spen style=\"color:Red\">提示：继续播放音频</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -136,16 +163,15 @@
     }
     //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
     function stop() {
-      $("#content").html("<spen style=\"color:Red\">停止播放音频</spen><br>");
-
-      $("#start").show();
-      $("#pause").hide();
-      $("#resume").hide();
-      $("#stop").hide();
-
       syberh.audio.stop({
         success: function (result) {
-          console.log('success');
+
+          $("#start").show();
+          $("#pause").hide();
+          $("#resume").hide();
+          $("#stop").hide();
+          $("#content").html("<spen style=\"color:Red\">提示：停止播放音频</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);

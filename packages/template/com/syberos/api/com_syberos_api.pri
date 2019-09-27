@@ -36,7 +36,9 @@ HEADERS += \
     $$PWD/src/upload.h \
     $$PWD/src/audio.h \
     $$PWD/src/util/log.h \
-    $$PWD/src/image.h
+    $$PWD/src/image.h \
+    $$PWD/src/brightness.h \
+    $$PWD/src/vibrator.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -60,7 +62,6 @@ SOURCES += \
     $$PWD/src/framework/devtools/socketclient.cpp \
     $$PWD/src/battery.cpp \
     $$PWD/src/networkInfo.cpp \
-    $$PWD/src/util/chalk.cpp \
     $$PWD/src/util/downloadmanager.cpp \
     $$PWD/src/util/fileutil.cpp \
     $$PWD/src/cellular.cpp \
@@ -73,4 +74,6 @@ SOURCES += \
     $$PWD/src/upload.cpp \
     $$PWD/src/audio.cpp \
     $$PWD/src/util/log.cpp \
-    $$PWD/src/image.cpp
+    $$PWD/src/image.cpp \
+    $$PWD/src/brightness.cpp \
+    $$PWD/src/vibrator.cpp

@@ -27,6 +27,7 @@
 #include <QTimer>
 #include "../../helper.h"
 #include "../../util/downloadmanager.h"
+#include "../../util/log.h"
 
 
 /**
@@ -70,6 +71,7 @@ public slots:
 
 
 private:
+    Log *log=Log::instance();
      QTimer *timer;
     //连接重试次数
     int connectCount=0;

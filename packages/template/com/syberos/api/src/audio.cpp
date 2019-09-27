@@ -23,13 +23,13 @@ void Audio::request(QString callBackID, QString actionName, QVariantMap params)
     qDebug() << Q_FUNC_INFO << "request" << callBackID << endl;
 
     if(actionName == "start"){
-        start(params);
+        start(callBackID.toLong(),params);
     }else if(actionName == "pause"){
-        pause(params);
+        pause(callBackID.toLong(),params);
     }else if(actionName == "resume"){
-        resume(params);
+        resume(callBackID.toLong(),params);
     }else if(actionName == "stop"){
-        stop(params);
+        stop(callBackID.toLong(),params);
     }
 }
 
@@ -42,11 +42,31 @@ void Audio::submit(QString typeID, QString callBackID, QString actionName, QVari
     Q_UNUSED(attachementes)
 }
 
-void Audio::start(QVariantMap params){
+void Audio::start(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "start" << params << endl;
 
     QString filePath = params.value("path").toString();
     int position = params.value("position").toInt();
+
+    if(filePath.isEmpty()){
+        qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
+        emit failed(callBackID, 500, "文件路径不能为空");
+        return;
+    }
+
+    QFile file(filePath);
+    if(!file.exists()){
+        qDebug() << Q_FUNC_INFO << "音频不存在：" << filePath << endl;
+        emit failed(callBackID, 500, "音频不存在");
+        return;
+    }
+
+    bool ret = Helper::instance()->isAudio(filePath);
+    if(!ret){
+        qDebug() << Q_FUNC_INFO << "不是音频文件" << endl;
+        emit failed(callBackID, 500, "不是音频文件");
+        return;
+    }
 
     player->setMedia(QUrl::fromLocalFile(filePath));
     player->setVolume(50);
@@ -56,15 +76,17 @@ void Audio::start(QVariantMap params){
     if(position != 0){
         player->setPosition(player->position() + (1000*position));
     }
+    emit success(callBackID, true);
 }
 
-void Audio::pause(QVariantMap params){
+void Audio::pause(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pause" << params << endl;
 
     player->pause();
+    emit success(callBackID, true);
 }
 
-void Audio::resume(QVariantMap params){
+void Audio::resume(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     int position = params.value("position").toInt();
@@ -77,10 +99,12 @@ void Audio::resume(QVariantMap params){
     }else{
         player->play();
     }
+    emit success(callBackID, true);
 }
 
-void Audio::stop(QVariantMap params){
+void Audio::stop(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "stop" << params << endl;
 
     player->stop();
+    emit success(callBackID, true);
 }

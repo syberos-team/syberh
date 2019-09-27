@@ -65,6 +65,9 @@ void output(QtMsgType type, const QMessageLogContext &context, const QString &ms
     changeQDebugLevel(Log::INFO);
 }
 
+
+
+
 Log::Log(QObject *parent) : QObject(parent){
     qInstallMessageHandler(output);
 
@@ -129,25 +132,40 @@ bool Log::isErrorEnabled(){
 }
 
 QDebug Log::verbose(){
+    return verbose(Log::DEFAULT);
+}
+
+QDebug Log::verbose(Color col){
     changeQDebugLevel(Log::VERBOSE);
-    return qDebug();
+    return color(col);
 }
 
 QDebug Log::info(){
+    return info(Log::DEFAULT);
+}
+
+QDebug Log::info(Color col){
     changeQDebugLevel(Log::INFO);
-    return qDebug();
+    return color(col);
 }
 
 QDebug Log::warn(){
+    return warn(Log::DEFAULT);
+}
+
+QDebug Log::warn(Color col){
     changeQDebugLevel(Log::WARNING);
-    return qDebug();
+    return color(col);
 }
 
 QDebug Log::error(){
-    changeQDebugLevel(Log::ERROR);
-    return qDebug();
+    return error(Log::DEFAULT);
 }
 
+QDebug Log::error(Color col){
+    changeQDebugLevel(Log::ERROR);
+    return color(col);
+}
 
 
 QDebug Log::black(){
@@ -180,6 +198,37 @@ QDebug Log::skyBlue(){
 
 QDebug Log::white(){
     return qDebug() << "\033[37m";
+}
+
+QDebug Log::color(Color col){
+    switch (col) {
+    case BLACK:
+        return black();
+    case RED:
+        return red();
+    case GREEN:
+        return green();
+    case YELLOW:
+        return yellow();
+    case BLUE:
+        return blue();
+    case VIOLET:
+        return violet();
+    case SKY_BLUE:
+        return skyBlue();
+    case WHITE:
+        return white();
+    default:
+        return qDebug();
+    }
+}
+
+QDebug color(const QString &color){
+    return qDebug() << color;
+}
+
+QDebug color(const char* color){
+    return qDebug() << color;
 }
 
 const char* Log::end(){

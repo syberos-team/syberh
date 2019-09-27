@@ -42,7 +42,6 @@ void NetworkInfo::info(long callBackID,QVariantMap params){
     Q_UNUSED(callBackID);
     Q_UNUSED(params);
 
-
     CNetworkManager network;
     bool isNetworkAvailable = network.isNetworkAvailable();
     bool isWifiConnected = network.isWifiConnected();
@@ -56,8 +55,7 @@ void NetworkInfo::info(long callBackID,QVariantMap params){
     json.insert("isWifiConnected", isWifiConnected);
     json.insert("wifiSignalStrength", wifiSignalStrength);
 
-    qDebug() << "getInfo: " << json << endl;
-
+    qDebug() << Q_FUNC_INFO << "json:" << json << endl;
     emit success(callBackID,  QVariant(json));
 }
 

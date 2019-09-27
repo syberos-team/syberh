@@ -1,4 +1,4 @@
-﻿{
+{
   "docs": {
     "关于Syberh": [
       "README"
@@ -148,6 +148,21 @@
     "上传": [
       "apis/upload/upload",
       "apis/upload/upload-cancel"
+    ],
+    "设备": [
+      {
+        "label": "屏幕亮度",
+        "type": "subcategory",
+        "ids": [
+          "apis/brightness/brightnessInfo",
+          "apis/brightness/setAdaptiveDimmingEnabled",
+          "apis/brightness/setAmbientLightSensorEnabled",
+          "apis/brightness/setBlankTimeout",
+          "apis/brightness/setBrightness",
+          "apis/brightness/setDimTimeout"
+        ]
+      }
     ]
+    
   }
 }

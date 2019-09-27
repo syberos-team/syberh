@@ -18,8 +18,8 @@ function Syber (parent) {
     throw new Error('root 不存在');
   }
   this.option = {
-    defaultPlugins: ['alert', 'confirm', 'prompt', 'toast', 'capture', 'system', 'filepicker', 'chooseImage']
-  };
+    defaultPlugins: ['alert', 'confirm', 'prompt', 'gtoast', 'toast', 'capture', 'system', 'filepicker', 'chooseImage', 'previewImage']
+  }
 
   // add 内置 plugins
   this._addBuiltInPlugins();
@@ -181,7 +181,6 @@ Syber.prototype.destroy = function (pluginId) {
   plugin.incubator = undefined;
   plugin.handlerId = undefined;
   logger.verbose('Syber component.destroy: %s', JSON.stringify(plugin));
-  logger.verbose('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin);
   if (plugin.removePlugin) {
     logger.info('Syber destroy() plugin.removePlugin : %s', plugin.removePlugin);
     this.removePlugin(pluginId);
@@ -233,9 +232,11 @@ Syber.prototype._addBuiltInPlugins = function () {
     confirm: { proto: Confirm },
     prompt: { proto: Prompt },
     toast: { proto: Toast },
+    gtoast: { proto: GToast },
     capture: { proto: Capture },
     system: { proto: System },
     filepicker: { proto: FilePicker },
+    previewImage: { proto: PreviewImage },
     chooseImage: { proto: ChooseImage }
   };
   if (!!list && isArray(list)) {

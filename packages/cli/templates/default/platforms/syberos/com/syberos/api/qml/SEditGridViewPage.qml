@@ -189,12 +189,22 @@ CPage {
     property QtObject listPreview: null
     function createListPreview(){
         if(!listPreview){
-
             listPreview = pageStack.getCachedPage(Qt.resolvedUrl("qrc:/com/syberos/api/qml/SImageListPreview.qml"),
                                                   "SImageListPreviewPage")
-            listPreview.model = Qt.binding(function(){return model})
+            listPreview.model = Qt.binding(function(){return previewModel})
         }
     }
+
+    // 监听返回事件，取消按钮点击才生效
+    Keys.onReleased: {
+        if(event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+            event.accepted = true
+            cancel()
+            pageStack.pop()
+            console.log('监听返回事件，取消按钮点击才生效')
+        }
+    }
+
 
     contentAreaItem: Item{
         SPhotoAndVideoBrowser{
@@ -223,10 +233,13 @@ CPage {
                 titleText: CPhotoTranslate.photosAndVideos
 
                 onCanceled: {
-                    mainPage.cancel()
+                    cancel()
+                    pageStack.pop()
                 }
             }
         }
+
+
 
         Loader{
             id: toolBarLoader
@@ -244,19 +257,33 @@ CPage {
                 onAnimationVisibleChanged:{
                     names = []
                     names = toolButtonNames
+                    // 有了按钮区域以后，先吧按钮置灰
+                    photoToolBar.enabledIndexes([0,1], false)
+                    photoToolBar.lastEnabled = false
                 }
                 onClicked: {
                     var tmpIndex=0;
                     // 0: 预览 1: 确定
                     if(0 === index) {
-                        mainPage.previewed(mainPage.curIndex)
+                        // 清空lstModel
+                        previewModel.clear()
+
                         // 跳转到预览页面
                         createListPreview()
+
+                        mainPage.selectedIndexes.forEach(function(item) {
+                            console.log('----previewModel-url-', model.get(item).url)
+                            previewModel.append({ url: model.get(item).url + ''})
+                        })
+
+                        mainPage.previewed(mainPage.curIndex)
+
                         if(listPreview){
-                            listPreview.currentIndex = mainPage.selectedIndexes[0]
-                            STATUS.setArr(mainPage.selectedIndexes)
+                            listPreview.currentIndex = 0
                             pageStack.push(listPreview)
                         }
+
+
                     } else if(1 === index) {
                         console.log('确定---', photoBrowser.selectedIndexes)
                         mainPage.confirm(photoBrowser.selectedIndexes)
@@ -289,6 +316,10 @@ CPage {
 
     SPhotoAndVideoModel{
         id: defaultModel
+    }
+
+    SPhotoPreviewModel {
+        id: previewModel
     }
 
     SPhotoAlternate{

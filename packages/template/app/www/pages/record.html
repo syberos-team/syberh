@@ -47,21 +47,31 @@
     </ul>
   </div>
 
-  <div id="content"><spen style="color:Red">请选择录音记录</spen></div>
+  <div id="content">
+    <spen style="color:Red">请选择录音记录</spen>
+  </div>
   <div><input type="text" id="text" style="display:none" /></div>
 
   <div> 播放操作：
-    <div align="center" id="startPlay" >播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" /></div>
-    <div align="center" id="pausePlay" style="display: none" >暂停:<img height="35" width="35" src="../images/stop.png" onclick="pausePlay()" /></div>
-    <div align="center" id="continuePlay" style="display: none" >继续:<img height="35" width="35" src="../images/play.png" onclick="continuePlay()" /></div>
-    <div align="center" id="stopPlay" style="display: none" >停止:<img height="35" width="35" src="../images/stop.png" onclick="stopPlay()" /></div>
+    <div align="center" id="startPlay">播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" />
+    </div>
+    <div align="center" id="pausePlay" style="display: none">暂停:<img height="35" width="35" src="../images/stop.png"
+        onclick="pausePlay()" /></div>
+    <div align="center" id="continuePlay" style="display: none">继续:<img height="35" width="35" src="../images/play.png"
+        onclick="continuePlay()" /></div>
+    <div align="center" id="stopPlay" style="display: none">停止:<img height="35" width="35" src="../images/stop.png"
+        onclick="stopPlay()" /></div>
   </div><br>
 
   <div> 录制操作：
-    <div align="center" id="startRecorder" >录音:<img height="35" width="35" src="../images/playR.png" onclick="startRecorder()" /></div>
-    <div align="center" id="pauseRecorder" style="display: none" >暂停:<img height="35" width="35" src="../images/stopR.png" onclick="pauseRecorder()" /></div>
-    <div align="center" id="continueRecorder" style="display: none" >继续:<img height="35" width="35" src="../images/playR.png" onclick="continueRecorder()" /></div>
-    <div align="center" id="stopRecorder" style="display: none" >停止:<img height="35" width="35" src="../images/stopR.png" onclick="stopRecorder()" /></div>
+    <div align="center" id="startRecorder">录音:<img height="35" width="35" src="../images/playR.png"
+        onclick="startRecorder()" /></div>
+    <div align="center" id="pauseRecorder" style="display: none">暂停:<img height="35" width="35"
+        src="../images/stopR.png" onclick="pauseRecorder()" /></div>
+    <div align="center" id="continueRecorder" style="display: none">继续:<img height="35" width="35"
+        src="../images/playR.png" onclick="continueRecorder()" /></div>
+    <div align="center" id="stopRecorder" style="display: none">停止:<img height="35" width="35" src="../images/stopR.png"
+        onclick="stopRecorder()" /></div>
   </div><br>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -92,7 +102,7 @@
             str += "<li class=\"mui-table-view-cell\">"
               + "<div onclick=\"getPath('" + result[i].fileName + "','" + result[i].path + "')\" >" + result[i].fileName + "</span>"
               + "<img class=\"li_items_right li_items_icon\" height=35 width=35 src=\"../images/deleteR.png\" "
-              + "onclick=\"delRecorder('"+ result[i].fileName +"','"+ result[i].path +"')\" />";
+              + "onclick=\"delRecorder('" + result[i].fileName + "','" + result[i].path + "')\" />";
 
             str += "<div class=\"items_info\"><span class=\"li_items\">" + result[i].created + "</span>"
               + "<span class=\"li_items_right\">" + result[i].duration + "</span></div>"
@@ -109,7 +119,7 @@
     }
 
     function getPath(fileName, path) {
-      $("#content").html("<spen style=\"color:Red\">已选中录音:" + fileName + "</spen><br>");
+      $("#content").html("<spen style=\"color:Red\">提示：已选中录音:" + fileName + "</spen><br>");
       document.getElementById('text').value = path;
 
       $("#startPlay").show();
@@ -124,17 +134,17 @@
       if (path === 'undefined' || path === null || path === "") {
         alert("请选择录音记录，没有请先录音");
       } else {
-        $("#content").html("<spen style=\"color:Red\">开始播放录音</spen><br>");
-
-        $("#startPlay").hide();
-        $("#pausePlay").show();
-        $("#continuePlay").hide();
-        $("#stopPlay").show();
 
         syberh.audio.start({
           path: path,
           success: function (result) {
-            console.log('success');
+
+            $("#startPlay").hide();
+            $("#pausePlay").show();
+            $("#continuePlay").hide();
+            $("#stopPlay").show();
+            $("#content").html("<spen style=\"color:Red\">提示：开始播放录音</spen><br>");
+            console.log('success', result);
           },
           fail: function (error) {
             console.log('fail: ', error.code, error.msg);
@@ -144,16 +154,15 @@
     }
     //点击暂停播放。隐藏播放、暂停播放，显示继续播放、停止播放
     function pausePlay() {
-      $("#content").html("<spen style=\"color:Red\">暂停播放录音</spen><br>");
-
-      $("#startPlay").hide();
-      $("#pausePlay").hide();
-      $("#continuePlay").show();
-      $("#stopPlay").show();
 
       syberh.audio.pause({
         success: function (result) {
-          console.log('success');
+          $("#startPlay").hide();
+          $("#pausePlay").hide();
+          $("#continuePlay").show();
+          $("#stopPlay").show();
+          $("#content").html("<spen style=\"color:Red\">提示：暂停播放录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -162,16 +171,15 @@
     }
     //点击继续播放。隐藏播放、继续播放，显示暂停播放、停止播放
     function continuePlay() {
-      $("#content").html("<spen style=\"color:Red\">继续播放录音</spen><br>");
-
-      $("#startPlay").hide();
-      $("#pausePlay").show();
-      $("#continuePlay").hide();
-      $("#stopPlay").show();
 
       syberh.audio.resume({
         success: function (result) {
-          console.log('success');
+          $("#startPlay").hide();
+          $("#pausePlay").show();
+          $("#continuePlay").hide();
+          $("#stopPlay").show();
+          $("#content").html("<spen style=\"color:Red\">提示：继续播放录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -180,16 +188,15 @@
     }
     //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
     function stopPlay() {
-      $("#content").html("<spen style=\"color:Red\">停止播放录音</spen><br>");
-
-      $("#startPlay").show();
-      $("#pausePlay").hide();
-      $("#continuePlay").hide();
-      $("#stopPlay").hide();
 
       syberh.audio.stop({
         success: function (result) {
-          console.log('success');
+          $("#startPlay").show();
+          $("#pausePlay").hide();
+          $("#continuePlay").hide();
+          $("#stopPlay").hide();
+          $("#content").html("<spen style=\"color:Red\">提示：停止播放录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -199,16 +206,16 @@
 
     //点击开始录音。隐藏录音、继续录音，显示暂停录音、停止录音
     function startRecorder() {
-      $("#content").html("<spen style=\"color:Red\">开始录音</spen><br>");
-
-      $("#startRecorder").hide();
-      $("#pauseRecorder").show();
-      $("#continueRecorder").hide();
-      $("#stopRecorder").show();
 
       syberh.record.start({
         success: function (result) {
           document.getElementById('text').value = result.path
+
+          $("#startRecorder").hide();
+          $("#pauseRecorder").show();
+          $("#continueRecorder").hide();
+          $("#stopRecorder").show();
+          $("#content").html("<spen style=\"color:Red\">提示：开始录音</spen><br>");
           console.log('success: ', result.path);
         },
         fail: function (error) {
@@ -218,16 +225,15 @@
     }
     //点击暂停录音。隐藏录音、暂停录音，显示继续录音、停止录音
     function pauseRecorder() {
-      $("#content").html("<spen style=\"color:Red\">暂停录音</spen><br>");
-
-      $("#startRecorder").hide();
-      $("#pauseRecorder").hide();
-      $("#continueRecorder").show();
-      $("#stopRecorder").show();
 
       syberh.record.pause({
         success: function (result) {
-          console.log('success: ');
+          $("#startRecorder").hide();
+          $("#pauseRecorder").hide();
+          $("#continueRecorder").show();
+          $("#stopRecorder").show();
+          $("#content").html("<spen style=\"color:Red\">提示：暂停录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -236,16 +242,15 @@
     }
     //点击继续录音。隐藏录音、继续录音，显示暂停录音、停止录音
     function continueRecorder() {
-      $("#content").html("<spen style=\"color:Red\">继续录音</spen><br>");
-
-      $("#startRecorder").hide();
-      $("#pauseRecorder").show();
-      $("#continueRecorder").hide();
-      $("#stopRecorder").show();
 
       syberh.record.resume({
         success: function (result) {
-          console.log('success: ');
+          $("#startRecorder").hide();
+          $("#pauseRecorder").show();
+          $("#continueRecorder").hide();
+          $("#stopRecorder").show();
+          $("#content").html("<spen style=\"color:Red\">提示：继续录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -254,16 +259,15 @@
     }
     //点击停止录音。显示录音,隐藏继续录音、暂停录音、停止录音
     function stopRecorder() {
-      $("#content").html("<spen style=\"color:Red\">停止录音</spen><br>");
-
-      $("#startRecorder").show();
-      $("#pauseRecorder").hide();
-      $("#continueRecorder").hide();
-      $("#stopRecorder").hide();
 
       syberh.record.stop({
         success: function (result) {
-          console.log('success');
+          $("#startRecorder").show();
+          $("#pauseRecorder").hide();
+          $("#continueRecorder").hide();
+          $("#stopRecorder").hide();
+          console.log('success', result);
+          $("#content").html("<spen style=\"color:Red\">提示：停止录音</spen><br>");
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -273,12 +277,13 @@
       refresh();
     }
     //删除录音
-    function delRecorder(fileName,path) {
-      $("#content").html("<spen style=\"color:Red\">删除录音:" + fileName + "</spen><br>");
+    function delRecorder(fileName, path) {
+
       syberh.record.remove({
         path: path,
         success: function (result) {
-          console.log('success',result.result);
+          console.log('success', result);
+          $("#content").html("<spen style=\"color:Red\">提示：删除录音:" + fileName + "</spen><br>");
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);

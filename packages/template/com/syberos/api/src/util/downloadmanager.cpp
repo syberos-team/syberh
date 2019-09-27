@@ -3,8 +3,9 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QDir>
+#include <QDateTime>
 
-#define DOWNLOAD_FILE_SUFFIX    "_tmp"
+#define DATETIME_FMT "yyyyMMddhhmmss"
 
 DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_networkManager(NULL)
@@ -18,6 +19,8 @@ DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_downloadId("")
         , m_storage(Internal)
 {
+    m_tmpFileSuffix = "." + QDateTime::currentDateTime().toString(DATETIME_FMT);
+
     m_networkManager = new QNetworkAccessManager(this);
     m_storageManager = new CStorageManager(this);
 }
@@ -41,11 +44,12 @@ QString DownloadManager::getDownloadUrl(){
 }
 // 获取临时文件后缀
 QString DownloadManager::getDownloadFileSuffix() {
-    return DOWNLOAD_FILE_SUFFIX;
+    return m_tmpFileSuffix;
 }
 
 // 开始下载文件，传入下载链接和文件的路径
 void DownloadManager::downloadFile(QString url , QString fileName){
+    qDebug() << url << fileName <<endl;
     // 防止多次点击开始下载按钮，进行多次下载，只有在停止标志变量为true时才进行下载;
     if (m_isStop) {
         m_isStop = false;
@@ -55,7 +59,7 @@ void DownloadManager::downloadFile(QString url , QString fileName){
 //      QString fileName = m_url.fileName();
 
         // 将当前文件名设置为临时文件名，下载完成时修改回来;
-        m_fileName = fileName + DOWNLOAD_FILE_SUFFIX;
+        m_fileName = fileName + m_tmpFileSuffix;
 
         m_path = fileName;
 
@@ -240,7 +244,7 @@ void DownloadManager::onFinished(){
         // 重命名临时文件;
         QFileInfo fileInfo(m_fileName);
         if (fileInfo.exists()) {
-            int index = m_fileName.lastIndexOf(DOWNLOAD_FILE_SUFFIX);
+            int index = m_fileName.lastIndexOf(m_tmpFileSuffix);
             QString realName = m_fileName.left(index);
             QFile::rename(m_fileName, realName);
         }
@@ -254,6 +258,7 @@ void DownloadManager::onFinished(){
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
 void DownloadManager::onError(QNetworkReply::NetworkError code){
+    qDebug () << Q_FUNC_INFO << "下载过程中出现错误" <<endl;
     emit signalDownloadError(m_downloadId, code, m_reply->errorString());
     closeDownload();
 }

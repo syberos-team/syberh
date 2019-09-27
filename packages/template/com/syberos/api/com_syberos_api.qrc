@@ -74,5 +74,11 @@
         <file>js/image/previewImage.js</file>
         <file>qml/SPreviewImage.qml</file>
         <file>qml/SPhotoPreviewModel.qml</file>
+        <file>res/switch.png</file>
+        <file>res/start.png</file>
+        <file>res/save.png</file>
+        <file>res/backCapture.png</file>
+        <file>res/back.png</file>
+        <file>js/modal/gtoast.js</file>
     </qresource>
 </RCC>

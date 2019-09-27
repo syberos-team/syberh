@@ -22,10 +22,10 @@ public:
     /**
      * @brief start 播放音频
      * @param params 参数
-     * @return 成功则无返回
+     * @return 成功则返回
      *         失败则返回错误码
      */
-    void start(QVariantMap params);
+    void start(long callBackID,QVariantMap params);
 
     /**
      * @brief pause 暂停音频
@@ -33,7 +33,7 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void pause(QVariantMap params);
+    void pause(long callBackID,QVariantMap params);
 
     /**
      * @brief resume 继续音频
@@ -41,7 +41,7 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void resume(QVariantMap params);
+    void resume(long callBackID,QVariantMap params);
 
     /**
      * @brief stop 结束播放音频
@@ -49,7 +49,7 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void stop(QVariantMap params);
+    void stop(long callBackID,QVariantMap params);
 
 private :
     QMediaPlayer *player;

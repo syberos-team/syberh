@@ -4,7 +4,7 @@ const program = require('commander')
 const { getPkgVersion } = require('../dist/util')
 
 program
-  .version(getPkgVersion())
+  .version(getPkgVersion(), '-v, --version')
   .usage('<command> [options]')
   .command('init [projectName]', '创建默认项目')
   .command('build', 'Build a project with options')
