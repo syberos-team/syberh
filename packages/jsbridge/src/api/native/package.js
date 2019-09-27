@@ -4,7 +4,7 @@ export default function packageMixin(hybrid) {
 
     hybridJs.extendModule('package', [{
         namespace: 'openUrl',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             scheme: '',
             path: '',
@@ -23,7 +23,7 @@ export default function packageMixin(hybrid) {
         },
     }, {
         namespace: 'openDocument',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             sopid: '',
             uiappid: '',

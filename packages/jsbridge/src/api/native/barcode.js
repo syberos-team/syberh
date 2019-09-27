@@ -9,7 +9,7 @@ export default function barcodeMixin (hybrid) {
 
   hybridJs.extendModule('barcode', [{
     namespace: 'scan',
-    os: ['syber'],
+    os: ['syberos'],
     defaultParams: {
       camera: '',
     },

@@ -15,6 +15,10 @@ UploadManager::~UploadManager()
 {
     m_networkManager->deleteLater();
     m_networkManager = NULL;
+    m_file->deleteLater();
+    m_file = NULL;
+    m_multiPart->deleteLater();
+    m_multiPart = NULL;
 }
 
 void UploadManager::setUploadId(QString uploadId)
@@ -25,27 +29,27 @@ void UploadManager::setUploadId(QString uploadId)
 void UploadManager::uploadFile(QString reqUrl, QString localFile)
 {
 
-//    qDebug() << Q_FUNC_INFO << "上传文件地址：" + reqUrl + ",本地文件地址:" + localFile << endl;
+    qDebug() << Q_FUNC_INFO << "上传文件地址：" + reqUrl + ",本地文件地址:" + localFile << endl;
 
-    QFile *file = new QFile(localFile) ;
-    if (!file->exists()) {
-        emit signalError(m_uploadId, 0, "上传文件不存在");
+    m_file = new QFile(localFile) ;
+    if (!m_file->exists()) {
+        emit signalError(m_uploadId, 500, "上传文件不存在");
         return;
     }
 
-    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    m_multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
-    file->open(QIODevice::ReadOnly);
+    m_file->open(QIODevice::ReadOnly);
 
     QHttpPart imagePart;
     imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
-    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"file\"; filename=\""+file->fileName()+"\""));
+    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"file\"; filename=\""+m_file->fileName()+"\""));
 
-    imagePart.setBodyDevice(file);
+    imagePart.setBodyDevice(m_file);
 
-    file->setParent(multiPart);
+    m_file->setParent(m_multiPart);
 
-    multiPart->append(imagePart);  
+    m_multiPart->append(imagePart);
 
     QNetworkRequest request;
 
@@ -59,11 +63,14 @@ void UploadManager::uploadFile(QString reqUrl, QString localFile)
     request.setUrl(reqUrl);
 
 
-    m_reply = m_networkManager->post(request, multiPart);
+    m_reply = m_networkManager->post(request, m_multiPart);
 
     connect(m_reply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(onUploadProgress(qint64, qint64)));
     connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
     connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+
+    emit signalStarted(m_uploadId);
+
 }
 
 void UploadManager::stopWork()
@@ -96,6 +103,7 @@ void UploadManager::onFinished()
 }
 void UploadManager::onError(QNetworkReply::NetworkError code)
 {
+    Q_UNUSED(code)
 //    qDebug() << Q_FUNC_INFO << "upload failed " << code << endl;
     m_isStop = true;
     emit signalError(m_uploadId, 500, m_reply->errorString());
