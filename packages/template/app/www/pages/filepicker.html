@@ -62,14 +62,10 @@
       syberh.filepicker.open({
         title: '文件选择',
         showBack: true,
+        count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById('pathDiv').innerText = result.path
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -82,14 +78,10 @@
         title: '照片选择',
         showBack: true,
         category: 'image',
+        count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById('pathDiv').innerText = result.path
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -102,14 +94,10 @@
         title: '视频选择',
         showBack: true,
         category: 'video',
+        count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById('pathDiv').innerText = result.path
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -122,14 +110,10 @@
         title: '音频选择',
         showBack: true,
         category: 'audio',
+        count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById('pathDiv').innerText = result.path
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -142,14 +126,10 @@
         title: '文档选择',
         showBack: true,
         category: 'document',
+        count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById('pathDiv').innerText = result.path
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -162,14 +142,10 @@
         title: '文本选择',
         showBack: true,
         category: 'text',
+        count: 2,
         success: function (result) {
           console.log('filepicker open success', JSON.stringify(result))
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById('pathDiv').innerText = result.path
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+          document.getElementById('pathDiv').innerText = JSON.stringify(result.files)
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
