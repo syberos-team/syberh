@@ -1,0 +1,167 @@
+{
+  "version-1.2.0-alpha.5-docs": {
+    "关于Syberh": [
+      "version-1.2.0-alpha.5-README"
+    ],
+    "快速开始": [
+      "version-1.2.0-alpha.5-started-cli",
+      "version-1.2.0-alpha.5-started-install",
+      "version-1.2.0-alpha.5-first-app",
+      "version-1.2.0-alpha.5-specials"
+    ],
+    "进阶指南": [
+      "version-1.2.0-alpha.5-cli-readme",
+      "version-1.2.0-alpha.5-app-config",
+      "version-1.2.0-alpha.5-started-ide",
+      "version-1.2.0-alpha.5-return_code"
+    ]
+  },
+  "version-1.2.0-alpha.5-API": {
+    "关于API": [
+      "version-1.2.0-alpha.5-apis/about/desc"
+    ],
+    "路由": [
+      "version-1.2.0-alpha.5-apis/router/router"
+    ],
+    "模态弹窗": [
+      "version-1.2.0-alpha.5-apis/modal/toast",
+      "version-1.2.0-alpha.5-apis/modal/gtoast",
+      "version-1.2.0-alpha.5-apis/modal/alert",
+      "version-1.2.0-alpha.5-apis/modal/confirm",
+      "version-1.2.0-alpha.5-apis/modal/prompt"
+    ],
+    "媒体": [
+      {
+        "label": "相机",
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/multimedia/camera/takePhoto"
+        ]
+      },
+      {
+        "label": "录音",
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/multimedia/record/list",
+          "version-1.2.0-alpha.5-apis/multimedia/record/start",
+          "version-1.2.0-alpha.5-apis/multimedia/record/pause",
+          "version-1.2.0-alpha.5-apis/multimedia/record/resume",
+          "version-1.2.0-alpha.5-apis/multimedia/record/stop",
+          "version-1.2.0-alpha.5-apis/multimedia/record/remove"
+        ]
+      },
+      {
+        "label": "音频",
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/multimedia/audio/start",
+          "version-1.2.0-alpha.5-apis/multimedia/audio/pause",
+          "version-1.2.0-alpha.5-apis/multimedia/audio/resume",
+          "version-1.2.0-alpha.5-apis/multimedia/audio/stop"
+        ]
+      },
+      {
+        "label": "图片",
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/image/chooseImage",
+          "version-1.2.0-alpha.5-apis/image/previewImage",
+          "version-1.2.0-alpha.5-apis/image/saveImageToPhotosAlbum",
+          "version-1.2.0-alpha.5-apis/image/getImageInfo"
+        ]
+      }
+    ],
+    "电话": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/telephony/dial"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/clipboard/setClipboardData",
+          "version-1.2.0-alpha.5-apis/clipboard/getClipboardData"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/system/aboutPhone",
+          "version-1.2.0-alpha.5-apis/system/battery",
+          "version-1.2.0-alpha.5-apis/system/networkInfo"
+        ]
+      }
+    ],
+    "数据网络": [
+      "version-1.2.0-alpha.5-apis/cellular/networkDisabled",
+      "version-1.2.0-alpha.5-apis/cellular/networkEnabled"
+    ],
+    "数据存储": [
+      "version-1.2.0-alpha.5-apis/storage/setItem",
+      "version-1.2.0-alpha.5-apis/storage/getItem",
+      "version-1.2.0-alpha.5-apis/storage/removeItem",
+      "version-1.2.0-alpha.5-apis/storage/getAllKeys",
+      "version-1.2.0-alpha.5-apis/storage/removeAll"
+    ],
+    "网络": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/request/request"
+        ]
+      }
+    ],
+    "下载": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/download/download",
+          "version-1.2.0-alpha.5-apis/download/download-cancel"
+        ]
+      }
+    ],
+    "文件选择": [
+      "version-1.2.0-alpha.5-apis/filepicker/filepicker"
+    ],
+    "文件管理": [
+      "version-1.2.0-alpha.5-apis/fileManager/move",
+      "version-1.2.0-alpha.5-apis/fileManager/copy",
+      "version-1.2.0-alpha.5-apis/fileManager/fileList",
+      "version-1.2.0-alpha.5-apis/fileManager/getInfo",
+      "version-1.2.0-alpha.5-apis/fileManager/remove"
+    ],
+    "应用管理": [
+      "version-1.2.0-alpha.5-apis/package/openUrl",
+      "version-1.2.0-alpha.5-apis/package/openDocument"
+    ],
+    "path": [
+      "version-1.2.0-alpha.5-apis/path/extern",
+      "version-1.2.0-alpha.5-apis/path/inner",
+      "version-1.2.0-alpha.5-apis/path/dataRoot"
+    ],
+    "上传": [
+      "version-1.2.0-alpha.5-apis/upload/upload",
+      "version-1.2.0-alpha.5-apis/upload/upload-cancel"
+    ],
+    "设备": [
+      {
+        "label": "屏幕亮度",
+        "type": "subcategory",
+        "ids": [
+          "version-1.2.0-alpha.5-apis/brightness/brightnessInfo",
+          "version-1.2.0-alpha.5-apis/brightness/setAdaptiveDimmingEnabled",
+          "version-1.2.0-alpha.5-apis/brightness/setAmbientLightSensorEnabled",
+          "version-1.2.0-alpha.5-apis/brightness/setBlankTimeout",
+          "version-1.2.0-alpha.5-apis/brightness/setBrightness",
+          "version-1.2.0-alpha.5-apis/brightness/setDimTimeout"
+        ]
+      }
+    ]
+  }
+}
