@@ -224,9 +224,9 @@ void Download::onReplyFinished(QString downloadId, QString path, int statusCode,
     removeTask(downloadId);
 }
 
-void Download::onDownloadError(QString downloadId, QNetworkReply::NetworkError code, QString error){
+void Download::onDownloadError(QString downloadId, qint64 code, QString error){
     qDebug() << Q_FUNC_INFO << "download failed " << code << error << endl;
-    emit failed(downloadId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, error));
+    emit failed(downloadId.toLong(), code, error);
     removeTask(downloadId);
 }
 void Download::onStarted(QString downloadId, QString path)

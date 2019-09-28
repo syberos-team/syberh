@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QHttpMultiPart>
 #include <QDebug>
+#include "../framework/common/errorinfo.h"
 
 UploadManager::UploadManager()
 {
@@ -33,7 +34,7 @@ void UploadManager::uploadFile(QString reqUrl, QString localFile)
 
     m_file = new QFile(localFile) ;
     if (!m_file->exists()) {
-        emit signalError(m_uploadId, 500, "上传文件不存在");
+        emit signalError(m_uploadId, ErrorInfo::FileNotExists, ErrorInfo::message(ErrorInfo::FileNotExists));
         return;
     }
 
@@ -106,7 +107,8 @@ void UploadManager::onError(QNetworkReply::NetworkError code)
     Q_UNUSED(code)
 //    qDebug() << Q_FUNC_INFO << "upload failed " << code << endl;
     m_isStop = true;
-    emit signalError(m_uploadId, 500, m_reply->errorString());
+
+    emit signalError(m_uploadId, ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, m_reply->errorString()) );
 }
 
 

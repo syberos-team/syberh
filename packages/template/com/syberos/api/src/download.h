@@ -55,7 +55,7 @@ public slots:
 
     void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
 
-    void onDownloadError(QString downloadId, QNetworkReply::NetworkError code, QString error);
+    void onDownloadError(QString downloadId, qint64 statusCode, QString error);
 };
 
 
