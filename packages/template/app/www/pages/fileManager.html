@@ -10,7 +10,16 @@
   <title>scan</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .mui-input-row label {
+      width: 50%;
+    }
+    .mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+      width: 50%;
+    }
+  </style>
 </head>
+
 
 <body>
 
@@ -122,12 +131,9 @@
         title: '文件选择',
         showBack: true,
         success: function (result) {
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById("move-src").value = result.path.replace("file://", "");
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+			if (result && result.files) {
+				document.getElementById("move-src").value = result.files[0].path.replace("file://", "");
+			}
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -140,12 +146,9 @@
         title: '文件选择',
         showBack: true,
         success: function (result) {
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById("copy-src").value = result.path.replace("file://", "");
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+			if (result && result.files) {
+				document.getElementById("copy-src").value = result.files[0].path.replace("file://", "");
+			}
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -158,12 +161,9 @@
         title: '文件选择',
         showBack: true,
         success: function (result) {
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById("info-src").value = result.path.replace("file://", "");
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+			if (result && result.files) {
+				document.getElementById("info-src").value = result.files[0].path.replace("file://", "");
+			}
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
@@ -176,12 +176,9 @@
         title: '文件选择',
         showBack: true,
         success: function (result) {
-          if (result.confirm) {
-            console.log('用户点击确定， 文件路径为=》', result.path)
-            document.getElementById("remove-src").value = result.path.replace("file://", "");
-          } else if (result.cancel) {
-            console.log('用户点击取消')
-          }
+			if (result && result.files) {
+				document.getElementById("remove-src").value = result.files[0].path.replace("file://", "");
+			}
         },
         fail: function (error) {
           console.log('filepicker open fail', error)
