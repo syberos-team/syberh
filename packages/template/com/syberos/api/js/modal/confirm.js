@@ -32,12 +32,12 @@ function Confirm () {
 
 
     if(that.param.title && that.param.title.length > 7){
-        that.failed(that.handlerId, 1003, "标题最多7个汉字");
+        that.failed(that.handlerId, 9001, "标题最多7个汉字");
         return;
     }
 
     if(that.param.confirmText && that.param.confirmText.length > 4 || that.param.cancelText && that.param.cancelText.length > 4){
-        that.failed(that.handlerId, 1003, "按钮最多4个汉字");
+        that.failed(that.handlerId, 9001, "按钮最多4个汉字");
         return;
     }
 

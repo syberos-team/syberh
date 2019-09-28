@@ -199,10 +199,12 @@ CPage{
                     show()
                 }
             }
-            experimental.filePicker: SyberosFilesPicker{
+
+            experimental.filePicker: SFilesPicker {
                 id: picker
-                width: gAppUtils.pageStackWindow.width
-                height: gAppUtils.pageStackWindow.height
+                titleText: "文件选择"
+                leftItemEnabled: true
+                count: 100
 
                 Connections {
                     target: picker
@@ -212,7 +214,7 @@ CPage{
                         model.accept(picker.filesPath);
                     }
                     onCancel: {
-                        model.rejected();
+                        model.reject();
                     }
                 }
 
@@ -224,9 +226,12 @@ CPage{
                 }
 
                 Component.onCompleted:{
-                    parent = gAppUtils.pageStackWindow;
-                    visible = true;
-                    status = CPageStatus.WillShow;
+                    console.log('model. ', model)
+                    console.log('model.multiple', model.multiple)
+                    console.log('model.selectMultiple', model['select-multiple'])
+                    parent = gAppUtils.pageStackWindow
+                    visible = true
+                    status = 2
                     focus = true
                 }
             }

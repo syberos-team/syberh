@@ -10,7 +10,6 @@
 int NetworkInfo::typeId = qRegisterMetaType<NetworkInfo *>();
 NetworkInfo::NetworkInfo()
 {
-#include <qjsonobject.h>
 }
 NetworkInfo::~NetworkInfo()
 {

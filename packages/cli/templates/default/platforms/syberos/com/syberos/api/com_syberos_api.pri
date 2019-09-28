@@ -62,7 +62,6 @@ SOURCES += \
     $$PWD/src/framework/devtools/socketclient.cpp \
     $$PWD/src/battery.cpp \
     $$PWD/src/networkInfo.cpp \
-    $$PWD/src/util/chalk.cpp \
     $$PWD/src/util/downloadmanager.cpp \
     $$PWD/src/util/fileutil.cpp \
     $$PWD/src/cellular.cpp \

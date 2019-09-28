@@ -42,6 +42,6 @@ QString ErrorInfo::message(ErrorInfo::ErrorCode code){
 
 QString ErrorInfo::message(ErrorInfo::ErrorCode code, const QString &msg){
     QString errorMsg = errors.value(code);
-    return QString("%1: %s").arg(errorMsg, msg);
+    return QString("%1: %2").arg(errorMsg, msg);
 }
 

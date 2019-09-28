@@ -45,7 +45,7 @@ void FileManager::move(QString callbackId, QString srcPath, QString destPath)
         jsonObj.insert("result", resp.flag);
         emit success(callbackId.toLong(), jsonObj);
     } else {
-        emit failed(callbackId.toLong(), 500, resp.msg);
+        emit failed(callbackId.toLong(), resp.code, resp.msg);
     }
 }
 void FileManager::copy(QString callbackId, QString srcPath, QString destPath)
@@ -58,7 +58,7 @@ void FileManager::copy(QString callbackId, QString srcPath, QString destPath)
         jsonObj.insert("result", resp.flag);
         emit success(callbackId.toLong(), jsonObj);
     } else {
-        emit failed(callbackId.toLong(), 500, resp.msg);
+        emit failed(callbackId.toLong(), resp.code, resp.msg);
     }
 
 }
@@ -108,7 +108,7 @@ void FileManager::remove(QString callBackID, QString srcPath, int recursive)
         jsonObj.insert("result", resp.flag);
         emit success(callBackID.toLong(), jsonObj);
     } else {
-        emit failed(callBackID.toLong(), 500, resp.msg);
+        emit failed(callBackID.toLong(), resp.code, resp.msg);
     }
 
 
