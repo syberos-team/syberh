@@ -1,6 +1,5 @@
 import modalMixin from './native/modal';
 import routerMix from './native/router';
-import runtimeMixin from './native/runtime';
 import deviceMixin from './native/device';
 import pageMixin from './native/page';
 import navigatorMixin from './native/navigator';
@@ -32,7 +31,6 @@ export default function allNative (hybridJs) {
   downloadMixin(hybridJs);
   modalMixin(hybridJs);
   routerMix(hybridJs);
-  runtimeMixin(hybridJs);
   deviceMixin(hybridJs);
   pageMixin(hybridJs);
   navigatorMixin(hybridJs);

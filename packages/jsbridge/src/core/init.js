@@ -25,29 +25,26 @@ export default function initMixin (hybrid) {
    */
   function checkEnvAndPrompt () {
     if (!hybridJs.runtime || !hybridJs.runtime.getSyberVersion) {
-      showError(
-        globalError.ERROR_TYPE_VERSIONNOTSUPPORT.code,
-        globalError.ERROR_TYPE_VERSIONNOTSUPPORT.msg,
-      );
+      //console.log('--------------,checkEnvAndPrompt', checkEnvAndPrompt)
     } else {
-      hybridJs.runtime.getSyberVersion({
-        success: (result) => {
-          const version = result.version;
+      // hybridJs.runtime.getSyberVersion({
+      //   success: (result) => {
+      //     const version = result.version;
 
-          if (compareVersion(hybridJs.version, version) < 0) {
-            showError(
-              globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.code,
-              globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.msg,
-            );
-          }
-        },
-        fail: () => {
-          showError(
-            globalError.ERROR_TYPE_INITVERSIONERROR.code,
-            globalError.ERROR_TYPE_INITVERSIONERROR.msg,
-          );
-        },
-      });
+      //     if (compareVersion(hybridJs.version, version) < 0) {
+      //       showError(
+      //         globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.code,
+      //         globalError.ERROR_TYPE_VERSIONNEEDUPGRADE.msg,
+      //       );
+      //     }
+      //   },
+      //   fail: () => {
+      //     showError(
+      //       globalError.ERROR_TYPE_INITVERSIONERROR.code,
+      //       globalError.ERROR_TYPE_INITVERSIONERROR.msg,
+      //     );
+      //   },
+      // });
     }
   }
 

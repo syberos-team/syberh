@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha",
     "build": "webpack",
-    "dist": "webpack --watch"
+    "dev": "webpack --watch"
   },
   "keywords": [
     "syberos",
