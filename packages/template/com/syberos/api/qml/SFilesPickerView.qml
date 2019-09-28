@@ -99,7 +99,8 @@ Rectangle {
                 }
             } else {
                 filesPicker.cancel();
-                pageStack.pop();
+//                在SWebview.qml中引用了该页面，所以退出页面的信号得在接受信号的地方处理是否退出页面
+//                pageStack.pop();
             }
         }
 
@@ -126,7 +127,8 @@ Rectangle {
                     })
                 }
                 filesPicker.ok(files);
-                pageStack.pop();
+//                在SWebview.qml中引用了该页面，所以退出页面的信号得在接受信号的地方处理是否退出页面
+//                pageStack.pop();
             } else {
                 // 文件夹
                 filesPicker.dirPath = filesPicker.getDirPath();
