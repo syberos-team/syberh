@@ -48,6 +48,9 @@ private :
 
 public slots:
 
+    // 开始下载
+    void onStarted(QString downloadId, QString path);
+
     void onDownloadProcess(QString downloadId, QString path, qint64 received, qint64 total);
 
     void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);

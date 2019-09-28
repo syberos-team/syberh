@@ -110,6 +110,7 @@
             document.getElementById("type").value = result.type;
             document.getElementById("size").value = result.size;
             document.getElementById("created").value = result.created;
+            $("#content").html("<spen style=\"color:Red\">提示：获取图片详细成功</spen><br>");
             console.log('success', JSON.stringify(result));
           },
           fail: function (error) {
