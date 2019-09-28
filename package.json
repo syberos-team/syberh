@@ -20,7 +20,7 @@
     "build:docs": "node ./build/docs.js",
     "prettier": "prettier --write \"src/**/*.jsx\" \"src/**/*.ts\"",
     "lint": "tslint packages/*/src/**/*.ts  --fix",
-    "version": "lerna version &&cd packages/template && npm run build",
+    "version": "lerna version --skip-git &&cd packages/template && npm run build",
     "release:lerna": "lerna publish --force-publish=* --exact --skip-temp-tag",
     "release:beta": "lerna publish --force-publish=* --exact --skip-temp-tag  --preid=beta --npm-tag=beta",
     "release": "npm-run-all build release:lerna && npm run changelog && node ./build/docs-version.js",
