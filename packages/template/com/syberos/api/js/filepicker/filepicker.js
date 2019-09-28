@@ -26,10 +26,12 @@ function FilePicker () {
 
         component.ok.connect(function(filesPath) { //处理选择文件信号
             console.log('filepicker.ok filesPath: ', filesPath)
+            pageStack.pop()
             that.success(that.handlerId, { files: filesPath })
         })
 
         component.cancel.connect(function() { //处理取消信号
+            pageStack.pop()
             that.success(that.handlerId)
         })
 

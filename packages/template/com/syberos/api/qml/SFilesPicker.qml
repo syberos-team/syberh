@@ -1,5 +1,5 @@
 /*
-* This file is part of clock
+* This file is part of syberh
 *
 * Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
 *
