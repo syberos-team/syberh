@@ -6,10 +6,7 @@
 #define APP_DATADIR QDir::homePath()
 int HistoryData::typeId = qRegisterMetaType<HistoryData *>();
 
-HistoryData::HistoryData(){
-    if (!createConnection())
-        qDebug() << "连接数据库失败";
-}
+HistoryData::HistoryData(){}
 
 HistoryData::~HistoryData(){}
 
@@ -112,6 +109,10 @@ bool HistoryData::checkOrCreateDir(QString path){
 void HistoryData::insertMetadata(QString path,int size,int duration,QString created){
     qDebug() << Q_FUNC_INFO << "insertMetadata" << endl;
 
+    if (!createConnection()){
+        qDebug() << Q_FUNC_INFO << "连接数据库失败" << endl;
+    }
+
     QSqlQuery query(myConnection);
     QString q = "insert into files(id, path, size, duration, created)"
                 "values(NULL, '%1', '%2', %3, '%4')";
@@ -119,10 +120,17 @@ void HistoryData::insertMetadata(QString path,int size,int duration,QString crea
     if (!query.exec(q.arg(path).arg(size).arg(duration).arg(created))) {
         qDebug() << Q_FUNC_INFO << "新增录音记录失败,error:" << query.lastError();
     }
+
+    myConnection.close();
+
 }
 
 void HistoryData::removeMetadata(QString path) {
     qDebug() << Q_FUNC_INFO << "removeMetadata" << endl;
+
+    if (!createConnection()){
+        qDebug() << Q_FUNC_INFO << "连接数据库失败" << endl;
+    }
 
     QSqlQuery query(myConnection);
     QString q = "delete from files where path = '%1'";
@@ -130,23 +138,36 @@ void HistoryData::removeMetadata(QString path) {
     if (!query.exec(q.arg(path))) {
         qDebug() << Q_FUNC_INFO << "删除录音记录失败,error:" << query.lastError();
     }
+
+    myConnection.close();
 }
 
 void HistoryData::updateMetadata(QString path,int size,int duration){
     qDebug() << Q_FUNC_INFO << "updateDuration" << endl;
+
+    if (!createConnection()){
+        qDebug() << Q_FUNC_INFO << "连接数据库失败" << endl;
+    }
 
     QSqlQuery query(myConnection);
     query.prepare("update files set duration = ?,size = ? where path = ?");
     query.addBindValue(ceil(duration/1000));
     query.addBindValue(size);
     query.addBindValue(path);
+
     if (!query.exec()) {
         qDebug() << Q_FUNC_INFO << "修改录音记录失败,error:" << query.lastError();
     }
+
+    myConnection.close();
 }
 
 QJsonArray HistoryData::selectMetadata() {
     qDebug() << Q_FUNC_INFO << "selectMetadata" << endl;
+
+    if (!createConnection()){
+        qDebug() << Q_FUNC_INFO << "连接数据库失败" << endl;
+    }
 
     QJsonArray jsonArr;
     QSqlQuery query(myConnection);
@@ -178,6 +199,8 @@ QJsonArray HistoryData::selectMetadata() {
             jsonArr.append(jsonObj);
         }
     }
+
+    myConnection.close();
 
     qDebug() << Q_FUNC_INFO << "selectMetadata:jsonArr" << jsonArr << endl;
     return jsonArr;
