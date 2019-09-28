@@ -8,16 +8,16 @@ set timeout 1000
 
 spawn $cdbPath -s $cdbDevice shell
 expect {
-  "developer@" {send "exit\r"; exp_continue}
-  "root@" {send "su install\r"; exp_continue}
-  "install@" {send "/usr/bin/ins-tool -siu /tmp/$sopFilename && exit\r"; exp_continue}
-  "root@" {send "rm -f /tmp/$sopFilename && exit\r"} exit
-}
-
-spawn $cdbPath -s $cdbDevice shell "/usr/bin/ins-tool -siu /tmp/$sopFilename"
-expect {
-  "root@" {send "su install\r"; exp_continue}
-  "install@" {send "/usr/bin/ins-tool -siu /tmp/$sopFilename && exit\r"; exp_continue}
-  "root@" {send "rm -f /tmp/$sopFilename && exit\r"}
+  "developer@" {
+    send "exit\r"
+    spawn $cdbPath -s $cdbDevice shell "/usr/bin/ins-tool -siu /tmp/$sopFilename && rm -f /tmp/$sopFilename"
+  }
+  "root@" {
+    send "su install\r"
+    expect "install@" {
+      send "/usr/bin/ins-tool -siu /tmp/$sopFilename && exit\r"
+      expect "root@" {send "rm -f /tmp/$sopFilename && exit\r"} 
+    }
+  }
 }
 expect eof

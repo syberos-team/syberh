@@ -9,14 +9,14 @@ set timeout 1000
 
 spawn $cdbPath -s $cdbDevice shell
 expect {
-  "developer@" {send "exit\r"; exp_continue}
-  "root@" {send "su install\r"; exp_continue}
-  "install@" {send "sdk-invoker 0 $sopid:$appid:uiapp\r"} exit
-}
-
-spawn $cdbPath -s $cdbDevice shell "sdk-invoker 0 $sopid:$appid:uiapp"
-expect {
-  "root@" {send "su install\r"; exp_continue}
-  "install@" {send "sdk-invoker 0 $sopid:$appid:uiapp\r"}
+  "developer@" {
+    send "exit\r"
+    spawn $cdbPath -s $cdbDevice shell "sdk-invoker 0 $sopid:$appid:uiapp"
+  }
+  "root@" {
+    send "su install\r"
+    expect "install@" {send "sdk-invoker 0 $sopid:$appid:uiapp\r"}
+  }
+  
 }
 expect eof
