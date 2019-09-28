@@ -82,7 +82,10 @@ Log::Log(QObject *parent) : QObject(parent){
 
 Log::~Log(){
     levelNameMap.clear();
-    delete logger;
+    if(logger!=NULL){
+        delete logger;
+        logger = NULL;
+    }
 }
 
 Log* Log::instance(){
