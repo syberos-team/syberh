@@ -33,7 +33,7 @@ CPage {
     property bool isDirMode: false
 
     // 多选的最大数量
-    property int count: 2
+    property int count: 1
 
     signal cancel()
     signal ok(var filesPath)
