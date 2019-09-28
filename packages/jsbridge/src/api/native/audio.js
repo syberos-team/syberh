@@ -20,10 +20,10 @@ export default function audioMixin (hybrid) {
     },
   }, {
     namespace: 'pause',
-    os: [''],
+    os: ['syberos'],
   }, {
     namespace: 'resume',
-    os: [''],
+    os: ['syberos'],
     defaultParams: {
       position: 0,
     },
@@ -37,6 +37,6 @@ export default function audioMixin (hybrid) {
     },
   }, {
     namespace: 'stop',
-    os: [''],
+    os: ['syberos'],
   }]);
 }
