@@ -27,6 +27,7 @@ void ErrorInfo::init(){
     errors.insert(ErrorCode::IllegalUploadFileSize, "上传素材的文件尺寸不合法");
     errors.insert(ErrorCode::UploadFileFailed, "上传失败");
     errors.insert(ErrorCode::CannelFailed, "取消失败");
+    errors.insert(ErrorCode::NotEnoughSpace, "空间不足");
     errors.insert(ErrorCode::InvalidFilePermission, "文件无操作权限");
     errors.insert(ErrorCode::InvalidParameter, "参数错误");
     errors.insert(ErrorCode::SystemError, "系统错误");
@@ -34,6 +35,7 @@ void ErrorInfo::init(){
     errors.insert(ErrorCode::InvalidPermission, "权限错误");
     errors.insert(ErrorCode::InvalidCall, "无效的调用");
     errors.insert(ErrorCode::UnknowError, "未知的错误");
+
 }
 
 QString ErrorInfo::message(ErrorInfo::ErrorCode code){
