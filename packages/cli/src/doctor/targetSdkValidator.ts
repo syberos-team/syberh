@@ -18,7 +18,9 @@ async function checkExpect(): Promise<IErrorLine[]> {
   log.verbose('checkExpect()')
   const errorLines: IErrorLine[] = []
   const cmd = 'whereis expect';
+  shelljs.config.silent = true
   const { stdout } = shelljs.exec(cmd)
+  shelljs.config.silent = false
   log.verbose('stdout:', stdout)
   if (stdout.indexOf('/usr/bin/expect') === -1) {
     log.warn('未找到expect :', stdout)
