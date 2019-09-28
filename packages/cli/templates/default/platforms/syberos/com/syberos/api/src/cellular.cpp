@@ -9,7 +9,6 @@
 int Cellular::typeId = qRegisterMetaType<Cellular *>();
 Cellular::Cellular()
 {
-#include <qjsonobject.h>
 }
 Cellular::~Cellular()
 {
