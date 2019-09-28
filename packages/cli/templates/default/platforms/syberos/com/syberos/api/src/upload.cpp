@@ -34,7 +34,7 @@ void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
 {
     // 检查网络
     if (!netWorkConnected()) {
-        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError));
+        emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络状态"));
         return;
     }
 
@@ -70,7 +70,7 @@ void Upload::cancel(QString callBackID, QString taskId)
         json.insert("result", true);
         emit success(callBackID.toLong(), json);
     } else {
-        emit failed(callBackID.toLong(), 500, "任务不存在或已完成");
+        emit failed(callBackID.toLong(), ErrorInfo::CannelFailed, ErrorInfo::message(ErrorInfo::CannelFailed, "任务不存在或已完成"));
     }
 }
 
@@ -132,10 +132,11 @@ void Upload::onFinished(QString callBackID)
 
 void Upload::onError(QString callBackID, qint64 statusCode, QString error)
 {
+    Q_UNUSED(statusCode)
     // 任务异常，删除任务
     deleteTask(callBackID);
     m_error = true;
-    emit failed(callBackID.toLong(), statusCode, error);
+    emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, error));
 }
 
 void Upload::onStarted(QString callBackID)
