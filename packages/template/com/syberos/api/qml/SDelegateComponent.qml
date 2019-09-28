@@ -72,7 +72,7 @@ CEditListViewDelegate {
                 anchors.right: parent.right
                 anchors.rightMargin: UI.DEFAULT_MARGIN_RIGHT + selectIcon.anchors.rightMargin + selectIcon.width
                 font.pixelSize: UI.FILE_NAME_SIZE
-                text: filePath === fileUtils.innerStoragePath ? qsTr("手机") : (filePath == "/mnt/sdcard" ? qsTr("SD卡") : fileName) //typeModel.data(index, fileName) //model.fileName
+                text: filePath === fileUtils?fileUtils.innerStoragePath: "" ? qsTr("手机") : (filePath == "/mnt/sdcard" ? qsTr("SD卡") : (fileName === 'user' ? qsTr("手机") : fileName)) //typeModel.data(index, fileName) //model.fileName
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
             }
@@ -89,7 +89,7 @@ CEditListViewDelegate {
                 }
                 Text {
                     id: modifyDateItem
-                    visible: !(filePath === fileUtils.innerStoragePath||filePath == "/mnt/sdcard")
+                    visible: !(filePath === fileUtils?fileUtils.innerStoragePath:""||filePath == "/mnt/sdcard")
                     text: Qt.formatDateTime(lastModified, "yyyy-M-d h:mm") //fileModifyDate
                     font.pixelSize: UI.FILE_INFO_SIZE
                     color: UI.FILE_INFO_COLOR

@@ -1,5 +1,5 @@
 /*
-* This file is part of clock
+* This file is part of syberh
 *
 * Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
 *
@@ -32,8 +32,11 @@ CPage {
 
     property bool isDirMode: false
 
+    // 多选的最大数量
+    property int count: 1
+
     signal cancel()
-    signal ok(var path)
+    signal ok(var filesPath)
 
     function getFileSize() {
         if (category === 0)

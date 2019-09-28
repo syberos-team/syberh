@@ -21,6 +21,14 @@ ExtendedConfig::ExtendedConfig(QObject *parent) : QObject(parent)
 #endif
 }
 
+ExtendedConfig::~ExtendedConfig(){
+    if(config!=NULL){
+        config->clear();
+        delete config;
+    }
+    delete _instance;
+}
+
 void ExtendedConfig::init(){
     QString exConfig = EX_CONFIG;
     if(exConfig.isEmpty()){

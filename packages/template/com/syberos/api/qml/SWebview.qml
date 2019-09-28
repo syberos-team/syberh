@@ -204,13 +204,11 @@ CPage{
                 id: picker
                 titleText: "文件选择"
                 leftItemEnabled: true
-                count: 100
+                count: allowMultipleFiles?30:1
 
                 Connections {
                     target: picker
                     onOk: {
-                        console.log("on ok", picker.status)
-                        console.log("on Page set file save path", picker.dirPath)
                         model.accept(picker.filesPath);
                     }
                     onCancel: {
@@ -226,9 +224,6 @@ CPage{
                 }
 
                 Component.onCompleted:{
-                    console.log('model. ', model)
-                    console.log('model.multiple', model.multiple)
-                    console.log('model.selectMultiple', model['select-multiple'])
                     parent = gAppUtils.pageStackWindow
                     visible = true
                     status = 2
