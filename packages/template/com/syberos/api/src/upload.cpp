@@ -132,11 +132,10 @@ void Upload::onFinished(QString callBackID)
 
 void Upload::onError(QString callBackID, qint64 statusCode, QString error)
 {
-    Q_UNUSED(statusCode)
     // 任务异常，删除任务
     deleteTask(callBackID);
     m_error = true;
-    emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, error));
+    emit failed(callBackID.toLong(), statusCode, error);
 }
 
 void Upload::onStarted(QString callBackID)
