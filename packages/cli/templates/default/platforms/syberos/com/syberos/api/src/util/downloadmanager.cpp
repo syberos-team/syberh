@@ -103,6 +103,8 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
         connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+
+        emit signalStarted(m_downloadId, m_path);
     }
 }
 
@@ -257,6 +259,7 @@ void DownloadManager::onFinished(){
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
 void DownloadManager::onError(QNetworkReply::NetworkError code){
+    qDebug () << Q_FUNC_INFO << "下载过程中出现错误" <<endl;
     emit signalDownloadError(m_downloadId, code, m_reply->errorString());
     closeDownload();
 }

@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QFile>
+#include <QHttpMultiPart>
 
 
 class UploadManager : public QObject
@@ -31,7 +33,13 @@ private:
 
     qint64 m_bytesTotal;
 
+    QFile *m_file;
+
+    QHttpMultiPart *m_multiPart;
+
 signals:
+
+    void signalStarted(QString uploadId);
 
     void signalUploadProcess(QString uploadId, qint64 bytesReceived, qint64 bytesTotal);
 

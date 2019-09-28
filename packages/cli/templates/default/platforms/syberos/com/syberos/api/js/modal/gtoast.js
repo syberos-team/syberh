@@ -15,7 +15,7 @@ function GToast () {
   var that = this
   this.on('gtoast', function () {
     if (!that.param.title) {
-      that.failed(that.handlerId, 1003, "提示的内容不能为空");
+      that.failed(that.handlerId, 6003, "提示的内容不能为空");
       return;
     }
     gToast.requestToast(that.param.title);

@@ -48,12 +48,12 @@ RespResult FileUtil::move(QString srcPath, QString destPath)
         return respResult;
     }
 
-    QProcess *proc = new QProcess();
+    QProcess proc;// = new QProcess();
     QString cmd="mv -f " + srcPath + " " + destPath;
-    proc->start(cmd);
-    proc->waitForFinished();
+    proc.start(cmd);
+    proc.waitForFinished();
 
-    QString errTmp = proc->readAllStandardError();
+    QString errTmp = proc.readAllStandardError();
     if (errTmp == "") {
         respResult.flag = true;
         return respResult;
@@ -125,11 +125,11 @@ RespResult FileUtil::copy(QString srcPath, QString destPath)
         return respResult;
     }
 
-    QProcess *proc = new QProcess();
-    proc->start("cp -rf " + srcPath + " " + destPath);
-    proc->waitForFinished();
+    QProcess proc;// = new QProcess();
+    proc.start("cp -rf " + srcPath + " " + destPath);
+    proc.waitForFinished();
 
-    QString errTmp = proc->readAllStandardError();
+    QString errTmp = proc.readAllStandardError();
 
     if (errTmp == "") {
         respResult.flag = true;
@@ -184,16 +184,16 @@ RespResult FileUtil::remove(QString srcPath, int recursive)
         return respResult;
     }
 
-    QProcess *proc = new QProcess();
+    QProcess proc;// = new QProcess();
     if (recursive == 0) {
-        proc->start("rm -f " + srcPath);
+        proc.start("rm -f " + srcPath);
     } else {
-        proc->start("rm -rf " + srcPath);
+        proc.start("rm -rf " + srcPath);
     }
 
-    proc->waitForFinished();
+    proc.waitForFinished();
 
-    QString errTmp = proc->readAllStandardError();
+    QString errTmp = proc.readAllStandardError();
 
     if (errTmp == "") {
         respResult.flag = true;
