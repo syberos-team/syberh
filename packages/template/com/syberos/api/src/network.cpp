@@ -23,7 +23,7 @@ void Network::request(QString callBackID, QString actionName, QVariantMap params
   // 检查网络
   if (!netWorkConnected())
   {
-    emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError));
+    emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络状态"));
     return;
   }
 
@@ -45,7 +45,7 @@ void Network::request(QString callBackID, QString actionName, QVariantMap params
 
   if (dataType.toLower() != "json" && dataType.toLower() != "text")
   {
-    emit failed(callBackID.toLong(), 500, "Invalid dataType param");
+    emit failed(callBackID.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "dataType"));
     return;
   }
 
@@ -121,7 +121,7 @@ void Network::request(QString callBackID, QString actionName, QVariantMap params
   }
   else
   {
-    emit failed(callBackID.toLong(), 500, "Invalid type param");
+      emit failed(callBackID.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "type"));
     return;
   }
 
@@ -192,7 +192,7 @@ void Network::finished(QNetworkReply *reply)
   else
   {
     qDebug() << Q_FUNC_INFO << " result error " << endl;
-    emit failed(callBackId.toLong(), 500, reply->errorString());
+    emit failed(callBackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, reply->errorString()));
   }
 
   reply->deleteLater();

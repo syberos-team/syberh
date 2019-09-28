@@ -69,7 +69,7 @@ void Download::request(QString callbackId, QString actionName, QVariantMap param
     } else if (actionName == "cancel"){
         cancel(callbackId, params.value("downloadID").toString());
     } else {
-        emit failed(callbackId.toLong(), 500, "Invalid call");
+        emit failed(callbackId.toLong(), ErrorInfo::InvalidCall, ErrorInfo::message(ErrorInfo::InvalidCall, "方法不存在"));
     }
 }
 
@@ -84,7 +84,7 @@ void Download::submit(QString typeID,QString callBackID,QString actionName,QVari
 void Download::start(QString callbackId, QString url, QString name, QString storage){
     // 检查网络
     if (!netWorkConnected()) {
-        emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError));
+        emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络状态"));
         return;
     }
 
@@ -138,11 +138,11 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
 
 void Download::cancel(QString callbackId, QString downloadID){
     if (downloadID == "") {
-        emit failed(callbackId.toLong(), 500, "downloadID为空");
+        emit failed(callbackId.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "downloadID为空"));
         return;
     }
     if (!tasks.contains(downloadID)) {
-        emit failed(callbackId.toLong(), 500, "下载任务不存在或已完成");
+        emit failed(callbackId.toLong(), ErrorInfo::CannelFailed, ErrorInfo::message(ErrorInfo::CannelFailed, "任务不存在或已完成"));
         return;
     }
     TaskInfo *taskInfo = tasks.value(downloadID);
@@ -191,7 +191,7 @@ void Download::removeTask(QString downloadId){
 // 更新下载进度;
 void Download::onDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal) {
     QJsonObject json = successJson(downloadId, path, Downloading, bytesReceived, bytesTotal);
-    qDebug() << Q_FUNC_INFO << "downloadProgress" << json << endl;
+//    qDebug() << Q_FUNC_INFO << "downloadProgress" << json << endl;
     emit success(downloadId.toLong(), json);
 }
 
@@ -213,7 +213,7 @@ void Download::onReplyFinished(QString downloadId, QString path, int statusCode,
     // 根据状态码判断当前下载是否出错;
     if (statusCode > 200 && statusCode < 400) {
         qDebug() << Q_FUNC_INFO << "download failed " << statusCode << errorMessage << endl;
-        emit failed(downloadId.toLong(), statusCode, errorMessage);
+        emit failed(downloadId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, errorMessage));
     }
     else {
         QJsonObject json = successJson(downloadId, path, Completed, received, total);
@@ -226,7 +226,7 @@ void Download::onReplyFinished(QString downloadId, QString path, int statusCode,
 
 void Download::onDownloadError(QString downloadId, QNetworkReply::NetworkError code, QString error){
     qDebug() << Q_FUNC_INFO << "download failed " << code << error << endl;
-    emit failed(downloadId.toLong(), 500, error);
+    emit failed(downloadId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, error));
     removeTask(downloadId);
 }
 void Download::onStarted(QString downloadId, QString path)

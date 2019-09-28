@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QJsonObject>
 #include <QDir>
+#include "../framework/common/errorinfo.h"
 
 
 struct FileInfo
@@ -15,7 +16,9 @@ struct FileInfo
 struct RespResult
 {
     bool flag;
-    // flag 为false msg为错误描述
+
+    // flag 为false msg为错误描述,code 错误编码
+    int code;
     QString msg;
 };
 
