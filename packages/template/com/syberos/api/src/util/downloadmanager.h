@@ -76,11 +76,14 @@ private:
     qint64 storageFreeSize();
 
 signals:
+
+    void signalStarted(QString downloadId, QString path);
+
     void signalDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal);
 
     void signalReplyFinished(QString downloadId, QString path, int statusCode, QString error);
 
-    void signalDownloadError(QString downloadId, QNetworkReply::NetworkError code, QString error);
+    void signalDownloadError(QString downloadId, qint64 statusCode, QString error);
 
 public slots:
     // 下载进度信息

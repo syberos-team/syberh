@@ -67,13 +67,13 @@ void Vibrator::vibrate(long callBackID, QVariantMap params){
     qDebug() << Q_FUNC_INFO << "mode: long " << (QString::compare(mode, "long") != 0) << endl;
 
     if(mode.isEmpty()){
-        emit failed(callBackID, 500, "mode参数不能为空");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "mode参数不能为空");
         return;
     }
 
     if(QString::compare(mode, "short") != 0
             && QString::compare(mode, "long") != 0){
-        emit failed(callBackID, 500, "mode不合法");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "mode参数不合法");
         return;
     }
 
@@ -90,7 +90,7 @@ void Vibrator::vibrate(long callBackID, QVariantMap params){
     }
 
     if(!isConnected){
-        emit failed(callBackID, 500, "连接震动服务失败");
+        emit failed(callBackID, ErrorInfo::SystemError, "连接震动服务失败");
         return;
     }
 
@@ -98,7 +98,7 @@ void Vibrator::vibrate(long callBackID, QVariantMap params){
     int vibratorTime = 400;
     if(mode == "short"){
         //长震15ms
-        vibratorTime = 15;
+        vibratorTime = 40;
     }
 
     qDebug() << Q_FUNC_INFO << "vibrate time: " << vibratorTime << endl;
@@ -178,7 +178,6 @@ void Vibrator::setVibratingEnabled(long callBackID,QVariantMap params){
 
 void Vibrator::eventFailed(quint32 eventId){
     qDebug() << Q_FUNC_INFO << "vibrate failed eventId: " << eventId;
-//    emit failed(callBackID, 500, "震动失败");
 }
 void Vibrator::eventCompleted(quint32 eventId){
     qDebug() << Q_FUNC_INFO << "vibrate completed eventId: " << eventId;

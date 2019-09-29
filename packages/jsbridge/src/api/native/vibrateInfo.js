@@ -4,7 +4,7 @@ export default function vibratorMixin(hybrid) {
 
     hybridJs.extendModule('vibrator', [{
         namespace: 'vibrate',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             mode: 'long',
         },
@@ -20,7 +20,7 @@ export default function vibratorMixin(hybrid) {
     },
     {
         namespace: 'vibrateInfo',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {
@@ -34,7 +34,7 @@ export default function vibratorMixin(hybrid) {
     },
     {
         namespace: 'setVibratingEnabled',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {
@@ -48,7 +48,7 @@ export default function vibratorMixin(hybrid) {
     },
     {
         namespace: 'setTouchVibrationSoundEnabled',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {
@@ -62,7 +62,7 @@ export default function vibratorMixin(hybrid) {
     },
     {
         namespace: 'setVibratingEnabled',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {
@@ -76,7 +76,7 @@ export default function vibratorMixin(hybrid) {
     },
     {
         namespace: 'stop',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {

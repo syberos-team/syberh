@@ -4,10 +4,10 @@ export default function utilMixin(hybrid) {
     
     hybridJs.extendModule('util', [{
         namespace: 'scan',
-        os: ['syber'],
+        os: ['syberos'],
     }, {
         namespace: 'selectImage',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             // 图片数量
             photoCount: 9,
@@ -22,14 +22,14 @@ export default function utilMixin(hybrid) {
         },
     }, {
         namespace: 'selectFile',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             // 文件数量
             count: 9,
         },
     }, {
         namespace: 'cameraImage',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             // 宽度
             width: 720,
@@ -38,7 +38,7 @@ export default function utilMixin(hybrid) {
         },
     }, {
         namespace: 'openFile',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             path: '',
         },

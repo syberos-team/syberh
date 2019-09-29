@@ -144,7 +144,7 @@
             $("#continuePlay").hide();
             $("#stopPlay").show();
             $("#content").html("<spen style=\"color:Red\">提示：开始播放录音</spen><br>");
-            console.log('success');
+            console.log('success', result);
           },
           fail: function (error) {
             console.log('fail: ', error.code, error.msg);
@@ -154,15 +154,15 @@
     }
     //点击暂停播放。隐藏播放、暂停播放，显示继续播放、停止播放
     function pausePlay() {
-      $("#startPlay").hide();
-      $("#pausePlay").hide();
-      $("#continuePlay").show();
-      $("#stopPlay").show();
-      $("#content").html("<spen style=\"color:Red\">提示：暂停播放录音</spen><br>");
 
       syberh.audio.pause({
         success: function (result) {
-          console.log('success');
+          $("#startPlay").hide();
+          $("#pausePlay").hide();
+          $("#continuePlay").show();
+          $("#stopPlay").show();
+          $("#content").html("<spen style=\"color:Red\">提示：暂停播放录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -171,15 +171,15 @@
     }
     //点击继续播放。隐藏播放、继续播放，显示暂停播放、停止播放
     function continuePlay() {
-      $("#startPlay").hide();
-      $("#pausePlay").show();
-      $("#continuePlay").hide();
-      $("#stopPlay").show();
-      $("#content").html("<spen style=\"color:Red\">提示：继续播放录音</spen><br>");
 
       syberh.audio.resume({
         success: function (result) {
-          console.log('success');
+          $("#startPlay").hide();
+          $("#pausePlay").show();
+          $("#continuePlay").hide();
+          $("#stopPlay").show();
+          $("#content").html("<spen style=\"color:Red\">提示：继续播放录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -188,15 +188,15 @@
     }
     //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
     function stopPlay() {
-      $("#startPlay").show();
-      $("#pausePlay").hide();
-      $("#continuePlay").hide();
-      $("#stopPlay").hide();
-      $("#content").html("<spen style=\"color:Red\">提示：停止播放录音</spen><br>");
 
       syberh.audio.stop({
         success: function (result) {
-          console.log('success');
+          $("#startPlay").show();
+          $("#pausePlay").hide();
+          $("#continuePlay").hide();
+          $("#stopPlay").hide();
+          $("#content").html("<spen style=\"color:Red\">提示：停止播放录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -225,15 +225,15 @@
     }
     //点击暂停录音。隐藏录音、暂停录音，显示继续录音、停止录音
     function pauseRecorder() {
-      $("#startRecorder").hide();
-      $("#pauseRecorder").hide();
-      $("#continueRecorder").show();
-      $("#stopRecorder").show();
-      $("#content").html("<spen style=\"color:Red\">提示：暂停录音</spen><br>");
 
       syberh.record.pause({
         success: function (result) {
-          console.log('success: ');
+          $("#startRecorder").hide();
+          $("#pauseRecorder").hide();
+          $("#continueRecorder").show();
+          $("#stopRecorder").show();
+          $("#content").html("<spen style=\"color:Red\">提示：暂停录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -242,15 +242,15 @@
     }
     //点击继续录音。隐藏录音、继续录音，显示暂停录音、停止录音
     function continueRecorder() {
-      $("#startRecorder").hide();
-      $("#pauseRecorder").show();
-      $("#continueRecorder").hide();
-      $("#stopRecorder").show();
-      $("#content").html("<spen style=\"color:Red\">提示：继续录音</spen><br>");
 
       syberh.record.resume({
         success: function (result) {
-          console.log('success: ');
+          $("#startRecorder").hide();
+          $("#pauseRecorder").show();
+          $("#continueRecorder").hide();
+          $("#stopRecorder").show();
+          $("#content").html("<spen style=\"color:Red\">提示：继续录音</spen><br>");
+          console.log('success', result);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -259,15 +259,15 @@
     }
     //点击停止录音。显示录音,隐藏继续录音、暂停录音、停止录音
     function stopRecorder() {
-      $("#startRecorder").show();
-      $("#pauseRecorder").hide();
-      $("#continueRecorder").hide();
-      $("#stopRecorder").hide();
-      $("#content").html("<spen style=\"color:Red\">提示：停止录音</spen><br>");
 
       syberh.record.stop({
         success: function (result) {
-          console.log('success');
+          $("#startRecorder").show();
+          $("#pauseRecorder").hide();
+          $("#continueRecorder").hide();
+          $("#stopRecorder").hide();
+          console.log('success', result);
+          $("#content").html("<spen style=\"color:Red\">提示：停止录音</spen><br>");
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -282,7 +282,7 @@
       syberh.record.remove({
         path: path,
         success: function (result) {
-          console.log('success', result.result);
+          console.log('success', result);
           $("#content").html("<spen style=\"color:Red\">提示：删除录音:" + fileName + "</spen><br>");
         },
         fail: function (error) {

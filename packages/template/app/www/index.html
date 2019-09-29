@@ -15,7 +15,7 @@
     .syberMainPage .mui-collapse-content {
       padding: 8px !important;
       background: #f7f7f7;
-      }
+    }
 
     .secondMenu>p {
       color: inherit;
@@ -28,7 +28,7 @@
   <div class="mui-content pt0 syberMainPage">
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="pages/router.html">路由(router)</a>
+        <a class="mui-navigate-right api-class" id="pages/router.html">路由</a>
       </li>
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">模态弹窗</a>
@@ -58,7 +58,7 @@
           </li>
           <li class="mui-table-view-cell secondMenu">
             <a class="mui-navigate-right api-class" id="pages/record.html">录音</a>
-          </li>          
+          </li>
           <li class="mui-table-view-cell secondMenu">
             <a class="mui-navigate-right api-class" id="pages/audio.html">音频</a>
           </li>
@@ -138,24 +138,24 @@
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/upload.html">upload</a>
-       </li>
+      </li>
       <li class="mui-table-view-cell mui-collapse">
-          <a class="mui-navigate-right" href="#">屏幕亮度</a>
-          <ul class="mui-collapse-content">
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/brightnessInfo.html">查看系统屏幕亮度信息</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                  <p class="mui-navigate-right api-class" id="./pages/setBrightness.html">设置屏幕亮度</p>
-              </li>
-          </ul>
+        <a class="mui-navigate-right" href="#">屏幕亮度</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <p class="mui-navigate-right api-class" id="./pages/brightnessInfo.html">查看系统屏幕亮度信息</p>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <p class="mui-navigate-right api-class" id="./pages/setBrightness.html">设置屏幕亮度</p>
+          </li>
+        </ul>
       </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/vibrator.html">震动</a>
       </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" id="https://syberh.syberos.com">在线文档</a>
-        </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="https://syberh.syberos.com">在线文档</a>
+      </li>
     </ul>
 
 
@@ -167,6 +167,8 @@
   <script type="text/javascript" src="lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
+
+    console.log("当前版本:", syberh.os.version)
     window.runApi = function (id) {
       console.log('执行API:' + id)
       syberh.router.navigateTo({

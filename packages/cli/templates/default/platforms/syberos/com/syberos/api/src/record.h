@@ -50,7 +50,7 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void pause(QVariantMap params);
+    void pause(long callBackID,QVariantMap params);
 
     /**
      * @brief resume 继续录音
@@ -58,7 +58,7 @@ public:
      * @return 成功则无返回
      *         失败则返回错误码
      */
-    void resume(QVariantMap params);
+    void resume(long callBackID,QVariantMap params);
 
     /**
      * @brief stop 结束录音

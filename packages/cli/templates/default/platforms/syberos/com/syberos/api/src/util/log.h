@@ -16,11 +16,28 @@ class Log : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief 日志级别
+     */
     enum Level {
         VERBOSE = 1,
         INFO,
         WARNING,
         ERROR
+    };
+    /**
+     * @brief 日志输出颜色
+     */
+    enum Color{
+        DEFAULT,
+        BLACK,
+        RED,
+        GREEN,
+        YELLOW,
+        BLUE,
+        VIOLET,
+        SKY_BLUE,
+        WHITE
     };
 
     ~Log();
@@ -49,9 +66,16 @@ public:
     bool isErrorEnabled();
 
     QDebug verbose();
+    QDebug verbose(Color color);
+
     QDebug info();
+    QDebug info(Color color);
+
     QDebug warn();
+    QDebug warn(Color color);
+
     QDebug error();
+    QDebug error(Color color);
 
     QDebug black();
     QDebug red();
@@ -61,6 +85,10 @@ public:
     QDebug violet();
     QDebug skyBlue();
     QDebug white();
+
+    QDebug color(Color color);
+    QDebug color(const QString &color);
+    QDebug color(const char* color);
 
     const char* end();
 

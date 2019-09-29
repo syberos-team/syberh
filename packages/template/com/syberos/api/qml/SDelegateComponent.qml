@@ -23,10 +23,6 @@ CEditListViewDelegate {
 
     property bool isNormalStatus: false //防止刚进入列表时，触发uncheckedAnimation的动画
 
-    onClicked: {
-        isNormalStatus = true;
-    }
-
     Rectangle {
         id: listItem
         width: parent.width
@@ -74,11 +70,11 @@ CEditListViewDelegate {
                 id: fileNameItem
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.rightMargin: UI.DEFAULT_MARGIN_RIGHT
+                anchors.rightMargin: UI.DEFAULT_MARGIN_RIGHT + selectIcon.anchors.rightMargin + selectIcon.width
                 font.pixelSize: UI.FILE_NAME_SIZE
-                text: filePath === fileUtils.innerStoragePath ? qsTr("手机") : (filePath == "/mnt/sdcard" ? qsTr("SD卡") : fileName) //typeModel.data(index, fileName) //model.fileName
+                text: filePath === fileUtils?fileUtils.innerStoragePath: "" ? qsTr("手机") : (filePath == "/mnt/sdcard" ? qsTr("SD卡") : (fileName === 'user' ? qsTr("手机") : fileName)) //typeModel.data(index, fileName) //model.fileName
                 wrapMode: Text.NoWrap
-                elide: Text.ElideMiddle
+                elide: Text.ElideRight
             }
 
             Row {
@@ -93,13 +89,69 @@ CEditListViewDelegate {
                 }
                 Text {
                     id: modifyDateItem
-                    visible: !(filePath === fileUtils.innerStoragePath||filePath == "/mnt/sdcard")
+                    visible: !(filePath === fileUtils?fileUtils.innerStoragePath:""||filePath == "/mnt/sdcard")
                     text: Qt.formatDateTime(lastModified, "yyyy-M-d h:mm") //fileModifyDate
                     font.pixelSize: UI.FILE_INFO_SIZE
                     color: UI.FILE_INFO_COLOR
                 }
             }
         } //end Column{ part3
+
+        Item{
+            id: selectIcon
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: iconRightMargin
+            implicitWidth: 40
+            implicitHeight: 40
+            visible: (!filesPicker.isDirMode && isFile) ? true : false
+
+            /*! 标记图标选中颜色。*/
+            property color checkedColor: "#ff2828"
+            property QtObject editView: fileDelegt.ListView.view
+            /*! 标记图标距离Item右边的距离，默认值20。*/
+            property int iconRightMargin: 40
+            /*! 标记图标非选中颜色。*/
+            property color normalColor: "#999999"
+            property int duration: editView.moving ? 0 : 200
+
+            Rectangle {
+                id: defaultRect
+                width: parent.width
+                height: width
+                radius: width/2
+                color: "transparent"
+                border{ color: selectIcon.normalColor; width: 3 }
+
+                Rectangle{
+                    id: centerRect
+                    width: parent.width
+                    height: width
+                    radius: width/2
+                    color: selectIcon.checkedColor
+                    anchors.centerIn: parent
+                    scale: 0.0
+                }
+
+                SequentialAnimation {
+                    id: checkedAnimation
+                    running: isSelected
+                    NumberAnimation { target: centerRect; property: "scale"; to: 1.0; duration: selectIcon.duration }
+                    ScriptAction{ script: {defaultRect.border.color = selectIcon.checkedColor; } }
+                    NumberAnimation { target: centerRect; property: "scale"; to: 0.35; duration: selectIcon.duration }
+                    NumberAnimation { target: centerRect; property: "scale"; to: 0.65; duration: selectIcon.duration/2.0 }
+                    NumberAnimation { target: centerRect; property: "scale"; to: 0.5; duration: selectIcon.duration/2.0 }
+                }
+
+                SequentialAnimation {
+                    id: uncheckedAnimation
+                    running: isNormalStatus && !isSelected
+                    NumberAnimation { target: centerRect; property: "scale"; to: 1.0; duration: selectIcon.duration }
+                    ScriptAction{ script: {defaultRect.border.color = selectIcon.normalColor; } }
+                    NumberAnimation { target: centerRect; property: "scale"; to: 0.0; duration: selectIcon.duration }
+                }
+            }
+        }
 
     } //end listItem
 

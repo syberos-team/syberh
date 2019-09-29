@@ -95,7 +95,7 @@ CPage{
             property url curHoverUrl: ""
             anchors.fill:parent
             url:surl
-            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36;SyberOS:1.0.0"
+            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+";"
             experimental.minimumScale: false
             experimental.preferredMinimumContentsWidth: Screen.width
             experimental.deviceWidth:Screen.width
@@ -199,20 +199,20 @@ CPage{
                     show()
                 }
             }
-            experimental.filePicker: SyberosFilesPicker{
+
+            experimental.filePicker: SFilesPicker {
                 id: picker
-                width: gAppUtils.pageStackWindow.width
-                height: gAppUtils.pageStackWindow.height
+                titleText: "文件选择"
+                leftItemEnabled: true
+                count: allowMultipleFiles?30:1
 
                 Connections {
                     target: picker
                     onOk: {
-                        console.log("on ok", picker.status)
-                        console.log("on Page set file save path", picker.dirPath)
                         model.accept(picker.filesPath);
                     }
                     onCancel: {
-                        model.rejected();
+                        model.reject();
                     }
                 }
 
@@ -224,9 +224,9 @@ CPage{
                 }
 
                 Component.onCompleted:{
-                    parent = gAppUtils.pageStackWindow;
-                    visible = true;
-                    status = CPageStatus.WillShow;
+                    parent = gAppUtils.pageStackWindow
+                    visible = true
+                    status = 2
                     focus = true
                 }
             }

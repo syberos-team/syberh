@@ -4,6 +4,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDateTime>
+#include "../framework/common/errorinfo.h"
 
 #define DATETIME_FMT "yyyyMMddhhmmss"
 
@@ -64,7 +65,7 @@ void DownloadManager::downloadFile(QString url , QString fileName){
 
         QFileInfo f(m_path);
         if(f.isDir()){
-            emit signalDownloadError(m_downloadId, QNetworkReply::UnknownContentError, "必须是一个文件路径");
+            emit signalDownloadError(m_downloadId, ErrorInfo::IllegalFileType, ErrorInfo::message(ErrorInfo::IllegalFileType, "必须是一个文件路径"));
             return;
         }
         //自动创建目录
@@ -103,6 +104,8 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
         connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+
+        emit signalStarted(m_downloadId, m_path);
     }
 }
 
@@ -223,7 +226,7 @@ void DownloadManager::onReadyRead(){
             qint64 size = downloadFileSize();
             if(size > free){
                 qDebug() << Q_FUNC_INFO << "存储空间不足，预期：" << size << "，实际可用：" << free << endl;
-                emit signalDownloadError(m_downloadId, QNetworkReply::UnknownContentError, "存储空间不足");
+                emit signalDownloadError(m_downloadId, ErrorInfo::NotEnoughSpace, ErrorInfo::message(ErrorInfo::NotEnoughSpace, "存储空间不足"));
                 closeDownload();
             }else{
                 file.write(m_reply->readAll());
@@ -257,6 +260,8 @@ void DownloadManager::onFinished(){
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
 void DownloadManager::onError(QNetworkReply::NetworkError code){
-    emit signalDownloadError(m_downloadId, code, m_reply->errorString());
+    Q_UNUSED(code)
+    qDebug () << Q_FUNC_INFO << "下载过程中出现错误：" << m_reply->errorString() <<endl;
+    emit signalDownloadError(m_downloadId, ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, m_reply->errorString()));
     closeDownload();
 }

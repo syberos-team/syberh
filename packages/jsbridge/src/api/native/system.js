@@ -4,7 +4,7 @@ export default function systemMixin(hybrid) {
 
     hybridJs.extendModule('system', [{
         namespace: 'aboutPhone',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {

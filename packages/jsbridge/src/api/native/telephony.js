@@ -9,7 +9,7 @@ export default function telephonyMixin (hybrid) {
 
   hybridJs.extendModule('telephony', [{
     namespace: 'dial',
-    os: ['syber'],
+    os: ['syberos'],
     defaultParams: {
       //对方号码
       tel: '',

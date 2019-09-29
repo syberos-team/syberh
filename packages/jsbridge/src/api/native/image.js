@@ -5,7 +5,7 @@ export default function imageMixin(hybrid) {
     hybridJs.extendModule('image', [
         {
             namespace: 'chooseImage',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 count: 9,
                 sourceType: ['camera', 'album'],
@@ -23,7 +23,7 @@ export default function imageMixin(hybrid) {
         },
         {
             namespace: 'previewImage',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 urls: [],
                 current: '',
@@ -41,7 +41,7 @@ export default function imageMixin(hybrid) {
         },
         {
             namespace: 'saveImageToPhotosAlbum',
-            os: ['syber'],
+            os: ['syberos'],
             defaultParams: {
                 filePath: '',
             },
@@ -56,7 +56,7 @@ export default function imageMixin(hybrid) {
             },
         }, {
             namespace: 'getImageInfo',
-            os: ['syber'],
+            os: ['syberos'],
             runCode(...rest) {
                 const args = innerUtil.compatibleStringParamsToObject.call(
                     this,
