@@ -19,16 +19,33 @@
 
 <body>
   <div class="mui-content pt0">
-    
-    <div class="mui-card">
+
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+          <label>mode:</label>
+          <select id="mode">
+            <option value="long">long</option>
+            <option value="short">short</option>
+          </select>
+      </div>
+      <div class="mui-input-row">
+        <button type="button" class="mui-btn mui-btn-primary" onclick="vibrate()">震动</button>
+      </div>
+      <div class="mui-card-footer">
+        <h4>响应信息:</h4>
+        <div id="resultMsg"></div>
+      </div>
+    </form>
+
+    <!--<div class="mui-card">
       <div class="mui-card-header">
-        <button type="button" class="mui-btn mui-btn-success mui-btn-outlined" onclick="vibrate()">获取震动信息设置</button>
+        <button type="button" class="mui-btn mui-btn-success mui-btn-outlined" onclick="vibrateInfo()">获取震动信息设置</button>
       </div>
       <div class="mui-card-footer">
         <p id="getAllKeys-result">&nbsp;</p>
       </div>
-    </div>
-    
+    </div>-->
+
     <!-- <div class="mui-card">
       <div class="mui-card-header">
         <button type="button" class="mui-btn mui-btn-success mui-btn-outlined" onclick="stop()">获取震动信息设置stop</button>
@@ -38,7 +55,7 @@
       </div>
     </div> -->
 
-    <div class="mui-card">
+    <!--<div class="mui-card">
       <div class="mui-card-header">
         <button type="button" class="mui-btn mui-btn-success mui-btn-outlined" onclick="touch()">设置物理按键是否震动。</button>
       </div>
@@ -57,9 +74,9 @@
       <div class="mui-card-footer">
         <p id="getTouch-result">&nbsp;</p>
       </div>
-    </div>
+    </div>-->
 
-    <div class="mui-card">
+    <!--<div class="mui-card">
       <div class="mui-card-header">
         <button type="button" class="mui-btn mui-btn-success mui-btn-outlined" onclick="vibrating()">设置键盘按键震动是否开启</button>
       </div>
@@ -77,7 +94,7 @@
       <div class="mui-card-footer">
         <p id="getVibrating-result">&nbsp;</p>
       </div>
-    </div>
+    </div>-->
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
@@ -99,28 +116,32 @@
       })
     }
 
-    // function vibrate() {
-    //   syberh.vibrator.vibrateInfo({
-    //     success: function (result) {
-    //       console.info(result)
-    //       document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
-    //     },
-    //     fail: function (error) {
-    //       document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
-    //     }
-    //   })
-    // }
     function vibrate() {
-      syberh.vibrator.vibrate({
-        success: function (result) {
-          console.info(result)
-          document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
-        },
-        fail: function (error) {
-          document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
-        }
-      })
+        var mode = document.getElementById("mode").value;
+
+        syberh.vibrator.vibrate({
+            mode: mode,
+            success: function (result) {
+              document.getElementById('resultMsg').innerText = JSON.stringify(result);
+            },
+            fail: function (error) {
+              document.getElementById('resultMsg').innerText = JSON.stringify(error);
+            }
+        })
     }
+
+    function vibrateInfo() {
+       syberh.vibrator.vibrateInfo({
+         success: function (result) {
+           console.info(result)
+           document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
+         },
+         fail: function (error) {
+           document.getElementById('getAllKeys-result').innerText = JSON.stringify(result)
+         }
+       })
+    }
+
 
     function stop() {
       syberh.vibrator.stop({

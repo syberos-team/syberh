@@ -630,6 +630,60 @@
       },
       "version-1.1.1-alpha.3/version-1.1.1-alpha.3-started-cli": {
         "title": "安装 CLI"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-brightnessInfo": {
+        "title": "brightnessInfo"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setAdaptiveDimmingEnabled": {
+        "title": "setAdaptiveDimmingEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setAmbientLightSensorEnabled": {
+        "title": "setAmbientLightSensorEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setBrightness": {
+        "title": "setBrightness"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setDimTimeout": {
+        "title": "setDimTimeout"
+      },
+      "version-1.2.0-alpha.5/apis/filepicker/version-1.2.0-alpha.5-filepicker": {
+        "title": "filepicker"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-pause": {
+        "title": "pause"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-resume": {
+        "title": "resume"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-start": {
+        "title": "start"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-stop": {
+        "title": "stop"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/record/version-1.2.0-alpha.5-pause": {
+        "title": "pause"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/record/version-1.2.0-alpha.5-resume": {
+        "title": "resume"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/record/version-1.2.0-alpha.5-stop": {
+        "title": "stop"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-setTouchVibrationSoundEnabled": {
+        "title": "setTouchVibrationSoundEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-setVibratingEnabled": {
+        "title": "setVibratingEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-vibrate": {
+        "title": "vibrate"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-vibrateInfo": {
+        "title": "vibrateInfo"
       }
     },
     "links": {
@@ -658,6 +712,7 @@
       "path": "path",
       "上传": "上传",
       "设备": "设备",
+      "震动": "震动",
       "图片": "图片",
       "webview": "webview",
       "url": "url"

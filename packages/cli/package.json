@@ -1,6 +1,6 @@
 {
   "name": "@syberos/cli",
-  "version": "1.2.0-alpha.3",
+  "version": "1.2.0-alpha.6",
   "description": "cli tool for syberh",
   "main": "index.js",
   "publishConfig": {

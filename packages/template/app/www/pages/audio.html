@@ -77,24 +77,19 @@
 
     function selectFile() {
       syberh.filepicker.open({
-        title: '文件选择',
+        title: '音频选择',
         showBack: true,
-        category: 2,
+        category: 'audio',
         success: function (result) {
-
-          if (result.confirm) {
+          console.log('filepicker open success', JSON.stringify(result))
+          if (result && result.files) {
             $("#start").show();
             $("#pause").hide();
             $("#resume").hide();
             $("#stop").hide();
-            document.getElementById("path").value = result.path.replace("file://", "");
-          } else if (result.cancel) {
-            console.log('用户点击取消')
+            document.getElementById("path").value = result.files[0].path.replace("file://", "");
           }
         },
-        fail: function (error) {
-          console.log('filepicker open fail', error)
-        }
       })
     }
 

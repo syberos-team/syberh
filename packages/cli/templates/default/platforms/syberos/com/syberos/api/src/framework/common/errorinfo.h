@@ -46,6 +46,11 @@ public:
         UploadFileFailed = 6004,
         //取消失败
         CannelFailed = 6005,
+
+        // 存储空间不足
+        NotEnoughSpace = 7000,
+
+
         //文件无操作权限
         InvalidFilePermission = 9000,
         //参数错误

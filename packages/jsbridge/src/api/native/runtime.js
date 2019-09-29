@@ -27,14 +27,6 @@ export default function runtimeMixin (hybrid) {
     namespace: 'clearCache',
     os: ['syberos'],
   }, {
-    namespace: 'getGeolocation',
-    os: ['syberos'],
-    defaultParams: {
-      isShowDetail: 0,
-      // 1采用的火星坐标系，0采用地球坐标系
-      coordinate: 1,
-    },
-  }, {
     namespace: 'clipboard',
     os: ['syberos'],
     defaultParams: {

@@ -136,7 +136,7 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
   if (!hasTargetSimulator) {
     errorLines.push({
       desc: 'target未安装',
-      valid: false,
+      valid: true,
       solution: '请安装target: ' + projectConfig.targetSimulator
     })
     return errorLines
