@@ -48,21 +48,16 @@ function WebView (options) {
         handlerName: 'onShow',
         result: { ready: true }
       })
-      //object.openUrl(getUrl(that.currentUrl));
-
     }
     if (!that.loadProgressConnect) {
       // 设置绑定信号
       that.loadProgressConnect = true
-      //页面加载信号
-      object.onLoadProgress.connect(function (loadProgress) {
-        if (that.loadSuccessEvent === 0 && loadProgress === 100) {
-          that.loadSuccessEvent = 1
-        } else if (that.loadSuccessEvent === 1 && loadProgress === 100) {
-          logger.verbose(' webview:[%s] ,on ready() onLoadProgress success: ', that.id, loadProgress)
+      //页面加载成功信号
+      object.sloadingChanged.connect(function (loadRequest) {
+        if (loadRequest.status === 2) {
+          logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, loadRequest.url.toString())
           //调用任务狗
-          that.dog();
-          that.loadSuccessEvent = 0
+          that.dog(loadRequest.url.toString());
         }
       })
     }
@@ -172,14 +167,7 @@ function WebView (options) {
   this.on('reload', function (object, handlerId) {
     logger.verbose('webview:[%s]  ,on reload()', that.id)
     object.reload()
-    // 绑定进度事件
-    object.onLoadProgress.connect(function (loadProgress) {
-      if (loadProgress === 100) {
-        if (handlerId) {
-          that.trigger('success', handlerId, true)
-        }
-      }
-    })
+    that.trigger('success', handlerId, true)
   })
   // 回退
   this.on('goBack', function (object, handlerId) {
@@ -218,12 +206,19 @@ function WebView (options) {
     logger.verbose('webviewdepth:[%d]', webviewdepth)
 
     try {
-      var url = getUrl(param.url)
-      swebviews[0].object.openUrl(url)
-      currentWebview.trigger('success', handlerId, true)
-      that.navigateBack({ delta: webviewMaxDepth }, function (res, msg) {
-        logger.verbose('reLaunch navigateBack()', res, msg)
-      })
+       that.trigger('failed', handlerId, 1004, '暂不支持的API')
+        return;
+        //TODO 调用该模式会导致页面崩溃错误,暂停止该api
+//      var url = getUrl(param.url)
+
+//      currentWebview.trigger('success', handlerId, true)
+//      that.navigateBack({ delta: webviewMaxDepth }, function (res, webview ,msg) {
+//          logger.verbose('reLaunch navigateBack()', res, msg)
+//          if(res){
+//             logger.verbose('pageStack.busy:[%s]', pageStack.busy)
+//             webview.object.openUrl(url);
+//          }
+//      })
     } catch (error) {
       logger.error('reLaunch error', error.message)
       that.trigger('failed', handlerId, 9999, error.message)
@@ -255,8 +250,8 @@ function WebView (options) {
         removePlugin: true,
         page: true
       })
-      dwevview.param = { surl: getUrl(param.url) },
-        dwevview.currentUrl = param.url
+      dwevview.param = { surl: getUrl(param.url) };
+      dwevview.currentUrl = param.url
       SYBEROS.addPlugin(dwevview)
       // 设定webview的深度为2
       webviewdepth += 1
@@ -288,10 +283,9 @@ function WebView (options) {
   /**
    * 任务狗，用来处理队列中的消息
    */
-  function dog () {
-    logger.verbose('dog()')
+  function dog (currentUrl) {
+    logger.verbose('dog()',typeof currentUrl)
     var queue = this.messageQueue;
-    var currentUrl = this.object.getCurrentUrl();
     logger.verbose('dog() 处理消息数:%d', queue.length)
     for (var i = 0; i < queue.length; i++) {
       var obj = queue[i];
@@ -393,18 +387,19 @@ function WebView (options) {
       currentWebview = topVebview
       if (swebviews.length === 1) {
         logger.verbose('返回最顶层:[%d]', swebviews.length)
-        pageStack.pop(swebviews[0].object)
+         pageStack.pop(topVebview.object,true)
       } else {
         pageStack.pop(topVebview.object)
       }
       logger.verbose('topVebview:[%s],当前swebviews数量: [%d],栈的深度: [%d]', topVebview.id, swebviews.length, pageStack.depth)
       topVebview.trigger('show', WebviewStatusPop)
-      if (typeof callback === 'function') callback(true)
+      if (typeof callback === 'function') callback(true,topVebview,true)
     } else {
       logger.verbose('navigateBack() 当前页面栈数为: [ %d ],不做处理', swebviews.length)
       var msg = '当前为首页,无法退回'
       logger.verbose('navigateBack() msg:%s', msg)
-      if (typeof callback === 'function') callback(false, msg)
+       var topVebview = swebviews[swebviews.length - 1];
+      if (typeof callback === 'function') callback(false, topVebview, msg)
     }
   }
 }

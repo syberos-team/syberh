@@ -80,4 +80,5 @@
         <file>res/back.png</file>
         <file>js/modal/gtoast.js</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

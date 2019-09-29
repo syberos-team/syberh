@@ -8,13 +8,20 @@ import "../js/util/log.js" as LOG
 import "../js/syber.js" as Syberh
 
 CPage{
+    //加载进度信号
+    signal sloadProgress(var loadProgress)
+
     //加载信号
-    signal onLoadProgress(var loadProgress)
+    signal sloadingChanged(var loadRequest)
     //返回键信号
     signal keyOnReleased(var event)
     //接受消息信号
     signal receiveMessage(var message)
     property var surl
+
+    function clearHistory(){
+     //TODO 暂无找到实现方式
+    }
     //是否能回退
     function canGoBack(){
         return swebview.canGoBack;
@@ -26,6 +33,7 @@ CPage{
     //Go backward within the browser's session history, if possible. (Equivalent to the window.history.back() DOM method.)
     function goBack(){
         swebview.goBack();
+         swebview.forceActiveFocus()
     }
     //Go forward within the browser's session history, if possible. (Equivalent to the window.history.forward() DOM method.)
     function goForward(){
@@ -51,7 +59,12 @@ CPage{
             LOG.logger.verbose('swebview loading',swebview.loading)
             swebview.stop();
         }
+        if(swebview.url.toString()===url){
+            return;
+        }
+
         swebview.url=url;
+
     }
     //停止当前所有动作
     function stop(){
@@ -61,6 +74,7 @@ CPage{
     function reload(url){
         swebview.stop();
         swebview.reload();
+        swebview.forceActiveFocus()
     }
     //执行JavaScript代码
     function evaluateJavaScript(res){
@@ -86,8 +100,6 @@ CPage{
         id:root
         anchors.fill:parent
 
-
-
         WebView {
             id: swebview
             focus: true
@@ -100,11 +112,13 @@ CPage{
             experimental.preferredMinimumContentsWidth: Screen.width
             experimental.deviceWidth:Screen.width
             experimental.deviceHeight:Screen.height
-            experimental.objectName: 'qml'
             experimental.preferences.navigatorQtObjectEnabled: true
-            experimental.onMessageReceived: {
-                receiveMessage(message)
-            }
+            experimental.preferences.webGLEnabled: true
+            experimental.preferences.webAudioEnabled: true
+            experimental.preferences.minimumFontSize: 13
+            experimental.gpsEnable: false
+            experimental.preferences.autoLoadImages: true
+
             experimental.itemSelector:ItemSelector{}
             experimental.alertDialog: SAlert {
                 id: salert
@@ -129,7 +143,6 @@ CPage{
                     show()
                 }
             }
-
             experimental.promptDialog: CInputDialog{
                 id: promptDialog
                 canceledOnOutareaClicked: false
@@ -231,11 +244,11 @@ CPage{
                 }
             }
 
-            experimental.preferences.minimumFontSize: 13
-            experimental.gpsEnable: false
 
+            experimental.onMessageReceived: {
+                receiveMessage(message)
+            }
             property bool _autoLoad: true
-            experimental.preferences.autoLoadImages: true //webviewManager.wifiStatus?true:((typeof setupMgr != undefined)?(setupMgr.getValue("autoloadimage",true)=="true"?true:false):false)
 
             onLinkHovered: {
                 curHoverUrl= hoveredUrl
@@ -248,14 +261,26 @@ CPage{
                 logger.verbose("onNavigationRequested",helper.getWebRootPath())
             }
 
-
             onUrlChanged: {
                 LOG.logger.verbose('SWebview onUrlChanged',loadProgress)
             }
 
             onLoadProgressChanged: {
                 LOG.logger.verbose('SWebview qml onLoadProgressChanged',loadProgress)
-                onLoadProgress(loadProgress)
+                sloadProgress(loadProgress)
+            }
+
+            onLoadingChanged:{
+             LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status)
+                if (!loading && loadRequest.status === WebView.LoadFailedStatus){
+                     LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
+                    //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
+                    //swebview.reload();
+                }
+                if(!loading && loadRequest.status===WebView.LoadSucceededStatus){
+                    sloadingChanged(loadRequest);
+                }
+
             }
 
             onSms: {
@@ -287,6 +312,8 @@ CPage{
             }
         }
     }
+
+
     Component.onCompleted: {
         //设置是否显示状态栏，应与statusBarHoldItemEnabled属性一致
         gScreenInfo.setStatusBar(true);
