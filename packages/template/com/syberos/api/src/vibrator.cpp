@@ -10,17 +10,33 @@
 int Vibrator::typeId = qRegisterMetaType<Vibrator *>();
 Vibrator::Vibrator()
 {
-    count=0;
+    // 创建CNGFManager的对象
+    client = new CNgfManager(this);
+
+    // 注册状态改变信号
+    QObject::connect(client, SIGNAL(eventCompleted(quint32)), this, SLOT(eventCompleted(quint32)));
+    QObject::connect(client, SIGNAL(eventFailed(quint32)), this, SLOT(eventFailed(quint32)));
+    QObject::connect(client, SIGNAL(eventPlaying(quint32)), this, SLOT(eventPlaying(quint32)));
+
+    profile = new CSystemProfileManager();
 }
 Vibrator::~Vibrator()
 {
+    // 断开信号连接
+    QObject::disconnect(client, SIGNAL(eventCompleted(quint32)), this, SLOT(eventCompleted(quint32)));
+    QObject::disconnect(client, SIGNAL(eventFailed(quint32)), this, SLOT(eventFailed(quint32)));
+    QObject::disconnect(client, SIGNAL(eventPlaying(quint32)), this, SLOT(eventPlaying(quint32)));
 
+    delete client;
+    client = NULL;
+
+    delete profile;
+    profile = NULL;
 }
 
 void Vibrator::request(QString callBackID, QString actionName, QVariantMap params)
 {
-  if (actionName == "vibrate")
-  {
+  if (actionName == "vibrate"){
     vibrate(callBackID.toLong(), params);
   }else if (actionName == "vibrateInfo"){
     vibrateInfo(callBackID.toLong(), params);
@@ -40,46 +56,63 @@ void Vibrator::submit(QString typeID, QString callBackID, QString actionName, QV
     Q_UNUSED(attachementes)
 }
 
-void Vibrator::vibrate(long callBackID,QVariantMap params){
+void Vibrator::vibrate(long callBackID, QVariantMap params){
 
-    qDebug() << Q_FUNC_INFO << "------params" << params << endl;
+    qDebug() << Q_FUNC_INFO << "params: " << params << endl;
 
+    QString mode = params.value("mode").toString();
+    qDebug() << Q_FUNC_INFO << "mode: " << mode << endl;
+    qDebug() << Q_FUNC_INFO << "mode: mode.isEmpty() " << mode.isEmpty() << endl;
+    qDebug() << Q_FUNC_INFO << "mode: short " << (QString::compare(mode, "short") != 0) << endl;
+    qDebug() << Q_FUNC_INFO << "mode: long " << (QString::compare(mode, "long") != 0) << endl;
 
-    // 创建CNGFManager的对象
-    client = new CNgfManager(this);
+    if(mode.isEmpty()){
+        emit failed(callBackID, 500, "mode参数不能为空");
+        return;
+    }
 
-    // 注册连接状态信号
-    QObject::connect(client, SIGNAL(connectionStatusChanged(bool)), this, SLOT(connection(bool)));
+    if(QString::compare(mode, "short") != 0
+            && QString::compare(mode, "long") != 0){
+        emit failed(callBackID, 500, "mode不合法");
+        return;
+    }
 
-    // 注册状态改变信号
-    QObject::connect(client, SIGNAL(eventCompleted(quint32)), this, SLOT(completed(quint32)));
-    QObject::connect(client, SIGNAL(eventFailed(quint32)), this, SLOT(failed(quint32)));
-    QObject::connect(client, SIGNAL(eventPlaying(quint32)), this, SLOT(playing(quint32)));
-bool b;
-    // 连接到Ngf服务
-    if (client->connect()) {
+    //打开震动开关
+    bool vibratingEnabled = profile->vibratingEnabled();
+    if(!vibratingEnabled){
+        profile->setVibratingEnabled(true);
+    }
 
-      // 定义事件属性
-      QMap<QString, QVariant> properties;
-      properties.insert(QString("media.vibra"), QVariant(true));
+    //连接震动服务
+    bool isConnected = client->isConnected();
+    if(!isConnected){
+        isConnected = client->connect();
+    }
 
-//    properties.insert(QString("vibrator.time"), QVariant(10000));
-//    properties.insert(QString("media.vibra.force"), QVariant(true));
-      properties.insert(QString("vibrator.repeat"), QVariant(false));
+    if(!isConnected){
+        emit failed(callBackID, 500, "连接震动服务失败");
+        return;
+    }
 
-      // 开始播放并返回事件id
-      quint32 event_id = client->play(CNgfManager::NgfVibrating, properties);
+    //长震400ms
+    int vibratorTime = 400;
+    if(mode == "short"){
+        //长震15ms
+        vibratorTime = 15;
+    }
 
-      qDebug() << Q_FUNC_INFO << "------eventId" << event_id << endl;
-      b   =  client->stop(CNgfManager::NgfVibrating);
-       qDebug() << Q_FUNC_INFO << "----stop:b" << b;
-      QTimer::singleShot(300, this, SLOT(stop()));
-     }
+    qDebug() << Q_FUNC_INFO << "vibrate time: " << vibratorTime << endl;
 
-     QJsonObject json;
-     json.insert("result", b );
-     qDebug() << Q_FUNC_INFO << "----vibrate:b" << b;
-     emit success(callBackID,  json);
+    // 定义事件属性
+    QMap<QString, QVariant> properties;
+    properties.insert(QString("media.vibra"), QVariant(true));
+    properties.insert(QString("vibrator.repeat"), QVariant(1));
+    properties.insert(QString("vibrator.time"), QVariant(vibratorTime));
+
+    quint32 event_id = client->play(CNgfManager::NgfVibrator, properties);
+    qDebug() << Q_FUNC_INFO << "vibrate play eventId: " << event_id << endl;
+
+    emit success(callBackID, "success");
 }
 
 
@@ -143,29 +176,18 @@ void Vibrator::setVibratingEnabled(long callBackID,QVariantMap params){
     emit success(callBackID,  json);
 }
 
-void Vibrator::connection(bool connected){
-    qDebug() << Q_FUNC_INFO << "connection" << connected;
+void Vibrator::eventFailed(quint32 eventId){
+    qDebug() << Q_FUNC_INFO << "vibrate failed eventId: " << eventId;
+//    emit failed(callBackID, 500, "震动失败");
 }
+void Vibrator::eventCompleted(quint32 eventId){
+    qDebug() << Q_FUNC_INFO << "vibrate completed eventId: " << eventId;
 
-void Vibrator::failed(quint32 eventId){
-    qDebug() << Q_FUNC_INFO << "failed" << eventId;
+    bool vibratingEnabled = profile->vibratingEnabled();
+    if(vibratingEnabled){
+        profile->setVibratingEnabled(false);
+    }
 }
-void Vibrator::completed(quint32 eventId){
-    qDebug() << Q_FUNC_INFO << "completed" << eventId;
-    bool b   =  client->stop(eventId);
-    qDebug() << Q_FUNC_INFO << "completed:b" << b;
-}
-void Vibrator::playing(quint32 eventId){
-    qDebug() << Q_FUNC_INFO << "playing" << eventId << "count" << count;
-    client->stop(CNgfManager::NgfVibrating);
-//    if(count > 0){
-//        qDebug() << Q_FUNC_INFO << "playing.........." << eventId << "count" << count;
-//        client->stop(CNgfManager::NgfVibrating);
-//    }
-//    count++;
-}
-void Vibrator::stop(){
-    qDebug() << Q_FUNC_INFO << "stop";
-    bool b   =  client->stop(CNgfManager::NgfVibrating);
-    qDebug() << Q_FUNC_INFO << "stop:b" << b;
+void Vibrator::eventPlaying(quint32 eventId){
+    qDebug() << Q_FUNC_INFO << "playing eventId: " << eventId << endl;
 }

@@ -6,12 +6,14 @@ export default function vibratorMixin(hybrid) {
         namespace: 'vibrate',
         os: ['syber'],
         defaultParams: {
+            mode: 'long',
         },
         runCode(...rest) {
             // 兼容字符串形式
             const args = innerUtil.compatibleStringParamsToObject.call(
                 this,
                 rest,
+                'mode',
             );
             hybridJs.callInner.apply(this, args);
         },
@@ -31,20 +33,20 @@ export default function vibratorMixin(hybrid) {
         },
     },
     {
-      namespace: 'setVibratingEnabled',
-      os: ['syber'],
-      defaultParams: {
-      },
-      runCode(...rest) {
-          // 兼容字符串形式
-          const args = innerUtil.compatibleStringParamsToObject.call(
-              this,
-              rest,
-          );
-          hybridJs.callInner.apply(this, args);
-      },
-  },
-  {
+        namespace: 'setVibratingEnabled',
+        os: ['syber'],
+        defaultParams: {
+        },
+        runCode(...rest) {
+            // 兼容字符串形式
+            const args = innerUtil.compatibleStringParamsToObject.call(
+                this,
+                rest,
+            );
+            hybridJs.callInner.apply(this, args);
+        },
+    },
+    {
         namespace: 'setTouchVibrationSoundEnabled',
         os: ['syber'],
         defaultParams: {
@@ -59,35 +61,34 @@ export default function vibratorMixin(hybrid) {
         },
     },
     {
-      namespace: 'setVibratingEnabled',
-      os: ['syber'],
-      defaultParams: {
-      },
-      runCode(...rest) {
-          // 兼容字符串形式
-          const args = innerUtil.compatibleStringParamsToObject.call(
-              this,
-              rest,
-          );
-          hybridJs.callInner.apply(this, args);
-      },
+        namespace: 'setVibratingEnabled',
+        os: ['syber'],
+        defaultParams: {
+        },
+        runCode(...rest) {
+            // 兼容字符串形式
+            const args = innerUtil.compatibleStringParamsToObject.call(
+                this,
+                rest,
+            );
+            hybridJs.callInner.apply(this, args);
+        },
     },
     {
-      namespace: 'stop',
-      os: ['syber'],
-      defaultParams: {
-      },
-      runCode(...rest) {
-          // 兼容字符串形式
-          const args = innerUtil.compatibleStringParamsToObject.call(
-              this,
-              rest,
-          );
-          hybridJs.callInner.apply(this, args);
-      },
-    }
-  
-  
-  
-  ]);
+        namespace: 'stop',
+        os: ['syber'],
+        defaultParams: {
+        },
+        runCode(...rest) {
+            // 兼容字符串形式
+            const args = innerUtil.compatibleStringParamsToObject.call(
+                this,
+                rest,
+            );
+            hybridJs.callInner.apply(this, args);
+        },
+    },
+
+
+    ]);
 }
