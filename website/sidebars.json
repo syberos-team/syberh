@@ -162,7 +162,9 @@
           "apis/brightness/setDimTimeout"
         ]
       }
+    ],
+    "震动": [
+      "apis/vibrator/vibrate"
     ]
-    
   }
 }

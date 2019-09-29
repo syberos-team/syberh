@@ -3,6 +3,9 @@
 
 #include "framework/nativesdkhandlerbase.h"
 #include "cngfmanager.h"
+#include "csystemprofilemanager.h"
+
+
 
 class Vibrator : public NativeSdkHandlerBase
 {
@@ -51,13 +54,12 @@ private :
     void setVibratingEnabled(long callBackID, QVariantMap params);
 
     CNgfManager *client;
-    int count;
+    CSystemProfileManager *profile;
+
 public slots:
-    void connection(bool connected);
-    void failed(quint32 eventId);
-    void completed(quint32 eventId);
-    void playing(quint32 eventId);
-    void stop();
+    void eventFailed(quint32 eventId);
+    void eventCompleted(quint32 eventId);
+    void eventPlaying(quint32 eventId);
 };
 
 #endif // VIBRATOR_H
