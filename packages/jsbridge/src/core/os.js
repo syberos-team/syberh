@@ -1,22 +1,24 @@
 /**
  * 加入系统判断功能
  */
-export default function osMixin(hybrid) {
-    const hybridJs = hybrid;
-    const detect = function detect(ua) {
-        this.os = {};
-        // syberhybrid的容器
-        const syber = ua.match(/SyberOS/i);
-        console.log('os', syber);
-        if (syber) {
-            this.os.syber = true;
-        }
+export default function osMixin (hybrid) {
+  const hybridJs = hybrid;
+  const detect = function detect (ua) {
+    this.os = {};
 
-        // 如果不是SyberOS，则默认为h5
-        if (!syber) {
-            this.os.h5 = true;
-        }
-    };
+    const syberos = ua.match(/(SyberOS);?[\s/]+([\d.]+)?/);
 
-    detect.call(hybridJs, navigator.userAgent);
+    if (syberos) {
+      this.os.syberos = true;
+      this.os.version = syberos[2];
+      //判断是否为老版本syberos
+      this.os.isBadSyberos = !(/Chrome\/\d/.test(window.navigator.appVersion));
+    }
+    // 如果不是SyberOS，则默认为h5
+    if (!syberos) {
+      this.os.h5 = true;
+    }
+  };
+
+  detect.call(hybridJs, navigator.userAgent);
 }

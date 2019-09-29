@@ -21,18 +21,16 @@ public:
 
     ~Upload();
 
+    void request(QString callBackID,QString actionName,QVariantMap params);
+
+    static int typeId;
+
     //下载状态
     enum ProgressStatus {
         Started = 1,
         Downloading = 2,
         Completed = 3
     };
-
-    void request(QString callBackID,QString actionName,QVariantMap params);
-
-    static int typeId;
-
-
 
 private:
     // 上传
@@ -49,6 +47,10 @@ private:
     bool m_error;
 
 public slots:
+
+    // 开始上传
+    void onStarted(QString callBackID);
+
     // 上传进度信息
     void onUploadProgress(QString callBackID, qint64 bytesReceived, qint64 bytesTotal);
     // 上传完成

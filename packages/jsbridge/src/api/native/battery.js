@@ -4,7 +4,7 @@ export default function batteryMixin(hybrid) {
 
     hybridJs.extendModule('battery', [{
         namespace: 'getStatus',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {

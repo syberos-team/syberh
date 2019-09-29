@@ -7,8 +7,7 @@ function System () {
   var defaultOpts = {
     id: 'system',
     module: 'system',
-    methods: ['aboutPhone'],
-    source: ''
+    methods: ['aboutPhone']
   }
   SyberPlugin.call(this, defaultOpts)
 

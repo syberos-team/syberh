@@ -8,6 +8,7 @@
 #include <QMetaObject>
 #include <QGuiApplication>
 #include "util/fileutil.h"
+#include "framework/common/errorinfo.h"
 
 int Record::typeId = qRegisterMetaType<Record *>();
 
@@ -18,6 +19,7 @@ Record::Record(){
 
 Record::~Record(){
     delete recoder;
+    delete historydata;
 }
 
 void Record::request(QString callBackID, QString actionName, QVariantMap params)
@@ -27,9 +29,9 @@ void Record::request(QString callBackID, QString actionName, QVariantMap params)
     }else if (actionName == "start"){
         start(callBackID.toLong(), params);
     }else if (actionName == "pause"){
-        pause(params);
+        pause(callBackID.toLong(),params);
     }else if (actionName == "resume"){
-        resume(params);
+        resume(callBackID.toLong(),params);
     }else if(actionName == "stop"){
         stop(callBackID.toLong(),params);
     }else if(actionName == "remove"){
@@ -49,38 +51,13 @@ void Record::submit(QString typeID, QString callBackID, QString actionName, QVar
 void Record::list(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "list" << params << endl;
 
-//    QString path = Helper::instance()->getInnerStorageRootPath() + "/record";
-//    QFileInfoList fileInfos = FileUtil::fileList(path);// 获取录音文件目录下所有文件
-//    QJsonArray jsonArr;
-
-//    if (fileInfos.size() != 0) {
-//        for (int i = 0; i < fileInfos.size(); i++) {
-
-//            QString filePath = fileInfos.at(i).filePath();
-//            qDebug() << Q_FUNC_INFO << "filePath" << filePath << endl;
-
-//            if(filePath.right(4) == ".aac"){//过滤掉非.acc录音文件
-//                QJsonObject jsonObj;
-//                jsonObj.insert("path", filePath);
-//                jsonObj.insert("size", fileInfos.at(i).size());
-//                jsonObj.insert("created", fileInfos.at(i).created().toString("yyyy-MM-dd hh:mm:ss"));
-
-//                qint64 time = fileInfos.at(i).size() / (16000.0 * 2.0);    //总时长
-//                jsonObj.insert("time", time);
-//                jsonArr.append(jsonObj);
-//            }
-//        }
-//    }
-
-//    emit success(callBackID, jsonArr);
-
     //从数据库中获取录音列表
     try  {
         QJsonArray jsonArr = historydata->selectMetadata();
         emit success(callBackID, jsonArr);
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "查询录音列表失败" << endl;
-        emit failed(callBackID, 500, "查询录音列表失败");
+        emit failed(callBackID, ErrorInfo::SystemError, "系统错误:查询录音列表失败");
     }
 }
 
@@ -123,7 +100,7 @@ void Record::start(long callBackID,QVariantMap params){
         historydata->insertMetadata(newFile,0,0,time.toString("yyyy-MM-dd hh:mm:ss"));
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "在数据库中添加录音记录失败" << endl;
-        emit failed(callBackID, 500, "在数据库中添加录音记录失败");
+        emit failed(callBackID, ErrorInfo::SystemError, "系统错误:在数据库中添加录音记录失败");
         return;
     }
 
@@ -135,15 +112,18 @@ void Record::start(long callBackID,QVariantMap params){
     emit success(callBackID, QVariant(jsonObject));
 }
 
-void Record::pause(QVariantMap params){
+void Record::pause(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pause" << params << endl;
+
     recoder->pause();
+    emit success(callBackID, true);
 }
 
-void Record::resume(QVariantMap params){
+void Record::resume(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     recoder->record();
+    emit success(callBackID, true);
 }
 
 void Record::stop(long callBackID, QVariantMap params){
@@ -151,14 +131,16 @@ void Record::stop(long callBackID, QVariantMap params){
 
     recoder->stop();
 
-     try  {
+    try  {
         //在数据库中修改录音记录，增加文件大小、总时长
         FileInfo fileInfo = FileUtil::getInfo(currPath);
         historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
     } catch (QException e) {
          qDebug() << Q_FUNC_INFO << "在数据库中修改录音记录失败"  << endl;
-         emit failed(callBackID, 500, "在数据库中修改录音记录失败");
+         emit failed(callBackID, ErrorInfo::SystemError, "系统错误:在数据库中修改录音记录失败");
+         return;
     }
+    emit success(callBackID, true);
 }
 
 void Record::remove(long callBackID, QVariantMap params){
@@ -172,11 +154,9 @@ void Record::remove(long callBackID, QVariantMap params){
         historydata->removeMetadata(filePath);
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "删除录音失败" << endl;
-        emit failed(callBackID, 500, "删除录音失败");
+        emit failed(callBackID, ErrorInfo::SystemError, "系统错误:删除录音失败");
         return;
     }
 
-    QJsonObject jsonObject;
-    jsonObject.insert("result", true);
-    emit success(callBackID, jsonObject);
+    emit success(callBackID, true);
 }

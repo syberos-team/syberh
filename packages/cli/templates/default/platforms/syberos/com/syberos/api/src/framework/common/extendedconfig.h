@@ -17,6 +17,8 @@ class ExtendedConfig : public QObject
 {
   Q_OBJECT
 public:
+  ~ExtendedConfig();
+
   static ExtendedConfig *instance();
   /**
    * 获取所有传入的配置信息

@@ -1,5 +1,5 @@
 import * as _ from 'lodash/fp'
-import * as npmCheck from 'npm-check'
+import * as shelljs from 'shelljs';
 import * as  latestVersion from 'latest-version'
 import log from '../util/log';
 
@@ -17,14 +17,23 @@ async function checkSyberhPkg() {
 
   const remoteVersion = await latestVersion(pkgName);
   log.verbose('remoteVersion:', remoteVersion)
-  const pkgs = await npmCheck({
-    global: true
-  }).then(_.invoke('all'))
-    .then(_.get('packages'))
-
-  const localVersion = getLocalVersion(pkgs);
+  // const pkgs = await npmCheck({
+  //   global: true
+  // }).then(_.invoke('all'))
+  //   .then(_.get('packages'))
+  const cmd = 'npm ls @syberos/cli -g';
+  log.verbose('cmd', cmd)
+  // const localVersion = getLocalVersion(pkgs);
+  shelljs.config.silent = true
+  const { stdout } = shelljs.exec(cmd);
+  shelljs.config.silent = false
+  log.verbose('stdout:', stdout)
+  let localVersion;
+  const arr = stdout.trim().split('@') || [];
+  if (arr.length > 1) {
+    localVersion = arr[arr.length - 1]
+  }
   log.verbose('localVersion:', localVersion)
-
   if (localVersion !== remoteVersion) {
     errorLines = [{
       desc: ` ${pkgName}  有新版本`,
@@ -36,18 +45,6 @@ async function checkSyberhPkg() {
     desc: '检查@syberos/cli版本',
     lines: errorLines
   }
-}
-
-function getLocalVersion(pkgs) {
-  log.verbose('getLocalVersion() start:', pkgs.length)
-
-  for (let i = 0; i < pkgs.length; i++) {
-    if (pkgs[i].moduleName === pkgName) {
-      log.verbose('@syberos/cli  package:', JSON.stringify(pkgs[i]));
-      return pkgs[i].installed
-    }
-  }
-
 }
 
 export default checkSyberhPkg

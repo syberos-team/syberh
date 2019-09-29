@@ -17,7 +17,7 @@ export default function jsbridgeMixin (hybrid) {
 
   hybridJs.JSBridge = JSBridge;
 
-  /* if (hybridJs.os.syber) {
+  /* if (hybridJs.os.syberos) {
 // native 通知回调
 navigator.qt.onmessage((messageJSON) => {
 console.log(JSON.stringify(messageJSON));
@@ -102,7 +102,7 @@ JSBridge._handleMessageFromNative(messageJSON);
     // 获取 触发方法的url scheme
     // const uri = getUri(proto, newMessage);
     const messageStr = getMessageStr(proto, newMessage, isLong);
-    if (os.syber) {
+    if (os.syberos) {
       navigator.qt.postMessage(messageStr);
     } else {
       // 浏览器

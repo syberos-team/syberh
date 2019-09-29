@@ -1,6 +1,5 @@
 import modalMixin from './native/modal';
 import routerMix from './native/router';
-import runtimeMixin from './native/runtime';
 import deviceMixin from './native/device';
 import pageMixin from './native/page';
 import navigatorMixin from './native/navigator';
@@ -27,37 +26,34 @@ import audioMixin from './native/audio';
 import brightnessInfoMixin from './native/brightnessInfo';
 import vibratorMixin from './native/vibrateInfo';
 
-
-// const hybridJs = window.syber;
-export default function allNative(hybridJs) {
-    // 下载模块
-    downloadMixin(hybridJs);
-    modalMixin(hybridJs);
-    routerMix(hybridJs);
-    runtimeMixin(hybridJs);
-    deviceMixin(hybridJs);
-    pageMixin(hybridJs);
-    navigatorMixin(hybridJs);
-    utilMixin(hybridJs);
-    telephonyMixin(hybridJs);
-    storageMixin(hybridJs);
-    systemMixin(hybridJs);
-    networkMixin(hybridJs);
-    captureMixin(hybridJs);
-    clipboardMixin(hybridJs);
-    recordMixin(hybridJs);
-    networkInfoMixin(hybridJs);
-    batteryMixin(hybridJs);
-    networkDisabledMixin(hybridJs);
-    networkEnabledMixin(hybridJs);
-    filepickerMixin(hybridJs);
-    fileManagerMixin(hybridJs);
-    packageMixin(hybridJs);
-    pathMixin(hybridJs);
-    filepickerMixin(hybridJs);
-    imageMixin(hybridJs);
-    uploadMixin(hybridJs);
-    audioMixin(hybridJs);
-    brightnessInfoMixin(hybridJs);
-    vibratorMixin(hybridJs);
+export default function allNative (hybridJs) {
+  // 下载模块
+  downloadMixin(hybridJs);
+  modalMixin(hybridJs);
+  routerMix(hybridJs);
+  deviceMixin(hybridJs);
+  pageMixin(hybridJs);
+  navigatorMixin(hybridJs);
+  utilMixin(hybridJs);
+  telephonyMixin(hybridJs);
+  storageMixin(hybridJs);
+  systemMixin(hybridJs);
+  networkMixin(hybridJs);
+  captureMixin(hybridJs);
+  clipboardMixin(hybridJs);
+  recordMixin(hybridJs);
+  networkInfoMixin(hybridJs);
+  batteryMixin(hybridJs);
+  networkDisabledMixin(hybridJs);
+  networkEnabledMixin(hybridJs);
+  filepickerMixin(hybridJs);
+  fileManagerMixin(hybridJs);
+  packageMixin(hybridJs);
+  pathMixin(hybridJs);
+  filepickerMixin(hybridJs);
+  imageMixin(hybridJs);
+  uploadMixin(hybridJs);
+  audioMixin(hybridJs);
+  brightnessInfoMixin(hybridJs);
+  vibratorMixin(hybridJs);
 }

@@ -23,6 +23,10 @@ NetworkStatus* NetworkStatus::getInstance(){
 
 NetworkStatus::~NetworkStatus()
 {
+    if(m_pNetworkStatus != NULL){
+        delete m_pNetworkStatus;
+        m_pNetworkStatus = NULL;
+    }
 }
 
 void NetworkStatus::slotNetworkStatusChanged(bool flag, CNetworkManager::NetworkType type)
