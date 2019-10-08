@@ -1,7 +1,7 @@
 {
-  "name": "@syberos/hybrid",
+  "name": "@syberos/syberh",
   "private": true,
-  "description": "SYBEROS Hybrei App框架",
+  "description": "SyberOS hybrid App快速开发框架",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
