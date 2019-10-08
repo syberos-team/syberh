@@ -66,11 +66,13 @@ void UploadManager::uploadFile(QString reqUrl, QString localFile)
 
     m_reply = m_networkManager->post(request, m_multiPart);
 
+    emit signalStarted(m_uploadId);
+
     connect(m_reply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(onUploadProgress(qint64, qint64)));
     connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
     connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
 
-    emit signalStarted(m_uploadId);
+
 
 }
 

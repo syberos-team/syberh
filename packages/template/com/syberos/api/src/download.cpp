@@ -104,9 +104,11 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
         downloadManager->setStorage(DownloadManager::Extended);
     }
 
+    connect(downloadManager, &DownloadManager::signalStarted, this, &Download::onStarted);
     connect(downloadManager, &DownloadManager::signalDownloadProcess, this, &Download::onDownloadProcess);
     connect(downloadManager, &DownloadManager::signalReplyFinished, this, &Download::onReplyFinished);
     connect(downloadManager, &DownloadManager::signalDownloadError, this, &Download::onDownloadError);
+
 
     TaskInfo *taskInfo = new TaskInfo();
     taskInfo->downloadID = callbackId;
