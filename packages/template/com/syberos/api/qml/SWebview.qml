@@ -5,7 +5,6 @@ import QtWebKit.experimental 1.0
 import com.syberos.basewidgets 2.0
 import com.syberos.filemanager.filepicker 1.0
 import "../js/util/log.js" as LOG
-import "../js/syber.js" as Syberh
 
 CPage{
     //加载进度信号
@@ -271,7 +270,7 @@ CPage{
             }
 
             onLoadingChanged:{
-             LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status)
+             LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
                 if (!loading && loadRequest.status === WebView.LoadFailedStatus){
                      LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
                     //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
@@ -309,6 +308,10 @@ CPage{
             Component.onCompleted: {
                 LOG.logger.verbose("SWebview Component.onCompleted")
                 swebview.SetJavaScriptCanOpenWindowsAutomatically(false)
+
+                if(!surl){
+                    swebview.url="file://" + helper.getWebRootPath() + "/index.html"
+                }
             }
         }
     }

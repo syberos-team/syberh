@@ -206,19 +206,23 @@ function WebView (options) {
     logger.verbose('webviewdepth:[%d]', webviewdepth)
 
     try {
-       that.trigger('failed', handlerId, 1004, '暂不支持的API')
-        return;
+//       that.trigger('failed', handlerId, 1004, '暂不支持的API')
+//        return;
         //TODO 调用该模式会导致页面崩溃错误,暂停止该api
-//      var url = getUrl(param.url)
-
-//      currentWebview.trigger('success', handlerId, true)
-//      that.navigateBack({ delta: webviewMaxDepth }, function (res, webview ,msg) {
-//          logger.verbose('reLaunch navigateBack()', res, msg)
-//          if(res){
-//             logger.verbose('pageStack.busy:[%s]', pageStack.busy)
-//             webview.object.openUrl(url);
-//          }
-//      })
+      var url = getUrl(param.url)
+        swebviews[0].object.openUrl(url);
+         swebviews[0].object.sloadingChanged.connect(function (loadRequest) {
+             if (loadRequest.status === 2) {
+               logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, loadRequest.url.toString())
+                 currentWebview.trigger('success', handlerId, true)
+                 that.navigateBack({ delta: webviewMaxDepth }, function (res, webview ,msg) {
+                     logger.verbose('reLaunch navigateBack()', res, msg)
+                     if(res){
+                        logger.verbose('pageStack.busy:[%s]', pageStack.busy)
+                     }
+                 })
+             }
+           })
     } catch (error) {
       logger.error('reLaunch error', error.message)
       that.trigger('failed', handlerId, 9999, error.message)
@@ -387,7 +391,7 @@ function WebView (options) {
       currentWebview = topVebview
       if (swebviews.length === 1) {
         logger.verbose('返回最顶层:[%d]', swebviews.length)
-         pageStack.pop(topVebview.object,true)
+         pageStack.pop(topVebview.object)
       } else {
         pageStack.pop(topVebview.object)
       }

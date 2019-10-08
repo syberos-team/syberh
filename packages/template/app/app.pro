@@ -45,5 +45,3 @@ DISTFILES += \
     res/app.png
 
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
-
-DEFINES += TDEBUG
