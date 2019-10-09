@@ -150,9 +150,9 @@
           </li>
         </ul>
       </li>
-      <!-- <li class="mui-table-view-cell">
+      <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/vibrator.html">震动</a>
-      </li> -->
+      </li>
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="https://syberh.syberos.com">在线文档</a>
       </li>
@@ -170,13 +170,12 @@
 
     console.log("当前版本:", syberh.os.version)
     window.runApi = function (id) {
-      console.log('执行API:' + id)
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
         title: '测试页面标题',
         success: function (result) {
-          showTips(JSON.stringify(result))
+          console.log(result);
         },
         error: function (error) {
           showTips('失败:' + JSON.stringify(error))

@@ -134,7 +134,7 @@ function Logger () {
     return this.level >= level
   }
   function log () {
-    var timestamp = this.dateFormatFunction(new Date())
+    //var timestamp = this.dateFormatFunction(new Date())
     var len = arguments.length
     // const args = Array.prototype.slice.call(arguments, 3) || []
     var logLevel = arguments[0]

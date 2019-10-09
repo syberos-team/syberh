@@ -100,12 +100,14 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         // 请求下载;
         m_reply = m_networkManager->get(request);
 
+        emit signalStarted(m_downloadId, m_path);
+
         connect(m_reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64, qint64)));
         connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
         connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
 
-        emit signalStarted(m_downloadId, m_path);
+
     }
 }
 
