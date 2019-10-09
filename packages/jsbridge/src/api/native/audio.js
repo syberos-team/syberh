@@ -3,119 +3,40 @@ export default function audioMixin (hybrid) {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('audio', [{
-    namespace: 'recorderList',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
-  }, {
-    namespace: 'startRecorder',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
-  }, {
-    namespace: 'pauseRecorder',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
-  }, {
-    namespace: 'continueRecorder',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
-  }, {
-    namespace: 'audio',
-    namespace: 'stopRecorder',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
-  }, {
-    namespace: 'audio',
-    namespace: 'startPlay',
-    os: ['syber'],
+    namespace: 'start',
+    os: ['syberos'],
     defaultParams: {
       path: '',
+      position: 0,
     },
     runCode (...rest) {
       const args = innerUtil.compatibleStringParamsToObject.call(
         this,
         rest,
         'path',
+        'position',
       );
       hybridJs.callInner.apply(this, args);
     },
   }, {
-    namespace: 'audio',
-    namespace: 'pausePlay',
-    os: ['syber'],
+    namespace: 'pause',
+    os: ['syberos'],
+  }, {
+    namespace: 'resume',
+    os: ['syberos'],
     defaultParams: {
+      position: 0,
     },
     runCode (...rest) {
       const args = innerUtil.compatibleStringParamsToObject.call(
         this,
         rest,
+        'position',
       );
       hybridJs.callInner.apply(this, args);
     },
   }, {
-    namespace: 'audio',
-    namespace: 'continuePlay',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
-  }, {
-    namespace: 'audio',
-    namespace: 'stopPlay',
-    os: ['syber'],
-    defaultParams: {
-    },
-    runCode (...rest) {
-      const args = innerUtil.compatibleStringParamsToObject.call(
-        this,
-        rest,
-      );
-      hybridJs.callInner.apply(this, args);
-    },
+    namespace: 'stop',
+    os: ['syberos'],
   }]);
 }

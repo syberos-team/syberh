@@ -81,7 +81,7 @@ class Project extends creator_1.default {
                 this.conf = Object.assign(this.conf, {
                     projectName: 'example',
                     appName: 'example',
-                    sopid: 'cosm.sybero.example'
+                    sopid: 'com.syberos.example'
                 });
             }
             // tslint:disable-next-line: strict-type-predicates

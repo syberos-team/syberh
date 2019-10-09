@@ -1,7 +1,7 @@
 include(../syberos.pri)
 include (../com/syberos/api/com_syberos_api.pri)
 
-QT += gui qml quick widgets webkit network multimedia core
+QT += gui qml quick widgets webkit network multimedia core sql dbus
 
 TEMPLATE = app
 
@@ -45,6 +45,3 @@ DISTFILES += \
     res/app.png
 
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
-
-#DEFINES += TDEBUG
-

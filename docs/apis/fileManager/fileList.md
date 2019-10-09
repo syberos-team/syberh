@@ -21,7 +21,7 @@ title: fileList
 path | String | 文件位置|
 size | number | 文件大小（字节）|
 created | String | yyyy-MM-dd hh:mm:ss|
-isDir | boolean | |
+isDir | boolean | ture:文件夹 false:文件|
 
 ### 示例代码
 

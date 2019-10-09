@@ -10,7 +10,7 @@
   var fileName = window.location.href.match(/([^/]+).html/)[1]
 
   if (!fileName || fileName === 'index') {
-    fileName = 'Hybrid API'
+    fileName = 'Syberh示例'
   }
 
   html = html.replace('{{TITLE}}', fileName)
@@ -27,9 +27,9 @@
 
   window.showTips = function (msg, isAlert) {
     if (isAlert) {
-      quick.ui.alert(msg, '提示')
+      syberh.modal.alert(msg)
     } else {
-      quick.ui.toast(msg)
+      syberh.modal.gtoast(msg)
     }
   }
 }())

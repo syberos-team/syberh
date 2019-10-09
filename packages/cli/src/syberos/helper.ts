@@ -85,11 +85,19 @@ export const homeSubPath = (...subDirs: string[]): string => {
 /**
  * 查找pdk根目录路径
  */
-export const locatePdk = (): Promise<string> => {
-  return qtversions.getSdkInstallPath()
+let _sdkPathPromise: Promise<string>
+export const locateSdk = (): Promise<string> => {
+  if (!_sdkPathPromise) {
+    _sdkPathPromise = qtversions.getSdkInstallPath()
+  }
+  return _sdkPathPromise
 }
 
-export const locateSdk = (): string => {
+export const locateAllTarget = (): Promise<string[]> => {
+  return qtversions.getTargetInstallPaths()
+}
+
+export const locateIde = (): string => {
   return homeSubPath('SyberOS-SDK')
 }
 
@@ -106,7 +114,7 @@ export const locateScripts = (shFilename: string): string => {
  * @param port  模拟器ssh端口，默认5555
  */
 export const startvm = async (port: number | string = 5555) => {
-  const emulatorPath = path.join(locateSdk(), 'emulator')
+  const emulatorPath = path.join(locateIde(), 'emulator')
   console.log(`模拟器<${port}>：${emulatorPath}`)
 
   const pid = shelljs.exec('pgrep "emulator-x86"')

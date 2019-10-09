@@ -15,19 +15,59 @@ FileUtil::FileUtil()
 {
 
 }
-bool FileUtil::move(QString srcPath, QString destPath)
+RespResult FileUtil::move(QString srcPath, QString destPath)
 {
-    QProcess *proc = new QProcess();
-    QString cmd="mv -f " + srcPath + " " + destPath;
-    proc->start(cmd);
-    proc->waitForFinished();
 
-    QString errTmp = proc->readAllStandardError();
+    RespResult respResult;
+    // 判断目标文件是否存在
+    QFileInfo destInfo(destPath);
+    if (!destInfo.exists()) {
+        respResult.code = ErrorInfo::FileNotExists;
+        respResult.flag = false;
+        respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, destPath);
+        return respResult;
+    }
+    // 判断目标文件是否是文件夹
+    if (!destInfo.isDir()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::IllegalFileType;
+        respResult.msg = ErrorInfo::message(ErrorInfo::IllegalFileType, destPath);
+        return respResult;
+    }
+    // 判断目标文件是否有写权限
+    if (!destInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::InvalidFilePermission;
+        respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, destPath);
+        return respResult;
+    }
+
+    // 判断文件读写权限
+    // 如果文件没有权限，exists 为false
+    QFileInfo srcInfo(srcPath);
+    if (!srcInfo.exists() || !srcInfo.isReadable() || !srcInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::InvalidFilePermission;
+        respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, srcPath + "，或不存在");
+        return respResult;
+    }
+
+    QProcess proc;// = new QProcess();
+    QString cmd="mv -f " + srcPath + " " + destPath;
+    proc.start(cmd);
+    proc.waitForFinished();
+
+    QString errTmp = proc.readAllStandardError();
     if (errTmp == "") {
-        return true;
+        respResult.flag = true;
+        return respResult;
     } else {
-        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
-        return false;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;       
+        respResult.flag = false;
+        respResult.code = ErrorInfo::SystemError;
+        respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+        return respResult;
+
     }
 }
 
@@ -57,20 +97,58 @@ bool FileUtil::chmodr(QString path)
     return true;
 }
 
-bool FileUtil::copy(QString srcPath, QString destPath)
+RespResult FileUtil::copy(QString srcPath, QString destPath)
 {
-    QProcess *proc = new QProcess();
-    proc->start("cp -rf " + srcPath + " " + destPath);
-    proc->waitForFinished();
 
-    errno = 0;
-    chmodr(destPath);
-    QString errTmp = proc->readAllStandardError();
+    RespResult respResult;
+    // 判断目标文件是否存在
+    QFileInfo destInfo(destPath);
+    if (!destInfo.exists()) {
+        respResult.code = ErrorInfo::FileNotExists;
+        respResult.flag = false;
+        respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, destPath);
+        return respResult;
+    }
+    // 判断目标文件是否是文件夹
+    if (!destInfo.isDir()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::IllegalFileType;
+        respResult.msg = ErrorInfo::message(ErrorInfo::IllegalFileType, destPath);
+        return respResult;
+    }
+    // 判断目标文件是否有写权限
+    if (!destInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::InvalidFilePermission;
+        respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, destPath);
+        return respResult;
+    }
+
+    QFileInfo srcInfo(srcPath);
+    // 判断文件读写权限
+    // 如果文件没有权限，exists 为false
+    if (!srcInfo.exists() || !srcInfo.isReadable()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::InvalidFilePermission;
+        respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, "不存在");
+        return respResult;
+    }
+
+    QProcess proc;// = new QProcess();
+    proc.start("cp -rf " + srcPath + " " + destPath);
+    proc.waitForFinished();
+
+    QString errTmp = proc.readAllStandardError();
+
     if (errTmp == "") {
-        return true;
+        respResult.flag = true;
+        return respResult;
     } else {
-        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
-        return false;
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;      
+        respResult.flag = false;
+        respResult.code = ErrorInfo::SystemError;
+        respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+        return respResult;
     }
 }
 
@@ -98,23 +176,45 @@ FileUtil::FileType FileUtil::fileType(QString srcPath)
     }
 }
 
-bool FileUtil::remove(QString srcPath, int recursive)
+RespResult FileUtil::remove(QString srcPath, int recursive)
 {
-    QProcess *proc = new QProcess();
-    if (recursive == 0) {
-        proc->start("rm -f " + srcPath);
-    } else {
-        proc->start("rm -rf " + srcPath);
+    RespResult respResult;
+
+    QFileInfo srcInfo(srcPath);
+    if (!srcInfo.exists()) {
+        respResult.code = ErrorInfo::FileNotExists;
+        respResult.flag = false;
+        respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, srcPath);
+        return respResult;
+    }
+    // 判断文件读写权限
+    if (!srcInfo.isReadable() || !srcInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::InvalidFilePermission;
+        respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, srcPath);
+        return respResult;
     }
 
-    proc->waitForFinished();
-
-    QString errTmp = proc->readAllStandardError();
-    if (errTmp == "") {
-        return true;
+    QProcess proc;// = new QProcess();
+    if (recursive == 0) {
+        proc.start("rm -f " + srcPath);
     } else {
-        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
-        return false;
+        proc.start("rm -rf " + srcPath);
+    }
+
+    proc.waitForFinished();
+
+    QString errTmp = proc.readAllStandardError();
+
+    if (errTmp == "") {
+        respResult.flag = true;
+        return respResult;
+    } else {
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;       
+        respResult.flag = false;
+        respResult.code = ErrorInfo::SystemError;
+        respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+        return respResult;
     }
 }
 FileInfo FileUtil::getInfo(QString srcPath)
@@ -131,10 +231,50 @@ FileInfo FileUtil::getInfo(QString srcPath)
 
     return file;
 }
+
+qint64 FileUtil::getInfoSize(QString srcPath)
+{
+    FileInfo file;
+    if (!exists(srcPath)) {
+        return 0;
+    }
+    QFileInfo fileinfo(srcPath);
+
+    file.size = fileinfo.size();
+
+    return file.size;
+}
+
 bool FileUtil::exists(QString srcPath)
 {
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
 }
+RespResult FileUtil::rename(QString srcPath, QString newName)
+{
+    RespResult respResult;
+
+    QFileInfo srcInfo(srcPath);
+    if (!srcInfo.exists()) {
+        respResult.code = ErrorInfo::FileNotExists;
+        respResult.flag = false;
+        respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, srcPath);
+        return respResult;
+    }
+    // 判断文件读写权限
+    if (!srcInfo.isReadable() || !srcInfo.isWritable()) {
+        respResult.flag = false;
+        respResult.code = ErrorInfo::InvalidFilePermission;
+        respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, srcPath);
+        return respResult;
+    }
+    QFile srcFile(srcPath);
+
+    respResult.flag = srcFile.rename(newName);
+
+    return respResult;
+
+}
+
 
 

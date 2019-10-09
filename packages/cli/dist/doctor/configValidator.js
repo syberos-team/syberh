@@ -24,7 +24,7 @@ function buildLine(error) {
 function buildReport(configPath, errors) {
     const errorLines = _.compose(_.map(buildLine), _.get('details'))(errors);
     return {
-        desc: `检查 Taro 配置 (${configPath})`,
+        desc: `检查 syberh 配置 (${configPath})`,
         lines: errorLines
     };
 }

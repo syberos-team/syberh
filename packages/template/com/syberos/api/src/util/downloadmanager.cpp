@@ -3,8 +3,10 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QDir>
+#include <QDateTime>
+#include "../framework/common/errorinfo.h"
 
-#define DOWNLOAD_FILE_SUFFIX    "_tmp"
+#define DATETIME_FMT "yyyyMMddhhmmss"
 
 DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_networkManager(NULL)
@@ -18,6 +20,8 @@ DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
         , m_downloadId("")
         , m_storage(Internal)
 {
+    m_tmpFileSuffix = "." + QDateTime::currentDateTime().toString(DATETIME_FMT);
+
     m_networkManager = new QNetworkAccessManager(this);
     m_storageManager = new CStorageManager(this);
 }
@@ -41,7 +45,7 @@ QString DownloadManager::getDownloadUrl(){
 }
 // 获取临时文件后缀
 QString DownloadManager::getDownloadFileSuffix() {
-    return DOWNLOAD_FILE_SUFFIX;
+    return m_tmpFileSuffix;
 }
 
 // 开始下载文件，传入下载链接和文件的路径
@@ -55,13 +59,13 @@ void DownloadManager::downloadFile(QString url , QString fileName){
 //      QString fileName = m_url.fileName();
 
         // 将当前文件名设置为临时文件名，下载完成时修改回来;
-        m_fileName = fileName + DOWNLOAD_FILE_SUFFIX;
+        m_fileName = fileName + m_tmpFileSuffix;
 
         m_path = fileName;
 
         QFileInfo f(m_path);
         if(f.isDir()){
-            emit signalDownloadError(m_downloadId, QNetworkReply::UnknownContentError, "必须是一个文件路径");
+            emit signalDownloadError(m_downloadId, ErrorInfo::IllegalFileType, ErrorInfo::message(ErrorInfo::IllegalFileType, "必须是一个文件路径"));
             return;
         }
         //自动创建目录
@@ -96,10 +100,14 @@ void DownloadManager::downloadFile(QString url , QString fileName){
         // 请求下载;
         m_reply = m_networkManager->get(request);
 
+        emit signalStarted(m_downloadId, m_path);
+
         connect(m_reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64, qint64)));
         connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
         connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
         connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+
+
     }
 }
 
@@ -220,7 +228,7 @@ void DownloadManager::onReadyRead(){
             qint64 size = downloadFileSize();
             if(size > free){
                 qDebug() << Q_FUNC_INFO << "存储空间不足，预期：" << size << "，实际可用：" << free << endl;
-                emit signalDownloadError(m_downloadId, QNetworkReply::UnknownContentError, "存储空间不足");
+                emit signalDownloadError(m_downloadId, ErrorInfo::NotEnoughSpace, ErrorInfo::message(ErrorInfo::NotEnoughSpace, "存储空间不足"));
                 closeDownload();
             }else{
                 file.write(m_reply->readAll());
@@ -240,7 +248,7 @@ void DownloadManager::onFinished(){
         // 重命名临时文件;
         QFileInfo fileInfo(m_fileName);
         if (fileInfo.exists()) {
-            int index = m_fileName.lastIndexOf(DOWNLOAD_FILE_SUFFIX);
+            int index = m_fileName.lastIndexOf(m_tmpFileSuffix);
             QString realName = m_fileName.left(index);
             QFile::rename(m_fileName, realName);
         }
@@ -254,6 +262,8 @@ void DownloadManager::onFinished(){
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
 void DownloadManager::onError(QNetworkReply::NetworkError code){
-    emit signalDownloadError(m_downloadId, code, m_reply->errorString());
+    Q_UNUSED(code)
+    qDebug () << Q_FUNC_INFO << "下载过程中出现错误：" << m_reply->errorString() <<endl;
+    emit signalDownloadError(m_downloadId, ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, m_reply->errorString()));
     closeDownload();
 }

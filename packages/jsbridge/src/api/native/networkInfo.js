@@ -4,7 +4,7 @@ export default function networkInfoMixin(hybrid) {
 
     hybridJs.extendModule('networkInfo', [{
         namespace: 'info',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
         },
         runCode(...rest) {

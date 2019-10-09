@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .pt0 {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mui-content pt0">
+    <div class="mui-card">
+      <div class="mui-card-header">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setBrightness()">设置</button>
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <input type="text" id="setBrightnessKey" placeholder="" value="设置屏幕亮度" readonly="readonly" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>value：</label>
+            <input type="text" id="setBrightness" pattern="value" value="100" class="mui-input-clear" />
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <p id="setBrightnessKey-result">&nbsp;</p>
+      </div>
+    </div>
+
+      <div class="mui-card">
+        <div class="mui-card-header">
+          <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setBlankTimeout()">设置</button>
+        </div>
+        <div class="mui-card-content">
+          <form class="mui-input-group">
+            <div class="mui-input-row">
+              <input type="text" id="setBlankTimeoutKey" placeholder="" value="设置息屏时长(默认2秒)" readonly="readonly" class="mui-input-clear" />
+            </div>
+            <div class="mui-input-row">
+              <label>value：</label>
+              <input type="text" id="setBlankTimeout" pattern="value" value="2" class="mui-input-clear" />
+            </div>
+          </form>
+        </div>
+        <div class="mui-card-footer">
+          <p id="setBlankTimeout-result">&nbsp;</p>
+        </div>
+      </div>
+
+        <div class="mui-card">
+          <div class="mui-card-header">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setDimTimeout()">设置</button>
+          </div>
+          <div class="mui-card-content">
+            <form class="mui-input-group">
+              <div class="mui-input-row">
+                <input type="text" id="setDimTimeoutKey" placeholder="" value="设置无操作时屏幕进入暗屏状态的时长(要比系统休眠时间大才生效)" readonly="readonly" class="mui-input-clear" />
+              </div>
+              <div class="mui-input-row">
+                <label>value：</label>
+                <input type="text" id="setDimTimeout" pattern="value" value="13" class="mui-input-clear" />
+              </div>
+            </form>
+          </div>
+          <div class="mui-card-footer">
+            <p id="setDimTimeout-result">&nbsp;</p>
+          </div>
+        </div>
+        
+        <!-- 系统API无法使用，待修复完成打开此代码 -->
+        <!-- <div class="mui-card">
+          <div class="mui-card-header">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setAdaptiveDimmingEnabled()">设置</button>
+          </div>
+          <div class="mui-card-content">
+            <form class="mui-input-group">
+              <div class="mui-input-row">
+                <input type="text" id="setAdaptiveDimmingEnabledKey" placeholder="" value="设置自适应调光开关" readonly="readonly" class="mui-input-clear" />
+              </div>
+              <div class="mui-input-row">
+                <label>value：</label>
+                <input type="text" id="setAdaptiveDimmingEnabled" pattern="value" value="0" class="mui-input-clear" />
+              </div>
+            </form>
+          </div>
+          <div class="mui-card-footer">
+            <p id="setAdaptiveDimmingEnabled-result">&nbsp;</p>
+          </div>
+        </div> -->
+
+        <div class="mui-card">
+          <div class="mui-card-header">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setAmbientLightSensorEnabled()">设置</button>
+          </div>
+          <div class="mui-card-content">
+            <form class="mui-input-group">
+              <div class="mui-input-row">
+                <input type="text" id="setAmbientLightSensorEnabledKey" placeholder="" value="设置自动亮度调节" readonly="readonly" class="mui-input-clear" />
+              </div>
+              <div class="mui-input-row">
+                <label>value：</label>
+                <select name="setAmbientLightSensorEnabledKey">
+                  <option value="请选择">请选择</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="mui-card-footer">
+            <p id="setAmbientLightSensorEnabled-result">&nbsp;</p>
+          </div>
+        </div>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    var vConsole = new VConsole()
+    console.log('Hello world-屏幕亮度-设置')
+
+    // 获取系统休眠时间
+    syberh.brightness.brightnessInfo({
+      success: function (result) {
+        document.getElementById('setDimTimeout').value = result.dimTimeout
+      }
+    })
+
+    function goBack() {
+      syberh.webview.goBack({
+        success: function (result) {
+          console.info(result)
+        },
+        fail: function (error) {
+          console.info('失败:' + JSON.stringify(error))
+        }
+      })
+    }
+
+    function setBrightness(param) {
+      syberh.brightness.setBrightness({
+        brightness:document.getElementById('setBrightness').value,
+        success: function (result) {
+          document.getElementById('setBrightnessKey-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+    
+    function setBrightness(param) {
+      syberh.brightness.setBrightness({
+        brightness:document.getElementById('setBrightness').value,
+        success: function (result) {
+          document.getElementById('setBrightnessKey-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+    
+    function setBlankTimeout(param) {
+      var timeout = document.getElementById('setBlankTimeout').value
+      syberh.brightness.setBlankTimeout({
+        timeout: timeout,
+        success: function (result) {
+          document.getElementById('setBlankTimeout-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+
+    function setDimTimeout(param) {
+      syberh.brightness.setDimTimeout({
+        timeout:document.getElementById('setDimTimeout').value,
+        success: function (result) {
+          document.getElementById('setDimTimeout-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+    
+    function setAdaptiveDimmingEnabled(param) {
+      syberh.brightness.setAdaptiveDimmingEnabled({
+        state:document.getElementById('setAdaptiveDimmingEnabled').value,
+        success: function (result) {
+          document.getElementById('setAdaptiveDimmingEnabled-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+
+    function setAmbientLightSensorEnabled(param) {
+      var state = document.querySelector("select[name='setAmbientLightSensorEnabledKey']").value
+      syberh.brightness.setAmbientLightSensorEnabled({
+        state: state,
+        success: function (result) {
+          document.getElementById('setAmbientLightSensorEnabled-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }  
+    
+  </script>
+</body>
+
+</html>

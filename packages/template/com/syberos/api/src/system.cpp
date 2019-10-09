@@ -45,8 +45,7 @@ void System::aboutPhone(long callBackID,QVariantMap params){
     Q_UNUSED(params);
     int modem = 0;
 
-    //qDebug() << "modem2: " << params.value(modem2) << endl;
-
+    qDebug() << Q_FUNC_INFO << "callBackID:" << callBackID << ", params: " << params << endl;
 
     CSystemDeviceInfo deviceInfo;
     QJsonValue deviceId = QJsonValue::fromVariant(deviceInfo.uniqueDeviceId());
@@ -94,8 +93,9 @@ void System::aboutPhone(long callBackID,QVariantMap params){
     jsonObject.insert("region", region);//系统地区
 
     QJsonValue jsonObjectValue = QJsonValue::fromVariant(jsonObject);
-    qDebug() << "aboutPhone11: " << jsonObjectValue << endl;
-    qDebug() << "jsonObject: " << jsonObject << endl;
+
+    qDebug() << Q_FUNC_INFO << "jsonObject:" << jsonObject << ", jsonObjectValue: " << jsonObjectValue << endl;
+
     emit success(callBackID, QVariant(jsonObject));
 }
 
@@ -113,7 +113,7 @@ void System::getResolution(long callBackID,QVariantMap params){
     screenObj.insert("width", width);
     screenObj.insert("height", height);
 
-    qDebug() << "getResolution, width:" << width << ", height: " << height << endl;
+    qDebug() << Q_FUNC_INFO << "width:" << width << ", height: " << height << endl;
     emit success(callBackID, QVariant(screenObj));
 }
 
@@ -122,7 +122,7 @@ void System::getCoreVersion(long callBackID,QVariantMap params){
     Q_UNUSED(params);
     COsInfo info;
     QString version = info.kernelVersion();
-    qDebug() << "getCoreVersion: " << version << endl;
+    qDebug() << Q_FUNC_INFO << "version" << version << endl;;
     emit success(callBackID, QVariant(version));
 }
 
@@ -131,6 +131,6 @@ void System::getSysVersionID(long callBackID,QVariantMap params){
     Q_UNUSED(params);
     COsInfo info;
     QString version = info.osVersion();
-    qDebug() << "getSysVersionID: " << version << endl;
+    qDebug() << Q_FUNC_INFO << "version" << version << endl;;
     emit success(callBackID, QVariant(version));
 }

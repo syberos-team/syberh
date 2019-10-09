@@ -77,10 +77,10 @@ myPlugin.on('ready', function() {
 
 ## 3. 添加到 Syber
 
-最后一步，就是将写好的插件添加到 vConsole 中：
+最后一步，就是将写好的插件添加到 SYBEROS 中：
 
 ```javascript
-syberOS.addPlugin(pluginObject)
+SYBEROS.addPlugin(pluginObject)
 ```
 
 ## 其他
@@ -90,9 +90,8 @@ syberOS.addPlugin(pluginObject)
 统一通过 webview 的 success/failed 事件进行返回
 
 ```
-
-WEBVIEWCORE.trigger('success', that.handlerId, { confirm: true })
-WEBVIEWCORE.trigger('failed', that.handlerId, errorCode,errorMsg)
+this.success(handlerId, { confirm: true })
+this.failed(handlerId, errorCode,errorMsg)
 
 ```
 

@@ -14,7 +14,7 @@ class GenerateLockfile extends Project {
     })
   }
 
-  copy() {
+  copy () {
     const cwd = process.cwd()
     const { projectName, template } = this.conf
     const lockfileDir = path.join(
@@ -25,16 +25,11 @@ class GenerateLockfile extends Project {
     shelljs.cd(cwd)
     shelljs.rm('-rf', lockfileDir)
     shelljs.mkdir('-p', lockfileDir)
-    shelljs.cp(
-      '-r',
-      `${projectName}/yarn.lock`,
-      `${lockfileDir}/${version}-yarn.lock`
-    )
     shelljs.rm('-rf', projectName)
   }
 
-  start() {
-    this.write(this.copy.bind(this))
+  start () {
+    // this.write(this.copy.bind(this))
   }
 }
 

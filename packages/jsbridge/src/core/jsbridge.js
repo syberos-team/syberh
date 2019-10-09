@@ -1,5 +1,3 @@
-import { warn, log } from '../util/debug';
-
 /**
  * h5和原生交互，jsbridge核心代码
  * 依赖于showError，globalError，os
@@ -19,11 +17,11 @@ export default function jsbridgeMixin (hybrid) {
 
   hybridJs.JSBridge = JSBridge;
 
-  /* if (hybridJs.os.syber) {
+  /* if (hybridJs.os.syberos) {
 // native 通知回调
 navigator.qt.onmessage((messageJSON) => {
-    console.log(JSON.stringify(messageJSON));
-    JSBridge._handleMessageFromNative(messageJSON);
+console.log(JSON.stringify(messageJSON));
+JSBridge._handleMessageFromNative(messageJSON);
 });
 } */
 
@@ -38,7 +36,7 @@ navigator.qt.onmessage((messageJSON) => {
   const responseCallbacksLongTerm = {};
 
   // 唯一id,用来确保长期回调的唯一性，初始化为最大值
-  let uniqueLongCallbackId = 2147483647;
+  const uniqueLongCallbackId = 2147483647;
 
   /**
 * 获取短期回调id，内部要避免和长期回调的冲突
@@ -88,7 +86,6 @@ navigator.qt.onmessage((messageJSON) => {
 */
   function doSend (proto, message, responseCallback, isLong = false) {
     const newMessage = message;
-    console.log('typeof responseCallback', typeof responseCallback);
     if (typeof responseCallback === 'function') {
       // 如果传入的回调时函数，需要给它生成id
       // 取到一个唯一的callbackid
@@ -102,14 +99,10 @@ navigator.qt.onmessage((messageJSON) => {
       newMessage.callbackId = responseCallback;
     }
 
-    console.log('responseCallbacks', responseCallbacks);
-
     // 获取 触发方法的url scheme
     // const uri = getUri(proto, newMessage);
-    const messageStr = getMessageStr(proto, message, isLong);
-    if (os.syber) {
-      // TODO
-      log(`对应内容:${messageStr}`);
+    const messageStr = getMessageStr(proto, newMessage, isLong);
+    if (os.syberos) {
       navigator.qt.postMessage(messageStr);
     } else {
       // 浏览器
@@ -143,9 +136,7 @@ navigator.qt.onmessage((messageJSON) => {
 * @return {Number} 返回长期回调id
 */
   JSBridge.getLongCallbackId = function getLongCallbackId () {
-    uniqueLongCallbackId -= 1;
-
-    return uniqueLongCallbackId;
+    return getCallbackId();
   };
 
   /**
@@ -172,10 +163,11 @@ navigator.qt.onmessage((messageJSON) => {
 * @param {String} messageJSON 对应的方法的详情,需要手动转为json
 */
   JSBridge._handleMessageFromNative = function _handleMessageFromNative (messageJSON) {
-    console.log('_handleMessageFromNative', messageJSON);
-    /**
-* 处理原生过来的方法
-*/
+
+    if (!messageJSON) {
+      return;
+    }
+    //处理原生过来的方法
     function doDispatchMessageFromNative () {
       let message;
 
@@ -186,8 +178,6 @@ navigator.qt.onmessage((messageJSON) => {
         } else {
           message = messageJSON;
         }
-
-        console.log('doDispatchMessageFromNative', typeof message);
       } catch (e) {
         showError(
           globalError.ERROR_TYPE_NATIVECALL.code,
@@ -203,13 +193,11 @@ navigator.qt.onmessage((messageJSON) => {
       let responseCallback;
 
       if (responseId) {
-        console.log('-----debug responseId', responseId);
         // 这里规定,原生执行方法完毕后准备通知h5执行回调时,回调函数id是responseId
         responseCallback = responseCallbacks[responseId];
         // 默认先短期再长期
         responseCallback = responseCallback || responseCallbacksLongTerm[responseId];
-        console.log('-----debug responseCallback', typeof responseCallback);
-        console.log('-----debug responseCallback2', responseCallback);
+
         // 执行本地的回调函数
         responseCallback && responseCallback(responseData);
 

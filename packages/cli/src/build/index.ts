@@ -4,19 +4,20 @@ import * as os from 'os'
 import { AppBuildConfig } from '../util/constants'
 import Build from './build'
 import { getProjectConfig, locateScripts } from '../syberos/helper'
+import { log } from '../util/log';
 
 /**
  * 编译APP
  * @param appPath 工程目录
  * @param param1 参数信息
  */
-export async function build (appPath: string, config: AppBuildConfig) {
+export async function build(appPath: string, config: AppBuildConfig) {
+  log.verbose('build() start')
   const newConfig = { ...config, ...getProjectConfig(appPath) }
   const serverPort = 4399
   if (!newConfig.port) {
     Object.assign(newConfig, { port: serverPort })
   }
-
   if (!newConfig.serverIp) {
     let sip
     const ifaces = os.networkInterfaces()
@@ -24,7 +25,7 @@ export async function build (appPath: string, config: AppBuildConfig) {
       ifaces[dev].forEach(function (details) {
         if (details.family === 'IPv4') {
           // 优先使用192.168.100.x段ip
-          if (details.address.indexOf('192.168.100.') >= 0) {
+          if (details.address.indexOf('192.168.100.10') >= 0) {
             sip = details.address
           }
         }
@@ -36,15 +37,16 @@ export async function build (appPath: string, config: AppBuildConfig) {
     }
     Object.assign(newConfig, { serverIp: sip })
   }
+  log.verbose('config:', JSON.stringify(newConfig))
   const { debug = false } = config
   if (debug) {
     const serverjs = locateScripts('devServer.js')
-    child_process.fork(serverjs)
+    child_process.fork(serverjs, [newConfig.port])
   }
   const build = new Build(appPath, newConfig)
   if (newConfig.onlyBuildSop === true) {
-    build.buildSop()
+    await build.buildSop()
   } else {
-    build.start()
+    await build.start()
   }
 }

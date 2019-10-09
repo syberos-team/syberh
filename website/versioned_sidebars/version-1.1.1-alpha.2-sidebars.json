@@ -1,0 +1,134 @@
+{
+  "version-1.1.1-alpha.2-docs": {
+    "关于Syberh": [
+      "version-1.1.1-alpha.2-README"
+    ],
+    "快速开始": [
+      "version-1.1.1-alpha.2-started-cli",
+      "version-1.1.1-alpha.2-started-install",
+      "version-1.1.1-alpha.2-first-app",
+      "version-1.1.1-alpha.2-specials"
+    ],
+    "进阶指南": [
+      "version-1.1.1-alpha.2-cli-readme",
+      "version-1.1.1-alpha.2-app-config",
+      "version-1.1.1-alpha.2-started-ide"
+    ]
+  },
+  "version-1.1.1-alpha.2-API": {
+    "关于API": [
+      "version-1.1.1-alpha.2-apis/about/desc"
+    ],
+    "路由": [
+      "version-1.1.1-alpha.2-apis/router/router"
+    ],
+    "模态弹窗": [
+      "version-1.1.1-alpha.2-apis/modal/toast",
+      "version-1.1.1-alpha.2-apis/modal/gtoast",
+      "version-1.1.1-alpha.2-apis/modal/alert",
+      "version-1.1.1-alpha.2-apis/modal/confirm",
+      "version-1.1.1-alpha.2-apis/modal/prompt"
+    ],
+    "媒体": [
+      {
+        "label": "相机",
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/multimedia/camera/capturePhoto"
+        ]
+      },
+      {
+        "label": "录音",
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/multimedia/record/recorderList",
+          "version-1.1.1-alpha.2-apis/multimedia/record/startRecorder",
+          "version-1.1.1-alpha.2-apis/multimedia/record/pauseRecorder",
+          "version-1.1.1-alpha.2-apis/multimedia/record/continueRecorder",
+          "version-1.1.1-alpha.2-apis/multimedia/record/stopRecorder",
+          "version-1.1.1-alpha.2-apis/multimedia/record/startPlay",
+          "version-1.1.1-alpha.2-apis/multimedia/record/pausePlay",
+          "version-1.1.1-alpha.2-apis/multimedia/record/continuePlay",
+          "version-1.1.1-alpha.2-apis/multimedia/record/stopPlay"
+        ]
+      }
+    ],
+    "电话": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/telephony/dial"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/clipboard/setClipboardData",
+          "version-1.1.1-alpha.2-apis/clipboard/getClipboardData"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/system/aboutPhone",
+          "version-1.1.1-alpha.2-apis/system/battery",
+          "version-1.1.1-alpha.2-apis/system/networkInfo"
+        ]
+      }
+    ],
+    "数据网络": [
+      "version-1.1.1-alpha.2-apis/cellular/networkDisabled",
+      "version-1.1.1-alpha.2-apis/cellular/networkEnabled"
+    ],
+    "数据存储": [
+      "version-1.1.1-alpha.2-apis/storage/setItem",
+      "version-1.1.1-alpha.2-apis/storage/getItem",
+      "version-1.1.1-alpha.2-apis/storage/removeItem",
+      "version-1.1.1-alpha.2-apis/storage/getAllKeys",
+      "version-1.1.1-alpha.2-apis/storage/removeAll"
+    ],
+    "网络": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/request/request"
+        ]
+      }
+    ],
+    "下载": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.1.1-alpha.2-apis/download/download",
+          "version-1.1.1-alpha.2-apis/download/download-cancel"
+        ]
+      }
+    ],
+    "文件选择": [
+      "version-1.1.1-alpha.2-apis/filepicker/filepicker"
+    ],
+    "文件管理": [
+      "version-1.1.1-alpha.2-apis/fileManager/move",
+      "version-1.1.1-alpha.2-apis/fileManager/copy",
+      "version-1.1.1-alpha.2-apis/fileManager/fileList",
+      "version-1.1.1-alpha.2-apis/fileManager/getInfo",
+      "version-1.1.1-alpha.2-apis/fileManager/remove"
+    ],
+    "应用管理": [
+      "version-1.1.1-alpha.2-apis/package/openUrl",
+      "version-1.1.1-alpha.2-apis/package/openDocument"
+    ],
+    "path": [
+      "version-1.1.1-alpha.2-apis/path/extern",
+      "version-1.1.1-alpha.2-apis/path/inner",
+      "version-1.1.1-alpha.2-apis/path/dataRoot"
+    ],
+    "图片": [
+      "version-1.1.1-alpha.2-apis/image/chooseImage"
+    ]
+  }
+}

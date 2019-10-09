@@ -10,10 +10,39 @@
   <title>page</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .mui-input-row label {
+      width: 40%;
+    }
+    .mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+      width: 60% !important;
+    }
+  </style>
 </head>
 
 <body>
   <div class="mui-content pt0">
+
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label>标题</label>
+            <input type="text" class="mui-input-clear" name="title" value="标题">
+        </div>
+        <div class="mui-input-row">
+            <label>确认按钮文字</label>
+            <input type="text" class="mui-input-clear" name="confirmText" value="确定">
+        </div>
+        <div class="mui-input-row">
+            <label>取消按钮文字</label>
+            <input type="text" class="mui-input-clear" name="cancelText" value="取消">
+        </div>
+        <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-primary" onclick="customPrompt()">确认</button>
+        </div>
+    </form>
+    <br />
+    <br />
+    
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="prompt">prompt</a>
@@ -48,8 +77,8 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function () {
-              console.log('modal.prompt fail')
+            fail: function(error) {
+              console.log('modal.prompt fail: ', error.code, error.msg);
             }
           })
           break;
@@ -60,8 +89,8 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function () {
-              console.log('modal.prompt fail')
+            fail: function(error) {
+              console.log('modal.prompt fail: ', error.code, error.msg);
             }
           })
           break;
@@ -75,13 +104,13 @@
                 console.log('用户输入的值 =》', res)
               }
             },
-            fail: function () {
-              console.log('modal.prompt fail')
+            fail: function(error) {
+              console.log('modal.prompt fail: ', error.code, error.msg);
             }
           })
           break;
         default:
-          console.error('错误！没有相应API');
+          promptOrigin();
       }
     }
 
@@ -90,6 +119,27 @@
       if (res !== '') {
         console.log('用户输入的值 =》', res)
       }
+    }
+
+    // form表单可配置demo
+    function customPrompt() {
+      var title = document.querySelector("input[name='title']").value
+      var confirmText = document.querySelector("input[name='confirmText']").value
+      var cancelText = document.querySelector("input[name='cancelText']").value
+
+      syberh.modal.prompt({
+        title: title,
+        confirmText: confirmText,
+        cancelText: cancelText,
+        success: function (res) {
+          if (res !== '') {
+            console.log('用户输入的值 =》', res)
+          }
+        },
+        fail: function(error) {
+          console.log('modal.prompt fail: ', error.code, error.msg);
+        }
+      })
     }
 
   </script>

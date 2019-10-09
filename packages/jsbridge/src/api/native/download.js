@@ -9,7 +9,7 @@ export default function downloadMixin (hybrid) {
 
   hybridJs.extendModule('download', [{
     namespace: 'start',
-    os: ['syber'],
+    os: ['syberos'],
     defaultParams: {
       /** 下载文件地址 */
       url: '',
@@ -32,7 +32,7 @@ export default function downloadMixin (hybrid) {
     },
   }, {
     namespace: 'cancel',
-    os: ['syber'],
+    os: ['syberos'],
     defaultParams: {
       downloadID: ''
     },

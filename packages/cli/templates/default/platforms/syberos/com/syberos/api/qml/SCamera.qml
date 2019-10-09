@@ -19,13 +19,15 @@ import QtQuick 2.0
 CameraPlugin {
     id: __cameraPlugin
     enableCut:false
+    signal imageCancele
 
     Component.onCompleted:{
         gScreenInfo.setStatusBar(false)
     }
     Component.onDestruction :{
-        gScreenInfo.setStatusBar(true)
-        gScreenInfo.setStatusBarStyle("black")
+        gScreenInfo.setStatusBar(true);
+        gScreenInfo.setStatusBarStyle("black");
+        imageCancele();
     }
 
 }

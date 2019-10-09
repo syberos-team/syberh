@@ -16,7 +16,10 @@
   <div class="mui-content pt0">
     <div class="mui-card">
       <div class="mui-card-header">
-        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">请求</button>
+          <div class="mui-input-row">
+              <label>URL：</label>
+              <input type="text" class="mui-input-clear" placeholder="请求URL" id="inp-url">
+          </div>
       </div>
       <div class="mui-card-content">
         <ul class="mui-table-view">
@@ -54,9 +57,34 @@
               </div>
             </div>
           </li>
+          <li class="mui-table-view-cell mui-collapse">
+              <a class="mui-navigate-right" href="#">header</a>
+              <div class="mui-collapse-content">
+                  <div class="mui-input-row">
+                      <input type="text" class="mui-input-clear" placeholder="header-key[1]" id="headerkey1">
+                      <input type="text" class="mui-input-clear" placeholder="header-val[1]" id="headerval1">
+                      <input type="text" class="mui-input-clear" placeholder="header-key[2]" id="headerkey2">
+                      <input type="text" class="mui-input-clear" placeholder="header-val[2]" id="headerval2">
+                  </div>
+              </div>
+          </li>
+          <li class="mui-table-view-cell mui-collapse">
+              <a class="mui-navigate-right" href="#">data</a>
+              <div class="mui-collapse-content">
+                  <div class="mui-input-row">
+                      <input type="text" class="mui-input-clear" placeholder="data-key[1]" id="datakey1">
+                      <input type="text" class="mui-input-clear" placeholder="data-val[1]" id="dataval1">
+                      <input type="text" class="mui-input-clear" placeholder="data-key[2]" id="datakey2">
+                      <input type="text" class="mui-input-clear" placeholder="data-val[2]" id="dataval2">
+                  </div>
+              </div>
+          </li>
         </ul>
       </div>
-      <div class="mui-card-footer" id="show-rsp">&nbsp;</div>
+      <div class="mui-card-footer">
+          <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">请求</button>
+      </div>
+      <textarea name="" id="show-rsp" cols="30" rows="10"></textarea>
     </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -66,6 +94,7 @@
 
   <script>
     var vConsole = new VConsole()
+    
 
     function start() {
       var obj = document.getElementsByName("method");
@@ -86,98 +115,128 @@
         }
       }
 
+      var inpUrl =  document.getElementById("inp-url").value
+
       if (method == "get") {
-        goGet(dataType);
+        goGet(inpUrl, dataType);
       } else if (method == "post") {
-        goPost(dataType);
+        goPost(inpUrl, dataType);
       } else if (method == "put") {
-        goPut(dataType);
+        goPut(inpUrl, dataType);
       } else if (method == "delete") {
-        goDel();
+        goDel(inpUrl);
       }
 
     }
 
-    function goGet(dataType) {
+    function getHeaders() {
+      var headers = {};
+      if (document.getElementById("headerkey1").value && document.getElementById("headerval1").value) {
+        headers[document.getElementById("headerkey1").value] = document.getElementById("headerval1").value
+      }
+      if (document.getElementById("headerkey2").value && document.getElementById("headerval2").value) {
+        headers[document.getElementById("headerkey2").value] = document.getElementById("headerval2").value
+      }
+      return headers;
+    }
+
+    function getParams() {
+
+      var params = {};
+      if (document.getElementById("datakey1").value && document.getElementById("dataval1").value) {
+        params[document.getElementById("datakey1").value] = document.getElementById("dataval1").value
+      }
+      if (document.getElementById("datakey2").value && document.getElementById("dataval2").value) {
+        params[document.getElementById("datakey2").value] = document.getElementById("dataval2").value
+      }
+      
+      return params;
+
+    }
+
+    function goGet(inpUrl, dataType) {
+
       syberh.network.request({
-        url: 'http://www.baidu.com',
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        },
+        url: inpUrl,
         dataType: dataType,
         success: function (result) {
-          document.getElementById("show-rsp").innerHTML = "GET请求响应：<br/>" + result.data;
+          document.getElementById("show-rsp").value = "GET请求响应：<br/>" + JSON.stringify(result);
           console.info(JSON.stringify(result))
         },
         fail: function (error) {
-          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
+          document.getElementById("show-rsp").value = JSON.stringify(error);
           console.info(error)
         }
       })
     }
-    function goPost(dataType) {
+    function goPost(inpUrl, dataType) {
+
+      var headers = getHeaders();
+
+      var params = getParams();
+
       syberh.network.request({
-        url: 'http://172.16.23.91:8000/post',
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        },
+        url: inpUrl,
+        headers: headers,
         dataType: dataType,
         method: 'post',
-        data: {
-          'service': 'unified.trade.native', 'mch_id': 'key2',
-          'out_trade_no': 'key2', 'body': 'body', 'total_fee': '100', 'mch_create_ip': '0.0.0.0', 'notify_url': 'https://www.baidu.com',
-          'nonce_str': 'https://www.baidu.com', 'sign': 'sign'
-        },
+        data: params,
         success: function (result) {
           if (dataType == 'json' || !dataType) {
-            document.getElementById("show-rsp").innerHTML = "POST请求响应JSON：<br/>" + result.data;
+            document.getElementById("show-rsp").value = "POST请求响应JSON：<br/>" + JSON.stringify(result);
           } else {
-            document.getElementById("show-rsp").innerHTML = "POST请求响应TEXT：<br/>" + result;
+            document.getElementById("show-rsp").value = "POST请求响应TEXT：<br/>" + result;
           }
 
           console.info(result)
         },
         fail: function (error) {
-          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
+          document.getElementById("show-rsp").value = JSON.stringify(error);
           console.info(error)
         }
       })
     }
-    function goPut(dataType) {
+    function goPut(inpUrl, dataType) {
+
+      var headers = getHeaders();
+
+      var params = getParams();
+
       syberh.network.request({
-        url: 'http://172.16.23.91:8000/put',
-        headers: {
-          "hello": "hi"
-        },
+        url: inpUrl,
+        headers: headers,
         dataType: dataType,
         method: 'put',
-        data: { 'service': 'put', 'sign': 'sign' },
+        data: params,
         success: function (result) {
           if (dataType == 'json' || !dataType) {
-            document.getElementById("show-rsp").innerHTML = "put请求响应JSON：<br/>" + result.data;
+            document.getElementById("show-rsp").value = "put请求响应JSON：<br/>" + JSON.stringify(result);
           } else {
-            document.getElementById("show-rsp").innerHTML = "put请求响应TEXT：<br/>" + result;
+            document.getElementById("show-rsp").value = "put请求响应TEXT：<br/>" + result;
           }
-
-          console.info(result)
+          // console.info(result)
         },
         fail: function (error) {
-          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
-          console.info(error)
+          document.getElementById("show-rsp").value = JSON.stringify(error);
+          // console.info(error)
         }
       })
     }
-    function goDel() {
+    function goDel(inpUrl) {
+
+      var headers = getHeaders();
+
       syberh.network.request({
-        url: 'http://172.16.23.91:8000/delete',
+        url: inpUrl,
+        headers: headers,
         method: 'delete',
         success: function (result) {
-          document.getElementById("show-rsp").innerHTML = "delete请求响应：<br/>" + result.data;
-          console.info(result)
+          document.getElementById("show-rsp").value = "delete请求响应：<br/>" + JSON.stringify(result);
+          // console.info(result)
         },
         fail: function (error) {
-          document.getElementById("show-rsp").innerHTML = JSON.stringify(error);
-          console.info(error)
+          document.getElementById("show-rsp").value = JSON.stringify(error);
+          // console.info(error)
         }
       })
     }

@@ -8,6 +8,24 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/brightness/brightnessInfo": {
+        "title": "brightnessInfo"
+      },
+      "apis/brightness/setAdaptiveDimmingEnabled": {
+        "title": "setAdaptiveDimmingEnabled"
+      },
+      "apis/brightness/setAmbientLightSensorEnabled": {
+        "title": "setAmbientLightSensorEnabled"
+      },
+      "apis/brightness/setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "apis/brightness/setBrightness": {
+        "title": "setBrightness"
+      },
+      "apis/brightness/setDimTimeout": {
+        "title": "setDimTimeout"
+      },
       "apis/cellular/networkDisabled": {
         "title": "networkDisabled"
       },
@@ -50,6 +68,18 @@
       "apis/filepicker/filepicker": {
         "title": "filepicker"
       },
+      "apis/image/chooseImage": {
+        "title": "chooseImage"
+      },
+      "apis/image/getImageInfo": {
+        "title": "getImageInfo"
+      },
+      "apis/image/previewImage": {
+        "title": "previewImage"
+      },
+      "apis/image/saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
+      },
       "apis/modal/alert": {
         "title": "alert"
       },
@@ -65,8 +95,17 @@
       "apis/modal/toast": {
         "title": "toast"
       },
-      "apis/multimedia/camera/capturePhoto": {
-        "title": "takePictureImmediately"
+      "apis/multimedia/audio/pause": {
+        "title": "pause"
+      },
+      "apis/multimedia/audio/resume": {
+        "title": "resume"
+      },
+      "apis/multimedia/audio/start": {
+        "title": "start"
+      },
+      "apis/multimedia/audio/stop": {
+        "title": "stop"
       },
       "apis/multimedia/camera/captureVideoEnd": {
         "title": "captureVideoEnd"
@@ -74,38 +113,38 @@
       "apis/multimedia/camera/captureVideoStart": {
         "title": "captureVideoStart"
       },
-      "apis/multimedia/camera/continuePlay": {
-        "title": "continuePlay"
-      },
-      "apis/multimedia/camera/continueRecorder": {
-        "title": "continueRecorder"
-      },
-      "apis/multimedia/camera/pausePlay": {
-        "title": "pausePlay"
-      },
-      "apis/multimedia/camera/pauseRecorder": {
-        "title": "pauseRecorder"
-      },
-      "apis/multimedia/camera/recorderList": {
-        "title": "recorderList"
-      },
       "apis/multimedia/camera/scan": {
         "title": "scan"
       },
-      "apis/multimedia/camera/startPlay": {
-        "title": "startPlay"
+      "apis/multimedia/camera/takePhoto": {
+        "title": "takePhoto"
       },
-      "apis/multimedia/camera/startRecorder": {
-        "title": "startRecorder"
+      "apis/multimedia/record/list": {
+        "title": "list"
       },
-      "apis/multimedia/camera/stopPlay": {
-        "title": "stopPlay"
+      "apis/multimedia/record/pause": {
+        "title": "pause"
       },
-      "apis/multimedia/camera/stopRecorder": {
-        "title": "stopRecorder"
+      "apis/multimedia/record/remove": {
+        "title": "remove"
+      },
+      "apis/multimedia/record/resume": {
+        "title": "resume"
+      },
+      "apis/multimedia/record/start": {
+        "title": "start"
+      },
+      "apis/multimedia/record/stop": {
+        "title": "stop"
       },
       "apis/navigator/navigator": {
         "title": "navigator"
+      },
+      "apis/package/openDocument": {
+        "title": "openDocument"
+      },
+      "apis/package/openUrl": {
+        "title": "openUrl"
       },
       "apis/path/dataRoot": {
         "title": "dataRoot"
@@ -119,6 +158,9 @@
       "apis/request/request": {
         "title": "request"
       },
+      "apis/router/router": {
+        "title": "路由(router)"
+      },
       "apis/runtime/launchApp": {
         "title": "launchApp"
       },
@@ -127,6 +169,9 @@
       },
       "apis/storage/getItem": {
         "title": "getItem"
+      },
+      "apis/storage/removeAll": {
+        "title": "removeAll"
       },
       "apis/storage/removeItem": {
         "title": "removeItem"
@@ -150,11 +195,23 @@
         "title": "更新管理",
         "sidebar_label": "更新管理"
       },
-      "apis/url/url": {
-        "title": "openUrl"
+      "apis/upload/upload-cancel": {
+        "title": "cancel"
       },
-      "apis/webview/webview": {
-        "title": "webview"
+      "apis/upload/upload": {
+        "title": "start"
+      },
+      "apis/vibrator/setTouchVibrationSoundEnabled": {
+        "title": "setTouchVibrationSoundEnabled"
+      },
+      "apis/vibrator/setVibratingEnabled": {
+        "title": "setVibratingEnabled"
+      },
+      "apis/vibrator/vibrate": {
+        "title": "vibrate"
+      },
+      "apis/vibrator/vibrateInfo": {
+        "title": "vibrateInfo"
       },
       "app-config": {
         "title": "APP 配置"
@@ -215,6 +272,9 @@
       },
       "README": {
         "title": "Syberh 介绍"
+      },
+      "return_code": {
+        "title": "全局返回码"
       },
       "specials": {
         "title": "常见问题"
@@ -354,10 +414,6 @@
       "version-1.1.0/apis/telephony/version-1.1.0-dial": {
         "title": "dial"
       },
-      "version-1.1.0/apis/updates/version-1.1.0-manager": {
-        "title": "更新管理",
-        "sidebar_label": "更新管理"
-      },
       "version-1.1.0/apis/url/version-1.1.0-url": {
         "title": "openUrl"
       },
@@ -429,6 +485,226 @@
       },
       "version-1.1.0/version-1.1.0-started-install": {
         "title": "安装SyberOS SDK"
+      },
+      "version-1.1.1-alpha.2/apis/fileManager/version-1.1.1-alpha.2-fileList": {
+        "title": "fileList"
+      },
+      "version-1.1.1-alpha.2/apis/image/version-1.1.1-alpha.2-chooseImage": {
+        "title": "chooseImage"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-continuePlay": {
+        "title": "continuePlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-continueRecorder": {
+        "title": "continueRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-delRecorder": {
+        "title": "delRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-pausePlay": {
+        "title": "pausePlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-pauseRecorder": {
+        "title": "pauseRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-recorderList": {
+        "title": "recorderList"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-startPlay": {
+        "title": "startPlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-startRecorder": {
+        "title": "startRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-stopPlay": {
+        "title": "stopPlay"
+      },
+      "version-1.1.1-alpha.2/apis/multimedia/record/version-1.1.1-alpha.2-stopRecorder": {
+        "title": "stopRecorder"
+      },
+      "version-1.1.1-alpha.2/apis/package/version-1.1.1-alpha.2-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.1.1-alpha.2/apis/package/version-1.1.1-alpha.2-openUrl": {
+        "title": "openUrl"
+      },
+      "version-1.1.1-alpha.2/apis/request/version-1.1.1-alpha.2-request": {
+        "title": "request"
+      },
+      "version-1.1.1-alpha.2/apis/router/version-1.1.1-alpha.2-router": {
+        "title": "路由(router)"
+      },
+      "version-1.1.1-alpha.2/apis/storage/version-1.1.1-alpha.2-removeAll": {
+        "title": "removeAll"
+      },
+      "version-1.1.1-alpha.2/apis/system/version-1.1.1-alpha.2-networkInfo": {
+        "title": "networkInfo"
+      },
+      "version-1.1.1-alpha.2/version-1.1.1-alpha.2-first-app": {
+        "title": "第一个应用"
+      },
+      "version-1.1.1-alpha.2/version-1.1.1-alpha.2-README": {
+        "title": "Syberh 介绍"
+      },
+      "version-1.1.1-alpha.2/version-1.1.1-alpha.2-started-cli": {
+        "title": "安装 CLI"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-copy": {
+        "title": "copy"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-fileList": {
+        "title": "fileList"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-move": {
+        "title": "move"
+      },
+      "version-1.1.1-alpha.3/apis/fileManager/version-1.1.1-alpha.3-remove": {
+        "title": "remove"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-chooseImage": {
+        "title": "chooseImage"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-getImageInfo": {
+        "title": "getImageInfo"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-previewImage": {
+        "title": "previewImage"
+      },
+      "version-1.1.1-alpha.3/apis/image/version-1.1.1-alpha.3-saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-pause": {
+        "title": "pause"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-resume": {
+        "title": "resume"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-start": {
+        "title": "start"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/audio/version-1.1.1-alpha.3-stop": {
+        "title": "stop"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/camera/version-1.1.1-alpha.3-takePhoto": {
+        "title": "takePhoto"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-list": {
+        "title": "list"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-pause": {
+        "title": "pause"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-remove": {
+        "title": "remove"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-resume": {
+        "title": "resume"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-start": {
+        "title": "start"
+      },
+      "version-1.1.1-alpha.3/apis/multimedia/record/version-1.1.1-alpha.3-stop": {
+        "title": "stop"
+      },
+      "version-1.1.1-alpha.3/apis/package/version-1.1.1-alpha.3-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.1.1-alpha.3/apis/router/version-1.1.1-alpha.3-router": {
+        "title": "路由(router)"
+      },
+      "version-1.1.1-alpha.3/apis/updates/version-1.1.1-alpha.3-manager": {
+        "title": "更新管理",
+        "sidebar_label": "更新管理"
+      },
+      "version-1.1.1-alpha.3/apis/upload/version-1.1.1-alpha.3-upload-cancel": {
+        "title": "cancel"
+      },
+      "version-1.1.1-alpha.3/apis/upload/version-1.1.1-alpha.3-upload": {
+        "title": "start"
+      },
+      "version-1.1.1-alpha.3/qt/request/version-1.1.1-alpha.3-request-c": {
+        "title": "request"
+      },
+      "version-1.1.1-alpha.3/version-1.1.1-alpha.3-return_code": {
+        "title": "全局返回码"
+      },
+      "version-1.1.1-alpha.3/version-1.1.1-alpha.3-started-cli": {
+        "title": "安装 CLI"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-brightnessInfo": {
+        "title": "brightnessInfo"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setAdaptiveDimmingEnabled": {
+        "title": "setAdaptiveDimmingEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setAmbientLightSensorEnabled": {
+        "title": "setAmbientLightSensorEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setBrightness": {
+        "title": "setBrightness"
+      },
+      "version-1.2.0-alpha.5/apis/brightness/version-1.2.0-alpha.5-setDimTimeout": {
+        "title": "setDimTimeout"
+      },
+      "version-1.2.0-alpha.5/apis/filepicker/version-1.2.0-alpha.5-filepicker": {
+        "title": "filepicker"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-pause": {
+        "title": "pause"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-resume": {
+        "title": "resume"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-start": {
+        "title": "start"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/audio/version-1.2.0-alpha.5-stop": {
+        "title": "stop"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/record/version-1.2.0-alpha.5-pause": {
+        "title": "pause"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/record/version-1.2.0-alpha.5-resume": {
+        "title": "resume"
+      },
+      "version-1.2.0-alpha.5/apis/multimedia/record/version-1.2.0-alpha.5-stop": {
+        "title": "stop"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-setTouchVibrationSoundEnabled": {
+        "title": "setTouchVibrationSoundEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-setVibratingEnabled": {
+        "title": "setVibratingEnabled"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-vibrate": {
+        "title": "vibrate"
+      },
+      "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-vibrateInfo": {
+        "title": "vibrateInfo"
+      },
+      "version-1.2.0-alpha.9/apis/brightness/version-1.2.0-alpha.9-brightnessInfo": {
+        "title": "brightnessInfo"
+      },
+      "version-1.2.0-alpha.9/apis/brightness/version-1.2.0-alpha.9-setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "version-1.2.0-alpha.9/apis/brightness/version-1.2.0-alpha.9-setDimTimeout": {
+        "title": "setDimTimeout"
+      },
+      "version-1.2.0-alpha.9/apis/router/version-1.2.0-alpha.9-router": {
+        "title": "路由(router)"
+      },
+      "version-1.2.0-alpha.9/apis/vibrator/version-1.2.0-alpha.9-vibrate": {
+        "title": "vibrate"
+      },
+      "version-1.2.0-alpha.9/version-1.2.0-alpha.9-return_code": {
+        "title": "全局返回码"
+      },
+      "version-1.2.0-alpha.9/version-1.2.0-alpha.9-started-cli": {
+        "title": "安装 CLI"
       }
     },
     "links": {
@@ -441,6 +717,7 @@
       "快速开始": "快速开始",
       "进阶指南": "进阶指南",
       "关于API": "关于API",
+      "路由": "路由",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",
       "电话": "电话",
@@ -450,11 +727,16 @@
       "数据存储": "数据存储",
       "网络": "网络",
       "下载": "下载",
-      "webview": "webview",
       "文件选择": "文件选择",
       "文件管理": "文件管理",
-      "url": "url",
-      "path": "path"
+      "应用管理": "应用管理",
+      "path": "path",
+      "上传": "上传",
+      "设备": "设备",
+      "震动": "震动",
+      "图片": "图片",
+      "webview": "webview",
+      "url": "url"
     }
   },
   "pages-strings": {

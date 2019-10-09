@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta name="format-detection" content="telephone=yes" />
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="window">窗口信息</a>
+      </li>
+
+      <li class="mui-table-view-cell">
+        <input id="file1" type="file" accept="image/*">
+      </li>
+
+        <li class="mui-table-view-cell">
+          <input id="file1" type="file" multiple="multiple"  accept="image/*">
+        </li>
+
+      <li class="mui-table-view-cell">
+        <select>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel">Opel</option>
+          <option value="audi">Audi</option>
+          <option value="audi2">Audi2</option>
+        </select>
+      </li>
+       <li class="mui-table-view-cell">
+        <input type="color" value="#2D9900"/>
+       </li>
+    </ul>
+    <div id="text"></div>
+    <div id="text2"></div>
+    <div id="text3"></div>
+    <div id="text4"></div>
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+    window.runApi = function (id) {
+      console.log('执行API:' + id);
+
+      switch (id) {
+        case 'window':
+
+          var w = window.innerWidth
+          var w2 = document.documentElement.clientWidth
+          var w3 = document.body.clientWidth
+
+          var h = window.innerHeight
+          var h2 = document.documentElement.clientHeight
+          var h3 = document.body.clientHeight
+
+          var sh = window.screen.height
+          var sw = window.screen.width
+
+          var x = document.getElementById("text");
+          var x2 = document.getElementById("text2");
+          var x3 = document.getElementById("text3");
+          var x4 = document.getElementById("text4");
+          x.innerHTML = "浏览器内窗宽度：" + w + "，高度：" + h + "。";
+          x2.innerHTML = "浏览器内窗宽度：" + w2 + "，高度：" + h2 + "。";
+          x3.innerHTML = "浏览器内窗宽度：" + w3 + "，高度：" + h3 + "。";
+          x4.innerHTML = "浏览器分辨率宽度：" + sw + "，高度：" + sh + "。";
+
+          break;
+        default:
+          console.error('错误！没有相应API');
+      }
+    };
+  </script>
+
+</body>
+
+</html>
