@@ -45,8 +45,8 @@ export async function build(appPath: string, config: AppBuildConfig) {
   }
   const build = new Build(appPath, newConfig)
   if (newConfig.onlyBuildSop === true) {
-    build.buildSop()
+    await build.buildSop()
   } else {
-    build.start()
+    await build.start()
   }
 }

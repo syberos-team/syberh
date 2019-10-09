@@ -88,8 +88,12 @@ exports.homeSubPath = (...subDirs) => {
 /**
  * 查找pdk根目录路径
  */
+let _sdkPathPromise;
 exports.locateSdk = () => {
-    return configfile_1.qtversions.getSdkInstallPath();
+    if (!_sdkPathPromise) {
+        _sdkPathPromise = configfile_1.qtversions.getSdkInstallPath();
+    }
+    return _sdkPathPromise;
 };
 exports.locateAllTarget = () => {
     return configfile_1.qtversions.getTargetInstallPaths();
