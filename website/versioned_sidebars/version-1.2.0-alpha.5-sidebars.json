@@ -155,7 +155,6 @@
         "type": "subcategory",
         "ids": [
           "version-1.2.0-alpha.5-apis/brightness/brightnessInfo",
-          "version-1.2.0-alpha.5-apis/brightness/setAdaptiveDimmingEnabled",
           "version-1.2.0-alpha.5-apis/brightness/setAmbientLightSensorEnabled",
           "version-1.2.0-alpha.5-apis/brightness/setBlankTimeout",
           "version-1.2.0-alpha.5-apis/brightness/setBrightness",

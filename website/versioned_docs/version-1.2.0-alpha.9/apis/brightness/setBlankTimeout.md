@@ -1,13 +1,12 @@
 ---
-title: setDimTimeout
-id: version-1.2.0-alpha.5-setDimTimeout
-original_id: setDimTimeout
+title: setBlankTimeout
+id: version-1.2.0-alpha.9-setBlankTimeout
+original_id: setBlankTimeout
 ---
 
-## syberh.brightness.setDimTimeout(Object object)
+## syberh.brightness.setBlankTimeout(Object object)
 
-设置无操作时屏幕进入暗屏状态的时长。
-> 需要比系统设置，休眠时间长，才可以生效
+设置息屏时长。
 
 ### 权限
 
@@ -18,7 +17,7 @@ original_id: setDimTimeout
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| timeout | string   | 是       | 设置要暗屏时长，单位秒。                                    |
+| timeout | string   | 是       | 息屏时长，单位秒                                       |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
 
@@ -37,7 +36,7 @@ original_id: setDimTimeout
 
 ### 代码示例
 ```js
-syberh.brightness.setDimTimeout({
+syberh.brightness.setBlankTimeout({
     timeout="100",
 	success:function(result){
         console.log('result: ', result.result);

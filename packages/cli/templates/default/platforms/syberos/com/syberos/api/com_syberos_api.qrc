@@ -79,5 +79,7 @@
         <file>res/backCapture.png</file>
         <file>res/back.png</file>
         <file>js/modal/gtoast.js</file>
+        <file>qml/BSelectTool.qml</file>
+        <file>qml/qmldir</file>
     </qresource>
 </RCC>

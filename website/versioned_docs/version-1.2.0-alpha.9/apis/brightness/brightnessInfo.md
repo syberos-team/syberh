@@ -1,6 +1,6 @@
 ---
 title: brightnessInfo
-id: version-1.2.0-alpha.5-brightnessInfo
+id: version-1.2.0-alpha.9-brightnessInfo
 original_id: brightnessInfo
 ---
 
@@ -27,10 +27,10 @@ original_id: brightnessInfo
 | -------------- | ------   | ------------------------------------ |
 | maximumBrightness      | int  | 系统最大亮度值 。|
 | brightness     | int      |当前屏幕亮度值                           |
-| blankTime      | int      |当前的息屏时长，单位秒。默认2秒                   |
-| dimTimeout      | int      |获取当前的进入暗屏状态的时长，单位秒。 `设置的时候需要比系统休眠时间长才可以生效`                  |
-| ambientLightSensorEnabled      | int      |获取环境光感器开关状态（自动调节亮度），true 打开，false 关闭                 |
-| adaptiveDimmingEnabled         | int      |获取自适应调光开关状态，true 打开，false 关闭                    |
+| blankTime      | int      |当前的息屏时长，单位秒。                   |
+| dimTimeout      | int      |获取当前的进入暗屏状态的时长。，单位秒。                   |
+| ambientLightSensorEnabled      | int      |获取环境光感器开关状态（自动调节亮度）,true 使能态，false 关闭态                 |
+| adaptiveDimmingEnabled         | int      |获取自适应调光开关状态,true 使能；false 关闭                    |
 
 #### object.fail回调函数参数
 #### 参数

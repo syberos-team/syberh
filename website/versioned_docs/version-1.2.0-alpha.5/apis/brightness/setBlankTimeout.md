@@ -7,6 +7,7 @@ original_id: setBlankTimeout
 ## syberh.brightness.setBlankTimeout(Object object)
 
 设置息屏时长。
+> 系统默认息屏时长2秒
 
 ### 权限
 

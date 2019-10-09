@@ -1,5 +1,7 @@
 ---
 title: 安装 CLI
+id: version-1.2.0-alpha.9-started-cli
+original_id: started-cli
 ---
 
 ## 安装

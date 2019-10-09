@@ -1,13 +1,12 @@
 ---
 title: setDimTimeout
-id: version-1.2.0-alpha.5-setDimTimeout
+id: version-1.2.0-alpha.9-setDimTimeout
 original_id: setDimTimeout
 ---
 
 ## syberh.brightness.setDimTimeout(Object object)
 
 设置无操作时屏幕进入暗屏状态的时长。
-> 需要比系统设置，休眠时间长，才可以生效
 
 ### 权限
 

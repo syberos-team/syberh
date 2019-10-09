@@ -66,13 +66,13 @@ void Package::openUrl(long callBackID, QString scheme, QString path, QVariantMap
     using namespace SYBEROS;
 
     if(scheme.isEmpty()){
-        emit failed(callBackID, 500, "Illegal parameters");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "scheme参数不能为空");
         return;
     }
 
     QStringList schemeList = scheme.split(":");
     if(schemeList.size() != 2){
-        emit failed(callBackID, 500, "Illegal parameters");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "scheme参数不合法");
         return;
     }
 
@@ -183,12 +183,12 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
     using namespace SYBEROS;
 
     if(sopId.isEmpty()){
-        emit failed(callBackID, 500, "sopid is empty");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "sopid is empty");
         return;
     }
 
     if(uiappId.isEmpty()){
-        emit failed(callBackID, 500, "uiappid is empty");
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "uiappid is empty");
         return;
     }
 

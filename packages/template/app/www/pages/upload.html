@@ -61,10 +61,9 @@
         title: '文件选择',
         showBack: true,
         success: function (result) {
-          if (result.confirm) {
-            document.getElementById("file-src").value = result.path.replace("file://", "");
-          } else if (result.cancel) {
-            console.log('用户点击取消')
+          console.log('filepicker open success', JSON.stringify(result))
+          if (result && result.files) {
+            document.getElementById("file-src").value = result.files[0].path.replace("file://", "");
           }
         },
         fail: function (error) {

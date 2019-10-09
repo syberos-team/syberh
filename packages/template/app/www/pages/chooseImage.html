@@ -136,9 +136,13 @@
           var parent = document.getElementById('uploaderFiles')
 
           tempFilePaths.forEach(function(item) {
-              doms += '<image class="weui-uploader__file previewImg" style="display: block" src=' + item +' onclick=previewImg(this) />'
+            var img = document.createElement('img')
+            img.className = 'weui-uploader__file previewImg'
+            img.style = "display: block"
+            img.src = item
+            img.onclick = previewImg(this)
+            parent.appendChild(img)
           })
-          parent.innerHTML += doms
         }
       })
     }
