@@ -13,7 +13,8 @@ title: filepicker
 #### Object object
 
 | 属性     | 类型     | 默认值 | 必填 | 描述               |
-| -------- | -------- | ------ | ---- | ------------------ |
+| -------- | -------- | :----: | ---- | ------------------ |
+| count    | number   |    1   | 否   | 最多可以选择的文件个数 |
 | title    | string   |        | 否   | 标题               |
 | showBack | boolean  | false  | 否   | 是否显示返回按钮   |
 | category | string   |        | 否   | 需要展示的文件类型 |
@@ -36,9 +37,17 @@ title: filepicker
 
 | 属性    | 类型    | 描述               |
 | ------- | ------- | ------------------ |
-| confirm | boolean | 用户选择了文件     |
-| cancel  | boolean | 用户取消了选择文件 |
-| path    | string  | 文件路径           |
+| files    | Array  | 返回选择的文件的对象数组 |
+
+**result.files 的结构**
+
+#### 参数
+
+| 属性    | 类型    | 描述               |
+| ------- | ------- | ------------------ |
+| path    | string  | 文件路径 |
+| size    | number  | 文件大小 |
+| name    | string  | 选择的文件名称 |
 
 **object.fail 回调函数**
 
@@ -56,11 +65,10 @@ syberh.filepicker.open({
   title: '照片选择',
   showBack: true,
   category: 'image',
+  count: 2,
   success: function(result) {
-    if (result.confirm) {
-      console.log('用户点击确定， 文件路径为=》', result.path)
-    } else if (result.cancel) {
-      console.log('用户点击取消')
+    if (result && result.files) {
+      console.log(JSON.stringify(result.files))
     }
   },
   fail: function(error) {

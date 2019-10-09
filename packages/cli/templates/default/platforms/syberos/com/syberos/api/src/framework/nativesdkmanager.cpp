@@ -41,18 +41,24 @@ NativeSdkManager * NativeSdkManager::getInstance(){
         QMutexLocker locker(&mutex);
         if(m_pNativeSdkManager == NULL){
               m_pNativeSdkManager = new NativeSdkManager;
-
         }
-
-
     }
     return m_pNativeSdkManager;
 }
 
-void NativeSdkManager::url(const QUrl& url){
+void NativeSdkManager::openByUrl(const QUrl& url){
     QVariantMap params;
     params.insert("url", url.toString());
-    request("Url*","123","openByUrl", params);
+    request("Package*","123","openByUrl", params);
+}
+
+void NativeSdkManager::openByDocument(const QString& action, const QString& mimetype,
+                                      const QString& filePath){
+    QVariantMap params;
+    params.insert("action", action);
+    params.insert("mimetype", mimetype);
+    params.insert("filePath", filePath);
+    request("Package*","321","openByDocument", params);
 }
 
 void NativeSdkManager::request(QString className,QString callBackID,QString actionName,QVariantMap params){
@@ -63,11 +69,11 @@ void NativeSdkManager::request(QString className,QString callBackID,QString acti
         handler->request(callBackID,actionName,params);
 
     }else{
-        QString msg="不存在的模块["+className+"]";
+        QString msg="Native SDK 模块不存在：["+className+"]";
         long handlerId=callBackID.toLong();
-        long code=0;
+        long code=1009;
         emit failed(handlerId,code,msg);
-        qDebug()<< "模块:"<<className<<"不存在";
+        qDebug()<< msg;
     }
 
 }

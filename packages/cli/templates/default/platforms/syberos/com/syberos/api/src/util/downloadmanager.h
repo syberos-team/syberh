@@ -69,17 +69,21 @@ private:
     Storage m_storage;  //存储位置
     qint64 m_storageFreeSize;   //存储空间剩余
     CStorageManager *m_storageManager;
+    QString m_tmpFileSuffix;       //下载时的临时文件后缀
     //获取下载文件的大小
     qint64 downloadFileSize();
     //获取存储空间剩余
     qint64 storageFreeSize();
 
 signals:
+
+    void signalStarted(QString downloadId, QString path);
+
     void signalDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal);
 
     void signalReplyFinished(QString downloadId, QString path, int statusCode, QString error);
 
-    void signalDownloadError(QString downloadId, QNetworkReply::NetworkError code, QString error);
+    void signalDownloadError(QString downloadId, qint64 statusCode, QString error);
 
 public slots:
     // 下载进度信息

@@ -1,4 +1,5 @@
-var ratio = 1 //fileUtils.screenRatio()
+/* eslint-disable no-unused-vars */
+var ratio = 1 // fileUtils.screenRatio()
 
 /* all */
 var DEFAULT_MARGIN_LEFT = 40
@@ -18,9 +19,9 @@ var FILE_ICON_WIDTH = 82
 var FILE_ICON_HEIGHT = 82
 var FILE_NAME_SIZE = 32
 var FILE_INFO_SIZE = 26
-var FILE_INFO_COLOR = "#8d8d8d"
+var FILE_INFO_COLOR = '#8d8d8d'
 var THUMBNAIL_WIDTH = 160
 var THUMBNAIL_HEIGHT = 160
-var LIST_SEPARATOR_COLOR = "#d4d4d4"
+var LIST_SEPARATOR_COLOR = '#d4d4d4'
 var EDIT_SELECTOR_ICON_WIDTH = 50
 var EDIT_SELECTOR_ICON_HEIGHT = 50

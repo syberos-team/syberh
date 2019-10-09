@@ -1,57 +1,85 @@
 <RCC>
     <qresource prefix="/com/syberos/api">
-        <file>qmldir</file>
-        <file>qml/swebview.qml</file>
-        <file>qml/root.qml</file>
-        <file>js/util/tool.js</file>
-        <file>js/util/polyfill.js</file>
-        <file>js/webview/webview.js</file>
+        <file>js/camera/capture.js</file>
         <file>js/core/core.js</file>
         <file>js/core/plugin.js</file>
-        <file>js/root/root.js</file>
-        <file>js/config.js</file>
+        <file>js/filepicker/filepicker.js</file>
         <file>js/modal/alert.js</file>
         <file>js/modal/confirm.js</file>
-        <file>qml/SButton.qml</file>
-        <file>qml/SConfirm.qml</file>
-        <file>qml/SAlert.qml</file>
         <file>js/modal/prompt.js</file>
-        <file>qml/SCollisionIndicator.qml</file>
-        <file>qml/SToast.qml</file>
         <file>js/modal/toast.js</file>
-        <file>res/success_primary_big.png</file>
-        <file>res/success_primary.png</file>
-        <file>res/toast-fail.png</file>
-        <file>res/toast-success.png</file>
-        <file>res/warning_big.png</file>
-        <file>res/warning.png</file>
-        <file>qml/SCamera.qml</file>
-        <file>js/camera/capture.js</file>
-        <file>qml/SInputDialog.qml</file>
+        <file>js/root/root.js</file>
         <file>js/system/system.js</file>
+        <file>js/util/polyfill.js</file>
+        <file>js/util/tool.js</file>
+        <file>js/webview/webview.js</file>
+        <file>js/config.js</file>
+        <file>js/readme.md</file>
+        <file>js/syber.js</file>
+        <file>qml/CMenu/pics/endHandle.png</file>
+        <file>qml/CMenu/pics/menuBg.png</file>
+        <file>qml/CMenu/pics/menuBg.sci</file>
+        <file>qml/CMenu/pics/startHandleUp.png</file>
+        <file>qml/CMenu/pics/triangle_b.png</file>
+        <file>qml/CMenu/pics/triangle_t.png</file>
+        <file>qml/CMenu/SingletonTool/SingletonTool.qml</file>
+        <file>qml/CMenu/CBottomTriangleMask.qml</file>
+        <file>qml/CMenu/CContentsMenu.qml</file>
+        <file>qml/CMenu/CMenuDiv.qml</file>
+        <file>qml/CMenu/CMenuItem.qml</file>
+        <file>qml/CMenu/CTopTriangleMask.qml</file>
+        <file>qml/CMenu/qmldir</file>
+        <file>qml/default/CPhotoShareDialog/CPhotoShareDialog.qml</file>
+        <file>qml/default/CPhotoShareDialog/qmldir</file>
+        <file>qml/default/CPhotoTranslate/CPhotoTranslate.qml</file>
+        <file>qml/default/CPhotoTranslate/qmldir</file>
+        <file>qml/root.qml</file>
+        <file>qml/SAlert.qml</file>
+        <file>qml/SButton.qml</file>
+        <file>qml/SCamera.qml</file>
+        <file>qml/SCheckGridView.qml</file>
+        <file>qml/SCheckViewModel.qml</file>
+        <file>qml/SCollisionIndicator.qml</file>
+        <file>qml/SConfirm.qml</file>
         <file>qml/SDelegateComponent.qml</file>
+        <file>qml/SEditTitleBar.qml</file>
         <file>qml/SFilesPicker.qml</file>
         <file>qml/SFilesPickerView.qml</file>
-        <file>qml/Sfm.js</file>
+        <file>qml/SInputDialog.qml</file>
+        <file>qml/status.js</file>
+        <file>qml/SToast.qml</file>
         <file>qml/SUI.js</file>
-        <file>js/readme.md</file>
-        <file>js/webview.js</file>
-        <file>js/filepicker/filepicker.js</file>
-        <file>qml/CMenu/qmldir</file>
-        <file>qml/CMenu/CTopTriangleMask.qml</file>
-        <file>qml/CMenu/CMenuItem.qml</file>
-        <file>qml/CMenu/CMenuDiv.qml</file>
-        <file>qml/CMenu/CContentsMenu.qml</file>
-        <file>qml/CMenu/CBottomTriangleMask.qml</file>
-        <file>qml/CMenu/SingletonTool/SingletonTool.qml</file>
-        <file>qml/CMenu/pics/triangle_t.png</file>
-        <file>qml/CMenu/pics/triangle_b.png</file>
-        <file>qml/CMenu/pics/startHandleUp.png</file>
-        <file>qml/CMenu/pics/menuBg.sci</file>
-        <file>qml/CMenu/pics/menuBg.png</file>
-        <file>qml/CMenu/pics/endHandle.png</file>
-        <file>js/syber.js</file>
+        <file>res/success_primary.png</file>
+        <file>res/success_primary_big.png</file>
+        <file>res/toast-fail.png</file>
+        <file>res/toast-success.png</file>
+        <file>res/warning.png</file>
+        <file>res/warning_big.png</file>
+        <file>qmldir</file>
+        <file>qml/SEditGridViewPage.qml</file>
+        <file>qml/SImageListPreview.qml</file>
+        <file>qml/SPhotoAlternate.qml</file>
+        <file>qml/SPhotoAndVideoBrowser.qml</file>
+        <file>qml/SPhotoAndVideoModel.qml</file>
+        <file>qml/SPhotoEditTitleBar.qml</file>
+        <file>qml/SPhotoToolBar.qml</file>
         <file>qml/ItemSelector.qml</file>
         <file>qml/SSelectTool.qml</file>
+        <file>js/util/log.js</file>
+        <file>js/image/chooseImage.js</file>
+        <file>qml/SChooseImage.qml</file>
+        <file>qml/SWebview.qml</file>
+        <file>qml/SPage.qml</file>
+        <file>js/image/previewImage.js</file>
+        <file>qml/SPreviewImage.qml</file>
+        <file>qml/SPhotoPreviewModel.qml</file>
+        <file>res/switch.png</file>
+        <file>res/start.png</file>
+        <file>res/save.png</file>
+        <file>res/backCapture.png</file>
+        <file>res/back.png</file>
+        <file>js/modal/gtoast.js</file>
+        <file>qml/BSelectTool.qml</file>
+        <file>qml/qmldir</file>
     </qresource>
 </RCC>

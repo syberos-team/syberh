@@ -26,10 +26,10 @@
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="capturePhoto()">拍照</a>
+        <a class="mui-navigate-right api-class" onclick="takePhoto(false)">拍照</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="shearPhoto()">裁剪</a>
+        <a class="mui-navigate-right api-class" onclick="takePhoto(true)">裁剪</a>
       </li>
     </ul>
   </div>
@@ -51,18 +51,13 @@
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
 
   <script>
-    quick.error(function (message) {
-      alert('错误:' + JSON.stringify(message));
-    });
-    quick.config();
-    quick.ready(function () {
-      showTips('注册成功');
-    });
+    var vConsole = new VConsole();
 
-    function capturePhoto() {
-      syberh.camera.takePictureImmediately({
+    function takePhoto(enableCut) {
+      syberh.camera.takePhoto({
+        enableCut: enableCut,
         success: function (result) {
-          document.getElementById('pathDiv').innerText = result.path
+          document.getElementById('pathDiv').innerText = "file://"+result.path
           document.getElementById('img').src = result.path
           console.log('success: ', result.path);
         },
@@ -72,19 +67,6 @@
       });
     }
 
-    function shearPhoto() {
-      syberh.camera.takePictureImmediately({
-        enableCut: true,
-        success: function (result) {
-          document.getElementById('pathDiv').innerText = result.path
-          document.getElementById('img').src = result.path
-          console.log('success: ', result.path);
-        },
-        fail: function (error) {
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
-    }
   </script>
 </body>
 

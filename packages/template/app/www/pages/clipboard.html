@@ -24,52 +24,46 @@
 <body>
 
   <div class="mui-content pt0">
-    <ul class="mui-table-view ">
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="setClipboardData()">复制</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" onclick="getClipboardData()">粘贴</a>
-      </li>
-    </ul>
+
+
+
+    <div class="mui-card-content">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell">剪切板内容：<input type="text" id="text" value="我是剪贴板内容" /></li>
+      </ul>
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell">显示剪切板内容：<input type="text" id="text1" /></li>
+      </ul>
+      <ul class="mui-table-view ">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="setClipboardData()">复制剪贴板内容</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="getClipboardData()">粘贴</a>
+        </li>
+      </ul>
+    </div><br>
+
   </div>
-
-  <div class="mui-card-content">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell">输入剪切板内容：<input type="text" id="text" /></li>
-    </ul>
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell">显示剪切板内容：<input type="text" id="text1" /></li>
-    </ul>
-  </div><br>
-  <img id="img" width="80%" height="80%">
-
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
-  <script type="text/javascript" src="../../dist/quick.js"></script>
-  <script type="text/javascript" src="../../dist/quick.native.js"></script>
-  <script type="text/javascript" src="../../dist/quick.h5.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
 
   <script>
-    quick.error(function (message) {
-      alert('错误:' + JSON.stringify(message));
-    });
-    quick.config();
-    quick.ready(function () {
-      showTips('注册成功');
-    });
+
+    var vConsole = new VConsole()
 
     function setClipboardData() {
       var value = document.getElementById('text').value
       syberh.clipboard.setClipboardData({
         data: value,
         success: function (result) {
+          syberh.modal.gtoast(result.data)
           console.info(result.data)
         },
         error: function (error) {
-          console.info(error)
+          console.error(error)
         }
       })
     }
@@ -77,10 +71,11 @@
     function getClipboardData() {
       syberh.clipboard.getClipboardData({
         success: function (result) {
+          syberh.modal.gtoast(result.data)
           document.getElementById('text1').value = result.data
         },
         error: function (error) {
-          console.info(error)
+          console.error(error)
         }
       })
     }

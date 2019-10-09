@@ -1,16 +1,16 @@
 {
-  "private": true,
+  "lerna": "2.10.0",
   "packages": [
-    "packages/jsbridge",
-    "packages/template",
     "packages/cli",
-    "packages/dev-server"
+    "packages/dev-server",
+    "packages/jsbridge",
+    "packages/template"
   ],
-  "npmClient": "yarn",
   "command": {
     "publish": {
       "message": "chore(release):  publish %s"
     }
   },
-  "version": "independent"
+  "version": "1.2.0-alpha.8",
+  "npmClient": "npm"
 }

@@ -5,7 +5,7 @@ export default function modalMixin(hybrid) {
 
     hybridJs.extendModule('modal', [{
         namespace: 'alert',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             title: '',
         },
@@ -20,7 +20,7 @@ export default function modalMixin(hybrid) {
         },
     }, {
         namespace: 'toast',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             title: '',
             icon: '',
@@ -40,7 +40,7 @@ export default function modalMixin(hybrid) {
         },
     }, {
         namespace: 'confirm',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             title: '',
             titleIcon: '',
@@ -72,7 +72,7 @@ export default function modalMixin(hybrid) {
         },
     }, {
         namespace: 'prompt',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             title: '',
             titleIcon: '',
@@ -104,7 +104,7 @@ export default function modalMixin(hybrid) {
         },
     }, {
         namespace: 'gtoast',
-        os: ['syber'],
+        os: ['syberos'],
         defaultParams: {
             title: '',
         },

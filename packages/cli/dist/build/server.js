@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const dev_server_1 = require("@syberos/dev-server");
 class DevServer {
-    constructor(watchPath) {
+    constructor({ watchPath, port }) {
         this.port = 4399;
         this.watchPath = watchPath;
+        this.port = port;
         this.start();
     }
     start() {

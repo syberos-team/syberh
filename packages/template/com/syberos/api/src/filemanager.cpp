@@ -39,17 +39,28 @@ void FileManager::request(QString callBackID, QString actionName, QVariantMap pa
 
 void FileManager::move(QString callbackId, QString srcPath, QString destPath)
 {
-    bool res = FileUtil::move(srcPath, destPath);
-    QJsonObject jsonObj;
-    jsonObj.insert("result", res);
-    emit success(callbackId.toLong(), jsonObj);
+    RespResult resp = FileUtil::move(srcPath, destPath);
+    if (resp.flag) {
+        QJsonObject jsonObj;
+        jsonObj.insert("result", resp.flag);
+        emit success(callbackId.toLong(), jsonObj);
+    } else {
+        emit failed(callbackId.toLong(), resp.code, resp.msg);
+    }
 }
 void FileManager::copy(QString callbackId, QString srcPath, QString destPath)
 {
-    bool res = FileUtil::copy(srcPath, destPath);
-    QJsonObject jsonObj;
-    jsonObj.insert("result", res);
-    emit success(callbackId.toLong(), jsonObj);
+
+    RespResult resp = FileUtil::copy(srcPath, destPath);
+
+    if (resp.flag) {
+        QJsonObject jsonObj;
+        jsonObj.insert("result", resp.flag);
+        emit success(callbackId.toLong(), jsonObj);
+    } else {
+        emit failed(callbackId.toLong(), resp.code, resp.msg);
+    }
+
 }
 void FileManager::fileList(QString callbackId, QString srcPath)
 {
@@ -89,8 +100,16 @@ void FileManager::getInfo(QString callBackID, QString srcPath)
 
 void FileManager::remove(QString callBackID, QString srcPath, int recursive)
 {
-    bool res = FileUtil::remove(srcPath, recursive);
-    QJsonObject jsonObj;
-    jsonObj.insert("result", res);
-    emit success(callBackID.toLong(), jsonObj);
+
+    RespResult resp = FileUtil::remove(srcPath, recursive);
+
+    if (resp.flag) {
+        QJsonObject jsonObj;
+        jsonObj.insert("result", resp.flag);
+        emit success(callBackID.toLong(), jsonObj);
+    } else {
+        emit failed(callBackID.toLong(), resp.code, resp.msg);
+    }
+
+
 }

@@ -1,19 +1,21 @@
 import chalk from 'chalk'
 import * as _ from 'lodash'
 
-import { BUILD_TYPES } from './util/constants'
+import { BUILD_TYPES, DEVICES_TYPES } from './util/constants'
 import { IBuildConfig } from './util/types'
+import diagnose from './doctor/index'
+import * as b from './build/index'
+import { getProjectConfig } from './syberos/helper'
 
-export default function build (appPath, buildConfig: IBuildConfig) {
-  const { type, debug, port } = buildConfig
+export default async function build(appPath, buildConfig: IBuildConfig) {
 
-  if (type) {
-    switch (type) {
+  if (buildConfig.type) {
+    switch (buildConfig.type) {
       case BUILD_TYPES.DEVICE:
-        buildForDevice(appPath, { debug, port })
+        await buildForDevice(appPath, buildConfig)
         break
       case BUILD_TYPES.SIMULATOR:
-        buildForSimulator(appPath, { debug })
+        await buildForSimulator(appPath, buildConfig)
         break
 
       default:
@@ -23,27 +25,46 @@ export default function build (appPath, buildConfig: IBuildConfig) {
     }
   } else {
     // 默认打SOP包
-    buildSop(appPath, { debug })
+    await buildSop(appPath, buildConfig)
   }
 }
 
-function buildForDevice (appPath: string, { debug }: IBuildConfig) {
-  require('./build/index').build(appPath, {
-    debug,
-    adapter: BUILD_TYPES.DEVICE
+async function diagnoseFastfail(buildConfig: IBuildConfig) {
+  if (!buildConfig.nodoctor) {
+    const hasFail = await diagnose()
+    if (hasFail) {
+      process.exit(0)
+    }
+  }
+}
+
+async function buildForDevice(appPath: string, buildConfig: IBuildConfig) {
+  const projectConfig = getProjectConfig(appPath)
+  await diagnoseFastfail(buildConfig)
+  await b.build(appPath, {
+    target: projectConfig.target,
+    debug: buildConfig.debug,
+    adapter: DEVICES_TYPES.DEVICE
   })
 }
 
-function buildForSimulator (appPath: string, { debug }: IBuildConfig) {
-  require('./build/index').build(appPath, {
-    debug,
-    adapter: BUILD_TYPES.SIMULATOR
+async function buildForSimulator(appPath: string, buildConfig: IBuildConfig) {
+  const projectConfig = getProjectConfig(appPath)
+  await diagnoseFastfail(buildConfig)
+  await b.build(appPath, {
+    target: projectConfig.targetSimulator,
+    debug: buildConfig.debug,
+    adapter: DEVICES_TYPES.SIMULATOR
   })
 }
 
-function buildSop (appPath: string, { debug }: IBuildConfig) {
-  require('./build/index').build(appPath, {
-    debug,
+async function buildSop(appPath: string, buildConfig: IBuildConfig) {
+  const projectConfig = getProjectConfig(appPath)
+  await diagnoseFastfail(buildConfig)
+  await b.build(appPath, {
+    target: projectConfig.target,
+    debug: buildConfig.debug,
+    adapter: DEVICES_TYPES.DEVICE,
     onlyBuildSop: true
   })
 }

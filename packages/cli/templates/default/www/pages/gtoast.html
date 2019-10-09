@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>page</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+    <div class="mui-content pt0">
+      <form class="mui-input-group">
+          <div class="mui-input-row"  style="height: auto">
+              <label>title:</label>
+              <textarea class="mui-input-clear" id="title1" cols="30" rows="2">提示信息</textarea>
+          </div>
+          <div class="mui-input-row">
+              <button type="button" class="mui-btn mui-btn-primary" onclick="btnClick()">确定</button>
+          </div>
+          <div class="mui-card-footer">
+              <h4>响应信息:</h4>
+              <div id="resultMsg"></div>
+          </div>
+      </form>
+   </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+
+  <script>
+      var vConsole = new VConsole();
+
+      function btnClick(){
+          var title = document.getElementById("title1").value;
+
+          syberh.modal.gtoast({
+            title: title,
+            success: function () {
+              document.getElementById("resultMsg").innerHTML = "toast执行成功";
+            },
+            fail: function (error) {
+              document.getElementById("resultMsg").innerHTML = JSON.stringify(error);
+            }
+          });
+      }
+  </script>
+
+</body>
+
+</html>

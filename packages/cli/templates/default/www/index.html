@@ -8,7 +8,7 @@
   <meta http-equiv="expires" content="0" />
   <meta name="viewport"
     content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-  <title>Quick Hybrid API</title>
+  <title>Syberh Hybrid API</title>
   <link rel="stylesheet" href="common/mui/mui.css" />
   <link rel="stylesheet" href="common/common.css" />
   <style>
@@ -17,7 +17,7 @@
       background: #f7f7f7;
     }
 
-    .secondMenu > p {
+    .secondMenu>p {
       color: inherit;
       font-size: 17px;
     }
@@ -27,102 +27,154 @@
 <body>
   <div class="mui-content pt0 syberMainPage">
     <ul class="mui-table-view">
-      <li class="mui-table-view-cell mui-collapse">
-          <a class="mui-navigate-right" href="#">模态弹窗</a>
-          <ul class="mui-collapse-content">
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/alert.html">alert</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/confirm.html">confirm</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/prompt.html">prompt</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/toast.html">toast</p>
-              </li>
-          </ul>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="pages/router.html">路由</a>
       </li>
       <li class="mui-table-view-cell mui-collapse">
-          <a class="mui-navigate-right" href="#">媒体</a>
-          <ul class="mui-collapse-content">
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/camera.html">相机</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/audio.html">录音</p>
-              </li>
-          </ul>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/telephony.html">电话</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/clipboard.html">剪贴板</a>
+        <a class="mui-navigate-right" href="#">模态弹窗</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/alert.html">alert</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/confirm.html">confirm</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/prompt.html">prompt</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/toast.html">toast</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/gtoast.html">gtoast</a>
+          </li>
+        </ul>
       </li>
       <li class="mui-table-view-cell mui-collapse">
-          <a class="mui-navigate-right" href="#">系统信息</a>
-          <ul class="mui-collapse-content">
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/system.html">aboutPhone</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/battery.html">battery</p>
-              </li>
-              <li class="mui-table-view-cell secondMenu">
-                <p class="mui-navigate-right api-class" id="./pages/networkInfo.html">networkInfo</p>
-              </li>
-          </ul>
+        <a class="mui-navigate-right" href="#">媒体</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/camera.html">相机</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/record.html">录音</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/audio.html">音频</a>
+          </li>
+        </ul>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/NetworkSetCellular.html">数据网络</a>
+        <a class="mui-navigate-right api-class" id="pages/telephony.html">电话</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/storage.html">数据存储</a>
+        <a class="mui-navigate-right api-class" id="pages/clipboard.html">剪贴板</a>
+      </li>
+      <li class="mui-table-view-cell mui-collapse">
+        <a class="mui-navigate-right" href="#">系统信息</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/system.html">aboutPhone</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/battery.html">battery</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/networkInfo.html">networkInfo</a>
+          </li>
+        </ul>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/network.html">网络</a>
+        <a class="mui-navigate-right api-class" id="pages/NetworkSetCellular.html">数据网络</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/download.html">下载</a>
+        <a class="mui-navigate-right api-class" id="pages/storage.html">数据存储</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/webview.html">webview</a>
+        <a class="mui-navigate-right api-class" id="pages/network.html">网络</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/filepicker.html">文件选择</a>
+        <a class="mui-navigate-right api-class" id="pages/download.html">下载</a>
+      </li>
+
+
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="pages/filepicker.html">文件选择</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/fileManager.html">文件管理</a>
+        <a class="mui-navigate-right api-class" id="pages/fileManager.html">文件管理</a>
+      </li>
+      <li class="mui-table-view-cell mui-collapse">
+        <a class="mui-navigate-right" id="#">应用管理</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/openUrl.html">openUrl</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/openDocument.html">openDocument</a>
+          </li>
+        </ul>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/url.html">url</a>
+        <a class="mui-navigate-right api-class" id="pages/path.html">path</a>
+      </li>
+
+      <li class="mui-table-view-cell mui-collapse">
+        <a class="mui-navigate-right" href="#">图片</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/chooseImage.html">chooseImage</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/saveImageToPhotosAlbum.html">saveImageToPhotosAlbum</a>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="pages/imageInfo.html">图片信息</a>
+          </li>
+        </ul>
+      </li>
+      <li class="mui-table-view-cell secondMenu">
+        <a class="mui-navigate-right api-class" id="pages/webview-ext.html">webview拓展示例</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/path.html">path</a>
+        <a class="mui-navigate-right api-class" id="./pages/upload.html">upload</a>
+      </li>
+      <li class="mui-table-view-cell mui-collapse">
+        <a class="mui-navigate-right" href="#">屏幕亮度</a>
+        <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <p class="mui-navigate-right api-class" id="./pages/brightnessInfo.html">查看系统屏幕亮度信息</p>
+          </li>
+          <li class="mui-table-view-cell secondMenu">
+            <p class="mui-navigate-right api-class" id="./pages/setBrightness.html">设置屏幕亮度</p>
+          </li>
+        </ul>
+      </li>
+      <!-- <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/vibrator.html">震动</a>
+      </li> -->
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="https://syberh.syberos.com">在线文档</a>
       </li>
     </ul>
 
+
+
   </div>
-  <script type="text/javascript" src="./common/mui/mui.js"></script>
-  <script type="text/javascript" src="./lib/syberh.min.js"></script>
-  <script type="text/javascript" src="./common/common.js"></script>
-  <script type="text/javascript" src="./lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="common/mui/mui.js"></script>
+  <script type="text/javascript" src="lib/syberh.min.js"></script>
+  <script type="text/javascript" src="common/common.js"></script>
+  <script type="text/javascript" src="lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
-    console.log('Hello world')
+
+    console.log("当前版本:", syberh.os.version)
     window.runApi = function (id) {
       console.log('执行API:' + id)
-      syberh.webview.redirectTo({
+      syberh.router.navigateTo({
         url: id,
+        data: { test: 'test' },
         title: '测试页面标题',
-        // 横竖屏,默认为1表示竖屏
-        orientation: '1',
-        // 额外数据
-        data: {
-          key1: 'value1'
-        },
         success: function (result) {
           showTips(JSON.stringify(result))
         },

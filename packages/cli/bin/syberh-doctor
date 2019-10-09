@@ -1,75 +1,9 @@
 #!/usr/bin/env node
-const _ = require('lodash/fp')
-const path = require('path')
-const fs = require('fs-extra')
-const ora = require('ora')
 const program = require('commander')
-const chalk = require('chalk')
-const doctor = require('../dist/doctor').default
-const { log } = require('../dist/util/log')
-const { PROJECT_CONFIG } = require('../dist/util/constants')
-const PROJECT_CONF_PATH = path.join(process.cwd(), PROJECT_CONFIG)
-
-log.verbose('PROJECT_CONF_PATH:', PROJECT_CONF_PATH)
-if (!fs.existsSync(PROJECT_CONF_PATH)) {
-  console.log(chalk.red(`找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是Syberh项目根目录!`))
-  process.exit(1)
-}
-
-const { validators } = doctor
-
-log.verbose('validators:', validators)
-// appPath
-const appPath = process.cwd()
-const NOTE_ALL_RIGHT = chalk.green('[✓] ')
-const NOTE_VALID = chalk.yellow('[!] ')
-const NOTE_INVALID = chalk.red('[✗] ')
-const titleChalk = chalk.hex('#aaa')
-const lineChalk = chalk.hex('#fff')
-const solutionChalk = chalk.hex('#999')
-
-function printReport (reports) {
-  _.forEach(report => {
-    console.log('\n' + titleChalk(report.desc))
-
-    if (report.raw) {
-      console.log(report.raw)
-      return
-    }
-
-    if (_.getOr(0, 'lines.length', report) === 0) {
-      console.log(`  ${NOTE_ALL_RIGHT}没有发现问题`)
-      return
-    }
-
-    _.forEach(line => {
-      console.log(
-        '  ' +
-        (line.valid ? NOTE_VALID : NOTE_INVALID) +
-        lineChalk(line.desc)
-      )
-      if (line.solution) {
-        console.log('      ' + solutionChalk(line.solution))
-      }
-    }, report.lines)
-  }, reports)
-}
+const diagnose = require('../dist/doctor/index').default
 
 program
   .option('-v --verbose', 'Print all message')
   .parse(process.argv)
 
-async function diagnose () {
-  const spinner = ora('正在诊断项目...').start()
-  const projectConfig = fs.readJSONSync(PROJECT_CONF_PATH)
-  log.verbose('projectConfig', projectConfig)
-  const reportsP = _.map(validator => validator({
-    appPath,
-    projectConfig,
-    configPath: PROJECT_CONF_PATH
-  }), validators)
-  const reports = await Promise.all(reportsP)
-  spinner.succeed('诊断完成')
-  printReport(reports)
-}
 diagnose()

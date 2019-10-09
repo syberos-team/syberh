@@ -1,7 +1,7 @@
 {
-  "extends": ["taro"],
+  "extends": ["Syberh"],
   "rules": {
-    "no-unused-vars": ["error", { "varsIgnorePattern": "Taro" }],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "Syberh" }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }]
   },
   <%if (!locals.typescript) {-%>
