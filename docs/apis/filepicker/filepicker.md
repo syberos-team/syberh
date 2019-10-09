@@ -37,7 +37,7 @@ title: filepicker
 
 | 属性    | 类型    | 描述               |
 | ------- | ------- | ------------------ |
-| files    | string  | 返回选择的文件的对象数组 |
+| files    | Array  | 返回选择的文件的对象数组 |
 
 **result.files 的结构**
 
