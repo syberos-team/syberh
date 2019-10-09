@@ -85,8 +85,12 @@ export const homeSubPath = (...subDirs: string[]): string => {
 /**
  * 查找pdk根目录路径
  */
+let _sdkPathPromise: Promise<string>
 export const locateSdk = (): Promise<string> => {
-  return qtversions.getSdkInstallPath()
+  if (!_sdkPathPromise) {
+    _sdkPathPromise = qtversions.getSdkInstallPath()
+  }
+  return _sdkPathPromise
 }
 
 export const locateAllTarget = (): Promise<string[]> => {
