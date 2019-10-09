@@ -170,13 +170,12 @@
 
     console.log("当前版本:", syberh.os.version)
     window.runApi = function (id) {
-      console.log('执行API:' + id)
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
         title: '测试页面标题',
         success: function (result) {
-          showTips(JSON.stringify(result))
+          console.log(result);
         },
         error: function (error) {
           showTips('失败:' + JSON.stringify(error))

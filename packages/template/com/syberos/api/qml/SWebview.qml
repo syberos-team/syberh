@@ -2,9 +2,15 @@ import QtQuick 2.0
 import QtWebKit 3.0
 import QtQuick.Window 2.2
 import QtWebKit.experimental 1.0
-import com.syberos.basewidgets 2.0
 import com.syberos.filemanager.filepicker 1.0
+import org.nemomobile.voicecall 1.0
+import com.syberos.basewidgets 1.0
+import com.syberos.basewidgets 2.0
+
 import "../js/util/log.js" as LOG
+import "./"
+import "./CMenu"
+
 
 CPage{
     //加载进度信号
@@ -16,7 +22,7 @@ CPage{
     signal keyOnReleased(var event)
     //接受消息信号
     signal receiveMessage(var message)
-    property var surl
+    property string surl:""
 
     function clearHistory(){
      //TODO 暂无找到实现方式
@@ -24,6 +30,11 @@ CPage{
     //是否能回退
     function canGoBack(){
         return swebview.canGoBack;
+    }
+    //删除所有cookies
+    function deleteAllCookies()
+    {
+       swebview.experimental.deleteAllCookies()
     }
 
     function canGoForward(){
@@ -116,8 +127,6 @@ CPage{
             experimental.preferences.webAudioEnabled: true
             experimental.preferences.minimumFontSize: 13
             experimental.gpsEnable: false
-            experimental.preferences.autoLoadImages: true
-
             experimental.itemSelector:ItemSelector{}
             experimental.alertDialog: SAlert {
                 id: salert
@@ -305,15 +314,18 @@ CPage{
                 //        gAppUtils.pageStackWindow.confirmDialog.requestShow()
                 //        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
             }
+
+//            onSelectChange: {
+//                    //console.log("webview.onSelectChange====--------------------------",rect)
+//                    textPrssMenu.visible = false;
+//                   BSelectTool.setCursor(swebview,show,rect);
+//             }
             Component.onCompleted: {
                 LOG.logger.verbose("SWebview Component.onCompleted")
                 swebview.SetJavaScriptCanOpenWindowsAutomatically(false)
-
-                if(!surl){
-                    swebview.url="file://" + helper.getWebRootPath() + "/index.html"
-                }
             }
         }
+
     }
 
 

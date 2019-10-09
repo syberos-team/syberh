@@ -250,7 +250,6 @@ syberh.router.getCurrentPages({
 ```
 
 ## syberh.router.reLaunch(Object object)
-> 该API目前咱不可用,存在APP崩溃风险,等修复后开放。敬请期待
 
 关闭所有页面，打开到应用内的某个页面
 
