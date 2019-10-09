@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>API 说明 · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&gt; API 的封装在陆续进行中， 有时候难免有些 API 没有加入，你可以通过提 PR 或者 issue，来获得帮助。"/><meta name="docsearch:version" content="1.1.1-alpha.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="API 说明 · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="&gt; API 的封装在陆续进行中， 有时候难免有些 API 没有加入，你可以通过提 PR 或者 issue，来获得帮助。"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>1.1.1-alpha.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/1.1.1-alpha.3/README.html" target="_self">指南</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/docs/1.1.1-alpha.3/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>关于API</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">关于API<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem navListItemActive"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/about/desc.html">API 说明</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">路由<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/router/router.html">路由(router)</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">模态弹窗<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/modal/toast.html">toast</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/modal/gtoast.html">gtoast</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/modal/alert.html">alert</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/modal/confirm.html">confirm</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/modal/prompt.html">prompt</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">媒体<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">相机</h4><ul><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/camera/takePhoto.html">takePhoto</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">录音</h4><ul><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/record/list.html">list</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/record/start.html">start</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/record/pause.html">pause</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/record/resume.html">resume</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/record/stop.html">stop</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/record/remove.html">remove</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">音频</h4><ul><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/audio/start.html">start</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/audio/pause.html">pause</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/audio/resume.html">resume</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/multimedia/audio/stop.html">stop</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">图片</h4><ul><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/image/chooseImage.html">chooseImage</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/image/previewImage.html">previewImage</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/image/saveImageToPhotosAlbum.html">saveImageToPhotosAlbum</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/image/getImageInfo.html">getImageInfo</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">电话<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/telephony/dial.html">dial</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">剪贴板<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/clipboard/setClipboardData.html">setClipboardData</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/clipboard/getClipboardData.html">getClipboardData</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">系统信息<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/system/aboutPhone.html">aboutPhone</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/system/battery.html">battery</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/system/networkInfo.html">networkInfo</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">数据网络<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/cellular/networkDisabled.html">networkDisabled</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/cellular/networkEnabled.html">networkEnabled</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">数据存储<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/storage/setItem.html">setItem</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/storage/getItem.html">getItem</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/storage/removeItem.html">removeItem</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/storage/getAllKeys.html">getAllKeys</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/storage/removeAll.html">removeAll</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">网络<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/request/request.html">request</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">下载<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/download/download.html">start</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/download/download-cancel.html">cancel</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">文件选择<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/filepicker/filepicker.html">filepicker</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">文件管理<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/fileManager/move.html">move</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/fileManager/copy.html">copy</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/fileManager/fileList.html">fileList</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/fileManager/getInfo.html">getInfo</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/fileManager/remove.html">remove</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">应用管理<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/package/openUrl.html">openUrl</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/package/openDocument.html">openDocument</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">path<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/path/extern.html">extern</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/path/inner.html">inner</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/path/dataRoot.html">dataRoot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">上传<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/upload/upload.html">start</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.1-alpha.3/apis/upload/upload-cancel.html">cancel</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/apis/about/desc.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">API 说明</h1></header><article><div><span><blockquote>
+<p>API 的封装在陆续进行中， 有时候难免有些 API 没有加入，你可以通过提 PR 或者 issue，来获得帮助。</p>
+</blockquote>
+<p>syberh 的 API 是对原生功能调用的 API 的封装。</p>
+<p>API 调用关乎着整个体验，我们约定所有 API 统一采用如下调用方式</p>
+<pre><code class="hljs css language-js">syberh<span class="token punctuation">.</span>模块名<span class="token punctuation">.</span><span class="token function">方法</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    参数<span class="token number">1</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    参数<span class="token number">2</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    success<span class="token punctuation">:</span> <span class="token function">fucntion</span><span class="token punctuation">(</span><span class="token parameter">result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 成功回调</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    fail<span class="token punctuation">:</span> <span class="token function">fucntion</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 失败回调</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>代码示例</p>
+<pre><code class="hljs css language-javascript">syberh<span class="token punctuation">.</span>modal<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    content<span class="token punctuation">:</span> <span class="token string">'This is a alert'</span><span class="token punctuation">,</span>
+    success<span class="token punctuation">:</span> <span class="token function">fucntion</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'success'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    fail<span class="token punctuation">:</span> <span class="token function">fucntion</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'fail: '</span><span class="token punctuation">,</span> error<span class="token punctuation">.</span>code<span class="token punctuation">,</span> error<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>同时，为了方便代码书写，API 进行了 <code>promisify</code> 化，你可以像使用 Promise 那样进行调用，例如</p>
+<pre><code class="hljs css language-javascript">  syberh<span class="token punctuation">.</span>modal<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    content<span class="token punctuation">:</span> <span class="token string">'This is a alert'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'success'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'fail: '</span><span class="token punctuation">,</span> error<span class="token punctuation">.</span>code<span class="token punctuation">,</span> error<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>因为规划 API 有长期 API 和短期 API 的区别,长期 API 暂时不支持<code>promise</code>,所以在使用中具体是否支持 <code>promise</code> 需要参见具体的 API 文档说明</p>
+</blockquote>
+<blockquote>
+<p>因浏览器版本不支持<code>promise</code>使用,如果开发过程中需要使用promise形式调用,参考以下链接 <a href="http://bluebirdjs.com/docs/install.html">http://bluebirdjs.com/docs/install.html</a></p>
+</blockquote>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/1.1.1-alpha.3/apis/router/router.html"><span>路由(router)</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>相机 · Syberh</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# 概况"/><meta name="docsearch:version" content="1.2.0-alpha.5"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="相机 · Syberh"/><meta property="og:type" content="website"/><meta property="og:url" content="https://syberh.syberos.com/index.html"/><meta property="og:description" content="# 概况"/><meta property="og:image" content="https://syberh.syberos.com/img/syberos.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://syberh.syberos.com/img/syberos.png"/><link rel="shortcut icon" href="/img/syberos.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/syberos.png" alt="Syberh"/><h2 class="headerTitleWithLogo">Syberh</h2></a><a href="/versions.html"><h3>1.2.0-alpha.5</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/1.2.0-alpha.5/README.html" target="_self">指南</a></li><li class=""><a href="/docs/1.2.0-alpha.5/apis/about/desc.html" target="_self">API</a></li><li class=""><a href="https://github.com/syberos-team/syberh" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="http://github.com/syberos-team/syberh/edit/master/docs/qt/multimedia/camera/capture.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">相机</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="概况"></a><a href="#概况" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>概况</h1>
+<p><span class="arg-name">camera</span> 模块管理设备的摄像头，可用于拍照、摄像操作。</p>
+<p>摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。</p>
+<h2><a class="anchor" aria-hidden="true" id="opencamera"></a><a href="#opencamera" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>openCamera</h2>
+<p>启动相机功能。可指定摄像头，默认显示主摄像头。</p>
+<p><strong>参数</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>QString</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>camera</td><td>long</td><td>是</td><td>指定摄像头，<code>1</code> ：主摄像头，<code>2</code>：辅摄像头</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs">void <span class="hljs-keyword">open</span><span class="hljs-constructor">Camera(QString <span class="hljs-params">callbackId</span>,<span class="hljs-params">long</span> <span class="hljs-params">camera</span>)</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="capturephoto"></a><a href="#capturephoto" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>capturePhoto</h2>
+<p>进行拍照功能，成功则返回图片文件路径</p>
+<p><strong>参数</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>QString</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>camera</td><td>long</td><td>是</td><td>指定摄像头，<code>1</code> ：主摄像头，<code>2</code>：辅摄像头</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs">void capture<span class="hljs-constructor">Photo(QString <span class="hljs-params">callbackId</span>,<span class="hljs-params">long</span> <span class="hljs-params">camera</span>)</span>;
+</code></pre>
+<p><strong>成功信号</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>responseID</td><td>long</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>result</td><td>QVariant</td><td>是</td><td>返回内容</td></tr>
+</tbody>
+</table>
+<p>result:</p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>path</td><td>QString</td><td>是</td><td>图片文件路径</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs"><span class="hljs-function">emit <span class="hljs-title">success</span><span class="hljs-params">(<span class="hljs-keyword">long</span> responseID, QVariant result)</span></span>;
+</code></pre>
+<pre><code class="hljs"><span class="hljs-selector-tag">result</span>:
+{
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">"/doc/image"</span>  
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="capturevideostart"></a><a href="#capturevideostart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>captureVideoStart</h2>
+<p>开始摄像功能</p>
+<p><strong>参数</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>QString</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>camera</td><td>long</td><td>是</td><td>指定摄像头，<code>1</code> ：主摄像头，<code>2</code>：辅摄像头</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs">void capture<span class="hljs-constructor">VideoStart(QString <span class="hljs-params">callbackId</span>, <span class="hljs-params">long</span> <span class="hljs-params">camera</span>)</span>;
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="capturevideoend"></a><a href="#capturevideoend" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>captureVideoEnd</h2>
+<p>结束摄像，成功则返回视频文件路径</p>
+<p><strong>参数</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>callbackId</td><td>QString</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>camera</td><td>long</td><td>是</td><td>指定摄像头，<code>1</code> ：主摄像头，<code>2</code>：辅摄像头</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs">void capture<span class="hljs-constructor">VideoEnd(QString <span class="hljs-params">callbackId</span>,<span class="hljs-params">long</span> <span class="hljs-params">camera</span>)</span>;
+</code></pre>
+<p><strong>成功信号</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>responseID</td><td>long</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>result</td><td>QString</td><td>是</td><td></td></tr>
+</tbody>
+</table>
+<p>result:</p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>path</td><td>QString</td><td>是</td><td>视频文件路径</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs"><span class="hljs-function">emit <span class="hljs-title">success</span><span class="hljs-params">(<span class="hljs-keyword">long</span> responseID, QVariant result)</span></span>;
+</code></pre>
+<pre><code class="hljs"><span class="hljs-selector-tag">result</span>:
+{
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">"/doc/video"</span>  
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="失败信号"></a><a href="#失败信号" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>失败信号</h2>
+<p><strong>参数</strong></p>
+<table>
+<thead>
+<tr><th>参数名</th><th>类型</th><th>是否必填</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>responseID</td><td>long</td><td>是</td><td>回调ID，用于标识每一次的调用</td></tr>
+<tr><td>code</td><td>long</td><td>是</td><td>错误码</td></tr>
+<tr><td>msg</td><td>QString</td><td>是</td><td>错误信息</td></tr>
+</tbody>
+</table>
+<p><strong>示例代码</strong></p>
+<pre><code class="hljs"><span class="hljs-function">emit <span class="hljs-title">failed</span><span class="hljs-params">(<span class="hljs-keyword">long</span> responseID, <span class="hljs-keyword">long</span> code, QString msg)</span></span>;
+</code></pre>
+<pre><code class="hljs">{
+    <span class="hljs-attribute">code</span>: <span class="hljs-number">500</span>,
+    msg: <span class="hljs-string">"系统错误"</span>
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#opencamera">openCamera</a></li><li><a href="#capturephoto">capturePhoto</a></li><li><a href="#capturevideostart">captureVideoStart</a></li><li><a href="#capturevideoend">captureVideoEnd</a></li><li><a href="#失败信号">失败信号</a></li></ul></nav></div><footer class="footer" id="footer"><div class="footer-container"><div class="footer-logo-container"><div class="footer-logo"></div></div><div class="footer-link-container"><div class="footer-link"><h3>相关资源</h3><p><a class="link" href="/docs/README.html">Syberh-开发文档</a></p></div><div class="footer-link"><h3>社区</h3><p><a target="_blank" href="https://github.com/syberos-team/syberh/issues">反馈建议</a></p><p><a target="_blank" href="https://github.com/syberos-team/syberh">GitHub</a></p></div><div class="footer-link"><h3>关于我们</h3><p><a target="_blank" href="http://www.syberos.com/">元心科技</a></p></div></div></div></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+                indexName: 'syberh',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
