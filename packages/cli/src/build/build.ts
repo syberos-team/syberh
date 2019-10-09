@@ -90,6 +90,7 @@ export default class Build {
    */
   public async buildSop() {
     log.verbose('Build buildSop()')
+    this.pdkRootPath = await helper.locateSdk()
     // 1、生成编译目录
     this.mkdirBuild()
     // 2、拷贝www路径到模板下

@@ -85,6 +85,7 @@ class Build {
     buildSop() {
         return __awaiter(this, void 0, void 0, function* () {
             log_1.log.verbose('Build buildSop()');
+            this.pdkRootPath = yield helper.locateSdk();
             // 1、生成编译目录
             this.mkdirBuild();
             // 2、拷贝www路径到模板下

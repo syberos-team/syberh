@@ -53,10 +53,10 @@ function build(appPath, config) {
         }
         const build = new build_1.default(appPath, newConfig);
         if (newConfig.onlyBuildSop === true) {
-            build.buildSop();
+            yield build.buildSop();
         }
         else {
-            build.start();
+            yield build.start();
         }
     });
 }
