@@ -684,6 +684,27 @@
       },
       "version-1.2.0-alpha.5/apis/vibrator/version-1.2.0-alpha.5-vibrateInfo": {
         "title": "vibrateInfo"
+      },
+      "version-1.2.0-alpha.9/apis/brightness/version-1.2.0-alpha.9-brightnessInfo": {
+        "title": "brightnessInfo"
+      },
+      "version-1.2.0-alpha.9/apis/brightness/version-1.2.0-alpha.9-setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "version-1.2.0-alpha.9/apis/brightness/version-1.2.0-alpha.9-setDimTimeout": {
+        "title": "setDimTimeout"
+      },
+      "version-1.2.0-alpha.9/apis/router/version-1.2.0-alpha.9-router": {
+        "title": "路由(router)"
+      },
+      "version-1.2.0-alpha.9/apis/vibrator/version-1.2.0-alpha.9-vibrate": {
+        "title": "vibrate"
+      },
+      "version-1.2.0-alpha.9/version-1.2.0-alpha.9-return_code": {
+        "title": "全局返回码"
+      },
+      "version-1.2.0-alpha.9/version-1.2.0-alpha.9-started-cli": {
+        "title": "安装 CLI"
       }
     },
     "links": {
