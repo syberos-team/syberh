@@ -1,12 +1,12 @@
 {
-  "name": "@syberos/template",
+  "name": "@syberos/syberos",
   "version": "1.2.0",
-  "description": "",
+  "description": "syberh native sdk",
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "DEV_LOG=verbose node jscript/build.js",
-    "publish": "DEV_LOG=verbose node jscript/build.js",
+    "build": "DEV_LOG=verbose node script/build.js",
+    "publish": "DEV_LOG=verbose node script/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
