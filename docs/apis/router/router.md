@@ -251,7 +251,7 @@ syberh.router.getCurrentPages({
 
 ## syberh.router.reLaunch(Object object)
 
-关闭所有页面，打开到应用内的某个页面
+关闭所有页面，打开到应用内的某个页面()
 
 ### 参数
 #### Object object
