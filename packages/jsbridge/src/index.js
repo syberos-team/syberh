@@ -1,5 +1,7 @@
 import mixin from './mixin';
 import allNative from './api/allnative';
+const pkgJSON = require('../package.json')
+
 
 const hybridJs = {};
 
@@ -7,6 +9,6 @@ mixin(hybridJs);
 
 allNative(hybridJs);
 
-hybridJs.Version = '1.2.1';
+hybridJs.version = `${pkgJSON.version}`;
 
 export default hybridJs;
