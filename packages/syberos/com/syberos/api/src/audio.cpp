@@ -71,12 +71,14 @@ void Audio::start(long callBackID,QVariantMap params){
 
     player->setMedia(QUrl::fromLocalFile(filePath));
     player->setVolume(50);
-    player->play();
 
     //有指定时间参数，从指定位置开始播放
     if(position != 0){
         player->setPosition(player->position() + (1000*position));
     }
+
+    player->play();
+
     emit success(callBackID, true);
 }
 
