@@ -1,5 +1,5 @@
 RESOURCES += \
-    $$PWD/com_syberos_api.qrc \
+    $$PWD/syberh_framework.qrc \
 
 HEADERS += \
     $$PWD/src/framework/nativesdkmanager.h \
