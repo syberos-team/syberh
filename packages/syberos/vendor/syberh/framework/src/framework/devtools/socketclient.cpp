@@ -4,6 +4,9 @@
 SocketClient *SocketClient::pSocket=NULL;
 SocketClient::SocketClient(const QString &url, const int &port)
 {
+    log=Log::instance();
+
+    connectCount=0;
     helper=Helper::instance();
     bool debug=ExtendedConfig::instance()->get("debug").toBool();
     purl=url;
@@ -36,6 +39,7 @@ SocketClient *SocketClient::getInstance(const QString &url, const int &port){
 
 SocketClient::~SocketClient(){
     socketClient->deleteLater();
+    delete log;
 }
 
 void SocketClient::create(const QString &url, const int &port){

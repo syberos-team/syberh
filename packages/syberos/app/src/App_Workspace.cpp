@@ -3,13 +3,26 @@
 #include <QDebug>
 #include <qqml.h>
 #include <QSplashScreen>
-#include "../com/syberos/api/src/helper.h"
-#include "../com/syberos/api/src/framework/nativesdkmanager.h"
-#include "../com/syberos/api/src/framework/common/extendedconfig.h"
-#include "../com/syberos/api/src/util/log.h"
-#include "../com/syberos/api/src/package.h"
-#include "../com/syberos/api/src/util/fileutil.h"
-#include "../com/syberos/api/src/framework/common/errorinfo.h"
+
+// debug编译时，导入syberh-framework，非debug编译时，导入vendor
+#ifdef QT_NO_DEBUG
+    #include "../../../../../syberh-framework/src/helper.h"
+    #include "../../../../../syberh-framework/src/framework/nativesdkmanager.h"
+    #include "../../../../../syberh-framework/src/framework/common/extendedconfig.h"
+    #include "../../../../../syberh-framework/src/util/log.h"
+    #include "../../../../../syberh-framework/src/package.h"
+    #include "../../../../../syberh-framework/src/util/fileutil.h"
+    #include "../../../../../syberh-framework/src/framework/common/errorinfo.h"
+#else
+    #include "../vendor/syberh/framework/src/helper.h"
+    #include "../vendor/syberh/framework/src/framework/nativesdkmanager.h"
+    #include "../vendor/syberh/framework/src/framework/common/extendedconfig.h"
+    #include "../vendor/syberh/framework/src/util/log.h"
+    #include "../vendor/syberh/framework/src/package.h"
+    #include "../vendor/syberh/framework/src/util/fileutil.h"
+    #include "../vendor/syberh/framework/src/framework/common/errorinfo.h"
+#endif
+
 
 App_Workspace::App_Workspace()
     : CWorkspace()
