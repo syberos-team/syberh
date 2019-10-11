@@ -132,44 +132,34 @@
           console.log('选择图片成功', JSON.stringify(res))
           // tempFilePath可以作为img标签的src属性显示图片
           var tempFilePaths = res.tempFilePaths
-          var doms = ''
           var parent = document.getElementById('uploaderFiles')
 
-          tempFilePaths.forEach(function(item) {
+          tempFilePaths.forEach(function(curPath) {
             var img = document.createElement('img')
             img.className = 'weui-uploader__file previewImg'
             img.style = "display: block"
-            img.src = item
-            img.onclick = previewImg(this)
+            img.src = curPath
+
+            img.onclick = function () {
+              syberh.image.previewImage({
+                urls: tempFilePaths,
+                current: curPath,
+                success: function () {
+                  console.log('image.previewImage success')
+                },
+                fail: function(error) {
+                  console.log('image.previewImage fail: ', error.code, error.msg)
+                }
+              })
+            }
+
             parent.appendChild(img)
           })
         }
       })
     }
 
-    function previewImg(e) {
-      var curPath = e.src
-      console.log('previewImg curPath', e.src)
-      
-      var imgDoms = document.getElementsByClassName('previewImg')
-      var urls = []
-      for (var i = 0; i<imgDoms.length; i++) {
-        urls.push(imgDoms[i].src)
-      }
-
-      console.log('urls---', urls)
-
-      syberh.image.previewImage({
-        urls: urls,
-        current: curPath,
-        success: function () {
-          console.log('image.previewImage success')
-        },
-        fail: function(error) {
-          console.log('image.previewImage fail: ', error.code, error.msg)
-        }
-      })
-    }
+    
   </script>
 </body>
 

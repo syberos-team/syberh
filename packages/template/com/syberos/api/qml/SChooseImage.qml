@@ -3,6 +3,11 @@ import com.syberos.basewidgets 2.0
 
 CListDialog{
     id: selectedDialog
+    // 在使用按键事件的组件元素中必须设置其focus为1.获取焦点。
+    focus: true
+
+    // 取消信号
+    signal cancel()
 
     // 选取图片成功信号
     signal receiveUrls(var urls)
@@ -28,6 +33,13 @@ CListDialog{
     // 监听点击某一项
     onDelegateItemTriggered: {
         toPage(index)
+    }
+
+    Keys.onReleased:{
+        if(event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
+            event.accepted = true // 设置成了事件已接收，防止向上层传递
+            cancel()
+        }
     }
 
     function toPage(idx) {
