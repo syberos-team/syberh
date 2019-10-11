@@ -1,6 +1,5 @@
 const pkg = require('./package.json');
 const Webpack = require('webpack');
-const fs = require('fs');
 const Path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -65,5 +64,8 @@ module.exports = {
         ),
       },
     ]),
+    new Webpack.DefinePlugin({
+      'JVERSION': JSON.stringify(pkg.version)
+    }),
   ],
 };
