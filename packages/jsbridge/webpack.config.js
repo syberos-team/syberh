@@ -61,7 +61,7 @@ module.exports = {
         from: Path.resolve(__dirname, './dist/syberh.min.js'),
         to: Path.join(
           Path.dirname(Path.resolve(__dirname)),
-          'template/app/www/lib/syberh.min.js',
+          'syberos/app/www/lib/syberh.min.js',
         ),
       },
     ]),

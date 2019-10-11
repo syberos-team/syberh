@@ -91,7 +91,7 @@ syberh.router.goBack({
 
 ## syberh.router.navigateTo(Object object)
 
-保留当前页面，跳转到应用内的某个页面。
+保留当前页面，跳转到应用内的某个页面。页面栈最多5层
 
 ### 参数
 #### Object object
