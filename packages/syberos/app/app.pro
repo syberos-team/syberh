@@ -1,5 +1,4 @@
 include(../syberos.pri)
-include (../com/syberos/api/com_syberos_api.pri)
 
 QT += gui qml quick widgets webkit network multimedia core sql dbus
 
@@ -45,3 +44,11 @@ DISTFILES += \
     res/app.png
 
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
+
+# debug include syberh-framework
+# release include vendor
+CONFIG(debug, debug|release){
+    include (../../../../syberh-framework/syberh_framework.pri)
+}else{
+    include (../vendor/vendor.pri)
+}

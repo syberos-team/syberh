@@ -206,23 +206,21 @@ function WebView (options) {
     logger.verbose('webviewdepth:[%d]', webviewdepth)
 
     try {
-//       that.trigger('failed', handlerId, 1004, '暂不支持的API')
-//        return;
-        //TODO 调用该模式会导致页面崩溃错误,暂停止该api
       var url = getUrl(param.url)
-        swebviews[0].object.openUrl(url);
-         swebviews[0].object.sloadingChanged.connect(function (loadRequest) {
-             if (loadRequest.status === 2) {
-               logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, loadRequest.url.toString())
-                 currentWebview.trigger('success', handlerId, true)
-                 that.navigateBack({ delta: webviewMaxDepth }, function (res, webview ,msg) {
-                     logger.verbose('reLaunch navigateBack()', res, msg)
-                     if(res){
-                        logger.verbose('pageStack.busy:[%s]', pageStack.busy)
-                     }
-                 })
-             }
-           })
+      swebviews[0].object.openUrl(url);
+      swebviews[0].object.sloadingChanged.connect(function (loadRequest) {
+        //加载完成后关闭上层界面，防止进程崩溃
+        if (loadRequest.status === 2) {
+          logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, loadRequest.url.toString())
+          currentWebview.trigger('success', handlerId, true)
+          that.navigateBack({ delta: webviewMaxDepth }, function (res, webview, msg) {
+            logger.verbose('reLaunch navigateBack()', res, msg)
+            if (res) {
+              logger.verbose('pageStack.busy:[%s]', pageStack.busy)
+            }
+          })
+        }
+      })
     } catch (error) {
       logger.error('reLaunch error', error.message)
       that.trigger('failed', handlerId, 9999, error.message)
@@ -238,11 +236,15 @@ function WebView (options) {
     var dwevview = null
     // 如果已经是最大栈,则使用底层栈
     if (webviewdepth + 1 > webviewMaxDepth) {
-      var idx = getUpperWebview()
-      logger.verbose('当前为最多栈数,使用历史栈:[%d]', idx)
-      dwevview = swebviews[idx]
-      webviewdepth += 1
-      SYBEROS.request(dwevview.module, handlerId, 'redirectTo', param)
+      //TODO: 为了防止层数过多卡死,暂不支持使用最新页面
+      // var idx = getUpperWebview()
+      // logger.verbose('当前为最多栈数,使用历史栈:[%d]', idx)
+      // dwevview = swebviews[idx]
+      // webviewdepth += 1
+      // SYBEROS.request(dwevview.module, handlerId, 'redirectTo', param)
+      var ret = "页面栈层数已到最大";
+      that.trigger('failed', handlerId, 9005, ret)
+      return;
     } else {
       var wpId = 'router_' + (swebviews.length + 1)
       logger.verbose('开始创建新的webview:[%s]', wpId)
@@ -260,10 +262,7 @@ function WebView (options) {
       // 设定webview的深度为2
       webviewdepth += 1
     }
-    that.trigger('success',
-      handlerId,
-      true
-    )
+    that.trigger('success', handlerId, true)
   })
 
   // 不关闭当前页面，跳转到某个页面
@@ -288,7 +287,7 @@ function WebView (options) {
    * 任务狗，用来处理队列中的消息
    */
   function dog (currentUrl) {
-    logger.verbose('dog()',typeof currentUrl)
+    logger.verbose('dog()', typeof currentUrl)
     var queue = this.messageQueue;
     logger.verbose('dog() 处理消息数:%d', queue.length)
     for (var i = 0; i < queue.length; i++) {
@@ -391,18 +390,18 @@ function WebView (options) {
       currentWebview = topVebview
       if (swebviews.length === 1) {
         logger.verbose('返回最顶层:[%d]', swebviews.length)
-         pageStack.pop(topVebview.object)
+        pageStack.pop(topVebview.object)
       } else {
         pageStack.pop(topVebview.object)
       }
       logger.verbose('topVebview:[%s],当前swebviews数量: [%d],栈的深度: [%d]', topVebview.id, swebviews.length, pageStack.depth)
       topVebview.trigger('show', WebviewStatusPop)
-      if (typeof callback === 'function') callback(true,topVebview,true)
+      if (typeof callback === 'function') callback(true, topVebview, true)
     } else {
       logger.verbose('navigateBack() 当前页面栈数为: [ %d ],不做处理', swebviews.length)
       var msg = '当前为首页,无法退回'
       logger.verbose('navigateBack() msg:%s', msg)
-       var topVebview = swebviews[swebviews.length - 1];
+      var topVebview = swebviews[swebviews.length - 1];
       if (typeof callback === 'function') callback(false, topVebview, msg)
     }
   }

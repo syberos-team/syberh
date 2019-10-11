@@ -71,10 +71,10 @@ public slots:
 
 
 private:
-    Log *log=Log::instance();
+    Log *log;
      QTimer *timer;
     //连接重试次数
-    int connectCount=0;
+    int connectCount;
     static SocketClient *pSocket;
     bool m_bServerConnected;
     DownloadManager *downloadManager;
