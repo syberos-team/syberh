@@ -8,7 +8,6 @@ function main () {
   // 定义拷贝的文件或者目录
   const files = [
     'app',
-    'com',
     'tests',
     'META-INF',
     'app.pro',
