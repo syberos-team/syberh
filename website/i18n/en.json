@@ -288,6 +288,9 @@
       "started-install": {
         "title": "安装SyberOS SDK"
       },
+      "started-spm": {
+        "title": "spm 工具"
+      },
       "version-1.1.0/apis/about/version-1.1.0-desc": {
         "title": "API 说明"
       },

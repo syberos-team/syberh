@@ -2,18 +2,43 @@
 
 原 com 目录下的代码现已抽离至 `git@github.com:syberos-team/syberh-framework.git`。
 
-现在 `syberh/packages/syberos` 目录下已没有 com 子目录，多了 vendor 目录，vendor 由 spm 工具产生。
+现在 `syberh/packages/syberos` 目录下已没有 com 子目录，多了 vendor 目录，vendor 目录下存放的是子模块，如 syberh-framework。
+
+vendor 目录已添加至 .gitignore。
 
 
-# 项目位置
+# 第一次 clone syberh
 
-将项目 syberh、syberh-framework 放置在同一级目录下。
+1. clone syberh 项目后，需要手动创建 vendor 目录（目录位置 `syberh/packages/syberos/vendor`）并在 vendor 目录下新建 vendor.pri 文件。
+
+2. clone syberh-framework 在 vendor 目录中，并在 vendor/vendor.pri 中添加 syberh-framework 项目。
+
+```
+INCLUDEPATH += $$PWD
+QML_IMPORT_PATH += $$PWD
+include($$PWD/syberh-framework/syberh_framework.pri)
+```
+
+## 目录结构
+
+```
+ + syberos
+ | + app
+ | + META-INF
+ | + script
+ | + tests
+ | + vendor
+   | + syberh-framework
+   | - vendor.pri
+ | - app.pro
+ | - syberos.pri
+ | - sopconfig.xml
+ ...
+```
 
 
 # 使用 syber IDE
 
-1. 选择 debug 模式启动项目，此时会将 syberh-framework 一同编译。
-
-2. 使用 release 模式模式启动项目，此时会将 syberh/vendor 下的模块。
+正常启动即可
 
 

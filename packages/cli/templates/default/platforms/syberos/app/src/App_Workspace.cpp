@@ -3,13 +3,15 @@
 #include <QDebug>
 #include <qqml.h>
 #include <QSplashScreen>
-#include "../com/syberos/api/src/helper.h"
-#include "../com/syberos/api/src/framework/nativesdkmanager.h"
-#include "../com/syberos/api/src/framework/common/extendedconfig.h"
-#include "../com/syberos/api/src/util/log.h"
-#include "../com/syberos/api/src/package.h"
-#include "../com/syberos/api/src/util/fileutil.h"
-#include "../com/syberos/api/src/framework/common/errorinfo.h"
+
+#include "../../vendor/syberh-framework/src/helper.h"
+#include "../../vendor/syberh-framework/src/framework/nativesdkmanager.h"
+#include "../../vendor/syberh-framework/src/framework/common/extendedconfig.h"
+#include "../../vendor/syberh-framework/src/util/log.h"
+#include "../../vendor/syberh-framework/src/package.h"
+#include "../../vendor/syberh-framework/src/util/fileutil.h"
+#include "../../vendor/syberh-framework/src/framework/common/errorinfo.h"
+
 
 App_Workspace::App_Workspace()
     : CWorkspace()

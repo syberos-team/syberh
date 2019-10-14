@@ -13,6 +13,7 @@
       "cli-readme",
       "app-config",
       "started-ide",
+      "started-spm",
       "return_code"
     ]
   },
