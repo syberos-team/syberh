@@ -10,7 +10,7 @@ Syberh 项目基于 node，请确保已具备较新的 node 环境（>=8.0.0,推
 
 安装 yarn
 
-```shell
+```bash
 npm install -g yarn
 ```
 
