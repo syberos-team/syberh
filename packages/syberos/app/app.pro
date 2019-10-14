@@ -45,10 +45,17 @@ DISTFILES += \
 
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
 
-# debug include syberh-framework
-# release include vendor
-CONFIG(debug, debug|release){
-    include (../../../../syberh-framework/syberh_framework.pri)
-}else{
-    include (../vendor/vendor.pri)
-}
+
+include (../vendor/vendor.pri)
+
+#vendor_path = ../vendor/vendor.pri
+#syberh_framework_path = ../../../../syberh-framework/syberh_framework.pri
+
+#exists($$vendor_path){
+#    message(Compiling with: $$vendor_path)
+#    include ($$vendor_path)
+#    DEFINES += USE_VENDOR
+#} else:exists($$syberh_framework_path){
+#    message(Compiling with: $$syberh_framework_path)
+#    include ($$syberh_framework_path)
+#}

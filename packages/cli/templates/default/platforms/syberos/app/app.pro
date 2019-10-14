@@ -1,5 +1,4 @@
 include(../syberos.pri)
-include (../com/syberos/api/com_syberos_api.pri)
 
 QT += gui qml quick widgets webkit network multimedia core sql dbus
 
@@ -45,3 +44,18 @@ DISTFILES += \
     res/app.png
 
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
+
+
+include (../vendor/vendor.pri)
+
+#vendor_path = ../vendor/vendor.pri
+#syberh_framework_path = ../../../../syberh-framework/syberh_framework.pri
+
+#exists($$vendor_path){
+#    message(Compiling with: $$vendor_path)
+#    include ($$vendor_path)
+#    DEFINES += USE_VENDOR
+#} else:exists($$syberh_framework_path){
+#    message(Compiling with: $$syberh_framework_path)
+#    include ($$syberh_framework_path)
+#}

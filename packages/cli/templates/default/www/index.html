@@ -168,7 +168,8 @@
   <script>
     var vConsole = new VConsole()
 
-    console.log("当前版本:", syberh.os.version)
+    console.log("当前os版本:", syberh.os.version)
+    console.log("当前syberh版本:", syberh.version)
     window.runApi = function (id) {
       syberh.router.navigateTo({
         url: id,
