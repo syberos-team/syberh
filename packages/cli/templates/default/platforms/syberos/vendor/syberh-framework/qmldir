@@ -1,0 +1,4 @@
+module com.syberos.api
+Syberh 1.0 js/syber.js
+SWebview 1.0 qml/SWebview.qml
+SPage 1.0 qml/SPage.qml

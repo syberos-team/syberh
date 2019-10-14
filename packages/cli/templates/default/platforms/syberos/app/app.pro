@@ -46,15 +46,16 @@ DISTFILES += \
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
 
 
-# if vendor_path exists include it, or include syberh_framework_path
-vendor_path = ../vendor/vendor.pri
-syberh_framework_path = ../../../../syberh-framework/syberh_framework.pri
+include (../vendor/vendor.pri)
 
-exists($$vendor_path){
-    message(Compiling with: $$vendor_path)
-    include ($$vendor_path)
-    DEFINES += USE_VENDOR
-} else:exists($$syberh_framework_path){
-    message(Compiling with: $$syberh_framework_path)
-    include ($$syberh_framework_path)
-}
+#vendor_path = ../vendor/vendor.pri
+#syberh_framework_path = ../../../../syberh-framework/syberh_framework.pri
+
+#exists($$vendor_path){
+#    message(Compiling with: $$vendor_path)
+#    include ($$vendor_path)
+#    DEFINES += USE_VENDOR
+#} else:exists($$syberh_framework_path){
+#    message(Compiling with: $$syberh_framework_path)
+#    include ($$syberh_framework_path)
+#}
