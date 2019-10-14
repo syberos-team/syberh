@@ -4,24 +4,13 @@
 #include <qqml.h>
 #include <QSplashScreen>
 
-// 若编译时使用vendor，则include vendor中的，否则include syberh-framework
-#ifdef USE_VENDOR
-    #include "../vendor/syberh/framework/src/helper.h"
-    #include "../vendor/syberh/framework/src/framework/nativesdkmanager.h"
-    #include "../vendor/syberh/framework/src/framework/common/extendedconfig.h"
-    #include "../vendor/syberh/framework/src/util/log.h"
-    #include "../vendor/syberh/framework/src/package.h"
-    #include "../vendor/syberh/framework/src/util/fileutil.h"
-    #include "../vendor/syberh/framework/src/framework/common/errorinfo.h"
-#else
-    #include "../../../../../syberh-framework/src/helper.h"
-    #include "../../../../../syberh-framework/src/framework/nativesdkmanager.h"
-    #include "../../../../../syberh-framework/src/framework/common/extendedconfig.h"
-    #include "../../../../../syberh-framework/src/util/log.h"
-    #include "../../../../../syberh-framework/src/package.h"
-    #include "../../../../../syberh-framework/src/util/fileutil.h"
-    #include "../../../../../syberh-framework/src/framework/common/errorinfo.h"
-#endif
+#include "../../vendor/syberh-framework/src/helper.h"
+#include "../../vendor/syberh-framework/src/framework/nativesdkmanager.h"
+#include "../../vendor/syberh-framework/src/framework/common/extendedconfig.h"
+#include "../../vendor/syberh-framework/src/util/log.h"
+#include "../../vendor/syberh-framework/src/package.h"
+#include "../../vendor/syberh-framework/src/util/fileutil.h"
+#include "../../vendor/syberh-framework/src/framework/common/errorinfo.h"
 
 
 App_Workspace::App_Workspace()
