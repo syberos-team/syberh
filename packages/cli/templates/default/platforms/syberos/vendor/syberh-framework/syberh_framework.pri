@@ -7,7 +7,6 @@ HEADERS += \
     $$PWD/src/framework/common/networkstatus.h \
     $$PWD/src/framework/common/errorinfo.h \
     $$PWD/src/framework/common/extendedconfig.h \
-    $$PWD/src/download.h \
     $$PWD/src/helper.h \
     $$PWD/src/httpclient.h \
     $$PWD/src/loadqmlwidget.h \
@@ -23,7 +22,6 @@ HEADERS += \
     $$PWD/src/framework/devtools/devtools.h \
     $$PWD/src/framework/devtools/socketclient.h \
     $$PWD/src/util/chalk.h \
-    $$PWD/src/util/downloadmanager.h \
     $$PWD/src/util/fileutil.h \
     $$PWD/src/cellular.h \
     $$PWD/src/framework/nativesdkfactory.h \
@@ -32,13 +30,12 @@ HEADERS += \
     $$PWD/src/package.h \
     $$PWD/src/historydata.h \
     $$PWD/src/record.h \
-    $$PWD/src/util/uploadmanager.h \
-    $$PWD/src/upload.h \
     $$PWD/src/audio.h \
     $$PWD/src/util/log.h \
     $$PWD/src/image.h \
     $$PWD/src/brightness.h \
-    $$PWD/src/vibrator.h
+    $$PWD/src/vibrator.h \
+    $$PWD/src/framework/devtools/devdownload.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -47,7 +44,6 @@ SOURCES += \
     $$PWD/src/framework/common/networkstatus.cpp \
     $$PWD/src/framework/common/errorinfo.cpp \
     $$PWD/src/framework/common/extendedconfig.cpp \
-    $$PWD/src/download.cpp \
     $$PWD/src/helper.cpp \
     $$PWD/src/httpclient.cpp \
     $$PWD/src/loadqmlwidget.cpp \
@@ -62,7 +58,6 @@ SOURCES += \
     $$PWD/src/framework/devtools/socketclient.cpp \
     $$PWD/src/battery.cpp \
     $$PWD/src/networkInfo.cpp \
-    $$PWD/src/util/downloadmanager.cpp \
     $$PWD/src/util/fileutil.cpp \
     $$PWD/src/cellular.cpp \
     $$PWD/src/filemanager.cpp \
@@ -70,10 +65,9 @@ SOURCES += \
     $$PWD/src/package.cpp \
     $$PWD/src/historydata.cpp \
     $$PWD/src/record.cpp \
-    $$PWD/src/util/uploadmanager.cpp \
-    $$PWD/src/upload.cpp \
     $$PWD/src/audio.cpp \
     $$PWD/src/util/log.cpp \
     $$PWD/src/image.cpp \
     $$PWD/src/brightness.cpp \
-    $$PWD/src/vibrator.cpp
+    $$PWD/src/vibrator.cpp \
+    $$PWD/src/framework/devtools/devdownload.cpp

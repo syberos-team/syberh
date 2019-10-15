@@ -80,6 +80,7 @@
         <file>res/back.png</file>
         <file>js/modal/gtoast.js</file>
         <file>qml/BSelectTool.qml</file>
+         <file>qml/SNavigationBar.qml</file>
         <file>qml/qmldir</file>
     </qresource>
 </RCC>

@@ -1,6 +1,9 @@
 #include "socketclient.h"
 #include "../../util/fileutil.h"
 #include "../../util/log.h"
+
+static QMap<QString,DevDownload*> downloadTasks;
+
 SocketClient *SocketClient::pSocket=NULL;
 SocketClient::SocketClient(const QString &url, const int &port)
 {
@@ -109,8 +112,11 @@ void SocketClient::data(){
     FileUtil::remove(tempPath+"/www",1);
     for (int npcIndex = 0; npcIndex < fileArray.size(); ++npcIndex) {
         QString filePath = fileArray[npcIndex].toString();
-        DownloadManager *downloadManager =new DownloadManager(this);
+
+        DevDownload *downloadManager =new DevDownload(this);
         downloadManager->setDownloadId(uid);
+        downloadTasks.insert(uid, downloadManager);
+
         QString url=serverHost+"?path="+filePath;
         int lst=webroot.lastIndexOf("/www");
         QString rpath=webroot.mid(0,lst);
@@ -121,22 +127,28 @@ void SocketClient::data(){
              log->verbose()<<Q_FUNC_INFO <<"删除历史文件" <<endl;
             toFile.remove();
         }
+
         downloadManager->downloadFile(url,downloadPath );
-        connect(downloadManager, &DownloadManager::signalReplyFinished, this, &SocketClient::onReplyFinished);
+        connect(downloadManager, &DevDownload::signalReplyFinished, this, &SocketClient::onReplyFinished);
     }
 
 }
 
 
 void SocketClient::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
-    Q_UNUSED(downloadId);
     Q_UNUSED(path);
     Q_UNUSED(statusCode);
     Q_UNUSED(errorMessage);
-    log->red() <<Q_FUNC_INFO << downloadId <<log->end();
+    log->red() << Q_FUNC_INFO << downloadId << log->end();
     downloadTotal+=1;
     if(total==downloadTotal){
         updateWebRoot();
+    }
+    if(downloadTasks.contains(downloadId)){
+        DevDownload *task = downloadTasks.value(downloadId);
+        task->deleteLater();
+        task = NULL;
+        downloadTasks.remove(downloadId);
     }
 }
 

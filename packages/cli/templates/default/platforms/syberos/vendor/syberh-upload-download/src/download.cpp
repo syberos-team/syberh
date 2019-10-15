@@ -1,5 +1,5 @@
 #include "download.h"
-#include "helper.h"
+#include "../../syberh-framework/src/helper.h"
 
 #include <QNetworkAccessManager>
 #include <QJsonObject>
@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QFile>
-#include "framework/common/errorinfo.h"
+#include "../../syberh-framework/src/framework/common/errorinfo.h"
 
 //key 既是downloadID也是callbackId
 static QMap<QString, TaskInfo*> tasks;
