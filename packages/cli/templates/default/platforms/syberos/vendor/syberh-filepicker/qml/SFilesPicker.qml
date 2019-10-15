@@ -1,7 +1,7 @@
 /*
 * This file is part of syberh
 *
-* Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
+* Copyright (C) 2019 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
 *
 * Authors:
 *       Xue Jun <zhanghuanlin@syberos.com>

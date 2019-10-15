@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/syberh_filepicker">
+        <file>qmldir</file>
+        <file>qml/SFilesPicker.qml</file>
+        <file>qml/SFilesPickerView.qml</file>
+        <file>qml/SDelegateComponent.qml</file>
+        <file>js/util/tool.js</file>
+    </qresource>
+</RCC>

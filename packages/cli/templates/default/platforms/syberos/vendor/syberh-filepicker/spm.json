@@ -1,0 +1,15 @@
+{
+	"name": "syberh-filepicker",
+	"description": "syberos文件选择插件",
+	"version": "1.0.0",
+	"author": {
+		"name": "xue jun",
+		"email": "xuejun@syberos.com",
+		"description": ""
+	},
+	"dependencies": [],
+	"repository": {
+		"url": "https://github.com/syberos-team/syberh-filepicker"
+	},
+	"priFilename": "syberh_filepicker.pri"
+}
