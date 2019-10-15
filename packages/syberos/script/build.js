@@ -3,18 +3,19 @@ const fs = require('fs-extra');
 const path = require('path');
 const pkgJSON = require('../package.json');
 const log = require('./log').default;
+const shelljs = require('shelljs');
 
 function main () {
-  // 定义拷贝的文件或者目录
+  // 定义拷贝的文件或者目录 { name: 'vendor', excludes: ['.git'] }
   const files = [
     { name: 'app' },
-    { name: 'vendor', excludes: ['.git'] },
     { name: 'tests' },
     { name: 'META-INF' },
     { name: 'app.pro' },
     { name: 'sopconfig.xml' },
     { name: 'syberos.pri' },
-    { name: 'VERSION' }
+    { name: 'VERSION' },
+    { name: 'spm.json' }
   ];
   // 获取根目录
   const tempPath = path.resolve('.');
@@ -36,6 +37,9 @@ function main () {
   log.verbose('cli defaulWWW:', defaulWWW);
   fs.moveSync(wwwPath, defaulWWW, { overwrite: true });
   log.verbose('cli www move 完成');
+
+  spmInstall(copyTo);
+
   log.info('template发布完成');
 }
 
@@ -67,6 +71,14 @@ function copy (from, to, excludes) {
       }
     });
   }
+}
+
+// 使用spm安装依赖
+function spmInstall (platformsSyberosDir) {
+  process.chdir(platformsSyberosDir);
+  const spmInstallCmd = 'spm install';
+  log.verbose('执行：%s', spmInstallCmd);
+  shelljs.exec(spmInstallCmd);
 }
 
 main();

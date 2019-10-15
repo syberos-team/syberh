@@ -1,0 +1,15 @@
+{
+	"name": "syberh-upload-download",
+	"description": "syberh module: upload and download",
+	"version": "1.0.0",
+	"author": {
+		"name": "abeir",
+		"email": "liujingpeng@syberos.com",
+		"description": ""
+	},
+	"dependencies": [],
+	"repository": {
+		"url": "git@github.com:syberos-team/syberh-upload-download.git"
+	},
+	"priFilename": "syberh_upload_download.pri"
+}
