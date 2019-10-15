@@ -134,6 +134,10 @@ Rectangle {
                 filesPicker.dirPath = filesPicker.getDirPath();
             }
         }
+
+        Component.onCompleted: {
+            toptitle.rightItem.enabled = false;
+        }
     }
 
     CIconLabel {

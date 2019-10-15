@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QHttpMultiPart>
 #include <QDebug>
-#include "../framework/common/errorinfo.h"
+#include "../../../syberh-framework/src/framework/common/errorinfo.h"
 
 UploadManager::UploadManager()
 {

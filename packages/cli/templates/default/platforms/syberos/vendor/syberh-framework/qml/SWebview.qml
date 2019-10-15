@@ -6,7 +6,6 @@ import com.syberos.filemanager.filepicker 1.0
 import org.nemomobile.voicecall 1.0
 import com.syberos.basewidgets 1.0
 import com.syberos.basewidgets 2.0
-
 import "../js/util/log.js" as LOG
 import "./"
 import "./CMenu"
@@ -23,9 +22,15 @@ CPage{
     //接受消息信号
     signal receiveMessage(var message)
     property string surl:""
+    //页面标题
+    property string title: ""
 
+    function setTitle(title){
+        //设置navigatorBar title
+        LOG.logger.verbose('-----------------set title',title);
+    }
     function clearHistory(){
-     //TODO 暂无找到实现方式
+        //TODO 暂无找到实现方式
     }
     //是否能回退
     function canGoBack(){
@@ -34,7 +39,7 @@ CPage{
     //删除所有cookies
     function deleteAllCookies()
     {
-       swebview.experimental.deleteAllCookies()
+        swebview.experimental.deleteAllCookies()
     }
 
     function canGoForward(){
@@ -43,7 +48,7 @@ CPage{
     //Go backward within the browser's session history, if possible. (Equivalent to the window.history.back() DOM method.)
     function goBack(){
         swebview.goBack();
-         swebview.forceActiveFocus()
+        swebview.forceActiveFocus()
     }
     //Go forward within the browser's session history, if possible. (Equivalent to the window.history.forward() DOM method.)
     function goForward(){
@@ -109,14 +114,25 @@ CPage{
     contentAreaItem:Rectangle{
         id:root
         anchors.fill:parent
-
+        SNavigationBar{
+            id:navigationBar
+        }
         WebView {
             id: swebview
             focus: true
             signal downLoadConfirmRequest
             property url curHoverUrl: ""
-            anchors.fill:parent
+            anchors {
+                top: navigationBar.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
             url:surl
+            onTitleChanged: {
+                console.log('----title');
+            }
+
             experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+";"
             experimental.minimumScale: false
             experimental.preferredMinimumContentsWidth: Screen.width
@@ -279,9 +295,9 @@ CPage{
             }
 
             onLoadingChanged:{
-             LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
+                LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
                 if (!loading && loadRequest.status === WebView.LoadFailedStatus){
-                     LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
+                    LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
                     //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
                     //swebview.reload();
                 }
@@ -315,11 +331,11 @@ CPage{
                 //        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
             }
 
-//            onSelectChange: {
-//                    //console.log("webview.onSelectChange====--------------------------",rect)
-//                    textPrssMenu.visible = false;
-//                   BSelectTool.setCursor(swebview,show,rect);
-//             }
+            //            onSelectChange: {
+            //                    //console.log("webview.onSelectChange====--------------------------",rect)
+            //                    textPrssMenu.visible = false;
+            //                   BSelectTool.setCursor(swebview,show,rect);
+            //             }
             Component.onCompleted: {
                 LOG.logger.verbose("SWebview Component.onCompleted")
                 swebview.SetJavaScriptCanOpenWindowsAutomatically(false)

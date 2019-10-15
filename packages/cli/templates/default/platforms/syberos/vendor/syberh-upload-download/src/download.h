@@ -1,7 +1,7 @@
 #ifndef DOWNLOADFILE_H
 #define DOWNLOADFILE_H
 
-#include "framework/nativesdkhandlerbase.h"
+#include "../../syberh-framework/src/framework/nativesdkhandlerbase.h"
 #include <QtNetwork>
 #include <QObject>
 #include "./util/downloadmanager.h"

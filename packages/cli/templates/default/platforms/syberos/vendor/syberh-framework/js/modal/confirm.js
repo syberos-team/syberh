@@ -52,7 +52,7 @@ function Confirm () {
         that.clearParam()
     })
 
-    // 确认事件
+    // 取消事件
     component.rejected.connect(function() {
         // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
         that.success(that.handlerId, false);

@@ -26,7 +26,7 @@
 #include <QFileInfo>
 #include <QTimer>
 #include "../../helper.h"
-#include "../../util/downloadmanager.h"
+#include "devdownload.h"
 #include "../../util/log.h"
 
 
@@ -77,7 +77,6 @@ private:
     int connectCount;
     static SocketClient *pSocket;
     bool m_bServerConnected;
-    DownloadManager *downloadManager;
     Helper *helper;
     /**
      * @brief hotUpdate 热更新实现
