@@ -23,9 +23,9 @@
                   <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://172.16.70.103:8000/upload">
               </div>
               <div class="mui-input-row">
-                  <label onclick="selectFile()">文件(点我)</label>
-                  <input type="text" class="mui-input-clear" id="file-src">
+                  <input type="text" readonly value="点我选择文件" onclick="selectFile()" />
               </div>
+              <textarea name="" id="file-src" cols="20" rows="5"></textarea>
               <div class="mui-button-row">
                   <button type="button" class="mui-btn mui-btn-primary" onclick="start()">上传</button>
               </div>
@@ -74,30 +74,30 @@
 
     function start() {
       
-      // var first = true;
       syberh.upload.start({
         'url': document.getElementById("req-url").value,
         'filePath': document.getElementById("file-src").value,
 
         success: function (result) {
-          console.log("----~~~~~~~~~!!!!result!!!----" + JSON.stringify(result));
+          console.log("syberh.upload.start result----" + JSON.stringify(result));
 
           document.getElementById("texta-result").value = document.getElementById("texta-result").value + "\n" + JSON.stringify(result);
 
           if (result.status == 1) {
             var html = ' \
           <ul class="mui-table-view">\
-            <li class="mui-table-view-cell">downloadID:<span id="{{downloadID}}">{{rdownloadID}}</span><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel({{canDownId}})">cancel(取消下载)</button></li>\
+            <li class="mui-table-view-cell">uploadID:<span id="{{uploadID}}">{{ruploadID}}</span>\
+              <button type="button" id="{{btnId}}" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel({{canDownId}})">cancel(取消上传)</button></li>\
           </ul>\
           <div id="progress-{{progressbarId}}" class="mui-progressbar">\
             <span></span>\
           </div>\
         '
-            html = html.replace('{{downloadID}}', result.uploadID)
+            html = html.replace('{{uploadID}}', result.uploadID)
             html = html.replace('{{progressbarId}}', result.uploadID)
-            html = html.replace('{{rdownloadID}}', result.uploadID)
+            html = html.replace('{{ruploadID}}', result.uploadID)
             html = html.replace('{{canDownId}}', result.uploadID)
-            
+            html = html.replace('{{btnId}}', 'button_' + result.uploadID)
 
             const div = document.createElement('div')
             div.innerHTML = html
@@ -105,6 +105,9 @@
             mui("#progress-" + result.uploadID).progressbar().setProgress(0);
           } else {
             mui("#progress-" + result.uploadID).progressbar().setProgress(Math.round((result.received / result.total) * 100));
+            if (result.received / result.total === 1) {
+              document.getElementById('button_' + result.uploadID).style.display = 'none'
+            }
           }
         },
         fail: function (error) {

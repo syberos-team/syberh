@@ -17,13 +17,13 @@ FileUtil::FileUtil()
 }
 RespResult FileUtil::move(QString srcPath, QString destPath)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath << " destPath: " + destPath;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << " destPath: " << destPath;
 
     RespResult respResult;
     // 判断目标文件是否存在
     QFileInfo destInfo(destPath);
     if (!destInfo.exists()) {
-        qDebug() << Q_FUNC_INFO << "判断目标文件是否存在: " + destInfo.exists();
+        qDebug() << Q_FUNC_INFO << "判断目标文件是否存在: " << destInfo.exists();
         respResult.code = ErrorInfo::FileNotExists;
         respResult.flag = false;
         respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, destPath);
@@ -31,7 +31,7 @@ RespResult FileUtil::move(QString srcPath, QString destPath)
     }
     // 判断目标文件是否是文件夹
     if (!destInfo.isDir()) {
-        qDebug() << Q_FUNC_INFO << "判断目标文件是否是文件夹: " + destInfo.isDir();
+        qDebug() << Q_FUNC_INFO << "判断目标文件是否是文件夹: " << destInfo.isDir();
         respResult.flag = false;
         respResult.code = ErrorInfo::IllegalFileType;
         respResult.msg = ErrorInfo::message(ErrorInfo::IllegalFileType, destPath);
@@ -39,7 +39,7 @@ RespResult FileUtil::move(QString srcPath, QString destPath)
     }
     // 判断目标文件是否有写权限
     if (!destInfo.isWritable()) {
-        qDebug() << Q_FUNC_INFO << "判断目标文件是否有写权限: " + destInfo.isWritable();
+        qDebug() << Q_FUNC_INFO << "判断目标文件是否有写权限: " << destInfo.isWritable();
         respResult.flag = false;
         respResult.code = ErrorInfo::InvalidFilePermission;
         respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, destPath);
@@ -60,13 +60,14 @@ RespResult FileUtil::move(QString srcPath, QString destPath)
     }
 
     QProcess proc;// = new QProcess();
-    QString cmd="mv -f " + srcPath + " " + destPath;
+    QString cmd="mv -f \"" + srcPath + "\" \"" + destPath + "\"";
+    qDebug() << Q_FUNC_INFO << "执行命令: "  << cmd;
     proc.start(cmd);
     proc.waitForFinished();
 
     QString errTmp = proc.readAllStandardError();
 
-    qDebug() << Q_FUNC_INFO << "errTmp: " + errTmp;
+    qDebug() << Q_FUNC_INFO << "errTmp: "  << errTmp;
 
     if (errTmp == "") {
         respResult.flag = true;
@@ -83,7 +84,7 @@ RespResult FileUtil::move(QString srcPath, QString destPath)
 
 bool FileUtil::chmodr(QString path)
 {
-    qDebug() << Q_FUNC_INFO << "path: " + path;
+    qDebug() << Q_FUNC_INFO << "path: " << path;
 
     if (path.isEmpty()){
         return false;
@@ -111,13 +112,13 @@ bool FileUtil::chmodr(QString path)
 
 RespResult FileUtil::copy(QString srcPath, QString destPath)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath << " destPath: " + destPath;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << " destPath: " << destPath;
 
     RespResult respResult;
     // 判断目标文件是否存在
     QFileInfo destInfo(destPath);
     if (!destInfo.exists()) {
-        qDebug() << Q_FUNC_INFO << "判断目标文件是否存在: " + destInfo.exists();
+        qDebug() << Q_FUNC_INFO << "判断目标文件是否存在: " << destInfo.exists();
 
         respResult.code = ErrorInfo::FileNotExists;
         respResult.flag = false;
@@ -126,7 +127,7 @@ RespResult FileUtil::copy(QString srcPath, QString destPath)
     }
     // 判断目标文件是否是文件夹
     if (!destInfo.isDir()) {
-        qDebug() << Q_FUNC_INFO << "判断目标文件是否是文件夹: " + destInfo.isDir();
+        qDebug() << Q_FUNC_INFO << "判断目标文件是否是文件夹: " << destInfo.isDir();
 
         respResult.flag = false;
         respResult.code = ErrorInfo::IllegalFileType;
@@ -135,7 +136,7 @@ RespResult FileUtil::copy(QString srcPath, QString destPath)
     }
     // 判断目标文件是否有写权限
     if (!destInfo.isWritable()) {
-        qDebug() << Q_FUNC_INFO << "判断目标文件是否有写权限: " + destInfo.isWritable();
+        qDebug() << Q_FUNC_INFO << "判断目标文件是否有写权限: " << destInfo.isWritable();
 
         respResult.flag = false;
         respResult.code = ErrorInfo::InvalidFilePermission;
@@ -157,8 +158,11 @@ RespResult FileUtil::copy(QString srcPath, QString destPath)
     }
 
     QProcess proc;// = new QProcess();
-    qDebug() << Q_FUNC_INFO << "拷贝命令: " << "cp -rf \"" + srcPath + "\" \"" + destPath+"\"";
-    proc.start("cp -rf \"" + srcPath + "\" \"" + destPath+"\"");
+    QString cmd = "cp -rf \"" + srcPath + "\" \"" + destPath + "\"";
+
+    qDebug() << Q_FUNC_INFO << "拷贝命令: " << cmd;
+
+    proc.start(cmd);
     proc.waitForFinished();
 
     QString errTmp = proc.readAllStandardError();
@@ -208,7 +212,7 @@ FileUtil::FileType FileUtil::fileType(QString srcPath)
 
 RespResult FileUtil::remove(QString srcPath, int recursive)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath << " recursive: " + recursive;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << " recursive: " << recursive;
 
     RespResult respResult;
 
@@ -228,17 +232,18 @@ RespResult FileUtil::remove(QString srcPath, int recursive)
     }
 
     QProcess proc;// = new QProcess();
+    QString cmd = "rm -rf \"" + srcPath + "\"";
     if (recursive == 0) {
-        proc.start("rm -f " + srcPath);
-    } else {
-        proc.start("rm -rf " + srcPath);
+        cmd = "rm -f \"" + srcPath + "\"";
     }
+    qDebug() << Q_FUNC_INFO << "执行命令: " << cmd;
+    proc.start(cmd);
 
     proc.waitForFinished();
 
     QString errTmp = proc.readAllStandardError();
 
-    qDebug() << Q_FUNC_INFO << "errTmp" + errTmp;
+    qDebug() << Q_FUNC_INFO << "errTmp" << errTmp;
 
     if (errTmp == "") {
         respResult.flag = true;
@@ -254,7 +259,7 @@ RespResult FileUtil::remove(QString srcPath, int recursive)
 }
 FileInfo FileUtil::getInfo(QString srcPath)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
     FileInfo file;
     if (!exists(srcPath)) {
@@ -271,7 +276,7 @@ FileInfo FileUtil::getInfo(QString srcPath)
 
 qint64 FileUtil::getInfoSize(QString srcPath)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
     FileInfo file;
     if (!exists(srcPath)) {
@@ -286,20 +291,20 @@ qint64 FileUtil::getInfoSize(QString srcPath)
 
 bool FileUtil::exists(QString srcPath)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
 }
 RespResult FileUtil::rename(QString srcPath, QString newName)
 {
-    qDebug() << Q_FUNC_INFO << "srcPath: " + srcPath << "newName: " + newName;
+    qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << "newName: " << newName;
 
     RespResult respResult;
 
     QFileInfo srcInfo(srcPath);
     if (!srcInfo.exists()) {
-        qDebug() << Q_FUNC_INFO << "srcInfo.exists: " + srcInfo.exists();
+        qDebug() << Q_FUNC_INFO << "srcInfo.exists: " << srcInfo.exists();
 
         respResult.code = ErrorInfo::FileNotExists;
         respResult.flag = false;
@@ -308,7 +313,7 @@ RespResult FileUtil::rename(QString srcPath, QString newName)
     }
     // 判断文件读写权限
     if (!srcInfo.isReadable() || !srcInfo.isWritable()) {
-        qDebug() << Q_FUNC_INFO << "判断文件读写权限: " + srcInfo.isReadable() << "  " + srcInfo.isWritable();
+        qDebug() << Q_FUNC_INFO << "判断文件读写权限: " << srcInfo.isReadable() << srcInfo.isWritable();
 
         respResult.flag = false;
         respResult.code = ErrorInfo::InvalidFilePermission;
@@ -319,7 +324,7 @@ RespResult FileUtil::rename(QString srcPath, QString newName)
 
     respResult.flag = srcFile.rename(newName);
 
-    qDebug() << Q_FUNC_INFO << "respResult.flag: " + respResult.flag;
+    qDebug() << Q_FUNC_INFO << "respResult.flag: " << respResult.flag;
 
     return respResult;
 }

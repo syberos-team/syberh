@@ -14,7 +14,6 @@
         <file>js/util/tool.js</file>
         <file>js/webview/webview.js</file>
         <file>js/config.js</file>
-        <file>js/readme.md</file>
         <file>js/syber.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/CMenu/pics/menuBg.png</file>
@@ -85,5 +84,7 @@
         <file>syberh_framework.pri</file>
         <file>syberh_framework.qrc</file>
         <file>qml/filesPicker.qml</file>
+        <file>res/navClose.png</file>
+        <file>res/navBack.png</file>
     </qresource>
 </RCC>
