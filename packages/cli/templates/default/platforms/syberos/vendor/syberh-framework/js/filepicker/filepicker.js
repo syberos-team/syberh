@@ -9,7 +9,7 @@ function FilePicker () {
     module: 'filepicker',
     page: true,
     methods: ['open'],
-    source: '../qml/SFilesPicker.qml'
+    source: '../qml/filesPicker.qml'
   }
   SyberPlugin.call(this, defaultOpts)
 
