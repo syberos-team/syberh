@@ -23,6 +23,7 @@ wget -O spm https://spm.syberos.com/download?version=latest && sudo install -m 7
 spm 功能使用子命令方式提供调用，示例如下
 
 ```bash
+# 查询仓库中包含syberh的包
 spm search syberh
 ```
 
@@ -76,6 +77,8 @@ spm publish
 ### upgrade
 
 更新 spm
+
+注意：可能需要使用root权限
 
 ```bash
 spm upgrade
