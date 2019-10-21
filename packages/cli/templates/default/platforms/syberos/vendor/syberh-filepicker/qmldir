@@ -1,0 +1,4 @@
+module syberh_filepicker
+SFilesPicker 1.0 qml/SFilesPicker.qml
+SFilesPickerView 1.0 qml/SFilesPickerView.qml
+SDelegateComponent 1.0 qml/SDelegateComponent.qml

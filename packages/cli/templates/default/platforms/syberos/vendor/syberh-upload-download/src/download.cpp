@@ -1,5 +1,5 @@
 #include "download.h"
-#include "helper.h"
+#include "../../syberh-framework/src/helper.h"
 
 #include <QNetworkAccessManager>
 #include <QJsonObject>
@@ -7,7 +7,8 @@
 #include <QObject>
 #include <QDebug>
 #include <QFile>
-#include "framework/common/errorinfo.h"
+#include "../../syberh-framework/src/framework/common/errorinfo.h"
+#include "../../syberh-framework/src/util/validator.h"
 
 //key 既是downloadID也是callbackId
 static QMap<QString, TaskInfo*> tasks;
@@ -92,6 +93,13 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
         name = callbackId;
     }
     qDebug() << Q_FUNC_INFO << "url:" << url << "name:" << name << endl;
+
+    //检查url
+    if(!Validator::isHttpUrl(url)){
+        qDebug() << "url parameter is not starts with http or https: " << url << endl;
+        emit failed(callbackId.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "URL无效"));
+        return;
+    }
 
     DownloadManager *downloadManager = new DownloadManager(this);
     //设置下载ID

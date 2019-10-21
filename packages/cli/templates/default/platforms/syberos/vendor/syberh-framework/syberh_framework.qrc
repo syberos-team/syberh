@@ -14,7 +14,6 @@
         <file>js/util/tool.js</file>
         <file>js/webview/webview.js</file>
         <file>js/config.js</file>
-        <file>js/readme.md</file>
         <file>js/syber.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/CMenu/pics/menuBg.png</file>
@@ -41,10 +40,7 @@
         <file>qml/SCheckViewModel.qml</file>
         <file>qml/SCollisionIndicator.qml</file>
         <file>qml/SConfirm.qml</file>
-        <file>qml/SDelegateComponent.qml</file>
         <file>qml/SEditTitleBar.qml</file>
-        <file>qml/SFilesPicker.qml</file>
-        <file>qml/SFilesPickerView.qml</file>
         <file>qml/SInputDialog.qml</file>
         <file>qml/status.js</file>
         <file>qml/SToast.qml</file>
@@ -80,6 +76,15 @@
         <file>res/back.png</file>
         <file>js/modal/gtoast.js</file>
         <file>qml/BSelectTool.qml</file>
+        <file>qml/SNavigationBar.qml</file>
         <file>qml/qmldir</file>
+        <file>qml/AuthenticationDialog.qml</file>
+        <file>qml/ColorChooser.qml</file>
+        <file>qml/ScrollIndicator.qml</file>
+        <file>syberh_framework.pri</file>
+        <file>syberh_framework.qrc</file>
+        <file>qml/filesPicker.qml</file>
+        <file>res/navClose.png</file>
+        <file>res/navBack.png</file>
     </qresource>
 </RCC>

@@ -6,6 +6,7 @@ import com.syberos.filemanager.filepicker 1.0
 import org.nemomobile.voicecall 1.0
 import com.syberos.basewidgets 1.0
 import com.syberos.basewidgets 2.0
+import syberh_filepicker 1.0
 
 import "../js/util/log.js" as LOG
 import "./"
@@ -13,6 +14,7 @@ import "./CMenu"
 
 
 CPage{
+    id: webView
     //加载进度信号
     signal sloadProgress(var loadProgress)
 
@@ -22,28 +24,56 @@ CPage{
     signal keyOnReleased(var event)
     //接受消息信号
     signal receiveMessage(var message)
+    //导航栏关闭信号
+    signal navigationBarClose()
+
     property string surl:""
 
+    //页面标题
+    property string title: ""
+
+    // 导航栏标题
+    property string navigationBarTitle: ""
+
+    // 展示navigatorBar
+    function showNavigatorBar(title){
+       sNavigationBar.show(title);
+    }
+
+    // 设置NavigationBar Title
+    function setNavigationBarTitle(title){
+        //设置navigatorBar title
+        LOG.logger.verbose('-----------------set title',title);
+        sNavigationBar.show(title);
+    }
+
+    // 获取导航栏是否可用
+    function getNavigationBarStatus() {
+        return sNavigationBar.visible
+    }
+
     function clearHistory(){
-     //TODO 暂无找到实现方式
+        //TODO 暂无找到实现方式
     }
     //是否能回退
     function canGoBack(){
         return swebview.canGoBack;
     }
+
     //删除所有cookies
     function deleteAllCookies()
     {
-       swebview.experimental.deleteAllCookies()
+        swebview.experimental.deleteAllCookies()
     }
 
     function canGoForward(){
         return swebview.canGoForward
     }
+
     //Go backward within the browser's session history, if possible. (Equivalent to the window.history.back() DOM method.)
     function goBack(){
         swebview.goBack();
-         swebview.forceActiveFocus()
+        swebview.forceActiveFocus()
     }
     //Go forward within the browser's session history, if possible. (Equivalent to the window.history.forward() DOM method.)
     function goForward(){
@@ -109,14 +139,38 @@ CPage{
     contentAreaItem:Rectangle{
         id:root
         anchors.fill:parent
-
+        SNavigationBar{
+            id: sNavigationBar
+            closeCurWebviewEnable: swebview.canGoBack
+            onGoBack: {
+                if(swebview.canGoBack) {
+                    // 当前webview有history && history.length>1，走这里返回上一个history
+                    swebview.goBack();
+                } else {
+                    // 当前webview有history && history.length==1，直接关闭当前webview
+                    navigationBarClose();
+                }
+            }
+            onCloseCurWebview:{
+                navigationBarClose();
+            }
+        }
         WebView {
             id: swebview
             focus: true
             signal downLoadConfirmRequest
             property url curHoverUrl: ""
-            anchors.fill:parent
+            anchors {
+                top: sNavigationBar.visible ? sNavigationBar.bottom : parent.top
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
             url:surl
+            onTitleChanged: {
+                console.log('--swebview--title', title);
+            }
+
             experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+";"
             experimental.minimumScale: false
             experimental.preferredMinimumContentsWidth: Screen.width
@@ -221,6 +275,7 @@ CPage{
                 }
             }
 
+            // syberh_filepicker包里面引入
             experimental.filePicker: SFilesPicker {
                 id: picker
                 titleText: "文件选择"
@@ -279,9 +334,9 @@ CPage{
             }
 
             onLoadingChanged:{
-             LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
+                LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
                 if (!loading && loadRequest.status === WebView.LoadFailedStatus){
-                     LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
+                    LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
                     //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
                     //swebview.reload();
                 }
@@ -315,11 +370,11 @@ CPage{
                 //        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
             }
 
-//            onSelectChange: {
-//                    //console.log("webview.onSelectChange====--------------------------",rect)
-//                    textPrssMenu.visible = false;
-//                   BSelectTool.setCursor(swebview,show,rect);
-//             }
+            //            onSelectChange: {
+            //                    //console.log("webview.onSelectChange====--------------------------",rect)
+            //                    textPrssMenu.visible = false;
+            //                   BSelectTool.setCursor(swebview,show,rect);
+            //             }
             Component.onCompleted: {
                 LOG.logger.verbose("SWebview Component.onCompleted")
                 swebview.SetJavaScriptCanOpenWindowsAutomatically(false)
@@ -332,6 +387,10 @@ CPage{
     Component.onCompleted: {
         //设置是否显示状态栏，应与statusBarHoldItemEnabled属性一致
         gScreenInfo.setStatusBar(true);
+        console.log('新建页面传入的参数--', navigationBarTitle)
+        if(navigationBarTitle){
+            showNavigatorBar(navigationBarTitle);
+        }
         //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
         //gScreenInfo.setStatusBarStyle("transblack");
     }

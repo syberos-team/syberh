@@ -47,21 +47,16 @@
     var vConsole = new VConsole();
 
     function start() {
-      // document.getElementById('exec').innerText = '下载文件';
-
-
-
-      // var first = true;
       syberh.download.start({
         'url': 'http://online.qianqian.com/qianqian/info/ffaeb0b4503d0ee83768998b03140732.exe',
         'name': 'qianqian.exe',
         success: function (result) {
-          // console.log("----~~~~~~~~~!!!!cNode!!!----" + JSON.stringify(result));
+          console.log("syberh.download.start result: " + JSON.stringify(result));
 
           if (result.status == 1) {
             var html = ' \
           <ul class="mui-table-view">\
-            <li class="mui-table-view-cell">downloadID:<span id="{{downloadID}}">{{rdownloadID}}</span><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel({{canDownId}})">cancel(取消下载)</button></li>\
+            <li class="mui-table-view-cell">downloadID:<span id="{{downloadID}}">{{rdownloadID}}</span><button type="button" id="{{btnId}}" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel({{canDownId}})">cancel(取消下载)</button></li>\
           </ul>\
           <div id="progress-{{progressbarId}}" class="mui-progressbar">\
             <span></span>\
@@ -72,6 +67,7 @@
             html = html.replace('{{progressbarId}}', result.downloadID)
             html = html.replace('{{rdownloadID}}', result.downloadID)
             html = html.replace('{{canDownId}}', result.downloadID)
+            html = html.replace('{{btnId}}', 'button_' + result.downloadID)
 
             const div = document.createElement('div')
             div.innerHTML = html
@@ -79,6 +75,9 @@
             mui("#progress-" + result.downloadID).progressbar().setProgress(0);
           } else {
             mui("#progress-" + result.downloadID).progressbar().setProgress(Math.round((result.received / result.total) * 100));
+            if (result.received / result.total === 1) {
+              document.getElementById('button_' + result.downloadID).style.display = 'none'
+            }
           }
         },
         fail: function (error) {
@@ -87,8 +86,6 @@
       })
     }
     function cancel(canDownId) {
-      // document.getElementById('exec').innerText = '取消下载';
-      // var downloadId = document.getElementById('start-downloadID').innerText;
       syberh.download.cancel({
         'downloadID': canDownId,
         success: function (rs) {

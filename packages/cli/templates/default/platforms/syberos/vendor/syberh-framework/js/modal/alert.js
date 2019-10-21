@@ -17,10 +17,7 @@ function Alert () {
   this.on('alert', function (object, handlerId, param) {
     var component = object || that.object
 
-    console.log('\n')
-    console.log('alert request', component.z)
-    console.log('\n', param)
-
+    console.log('modal alert', JSON.stringify(that.param))
 
     component.rejectButtonVisible = false
 
@@ -30,6 +27,10 @@ function Alert () {
     component.acceptedButtonText = that.param.confirmText || '确定'
     component.acceptButtonColor = that.param.confirmColor || '#007aff'
 
+    if (!that.param.content) {
+        that.failed(that.handlerId, 9001, "content不能为空");
+        return;
+    }
 
     if(that.param.title && that.param.title.length > 7){
         that.failed(that.handlerId, 9001, "标题最多7个汉字");

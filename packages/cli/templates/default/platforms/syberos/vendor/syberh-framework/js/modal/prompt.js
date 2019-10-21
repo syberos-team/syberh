@@ -17,9 +17,8 @@ function Prompt () {
 
   that.on('prompt', function (object) {
 
-    console.log('\n')
-    console.log('prompt ready', object)
-    console.log('\n')
+    console.log('modal prompt', JSON.stringify(that.param))
+
     var component = object || that.object
 
     // 默认清除输入框的值
@@ -29,6 +28,10 @@ function Prompt () {
     component.rejectButtonText = that.param.cancelText || '取消'
     component.acceptedButtonText = that.param.confirmText || '确定'
 
+    if (!that.param.content) {
+        that.failed(that.handlerId, 9001, "content不能为空");
+        return;
+    }
 
     if(that.param.title && that.param.title.length > 7){
         that.failed(that.handlerId, 9001, "标题最多7个汉字");

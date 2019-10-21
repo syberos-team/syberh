@@ -272,7 +272,7 @@ exports.createApp = function (creater, params, helper, cb) {
     console.log()
 
     // git init
-    gitInit(projectName, projectPath, function () {
+    gitInit(projectName, projectPath, () => {
       // install
       npmInstall(shouldUseYarn, projectName, helper, cb)
     })
@@ -299,26 +299,6 @@ function gitInit (projectName, projectPath, next) {
     }
   })
 }
-
-// function spmInstall (platformsSyberosDir, next) {
-//   process.chdir(platformsSyberosDir)
-//   const spmInstallCmd = 'spm install syberh.framework'
-//   const spmSpinner = ora('正在安装模块 syberh.framework').start()
-
-//   const cmd = exec(spmInstallCmd)
-//   cmd.on('close', code => {
-//     if (code === 0) {
-//       spmSpinner.color = 'green'
-//       spmSpinner.succeed('已成功安装 syberh.framework')
-//       if (typeof next === 'function') {
-//         next()
-//       }
-//     } else {
-//       spmSpinner.color = 'red'
-//       spmSpinner.fail(cmd.stderr.read())
-//     }
-//   })
-// }
 
 function npmInstall (shouldUseYarn, projectName, helper, cb) {
   // install

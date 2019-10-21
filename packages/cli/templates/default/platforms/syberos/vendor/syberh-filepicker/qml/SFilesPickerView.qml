@@ -1,12 +1,10 @@
 /*
-* This file is part of file-manager
+* This file is part of syberh
 *
-* Copyright (C) 2014 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
+* Copyright (C) 2019 Beijing Yuan Xin Technology Co.,Ltd. All rights reserved.
 *
 * Authors:
-*       Zhenbin Cai <caizhenbin@syberos.com>
-*       Xuan Liu <liuxuan@syberos.com>
-*       Pengcheng Zhang <zhangpengcheng@syberos.com>
+*       Xue Jun <xuejun@syberos.com>
 *
 * This software, including documentation, is protected by copyright controlled
 * by Beijing Yuan Xin Technology Co.,Ltd. All rights are reserved.
@@ -14,7 +12,6 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
 import "../js/util/tool.js" as Tool
-import "SUI.js" as UI
 
 Rectangle {
     id: fileListRect
@@ -22,10 +19,16 @@ Rectangle {
     height: parent.height
     focus: true
 
-    property string titleText: "" // 页面标题
-    property bool leftItemEnabled: false // 左侧区域是否展示
-    property bool titleAreaEnable: fileListRect.titleText || fileListRect.leftItemEnabled // 标题区域区域是否展示
+    // 页面标题
+    property string titleText: ""
 
+    // 左侧区域是否展示
+    property bool leftItemEnabled: false
+
+    // 标题区域区域是否展示
+    property bool titleAreaEnable: fileListRect.titleText || fileListRect.leftItemEnabled
+
+    // 选中个数
     property int selectCnt: 0
 
     Keys.onReleased: {
@@ -76,7 +79,7 @@ Rectangle {
         id: toptitle
         visible: fileListRect.titleText || fileListRect.leftItemEnabled
         anchors.top: parent.top
-        height: UI.TITLEBAR_HEIGHT
+        height: Tool.UI.TITLEBAR_HEIGHT
         titleText: fileListRect.titleText
         titleAreaCentered: true
         leftItemEnabled: fileListRect.leftItemEnabled
@@ -133,6 +136,10 @@ Rectangle {
                 // 文件夹
                 filesPicker.dirPath = filesPicker.getDirPath();
             }
+        }
+
+        Component.onCompleted: {
+            toptitle.rightItem.enabled = false;
         }
     }
 

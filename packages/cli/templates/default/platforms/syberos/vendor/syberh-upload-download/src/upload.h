@@ -1,7 +1,7 @@
 #ifndef UPLOAD_H
 #define UPLOAD_H
 
-#include "framework/nativesdkhandlerbase.h"
+#include "../../syberh-framework/src/framework/nativesdkhandlerbase.h"
 #include "util/uploadmanager.h"
 
 class TaskInfo{

@@ -1,14 +1,14 @@
-#include "downloadmanager.h"
+#include "devdownload.h"
 #include <QFile>
 #include <QDebug>
 #include <QFileInfo>
 #include <QDir>
 #include <QDateTime>
-#include "../framework/common/errorinfo.h"
+#include "../common/errorinfo.h"
 
 #define DATETIME_FMT "yyyyMMddhhmmss"
 
-DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
+DevDownload::DevDownload(QObject *parent) : QObject(parent)
         , m_networkManager(NULL)
         , m_url("")
         , m_fileName("")
@@ -27,7 +27,7 @@ DownloadManager::DownloadManager(QObject *parent) : QObject(parent)
 }
 
 
-DownloadManager::~DownloadManager(){
+DevDownload::~DevDownload(){
     m_storageManager->deleteLater();
     m_storageManager = NULL;
     m_networkManager->deleteLater();
@@ -35,21 +35,21 @@ DownloadManager::~DownloadManager(){
 }
 
 // 设置是否支持断点续传
-void DownloadManager::setDownInto(bool isSupportBreakPoint){
+void DevDownload::setDownInto(bool isSupportBreakPoint){
     m_isSupportBreakPoint = isSupportBreakPoint;
 }
 
 // 获取当前下载链接
-QString DownloadManager::getDownloadUrl(){
+QString DevDownload::getDownloadUrl(){
     return m_url.toString();
 }
 // 获取临时文件后缀
-QString DownloadManager::getDownloadFileSuffix() {
+QString DevDownload::getDownloadFileSuffix() {
     return m_tmpFileSuffix;
 }
 
 // 开始下载文件，传入下载链接和文件的路径
-void DownloadManager::downloadFile(QString url , QString fileName){
+void DevDownload::downloadFile(QString url , QString fileName){
     // 防止多次点击开始下载按钮，进行多次下载，只有在停止标志变量为true时才进行下载;
     if (m_isStop) {
         m_isStop = false;
@@ -112,7 +112,7 @@ void DownloadManager::downloadFile(QString url , QString fileName){
 }
 
 // 停止下载工作
-void DownloadManager::stopWork(){
+void DevDownload::stopWork(){
     m_isStop = true;
     if (m_reply != NULL) {
         disconnect(m_reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64, qint64)));
@@ -126,7 +126,7 @@ void DownloadManager::stopWork(){
 }
 
 // 暂停下载按钮被按下,暂停当前下载
-void DownloadManager::stopDownload(){
+void DevDownload::stopDownload(){
     // 这里m_isStop变量为了保护多次点击暂停下载按钮，导致m_bytesCurrentReceived 被不停累加;
     if (!m_isStop) {
         //记录当前已经下载字节数
@@ -136,14 +136,14 @@ void DownloadManager::stopDownload(){
 }
 
 // 重置参数
-void DownloadManager::reset(){
+void DevDownload::reset(){
     m_bytesCurrentReceived = 0;
     m_bytesReceived = 0;
     m_bytesTotal = 0;
 }
 
 // 删除文件
-void DownloadManager::removeFile(QString fileName){
+void DevDownload::removeFile(QString fileName){
     // 删除已下载的临时文件;
     QFileInfo fileInfo(fileName);
     if (fileInfo.exists()) {
@@ -152,43 +152,43 @@ void DownloadManager::removeFile(QString fileName){
 }
 
 // 停止下载按钮被按下，关闭下载，重置参数，并删除下载的临时文件
-void DownloadManager::closeDownload(){
+void DevDownload::closeDownload(){
     stopWork();
     reset();
     removeFile(m_fileName);
 }
 
-void DownloadManager::setDownloadId(QString downloadId){
+void DevDownload::setDownloadId(QString downloadId){
     m_downloadId = downloadId;
 }
 
-void DownloadManager::setStorage(DownloadManager::Storage storage){
+void DevDownload::setStorage(DevDownload::Storage storage){
     m_storage = storage;
 }
 
-DownloadManager::Storage DownloadManager::getStorage() {
+DevDownload::Storage DevDownload::getStorage() {
     return m_storage;
 }
 
-QString DownloadManager::getDownloadId(){
+QString DevDownload::getDownloadId(){
     return m_downloadId;
 }
 
-QString DownloadManager::getMPath(){
+QString DevDownload::getMPath(){
     return m_path;
 }
 
-qint64 DownloadManager::getBytesReceived(){
+qint64 DevDownload::getBytesReceived(){
     return m_bytesReceived;
 }
 
-qint64 DownloadManager::getBytesTotal(){
+qint64 DevDownload::getBytesTotal(){
     return m_bytesTotal;
 }
 
 
 //获取下载文件大小
-qint64 DownloadManager::downloadFileSize(){
+qint64 DevDownload::downloadFileSize(){
     if(m_bytesTotal > 0){
         return m_bytesTotal;
     }
@@ -200,7 +200,7 @@ qint64 DownloadManager::downloadFileSize(){
 }
 
 //获取存储空间剩余
-qint64 DownloadManager::storageFreeSize(){
+qint64 DevDownload::storageFreeSize(){
     if(m_storageFreeSize > 0){
         return m_storageFreeSize;
     }
@@ -210,7 +210,7 @@ qint64 DownloadManager::storageFreeSize(){
 
 
 // 下载进度信息
-void DownloadManager::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal){
+void DevDownload::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal){
     if (!m_isStop) {
         m_bytesReceived = bytesReceived;
         m_bytesTotal = bytesTotal;
@@ -220,7 +220,7 @@ void DownloadManager::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal
 }
 
 // 获取下载内容，保存到文件中
-void DownloadManager::onReadyRead(){
+void DevDownload::onReadyRead(){
     if (!m_isStop) {
         QFile file(m_fileName);
         if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
@@ -238,7 +238,7 @@ void DownloadManager::onReadyRead(){
     }
 }
 // 下载完成
-void DownloadManager::onFinished(){
+void DevDownload::onFinished(){
     m_isStop = true;
     // http请求状态码;
     QVariant statusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
@@ -261,7 +261,7 @@ void DownloadManager::onFinished(){
 }
 
 // 下载过程中出现错误，关闭下载，并上报错误，这里未上报错误类型，可自己定义进行上报;
-void DownloadManager::onError(QNetworkReply::NetworkError code){
+void DevDownload::onError(QNetworkReply::NetworkError code){
     Q_UNUSED(code)
     qDebug () << Q_FUNC_INFO << "下载过程中出现错误：" << m_reply->errorString() <<endl;
     emit signalDownloadError(m_downloadId, ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, m_reply->errorString()));

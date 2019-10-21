@@ -156,6 +156,12 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="https://syberh.syberos.com">在线文档</a>
       </li>
+      <li class="mui-table-view-cell">
+        <a id="osVersion" class="mui-navigate-right" href="javascript:;">当前os版本: </a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a id="syberhVersion" class="mui-navigate-right" href="javascript:;">当前syberh版本: </a>
+      </li>
     </ul>
 
 
@@ -167,14 +173,20 @@
   <script type="text/javascript" src="lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
+    
+    console.log(document.querySelector('.mui-content').style.paddingTop, '顶部的距离')
 
     console.log("当前os版本:", syberh.os.version)
     console.log("当前syberh版本:", syberh.version)
-    window.runApi = function (id) {
+    document.getElementById('osVersion').innerText = '当前os版本: ' + syberh.os.version
+    document.getElementById('syberhVersion').innerText = '当前syberh版本: ' + syberh.version
+
+    window.runApi = function (id, navTitle) {
+      console.log('navTitle--', navTitle)
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
-        title: '测试页面标题',
+        title: navTitle,
         success: function (result) {
           console.log(result);
         },

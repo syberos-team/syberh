@@ -17,9 +17,9 @@ function Confirm () {
 
   this.on('confirm', function (object) {
 
-    console.log('\n')
-    console.log('confirm ready', JSON.stringify(that.param))
-    console.log('\n')
+
+    console.log('modal alert', JSON.stringify(that.param))
+
     var component = object || that.object
 
     component.titleText = that.param.title || ''
@@ -30,6 +30,10 @@ function Confirm () {
     component.acceptedButtonText = that.param.confirmText || '确定'
     component.acceptButtonColor = that.param.confirmColor || '#007aff'
 
+    if (!that.param.content) {
+        that.failed(that.handlerId, 9001, "content不能为空");
+        return;
+    }
 
     if(that.param.title && that.param.title.length > 7){
         that.failed(that.handlerId, 9001, "标题最多7个汉字");
@@ -52,7 +56,7 @@ function Confirm () {
         that.clearParam()
     })
 
-    // 确认事件
+    // 取消事件
     component.rejected.connect(function() {
         // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
         that.success(that.handlerId, false);

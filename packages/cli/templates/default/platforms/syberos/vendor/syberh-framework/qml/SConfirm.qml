@@ -235,6 +235,24 @@ CAbstractPopLayer{
    /*! 接受信号，当点击默认的“确定”按钮时发射 */
    signal accepted()
 
+   // 点击返回键触发取消事件
+   onBackKeyReleased: {
+       // 有取消按钮才可以按返回键触发取消时间, alert不能取消
+       if (rejectButtonVisible) {
+           hideAnimation.rejectedFlag = true
+           sconfirm.hide()
+       }
+   }
+
+   // 多指操作，为了解决bug， 一个手指长按内容区域，另一个手指滑动背景层，这里不做处理就可以， 否则页面退出后就崩溃了
+   MultiPointTouchArea {
+       anchors.fill: parent
+       touchPoints: [
+           TouchPoint { id: point1 },
+           TouchPoint { id: point2 }
+       ]
+   }
+
    /*! 背景, 不允许定制 */
    Rectangle{
        id:background
@@ -537,17 +555,6 @@ CAbstractPopLayer{
                    rejected()
                    rejectedFlag = false
                }
-
-
-               sconfirm.icon = ''
-               sconfirm.titleText = ''
-               sconfirm.messageText = ''
-               sconfirm.acceptButtonLoading = false
-               sconfirm.rejectButtonVisible = true
-               sconfirm.rejectButtonText = "取消"
-               sconfirm.rejectButtonColor = "#333333"
-               sconfirm.acceptedButtonText = "确定"
-               sconfirm.acceptButtonColor = "#007aff"
            }
        }
    }

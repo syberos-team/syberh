@@ -13,12 +13,15 @@
     fileName = 'Syberh示例'
   }
 
-  html = html.replace('{{TITLE}}', fileName)
 
-  const div = document.createElement('div')
-  div.innerHTML = html
-  document.body.insertBefore(div, document.body.children[0])
-  document.querySelector('.mui-content').style.paddingTop = '45px'
+  var div = document.createElement('div')
+  if(!(syberh.os&&syberh.os.syberos)){
+      html = html.replace('{{TITLE}}', fileName)
+      div.innerHTML = html
+      document.body.insertBefore(div, document.body.children[0])
+      document.querySelector('.mui-content').style.paddingTop = '45px'
+  }
+
 
   mui('.mui-table-view').on('tap', '.api-class', function () {
     console.log('---runapi', typeof window.runApi)
