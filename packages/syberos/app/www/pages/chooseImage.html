@@ -111,6 +111,8 @@
 
   <script>
     var vConsole = new VConsole()
+    // 所有图片路径
+    var imgArr = []
 
     // form表单可配置demo
     function customSelectImage() {
@@ -132,9 +134,13 @@
           console.log('选择图片成功', JSON.stringify(res))
           // tempFilePath可以作为img标签的src属性显示图片
           var tempFilePaths = res.tempFilePaths
+          imgArr = imgArr.concat(tempFilePaths)
+          console.log('imgArr选择完成--', imgArr)
+
           var parent = document.getElementById('uploaderFiles')
 
           tempFilePaths.forEach(function(curPath) {
+            console.log('curPath---', curPath)
             var img = document.createElement('img')
             img.className = 'weui-uploader__file previewImg'
             img.style = "display: block"
@@ -142,10 +148,10 @@
 
             img.onclick = function () {
               syberh.image.previewImage({
-                urls: tempFilePaths,
+                urls: imgArr,
                 current: curPath,
                 success: function () {
-                  console.log('image.previewImage success')
+                  console.log('image.previewImage success', curPath)
                 },
                 fail: function(error) {
                   console.log('image.previewImage fail: ', error.code, error.msg)
@@ -159,7 +165,6 @@
       })
     }
 
-    
   </script>
 </body>
 
