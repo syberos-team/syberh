@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QNetworkReply>
 #include "framework/common/errorinfo.h"
+#include "util/validator.h"
 
 int Network::typeId = qRegisterMetaType<Network *>();
 
@@ -36,6 +37,14 @@ void Network::request(QString callBackID, QString actionName, QVariantMap params
     qDebug() << Q_FUNC_INFO << "params type is null, set default values: get callbackID is " << callBackID << endl;
     method = "get";
   }
+
+  //检查url
+  if(!Validator::isHttpUrl(url)){
+      qDebug() << "url parameter is not starts with http or https: " << params << endl;
+      emit failed(callBackID.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "URL无效"));
+      return;
+  }
+
 
   QString dataType = params.value("dataType").toString();
   if (dataType == "")

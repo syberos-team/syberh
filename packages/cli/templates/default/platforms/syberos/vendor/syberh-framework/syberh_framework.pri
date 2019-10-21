@@ -35,7 +35,8 @@ HEADERS += \
     $$PWD/src/image.h \
     $$PWD/src/brightness.h \
     $$PWD/src/vibrator.h \
-    $$PWD/src/framework/devtools/devdownload.h
+    $$PWD/src/framework/devtools/devdownload.h \
+    $$PWD/src/util/validator.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -70,4 +71,5 @@ SOURCES += \
     $$PWD/src/image.cpp \
     $$PWD/src/brightness.cpp \
     $$PWD/src/vibrator.cpp \
-    $$PWD/src/framework/devtools/devdownload.cpp
+    $$PWD/src/framework/devtools/devdownload.cpp \
+    $$PWD/src/util/validator.cpp

@@ -49,6 +49,17 @@
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
         </li>
         <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setTitle</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>title:</label>
+              <input id="setTitle" type="text" value="我是新标题">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setTitle()">设置标题</button>
+          </div>
+        </li>
+        <li class="mui-table-view-cell">
           <a class="mui-navigate-right" href="#">navigateTo</a>
           <div class="mui-collapse-content">
             <div class="mui-input-row">
@@ -154,6 +165,22 @@
         fail: function (error) {
           showTips(JSON.stringify(error))
           console.info(error)
+        }
+      })
+    }
+
+    function setTitle() {
+      var title = document.getElementById('setTitle').value;
+      console.log('设置标题是： ', title)
+      syberh.router.setTitle({
+        title: title,
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(JSON.stringify(error))
         }
       })
     }

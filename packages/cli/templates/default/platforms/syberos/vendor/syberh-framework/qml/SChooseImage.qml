@@ -35,13 +35,6 @@ CListDialog{
         toPage(index)
     }
 
-    Keys.onReleased:{
-        if(event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
-            event.accepted = true // 设置成了事件已接收，防止向上层传递
-            cancel()
-        }
-    }
-
     function toPage(idx) {
         if (model[idx] === "从手机相册选择") {
             toAlbum()
@@ -126,6 +119,11 @@ CListDialog{
             }
         }
         return newArr
+    }
+
+    Component.onDestruction: {
+        console.log('销毁页面 chooseImage')
+        cancel()
     }
 
 }

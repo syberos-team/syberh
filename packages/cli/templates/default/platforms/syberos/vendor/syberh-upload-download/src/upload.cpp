@@ -2,6 +2,7 @@
 #include "util/uploadmanager.h"
 #include <QJsonObject>
 #include <QDebug>
+#include "../../syberh-framework/src/util/validator.h"
 
 int Upload::typeId = qRegisterMetaType<Upload *>();
 
@@ -24,6 +25,8 @@ QJsonObject successJson(QString callbackId, int status, qint64 received, qint64 
 }
 void Upload::request(QString callBackID, QString actionName, QVariantMap params)
 {
+    qDebug() << "callbackId:" << callBackID << "actionName:" << actionName << "params:" << params << endl;
+
     if (actionName == "start") {
         upload(callBackID, params.value("url").toString(), params.value("filePath").toString());
     } else if (actionName == "cancel") {
@@ -35,6 +38,13 @@ void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
     // 检查网络
     if (!netWorkConnected()) {
         emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络状态"));
+        return;
+    }
+
+    //检查url
+    if(!Validator::isHttpUrl(reqUrl)){
+        qDebug() << "url parameter is not starts with http or https: " << reqUrl << endl;
+        emit failed(callBackID.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "URL无效"));
         return;
     }
 

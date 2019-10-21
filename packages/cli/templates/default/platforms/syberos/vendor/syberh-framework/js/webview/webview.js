@@ -11,7 +11,7 @@ function WebView (options) {
     name: 'webview',
     module: 'router',
     //source: '../qml/SWebview.qml',
-    methods: ['reload', 'goBack', 'redirectTo', 'navigateTo', 'navigateBack', 'getCurrentPages', 'reLaunch'],
+    methods: ['reload', 'goBack', 'redirectTo', 'navigateTo', 'navigateBack', 'getCurrentPages', 'reLaunch','setTitle'],
     autoCreate: true
   }
   if (options) {
@@ -60,6 +60,11 @@ function WebView (options) {
           that.dog(loadRequest.url.toString());
         }
       })
+
+      // 关闭当前webview信号
+      object.navigationBarClose.connect(function () {
+        that.trigger('navigateBack', object, null, {delta:1})
+      })
     }
     //只保证一个webview注册nativesdk
     if (!registrNativeSdkManager) {
@@ -98,9 +103,12 @@ function WebView (options) {
     }
   })
 
+
   this.on('hide', function () {
 
   })
+
+
 
   this.on('getCurrentPages', function (object, handlerId, param) {
     logger.verbose('on getCurrentPages()', handlerId)
@@ -181,6 +189,34 @@ function WebView (options) {
     }
   })
 
+  // 给页面设置标题
+  this.on('setTitle', function (object, handlerId, param) {
+    logger.verbose('Webivew:[%s] , on setTitle() ,param:%s ,', that.id, JSON.stringify(param))
+    console.log('Webivew:[%s] , on setTitle() ,param:%s ,', that.id, JSON.stringify(param))
+    console.log('---Webivew NavigationBar visible---', object.getNavigationBarStatus())
+
+    // 导航栏visible为false，不让修改标题
+    if (!object.getNavigationBarStatus()) {
+        that.trigger('failed', handlerId, 9002, "页面未设置导航栏，无法更改导航栏标题")
+        return
+    }
+
+    param.title = param.title.trim()
+
+    if (!param.title) {
+        that.trigger('failed', handlerId, 9001, "title不能为空")
+        return
+    }
+
+    if (param.title && param.title.length > 8) {
+        that.trigger('failed', handlerId, 9001, "标题最多8个汉字")
+        return
+    }
+
+    object.setNavigationBarTitle(param.title);
+    that.trigger('success', handlerId, true)
+  })
+
   // 保留当前页面，跳转到某个页面
   this.on('navigateBack', function (object, handlerId, param) {
     logger.verbose('Webview:[%s],on navigateBack() start', that.id)
@@ -191,6 +227,9 @@ function WebView (options) {
       return;
     }
     that.navigateBack(param, function (res, msg) {
+        if(!handlerId){
+            return;
+        }
       if (res) {
         that.trigger('success', handlerId, res)
       } else {
@@ -256,7 +295,10 @@ function WebView (options) {
         removePlugin: true,
         page: true
       })
-      dwevview.param = { surl: getUrl(param.url) };
+      dwevview.param = {
+        surl: getUrl(param.url),
+        navigationBarTitle: param.title
+      };
       dwevview.currentUrl = param.url
       SYBEROS.addPlugin(dwevview)
       // 设定webview的深度为2
@@ -271,10 +313,6 @@ function WebView (options) {
       logger.verbose('webview:[%s] on redirectTo', that.id, JSON.stringify(param))
       var url = getUrl(param.url)
       currentWebview.object.openUrl(url)
-      //title处理示例
-      if (param.title) {
-        currentWebview.object.setTitle(param.title);
-      }
       currentWebview.trigger('success', handlerId, true)
       if (handlerId) {
         that.trigger('success',
@@ -415,7 +453,6 @@ WebView.prototype = SyberPlugin.prototype
 
 WebView.prototype.onMessageReceived = function (message, webviewId) {
   logger.verbose('webview:[%s] ,onMessageReceived(): ', webviewId, JSON.stringify(message))
-
   var model = JSON.parse(message.data)
   var handlerId = model.callbackId
   var method = model.handlerName
@@ -437,7 +474,7 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
     funcArgs = model.data
   }
 
-  if (module === 'webview') {
+  if (module === 'webview'||module==="router") {
     logger.verbose(JSON.stringify(currentWebview.module))
     module = currentWebview.module
     logger.verbose('onMessageReceived() laset module ', module)

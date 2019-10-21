@@ -52,7 +52,7 @@
   </div>
   <div><input type="text" id="text" style="display:none" /></div>
 
-  <div> 播放操作：
+  <div id="audioArea"> 播放操作：
     <div align="center" id="startPlay">播放:<img height="35" width="35" src="../images/play.png" onclick="startPlay()" />
     </div>
     <div align="center" id="pausePlay" style="display: none">暂停:<img height="35" width="35" src="../images/stop.png"
@@ -63,7 +63,7 @@
         onclick="stopPlay()" /></div>
   </div><br>
 
-  <div> 录制操作：
+  <div id="recorderArea"> 录制操作：
     <div align="center" id="startRecorder">录音:<img height="35" width="35" src="../images/playR.png"
         onclick="startRecorder()" /></div>
     <div align="center" id="pauseRecorder" style="display: none">暂停:<img height="35" width="35"
@@ -131,9 +131,13 @@
     //点击开始播放。隐藏播放、继续播放，显示暂停播放、停止播放
     function startPlay() {
       var path = document.getElementById('text').value;
+      var record_list = $('.items_info').length
+      if (record_list === 0) return
+      
       if (path === 'undefined' || path === null || path === "") {
         alert("请选择录音记录，没有请先录音");
       } else {
+        $("#recorderArea").hide();
 
         syberh.audio.start({
           path: path,
@@ -188,7 +192,8 @@
     }
     //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
     function stopPlay() {
-
+      $("#recorderArea").show();
+      
       syberh.audio.stop({
         success: function (result) {
           $("#startPlay").show();
@@ -206,11 +211,10 @@
 
     //点击开始录音。隐藏录音、继续录音，显示暂停录音、停止录音
     function startRecorder() {
-
+      $("#audioArea").hide();
+      
       syberh.record.start({
         success: function (result) {
-          document.getElementById('text').value = result.path
-
           $("#startRecorder").hide();
           $("#pauseRecorder").show();
           $("#continueRecorder").hide();
@@ -259,6 +263,7 @@
     }
     //点击停止录音。显示录音,隐藏继续录音、暂停录音、停止录音
     function stopRecorder() {
+      $("#audioArea").show();
 
       syberh.record.stop({
         success: function (result) {
