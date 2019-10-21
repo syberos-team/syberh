@@ -142,12 +142,12 @@
     function reload() {
       syberh.router.reload({
         success: function (result) {
-          syberh.modal.gtoast(JSON.stringify(result))
-          console.info(result)
+          syberh.modal.gtoast({title: JSON.stringify(result)})
+          console.info(result, 'syberh.router.reload')
         },
         fail: function (error) {
-          syberh.modal.gtoast(JSON.stringify(error))
-          console.info(error)
+          syberh.modal.gtoast({title: JSON.stringify(error)})
+          console.info(error, 'syberh.router.reload')
         }
       })
     }
