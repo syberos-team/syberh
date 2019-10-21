@@ -4,7 +4,7 @@
     "packages/cli",
     "packages/dev-server",
     "packages/jsbridge",
-    "packages/template"
+    "packages/syberos"
   ],
   "command": {
     "publish": {
