@@ -16,7 +16,7 @@
     "bootstrap:lerna": "lerna bootstrap -- --ignore-engines",
     "bootstrap": "npm-run-all clear-all bootstrap:lerna",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "build": "cd packages/jsbridge &&npm run build && lerna run build",
+    "build": "cd packages/jsbridge &&npm run build && lerna run build && cd ../syberos && node script/build.js",
     "build:docs": "node ./build/docs.js",
     "prettier": "prettier --write \"src/**/*.jsx\" \"src/**/*.ts\"",
     "lint": "tslint packages/*/src/**/*.ts  --fix",
