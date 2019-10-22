@@ -27,10 +27,14 @@ CPage {
     signal success()
 
 
-    // 监听返回事件，取消按钮点击才生效
+    // 监听返回事件，物理返回键触发信号
     Keys.onReleased: {
         if(event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
             event.accepted = true
+            // 成功信号
+            success()
+            // 点击取消返回页面
+            pageStack.pop()
         }
     }
 

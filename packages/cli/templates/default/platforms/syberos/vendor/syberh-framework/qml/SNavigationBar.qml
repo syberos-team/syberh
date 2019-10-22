@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
+import com.syberos.basewidgets 2.0
 
 import "../js/util/log.js" as LOG
 
@@ -69,6 +70,16 @@ Rectangle {
         id: controlsRow
         height: navigationBarHeight
         width: parent.width
+
+        // 导航栏下面的分界线
+        Rectangle {
+            width: parent.width
+            height: 1
+            anchors.top: parent.top
+            anchors.topMargin: navigationBarHeight - 2
+            color: '#B5B5B5'
+            z: 999
+        }
 
         Rectangle {
             id: backButton

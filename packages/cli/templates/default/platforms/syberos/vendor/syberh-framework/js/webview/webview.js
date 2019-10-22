@@ -174,8 +174,14 @@ function WebView (options) {
    */
   this.on('reload', function (object, handlerId) {
     logger.verbose('webview:[%s]  ,on reload()', that.id)
-    object.reload()
-    that.trigger('success', handlerId, true)
+    try {
+        object.reload()
+        logger.verbose('webview:[%s]  ,on reload() success')
+        that.trigger('success', handlerId, true)
+    } catch (e) {
+        logger.verbose('webview:[%s]  ,on reload() failed')
+        that.trigger('failed', handlerId, 2006, false)
+    }
   })
   // 回退
   this.on('goBack', function (object, handlerId) {
