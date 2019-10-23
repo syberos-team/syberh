@@ -33,11 +33,11 @@ exports.createCore = function () {
   log.verbose('createCore()')
   // cli 下的核心文件
   const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
-  const com = path.join(getTemplatePath(), 'platforms', 'syberos', 'com')
+  const vendor = path.join(getTemplatePath(), 'platforms', 'syberos', 'vendor')
+  const spmJson = path.join(getTemplatePath(), 'platforms', 'syberos', 'spm.json')
   const versionPath = path.join(getTemplatePath(), 'platforms', 'syberos', 'VERSION')
   const jssdkPath = path.join(getTemplatePath(), 'www', 'lib', 'syberh.min.js')
   log.verbose('app path ', app)
-  log.verbose('com path', com)
   log.verbose('versionConfig', versionPath)
   log.verbose('jssdkPath', jssdkPath)
   // project dir
@@ -46,10 +46,14 @@ exports.createCore = function () {
 
   const projectSyberosDir = path.join(projectDir, platformsDirName, 'syberos')
   log.verbose('projectSyberosDir path', projectSyberosDir)
+
   const projectAppDir = path.join(projectSyberosDir, 'app')
   log.verbose('projectAppDir path', projectAppDir)
-  const projectComDir = path.join(projectDir, platformsDirName, 'syberos', 'com')
-  log.verbose('projectComDir path', projectComDir)
+
+  const projectVendor = path.join(projectSyberosDir, 'vendor')
+  const projectSpmJson = path.join(projectSyberosDir, 'spm.json')
+  log.verbose('projectVendor path', projectVendor)
+
   const projectVersionPath = path.join(projectDir, platformsDirName, 'syberos', 'VERSION')
   log.verbose('projectVersionPath', projectVersionPath)
 
@@ -57,23 +61,20 @@ exports.createCore = function () {
   log.verbose('projecwJSSDK', projecwJSSDK)
   // 删除 app com 目录
   fs.ensureDirSync(projectAppDir)
-  fs.ensureDirSync(projectComDir)
   log.verbose('removeSync 完成')
 
   // 重新拷贝app com 目录
   log.verbose('开始拷贝cli app目录')
   fs.copySync(app, projectAppDir)
-  log.verbose('开始拷贝cli com目录')
-  fs.copySync(com, projectComDir)
-  log.verbose('拷贝app com 目录 完成')
   fs.copySync(versionPath, projectVersionPath)
   log.verbose('拷贝VERSION完成')
   fs.copySync(jssdkPath, projecwJSSDK)
   log.verbose('拷贝JS-SDK完成')
+  fs.copySync(vendor, projectVendor)
+  fs.copySync(spmJson, projectSpmJson)
+  log.verbose('拷贝vendor完成')
   console.log(
-    `${chalk.green('✔ ')}${chalk.grey(
-      `更新 [project]完成:`
-    )}`
+    `${chalk.green('✔ ')}更新 [project] 完成`
   )
 }
 exports.createApp = function (creater, params, helper, cb) {
@@ -159,9 +160,6 @@ exports.createApp = function (creater, params, helper, cb) {
     'editorconfig',
     path.join(projectPath, '.editorconfig')
   )
-  // creater.template(template, 'eslintrc', path.join(projectPath, '.eslintrc'), {
-  //   typescript
-  // })
 
   // 是否创建demo项目
   if (example) {
@@ -263,9 +261,6 @@ exports.createApp = function (creater, params, helper, cb) {
         `创建文件: ${projectName}/package.json`
       )}`
     )
-    // console.log(
-    //   `${chalk.green('✔ ')}${chalk.grey(`创建文件: ${projectName}/.eslintrc`)}`
-    // )
     console.log(
       `${chalk.green('✔ ')}${chalk.grey(
         `创建文件: ${projectName}/project.config.json`
@@ -284,55 +279,69 @@ exports.createApp = function (creater, params, helper, cb) {
       )
     }
     console.log()
-    const gitInitSpinner = ora(
-      `cd ${chalk.cyan.bold(projectName)}, 执行 ${chalk.cyan.bold('git init')}`
-    ).start()
-    process.chdir(projectPath)
-    // git init
-    const gitInit = exec('git init')
-    gitInit.on('close', code => {
-      if (code === 0) {
-        gitInitSpinner.color = 'green'
-        gitInitSpinner.succeed(gitInit.stdout.read())
-      } else {
-        gitInitSpinner.color = 'red'
-        gitInitSpinner.fail(gitInit.stderr.read())
-      }
-    })
 
-    // install
-    let command
-    if (shouldUseYarn) {
-      command = 'yarn install'
-    } else if (helper.shouldUseCnpm()) {
-      command = 'cnpm install'
-    } else {
-      command = 'npm install'
-    }
-    const installSpinner = ora(
-      `执行安装项目依赖 ${chalk.cyan.bold(command)}, 需要一会儿...`
-    ).start()
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        installSpinner.color = 'red'
-        installSpinner.fail(chalk.red('安装项目依赖失败，请自行重新安装！'))
-        console.log(error)
-      } else {
-        installSpinner.color = 'green'
-        installSpinner.succeed('安装成功')
-        console.log(`${stderr}${stdout}`)
-      }
-      console.log(
-        chalk.green(`创建项目 ${chalk.green.bold(projectName)} 成功！`)
-      )
-      console.log(
-        chalk.green(
-          `请进入项目目录 ${chalk.green.bold(projectName)} 开始工作吧！😝`
-        )
-      )
-      if (typeof cb === 'function') {
-        cb()
-      }
+    // git init
+    gitInit(projectName, projectPath, () => {
+      // install
+      npmInstall(shouldUseYarn, projectName, helper, cb)
     })
+  })
+}
+
+function gitInit (projectName, projectPath, next) {
+  const gitInitSpinner = ora(
+    `cd ${chalk.cyan.bold(projectName)}, 执行 ${chalk.cyan.bold('git init')}`
+  ).start()
+  process.chdir(projectPath)
+
+  const cmd = exec('git init')
+  cmd.on('close', code => {
+    if (code === 0) {
+      gitInitSpinner.color = 'green'
+      gitInitSpinner.succeed(cmd.stdout.read())
+      if (typeof next === 'function') {
+        next()
+      }
+    } else {
+      gitInitSpinner.color = 'red'
+      gitInitSpinner.fail(cmd.stderr.read())
+    }
+  })
+}
+
+function npmInstall (shouldUseYarn, projectName, helper, cb) {
+  // install
+  let command
+  if (shouldUseYarn) {
+    command = 'yarn install'
+  } else if (helper.shouldUseCnpm()) {
+    command = 'cnpm install'
+  } else {
+    command = 'npm install'
+  }
+  const installSpinner = ora(
+    `执行安装项目依赖 ${chalk.cyan.bold(command)}, 需要一会儿...`
+  ).start()
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      installSpinner.color = 'red'
+      installSpinner.fail(chalk.red('安装项目依赖失败，请自行重新安装！'))
+      console.log(error)
+    } else {
+      installSpinner.color = 'green'
+      installSpinner.succeed('安装成功')
+      console.log(`${stderr}${stdout}`)
+    }
+    console.log(
+      chalk.green(`创建项目 ${chalk.green.bold(projectName)} 成功！`)
+    )
+    console.log(
+      chalk.green(
+        `请进入项目目录 ${chalk.green.bold(projectName)} 开始工作吧！😝`
+      )
+    )
+    if (typeof cb === 'function') {
+      cb()
+    }
   })
 }

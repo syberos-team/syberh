@@ -1,0 +1,15 @@
+{
+	"name": "syberh-framework",
+	"description": "",
+	"version": "1.0.0",
+	"author": {
+		"name": "hanagm",
+		"email": "274506356@qq.com",
+		"description": ""
+	},
+	"dependencies": [],
+	"repository": {
+		"url": "https://github.com/syberos-team/syberh-framework.git"
+	},
+	"priFilename": "syberh_framework.pri"
+}

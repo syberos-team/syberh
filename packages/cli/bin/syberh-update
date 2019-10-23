@@ -5,6 +5,7 @@ const program = require('commander')
 const chalk = require('chalk')
 const { shouldUseCnpm } = require('../dist/util')
 const ora = require('ora')
+const inquirer = require('inquirer')
 const exec = require('child_process').exec
 const { PROJECT_CONFIG } = require('../dist/util/constants')
 const { createCore } = require('../templates/default/index')
@@ -60,11 +61,22 @@ function updateSelf () {
   })
 }
 
-async function updateProject () {
+function updateProject () {
   if (!fs.existsSync(projectConfPath)) {
     console.log(chalk.red(`找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是Syberh项目根目录!`))
     process.exit(1)
   }
 
-  createCore()
+  // tslint:disable-next-line: no-floating-promises
+  inquirer.prompt([{
+    type: 'confirm',
+    message: '更新项目依赖会修改platforms目录下的文件，是否更新？',
+    name: 'agree',
+    prefix: chalk.yellow('警告！'),
+    default: false
+  }]).then(answers => {
+    if (answers.agree) {
+      createCore()
+    }
+  })
 }

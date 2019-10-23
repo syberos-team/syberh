@@ -6,7 +6,7 @@ const hybridJs = {};
 mixin(hybridJs);
 
 allNative(hybridJs);
-
-hybridJs.Version = '1.2.1';
+//使用全局变量version
+hybridJs.version = JVERSION;
 
 export default hybridJs;

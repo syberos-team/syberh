@@ -13,6 +13,7 @@
       "cli-readme",
       "app-config",
       "started-ide",
+      "started-spm",
       "return_code"
     ]
   },
@@ -155,11 +156,9 @@
         "type": "subcategory",
         "ids": [
           "apis/brightness/brightnessInfo",
-          "apis/brightness/setAdaptiveDimmingEnabled",
           "apis/brightness/setAmbientLightSensorEnabled",
           "apis/brightness/setBlankTimeout",
-          "apis/brightness/setBrightness",
-          "apis/brightness/setDimTimeout"
+          "apis/brightness/setBrightness"
         ]
       }
     ],

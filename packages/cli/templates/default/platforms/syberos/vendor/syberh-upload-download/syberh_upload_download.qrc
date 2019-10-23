@@ -1,0 +1,6 @@
+
+<RCC>
+    <qresource prefix="/com/syberos/syberh-upload-download">
+        <file>qmldir</file>
+    </qresource>
+</RCC>
