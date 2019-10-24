@@ -29,7 +29,7 @@ function ChooseImage () {
 
       // 确认事件
       component.receiveUrls.connect(function(result) {
-          console.log('chooseImage 返回值是---', result)
+          console.log('chooseImage 返回值是---', JSON.stringify(result), that.handlerId)
           // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
           WEBVIEWCORE.trigger('success',that.handlerId, result)
           SYBEROS.destroy(that.id)
@@ -38,6 +38,7 @@ function ChooseImage () {
 
       // 相机拍完一张的事件
       component.cameraSuccess.connect(function(result) {
+          console.log('chooseImage cameraSuccess--', JSON.stringify(result))
           pageStack.pop(currentWebview.object)
           WEBVIEWCORE.trigger('success', that.handlerId, result)
           SYBEROS.destroy(that.id)
@@ -45,13 +46,14 @@ function ChooseImage () {
 
       // 相机取消
       component.cameraCancel.connect(function() {
+          console.log('chooseImage cameraCancel--')
           pageStack.pop(currentWebview.object)
           SYBEROS.destroy(that.id)
       })
 
       // 相册取消
       component.albumCancel.connect(function() {
-          console.log('albumCancel--')
+          console.log('chooseImage albumCancel--')
           SYBEROS.destroy(that.id)
       })
 

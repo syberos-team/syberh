@@ -195,17 +195,6 @@ CPage {
         }
     }
 
-    // 监听返回事件，取消按钮点击才生效
-    Keys.onReleased: {
-        if(event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
-            event.accepted = true
-            cancel()
-            pageStack.pop()
-            console.log('监听返回事件，取消按钮点击才生效')
-        }
-    }
-
-
     contentAreaItem: Item{
         SPhotoAndVideoBrowser{
             id: photoBrowser

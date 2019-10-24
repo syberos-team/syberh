@@ -176,17 +176,20 @@
   <script type="text/javascript" src="lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
+    
+    console.log(document.querySelector('.mui-content').style.paddingTop, '顶部的距离')
 
     console.log("当前os版本:", syberh.os.version)
     console.log("当前syberh版本:", syberh.version)
     document.getElementById('osVersion').innerText = '当前os版本: ' + syberh.os.version
     document.getElementById('syberhVersion').innerText = '当前syberh版本: ' + syberh.version
 
-    window.runApi = function (id) {
+    window.runApi = function (id, navTitle) {
+      console.log('navTitle--', navTitle)
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
-        title: '测试页面标题',
+        title: navTitle,
         success: function (result) {
           console.log(result);
         },

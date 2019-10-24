@@ -49,6 +49,14 @@ void Audio::start(long callBackID,QVariantMap params){
     QString filePath = params.value("path").toString();
     int position = params.value("position").toInt();
 
+    qDebug() << Q_FUNC_INFO << "position" << position << endl;
+
+    // 播放起始时间toInt以后和以前不一样，说明传入的不是正整数
+    if (params.value("position") != "0" && position == 0) {
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "不合法的参数:position必须是正整数");
+        return;
+    }
+
     if(filePath.isEmpty()){
         qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
         emit failed(callBackID, ErrorInfo::InvalidParameter, "不合法的参数:path不能为空");
@@ -93,6 +101,14 @@ void Audio::resume(long callBackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "resume" << params << endl;
 
     int position = params.value("position").toInt();
+
+    qDebug() << Q_FUNC_INFO << "position" << position << endl;
+
+    // 播放起始时间toInt以后和以前不一样，说明传入的不是正整数
+    if (params.value("position") != "0" && position == 0) {
+        emit failed(callBackID, ErrorInfo::InvalidParameter, "不合法的参数:position必须是正整数");
+        return;
+    }
 
     //有指定时间参数，从指定位置开始播放
     if(position != 0){

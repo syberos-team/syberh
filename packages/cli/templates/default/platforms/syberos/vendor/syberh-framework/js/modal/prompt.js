@@ -28,11 +28,6 @@ function Prompt () {
     component.rejectButtonText = that.param.cancelText || '取消'
     component.acceptedButtonText = that.param.confirmText || '确定'
 
-    if (!that.param.content) {
-        that.failed(that.handlerId, 9001, "content不能为空");
-        return;
-    }
-
     if(that.param.title && that.param.title.length > 7){
         that.failed(that.handlerId, 9001, "标题最多7个汉字");
         return;

@@ -33,6 +33,8 @@ exports.createCore = function () {
   log.verbose('createCore()')
   // cli 下的核心文件
   const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
+  const vendor = path.join(getTemplatePath(), 'platforms', 'syberos', 'vendor')
+  const spmJson = path.join(getTemplatePath(), 'platforms', 'syberos', 'spm.json')
   const versionPath = path.join(getTemplatePath(), 'platforms', 'syberos', 'VERSION')
   const jssdkPath = path.join(getTemplatePath(), 'www', 'lib', 'syberh.min.js')
   log.verbose('app path ', app)
@@ -44,8 +46,14 @@ exports.createCore = function () {
 
   const projectSyberosDir = path.join(projectDir, platformsDirName, 'syberos')
   log.verbose('projectSyberosDir path', projectSyberosDir)
+
   const projectAppDir = path.join(projectSyberosDir, 'app')
   log.verbose('projectAppDir path', projectAppDir)
+
+  const projectVendor = path.join(projectSyberosDir, 'vendor')
+  const projectSpmJson = path.join(projectSyberosDir, 'spm.json')
+  log.verbose('projectVendor path', projectVendor)
+
   const projectVersionPath = path.join(projectDir, platformsDirName, 'syberos', 'VERSION')
   log.verbose('projectVersionPath', projectVersionPath)
 
@@ -62,10 +70,11 @@ exports.createCore = function () {
   log.verbose('拷贝VERSION完成')
   fs.copySync(jssdkPath, projecwJSSDK)
   log.verbose('拷贝JS-SDK完成')
+  fs.copySync(vendor, projectVendor)
+  fs.copySync(spmJson, projectSpmJson)
+  log.verbose('拷贝vendor完成')
   console.log(
-    `${chalk.green('✔ ')}${chalk.grey(
-      `更新 [project]完成:`
-    )}`
+    `${chalk.green('✔ ')}更新 [project] 完成`
   )
 }
 exports.createApp = function (creater, params, helper, cb) {
