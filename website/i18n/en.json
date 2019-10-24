@@ -140,6 +140,15 @@
       "apis/navigator/navigator": {
         "title": "navigator"
       },
+      "apis/notification/badgeShow": {
+        "title": "badgeShow"
+      },
+      "apis/notification/removeNotification": {
+        "title": "removeNotification"
+      },
+      "apis/notification/sendNotification": {
+        "title": "sendNotification"
+      },
       "apis/package/openDocument": {
         "title": "openDocument"
       },
@@ -752,6 +761,7 @@
       "上传": "上传",
       "设备": "设备",
       "震动": "震动",
+      "消息通知": "消息通知",
       "图片": "图片",
       "webview": "webview",
       "url": "url"

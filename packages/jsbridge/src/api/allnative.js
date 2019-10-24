@@ -25,35 +25,37 @@ import uploadMixin from './native/upload';
 import audioMixin from './native/audio';
 import brightnessInfoMixin from './native/brightnessInfo';
 import vibratorMixin from './native/vibrateInfo';
+import notificationMixin from './native/notification';
 
-export default function allNative (hybridJs) {
-  // 下载模块
-  downloadMixin(hybridJs);
-  modalMixin(hybridJs);
-  routerMix(hybridJs);
-  deviceMixin(hybridJs);
-  pageMixin(hybridJs);
-  navigatorMixin(hybridJs);
-  utilMixin(hybridJs);
-  telephonyMixin(hybridJs);
-  storageMixin(hybridJs);
-  systemMixin(hybridJs);
-  networkMixin(hybridJs);
-  captureMixin(hybridJs);
-  clipboardMixin(hybridJs);
-  recordMixin(hybridJs);
-  networkInfoMixin(hybridJs);
-  batteryMixin(hybridJs);
-  networkDisabledMixin(hybridJs);
-  networkEnabledMixin(hybridJs);
-  filepickerMixin(hybridJs);
-  fileManagerMixin(hybridJs);
-  packageMixin(hybridJs);
-  pathMixin(hybridJs);
-  filepickerMixin(hybridJs);
-  imageMixin(hybridJs);
-  uploadMixin(hybridJs);
-  audioMixin(hybridJs);
-  brightnessInfoMixin(hybridJs);
-  vibratorMixin(hybridJs);
+export default function allNative(hybridJs) {
+    // 下载模块
+    downloadMixin(hybridJs);
+    modalMixin(hybridJs);
+    routerMix(hybridJs);
+    deviceMixin(hybridJs);
+    pageMixin(hybridJs);
+    navigatorMixin(hybridJs);
+    utilMixin(hybridJs);
+    telephonyMixin(hybridJs);
+    storageMixin(hybridJs);
+    systemMixin(hybridJs);
+    networkMixin(hybridJs);
+    captureMixin(hybridJs);
+    clipboardMixin(hybridJs);
+    recordMixin(hybridJs);
+    networkInfoMixin(hybridJs);
+    batteryMixin(hybridJs);
+    networkDisabledMixin(hybridJs);
+    networkEnabledMixin(hybridJs);
+    filepickerMixin(hybridJs);
+    fileManagerMixin(hybridJs);
+    packageMixin(hybridJs);
+    pathMixin(hybridJs);
+    filepickerMixin(hybridJs);
+    imageMixin(hybridJs);
+    uploadMixin(hybridJs);
+    audioMixin(hybridJs);
+    brightnessInfoMixin(hybridJs);
+    vibratorMixin(hybridJs);
+    notificationMixin(hybridJs);
 }
