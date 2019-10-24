@@ -164,6 +164,11 @@
     ],
     "震动": [
       "apis/vibrator/vibrate"
+    ],
+    "消息通知": [
+      "apis/notification/badgeShow",
+      "apis/notification/sendNotification",
+      "apis/notification/removeNotification"
     ]
   }
 }

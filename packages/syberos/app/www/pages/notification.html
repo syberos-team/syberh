@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>auth</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style type="text/css">
+    #pathDiv {
+      width: 100%;
+      height: auto;
+      word-wrap: break-word;
+      word-break: break-all;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="mui-content pt0">
+    <ul class="mui-table-view ">
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" onclick="badgeShow()">角标显示</a>
+        </li>
+
+        <div class="mui-collapse-content">
+          <div class="mui-input-row">
+              <label>角标个数</label>
+              <input type="text" id="number" value="2" />
+          </div>
+          <div class="mui-input-row">
+              <label>appid</label>
+              <input type="text" id="appid" value="app" />
+          </div>
+        </div>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="sendNotification(1)">发送通知消息1</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="sendNotification(2)">发送通知消息2</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="sendNotification(3)">发送通知消息3</a>
+        </li>
+
+        <div class="mui-collapse-content">
+          <div class="mui-input-row">
+              <label>标题</label>
+              <input type="text" id="title" value="通知消息" />
+          </div>
+          <div class="mui-input-row">
+              <label>子标题</label>
+              <input type="text" id="subtitle" value="通知栏中显示消息" />
+          </div>
+        </div>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="removeNotification()">删除所有消息</a>
+        </li>
+    </ul>
+
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../../dist/quick.js"></script>
+  <script type="text/javascript" src="../../dist/quick.native.js"></script>
+  <script type="text/javascript" src="../../dist/quick.h5.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+
+  <script>
+    var vConsole = new VConsole();
+
+    function badgeShow() {
+      var number = document.getElementById('number').value;
+      var appid = document.getElementById('appid').value;
+      syberh.notification.badgeShow({
+        appid: appid,
+        num: number,
+        success: function (result) {
+          console.log('success: ', result);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+
+    function sendNotification(type) {
+      var title = document.getElementById('title').value;
+      var subtitle = document.getElementById('subtitle').value;
+      syberh.notification.sendNotification({
+        type: type,
+        title: title,
+        subtitle: subtitle,
+        success: function (result) {
+          console.log('success: ', result);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+
+    function removeNotification() {
+      syberh.notification.removeNotification({
+        success: function (result) {
+          console.log('success: ', result);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
