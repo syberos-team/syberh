@@ -22,7 +22,8 @@ sudo apt-get install expect
 
 1、下载项目
 ```bash
-git clone https://github.com/syberos-team/syberh
+# 下载最新的tag版本
+git clone --branch v1.3.0 https://github.com/syberos-team/syberh
 ```
 2、进入cli目录
 ```bash
