@@ -1,9 +1,9 @@
 ---
-title: removeNotification
+title: removeAllNotifications
 ---
 
 
-删除指定消息：根据消息id删除状态栏中的指定消息，删除成功则返回true。
+删除所有消息：将删除状态栏中的所有消息，删除成功则返回true。
 
 
 > 删除通知消息属于敏感权限,必须获取通知权限,在sopconfig.xml文件中添加如下字段:
@@ -12,12 +12,10 @@ title: removeNotification
 <uses-permission syberos:name="syberos.permission.ACCESS_NOTIFICATION"/>
 ```
 
-## syberh.notification.removeNotification(Object object)
+## syberh.notification.removeAllNotifications()
 ### **参数**
-#### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
-| updateId | String |        | 是       | 消息id                    |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -38,8 +36,7 @@ title: removeNotification
 
 ### **代码示例**
 ``` javascript
-syberh.notification.removeNotification({
-  updateId："{ba7b48e3-1e52-484e-85ac-0d7a2149e76c}"，
+syberh.notification.removeAllNotifications({
 	success: function(result){
 		console.log('success: ', result);
 	},

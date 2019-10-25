@@ -18,15 +18,15 @@ title: badgeShow
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
-| appid | String |       | 是       | 应用id                           |
-| num | int |  0     | 否       | 消息条数                           |
+| appId | String |       | 是       | 应用id                           |
+| num | number |  0     | 否       | 消息条数                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
 **object.success回调函数**
 #### 参数
-| 属性 | 类型   | 描述         |
-| ---- | ------ | ------------ |
+| 属性     | 类型    | 必填 | 描述                     |
+| ---------- | ------- | -------- | ---------------------- |
 | result | boolean  | 是     | 返回true, 表示执行成功  |
 
 **object.fail回调函数**
@@ -41,7 +41,7 @@ title: badgeShow
 ``` javascript
 syberh.notification.badgeShow({
 	success: function(result){
-    appid: "app",
+    appId: "app",
     num: 3,
 		console.log('success: ', result);
 	},
