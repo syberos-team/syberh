@@ -52,7 +52,7 @@ syberh init --example
 ```
 创建一个示例项目，示例项目的www/lib下有一个[vconsole.min.js](/js/vconsole.min.js)，可以使用这个拓展工具进行调试，使用的示例参考index.html
 
-注:不要使用官方的vconsole.min.js ，官方的兼容性有问题,我们对这个包做了兼容处理
+注: 不要使用官方的vconsole.min.js，我们对这个包做了兼容处理
 
 #### 使用文档
 https://github.com/Tencent/vConsole
