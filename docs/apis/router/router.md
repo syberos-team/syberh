@@ -251,6 +251,47 @@ syberh.router.setTitle({
 ```
 
 
+
+## syberh.router.setBackgroundColor(Object object)
+
+给当前页面设置背景色
+
+### 参数
+#### Object object
+| 属性    | 类型     | 默认值 | 必填 | 描述                   |
+| ------- | -------- | ------ | ---- | ---------------------- |
+| color   | String   |        | 是  | 回调成功 |
+| success | function |        | 否   | 回调成功 |
+| fail    | function |        | 否   | 回调失败 |
+
+
+#### object.success 回调函数参数
+#### 参数
+| 属性     | 类型    | 必填 | 描述                     |
+| ---------- | ------- | -------- | ---------------------- |
+| result | boolean  | 是     | 返回true, 表示执行成功  |
+
+#### object.fail 回调函数
+#### 参数
+| 属性 | 类型  | 描述 |
+| -- | -- | -- |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
+
+### 代码示例
+``` javascript
+syberh.router.setBackgroundColor({
+  color: "red",
+  success:function(result){
+    console.log('success',result); 
+  },
+  fail:function(error){
+    console.log('fail: ', error.code, error.msg);
+  }
+})
+```
+
+
 ## syberh.router.getCurrentPages()
 
 获取当前页面层数

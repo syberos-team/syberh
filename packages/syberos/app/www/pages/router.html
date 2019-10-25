@@ -59,6 +59,19 @@
             <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setTitle()">设置标题</button>
           </div>
         </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setBackgroundColor</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>color:</label>
+              <input id="setBackgroundColor" type="text" value="red">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setBackgroundColor()">设置背景色</button>
+          </div>
+        </li>
+
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" href="#">navigateTo</a>
           <div class="mui-collapse-content">
@@ -174,6 +187,22 @@
       console.log('设置标题是： ', title)
       syberh.router.setTitle({
         title: title,
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(JSON.stringify(error))
+        }
+      })
+    }
+
+    function setBackgroundColor() {
+      var color = document.getElementById('setBackgroundColor').value;
+      console.log('设置背景色是： ', color)
+      syberh.router.setBackgroundColor({
+        color: color,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
