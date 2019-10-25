@@ -143,6 +143,9 @@
       "apis/notification/badgeShow": {
         "title": "badgeShow"
       },
+      "apis/notification/removeAllNotifications": {
+        "title": "removeAllNotifications"
+      },
       "apis/notification/removeNotification": {
         "title": "removeNotification"
       },

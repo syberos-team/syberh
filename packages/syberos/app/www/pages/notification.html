@@ -62,7 +62,17 @@
         </div>
 
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="removeNotification()">删除所有消息</a>
+          <a class="mui-navigate-right api-class" onclick="removeNotification()">删除指定消息</a>
+        </li>
+
+        <div class="mui-collapse-content">
+          <div class="mui-input-row">
+              <label>消息id</label>
+              <input type="text" id="updateId" />
+          </div>
+        </div>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="removeAllNotifications()">删除所有消息</a>
         </li>
     </ul>
 
@@ -81,7 +91,7 @@
       var number = document.getElementById('number').value;
       var appid = document.getElementById('appid').value;
       syberh.notification.badgeShow({
-        appid: appid,
+        appId: appid,
         num: number,
         success: function (result) {
           console.log('success: ', result);
@@ -100,7 +110,8 @@
         title: title,
         subtitle: subtitle,
         success: function (result) {
-          console.log('success: ', result);
+          document.getElementById('updateId').value = result.updateId;
+          console.log('success: ', result.updateId);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -109,7 +120,20 @@
     }
 
     function removeNotification() {
+      var updateId = document.getElementById('updateId').value;
       syberh.notification.removeNotification({
+        updateId:updateId,
+        success: function (result) {
+          console.log('success: ', result);
+        },
+        fail: function (error) {
+          console.log('fail: ', error.code, error.msg);
+        }
+      });
+    }
+
+    function removeAllNotifications() {
+      syberh.notification.removeAllNotifications({
         success: function (result) {
           console.log('success: ', result);
         },
