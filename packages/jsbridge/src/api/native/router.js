@@ -176,6 +176,20 @@ export default function authMixin(hybrid) {
             },
         },
         {
+            namespace: 'setNavigationBarColor',
+            os: ['syberos'],
+            runCode(...rest) {
+                // 兼容字符串形式
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                    'color',
+                    'textColor',
+                );
+                hybridJs.callInner.apply(this, args);
+            },
+        },
+        {
             namespace: 'getCurrentPages',
             os: ['syberos'],
         },
