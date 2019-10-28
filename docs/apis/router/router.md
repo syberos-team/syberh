@@ -92,6 +92,7 @@ syberh.router.goBack({
 ## syberh.router.navigateTo(Object object)
 
 保留当前页面，跳转到应用内的某个页面。页面栈最多5层
+> 有webviewParams属性，下个页面就有导航栏
 
 ### 参数
 #### Object object
@@ -99,9 +100,21 @@ syberh.router.goBack({
 | ------- | -------- | ------ | ---- | ---------------------- |
 | url     | string   |        | 是   | 需要跳转的应用内页面的路径, 路径后可以带参数。参数与路径之间使用 ? 分隔，参数键与参数值用 = 相连，不同参数用 & 分隔；如 'index.html?key=value&key2=value2'          |
 |data|object||否|页面参数,如果有则会拼接到路径后面,如 {key3:value3}转换为'key3=value3'
-|title|string||否|导航栏标题，最多8个汉字（有这个字段，代表下个页面有导航栏）
+| webviewParams | object |        | 否   | 修改页面背景色或修改导航栏相关属性 |
 | success | function |        | 否   | 回调成功 |
 | fail    | function |        | 否   | 回调失败 |
+
+
+#### object.webviewParams 参数
+#### 参数
+| 属性     | 类型    | 默认值 |必填 | 描述                     |
+| ---------- | ------- | ------------------ | -------- | ---------------- |
+| title              | string  |    | 否  | 导航栏标题，最多8个汉字（有这个字段，代表下个页面有导航栏）
+| webviewColor       | string  |       | 否     | 页面背景色  |
+| navigationBarColor | string  |       | 否     | 导航栏背景色  |
+| textColor          | string  |       | 否     | 导航栏文字颜色  |
+| backIconEnable     | boolean | true  | 否     | 左侧返回按钮是否展示  |
+| closeIconEnable    | boolean | true  | 否     | 左侧关闭按钮是否展示  |
 
 
 #### object.success 回调函数参数
@@ -121,6 +134,14 @@ syberh.router.goBack({
 ``` javascript
 syberh.router.navigateTo({
   url:'index.html',
+  webviewParams: {
+    webviewColor: '#eeeeee',
+    title: navTitle,
+    navigationBarColor: '#eeeeee',
+    textColor: '#e80a0a',
+    backIconEnable: true,
+    closeIconEnable: true
+  },
   success:function(result){
     console.log('success',result); 
   },
@@ -213,7 +234,7 @@ syberh.router.reload({
 ## syberh.router.setTitle(Object object)
 
 给当前页面导航栏设置标题
-> 当前页面有导航栏才可以设置。怎么加导航栏？ syberh.router.navigateTo(Object object) 跳转页面的时候加上title参数就添加上导航栏
+> 当前页面有导航栏才可以设置。怎么加导航栏？ syberh.router.navigateTo(Object object) 跳转页面的时候带上webviewParams参数
 
 ### 参数
 #### Object object
@@ -250,6 +271,47 @@ syberh.router.setTitle({
 })
 ```
 
+## syberh.router.setNavigationBarColor(Object object)
+
+给当前页面导航栏设置背景色和字体颜色
+> 当前页面有导航栏才可以设置。怎么加导航栏？ syberh.router.navigateTo(Object object) 跳转页面的时候带上webviewParams参数
+
+### 参数
+#### Object object
+| 属性    | 类型     | 默认值 | 必填 | 描述                   |
+| ------- | -------- | ------ | ---- | ---------------------- |
+| color     | String   |        | 是  | 设置导航栏背景色 |
+| textColor | String   |        | 是  | 设置导航栏文字颜色 |
+| success   | function |        | 否   | 回调成功 |
+| fail      | function |        | 否   | 回调失败 |
+
+
+#### object.success 回调函数参数
+#### 参数
+| 属性     | 类型    | 必填 | 描述                     |
+| ---------- | ------- | -------- | ---------------------- |
+| result | boolean  | 是     | 返回true, 表示执行成功  |
+
+#### object.fail 回调函数
+#### 参数
+| 属性 | 类型  | 描述 |
+| -- | -- | -- |
+| code | String | 错误码 |
+| msg | String  | 错误信息 |
+
+### 代码示例
+``` javascript
+syberh.router.setNavigationBarColor({
+  color: '#eeeeee',
+  textColor: '#8d0a0a',
+  success:function(result){
+    console.log('success',result); 
+  },
+  fail:function(error){
+    console.log('fail: ', error.code, error.msg);
+  }
+})
+```
 
 
 ## syberh.router.setBackgroundColor(Object object)
