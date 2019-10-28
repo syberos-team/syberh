@@ -42,6 +42,7 @@ const siteConfig = {
     { doc: 'README', label: '指南' },
     { doc: 'apis/about/desc', label: 'API' },
     { href: 'https://github.com/syberos-team/syberh', label: 'GitHub' },
+    { href: 'specials', label: '常见问题' },
     { search: true }
   ],
 
