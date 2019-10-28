@@ -6,8 +6,7 @@
     "快速开始": [
       "started-cli",
       "started-install",
-      "first-app",
-      "specials"
+      "first-app"
     ],
     "进阶指南": [
       "cli-readme",
@@ -170,6 +169,11 @@
       "apis/notification/sendNotification",
       "apis/notification/removeAllNotifications",
       "apis/notification/removeNotification"
+    ]
+  },
+  "常见问题": {
+    "关于问题": [
+      "specials"
     ]
   }
 }

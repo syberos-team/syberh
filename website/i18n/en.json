@@ -740,7 +740,8 @@
     "links": {
       "指南": "指南",
       "API": "API",
-      "GitHub": "GitHub"
+      "GitHub": "GitHub",
+      "常见问题": "常见问题"
     },
     "categories": {
       "关于Syberh": "关于Syberh",
@@ -765,6 +766,7 @@
       "设备": "设备",
       "震动": "震动",
       "消息通知": "消息通知",
+      "关于问题": "关于问题",
       "图片": "图片",
       "webview": "webview",
       "url": "url"
