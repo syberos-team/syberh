@@ -19,7 +19,7 @@ const log_1 = require("../util/log");
 const sop = require("./sop");
 const connect = require("./connect");
 class Build {
-    constructor(appPath, config) {
+    constructor(appPath, webPath, config) {
         // 日志级别
         this.devLog = process.env.DEV_LOG || 'info';
         this.conf = {};
@@ -37,9 +37,10 @@ class Build {
             }
         };
         this.appPath = appPath;
+        this.webPath = webPath;
         this.conf = Object.assign({}, this.conf, config);
         if (log_1.log.isVerboseEnabled()) {
-            log_1.log.verbose('Build constructor(%s, %j)', appPath, config);
+            log_1.log.verbose('Build constructor(%s, %j)', appPath, webPath, config);
             log_1.log.verbose('配置参数:%j', this.conf);
         }
         this.targetName = helper.getTargetName(this.appPath, this.conf.adapter);
@@ -129,12 +130,12 @@ class Build {
      * 拷贝www路径
      * @param appPath
      */
-    copywww(appPath = this.appPath) {
+    copywww(appPath = this.appPath, webPath = this.webPath) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(chalk_1.default.green('准备拷贝www目录'));
             log_1.log.verbose('Build copywww(%s)', appPath);
             // const projectName = getProjectName(appPath)
-            const wwwPath = path.join(appPath, index_1.default.SOURCE_DIR);
+            const wwwPath = path.join(appPath, webPath || index_1.default.SOURCE_DIR);
             // 模板目录
             const syberosPath = path.join(appPath, 'platforms', 'syberos', 'app', 'www');
             try {

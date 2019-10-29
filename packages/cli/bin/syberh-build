@@ -58,7 +58,9 @@ targetReset(appPath, program).then(() => {
 
   console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
-  build(appPath, {
+  const webPath = projectConf.webPath
+
+  build(appPath, webPath, {
     type,
     debug,
     port,
