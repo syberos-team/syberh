@@ -82,6 +82,7 @@ exports.createApp = function (creater, params, helper, cb) {
     projectName,
     projectDir,
     appName,
+    webPath,
     template,
     typescript,
     src,
@@ -146,6 +147,7 @@ exports.createApp = function (creater, params, helper, cb) {
     path.join(projectPath, 'project.config.json'),
     {
       appName,
+      webPath,
       projectName,
       sopid,
       target,

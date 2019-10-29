@@ -60,24 +60,33 @@ function printReport(reports): boolean {
 }
 
 // 返回是否有致命错误
-export default async function diagnose(): Promise<boolean> {
+export default async function diagnose({checkGlobalTarget = false}): Promise<boolean> {
   const PROJECT_CONF_PATH = path.join(process.cwd(), PROJECT_CONFIG)
 
   log.verbose('PROJECT_CONF_PATH:', PROJECT_CONF_PATH)
-  if (!fs.existsSync(PROJECT_CONF_PATH)) {
-    console.log(chalk.red(`找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是Syberh项目根目录!`))
-    process.exit(1)
+
+  let projectConfig = {}
+
+  // 检查全局target为false时，不判断projectConfig文件
+  if (!checkGlobalTarget) {
+    if (!fs.existsSync(PROJECT_CONF_PATH)) {
+      console.log(chalk.red(`找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是Syberh项目根目录!`))
+      process.exit(1)
+    } else {
+      projectConfig = fs.readJSONSync(PROJECT_CONF_PATH)
+    }
   }
 
   log.verbose('validators:', validators)
 
   const spinner = ora('正在诊断项目...').start()
-  const projectConfig = fs.readJSONSync(PROJECT_CONF_PATH)
+
   log.verbose('projectConfig', projectConfig)
 
   const reportsP = _.map(validator => validator({
     appPath,
     projectConfig,
+    checkGlobalTarget,
     configPath: PROJECT_CONF_PATH
   }), validators.validators)
   const reports = await Promise.all(reportsP)

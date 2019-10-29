@@ -16,6 +16,7 @@ interface IProjectConf {
   sopid: string
   template: 'default' | 'mobx' | 'redux'
   appName: string
+  webPath: string
   typescript?: boolean
   css: 'none' | 'sass' | 'stylus' | 'less'
   date?: string
@@ -45,6 +46,7 @@ export default class Project extends Creator {
         template: 'default',
         sopid: '',
         appName: '',
+        webPath: CONFIG.SOURCE_DIR,
         example: false,
         targetName: ''
       },

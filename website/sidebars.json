@@ -11,6 +11,7 @@
     "进阶指南": [
       "cli-readme",
       "app-config",
+      "app-webPath",
       "started-ide",
       "started-spm",
       "return_code"

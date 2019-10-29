@@ -130,8 +130,14 @@ $ syberh update self
 ### doctor
 > 快速检查用户本地开发环境
 
+| 参数 | 描述 |
+| ---  | --------- |
+| --global    | 检查全局环境 |
+
 ``` bash
 $ syberh doctor
+# 检查全局环境
+$ syberh doctor --global
 ```
 
 ### simulator
