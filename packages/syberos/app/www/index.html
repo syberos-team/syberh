@@ -187,11 +187,13 @@
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
-        webviewParams: {
-          webviewColor: 'green',
+        webview: {
+          color: 'green',
+        },
+        navigationBar: {
           title: navTitle,
-          navigationBarColor: '#eeeeee',
-          textColor: '#e80a0a',
+          color: '#f7f7f7',
+          textColor: '#4395ff',
           backIconEnable: true,
           closeIconEnable: true
         },
