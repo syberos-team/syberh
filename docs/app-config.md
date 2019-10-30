@@ -5,7 +5,7 @@ title: APP 配置
 所有权限均在 sopconfig.xml 文件中配置。
 
 文件位于
-``` shell
+```bash
 # myapp为项目的根目录
 myapp/platforms/syberos/sopconfig.xml
 ```

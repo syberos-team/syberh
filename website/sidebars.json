@@ -6,13 +6,14 @@
     "快速开始": [
       "started-cli",
       "started-install",
-      "first-app",
-      "specials"
+      "first-app"
     ],
     "进阶指南": [
       "cli-readme",
       "app-config",
+      "app-webPath",
       "started-ide",
+      "started-spm",
       "return_code"
     ]
   },
@@ -155,16 +156,25 @@
         "type": "subcategory",
         "ids": [
           "apis/brightness/brightnessInfo",
-          "apis/brightness/setAdaptiveDimmingEnabled",
           "apis/brightness/setAmbientLightSensorEnabled",
           "apis/brightness/setBlankTimeout",
-          "apis/brightness/setBrightness",
-          "apis/brightness/setDimTimeout"
+          "apis/brightness/setBrightness"
         ]
       }
     ],
     "震动": [
       "apis/vibrator/vibrate"
+    ],
+    "消息通知": [
+      "apis/notification/badgeShow",
+      "apis/notification/sendNotification",
+      "apis/notification/removeAllNotifications",
+      "apis/notification/removeNotification"
+    ]
+  },
+  "常见问题": {
+    "关于问题": [
+      "specials"
     ]
   }
 }

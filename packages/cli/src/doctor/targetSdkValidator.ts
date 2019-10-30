@@ -12,8 +12,6 @@ async function buildReport(errors: IErrorLine[]) {
   }
 }
 
-
-
 async function checkExpect(): Promise<IErrorLine[]> {
   log.verbose('checkExpect()')
   const errorLines: IErrorLine[] = []
@@ -57,27 +55,12 @@ async function checkSyberosSdk(): Promise<IErrorLine[]> {
   return errorLines
 }
 
-async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
-  log.verbose('targetSdkValidator checkTarget(%j)', projectConfig)
+async function checkTarget(projectConfig: any, checkGlobalTarget = false): Promise<IErrorLine[]> {
+  log.verbose('targetSdkValidator checkTarget(%j)', projectConfig, checkGlobalTarget)
   const targetPaths = await helper.locateAllTarget()
   const errorLines: IErrorLine[] = []
 
-  if (!projectConfig.target) {
-    errorLines.push({
-      desc: 'target配置缺失',
-      valid: false,
-      solution: '请检查 project.config.json'
-    })
-    return errorLines
-  }
-  if (!projectConfig.targetSimulator) {
-    errorLines.push({
-      desc: 'targetSimulator配置缺失',
-      valid: true,
-      solution: '将无法在模拟器中运行，请检查 project.config.json'
-    })
-  }
-
+  // 优先判断全局是否安装target
   if (!targetPaths || targetPaths.length < 1) {
     errorLines.push({
       desc: '未安装任何target',
@@ -85,6 +68,23 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
       solution: '请安装target'
     })
     return errorLines
+  }
+
+  if (!projectConfig.target && !checkGlobalTarget) {
+    errorLines.push({
+      desc: 'target配置缺失',
+      valid: false,
+      solution: '请检查 project.config.json'
+    })
+    return errorLines
+  }
+  
+  if (!projectConfig.targetSimulator && !checkGlobalTarget) {
+    errorLines.push({
+      desc: 'targetSimulator配置缺失',
+      valid: true,
+      solution: '将无法在模拟器中运行，请检查 project.config.json'
+    })
   }
 
   const checkPathExists = (targetPath: string): IErrorLine | null => {
@@ -125,7 +125,8 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
       hasTargetSimulator = true
     }
   }
-  if (!hasTarget) {
+
+  if (!hasTarget && !checkGlobalTarget) {
     errorLines.push({
       desc: 'target未安装',
       valid: false,
@@ -133,7 +134,8 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
     })
     return errorLines
   }
-  if (!hasTargetSimulator) {
+
+  if (!hasTargetSimulator && !checkGlobalTarget) {
     errorLines.push({
       desc: 'target未安装',
       valid: true,
@@ -141,6 +143,7 @@ async function checkTarget(projectConfig: any): Promise<IErrorLine[]> {
     })
     return errorLines
   }
+
   return errorLines
 }
 
@@ -150,7 +153,7 @@ export default async function (params) {
 
   const errorLines = await checkExpect();
   errorLines.push(... await checkSyberosSdk())
-  errorLines.push(...await checkTarget(params['projectConfig']))
+  errorLines.push(...await checkTarget(params['projectConfig'], params['checkGlobalTarget']))
 
   return buildReport(errorLines)
 }

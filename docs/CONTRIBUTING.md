@@ -14,7 +14,7 @@
 
 修改 npm 源
 
-```shell
+```bash
 npm config set registry https://registry.npm.taobao.org
 ```
 
@@ -22,7 +22,7 @@ npm config set registry https://registry.npm.taobao.org
 
 安装 yarn
 
-```shell
+```bash
 npm install -g yarn
 ```
 
@@ -30,13 +30,13 @@ npm install -g yarn
 
 安装 lerna
 
-```shell
+```bash
 npm install lerna -g
 ```
 
 ## 安装依赖
 
-```shell
+```bash
 lerna bootstrap
 ```
 
@@ -44,7 +44,7 @@ lerna bootstrap
 
 运行开发环境
 
-```shell
+```bash
 lerna run dev
 ```
 

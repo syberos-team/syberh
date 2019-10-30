@@ -1,6 +1,5 @@
 const pkg = require('./package.json');
 const Webpack = require('webpack');
-const fs = require('fs');
 const Path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -61,9 +60,12 @@ module.exports = {
         from: Path.resolve(__dirname, './dist/syberh.min.js'),
         to: Path.join(
           Path.dirname(Path.resolve(__dirname)),
-          'template/app/www/lib/syberh.min.js',
+          'syberos/app/www/lib/syberh.min.js',
         ),
       },
     ]),
+    new Webpack.DefinePlugin({
+      'JVERSION': JSON.stringify(pkg.version)
+    }),
   ],
 };

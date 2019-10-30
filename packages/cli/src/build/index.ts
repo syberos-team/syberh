@@ -11,7 +11,7 @@ import { log } from '../util/log';
  * @param appPath 工程目录
  * @param param1 参数信息
  */
-export async function build(appPath: string, config: AppBuildConfig) {
+export async function build(appPath: string, webPath: string, config: AppBuildConfig) {
   log.verbose('build() start')
   const newConfig = { ...config, ...getProjectConfig(appPath) }
   const serverPort = 4399
@@ -43,7 +43,7 @@ export async function build(appPath: string, config: AppBuildConfig) {
     const serverjs = locateScripts('devServer.js')
     child_process.fork(serverjs, [newConfig.port])
   }
-  const build = new Build(appPath, newConfig)
+  const build = new Build(appPath, webPath, newConfig)
   if (newConfig.onlyBuildSop === true) {
     await build.buildSop()
   } else {

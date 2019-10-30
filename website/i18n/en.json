@@ -140,6 +140,18 @@
       "apis/navigator/navigator": {
         "title": "navigator"
       },
+      "apis/notification/badgeShow": {
+        "title": "badgeShow"
+      },
+      "apis/notification/removeAllNotifications": {
+        "title": "removeAllNotifications"
+      },
+      "apis/notification/removeNotification": {
+        "title": "removeNotification"
+      },
+      "apis/notification/sendNotification": {
+        "title": "sendNotification"
+      },
       "apis/package/openDocument": {
         "title": "openDocument"
       },
@@ -216,6 +228,9 @@
       "app-config": {
         "title": "APP 配置"
       },
+      "app-webPath": {
+        "title": "修改web目录"
+      },
       "cli-readme": {
         "title": "CLI使用"
       },
@@ -287,6 +302,9 @@
       },
       "started-install": {
         "title": "安装SyberOS SDK"
+      },
+      "started-spm": {
+        "title": "spm 工具"
       },
       "version-1.1.0/apis/about/version-1.1.0-desc": {
         "title": "API 说明"
@@ -708,12 +726,25 @@
       },
       "version-1.2.0/apis/router/version-1.2.0-router": {
         "title": "路由(router)"
+      },
+      "version-1.3.0-alpha.1/apis/brightness/version-1.3.0-alpha.1-setDimTimeout": {
+        "title": "setDimTimeout"
+      },
+      "version-1.3.0-alpha.1/apis/router/version-1.3.0-alpha.1-router": {
+        "title": "路由(router)"
+      },
+      "version-1.3.0-alpha.1/version-1.3.0-alpha.1-return_code": {
+        "title": "全局返回码"
+      },
+      "version-1.3.0-alpha.1/version-1.3.0-alpha.1-started-spm": {
+        "title": "spm 工具"
       }
     },
     "links": {
       "指南": "指南",
       "API": "API",
-      "GitHub": "GitHub"
+      "GitHub": "GitHub",
+      "常见问题": "常见问题"
     },
     "categories": {
       "关于Syberh": "关于Syberh",
@@ -737,6 +768,8 @@
       "上传": "上传",
       "设备": "设备",
       "震动": "震动",
+      "消息通知": "消息通知",
+      "关于问题": "关于问题",
       "图片": "图片",
       "webview": "webview",
       "url": "url"
