@@ -5,7 +5,6 @@ title: createTable
 
 创建表：将在应用程序或者服务的私有数据目录下新增数据库，数据库创建成功后，将根据表sql、索引sql继续创建表、索引。全部创建成功则返回true。
 
-数据库默认地址：/data/data/com.syberos.demo/syberos-database.sqlite
 
 ## syberh.database.createTable(Object object)
 ### **参数**
