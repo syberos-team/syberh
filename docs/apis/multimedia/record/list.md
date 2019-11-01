@@ -13,7 +13,7 @@ title: list
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
-**object.success回调函数**
+#### object.success回调函数
 #### 参数
 | 属性 | 类型   | 描述         |
 | ---- | ------ | ------------ |
@@ -23,7 +23,7 @@ title: list
 | duration | String | 录音时长(00:00:01) |
 | created | String | 创建时间(yyyy-MM-dd hh:mm:ss) |
 
-**object.fail回调函数**
+#### object.fail回调函数
 #### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |

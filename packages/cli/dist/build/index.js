@@ -19,7 +19,7 @@ const log_1 = require("../util/log");
  * @param appPath 工程目录
  * @param param1 参数信息
  */
-function build(appPath, config) {
+function build(appPath, webPath, config) {
     return __awaiter(this, void 0, void 0, function* () {
         log_1.log.verbose('build() start');
         const newConfig = Object.assign({}, config, helper_1.getProjectConfig(appPath));
@@ -51,7 +51,7 @@ function build(appPath, config) {
             const serverjs = helper_1.locateScripts('devServer.js');
             child_process.fork(serverjs, [newConfig.port]);
         }
-        const build = new build_1.default(appPath, newConfig);
+        const build = new build_1.default(appPath, webPath, newConfig);
         if (newConfig.onlyBuildSop === true) {
             yield build.buildSop();
         }

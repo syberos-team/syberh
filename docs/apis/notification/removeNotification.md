@@ -13,7 +13,7 @@ title: removeNotification
 ```
 
 ## syberh.notification.removeNotification(Object object)
-### **参数**
+### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
@@ -21,13 +21,13 @@ title: removeNotification
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
-**object.success回调函数**
+### object.success回调函数
 #### 参数
 | 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
 | result | boolean  | 是     | 返回true, 表示执行成功  |
 
-**object.fail回调函数**
+### object.fail回调函数
 #### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
@@ -36,7 +36,7 @@ title: removeNotification
 
 
 
-### **代码示例**
+### 代码示例
 ``` javascript
 syberh.notification.removeNotification({
   updateId："{ba7b48e3-1e52-484e-85ac-0d7a2149e76c}"，

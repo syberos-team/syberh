@@ -48,6 +48,40 @@
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
         </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">navigateTo</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>url:</label>
+              <input id="url2" type="text" value="pages/router.html">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo()">确定</button>
+          </div>
+        </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">getCurrentPages</a>
+          <div class="mui-collapse-content">
+            <div>页面层数:<p id="depth"></p>
+            </div>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
+              onclick="getCurrentPages()">确定</button>
+          </div>
+
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">navigateBack</a>
+          <div class="mui-input-row">
+            <label>delta:</label>
+            <input id="delta" type="number" value="1">
+          </div>
+          <div class="mui-collapse-content">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateBack()">确定</button>
+          </div>
+        </li>
+
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" href="#">setTitle</a>
           <div class="mui-collapse-content">
@@ -73,38 +107,19 @@
         </li>
 
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" href="#">navigateTo</a>
+          <a class="mui-navigate-right" href="#">setNavigationBarColor</a>
           <div class="mui-collapse-content">
             <div class="mui-input-row">
-              <label>url:</label>
-              <input id="url2" type="text" value="pages/router.html">
+              <label>color:</label>
+              <input id="navigationBarColor" type="text" value="#eeeeee">
+            </div>
+            <div class="mui-input-row">
+              <label>TextColor:</label>
+              <input id="navigationBarTextColor" type="text" value="#cccccc">
             </div>
 
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo()">确定</button>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setNavigationBarColor()">设置导航栏颜色</button>
           </div>
-
-        </li>
-
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" href="#">getCurrentPages</a>
-          <div class="mui-collapse-content">
-            <div>页面层数:<p id="depth"></p>
-            </div>
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
-              onclick="getCurrentPages()">确定</button>
-          </div>
-
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" href="#">navigateBack</a>
-          <div class="mui-input-row">
-            <label>delta:</label>
-            <input id="delta" type="number" value="1">
-          </div>
-          <div class="mui-collapse-content">
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateBack()">确定</button>
-          </div>
-
         </li>
 
       </ul>
@@ -198,9 +213,27 @@
       })
     }
 
+    function setNavigationBarColor() {
+      var color = document.getElementById('navigationBarColor').value;
+      var textColor = document.getElementById('navigationBarTextColor').value;
+      console.log('设置导航栏颜色是color,textColor： ', color, textColor)
+      syberh.router.setNavigationBarColor({
+        color: color,
+        textColor: textColor,
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(JSON.stringify(error))
+        }
+      })
+    }
+
     function setBackgroundColor() {
       var color = document.getElementById('setBackgroundColor').value;
-      console.log('设置背景色是： ', color)
+      console.log('设置背景色是color ', color)
       syberh.router.setBackgroundColor({
         color: color,
         success: function (result) {

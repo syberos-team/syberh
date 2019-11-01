@@ -19,13 +19,13 @@ title: start
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
-**object.success回调函数**
+#### object.success回调函数
 #### 参数
 | 属性 | 类型   | 描述         |
 | ---- | ------ | ------------ |
 | path | String | 录音路径 |
 
-**object.fail回调函数**
+#### object.fail回调函数
 #### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |

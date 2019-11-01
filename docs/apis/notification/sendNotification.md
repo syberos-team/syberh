@@ -13,7 +13,7 @@ title: sendNotification
 ```
 
 ## syberh.notification.sendNotification(Object object)
-### **参数**
+### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
@@ -30,13 +30,13 @@ title: sendNotification
 | 2 | 通知发送时间不显示在下拉列表上 |
 | 3 | 通知在手机重启后， 自动删除 |
 
-**object.success回调函数**
+### object.success回调函数
 #### 参数
 | 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
 | updateId | String | 是       | 消息id                    |
 
-**object.fail回调函数**
+### object.fail回调函数
 #### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
@@ -45,7 +45,7 @@ title: sendNotification
 
 
 
-### **代码示例**
+### 代码示例
 ``` javascript
 syberh.notification.sendNotification({
 	success: function(result){

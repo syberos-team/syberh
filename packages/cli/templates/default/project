@@ -1,6 +1,7 @@
 {
   "projectName": "<%= projectName %>",
   "appName": "<%= appName %>",
+  "webPath": "<%= webPath %>",
   "target": "<%= target %>",
   "targetSimulator": "<%= targetSimulator %>",
   "sopid": "<%= sopid %>"
