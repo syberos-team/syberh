@@ -17,7 +17,7 @@ title: takePhoto
 ```
 
 ## syberh.camera.takePhoto(Object object)
-### **参数**
+### 参数
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
@@ -25,13 +25,13 @@ title: takePhoto
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
-**object.success回调函数**
+#### object.success回调函数
 #### 参数
 | 属性 | 类型   | 描述         |
 | ---- | ------ | ------------ |
 | path | String | 图片路径 |
 
-**object.fail回调函数**
+#### object.fail回调函数
 #### 参数
 | 属性 | 类型   | 描述     |
 | ---- | ------ | -------- |
@@ -40,7 +40,7 @@ title: takePhoto
 
 
 
-### **拍照代码示例**
+### 拍照代码示例
 ``` javascript
 syberh.camera.takePhoto({
 	success: function(result){
