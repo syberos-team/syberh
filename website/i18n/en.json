@@ -228,8 +228,8 @@
       "app-config": {
         "title": "APP 配置"
       },
-      "app-webPath": {
-        "title": "修改web目录"
+      "app-permissions": {
+        "title": "APP 权限配置"
       },
       "cli-readme": {
         "title": "CLI使用"
