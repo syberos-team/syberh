@@ -132,9 +132,22 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
     while (QFile::exists(path)
            || QFile::exists(path + downloadManager->getDownloadFileSuffix())
            || fileNames.value(path) != NULL) {
-        if (nameSplit.size() > 1) {
+        if (nameSplit.size() == 2) {
+            // 文件名只有一个小数点的情况
             path = basePath + "/" + nameSplit[nameSplit.size() - 2] + "(" + QString::number(i) + ")." + nameSplit[nameSplit.size() - 1];
+        } else if (nameSplit.size() > 2) {
+            // 文件名出现多个小数点的情况，nameSplit.size()-2 是数组倒数第2项
+
+            qDebug() << "lastName 倒数第2项的名字: " << nameSplit[nameSplit.size()-2] << endl;
+
+            QString lastName = nameSplit[nameSplit.size()-2].section('(', 0);
+
+            qDebug() << "lastName 倒数第2项的名字--去掉括号后: " << lastName << endl;
+
+            nameSplit.replace(nameSplit.size()-2, lastName + "(" + QString::number(i) + ")");
+            path = basePath + "/" + nameSplit.join('.');
         } else {
+            // 文件名没有小数点的情况
             path = basePath + "/" + nameSplit[nameSplit.size() - 1] + "(" + QString::number(i) + ")";
         }
         i++;
@@ -220,8 +233,8 @@ void Download::onReplyFinished(QString downloadId, QString path, int statusCode,
     // 删除缓存文件路径
     fileNames.remove(taskInfo->downloadManager->getMPath());
 
-    // 根据状态码判断当前下载是否出错;
-    if (statusCode > 200 && statusCode < 400) {
+    // 根据状态码判断当前下载是否出错, 大于等于400算错误
+    if (statusCode >= 400) {
         qDebug() << Q_FUNC_INFO << "download failed " << statusCode << errorMessage << endl;
         emit failed(downloadId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, errorMessage));
     }

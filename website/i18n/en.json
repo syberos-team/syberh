@@ -753,6 +753,84 @@
       },
       "version-1.3.0-alpha.1/version-1.3.0-alpha.1-started-spm": {
         "title": "spm 工具"
+      },
+      "version-1.4.0-alpha.1/apis/database/version-1.4.0-alpha.1-createTable": {
+        "title": "createTable"
+      },
+      "version-1.4.0-alpha.1/apis/database/version-1.4.0-alpha.1-execute": {
+        "title": "execute"
+      },
+      "version-1.4.0-alpha.1/apis/database/version-1.4.0-alpha.1-isDatabaseExists": {
+        "title": "isDatabaseExists"
+      },
+      "version-1.4.0-alpha.1/apis/database/version-1.4.0-alpha.1-isTableExists": {
+        "title": "isTableExists"
+      },
+      "version-1.4.0-alpha.1/apis/database/version-1.4.0-alpha.1-query": {
+        "title": "query"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/audio/version-1.4.0-alpha.1-pause": {
+        "title": "pause"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/audio/version-1.4.0-alpha.1-resume": {
+        "title": "resume"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/audio/version-1.4.0-alpha.1-start": {
+        "title": "start"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/audio/version-1.4.0-alpha.1-stop": {
+        "title": "stop"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/camera/version-1.4.0-alpha.1-captureVideoEnd": {
+        "title": "captureVideoEnd"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/camera/version-1.4.0-alpha.1-captureVideoStart": {
+        "title": "captureVideoStart"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/camera/version-1.4.0-alpha.1-takePhoto": {
+        "title": "takePhoto"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/record/version-1.4.0-alpha.1-list": {
+        "title": "list"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/record/version-1.4.0-alpha.1-pause": {
+        "title": "pause"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/record/version-1.4.0-alpha.1-resume": {
+        "title": "resume"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/record/version-1.4.0-alpha.1-start": {
+        "title": "start"
+      },
+      "version-1.4.0-alpha.1/apis/multimedia/record/version-1.4.0-alpha.1-stop": {
+        "title": "stop"
+      },
+      "version-1.4.0-alpha.1/apis/notification/version-1.4.0-alpha.1-badgeShow": {
+        "title": "badgeShow"
+      },
+      "version-1.4.0-alpha.1/apis/notification/version-1.4.0-alpha.1-removeAllNotifications": {
+        "title": "removeAllNotifications"
+      },
+      "version-1.4.0-alpha.1/apis/notification/version-1.4.0-alpha.1-removeNotification": {
+        "title": "removeNotification"
+      },
+      "version-1.4.0-alpha.1/apis/notification/version-1.4.0-alpha.1-sendNotification": {
+        "title": "sendNotification"
+      },
+      "version-1.4.0-alpha.1/apis/router/version-1.4.0-alpha.1-router": {
+        "title": "路由(router)"
+      },
+      "version-1.4.0-alpha.1/version-1.4.0-alpha.1-app-config": {
+        "title": "APP 配置"
+      },
+      "version-1.4.0-alpha.1/version-1.4.0-alpha.1-app-permissions": {
+        "title": "APP 权限配置"
+      },
+      "version-1.4.0-alpha.1/version-1.4.0-alpha.1-cli-readme": {
+        "title": "CLI使用"
+      },
+      "version-1.4.0-alpha.1/version-1.4.0-alpha.1-specials": {
+        "title": "常见问题"
       }
     },
     "links": {

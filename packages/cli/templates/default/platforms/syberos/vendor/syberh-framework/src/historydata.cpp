@@ -1,9 +1,9 @@
 #include "historydata.h"
+#include "helper.h"
 
 #include <QtSql>
 #include <QDebug>
 
-#define APP_DATADIR QDir::homePath()
 int HistoryData::typeId = qRegisterMetaType<HistoryData *>();
 
 HistoryData::HistoryData(){}
@@ -26,7 +26,7 @@ bool HistoryData::createConnection() {
     qDebug() << Q_FUNC_INFO << "createConnection" << endl;
     myConnection = QSqlDatabase::addDatabase("QSQLITE");
 
-    QString dataDir = APP_DATADIR;
+    QString dataDir = Helper::instance()->getDataRootPath();
     QDir d(dataDir);
     if (!d.exists()) {
         qDebug() << Q_FUNC_INFO << "数据库不存在" << endl;

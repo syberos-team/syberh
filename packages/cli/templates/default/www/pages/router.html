@@ -48,17 +48,7 @@
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" onclick="goBack()">goBack</a>
         </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" href="#">setTitle</a>
-          <div class="mui-collapse-content">
-            <div class="mui-input-row">
-              <label>title:</label>
-              <input id="setTitle" type="text" value="我是新标题">
-            </div>
 
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setTitle()">设置标题</button>
-          </div>
-        </li>
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right" href="#">navigateTo</a>
           <div class="mui-collapse-content">
@@ -69,7 +59,6 @@
 
             <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo()">确定</button>
           </div>
-
         </li>
 
         <li class="mui-table-view-cell">
@@ -91,7 +80,46 @@
           <div class="mui-collapse-content">
             <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateBack()">确定</button>
           </div>
+        </li>
 
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setTitle</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>title:</label>
+              <input id="setTitle" type="text" value="我是新标题">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setTitle()">设置标题</button>
+          </div>
+        </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setBackgroundColor</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>color:</label>
+              <input id="setBackgroundColor" type="text" value="red">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setBackgroundColor()">设置背景色</button>
+          </div>
+        </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setNavigationBarColor</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>color:</label>
+              <input id="navigationBarColor" type="text" value="#eeeeee">
+            </div>
+            <div class="mui-input-row">
+              <label>TextColor:</label>
+              <input id="navigationBarTextColor" type="text" value="#cccccc">
+            </div>
+
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setNavigationBarColor()">设置导航栏颜色</button>
+          </div>
         </li>
 
       </ul>
@@ -174,6 +202,40 @@
       console.log('设置标题是： ', title)
       syberh.router.setTitle({
         title: title,
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(JSON.stringify(error))
+        }
+      })
+    }
+
+    function setNavigationBarColor() {
+      var color = document.getElementById('navigationBarColor').value;
+      var textColor = document.getElementById('navigationBarTextColor').value;
+      console.log('设置导航栏颜色是color,textColor： ', color, textColor)
+      syberh.router.setNavigationBarColor({
+        color: color,
+        textColor: textColor,
+        success: function (result) {
+          showTips(JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(JSON.stringify(error))
+        }
+      })
+    }
+
+    function setBackgroundColor() {
+      var color = document.getElementById('setBackgroundColor').value;
+      console.log('设置背景色是color ', color)
+      syberh.router.setBackgroundColor({
+        color: color,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)

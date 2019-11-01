@@ -36,7 +36,7 @@ exports.default = build;
 function diagnoseFastfail(buildConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!buildConfig.nodoctor) {
-            const hasFail = yield index_1.default();
+            const hasFail = yield index_1.default({ checkGlobalTarget: false });
             if (hasFail) {
                 process.exit(0);
             }

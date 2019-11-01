@@ -154,6 +154,12 @@
         <a class="mui-navigate-right api-class" id="./pages/vibrator.html">震动</a>
       </li>
       <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/notification.html">消息通知</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/database.html">数据库操作</a>
+      </li>
+      <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="https://syberh.syberos.com">在线文档</a>
       </li>
       <li class="mui-table-view-cell">
@@ -173,8 +179,6 @@
   <script type="text/javascript" src="lib/vconsole.min.js"></script>
   <script>
     var vConsole = new VConsole()
-    
-    console.log(document.querySelector('.mui-content').style.paddingTop, '顶部的距离')
 
     console.log("当前os版本:", syberh.os.version)
     console.log("当前syberh版本:", syberh.version)
@@ -186,7 +190,16 @@
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
-        title: navTitle,
+        webview: {
+          color: 'green',
+        },
+        navigationBar: {
+          title: navTitle,
+          color: '#f7f7f7',
+          textColor: '#4395ff',
+          backIconEnable: true,
+          closeIconEnable: true
+        },
         success: function (result) {
           console.log(result);
         },

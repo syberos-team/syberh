@@ -34,6 +34,7 @@ class Project extends creator_1.default {
             template: 'default',
             sopid: '',
             appName: '',
+            webPath: config_1.default.SOURCE_DIR,
             example: false,
             targetName: ''
         }, options);
