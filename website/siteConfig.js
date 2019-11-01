@@ -42,7 +42,7 @@ const siteConfig = {
     { doc: 'README', label: '指南' },
     { doc: 'apis/about/desc', label: 'API' },
     { href: 'https://github.com/syberos-team/syberh', label: 'GitHub' },
-    { href: 'specials', label: '常见问题' },
+    { doc: 'specials', label: '常见问题' },
     { search: true }
   ],
 
@@ -68,12 +68,12 @@ const siteConfig = {
   /* custom fonts for website */
   fonts: {
     myFont: [
-      "Times New Roman",
-      "Serif"
+      'Times New Roman',
+      'Serif'
     ],
     myOtherFont: [
-      "-apple-system",
-      "system-ui"
+      '-apple-system',
+      'system-ui'
     ]
   },
 
