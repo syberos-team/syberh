@@ -8,6 +8,7 @@ export default function databaseMixin(hybrid) {
         defaultParams: {
             sql: '',
             sqlindex: '',
+            databaseName: '',
         },
         runCode(...rest) {
             const args = innerUtil.compatibleStringParamsToObject.call(
@@ -15,6 +16,7 @@ export default function databaseMixin(hybrid) {
                 rest,
                 'sql',
                 'sqlindex',
+                'databaseName',
             );
             hybridJs.callInner.apply(this, args);
         },
@@ -23,12 +25,14 @@ export default function databaseMixin(hybrid) {
         os: ['syberos'],
         defaultParams: {
             sql: '',
+            databaseName: '',
         },
         runCode(...rest) {
             const args = innerUtil.compatibleStringParamsToObject.call(
                 this,
                 rest,
                 'sql',
+                'databaseName',
             );
             hybridJs.callInner.apply(this, args);
         },
@@ -37,12 +41,14 @@ export default function databaseMixin(hybrid) {
         os: ['syberos'],
         defaultParams: {
             sql: '',
+            databaseName: '',
         },
         runCode(...rest) {
             const args = innerUtil.compatibleStringParamsToObject.call(
                 this,
                 rest,
                 'sql',
+                'databaseName',
             );
             hybridJs.callInner.apply(this, args);
         },
@@ -54,12 +60,14 @@ export default function databaseMixin(hybrid) {
         os: ['syberos'],
         defaultParams: {
             tableName: '',
+            databaseName: '',
         },
         runCode(...rest) {
             const args = innerUtil.compatibleStringParamsToObject.call(
                 this,
                 rest,
                 'tableName',
+                'databaseName',
             );
             hybridJs.callInner.apply(this, args);
         },

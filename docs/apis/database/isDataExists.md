@@ -3,14 +3,15 @@ title: isDataExists
 ---
 
 
-判断sqlite数据库文件是否存在。
+判断指定数据库文件是否存在。
 
 
-## syberh.database.isDataExists()
+## syberh.database.isDataExists(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| databaseName | string |        | 是       | 数据库名                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -32,6 +33,7 @@ title: isDataExists
 ### **代码示例**
 ``` javascript
 syberh.database.isDataExists({
+  databaseName: "",
 	success: function(result){
     console.log('success', result);  
 	},

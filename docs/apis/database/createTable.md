@@ -12,6 +12,7 @@ title: createTable
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| databaseName | string |        | 是       | 数据库名                           |
 | sql | string |        | 是       | 表sql                           |
 | sqlindex | string |        | 否       | 索引sql                           |
 | success | function |        | 否       | 回调成功                    |
@@ -35,6 +36,7 @@ title: createTable
 ### **代码示例**
 ``` javascript
 syberh.database.createTable({
+  databaseName: "",
   sql: "xxxx",
   sqlindex: "xxxx",
 	success: function(result){

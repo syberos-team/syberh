@@ -53,8 +53,12 @@
 
       <div class="mui-collapse-content">
         <div class="mui-input-row">
+          <label>数据库名</label>
+          <input type="text" id="databaseName" value="syberos-database" />
+        </div>
+        <div class="mui-input-row">
           <label>表名</label>
-          <input type="text" id="tableName" value="datas" readonly />
+          <input type="text" id="tableName" value="datas" />
         </div>
         <div class="mui-input-row">
           <label>标题</label>
@@ -91,15 +95,19 @@
     });
 
     function refresh() {
+      var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
       var sql = "select * from " + tableName + " order by created desc";
 
-      if (tableName === 'undefined' || tableName === null || tableName === "") {
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
+      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
         alert("表名不能为空");
       } else {
         syberh.database.selectOperate({
           sql: sql,
           tableName: tableName,
+          databaseName: databaseName,
           success: function (result) {
             var str = "<li class=\"mui-table-view-cell\">";
             str += "<a class=\"mui-navigate-right api-class\">数据列表</a>";
@@ -130,17 +138,21 @@
     }
 
     function selectMetadataById(id) {
+      var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
       var sql = "select * from " + tableName + " where id = " + id;
 
-      if (id === 'undefined' || id === null || id === "") {
-        alert("id不能为空");
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
       } else if (tableName === 'undefined' || tableName === null || tableName === "") {
         alert("表名不能为空");
+      } else if (id === 'undefined' || id === null || id === "") {
+        alert("id不能为空");
       } else {
         syberh.database.selectOperate({
           sql: sql,
           tableName: tableName,
+          databaseName: databaseName,
           success: function (result) {
             document.getElementById("title").value = result[0].title;
             document.getElementById("content").value = result[0].content;
@@ -156,17 +168,21 @@
     }
 
     function removeMetadata(id) {
+      var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
       var sql = "delete from " + tableName + " where id = " + id;
 
-      if (id === 'undefined' || id === null || id === "") {
-        alert("id不能为空");
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
       } else if (tableName === 'undefined' || tableName === null || tableName === "") {
         alert("表名不能为空");
+      } else if (id === 'undefined' || id === null || id === "") {
+        alert("id不能为空");
       } else {
         syberh.database.execOperate({
           sql: sql,
           tableName: tableName,
+          databaseName: databaseName,
           success: function (result) {
             $("#results").html("<spen style=\"color:Red\">提示：删除成功</spen><br>");
             refresh();
@@ -181,21 +197,25 @@
     }
 
     function updateMetadata(id) {
+      var databaseName = document.getElementById('databaseName').value;
       var title = document.getElementById('title').value;
       var content = document.getElementById('content').value;
       var tableName = document.getElementById('tableName').value;
       var sql = "update " + tableName + " set title = \'" + title + "\',content = \'" + content + "\' where id = " + id;
 
-      if (id === 'undefined' || id === null || id === "") {
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
+      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
+        alert("表名不能为空");
+      } else if (id === 'undefined' || id === null || id === "") {
         alert("id不能为空");
       } else if (title === 'undefined' || title === null || title === "") {
         alert("标题不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
       } else {
         syberh.database.execOperate({
           sql: sql,
           tableName: tableName,
+          databaseName: databaseName,
           success: function (result) {
             $("#results").html("<spen style=\"color:Red\">提示：修改成功</spen><br>");
             refresh();
@@ -210,6 +230,7 @@
     }
 
     function insertMetadata() {
+      var databaseName = document.getElementById('databaseName').value;
       var title = document.getElementById('title').value;
       var content = document.getElementById('content').value;
       var tableName = document.getElementById('tableName').value;
@@ -217,13 +238,16 @@
         + "values(NULL, \'" + title + "\', \'" + content + "\', \'" + getDate() + "\') ";
       var sqlIndex = "CREATE INDEX IF NOT EXISTS idx_datas_id ON datas(id)";
 
-      if (title === 'undefined' || title === null || title === "") {
-        alert("标题不能为空");
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
       } else if (tableName === 'undefined' || tableName === null || tableName === "") {
         alert("表名不能为空");
+      } else if (title === 'undefined' || title === null || title === "") {
+        alert("标题不能为空");
       } else {
         syberh.database.execOperate({
           sql: sql,
+          databaseName: databaseName,
           success: function (result) {
             $("#results").html("<spen style=\"color:Red\">提示：新增成功</spen><br>");
             refresh();
@@ -238,8 +262,11 @@
     }
 
     function createTable() {
+      var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
-      if (tableName === 'undefined' || tableName === null || tableName === "") {
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
+      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
         alert("表名不能为空");
       } else {
         var sql = "CREATE TABLE IF NOT EXISTS " + tableName
@@ -249,6 +276,7 @@
         syberh.database.createTable({
           sql: sql,
           sqlindex: sqlindex,
+          databaseName: databaseName,
           success: function (result) {
             $("#results").html("<spen style=\"color:Red\">提示：创建成功</spen><br>");
             console.log('success', result);
@@ -262,32 +290,45 @@
     }
 
     function isDataExists() {
-      syberh.database.isDataExists({
-        success: function (result) {
-          $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");
-          console.log('success', result);
-        },
-        fail: function (error) {
-          $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
+      var databaseName = document.getElementById('databaseName').value;
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
+      } else {
+        syberh.database.isDataExists({
+          databaseName: databaseName,
+          success: function (result) {
+            $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");
+            console.log('success', result);
+          },
+          fail: function (error) {
+            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
+            console.log('fail: ', error.code, error.msg);
+          }
+        });
+      }
     }
 
     function isTableExists() {
+      var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
-
-      syberh.database.isTableExists({
-        tableName: tableName,
-        success: function (result) {
-          $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");
-          console.log('success', result);
-        },
-        fail: function (error) {
-          $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-          console.log('fail: ', error.code, error.msg);
-        }
-      });
+      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
+        alert("数据库名不能为空");
+      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
+        alert("表名不能为空");
+      } else {
+        syberh.database.isTableExists({
+          tableName: tableName,
+          databaseName: databaseName,
+          success: function (result) {
+            $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");
+            console.log('success', result);
+          },
+          fail: function (error) {
+            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
+            console.log('fail: ', error.code, error.msg);
+          }
+        });
+      }
     }
 
 

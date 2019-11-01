@@ -3,13 +3,14 @@ title: isTableExists
 ---
 
 
-判断sqlite数据库中表是否存在。
+判断指定数据库中表是否存在。
 
 ## syberh.database.isTableExists(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| databaseName | string |        | 是       | 数据库名                           |
 | tableName | string |        | 是       | 表名                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
@@ -32,6 +33,7 @@ title: isTableExists
 ### **代码示例**
 ``` javascript
 syberh.database.isTableExists({
+  databaseName: "",
   tableName: "xxxx",
 	success: function(result){
     console.log('success', result);  
