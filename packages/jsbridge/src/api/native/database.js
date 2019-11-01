@@ -21,7 +21,7 @@ export default function databaseMixin(hybrid) {
             hybridJs.callInner.apply(this, args);
         },
     }, {
-        namespace: 'selectOperate',
+        namespace: 'query',
         os: ['syberos'],
         defaultParams: {
             sql: '',
@@ -37,7 +37,7 @@ export default function databaseMixin(hybrid) {
             hybridJs.callInner.apply(this, args);
         },
     }, {
-        namespace: 'execOperate',
+        namespace: 'execute',
         os: ['syberos'],
         defaultParams: {
             sql: '',
@@ -53,7 +53,7 @@ export default function databaseMixin(hybrid) {
             hybridJs.callInner.apply(this, args);
         },
     }, {
-        namespace: 'isDataExists',
+        namespace: 'isDatabaseExists',
         os: ['syberos'],
     }, {
         namespace: 'isTableExists',

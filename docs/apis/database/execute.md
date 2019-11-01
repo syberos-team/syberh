@@ -1,12 +1,12 @@
 ---
-title: execOperate
+title: execute
 ---
 
 
 操作数据：根据sql语句操作表中数据，操作成功则返回操作结果。例如增加、删除、修改操作。
 
 
-## syberh.database.execOperate(Object object)
+## syberh.database.execute(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
@@ -32,7 +32,7 @@ title: execOperate
 
 ### **代码示例**
 ``` javascript
-syberh.database.execOperate({
+syberh.database.execute({
   sql: "xxxx",
 	success: function(result){
     console.log('success', result);  

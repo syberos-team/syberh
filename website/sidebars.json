@@ -173,9 +173,9 @@
     ],
     "数据库操作": [
       "apis/database/createTable",
-      "apis/database/selectOperate",
-      "apis/database/execOperate",
-      "apis/database/isDataExists",
+      "apis/database/query",
+      "apis/database/execute",
+      "apis/database/isDatabaseExists",
       "apis/database/isTableExists"
     ]
   },

@@ -71,7 +71,7 @@
 
         <button type="button" class="mui-btn mui-btn-primary" onclick="createTable()">创建表</button>
         <button type="button" class="mui-btn mui-btn-primary" onclick="insertMetadata()">新增数据</button><br>
-        <button type="button" class="mui-btn mui-btn-primary" onclick="isDataExists()">数据库是否存在</button>
+        <button type="button" class="mui-btn mui-btn-primary" onclick="isDatabaseExists()">数据库是否存在</button>
         <button type="button" class="mui-btn mui-btn-primary" onclick="isTableExists()">表是否存在</button>
 
       </div>
@@ -104,7 +104,7 @@
       } else if (tableName === 'undefined' || tableName === null || tableName === "") {
         alert("表名不能为空");
       } else {
-        syberh.database.selectOperate({
+        syberh.database.query({
           sql: sql,
           tableName: tableName,
           databaseName: databaseName,
@@ -149,7 +149,7 @@
       } else if (id === 'undefined' || id === null || id === "") {
         alert("id不能为空");
       } else {
-        syberh.database.selectOperate({
+        syberh.database.query({
           sql: sql,
           tableName: tableName,
           databaseName: databaseName,
@@ -179,7 +179,7 @@
       } else if (id === 'undefined' || id === null || id === "") {
         alert("id不能为空");
       } else {
-        syberh.database.execOperate({
+        syberh.database.execute({
           sql: sql,
           tableName: tableName,
           databaseName: databaseName,
@@ -212,7 +212,7 @@
       } else if (title === 'undefined' || title === null || title === "") {
         alert("标题不能为空");
       } else {
-        syberh.database.execOperate({
+        syberh.database.execute({
           sql: sql,
           tableName: tableName,
           databaseName: databaseName,
@@ -245,7 +245,7 @@
       } else if (title === 'undefined' || title === null || title === "") {
         alert("标题不能为空");
       } else {
-        syberh.database.execOperate({
+        syberh.database.execute({
           sql: sql,
           databaseName: databaseName,
           success: function (result) {
@@ -289,12 +289,12 @@
       }
     }
 
-    function isDataExists() {
+    function isDatabaseExists() {
       var databaseName = document.getElementById('databaseName').value;
       if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
         alert("数据库名不能为空");
       } else {
-        syberh.database.isDataExists({
+        syberh.database.isDatabaseExists({
           databaseName: databaseName,
           success: function (result) {
             $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");

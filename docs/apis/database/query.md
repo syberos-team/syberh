@@ -1,17 +1,18 @@
 ---
-title: isDataExists
+title: query
 ---
 
 
-判断指定数据库文件是否存在。
+查询数据：根据sql语句查询表中数据，查询成功则返回查询结果。例如查询所有、条件查询操作。
 
 
-## syberh.database.isDataExists(Object object)
+## syberh.database.query(Object object)
 ### **参数**
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
 | databaseName | string |        | 是       | 数据库名                           |
+| sql | string |        | 是       | sql语句                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -19,7 +20,7 @@ title: isDataExists
 #### 参数
 | 属性     | 类型    | 必填 | 描述                     |
 | ---------- | ------- | -------- | ---------------------- |
-| result | boolean  | 是     | 返回true, 表示存在  |
+| result | String  | 是     | 返回查询结果  |
 
 **object.fail回调函数**
 #### 参数
@@ -32,8 +33,9 @@ title: isDataExists
 
 ### **代码示例**
 ``` javascript
-syberh.database.isDataExists({
+syberh.database.query({
   databaseName: "",
+  sql: "xxxx",
 	success: function(result){
     console.log('success', result);  
 	},
