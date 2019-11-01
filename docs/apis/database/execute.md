@@ -11,6 +11,7 @@ title: execute
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
+| databaseName | string |        | 是       | 数据库名                           |
 | sql | string |        | 是       | sql语句                           |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
@@ -33,6 +34,7 @@ title: execute
 ### **代码示例**
 ``` javascript
 syberh.database.execute({
+  databaseName: "",
   sql: "xxxx",
 	success: function(result){
     console.log('success', result);  
