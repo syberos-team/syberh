@@ -97,7 +97,7 @@
     function refresh() {
       var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
-      var sql = "select * from " + tableName + " order by created desc";
+      var sql = "select id,title,content,created from " + tableName + " order by created desc";
 
       if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
         alert("数据库名不能为空");
@@ -140,7 +140,7 @@
     function selectMetadataById(id) {
       var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
-      var sql = "select * from " + tableName + " where id = " + id;
+      var sql = "select id,title,content,created from " + tableName + " where id = " + id;
 
       if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
         alert("数据库名不能为空");
