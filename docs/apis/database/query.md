@@ -5,7 +5,6 @@ title: query
 
 查询数据：根据sql语句查询表中数据，查询成功则返回查询结果。例如查询所有、条件查询操作。
 
->注意：sql中必须明确写明要查询的字段。例如select id,title,content,created from datas order by created desc
 
 
 ## syberh.database.query(Object object)
