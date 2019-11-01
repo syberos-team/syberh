@@ -38,6 +38,21 @@
       "apis/clipboard/setClipboardData": {
         "title": "setClipboardData"
       },
+      "apis/database/createTable": {
+        "title": "createTable"
+      },
+      "apis/database/execute": {
+        "title": "execute"
+      },
+      "apis/database/isDatabaseExists": {
+        "title": "isDatabaseExists"
+      },
+      "apis/database/isTableExists": {
+        "title": "isTableExists"
+      },
+      "apis/database/query": {
+        "title": "query"
+      },
       "apis/download/download-cancel": {
         "title": "cancel"
       },
@@ -769,6 +784,7 @@
       "设备": "设备",
       "震动": "震动",
       "消息通知": "消息通知",
+      "数据库操作": "数据库操作",
       "关于问题": "关于问题",
       "图片": "图片",
       "webview": "webview",
