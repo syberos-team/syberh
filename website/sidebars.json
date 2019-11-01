@@ -170,6 +170,13 @@
       "apis/notification/sendNotification",
       "apis/notification/removeAllNotifications",
       "apis/notification/removeNotification"
+    ],
+    "数据库操作": [
+      "apis/database/createTable",
+      "apis/database/selectOperate",
+      "apis/database/execOperate",
+      "apis/database/isDataExists",
+      "apis/database/isTableExists"
     ]
   },
   "常见问题": {
