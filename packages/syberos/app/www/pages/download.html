@@ -28,12 +28,14 @@
           <span></span>
         </div> -->
       </div>
+      <div id="content"></div>
     </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../common/jquery-1.7.min.js"></script>
 
   <script>
     function showResult(type, result) {
@@ -71,6 +73,7 @@
 
             const div = document.createElement('div')
             div.innerHTML = html
+            div.id = 'div_' + result.downloadID
             document.getElementById("mui-card-content").appendChild(div);
             mui("#progress-" + result.downloadID).progressbar().setProgress(0);
           } else {
@@ -82,6 +85,7 @@
         },
         fail: function (error) {
           console.info(error)
+          $("#content").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
         }
       })
     }
