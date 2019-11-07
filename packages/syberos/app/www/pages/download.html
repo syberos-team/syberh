@@ -73,7 +73,6 @@
 
             const div = document.createElement('div')
             div.innerHTML = html
-            div.id = 'div_' + result.downloadID
             document.getElementById("mui-card-content").appendChild(div);
             mui("#progress-" + result.downloadID).progressbar().setProgress(0);
           } else {
