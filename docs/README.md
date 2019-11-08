@@ -49,7 +49,7 @@ $ syberh doctor
 3. 负责和 C++代码进行通讯
 
 
-## 🤝 参与共建 
+## 参与共建 
 
 请参考[贡献指南](https://github.com/syberos-team/syberh/blob/master/docs/CONTRIBUTING.md).
 
