@@ -12,7 +12,7 @@ title: openUrl
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| scheme | String | 是 | 协议，格式为：scheme://openPage<br />scheme [具体配置](../../app-config.html#url) |
+| scheme | String | 是 | 协议，格式为：scheme://openPage<br />scheme [具体配置](../../app-permissions.html#url) |
 | path | String | 否 | 打开的页面路径，如果为空则打开首页。<br />path 中 ? 后面的部分会成为 params。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
 | param | Object | 否 | params中的参数会拼接到path中?后面。<br />目标APP可在 `syberh.subscribe` 中获取到这份数据 |
 | success | function | 否       | 成功回调                                       |

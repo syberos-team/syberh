@@ -17,7 +17,7 @@ myapp/project.config.json
   "projectName": "example",
   # APP名称
   "appName": "example",
-  # 修改项目的www目录（默认是根目录下www目录, 必须是相对目录）
+  # 修改项目的www目录（默认是根目录下www目录）
   "webPath": "www"
   # 当前使用的设备target
   "target": "target-armv7tnhl-xuanwu",
@@ -30,11 +30,11 @@ myapp/project.config.json
 
 ## webPath
 
-> 可以将vue项目打包后的目录写在这里
+> 可以配置指定目录（必须是相对路径，并且首页是`index.html`）
 
 ```javascript
 {
-  "webPath": "../vuedemo/dist/index.html"
+  "webPath": "../vuedemo/dist"
 }
 ```
 
