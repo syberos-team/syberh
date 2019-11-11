@@ -1,9 +1,52 @@
-<a name=""></a>
-# [](https://github.com/syberos-team/syberh/compare/v1.2.0...v) (2019-10-10)
+# [](https://github.com/syberos-team/syberh/compare/v1.3.0...v) (2019-11-08)
+
+
+### Bug Fixes
+
+* **cli:** 缺少此文件,syberh命令安装在本地无法运行 ([e82b930](https://github.com/syberos-team/syberh/commit/e82b930))
+* **syberos:** 修复预览图片的问题, 代码进行重构 ([03b4804](https://github.com/syberos-team/syberh/commit/03b4804))
+* **syberos:** 修改下载完成取消按钮仍然存在，修改上传完成取消按钮仍然存在，修改录音和播放不能同时进行，去掉设置屏幕暗屏时间的功能 ([709ac59](https://github.com/syberos-team/syberh/commit/709ac59))
+* 修改lerna管理的包名 ([6714c5f](https://github.com/syberos-team/syberh/commit/6714c5f))
+* **template:** 修改选择图片按返回键崩溃的问题，修改预览图片无效的问题，修改屏幕亮度下提示信息可以删除的问题 ([fb9cef2](https://github.com/syberos-team/syberh/commit/fb9cef2))
+* **template:** 修改音频模块指定时间播放无效的问题 ([80b7818](https://github.com/syberos-team/syberh/commit/80b7818))
+* 修复doctor在spm检查时一直报警告的问题 ([2925d3f](https://github.com/syberos-team/syberh/commit/2925d3f))
+* 修复下载、上传bug；prompt点击无反应；toast返回码有误 ([2a0eea2](https://github.com/syberos-team/syberh/commit/2a0eea2))
+* 修复下载、上传bug；prompt点击无反应；toast返回码有误 ([a1dde4c](https://github.com/syberos-team/syberh/commit/a1dde4c))
+* 修复执行update project时不更新vendor目录 ([643c85a](https://github.com/syberos-team/syberh/commit/643c85a))
+* 修复通知消息功能 ([de38024](https://github.com/syberos-team/syberh/commit/de38024))
+* 发布时，使用spm工具安装子模块后再发布 ([8a7e89e](https://github.com/syberos-team/syberh/commit/8a7e89e))
+* 解决冲突 ([88c6232](https://github.com/syberos-team/syberh/commit/88c6232))
+
+
+### Features
+
+* router下新增setNavigatorBarColor方法 ([69bac59](https://github.com/syberos-team/syberh/commit/69bac59))
+* 可配置www目录位置 ([95447e7](https://github.com/syberos-team/syberh/commit/95447e7))
+* **cli:** webview新增导航栏相关方法 ([b8b5294](https://github.com/syberos-team/syberh/commit/b8b5294))
+* 增加jsbridge版本号 ([e9f6d13](https://github.com/syberos-team/syberh/commit/e9f6d13))
+* 增加数据库操作 ([32a8132](https://github.com/syberos-team/syberh/commit/32a8132))
+* 增加消息通知功能 ([0320095](https://github.com/syberos-team/syberh/commit/0320095))
+* 增加消息通知功能 ([11948b9](https://github.com/syberos-team/syberh/commit/11948b9))
+* 增加背景色 ([dedcff8](https://github.com/syberos-team/syberh/commit/dedcff8))
+* 数据库操作-修改方法名 ([50c3d63](https://github.com/syberos-team/syberh/commit/50c3d63))
+* 数据库操作-修改查询sql方法 ([9906f4e](https://github.com/syberos-team/syberh/commit/9906f4e))
+* 数据库操作-修改查询sql方法 ([3c57a0e](https://github.com/syberos-team/syberh/commit/3c57a0e))
+* 数据库操作-修改查询sql方法 ([6e5a004](https://github.com/syberos-team/syberh/commit/6e5a004))
+* 数据库操作-增加数据库名 ([cad34e7](https://github.com/syberos-team/syberh/commit/cad34e7))
+* 新增发发发顺丰 ([f49874e](https://github.com/syberos-team/syberh/commit/f49874e))
+* **cli:** doctor新增参数，可以任意位置检查环境 ([372bf05](https://github.com/syberos-team/syberh/commit/372bf05))
+* **cli:** init创建项目, project.config.json文件新增webPath参数 ([5a1fa12](https://github.com/syberos-team/syberh/commit/5a1fa12))
+* **cli:** syberh.min.js下router新增setTitle功能 ([c66377d](https://github.com/syberos-team/syberh/commit/c66377d))
+* **jsbridge:** router新增设置导航栏标题 ([a93054a](https://github.com/syberos-team/syberh/commit/a93054a))
+* **syberos:** 修改首页进入二级页面，新增导航栏相关参数，router页面新增修改导航栏示例 ([e8095a8](https://github.com/syberos-team/syberh/commit/e8095a8))
+
+
+### Performance Improvements
+
+* 优化js sdk version获取方式 ([2db13a9](https://github.com/syberos-team/syberh/commit/2db13a9))
 
 
 
-<a name="1.2.0"></a>
 # [1.2.0](https://github.com/syberos-team/syberh/compare/v1.2.0-alpha.3...v1.2.0) (2019-10-10)
 
 
@@ -33,7 +76,6 @@
 
 
 
-<a name="1.2.0-alpha.3"></a>
 # [1.2.0-alpha.3](https://github.com/syberos-team/syberh/compare/v1.2.0-alpha.2...v1.2.0-alpha.3) (2019-09-28)
 
 
@@ -48,12 +90,10 @@
 
 
 
-<a name="1.2.0-alpha.2"></a>
 # [1.2.0-alpha.2](https://github.com/syberos-team/syberh/compare/v1.2.0-alpha.1...v1.2.0-alpha.2) (2019-09-28)
 
 
 
-<a name="1.2.0-alpha.1"></a>
 # [1.2.0-alpha.1](https://github.com/syberos-team/syberh/compare/v1.2.0-alpha.0...v1.2.0-alpha.1) (2019-09-28)
 
 
@@ -71,7 +111,6 @@
 
 
 
-<a name="1.2.0-alpha.0"></a>
 # [1.2.0-alpha.0](https://github.com/syberos-team/syberh/compare/v1.1.1-alpha.5...v1.2.0-alpha.0) (2019-09-27)
 
 
@@ -95,7 +134,6 @@
 
 
 
-<a name="1.1.1-alpha.5"></a>
 ## [1.1.1-alpha.5](https://github.com/syberos-team/syberh/compare/v1.1.1-alpha.3...v1.1.1-alpha.5) (2019-09-26)
 
 
@@ -116,7 +154,6 @@
 
 
 
-<a name="1.1.1-alpha.3"></a>
 ## [1.1.1-alpha.3](https://github.com/syberos-team/syberh/compare/1.1.0...v1.1.1-alpha.3) (2019-09-26)
 
 
@@ -199,7 +236,6 @@
 
 
 
-<a name="1.1.0"></a>
 # [1.1.0](https://github.com/syberos-team/syberh/compare/v1.0.0...1.1.0) (2019-09-17)
 
 

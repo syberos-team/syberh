@@ -132,7 +132,7 @@ void Database::query(long callBackID, QVariantMap params){
     }
 
     QJsonArray jsonArr;
-    QSqlRecord rec = query.record();
+    QSqlRecord rec;
     while(query.next()) {
         QJsonObject jsonObj;
         rec = query.record();

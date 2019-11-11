@@ -31,6 +31,14 @@ CInputDialog{
 
     /*! 取消按钮文字 */
     rejectButtonText: ''
+    signal inputBack()
+
+    Component.onDestruction: {
+        console.log('Component onDestruction---')
+        inputBack();
+    }
+
+
 }
 
 
