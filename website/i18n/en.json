@@ -831,6 +831,15 @@
       },
       "version-1.4.0-alpha.1/version-1.4.0-alpha.1-specials": {
         "title": "常见问题"
+      },
+      "version-1.4.0/apis/package/version-1.4.0-openUrl": {
+        "title": "openUrl"
+      },
+      "version-1.4.0/version-1.4.0-app-config": {
+        "title": "APP 配置"
+      },
+      "version-1.4.0/version-1.4.0-README": {
+        "title": "Syberh 介绍"
       }
     },
     "links": {
