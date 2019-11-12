@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <qqml.h>
 #include <QSplashScreen>
+#include <QCoreApplication>
+#include <qtwebengineglobal.h>
 
 #include "../../vendor/syberh-framework/src/helper.h"
 #include "../../vendor/syberh-framework/src/framework/nativesdkmanager.h"
@@ -28,12 +30,18 @@ App_Workspace::App_Workspace()
 
     // 初始化错误信息
     ErrorInfo::init();
+    //开始支持webgl
+    
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
+    QtWebEngine::initialize();
     m_view->engine()->addImportPath("qrc:/");
 
     QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
-
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
 
