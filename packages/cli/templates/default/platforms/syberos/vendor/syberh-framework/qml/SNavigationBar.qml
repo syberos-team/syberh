@@ -97,6 +97,7 @@ Rectangle {
         console.log('navigationBarTitle--', navigationBarTitle)
         console.log('navigationBarColor--', navigationBarColor)
         console.log('navigationBarTextColor--', navigationBarTextColor)
+        console.log('navigationBarHeight--', navigationBarHeight)
     }
 
     height: navigationBarHeight

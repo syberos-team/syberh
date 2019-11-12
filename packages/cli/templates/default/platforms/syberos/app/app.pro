@@ -1,6 +1,6 @@
 include(../syberos.pri)
 
-QT += gui qml quick widgets webkit network multimedia core sql dbus
+QT += gui qml quick widgets webengine webchannel network multimedia core sql dbus
 
 TEMPLATE = app
 

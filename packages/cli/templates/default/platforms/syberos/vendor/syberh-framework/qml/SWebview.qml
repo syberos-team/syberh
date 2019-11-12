@@ -1,12 +1,12 @@
 import QtQuick 2.0
-import QtWebKit 3.0
 import QtQuick.Window 2.2
-import QtWebKit.experimental 1.0
 import com.syberos.filemanager.filepicker 1.0
-import org.nemomobile.voicecall 1.0
 import com.syberos.basewidgets 1.0
 import com.syberos.basewidgets 2.0
 import syberh_filepicker 1.0
+import QtQml.Models 2.2
+import QtWebEngine 1.5
+import QtWebChannel 1.0
 
 import "../js/util/log.js" as LOG
 import "./"
@@ -98,7 +98,6 @@ CPage{
     //删除所有cookies
     function deleteAllCookies()
     {
-        swebview.experimental.deleteAllCookies()
     }
 
     function canGoForward(){
@@ -154,14 +153,14 @@ CPage{
     //执行JavaScript代码
     function evaluateJavaScript(res){
         if(typeof res ==='string'){
-            swebview.experimental.evaluateJavaScript(
-                        'JSBridge._handleMessageFromNative(' + res + ')'
-                        )
-            return;
+            swebview.runJavaScript('JSBridge._handleMessageFromNative(' + res + ')', function(result){
+              LOG.logger.verbose('evaluateJavaScript:', res, 'result:', result);
+            })
         }else{
-            swebview.experimental.evaluateJavaScript(
-                        'JSBridge._handleMessageFromNative(' + JSON.stringify(res) + ')'
-                        )
+            var param = JSON.stringify(res)
+            swebview.runJavaScript('JSBridge._handleMessageFromNative(' + param + ')', function(result){
+              LOG.logger.verbose('evaluateJavaScript:', param, 'result:', result);
+            })
         }
 
     }
@@ -172,9 +171,12 @@ CPage{
     }
 
     contentAreaItem:Rectangle{
+
         id:root
         anchors.fill:parent
         SNavigationBar{
+            y: 25
+            x: 0
             id: sNavigationBar
             closeCurWebviewEnable: swebview.canGoBack
             onGoBack: {
@@ -190,11 +192,28 @@ CPage{
                 navigationBarClose();
             }
         }
-        WebView {
+        ObjectModel {
+            id: trans
+            WebChannel.id: "trans"
+
+            function postMessage(msg){
+                LOG.logger.verbose('trans postMessage ', msg)
+                receiveMessage(msg)
+            }
+        }
+
+        WebChannel {
+            id: channel
+            registeredObjects: [trans]
+        }
+
+        WebEngineView {
             id: swebview
             focus: true
+            // zoomFactor: 3.0
             signal downLoadConfirmRequest
             property url curHoverUrl: ""
+
             anchors {
                 top: sNavigationBar.visible ? sNavigationBar.bottom : parent.top
                 left: parent.left
@@ -202,150 +221,12 @@ CPage{
                 bottom: parent.bottom
             }
             url:surl
-            onTitleChanged: {
-                console.log('--swebview--title', title);
+            webChannel: channel
+
+            profile: WebEngineProfile{
+              httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS "+helper.aboutPhone().osVersion+";"
             }
 
-            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+";"
-            experimental.minimumScale: false
-            experimental.preferredMinimumContentsWidth: Screen.width
-            experimental.deviceWidth:Screen.width
-            experimental.deviceHeight:Screen.height
-            experimental.preferences.navigatorQtObjectEnabled: true
-            experimental.preferences.webGLEnabled: true
-            experimental.preferences.webAudioEnabled: true
-            experimental.preferences.minimumFontSize: 13
-            experimental.gpsEnable: false
-            experimental.itemSelector:ItemSelector{}
-            experimental.alertDialog: SAlert {
-                id: salert
-                messageText: model.message
-                onAccepted: {
-                    model.accept()
-                }
-                Component.onCompleted: {
-                    show()
-                }
-            }
-            experimental.confirmDialog: SConfirm {
-                id: confirmDialog
-                messageText: model.message
-                onAccepted: {
-                    model.accept()
-                }
-                onRejected: {
-                    model.reject()
-                }
-                Component.onCompleted: {
-                    show()
-                }
-            }
-            experimental.promptDialog: CInputDialog{
-                id: promptDialog
-                canceledOnOutareaClicked: false
-                titleText: model.message
-                onAccepted: {
-                    model.accept(messageAreaItem.text)
-                }
-                onRejected: {
-                    model.reject()
-                }
-                onCanceled: {
-                    model.reject()
-                }
-                Component.onCompleted:{
-                    setText(model.defaultValue)
-                    show()
-                }
-            }
-            experimental.authenticationDialog: CInputDialog {
-                id: authDialog
-                canceledOnOutareaClicked: false
-                titleText: model.hostname + ":\n" + model.realm
-                messageAreaComponent: Column {
-                    property alias nameText: nameEdit.text
-                    property alias passText: password.text
-                    CLineEdit {
-                        id: nameEdit
-                        width: authDialog.width - messageAreaLeftMargin - messageAreaRightMargin
-                        echoMode: TextInput.Normal
-                        inputMethodHints: authDialog.inputMethodHints
-                        maximumLength: authDialog.maximumLength
-                        onTextChanged: {
-                            authDialog.textChanged(text)
-                        }
-                    }
-                    CLine {
-                        width: parent.width
-                        height: 2
-                    }
-
-                    CLineEdit {
-                        id: password
-                        width: authDialog.width - messageAreaLeftMargin - messageAreaRightMargin
-                        echoMode: TextInput.Password
-                        inputMethodHints: authDialog.inputMethodHints
-                        maximumLength: authDialog.maximumLength
-                        onTextChanged: {
-                            authDialog.textChanged(text)
-                        }
-                    }
-
-                    CLine {
-                        width: parent.width
-                    }
-                }
-                onAccepted: {
-                    model.accepted(messageAreaItem.nameText, messageAreaItem.passText)
-                }
-                onRejected: {
-                    model.reject()
-                }
-                onCanceled: {
-                    model.reject()
-                }
-
-                Component.onCompleted: {
-                    show()
-                }
-            }
-
-            // syberh_filepicker包里面引入
-            experimental.filePicker: SFilesPicker {
-                id: picker
-                titleText: "文件选择"
-                leftItemEnabled: true
-                count: allowMultipleFiles?30:1
-
-                Connections {
-                    target: picker
-                    onOk: {
-                        model.accept(picker.filesPath);
-                    }
-                    onCancel: {
-                        model.reject();
-                    }
-                }
-
-                Keys.onReleased: {
-                    if (event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
-                        model.rejected();
-                        event.accepted =true;
-                    }
-                }
-
-                Component.onCompleted:{
-                    parent = gAppUtils.pageStackWindow
-                    visible = true
-                    status = 2
-                    focus = true
-                }
-            }
-
-
-            experimental.onMessageReceived: {
-                receiveMessage(message)
-            }
             property bool _autoLoad: true
 
             onLinkHovered: {
@@ -368,58 +249,220 @@ CPage{
                 sloadProgress(loadProgress)
             }
 
-            onLoadingChanged:{
+            onLoadingChanged: function(loadRequest){
                 LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
-                if (!loading && loadRequest.status === WebView.LoadFailedStatus){
+                if (!loading && loadRequest.status === WebEngineView.LoadFailedStatus){
                     LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
                     //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
                     //swebview.reload();
                 }
-                if(!loading && loadRequest.status===WebView.LoadSucceededStatus){
+                if(!loading && loadRequest.status===WebEngineView.LoadSucceededStatus){
                     sloadingChanged(loadRequest);
                 }
 
             }
 
-            onSms: {
-                LOG.logger.verbose("onSms", url, body);
-                gApp.openUrl("sms:?body=" + body);
+            onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){
+              switch(level){
+                case WebEngineView.InfoMessageLevel:
+                  LOG.logger.verbose('line:', lineNumber, 'sourceID:', sourceID, 'msg:', message)
+                  break;
+                case WebEngineView.WarningMessageLevel:
+                  LOG.logger.warn('line:', lineNumber, 'sourceID:', sourceID, 'msg:', message)
+                  break;
+                case WebEngineView.ErrorMessageLevel:
+                  LOG.logger.error('line:', lineNumber, 'sourceID:', sourceID, 'msg:', message)
+                  break;
+              }
             }
 
-            onMailto: {
-                LOG.logger.verbose("onMailto url:[%s], body:[%s]", url, body);
-                gApp.openUrl("email:writeMail?address="+ url + "&content=" + body + "&attach=");
+            onJavaScriptDialogRequested: function(request){
+              request.accepted = true;
+              switch(request.type){
+                case JavaScriptDialogRequest.DialogTypeAlert:
+                  salert.request = request;
+                  salert.titleText = request.title
+                  salert.messageText = request.message
+                  salert.show();
+                  break;
+                case JavaScriptDialogRequest.DialogTypeConfirm:
+                  confirmDialog.request = request;
+                  confirmDialog.titleText = request.title
+                  confirmDialog.messageText = request.message
+                  confirmDialog.show();
+                  break;
+                case JavaScriptDialogRequest.DialogTypePrompt:
+                  promptDialog.request = request;
+                  promptDialog.titleText = request.message
+                  promptDialog.setText(request.defaultText);
+                  promptDialog.show();
+                  break;
+                case JavaScriptDialogRequest.DialogTypeUnload:
+                  LOG.logger.verbose('用户离开页面询问尚未实现')
+                  break;
+              }
             }
 
-            onTel: {
-                //电话拨打功能,暂未实现
-                //console.log("onTelonTeonTeonTeonTeonTeonTeonTeonTeonTeonTeonTelllllllllll", telNum);
-                //        telNumber = telNum;
-                //        if (!gAppUtils.pageStackWindow.confirmDialog)
-                //        {
-                //            gAppUtils.pageStackWindow.createConfirmDialog(mainPage)
-                //        }
-
-                //        gAppUtils.pageStackWindow.confirmDialog.messageText = os.i18n.ctr(qsTr("are you sure to call the number: ")) + telNum  //确定呼叫:
-                //        gAppUtils.pageStackWindow.confirmDialog.requestShow()
-                //        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
+            onFileDialogRequested: function(request){
+              LOG.logger.verbose('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择')
+              console.log('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择')
+              request.accepted = true
+              salert.messageText = '请调用filepicker API实现'
+              salert.show()
             }
 
-            //            onSelectChange: {
-            //                    //console.log("webview.onSelectChange====--------------------------",rect)
-            //                    textPrssMenu.visible = false;
-            //                   BSelectTool.setCursor(swebview,show,rect);
-            //             }
-            Component.onCompleted: {
-                LOG.logger.verbose("SWebview Component.onCompleted")
-                swebview.SetJavaScriptCanOpenWindowsAutomatically(false)
+            onAuthenticationDialogRequested: function(request){
+              request.accepted = true;
+              authDialog.request = request;
+              switch(request.type){
+                case WebEngineAuthenticationDialogRequest.AuthenticationTypeHTTP:
+                  authDialog.titleText = request.url + ":\n" + request.realm;
+                  break;
+                case WebEngineAuthenticationDialogRequest.AuthenticationTypeProxy:
+                  authDialog.titleText = request.proxyHost + ":\n" + request.realm;
+                  break;
+              }
+              authDialog.clear();
+              authDialog.show();
+            }
+
+            onContextMenuRequested: function(request) {
+                console.log('******onContextMenuRequested******')
+                request.accepted = true;
+                myMenu.x = request.x;
+                myMenu.y = request.y;
+                myMenu.trigger.connect(view.triggerWebAction);
+                myMenu.popup();
             }
         }
 
+        SAlert {
+            id: salert
+            property JavaScriptDialogRequest request
+            titleText: ''
+            messageText: ''
+            onAccepted: {
+                request.dialogAccept()
+            }
+        }
+        SConfirm {
+            id: confirmDialog
+            property JavaScriptDialogRequest request
+            titleText: ''
+            messageText: ''
+            onAccepted: {
+                request.dialogAccept()
+            }
+            onRejected: {
+                request.dialogReject()
+            }
+        }
+        CInputDialog{
+            id: promptDialog
+            property JavaScriptDialogRequest request
+            canceledOnOutareaClicked: false
+            titleText: ''
+            onAccepted: {
+                request.dialogAccept(messageAreaItem.text)
+            }
+            onRejected: {
+                request.dialogReject()
+            }
+            onCanceled: {
+                request.dialogReject()
+            }
+        }
+
+        // SFilesPicker {
+        //     id: picker
+        //     property FileDialogRequest request
+        //     titleText: "文件选择"
+        //     leftItemEnabled: true
+        //     count: 1
+
+        //     Keys.onReleased: {
+        //         if (event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
+        //             console.log('***********Keys.onReleased**Key_Back******')
+        //             LOG.logger.verbose('***********Keys.onReleased**Key_Back******')
+        //             event.accepted =true;
+        //             picker.request.dialogReject();
+        //         }
+        //     }
+
+        //     // function show(){
+        //     //     parent = gAppUtils.pageStackWindow
+        //     //     visible = true
+        //     //     status = 2
+        //     //     focus = true
+        //     //     LOG.logger.verbose('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择*****show')
+        //     //    console.log('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择*****show')
+        //     // }
+        // }
+        CInputDialog {
+            id: authDialog
+            property AuthenticationDialogRequest request
+            canceledOnOutareaClicked: false
+            titleText: ''
+            messageAreaComponent: Column {
+                property alias nameText: nameEdit.text
+                property alias passText: password.text
+                CLineEdit {
+                    id: nameEdit
+                    width: authDialog.width - authDialog.messageAreaLeftMargin - authDialog.messageAreaRightMargin
+                    echoMode: TextInput.Normal
+                    inputMethodHints: authDialog.inputMethodHints
+                    maximumLength: authDialog.maximumLength
+                    onTextChanged: {
+                        authDialog.textChanged(text)
+                    }
+                }
+                CLine {
+                    width: parent.width
+                    height: 2
+                }
+
+                CLineEdit {
+                    id: password
+                    width: authDialog.width - authDialog.messageAreaLeftMargin - authDialog.messageAreaRightMargin
+                    echoMode: TextInput.Password
+                    inputMethodHints: authDialog.inputMethodHints
+                    maximumLength: authDialog.maximumLength
+                    onTextChanged: {
+                        authDialog.textChanged(text)
+                    }
+                }
+
+                CLine {
+                    width: parent.width
+                }
+            }
+            onAccepted: {
+                request.dialogAccept(messageAreaItem.nameText, messageAreaItem.passText)
+            }
+            onRejected: {
+                request.dialogReject()
+            }
+            onCanceled: {
+                request.dialogReject()
+            }
+            function clear(){
+              messageAreaItem.nameText = "";
+              messageAreaItem.passText = "";
+            }
+        }
     }
 
-
     Component.onCompleted: {
+
+        WebEngine.settings.webGLEnabled = true;
+        swebview.settings.webGLEnabled = true;
+        console.log('Screen--', JSON.stringify(Screen))
+
+        console.log('gScreenInfo--', JSON.stringify(gScreenInfo))
+
+        // 设置缩放比例
+        swebview.zoomFactor = gScreenInfo.density
+        
         //设置是否显示状态栏，应与statusBarHoldItemEnabled属性一致
         gScreenInfo.setStatusBar(true);
         console.log('swebview-navigationBarColor-', navigationBarColor)

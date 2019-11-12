@@ -82,12 +82,15 @@
 
     <form class="mui-input-group">
         <div class="mui-input-row">
-            <label>图片来源</label>
-            <select name="sourceType">
+            <input type="text" value="图片来源(0|1|2)" readonly="readonly" />
+        </div>
+        <div class="mui-input-row">
+            <input type="number" class="mui-input-clear" name="sourceType" value="0" />
+            <!-- <select name="sourceType">
               <option value="['camera','album']">拍照或相册</option>
               <option value="['camera']">拍照</option>
               <option value="['album']">相册</option>
-            </select>
+            </select> -->
         </div>
         <div class="mui-input-row">
             <label>数量限制</label>
@@ -117,7 +120,13 @@
     // form表单可配置demo
     function customSelectImage() {
       var count = document.querySelector("input[name='count']").value
-      var sourceType = document.querySelector("select[name='sourceType']").value
+      var sourceTypeIdx = document.querySelector("input[name='sourceType']").value
+      if (sourceTypeIdx != 0 && sourceTypeIdx != 1 && sourceTypeIdx != 2) {
+        alert('sourceType值只能为0,1,2')
+        return
+      }
+      var sourceType = sourceTypeIdx == 1 ? ['camera'] : (sourceTypeIdx == 2 ? ['album'] : ['camera','album'])
+      console.log('sourceType********', JSON.stringify(sourceType))
 
       if (count > 9) {
         alert('count 最大值为9')
@@ -129,7 +138,7 @@
 
       syberh.image.chooseImage({
         count: count,
-        sourceType: sourceType,
+        sourceType: JSON.stringify(sourceType),
         success: function (res) {
           console.log('选择图片成功', JSON.stringify(res))
           // tempFilePath可以作为img标签的src属性显示图片

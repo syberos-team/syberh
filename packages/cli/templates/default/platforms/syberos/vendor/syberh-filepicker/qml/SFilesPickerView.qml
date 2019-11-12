@@ -124,6 +124,7 @@ Rectangle {
                     // 自己截取的名字
                     var name = filePath.split('/').reverse()[0]
                     files.push({
+                        url: "file://" + filePath,
                         path: "file://" + filePath,
                         size: size,
                         name: name,
@@ -131,7 +132,7 @@ Rectangle {
                 }
                 filesPicker.ok(files);
 //                在SWebview.qml中引用了该页面，所以退出页面的信号得在接受信号的地方处理是否退出页面
-//                pageStack.pop();
+            //    pageStack.pop();
             } else {
                 // 文件夹
                 filesPicker.dirPath = filesPicker.getDirPath();

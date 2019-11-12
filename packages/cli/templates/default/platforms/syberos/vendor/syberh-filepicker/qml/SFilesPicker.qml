@@ -24,10 +24,10 @@ CPage {
 
     property string titleText: "" // 标题文字
     property string categoryType: "all" // 接收页面参数转化为category 0: all, 1: image, 2: video, 3: audio, 4: document, 5: text
-    property bool leftItemEnabled: false  // 是否展示左侧icon
+    property bool leftItemEnabled: true  // 是否展示左侧icon
 
     property var filesPath //for email
-    property int category: 4 //0: all, 1: image, 2: video, 3: audio, 4: document, 5: text
+    property int category: 0 //0: all, 1: image, 2: video, 3: audio, 4: document, 5: text
     property var dirPath //for download
 
     property bool isDirMode: false
@@ -37,7 +37,15 @@ CPage {
 
     signal cancel()
     signal ok(var filesPath)
+    function show(){
+        filesPicker.visible=true
+        filesPicker.focus=true
+    }
 
+    function hide(){
+        filesPicker.visible=false
+        filesPicker.focus=false
+    }
     function getFileSize() {
         if (category === 0)
             return typeModel.getSelectedFilesSize();
@@ -68,6 +76,7 @@ CPage {
     }
 
     onStatusChanged: {
+        console.log("SFilesPicker******categoryType******count*****status***", categoryType, count, status)
         // 状态从1到2， 才接收到了参数, 打印日志发现的
         if (status === 2) {
             if (categoryType === "all") {
