@@ -4,6 +4,15 @@ const diagnose = require('../dist/doctor/index').default
 
 program
   .option('-v --verbose', 'Print all message')
+  .option('-g --global', '检查全局环境')
   .parse(process.argv)
 
-diagnose()
+const args = program.rawArgs
+
+let checkGlobalTarget = false
+
+if (args.indexOf('--global') !== -1 || args.indexOf('-g') !== -1) {
+  checkGlobalTarget = true
+}
+
+diagnose({ checkGlobalTarget })

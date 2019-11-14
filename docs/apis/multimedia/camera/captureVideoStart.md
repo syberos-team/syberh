@@ -14,7 +14,7 @@ title: captureVideoStart
 
 ### **参数**
 
-**Object object**
+#### Object object
 
 | 属性   | 类型   | 是否必填 | 描述                                      |
 | ------ | ------ | -------- | ----------------------------------------- |
@@ -22,7 +22,7 @@ title: captureVideoStart
 
 
 
-### **示例代码**
+### 示例代码
 
 ```
 syberh.camera.captureVideoStart({

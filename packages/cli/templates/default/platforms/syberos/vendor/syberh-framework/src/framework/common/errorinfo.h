@@ -63,6 +63,8 @@ public:
         InvalidPermission = 9004,
         //无效的调用
         InvalidCall = 9005,
+        //数据库错误
+        databaseError = 9006,
         //未知的错误
         UnknowError = 9999
     };

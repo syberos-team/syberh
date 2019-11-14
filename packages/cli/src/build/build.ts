@@ -16,6 +16,8 @@ export default class Build {
 
   private conf: any = {}
   private appPath: string
+  private webPath: string
+
   // pdk根路径
   private pdkRootPath: string
   private targetName: string
@@ -35,12 +37,13 @@ export default class Build {
     }
   }
 
-  constructor(appPath: string, config: AppBuildConfig) {
+  constructor(appPath: string, webPath: string, config: AppBuildConfig) {
     this.appPath = appPath
+    this.webPath = webPath
     this.conf = { ...this.conf, ...config }
 
     if (log.isVerboseEnabled()) {
-      log.verbose('Build constructor(%s, %j)', appPath, config)
+      log.verbose('Build constructor(%s, %j)', appPath, webPath, config)
       log.verbose('配置参数:%j', this.conf)
     }
     this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
@@ -143,11 +146,11 @@ export default class Build {
    * 拷贝www路径
    * @param appPath
    */
-  private async copywww(appPath: string = this.appPath) {
+  private async copywww(appPath: string = this.appPath, webPath: string = this.webPath) {
     console.log(chalk.green('准备拷贝www目录'))
     log.verbose('Build copywww(%s)', appPath)
     // const projectName = getProjectName(appPath)
-    const wwwPath = path.join(appPath, config.SOURCE_DIR)
+    const wwwPath = path.join(appPath, webPath || config.SOURCE_DIR)
 
     // 模板目录
     const syberosPath = path.join(appPath, 'platforms', 'syberos', 'app', 'www')

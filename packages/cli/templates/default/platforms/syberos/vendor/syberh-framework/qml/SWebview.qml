@@ -32,19 +32,54 @@ CPage{
     //页面标题
     property string title: ""
 
+    //背景色
+    property string color: ""
+
     // 导航栏标题
     property string navigationBarTitle: ""
 
+    // 标题文字居中居左 (日后使用)
+//    property string navigationBarTitlePosition: ""
+
+    // 导航栏背景色
+    property string navigationBarColor: ""
+
+    // 导航栏字体颜色
+    property string navigationBarTextColor: ""
+
+    // 返回按钮是否展示
+    property bool navigationBarBackIconEnable: true
+
+    // 关闭按钮是否展示
+    property bool navigationBarCloseIconEnable: true
+
+    //设置背景色
+    function setBackgroundColor(color){
+        root.color = color;
+    }
+
     // 展示navigatorBar
-    function showNavigatorBar(title){
-       sNavigationBar.show(title);
+    function showNavigatorBar(options){
+       sNavigationBar.show(options);
     }
 
     // 设置NavigationBar Title
-    function setNavigationBarTitle(title){
+    function setNavigationBarTitle(title) {
         //设置navigatorBar title
-        LOG.logger.verbose('-----------------set title',title);
-        sNavigationBar.show(title);
+        LOG.logger.verbose('setNavigationBarTitle-title-',title);
+        sNavigationBar.setTitle(title);
+    }
+
+    // 设置NavigationBar 背景颜色和字体颜色
+    function setNavigationBarColor(options) {
+        //设置navigatorBar title
+        LOG.logger.verbose('setNavigationBarColor-color-',color);
+        if (options.color) {
+            sNavigationBar.setColor(options.color);
+        }
+        if (options.textColor) {
+            sNavigationBar.setTextColor(options.textColor);
+        }
     }
 
     // 获取导航栏是否可用
@@ -387,10 +422,27 @@ CPage{
     Component.onCompleted: {
         //设置是否显示状态栏，应与statusBarHoldItemEnabled属性一致
         gScreenInfo.setStatusBar(true);
-        console.log('新建页面传入的参数--', navigationBarTitle)
-        if(navigationBarTitle){
-            showNavigatorBar(navigationBarTitle);
+        console.log('swebview-navigationBarColor-', navigationBarColor)
+        console.log('swebview-navigationBarTitle-', navigationBarTitle)
+        console.log('swebview-navigationBarTextColor-', navigationBarTextColor)
+        console.log('swebview-navigationBarBackIconEnable-', navigationBarBackIconEnable)
+        console.log('swebview-navigationBarCloseIconEnable-', navigationBarCloseIconEnable)
+        console.log('swebview-color-', color)
+
+        if (color) {
+            setBackgroundColor(color)
         }
+
+        if (navigationBarTitle) {
+            showNavigatorBar({
+                navigationBarTitle: navigationBarTitle,
+                navigationBarColor: navigationBarColor,
+                navigationBarTextColor: navigationBarTextColor,
+                navigationBarBackIconEnable: navigationBarBackIconEnable,
+                navigationBarCloseIconEnable: navigationBarCloseIconEnable
+            })
+        }
+
         //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
         //gScreenInfo.setStatusBarStyle("transblack");
     }

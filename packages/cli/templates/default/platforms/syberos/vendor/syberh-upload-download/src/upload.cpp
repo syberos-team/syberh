@@ -35,6 +35,13 @@ void Upload::request(QString callBackID, QString actionName, QVariantMap params)
 }
 void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
 {
+    QFile file(filePath);
+    if(!file.exists()){
+        qDebug() << Q_FUNC_INFO << "文件地址不存在：" << filePath << endl;
+        emit failed(callBackID.toLong(), ErrorInfo::FileNotExists, "文件不存在");
+        return;
+    }
+
     // 检查网络
     if (!netWorkConnected()) {
         emit failed(callBackID.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络状态"));

@@ -48,9 +48,12 @@ int Download::typeId = qRegisterMetaType<Download *>();
 
 Download::Download()
 {
+    process = new QProcess();
+    isnetWork = true;
 }
 
 Download::~Download() {
+    delete process;
     QMap<QString, TaskInfo*>::ConstIterator it = tasks.begin();
     for(; it!=tasks.end(); it++){
         removeTask(it.key());
@@ -87,6 +90,22 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
     if (!netWorkConnected()) {
         emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络状态"));
         return;
+    }
+
+    if(isnetWork){
+        // 检查网络是否可用
+        QString network_cmd = "ping 114.114.114.114 -w 1";//向www.baidu.com请求两包数据，每包数据超时时间为1s
+        QString result;
+        process->start(network_cmd);   //调用ping 指令
+        process->waitForFinished();    //等待指令执行完毕
+        result = process->readAll();   //获取指令执行结果
+        qDebug() << Q_FUNC_INFO << "result" << result << endl;
+        if(!result.contains(QString("ttl="))){   //若包含TTL=字符串则认为网络在线
+            qDebug() << Q_FUNC_INFO << "process:false"  << endl;
+            emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络是否可用"));
+            return;
+        }
+        isnetWork = false;
     }
 
     if (name.isEmpty()) {
@@ -132,9 +151,22 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
     while (QFile::exists(path)
            || QFile::exists(path + downloadManager->getDownloadFileSuffix())
            || fileNames.value(path) != NULL) {
-        if (nameSplit.size() > 1) {
+        if (nameSplit.size() == 2) {
+            // 文件名只有一个小数点的情况
             path = basePath + "/" + nameSplit[nameSplit.size() - 2] + "(" + QString::number(i) + ")." + nameSplit[nameSplit.size() - 1];
+        } else if (nameSplit.size() > 2) {
+            // 文件名出现多个小数点的情况，nameSplit.size()-2 是数组倒数第2项
+
+            qDebug() << "lastName 倒数第2项的名字: " << nameSplit[nameSplit.size()-2] << endl;
+
+            QString lastName = nameSplit[nameSplit.size()-2].section('(', 0);
+
+            qDebug() << "lastName 倒数第2项的名字--去掉括号后: " << lastName << endl;
+
+            nameSplit.replace(nameSplit.size()-2, lastName + "(" + QString::number(i) + ")");
+            path = basePath + "/" + nameSplit.join('.');
         } else {
+            // 文件名没有小数点的情况
             path = basePath + "/" + nameSplit[nameSplit.size() - 1] + "(" + QString::number(i) + ")";
         }
         i++;
@@ -180,6 +212,7 @@ TaskInfo* Download::findTaskInfo(DownloadManager *downloadManager){
 }
 
 void Download::removeTask(QString downloadId){
+    qDebug() << Q_FUNC_INFO << "download removeTask " << endl;
     if(tasks.contains(downloadId)){
         TaskInfo *taskInfo = tasks.value(downloadId);
         if(taskInfo!=NULL){
@@ -220,8 +253,8 @@ void Download::onReplyFinished(QString downloadId, QString path, int statusCode,
     // 删除缓存文件路径
     fileNames.remove(taskInfo->downloadManager->getMPath());
 
-    // 根据状态码判断当前下载是否出错;
-    if (statusCode > 200 && statusCode < 400) {
+    // 根据状态码判断当前下载是否出错, 大于等于400算错误
+    if (statusCode >= 400) {
         qDebug() << Q_FUNC_INFO << "download failed " << statusCode << errorMessage << endl;
         emit failed(downloadId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, errorMessage));
     }
