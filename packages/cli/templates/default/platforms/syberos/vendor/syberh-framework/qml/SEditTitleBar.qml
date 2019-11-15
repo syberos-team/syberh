@@ -75,7 +75,7 @@ CTitleBar{
     property color editLeftItemTextColor:gUiConst.getValue("CT1")
 
     /*! 编辑态时左侧控件文字大小。 */
-    property int editLeftItemPixelSize:gUiConst.getValue("S3")
+    property int editLeftItemPixelSize: env.dp(gUiConst.getValue("S3"))
 
     /*! 编辑态时左侧控件背景是否启用，默认为true。 */
     property bool editLeftItemBackgroundEnabled:true
@@ -93,10 +93,10 @@ CTitleBar{
     property alias editLeftItem:editLeftItemLoader.item
 
     /*!  编辑态时左侧控件的size，默认值为120×56 */
-    property size editLeftItemSize: Qt.size(120,56)
+    property size editLeftItemSize: Qt.size(env.dp(120),env.dp(56))
 
     /*!  编辑态时左侧控件距离左侧边缘的距离 */
-    property int editLeftItemLeftMargin:40
+    property int editLeftItemLeftMargin: env.dp(40)
 
     Loader{
         id:editLeftItemLoader
@@ -180,10 +180,10 @@ CTitleBar{
     property alias editRightItem:editRightItemLoader.item
 
     /*!  编辑态时右侧控件的size值，默认为80×56 */
-    property size editRightItemSize:Qt.size(80,56)
+    property size editRightItemSize:Qt.size(env.dp(80),env.dp(56))
 
     /*!  编辑态时右侧控件距离右侧边缘的距离 */
-    property int editRightItemRightMargin:20
+    property int editRightItemRightMargin: env.dp(20)
 
     /*! 按下状态的颜色。 */
     property color editRightItemCheckedColor: gUiConst.getValue("CA1")
@@ -197,8 +197,8 @@ CTitleBar{
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: editRightItemRightMargin//spacingBetweenRightBorderAndRightItem// - (((typeof editRightItem.width != "undefined") && editRightItem.width > 0) ? 0 : 10)
-        width:editRightItemSize.width
-        height:editRightItemSize.height
+        width: env.dp(editRightItemSize.width)
+        height: env.dp(editRightItemSize.height)
         sourceComponent:  Item{} /*CCheckBox{
             checked: editView ? editView.allSelected : false
             enabled: editView ? (!editView.animating) : true

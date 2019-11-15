@@ -12,7 +12,7 @@ CPage {
     property string current
 
     /*! 按钮的高度，默认值为60*/
-    property int buttonHeight: 80
+    property int buttonHeight: env.dp(80)
 
     /*! 按钮的颜色*/
     property color buttonColor: "#eeeff1"
@@ -21,7 +21,7 @@ CPage {
     property color textColor: "#ffffff"
 
     /*! 按钮文本大小*/
-    property int textFontSize: 28
+    property int textFontSize: env.dp(28)
 
     /*! 成功信号*/
     signal success()
@@ -82,8 +82,10 @@ CPage {
            font.pixelSize: textFontSize
            color: textColor
            text: "取消"
+           anchors.top: parent.top
+           anchors.topMargin: env.dp(25)
            anchors.left: parent.left
-           anchors.leftMargin: 40
+           anchors.leftMargin: env.dp(40)
        }
    }
 

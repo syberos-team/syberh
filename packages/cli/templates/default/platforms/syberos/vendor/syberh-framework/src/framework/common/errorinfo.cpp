@@ -35,7 +35,6 @@ void ErrorInfo::init(){
     errors.insert(ErrorCode::InvalidPermission, "权限错误");
     errors.insert(ErrorCode::InvalidCall, "无效的调用");
     errors.insert(ErrorCode::UnknowError, "未知的错误");
-    errors.insert(ErrorCode::databaseError, "数据库错误");
 
 }
 

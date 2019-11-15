@@ -4,4 +4,8 @@ import com.syberos.api 1.0
 
 CPageStackWindow {
     initialPage: SPage{}
+
+    Component.onCompleted: {
+        console.log('***********0000000000版本***************')
+    }
 }

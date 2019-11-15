@@ -22,14 +22,14 @@ CEditTitleBar{
 
     titleText: PhotoTranslate.all_photos
     titleTextColor: gUiConst.getValue("CTB1")
-    titlePixelSize: editView ? ( editView.editing ? gUiConst.getValue("S6") : gUiConst.getValue("S3") ) : gUiConst.getValue("S3")
+    titlePixelSize: editView ? ( editView.editing ? env.dp(gUiConst.getValue("S6")) : env.dp(gUiConst.getValue("S3")) ) : env.dp(gUiConst.getValue("S3"))
 
     editLeftItemTextColor: gUiConst.getValue("CTB1")
-    editLeftItemPixelSize: gUiConst.getValue("S3")
+    editLeftItemPixelSize: env.dp(gUiConst.getValue("S3"))
     editLeftItemBackgroundEnabled: false
-    editLeftItemSize: Qt.size(80,56)
+    editLeftItemSize: Qt.size(env.dp(80),env.dp(56))
     editRightItemRightMargin: 0
-    editLeftItemLeftMargin: 20
+    editLeftItemLeftMargin: env.dp(20)
 
     editRightComponent: null
     editLeftComponent: CButton{

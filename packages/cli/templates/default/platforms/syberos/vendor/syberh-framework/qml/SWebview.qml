@@ -14,6 +14,7 @@ import "./CMenu"
 
 
 CPage{
+    orientationPolicy:CPageOrientation.Automatic
     id: webView
     //加载进度信号
     signal sloadProgress(var loadProgress)
@@ -206,7 +207,7 @@ CPage{
                 console.log('--swebview--title', title);
             }
 
-            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+";"
+            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+ " " + helper.getQtVersion() + ";"
             experimental.minimumScale: false
             experimental.preferredMinimumContentsWidth: Screen.width
             experimental.deviceWidth:Screen.width

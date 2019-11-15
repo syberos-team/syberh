@@ -14,7 +14,6 @@ const _ = require("lodash/fp");
 const targetSdkValidator_1 = require("./targetSdkValidator");
 const syberhValidator_1 = require("./syberhValidator");
 const sdkValidator_1 = require("./sdkValidator");
-const spmValidator_1 = require("./spmValidator");
 const log_1 = require("../util/log");
 const constants_1 = require("../util/constants");
 const chalk_1 = require("chalk");
@@ -23,8 +22,7 @@ const validators = {
     validators: [
         targetSdkValidator_1.default,
         syberhValidator_1.default,
-        sdkValidator_1.default,
-        spmValidator_1.default
+        sdkValidator_1.default
     ]
 };
 // appPath

@@ -151,7 +151,7 @@ function getUrl (url) {
     throw new Error('url不存在', url)
   }
   // 如果是网络地址,直接返回
-  if (/^(http|https|ftp|\/\/)/g.test(url)) {
+  if (/^(http|https|ftp|chrome|\/\/)/g.test(url)) {
     logger.verbose('http||https  url:', url)
     return url
   }
