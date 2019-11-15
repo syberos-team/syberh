@@ -1,6 +1,19 @@
 include(../syberos.pri)
 
-QT += gui qml quick widgets webkit network multimedia core sql dbus
+QT_VERSION = $$[QT_VERSION]
+QT_VERSION = $$split(QT_VERSION, ".")
+QT_VER_MAJ = $$member(QT_VERSION, 0)
+QT_VER_MIN = $$member(QT_VERSION, 1)
+
+lessThan(QT_VER_MAJ, 5) | lessThan(QT_VER_MIN, 6) {
+	message(Qt版本小于5.6)
+  QT += webkit
+} else {
+  message(Qt版本大于等于5.6)
+  QT += webengine webchannel
+}
+
+QT += gui qml quick widgets network multimedia core sql dbus
 
 TEMPLATE = app
 

@@ -6,7 +6,7 @@ const log = require('./log').default;
 const shelljs = require('shelljs');
 
 function main () {
-  // 定义拷贝的文件或者目录 { name: 'vendor', excludes: ['.git'] }
+  // 定义拷贝的文件或者目录 { name: 'vendor', excludes: ['.git', '.github'] }
   const files = [
     { name: 'app' },
     { name: 'tests' },
