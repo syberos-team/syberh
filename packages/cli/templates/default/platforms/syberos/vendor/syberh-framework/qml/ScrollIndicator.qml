@@ -8,7 +8,7 @@ Item {
 
     anchors {
         fill: flickableItem
-        margins: 5
+        margins: env.dp(5）
     }
 
     property bool __movingHorizontally: flickableItem ? flickableItem.movingHorizontally : false
@@ -18,7 +18,7 @@ Item {
     property real __viewHeight:  flickableItem ? flickableItem.height - (anchors.margins * 2) : 0
 
     property int __hideTimeout: 800
-    property real __indicatorSize: 5
+    property real __indicatorSize: env.dp(5)
     property real __indicatorBorder: 1
 
     Item {

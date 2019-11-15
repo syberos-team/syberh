@@ -66,15 +66,16 @@
         <div class="mui-card-content">
           <form class="mui-input-group">
             <div class="mui-input-row">
-              <input type="text" value="设置自动亮度调节" readonly="readonly" />
+              <input type="text" value="设置自动亮度调节(0|1)" readonly="readonly" />
             </div>
             <div class="mui-input-row">
               <label>value：</label>
-              <select name="setAmbientLightSensorEnabledKey">
+              <input type="number" class="mui-input-clear" name="setAmbientLightSensorEnabledKey" value="0">
+              <!-- <select name="setAmbientLightSensorEnabledKey">
                 <option value="请选择">请选择</option>
                 <option value="0">关闭</option>
                 <option value="1">打开</option>
-              </select>
+              </select> -->
             </div>
           </form>
         </div>
@@ -181,7 +182,11 @@
     }
 
     function setAmbientLightSensorEnabled(param) {
-      var state = document.querySelector("select[name='setAmbientLightSensorEnabledKey']").value
+      var state = document.querySelector("input[name='setAmbientLightSensorEnabledKey']").value
+      if (state != 0 && state != 1) {
+        alert('value值只能是0,1');
+        return
+      }
       syberh.brightness.setAmbientLightSensorEnabled({
         state: state,
         success: function (result) {

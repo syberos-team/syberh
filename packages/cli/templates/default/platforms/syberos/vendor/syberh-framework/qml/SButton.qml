@@ -24,10 +24,10 @@ MouseArea {
    opacity: enabled ? (button.pressed ? 0.5 : 1) : 0.5
 
    /*! 默认垂直方向内容区域与边界的距离, 如果设置了高度，则此不起作用 */
-   property int implicitVerticalPadding:20
+   property real implicitVerticalPadding: env.dp(20)
 
    /*! 默认水平方向内容区域与边界的距离, 如果设置了宽度，则此不起作用 */
-   property int implicitHorizontalPadding:30
+   property real implicitHorizontalPadding: env.dp(30)
 
    /*! 是否显示背景 */
    property bool backgroundEnabled: true
@@ -45,7 +45,7 @@ MouseArea {
    property real pixelSize: gUiConst.getValue("S3")
 
    /*! 图片和文本间距 */
-   property int spacing: (button.iconSource != "" && button.text != "") ? 10 : 0   //控制文字与元素间距
+   property real spacing: (button.iconSource != "" && button.text != "") ? env.dp(10) : 0   //控制文字与元素间距
 
    /*! 文本内容 */
    property string text: ""

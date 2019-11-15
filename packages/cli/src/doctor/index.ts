@@ -4,7 +4,6 @@ import * as _ from 'lodash/fp'
 import targetSdkValidator from './targetSdkValidator'
 import syberhValidator from './syberhValidator';
 import sdkValidator from './sdkValidator';
-import spmValidator from './spmValidator'
 import { log } from '../util/log'
 import { PROJECT_CONFIG } from '../util/constants'
 import chalk from 'chalk';
@@ -14,8 +13,7 @@ const validators = {
   validators: [
     targetSdkValidator,
     syberhValidator,
-    sdkValidator,
-    spmValidator
+    sdkValidator
   ]
 }
 

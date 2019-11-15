@@ -18,6 +18,6 @@ CFlowToolBar{
     backgroundEnabled: false
     propagateMouseEvents: false
     buttonColor: "#F4000000"
-    textFontSize: gUiConst.getValue("S4")
+    textFontSize: env.dp(gUiConst.getValue("S4"))
     textColor: gUiConst.getValue("CTB1")
 }

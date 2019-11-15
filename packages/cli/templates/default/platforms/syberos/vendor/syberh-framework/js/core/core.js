@@ -3,6 +3,7 @@
  */
 
 function Syber (parent) {
+  this.moduleVersion = helper.isGtQt56() ? '59.0' : '1.0';
   this.version = '1.0.0';
   this.isInited = false;
   this.pluginList = {};

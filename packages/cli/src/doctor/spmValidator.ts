@@ -19,7 +19,7 @@ async function checkSpm(): Promise<IErrorLine[]> {
 
   log.verbose('cmd: %s, stdout: %s', cmd, stdout)
   if (!stdout.trim().endsWith('/spm')) {
-    log.warn('未找到spm: ', stdout)
+    log.verbose('未找到spm: ', stdout)
     errorLines.push({
       desc: 'spm 未安装',
       valid: true,

@@ -3,6 +3,13 @@
 #include <QDebug>
 #include <qqml.h>
 #include <QSplashScreen>
+#include <cenvironment.h>
+// QT版本大于5.6
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+#include <qtwebengineglobal.h>
+#else
+#include "../../vendor/syberh-framework/src/senvironment.h"
+#endif
 
 #include "../../vendor/syberh-framework/src/helper.h"
 #include "../../vendor/syberh-framework/src/framework/nativesdkmanager.h"
@@ -16,6 +23,11 @@
 App_Workspace::App_Workspace()
     : CWorkspace()
 {
+    // 做qml适配用的
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    CEnvironment::initAppDpi(266);
+#endif
+
     // 设置日志级别
     QString devLog = ExtendedConfig::instance()->get(EX_DEV_LOG).toString();
     if(devLog.isEmpty()){
@@ -28,6 +40,16 @@ App_Workspace::App_Workspace()
 
     // 初始化错误信息
     ErrorInfo::init();
+
+    // QT版本大于5.6， 开始支持webgl
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+
+    QtWebEngine::initialize();
+    #endif
 
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     m_view->engine()->addImportPath("qrc:/");
@@ -44,7 +66,15 @@ App_Workspace::App_Workspace()
     FileUtil * fileutil = new FileUtil;
     m_view->rootContext()->setContextProperty("fileutil",fileutil);
 
+    // QT版本大于5.6，选择进入特定的qml页面
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    m_view->setSource(QUrl("qrc:/qml/main59.qml"));
+    #else
+    SEnvironment *env = new SEnvironment;
+    m_view->rootContext()->setContextProperty("env", env);
     m_view->setSource(QUrl("qrc:/qml/main.qml"));
+    #endif
+
     m_view->showFullScreen();
 
     m_root = (QObject *)(m_view->rootObject());

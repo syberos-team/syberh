@@ -38,7 +38,7 @@ HEADERS += \
     $$PWD/src/framework/devtools/devdownload.h \
     $$PWD/src/util/validator.h \
     $$PWD/src/notification.h \
-    $$PWD/src/database.h
+    $$PWD/src/senvironment.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -76,4 +76,4 @@ SOURCES += \
     $$PWD/src/framework/devtools/devdownload.cpp \
     $$PWD/src/util/validator.cpp \
     $$PWD/src/notification.cpp \
-    $$PWD/src/database.cpp
+    $$PWD/src/senvironment.cpp

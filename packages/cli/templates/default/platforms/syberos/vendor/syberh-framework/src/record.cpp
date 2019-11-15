@@ -66,7 +66,12 @@ void Record::start(long callBackID,QVariantMap params){
 
     //通过QAudioEncoderSettings类进行音频设置
     QAudioEncoderSettings audioSettings;
+    // OS4.1.1版本(QT版本大于5.6)， 音频保存格式变了
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    audioSettings.setCodec("audio/mpeg, mpegversion=(int)4");
+    #else
     audioSettings.setCodec("audio/AAC");
+    #endif
     audioSettings.setQuality(QMultimedia::HighQuality);
     recoder->setAudioSettings(audioSettings);
 

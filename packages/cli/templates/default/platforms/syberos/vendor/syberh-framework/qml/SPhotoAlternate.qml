@@ -17,8 +17,8 @@ Loader{
         text: CPhotoTranslate.noPhoto
         iconSource: "../images/default.png"
         color: gUiConst.getValue("CT1")
-        pixelSize: gUiConst.getValue("S3")
-        spacing: 50
+        pixelSize: env.dp(gUiConst.getValue("S3"))
+        spacing: env.dp(50)
     }
 }
 

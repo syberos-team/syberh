@@ -30,15 +30,15 @@ SCheckGridView{
     delegate: CCheckGridViewDelegate {
         width: cellWidth
         height: cellHeight
-        editLabelRightMargin: 20
-        editLabelBottomOffset: 20
+        editLabelRightMargin: env.dp(20)
+        editLabelBottomOffset: env.dp(20)
         smooth: false
 
         Image {
             id: image
             x: 2; y: 2; width: cellWidth - 4; height: cellHeight - 4
             source: "image://nemoThumbnail/" + url
-            sourceSize: Qt.size(100,100)
+            sourceSize: Qt.size(env.dp(100),env.dp(100))
             asynchronous: true
             fillMode: Image.PreserveAspectCrop
             smooth: false
@@ -46,15 +46,15 @@ SCheckGridView{
 
         /*! 如果mime为视频则显示图标 */
         Loader{
-            width: 120
-            height: 120
+            width: env.dp(120)
+            height: env.dp(120)
             anchors.centerIn: parent
             active: (image.status === Image.Ready)
                     && (typeof mimeType != "undefined")
                     && (mimeType.toLowerCase().indexOf("video") != -1)
             sourceComponent: Image {
                 source: "../images/video.png"
-                sourceSize: Qt.size(120, 120)
+                sourceSize: Qt.size(env.dp(120), env.dp(120))
             }
         }
     }

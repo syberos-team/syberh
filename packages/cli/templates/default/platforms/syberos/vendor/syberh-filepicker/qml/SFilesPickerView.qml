@@ -84,10 +84,10 @@ Rectangle {
         titleAreaCentered: true
         leftItemEnabled: fileListRect.leftItemEnabled
 
-        titlePixelSize: gUiConst.getValue("S2")
+        titlePixelSize: env.dp(gUiConst.getValue("S2"))
         titleTextColor: gUiConst.getValue("CT1")
         leftItemText: ""
-        leftItemPixelSize: gUiConst.getValue("S5")
+        leftItemPixelSize: env.dp(gUiConst.getValue("S5"))
         leftItemTextColor: gUiConst.getValue("CT1")
         rightItemEnabled: true
         rightItemText: "确定"
