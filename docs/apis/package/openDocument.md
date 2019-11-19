@@ -66,9 +66,9 @@ syberh.package.openDocument({
         age:18,
         sex:'male'
     },
-	success:function(result){
+	  success:function(result){
       console.log('result: ', result);
-    }
+    },
     fail:function(error){
       console.log('fail: ', error.code, error.msg);
     }

@@ -31,6 +31,9 @@ if (isNaN(port)) {
 }
 env = process.env.NODE_ENV || env
 
+// 是否只打包
+const onlyBuild = program.rawArgs.length === 2
+
 if (!fs.existsSync(projectConfPath)) {
   console.log(
     chalk.red(
@@ -64,6 +67,7 @@ targetReset(appPath, program).then(() => {
     type,
     debug,
     port,
-    nodoctor
+    nodoctor,
+    onlyBuild
   })
 })

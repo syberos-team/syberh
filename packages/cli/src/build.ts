@@ -23,7 +23,7 @@ export default async function build(appPath, webPath, buildConfig: IBuildConfig)
           chalk.red('输入类型错误，目前只支持 device(真机)/simulator类型')
         )
     }
-  } else {
+  } else if (buildConfig.onlyBuild) {
     // 默认打SOP包
     await buildSop(appPath, webPath, buildConfig)
   }

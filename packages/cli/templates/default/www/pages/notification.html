@@ -25,10 +25,6 @@
 
   <div class="mui-content pt0">
     <ul class="mui-table-view ">
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right" onclick="badgeShow()">角标显示</a>
-        </li>
-
         <div class="mui-collapse-content">
           <div class="mui-input-row">
               <label>角标个数</label>
@@ -36,18 +32,12 @@
           </div>
           <div class="mui-input-row">
               <label>appid</label>
-              <input type="text" id="appid" value="app" />
+              <input type="text" id="appid" value="example" />
           </div>
         </div>
-
+        
         <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="sendNotification(1)">发送通知消息1</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="sendNotification(2)">发送通知消息2</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a class="mui-navigate-right api-class" onclick="sendNotification(3)">发送通知消息3</a>
+          <a class="mui-navigate-right" onclick="badgeShow()">角标显示</a>
         </li>
 
         <div class="mui-collapse-content">
@@ -60,6 +50,17 @@
               <input type="text" id="subtitle" value="通知栏中显示消息" />
           </div>
         </div>
+        
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="sendNotification(1)">发送通知消息1</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="sendNotification(2)">发送通知消息2</a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right api-class" onclick="sendNotification(3)">发送通知消息3</a>
+        </li>
+
 
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right api-class" onclick="removeNotification()">删除指定消息</a>

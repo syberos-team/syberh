@@ -45,7 +45,7 @@ public:
      * @return 成功则返回true。
      *      失败则返回错误码。
      */
-    void isDatabaseExists(long callBackID, QVariantMap params);
+    bool isDatabaseExists(long callBackID, QVariantMap params);
 
     /**
      * @brief isTableExists 判断表是否存在
@@ -53,13 +53,20 @@ public:
      * @return 成功则返回true。
      *      失败则返回错误码。
      */
-    void isTableExists(long callBackID, QVariantMap params);
+    bool isTableExists(long callBackID, QVariantMap params);
 
 private :
 
     static int typeId;
     QSqlDatabase myConnection;
     bool checkOrCreateDir(QString path);
+    /**
+     * @brief checkDatabaseExists 判断数据库是否存在, 公共方法
+     * @param dbName 参数
+     * @return 成功则返回true。
+     *      失败则返回错误码。
+     */
+    bool checkDatabaseExists(QString dbName);
 };
 
 #endif // DATABASE_H

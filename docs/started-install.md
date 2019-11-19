@@ -2,7 +2,7 @@
 title: 安装SyberOS SDK
 ---
 
-> Syberos 应用必须在 ubuntu 64 位系统下编译打包，推荐使用 Ubuntu 14.04 版本。   
+> Syberos 应用必须在 ubuntu 64 位系统下编译打包，推荐使用 Ubuntu 14.04 版本。如果安装过SDK环境，可以忽略此步骤   
 
 
 ### SDK下载地址
