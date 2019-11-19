@@ -111,7 +111,7 @@ Rectangle {
             return "提示的内容不能为空";
         }
 
-        if(!icon){
+        if(!icon || (icon !== "success" && icon !== "error")){
             icon = "success";
         }
 

@@ -50,6 +50,7 @@ export interface IBuildConfig {
   platform?: string,
   port?: number,
   release?: boolean,
+  onlyBuild?: boolean,
   nodoctor?: boolean
 }
 

@@ -311,6 +311,8 @@
     function isTableExists() {
       var databaseName = document.getElementById('databaseName').value;
       var tableName = document.getElementById('tableName').value;
+      console.log('databaseName------', databaseName)
+      console.log('tableName------', tableName)
       if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
         alert("数据库名不能为空");
       } else if (tableName === 'undefined' || tableName === null || tableName === "") {

@@ -14,11 +14,11 @@ function GToast () {
 
   var that = this
   this.on('gtoast', function () {
-    if (!that.param.title) {
-      that.failed(that.handlerId, 6003, "提示的内容不能为空");
+    if (!that.param.title.trim()) {
+      that.failed(that.handlerId, 9001, "提示的内容不能为空");
       return;
     }
-    gToast.requestToast(that.param.title);
+    gToast.requestToast(that.param.title.trim());
     that.success(that.handlerId);
   });
 }
