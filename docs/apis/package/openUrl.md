@@ -45,17 +45,17 @@ syberh.package.openUrl({
     param:{
         age:18,
         sex:'male'
-    }
+    },
 	success:function(result){
         console.log('result: ', result);
-    }
+    },
     fail:function(error){
         console.log('fail: ', error.code, error.msg);
     }
 });
 ```
 
-> 被唤起应用示例放到了git上，地址：https://github.com/talicoasdf/myapp1
+> 被唤起应用示例放到了git上，地址：https://github.com/xue99999/myapp1/
 
 ### 应用被唤起回调
 
