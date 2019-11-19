@@ -20,29 +20,28 @@ sudo apt-get install expect
 ## syberh命令离线安装
 > 在有网络情况下进行如下操作：
 
-1、下载项目
 ```bash
-# 下载最新的tag版本
-git clone --branch v1.3.0 https://github.com/syberos-team/syberh
-```
-2、进入cli目录
-```bash
-cd syberh/packages/cli/
-```
-3、安装项目依赖
-```bash
-npm install
-```
-> 安装完成后，拷贝cli目录到无网机器即可
+# 全局安装syberh
+npm install -g @syberos/cli
 
-4、安装syberh命令
-```bash
-cd cli/
-npm install -g
+# 找到npm包的根目录
+npm root -g
+
+# 进入目录, 找到目录下的@syberos文件夹
+cd /home/xuejun/.nvm/versions/node/v12.13.0/lib/node_modules
 ```
 
-5、开始使用
+> 拷贝`@syberos`目录到无网机器即可
+
+1、拷贝`@syberos`文件夹到无网机器上
+
+2、给npm包做软链接(源文件目录需要写到bin目录下)
 ```bash
+ln –s  /home/xuejun/@syberos/cli/bin  syberh
+```
+
+3、开始使用
+``` bash
 syberh
 ```
 
@@ -56,3 +55,11 @@ syberh init --example
 
 #### 使用文档
 https://github.com/Tencent/vConsole
+
+
+## vue项目中如何使用
+``` javascript
+import syberh from '@syberos/jsbridge'
+// 注册到window对象上，可以全局使用
+window.syberh = syberh
+```
