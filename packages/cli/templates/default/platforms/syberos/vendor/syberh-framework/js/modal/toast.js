@@ -18,12 +18,12 @@ function Toast () {
   this.on('toast', function (object, handlerId, param) {
     var component = object
     if(!component){
-       that.failed(that.handlerId, 6002, "组件初始化错误");
+       that.failed(that.handlerId, 9002, "组件初始化错误");
     }
     var ret = component.show(that.param.title, that.param.icon, that.param.duration);
     if(ret){
         logger.verbose('component.show ret:',ret)
-        that.failed(that.handlerId, 6001, ret);
+        that.failed(that.handlerId, 9001, ret);
         return;
     }else{
        that.success(that.handlerId);

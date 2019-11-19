@@ -10,32 +10,34 @@ function FilePicker () {
     page: true,
     methods: ['open'],
     source: '../qml/filesPicker.qml'
-  }
-  SyberPlugin.call(this, defaultOpts)
+  };
+  SyberPlugin.call(this, defaultOpts);
 
-  var that = this
+  var that = this;
 
-    this.on('open', function (object, handlerId, param) {
-        var component = object || that.object
+  logger.verbose('@@@@@@>>>>>>>>>>>>>> in');
 
-        component.titleText = that.param.title || ""
-        component.leftItemEnabled = that.param.showBack || false
-        component.categoryType = that.param.category || "all"
-        component.count = that.param.count || 1
+  this.on('open', function (object, handlerId, param) {
+    logger.verbose('@@@@@@>>>>>>>>>>>>>>', object);
 
+    var component = object || that.object;
 
-        component.ok.connect(function(filesPath) { //处理选择文件信号
-            console.log('filepicker.ok filesPath: ', filesPath)
-            pageStack.pop()
-            that.success(that.handlerId, { files: filesPath })
-        })
+    component.titleText = that.param.title || '';
+    component.leftItemEnabled = that.param.showBack || false;
+    component.categoryType = that.param.category || 'all';
+    component.count = that.param.count || 1;
 
-        component.cancel.connect(function() { //处理取消信号
-            pageStack.pop()
-            that.success(that.handlerId)
-        })
+    component.ok.connect(function (filesPath) { // 处理选择文件信号
+      console.log('filepicker.ok filesPath: ', filesPath);
+      pageStack.pop();
+      that.success(that.handlerId, { files: filesPath });
+    });
 
-    })
+    component.cancel.connect(function () { // 处理取消信号
+      pageStack.pop();
+      that.success(that.handlerId);
+    });
+  });
 }
 
-FilePicker.prototype = SyberPlugin.prototype
+FilePicker.prototype = SyberPlugin.prototype;

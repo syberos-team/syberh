@@ -22,7 +22,7 @@ function Prompt () {
     var component = object || that.object
 
     // 默认清除输入框的值
-    component.setText('')
+//    component.setText('')
 
     component.titleText = that.param.title || ''
     component.rejectButtonText = that.param.cancelText || '取消'
@@ -48,6 +48,13 @@ function Prompt () {
       that.clearParam()
     })
 
+
+    component.inputBack.connect(function() {
+      // 此处必须用that.xx ，因为后续的参数不会被传到该方法范围内
+      that.success();
+      // 清理相关参数信息
+      that.clearParam()
+    })
 
   })
 

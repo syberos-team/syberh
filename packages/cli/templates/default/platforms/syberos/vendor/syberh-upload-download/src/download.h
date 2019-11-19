@@ -46,6 +46,9 @@ private :
     //删除TaksInfo对象，断开连接的信号，并移除任务
     void removeTask(QString downloadId);
 
+    QProcess *process;
+    bool isnetWork;
+
 public slots:
 
     // 开始下载
