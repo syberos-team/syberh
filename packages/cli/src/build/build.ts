@@ -52,7 +52,7 @@ export default class Build {
   /**
    * 开始编译， 并在设备上运行
    */
-  public async start() {
+  public async start(buildSuccessCallback) {
     log.verbose('Build start()')
 
     this.pdkRootPath = await helper.locateSdk()
@@ -65,7 +65,7 @@ export default class Build {
     log.verbose('appPath:%s, conf:%j', this.appPath, this.conf)
 
     // 执行编译
-    await this.buildSop()
+    await this.buildSop(buildSuccessCallback)
     // 安装sop
     await this.installSop()
   }
@@ -91,7 +91,7 @@ export default class Build {
   /**
    * 开始编译
    */
-  public async buildSop() {
+  public async buildSop(buildSuccessCallback) {
     log.verbose('Build buildSop()')
     this.pdkRootPath = await helper.locateSdk()
     // 1、生成编译目录
@@ -100,6 +100,10 @@ export default class Build {
     await this.copywww()
     // 3、执行构建命令
     await this.executeShell()
+    // 4、构建完成后执行回调
+    if (typeof buildSuccessCallback === 'function') {
+      buildSuccessCallback.call(this)
+    }
 
     if (this.conf.onlyBuildSop === true) {
       const cmd = "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
