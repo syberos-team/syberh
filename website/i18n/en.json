@@ -843,6 +843,18 @@
       },
       "version-1.4.0/version-1.4.0-README": {
         "title": "Syberh 介绍"
+      },
+      "version-1.4.1-alpha.2/apis/package/version-1.4.1-alpha.2-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.4.1-alpha.2/apis/package/version-1.4.1-alpha.2-openUrl": {
+        "title": "openUrl"
+      },
+      "version-1.4.1-alpha.2/version-1.4.1-alpha.2-specials": {
+        "title": "常见问题"
+      },
+      "version-1.4.1-alpha.2/version-1.4.1-alpha.2-started-install": {
+        "title": "安装SyberOS SDK"
       }
     },
     "links": {
