@@ -175,7 +175,8 @@
             <a class="mui-navigate-right api-class" id="https://sandcastle.cesium.com/">cesium</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
-            <a class="mui-navigate-right api-class" id="http://www.yanhuangxueyuan.com/threejs/examples/index.html#webgl_animation_cloth">threejs</a>
+            <a class="mui-navigate-right api-class"
+              id="http://www.yanhuangxueyuan.com/threejs/examples/index.html#webgl_animation_cloth">threejs</a>
           </li>
           <li class="mui-table-view-cell secondMenu">
             <a class="mui-navigate-right api-class" id="http://support.supermap.com.cn:8092/apps/earth/6">supermap</a>
@@ -231,6 +232,10 @@
         }
       })
     }
+
+    syberh.subscribe('onShow', function (result) {
+      console.log("result: ", JSON.stringify(result), new Date().getTime());
+    });
   </script>
 </body>
 

@@ -3,6 +3,9 @@ var WebviewStatusShow = 0;
 // 被pop打开
 var WebviewStatusPop = 1;
 
+var OnShowStautsReady = 'ready';
+var OnShowStautsRedisplay = 'redisplay';
+
 function WebView (options) {
   // 默认参数
   var defaultOpts = {
@@ -39,15 +42,20 @@ function WebView (options) {
     swebviewCache[that.id] = object;
     swebviews.push(that);
     currentWebview = that;
+
+    var onShowQueueUrl;
     if (that.currentUrl) {
       logger.verbose('currentUrl:', that.currentUrl);
-      // 发送onShow订阅
-      that.pushQueue('subscribe', {
-        url: that.currentUrl,
-        handlerName: 'onShow',
-        result: { ready: true }
-      });
+      onShowQueueUrl = that.currentUrl;
+    } else {
+      onShowQueueUrl = that.object.surl;
     }
+    // 发送onShow订阅
+    that.pushQueue('subscribe', {
+      url: onShowQueueUrl,
+      handlerName: 'onShow',
+      result: { status: OnShowStautsReady }
+    });
     if (!that.loadProgressConnect) {
       // 设置绑定信号
       that.loadProgressConnect = true;
@@ -94,12 +102,18 @@ function WebView (options) {
   });
 
   // 页面被打开
-  this.on('show', function (status) {
+  this.on('show', function (options) {
     logger.verbose('Webivew:[%s] , on show() ,status:[%d]', that.id, status);
     // 页面被pop唤起,注销上一级页面
-    if (status === WebviewStatusPop) {
+    if (options.status === WebviewStatusPop) {
       logger.verbose('Webivew:[%s] ,当前打开方式为pop，开始注销上一层', that.id, status);
     }
+    that.pushQueue('subscribe', {
+      url: options.url,
+      handlerName: 'onShow',
+      result: { status: OnShowStautsRedisplay }
+    });
+    that.dog(options.url);
   });
 
   this.on('hide', function () {
@@ -435,13 +449,12 @@ function WebView (options) {
           this.trigger('fail', obj.handlerId, obj.result);
         }
         this.trigger('success', obj.handlerId, obj.result);
-        continue;
       }
       if (obj.type === 'subscribe') {
         this.subscribeEvaluate(obj.handlerName, obj.result);
-        continue;
       }
       queue.splice(i, 1);
+      logger.verbose('dog() queue length:', queue.length);
     }
   }
   /**
@@ -526,7 +539,10 @@ function WebView (options) {
         pageStack.pop(topVebview.object);
       }
       logger.verbose('topVebview:[%s],当前swebviews数量: [%d],栈的深度: [%d]', topVebview.id, swebviews.length, pageStack.depth);
-      topVebview.trigger('show', WebviewStatusPop);
+      topVebview.trigger('show', {
+        status: WebviewStatusPop,
+        url: topVebview.currentUrl ? topVebview.currentUrl : topVebview.object.surl
+      });
       if (typeof callback === 'function') callback(true, topVebview, true);
     } else {
       logger.verbose('navigateBack() 当前页面栈数为: [ %d ],不做处理', swebviews.length);
