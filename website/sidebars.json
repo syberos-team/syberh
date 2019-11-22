@@ -6,7 +6,8 @@
     "快速开始": [
       "started-cli",
       "started-install",
-      "first-app"
+      "first-app",
+      "started-lifecycle"
     ],
     "进阶指南": [
       "cli-readme",

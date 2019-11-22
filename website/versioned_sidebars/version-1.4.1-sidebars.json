@@ -1,0 +1,188 @@
+{
+  "version-1.4.1-docs": {
+    "关于Syberh": [
+      "version-1.4.1-README"
+    ],
+    "快速开始": [
+      "version-1.4.1-started-cli",
+      "version-1.4.1-started-install",
+      "version-1.4.1-first-app",
+      "version-1.4.1-started-lifecycle"
+    ],
+    "进阶指南": [
+      "version-1.4.1-cli-readme",
+      "version-1.4.1-app-config",
+      "version-1.4.1-app-permissions",
+      "version-1.4.1-started-ide",
+      "version-1.4.1-started-spm",
+      "version-1.4.1-return_code"
+    ]
+  },
+  "version-1.4.1-API": {
+    "关于API": [
+      "version-1.4.1-apis/about/desc"
+    ],
+    "路由": [
+      "version-1.4.1-apis/router/router"
+    ],
+    "模态弹窗": [
+      "version-1.4.1-apis/modal/toast",
+      "version-1.4.1-apis/modal/gtoast",
+      "version-1.4.1-apis/modal/alert",
+      "version-1.4.1-apis/modal/confirm",
+      "version-1.4.1-apis/modal/prompt"
+    ],
+    "媒体": [
+      {
+        "label": "相机",
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/multimedia/camera/takePhoto"
+        ]
+      },
+      {
+        "label": "录音",
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/multimedia/record/list",
+          "version-1.4.1-apis/multimedia/record/start",
+          "version-1.4.1-apis/multimedia/record/pause",
+          "version-1.4.1-apis/multimedia/record/resume",
+          "version-1.4.1-apis/multimedia/record/stop",
+          "version-1.4.1-apis/multimedia/record/remove"
+        ]
+      },
+      {
+        "label": "音频",
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/multimedia/audio/start",
+          "version-1.4.1-apis/multimedia/audio/pause",
+          "version-1.4.1-apis/multimedia/audio/resume",
+          "version-1.4.1-apis/multimedia/audio/stop"
+        ]
+      },
+      {
+        "label": "图片",
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/image/chooseImage",
+          "version-1.4.1-apis/image/previewImage",
+          "version-1.4.1-apis/image/saveImageToPhotosAlbum",
+          "version-1.4.1-apis/image/getImageInfo"
+        ]
+      }
+    ],
+    "电话": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/telephony/dial"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/clipboard/setClipboardData",
+          "version-1.4.1-apis/clipboard/getClipboardData"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/system/aboutPhone",
+          "version-1.4.1-apis/system/battery",
+          "version-1.4.1-apis/system/networkInfo"
+        ]
+      }
+    ],
+    "数据网络": [
+      "version-1.4.1-apis/cellular/networkDisabled",
+      "version-1.4.1-apis/cellular/networkEnabled"
+    ],
+    "数据存储": [
+      "version-1.4.1-apis/storage/setItem",
+      "version-1.4.1-apis/storage/getItem",
+      "version-1.4.1-apis/storage/removeItem",
+      "version-1.4.1-apis/storage/getAllKeys",
+      "version-1.4.1-apis/storage/removeAll"
+    ],
+    "网络": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/request/request"
+        ]
+      }
+    ],
+    "下载": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/download/download",
+          "version-1.4.1-apis/download/download-cancel"
+        ]
+      }
+    ],
+    "文件选择": [
+      "version-1.4.1-apis/filepicker/filepicker"
+    ],
+    "文件管理": [
+      "version-1.4.1-apis/fileManager/move",
+      "version-1.4.1-apis/fileManager/copy",
+      "version-1.4.1-apis/fileManager/fileList",
+      "version-1.4.1-apis/fileManager/getInfo",
+      "version-1.4.1-apis/fileManager/remove"
+    ],
+    "应用管理": [
+      "version-1.4.1-apis/package/openUrl",
+      "version-1.4.1-apis/package/openDocument"
+    ],
+    "path": [
+      "version-1.4.1-apis/path/extern",
+      "version-1.4.1-apis/path/inner",
+      "version-1.4.1-apis/path/dataRoot"
+    ],
+    "上传": [
+      "version-1.4.1-apis/upload/upload",
+      "version-1.4.1-apis/upload/upload-cancel"
+    ],
+    "设备": [
+      {
+        "label": "屏幕亮度",
+        "type": "subcategory",
+        "ids": [
+          "version-1.4.1-apis/brightness/brightnessInfo",
+          "version-1.4.1-apis/brightness/setAmbientLightSensorEnabled",
+          "version-1.4.1-apis/brightness/setBlankTimeout",
+          "version-1.4.1-apis/brightness/setBrightness"
+        ]
+      }
+    ],
+    "震动": [
+      "version-1.4.1-apis/vibrator/vibrate"
+    ],
+    "消息通知": [
+      "version-1.4.1-apis/notification/badgeShow",
+      "version-1.4.1-apis/notification/sendNotification",
+      "version-1.4.1-apis/notification/removeAllNotifications",
+      "version-1.4.1-apis/notification/removeNotification"
+    ],
+    "数据库操作": [
+      "version-1.4.1-apis/database/createTable",
+      "version-1.4.1-apis/database/query",
+      "version-1.4.1-apis/database/execute",
+      "version-1.4.1-apis/database/isDatabaseExists",
+      "version-1.4.1-apis/database/isTableExists"
+    ]
+  },
+  "version-1.4.1-常见问题": {
+    "关于问题": [
+      "version-1.4.1-specials"
+    ]
+  }
+}
