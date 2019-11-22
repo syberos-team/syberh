@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-var logger = new Logger()
+var logger = new Logger();
 
 /**
  * 日志工具类
  */
 function Logger () {
-  this.levelName = helper.logLevelName() ? helper.logLevelName() : 'info'
+  this.levelName = helper.logLevelName();
 
-  var LogLevel = {}
-  LogLevel.error = 1
-  LogLevel.warn = 2
-  LogLevel.info = 3
-  LogLevel.verbose = 4
+  var LogLevel = {};
+  LogLevel.error = 1;
+  LogLevel.warn = 2;
+  LogLevel.info = 3;
+  LogLevel.verbose = 4;
   /**
    * 获取用于打印的日志级别标识
    * @param level 日志级别
@@ -21,50 +21,50 @@ function Logger () {
   function getLevelTag (level) {
     switch (level) {
       case LogLevel.error:
-        return 'ERR '
+        return 'ERR ';
       case LogLevel.warn:
-        return 'WARN'
+        return 'WARN';
       case LogLevel.info:
-        return 'INFO'
+        return 'INFO';
       case LogLevel.verbose:
-        return 'VERB'
+        return 'VERB';
     }
   }
 
   function sprintf () {
-    var args = arguments
-    var text = args[0]
-    var res = []
-    var i = 1
+    var args = arguments;
+    var text = args[0];
+    var res = [];
+    var i = 1;
     var rtext = text.replace(/%((%)|s|d)/g, function (m) {
       // m is the matched format, e.g. %s, %d
-      var val = null
+      var val = null;
       if (m[2]) {
-        val = m[2]
+        val = m[2];
       } else {
-        val = args[i]
+        val = args[i];
         // A switch statement so that the formatter can be extended. Default is %s
         switch (m) {
           case '%d':
-            val = parseFloat(val)
+            val = parseFloat(val);
             if (isNaN(val)) {
-              val = 0
+              val = 0;
             }
-            break
+            break;
         }
-        i++
+        i++;
       }
-      return val
-    })
+      return val;
+    });
     if (rtext) {
-      res.push(rtext)
+      res.push(rtext);
     }
     // 处理剩余参数
     for (var s = i; s < arguments.length; s++) {
-      res.push(arguments[s])
+      res.push(arguments[s]);
     }
 
-    return res
+    return res;
   }
 
   /**
@@ -74,23 +74,23 @@ function Logger () {
   function logLevelName (logLevel) {
     switch (logLevel) {
       case 'error':
-        return LogLevel.error
+        return LogLevel.error;
       case 'warn':
-        return LogLevel.warn
+        return LogLevel.warn;
       case 'info':
-        return LogLevel.info
+        return LogLevel.info;
       case 'verbose':
-        return LogLevel.verbose
+        return LogLevel.verbose;
       default:
-        return LogLevel.info
+        return LogLevel.info;
     }
   }
   function getLevel () {
-    return this.level
+    return this.level;
   }
 
   function defaultPrintFunction (levelTag, timestamp) {
-    return levelTag + ' ' + timestamp + ' | '
+    return levelTag + ' ' + timestamp + ' | ';
   }
   /**
   * 默认的时间格式化函数
@@ -98,16 +98,16 @@ function Logger () {
   * @return {string}
   */
   function defaultDateFormatFunction (date) {
-    var hour = date.getHours()
-    var min = date.getMinutes()
-    var sec = date.getSeconds()
-    var stampStr = ''
-    stampStr += (hour < 10) ? ('0' + hour) : hour
-    stampStr += ':'
-    stampStr += (min < 10) ? ('0' + min) : min
-    stampStr += ':'
-    stampStr += (sec < 10) ? ('0' + sec) : sec
-    return stampStr
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    var stampStr = '';
+    stampStr += hour < 10 ? '0' + hour : hour;
+    stampStr += ':';
+    stampStr += min < 10 ? '0' + min : min;
+    stampStr += ':';
+    stampStr += sec < 10 ? '0' + sec : sec;
+    return stampStr;
   }
 
   /**
@@ -117,36 +117,36 @@ function Logger () {
     */
   function error (message, args) {
     if (this.isLevelEnabled(LogLevel.error)) {
-      var len = arguments.length
-      var funcArgs = []
+      var len = arguments.length;
+      var funcArgs = [];
       for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum])
+        funcArgs.push(arguments[sum]);
       }
-      funcArgs.unshift(LogLevel.error)
-      this.log.apply(this, funcArgs)
+      funcArgs.unshift(LogLevel.error);
+      this.log.apply(this, funcArgs);
     }
   }
 
   function isVerboseEnabled () {
-    return this.isLevelEnabled(LogLevel.verbose)
+    return this.isLevelEnabled(LogLevel.verbose);
   }
   function isLevelEnabled (level) {
-    return this.level >= level
+    return this.level >= level;
   }
   function log () {
-    //var timestamp = this.dateFormatFunction(new Date())
-    var len = arguments.length
+    // var timestamp = this.dateFormatFunction(new Date())
+    var len = arguments.length;
     // const args = Array.prototype.slice.call(arguments, 3) || []
-    var logLevel = arguments[0]
-    //var msg = this.printFunction(this.getLevelTag(logLevel), timestamp)
-    var funcArgs = []
+    var logLevel = arguments[0];
+    // var msg = this.printFunction(this.getLevelTag(logLevel), timestamp)
+    var funcArgs = [];
     for (var sum = 1; sum < len; sum += 1) {
-      funcArgs.push(arguments[sum])
+      funcArgs.push(arguments[sum]);
     }
 
-    var res = sprintf.apply(null, funcArgs) || []
-    //res.unshift(msg)
-    console.log.apply(console, res)
+    var res = sprintf.apply(null, funcArgs) || [];
+    // res.unshift(msg)
+    console.log.apply(console, res);
   }
   /**
    * 打印warn日志，支持格式化字符：%s, %d, %j
@@ -155,13 +155,13 @@ function Logger () {
    */
   function warn () {
     if (this.isLevelEnabled(LogLevel.warn)) {
-      var len = arguments.length
-      var funcArgs = []
+      var len = arguments.length;
+      var funcArgs = [];
       for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum])
+        funcArgs.push(arguments[sum]);
       }
-      funcArgs.unshift(LogLevel.warn)
-      this.log.apply(this, funcArgs)
+      funcArgs.unshift(LogLevel.warn);
+      this.log.apply(this, funcArgs);
     }
   }
   /**
@@ -171,13 +171,13 @@ function Logger () {
    */
   function info () {
     if (this.isLevelEnabled(LogLevel.info)) {
-      var len = arguments.length
-      var funcArgs = []
+      var len = arguments.length;
+      var funcArgs = [];
       for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum])
+        funcArgs.push(arguments[sum]);
       }
-      funcArgs.unshift(LogLevel.info)
-      this.log.apply(this, funcArgs)
+      funcArgs.unshift(LogLevel.info);
+      this.log.apply(this, funcArgs);
     }
   }
   /**
@@ -187,26 +187,26 @@ function Logger () {
    */
   function verbose () {
     if (this.isLevelEnabled(LogLevel.verbose)) {
-      var len = arguments.length
-      var funcArgs = []
+      var len = arguments.length;
+      var funcArgs = [];
       for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum])
+        funcArgs.push(arguments[sum]);
       }
-      funcArgs.unshift(LogLevel.verbose)
-      this.log.apply(this, funcArgs)
+      funcArgs.unshift(LogLevel.verbose);
+      this.log.apply(this, funcArgs);
     }
   }
-  this.logLevelName = logLevelName.bind(this)
-  this.level = this.logLevelName(this.levelName)
-  this.printFunction = defaultPrintFunction.bind(this)
-  this.dateFormatFunction = defaultDateFormatFunction.bind(this)
-  this.getLevelTag = getLevelTag.bind(this)
-  this.getLevel = getLevel.bind(this)
-  this.isLevelEnabled = isLevelEnabled.bind(this)
-  this.isVerboseEnabled = isVerboseEnabled.bind(this)
-  this.log = log.bind(this)
-  this.error = error.bind(this)
-  this.warn = warn.bind(this)
-  this.verbose = verbose.bind(this)
-  this.info = info.bind(this)
+  this.logLevelName = logLevelName.bind(this);
+  this.level = this.logLevelName(this.levelName);
+  this.printFunction = defaultPrintFunction.bind(this);
+  this.dateFormatFunction = defaultDateFormatFunction.bind(this);
+  this.getLevelTag = getLevelTag.bind(this);
+  this.getLevel = getLevel.bind(this);
+  this.isLevelEnabled = isLevelEnabled.bind(this);
+  this.isVerboseEnabled = isVerboseEnabled.bind(this);
+  this.log = log.bind(this);
+  this.error = error.bind(this);
+  this.warn = warn.bind(this);
+  this.verbose = verbose.bind(this);
+  this.info = info.bind(this);
 }
