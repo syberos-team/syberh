@@ -9,6 +9,7 @@ APP_DIR = /data/apps
 APP_DATA = /data/data
 INSTALL_DIR = $$APP_DIR/<%=sopid %>
 DATA_DIR = $$APP_DATA/<%=sopid %>
+LIB_DIR = /data/app-libs/<%=sopid %>
 
 DEFINES += SOP_ID=\\\"<%=sopid %>\\\"
 DEFINES += APP_DIR_ENVVAR=\\\"APPDIR_REGULAR\\\"
