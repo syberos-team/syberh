@@ -39,14 +39,17 @@ export async function build(appPath: string, webPath: string, config: AppBuildCo
   }
   log.verbose('config:', JSON.stringify(newConfig))
   const { debug = false } = config
-  if (debug) {
-    const serverjs = locateScripts('devServer.js')
-    child_process.fork(serverjs, [newConfig.port])
-  }
+
   const build = new Build(appPath, webPath, newConfig)
   if (newConfig.onlyBuildSop === true) {
-    await build.buildSop()
+    await build.buildSop(null)
   } else {
-    await build.start()
+    await build.start(() => {
+      // 启动devServer热更新服务
+      if (debug) {
+        const serverjs = locateScripts('devServer.js')
+        child_process.fork(serverjs, [newConfig.port])
+      }
+    })
   }
 }
