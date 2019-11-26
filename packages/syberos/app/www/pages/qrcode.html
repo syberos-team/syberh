@@ -54,7 +54,9 @@
       syberh.qrcode.scan({
         success: function (result) {
           console.log('syberh.qrcode.scan success',result)
-          document.getElementById('qrcode').innerText = result.result
+          if (result.result) {
+            document.getElementById('qrcode').innerText = result.result
+          }
         },
         error: function () {
           console.log('syberh.qrcode.scan 失败')
