@@ -19,14 +19,13 @@
 #include "../../vendor/syberh-framework/src/util/fileutil.h"
 #include "../../vendor/syberh-framework/src/framework/common/errorinfo.h"
 
+#ifdef QRCODE
+#include "../../vendor/syberh-qrcode/src/qrcoderegister.h"
+#endif
 
 App_Workspace::App_Workspace()
     : CWorkspace()
 {
-    // 做qml适配用的
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    CEnvironment::initAppDpi(266);
-#endif
 
     // 设置日志级别
     QString devLog = ExtendedConfig::instance()->get(EX_DEV_LOG).toString();
@@ -66,8 +65,15 @@ App_Workspace::App_Workspace()
     FileUtil * fileutil = new FileUtil;
     m_view->rootContext()->setContextProperty("fileutil",fileutil);
 
-    // QT版本大于5.6，选择进入特定的qml页面
+    // qrcode
+#ifdef QRCODE
+    QrcodeRegister * qrcode = new QrcodeRegister();
+    qrcode->init(m_view);
+#endif
+
+    // QT版本大于5.6，选择进入特定的qml页面, qml适配， 266是9860手机的dpi值
     #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    CEnvironment::initAppDpi(266);
     m_view->setSource(QUrl("qrc:/qml/main59.qml"));
     #else
     SEnvironment *env = new SEnvironment;
