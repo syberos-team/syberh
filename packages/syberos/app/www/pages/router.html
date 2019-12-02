@@ -124,6 +124,22 @@
           </div>
         </li>
 
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setPageOrientation</a>
+          <div class="mui-collapse-content">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
+              onclick="changePageOrientation()">设置横竖屏切换</button>
+          </div>
+        </li>
+
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right" href="#">setPageOrientation</a>
+          <div class="mui-collapse-content">
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
+              onclick="changePageOrientationAuto()">设置跟随屏幕切换</button>
+          </div>
+        </li>
+
       </ul>
     </div>
   </div>
@@ -294,13 +310,43 @@
       })
     }
 
+    // 屏幕方向默认竖屏
+    var curOrientation = 2
 
+    function changePageOrientation() {
+      syberh.router.setPageOrientation({
+        orientation: curOrientation,
+        success: function () {
+            showTips(curOrientation == 2 ? '横屏' : '竖屏')
+            curOrientation = curOrientation == 1 ? 2 : 1
+        },
+        fail: function (error) {
+            console.log('屏幕切换失败', error.code, error.msg)
+            showTips(JSON.stringify(error))
+        }
+      });
+    }
+
+    function changePageOrientationAuto() {
+      syberh.router.setPageOrientation({
+        orientation: 0,
+        success: function (result) {
+            console.log('开始跟随屏幕旋转切换页面方向', JSON.stringify(result))
+        },
+        fail: function (error) {
+            console.log('屏幕切换失败', error.code, error.msg)
+        }
+      });
+    }
 
 
     syberh.subscribe('onShow', function (result) {
       console.log("result: ", JSON.stringify(result), new Date().getTime());
     });
 
+    syberh.subscribe('onResize', function (result) {
+      console.log("收到屏幕旋转消息: ", JSON.stringify(result), new Date().getTime());
+    });
   </script>
 
 </body>

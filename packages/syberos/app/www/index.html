@@ -162,6 +162,9 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/qrcode.html">扫码</a>
       </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/app.html">全局事件</a>
+      </li>
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">webgl</a>
         <ul class="mui-collapse-content">
@@ -238,6 +241,10 @@
 
     syberh.subscribe('onShow', function (result) {
       console.log("result: ", JSON.stringify(result), new Date().getTime());
+    });
+    
+    syberh.subscribe('onResize', function (result) {
+      console.log("收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
     });
   </script>
 </body>
