@@ -163,7 +163,7 @@
         <a class="mui-navigate-right api-class" id="./pages/qrcode.html">扫码</a>
       </li>
       <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class" id="./pages/app.html">全局事件</a>
+        <a class="mui-navigate-right api-class" id="./pages/app.html">全局配置</a>
       </li>
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">webgl</a>
@@ -220,13 +220,11 @@
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
-        webview: {
-          color: '#eeeeee',
-        },
+        backgroundColor: '#eeeeee',
         navigationBar: {
           title: navTitle,
-          color: '#f7f7f7',
-          textColor: '#000000',
+          backgroundColor: '#f7f7f7',
+          color: '#000000',
           backIconEnable: true,
           closeIconEnable: true
         },

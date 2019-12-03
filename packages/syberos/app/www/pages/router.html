@@ -24,7 +24,8 @@
               <label>url:</label>
               <input id="url3" type="text" value="pages/alert.html">
             </div>
-            <button type="button" class="mui-btn mui-btn-outlined" onclick="reLaunch()">reLaunch</button>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="reLaunch(0)">reLaunch</button>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="reLaunch(1)">reLaunch带参数</button>
         </li>
         <li class="mui-table-view-cell mui-collapse mui-active">
           <a class="mui-navigate-right" href="#">redirectTo</a>
@@ -35,7 +36,8 @@
             </div>
             <button type="button" class="mui-btn mui-btn-outlined" onclick="redirectTo()">redirectTo</button>
             <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"
-              onclick="redirectTo2()">redirectTo2</button>
+            onclick="redirectTo2()">redirectTo2</button>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="redirectTo(1)">redirectTo带参数</button>
           </div>
         </li>
 
@@ -56,8 +58,8 @@
               <label>url:</label>
               <input id="url2" type="text" value="pages/router.html">
             </div>
-
-            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo()">确定</button>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo(0)">确定</button>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="navigateTo(1)">屏幕旋转进入下个页面</button>
           </div>
         </li>
 
@@ -98,7 +100,7 @@
           <a class="mui-navigate-right" href="#">setBackgroundColor</a>
           <div class="mui-collapse-content">
             <div class="mui-input-row">
-              <label>color:</label>
+              <label>bgColor:</label>
               <input id="setBackgroundColor" type="text" value="red">
             </div>
 
@@ -111,11 +113,11 @@
           <a class="mui-navigate-right" href="#">setNavigationBarColor</a>
           <div class="mui-collapse-content">
             <div class="mui-input-row">
-              <label>color:</label>
+              <label>bgColor:</label>
               <input id="navigationBarColor" type="text" value="#eeeeee">
             </div>
             <div class="mui-input-row">
-              <label>TextColor:</label>
+              <label>color:</label>
               <input id="navigationBarTextColor" type="text" value="#cccccc">
             </div>
 
@@ -151,11 +153,21 @@
   <script>
     var vConsole = new VConsole()
 
-    function reLaunch() {
+    function reLaunch(flag) {
+      var orientation = flag ? 2 : 0
       var url = document.getElementById('url3').value;
       console.debug(url);
       syberh.router.reLaunch({
         url: url,
+        orientation: orientation,
+        backgroundColor: '#eeeeee',
+        navigationBar: {
+          title: 'reLaunch页面',
+          backgroundColor: '#f7f7f7',
+          color: '#000000',
+          backIconEnable: true,
+          closeIconEnable: true
+        },
         data: { age: 12, name: 'lihejia' },
         success: function (result) {
           console.info(result)
@@ -165,11 +177,21 @@
         }
       })
     }
-    function redirectTo() {
+    function redirectTo(flag) {
+      var orientation = flag ? 2 : 0
       var url = document.getElementById('url').value;
       console.debug(url);
       syberh.router.redirectTo({
         url: url,
+        orientation: orientation,
+        backgroundColor: '#eeeeee',
+        navigationBar: {
+          title: 'redirectTo页面',
+          backgroundColor: '#f7f7f7',
+          color: '#000000',
+          backIconEnable: true,
+          closeIconEnable: true
+        },
         success: function (result) {
           console.info(result)
           showTips(JSON.stringify(result))
@@ -232,12 +254,12 @@
     }
 
     function setNavigationBarColor() {
-      var color = document.getElementById('navigationBarColor').value;
-      var textColor = document.getElementById('navigationBarTextColor').value;
-      console.log('设置导航栏颜色是color,textColor： ', color, textColor)
+      var backgroundColor = document.getElementById('navigationBarColor').value;
+      var color = document.getElementById('navigationBarTextColor').value;
+      console.log('设置导航栏颜色是： ', color, backgroundColor)
       syberh.router.setNavigationBarColor({
+        backgroundColor: backgroundColor,
         color: color,
-        textColor: textColor,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
@@ -250,10 +272,10 @@
     }
 
     function setBackgroundColor() {
-      var color = document.getElementById('setBackgroundColor').value;
-      console.log('设置背景色是color ', color)
+      var backgroundColor = document.getElementById('setBackgroundColor').value;
+      console.log('设置背景色是backgroundColor ', backgroundColor)
       syberh.router.setBackgroundColor({
-        color: color,
+        backgroundColor: backgroundColor,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
@@ -265,10 +287,20 @@
       })
     }
 
-    function navigateTo() {
+    function navigateTo(flag) {
+      var orientation = flag ? 2 : 0
       var url = document.getElementById('url2').value;
       syberh.router.navigateTo({
         url: url,
+        orientation: orientation,
+        backgroundColor: '#eeeeee',
+        navigationBar: {
+          title: navTitle,
+          backgroundColor: '#f7f7f7',
+          color: '#000000',
+          backIconEnable: true,
+          closeIconEnable: true
+        },
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
