@@ -35,7 +35,7 @@ title: openDocument
 
 > 元心系统支持沙盒机制，即：每个应用都有自己对应的沙盒，每个应用程序之间不能相互访问非本程序的沙盒<br/>
 > 如果想跨应用处理文件，则需要给filePath传值，然后此接口会将应用唤起，并将该文件拷贝到被唤起应用的沙盒内。
-> 注：文件拷贝功能暂时不能用
+> 注：文件拷贝功能在OS4.1中已经可以使用，OS2.1不支持
 
 #### object.success 回调函数参数
 值
@@ -75,7 +75,7 @@ syberh.package.openDocument({
 });
 ```
 
-> 被唤起应用示例放到了git上，地址：https://github.com/talicoasdf/myapp1
+> 被唤起应用示例放到了git上，地址：https://github.com/xue99999/myapp1
 
 ### 应用被唤起回调
 
@@ -83,7 +83,7 @@ syberh.package.openDocument({
 
 | 属性    | 类型   | 描述     |
 | ------- | ------ | -------- |
-| onShow | String | 固定值   |
+| onReady | String | 固定值   |
 | result  | Object | 回调结果 |
 
 #### result 回调函数参数
@@ -93,10 +93,10 @@ syberh.package.openDocument({
 | 属性  | 类型   | 描述                                               |
 | ----- | ------ | -------------------------------------------------- |
 | path  | String | 跳转的页面路径，index.html?key1=value1&key2=value2 |
-| param | Object | 传递的参数，{key1=value1, key2=value2}格式         |
+| params | Object | 传递的参数，{key1=value1, key2=value2}格式         |
 
 ```
-syberh.subscribe('onShow', function(result) {
+syberh.subscribe('onReady', function(result) {
   console.log("path: "+ result.path);
   console.log("params: "+ JSON.stringify(result.params));
 });
