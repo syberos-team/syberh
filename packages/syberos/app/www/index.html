@@ -237,12 +237,24 @@
       })
     }
 
-    syberh.subscribe('onShow', function (result) {
-      console.log("result: ", JSON.stringify(result), new Date().getTime());
+    syberh.subscribe('onReady', function () {
+      console.log("onReady: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onShow', function () {
+      console.log("onShow: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onHide', function () {
+      console.log("onHide: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onUnload', function () {
+      console.log("onUnload: ", new Date().getTime());
     });
     
     syberh.subscribe('onResize', function (result) {
-      console.log("收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
+      console.log("onResize收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
     });
   </script>
 </body>

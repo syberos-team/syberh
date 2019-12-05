@@ -161,13 +161,13 @@
         url: url,
         orientation: orientation,
         backgroundColor: '#eeeeee',
-        navigationBar: {
-          title: 'reLaunch页面',
+        navigationBar: flag ? {
+          title: '新页面',
           backgroundColor: '#f7f7f7',
           color: '#000000',
           backIconEnable: true,
           closeIconEnable: true
-        },
+        } : undefined,
         data: { age: 12, name: 'lihejia' },
         success: function (result) {
           console.info(result)
@@ -185,13 +185,13 @@
         url: url,
         orientation: orientation,
         backgroundColor: '#eeeeee',
-        navigationBar: {
-          title: 'redirectTo页面',
+        navigationBar: flag ? {
+          title: '新页面',
           backgroundColor: '#f7f7f7',
           color: '#000000',
           backIconEnable: true,
           closeIconEnable: true
-        },
+        } : undefined,
         success: function (result) {
           console.info(result)
           showTips(JSON.stringify(result))
@@ -294,13 +294,13 @@
         url: url,
         orientation: orientation,
         backgroundColor: '#eeeeee',
-        navigationBar: {
-          title: navTitle,
+        navigationBar: flag ? {
+          title: '新页面',
           backgroundColor: '#f7f7f7',
           color: '#000000',
           backIconEnable: true,
           closeIconEnable: true
-        },
+        } : undefined,
         success: function (result) {
           showTips(JSON.stringify(result))
           console.info(result)
@@ -372,12 +372,24 @@
     }
 
 
-    syberh.subscribe('onShow', function (result) {
-      console.log("result: ", JSON.stringify(result), new Date().getTime());
+    syberh.subscribe('onReady', function () {
+      console.log("onReady: ", new Date().getTime());
     });
 
+    syberh.subscribe('onShow', function () {
+      console.log("onShow: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onHide', function () {
+      console.log("onHide: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onUnload', function () {
+      console.log("onUnload: ", new Date().getTime());
+    });
+    
     syberh.subscribe('onResize', function (result) {
-      console.log("收到屏幕旋转消息: ", JSON.stringify(result), new Date().getTime());
+      console.log("onResize收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
     });
   </script>
 
