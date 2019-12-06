@@ -6,7 +6,7 @@ title: openDocument
 
 唤起应用，如果path传值了，就打开对应页面，然后处理参数，如果path为空，则在当前页面处理
 
-此功能需要在被唤起应用的sopconfig.xml中配置doctype [具体配置](../../app-config.html#doctype)
+此功能需要在被唤起应用的sopconfig.xml中配置doctype [具体配置](../../app-permissions.html#doctype)
 
 ### 参数
 
@@ -14,9 +14,9 @@ title: openDocument
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| sopid | String | 是 | sopid [具体配置](../../app-config.html#sopconfig) |
-| uiappid | String | 是 | uiappid [具体配置](../../app-config.html#uiapp) |
-| action | String | 是 | 应用可以执行的操作，值：openPage，其余值可参见[具体配置](../../app-config.html#doctype) |
+| sopid | String | 是 | sopid [具体配置](../../app-permissions.html#sopconfig) |
+| uiappid | String | 是 | uiappid [具体配置](../../app-permissions.html#uiapp) |
+| action | String | 是 | 应用可以执行的操作，值：openPage，其余值可参见[具体配置](../../app-permissions.html#doctype) |
 | path | String | 否 | 跳转的页面路径，如果为空则不跳转 |
 | param | Object | 否 | 打开文档的参数 |
 | success | function | 否       | 成功回调                                       |
@@ -26,9 +26,8 @@ title: openDocument
 
 | 属性     | 类型   | 必填 | 描述                                                     |
 | -------- | ------ | ---- | -------------------------------------------------------- |
-| mimeType | String | 否   | 文件内容类型，默认值*，[具体配置](../../app-config.html#doctype) |
+| mimeType | String | 否   | 文件内容类型，默认值*，[具体配置](../../app-permissions.html#doctype) |
 | filePath | String | 否   | 文件路径                                                 |
-
 ```
 参数可以自由扩展。以上参数如需打开文档时候传入
 ```
@@ -62,7 +61,6 @@ syberh.package.openDocument({
     params:{
         mimeType:"*/*",
         filePath:"/data/data/com.syberh.myaap1/test.txt",
-              
         age:18,
         sex:'male'
     },
