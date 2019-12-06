@@ -63,7 +63,7 @@ syberh.package.openUrl({
 
 | 属性    | 类型   | 描述     |
 | ------- | ------ | -------- |
-| onShow | String | 固定值   |
+| onReady | String | 固定值   |
 | result  | Object | 回调结果 |
 
 #### result 回调函数参数
@@ -73,10 +73,10 @@ syberh.package.openUrl({
 | 属性  | 类型   | 描述                                               |
 | ----- | ------ | -------------------------------------------------- |
 | path  | String | 跳转的页面路径，index.html?key1=value1&key2=value2 |
-| param | Object | 传递的参数，{key1=value1, key2=value2}格式         |
+| params | Object | 传递的参数，{key1=value1, key2=value2}格式         |
 
 ```
-syberh.subscribe('onShow', function(result) {
+syberh.subscribe('onReady', function(result) {
 	console.log("path: "+ result.path);
 	console.log("params: "+ JSON.stringify(result.params));
 });

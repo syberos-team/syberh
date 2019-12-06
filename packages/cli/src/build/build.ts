@@ -102,6 +102,8 @@ export default class Build {
     await this.executeShell()
     // 4、构建完成后执行回调
     if (typeof buildSuccessCallback === 'function') {
+      // 构建完成后，回退到项目根目录
+      shelljs.cd('..')
       buildSuccessCallback.call(this)
     }
 
@@ -201,6 +203,9 @@ export default class Build {
     } else {
       throw new Error('adapter类型错误')
     }
+
+    // 构建完成退出到根目录了，所以这里需要进入到打包目录(.build-*)
+    shelljs.cd(this.buildDir)
 
     const cmd = "ls --file-type *.sop |awk '{print i$0}' i=`pwd`'/'"
     log.verbose('执行：', cmd)

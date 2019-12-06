@@ -162,6 +162,9 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/qrcode.html">扫码</a>
       </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/app.html">全局配置</a>
+      </li>
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">webgl</a>
         <ul class="mui-collapse-content">
@@ -217,13 +220,11 @@
       syberh.router.navigateTo({
         url: id,
         data: { test: 'test' },
-        webview: {
-          color: '#eeeeee',
-        },
+        backgroundColor: '#eeeeee',
         navigationBar: {
           title: navTitle,
-          color: '#f7f7f7',
-          textColor: '#000000',
+          backgroundColor: '#f7f7f7',
+          color: '#000000',
           backIconEnable: true,
           closeIconEnable: true
         },
@@ -236,8 +237,24 @@
       })
     }
 
-    syberh.subscribe('onShow', function (result) {
-      console.log("result: ", JSON.stringify(result), new Date().getTime());
+    syberh.subscribe('onReady', function () {
+      console.log("onReady: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onShow', function () {
+      console.log("onShow: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onHide', function () {
+      console.log("onHide: ", new Date().getTime());
+    });
+
+    syberh.subscribe('onUnload', function () {
+      console.log("onUnload: ", new Date().getTime());
+    });
+    
+    syberh.subscribe('onResize', function (result) {
+      console.log("onResize收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
     });
   </script>
 </body>
