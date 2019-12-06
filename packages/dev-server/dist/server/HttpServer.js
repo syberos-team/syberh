@@ -12,7 +12,6 @@ const express = require("express");
 const fs = require("fs-extra");
 const os = require("os");
 const bodyParser = require("body-parser");
-const path = require("path");
 const internal_ip_1 = require("internal-ip");
 const file_1 = require("../util/file");
 const log_1 = require("../util/log");
@@ -38,8 +37,7 @@ class HttpServer {
             app.use(bodyParser.json({ limit: '10000kb' }));
             app.use(bodyParser.urlencoded({ limit: '10000kb', extended: true }));
             app.get('/download', function (req, res) {
-                let filePath = req.query.path;
-                filePath = path.join(path.resolve('.'), filePath);
+                const filePath = req.query.path;
                 if (fs.existsSync(filePath)) {
                     res.writeHead(200, {
                         // 告诉浏览器这是一个二进制文件

@@ -37,10 +37,10 @@ Rectangle {
 //    property string navigationBarTitlePosition: "center"
 
     // 导航栏背景色
-    property string navigationBarColor: ""
+    property string navigationBarBackgroundColor: ""
 
     // 导航栏字体颜色
-    property string navigationBarTextColor: ""
+    property string navigationBarColor: ""
 
     // 返回按钮是否展示
     property bool navigationBarBackIconEnable: true
@@ -74,29 +74,29 @@ Rectangle {
     }
 
     // 设置导航栏背景色
-    function setColor(color) {
+    function setBackgroundColor(color) {
         console.log('navigationBar color', color)
-        navigationBarColor = qsTr(color)
+        navigationBarBackgroundColor = qsTr(color)
     }
 
     // 设置导航栏背景色
-    function setTextColor(color) {
+    function setColor(color) {
         console.log('navigationBar color', color)
-        navigationBarTextColor = qsTr(color)
+        navigationBarColor = qsTr(color)
     }
 
     // 设置导航栏参数
     function setNavigationBar(options) {
         console.log('options', JSON.stringify(options))
         sNavigationBar.navigationBarTitle = options.navigationBarTitle
-        sNavigationBar.navigationBarTextColor = options.navigationBarTextColor
         sNavigationBar.navigationBarColor = options.navigationBarColor
+        sNavigationBar.navigationBarBackgroundColor = options.navigationBarBackgroundColor
         sNavigationBar.navigationBarCloseIconEnable = options.navigationBarCloseIconEnable
         sNavigationBar.navigationBarBackIconEnable = options.navigationBarBackIconEnable
 //        sNavigationBar.navigationBarTitlePosition = options.navigationBarTitlePosition
         console.log('navigationBarTitle--', navigationBarTitle)
+        console.log('navigationBarBackgroundColor--', navigationBarBackgroundColor)
         console.log('navigationBarColor--', navigationBarColor)
-        console.log('navigationBarTextColor--', navigationBarTextColor)
         console.log('navigationBarHeight--', navigationBarHeight)
     }
 
@@ -107,7 +107,7 @@ Rectangle {
         id: controlsRow
         height: navigationBarHeight
         width: parent.width
-        color: navigationBarColor
+        color: navigationBarBackgroundColor
 
         // 导航栏下面的分界线
         Rectangle {
@@ -123,7 +123,7 @@ Rectangle {
         Rectangle {
             id: backButton
             visible: navigationBarBackIconEnable
-            color: navigationBarColor
+            color: navigationBarBackgroundColor
             height: parent.height
             // 给元素扩大位置, 方便点击
             width: iconHeight + leftIconMargin * 2
@@ -155,7 +155,7 @@ Rectangle {
         Rectangle {
             id: closeButton
             visible: navigationBarCloseIconEnable && closeCurWebviewEnable
-            color: navigationBarColor
+            color: navigationBarBackgroundColor
             height: parent.height
             // 给元素扩大位置, 方便点击
             width: iconHeight + leftIconMargin * 2
@@ -187,7 +187,7 @@ Rectangle {
         Text {
             id:navigationBarText
             font.pixelSize: titleFontSize
-            color: navigationBarTextColor
+            color: navigationBarColor
             text: navigationBarTitle
             anchors.centerIn: parent
 

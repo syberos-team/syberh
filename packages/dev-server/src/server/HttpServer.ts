@@ -3,7 +3,6 @@ import * as express from 'express'
 import * as fs from 'fs-extra'
 import * as os from 'os';
 import * as bodyParser from 'body-parser'
-import * as path from 'path'
 import ip from 'internal-ip'
 import { fileName } from '../util/file';
 import log from '../util/log';

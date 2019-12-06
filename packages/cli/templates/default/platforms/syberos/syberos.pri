@@ -10,6 +10,8 @@ APP_DATA = /data/data
 INSTALL_DIR = $$APP_DIR/com.syberos.demo
 DATA_DIR = $$APP_DATA/com.syberos.demo
 
+LIB_DIR = /data/app-libs/com.syberos.demo
+
 DEFINES += SOP_ID=\\\"com.syberos.demo\\\"
 DEFINES += APP_DIR_ENVVAR=\\\"APPDIR_REGULAR\\\"
 # Currently home screen sets the environment variable, so wen run from

@@ -2,6 +2,7 @@
   "dependencies": [
     "syberh-framework@1.0.0",
     "syberh-upload-download@1.0.0",
-    "syberh-filepicker@1.0.0"
+    "syberh-filepicker@1.0.0",
+    "syberh-qrcode@1.0.0"
   ]
 }

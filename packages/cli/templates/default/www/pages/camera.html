@@ -57,9 +57,11 @@
       syberh.camera.takePhoto({
         enableCut: enableCut,
         success: function (result) {
-          document.getElementById('pathDiv').innerText = "file://"+result.path
-          document.getElementById('img').src = result.path
-          console.log('success: ', result.path);
+          if (result.path) {
+            document.getElementById('pathDiv').innerText = "file://"+result.path
+            document.getElementById('img').src = result.path
+            console.log('success: ', result.path);
+          }
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);

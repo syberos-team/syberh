@@ -870,6 +870,27 @@
       },
       "version-1.4.1/version-1.4.1-started-lifecycle": {
         "title": "生命周期"
+      },
+      "version-1.5.0-alpha.1/apis/app/version-1.5.0-alpha.1-setAppOrientation": {
+        "title": "全局配置"
+      },
+      "version-1.5.0-alpha.1/apis/package/version-1.5.0-alpha.1-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.5.0-alpha.1/apis/package/version-1.5.0-alpha.1-openUrl": {
+        "title": "openUrl"
+      },
+      "version-1.5.0-alpha.1/apis/qrcode/version-1.5.0-alpha.1-scan": {
+        "title": "qrcode"
+      },
+      "version-1.5.0-alpha.1/apis/router/version-1.5.0-alpha.1-router": {
+        "title": "路由(router)"
+      },
+      "version-1.5.0-alpha.1/version-1.5.0-alpha.1-global-event": {
+        "title": "订阅事件"
+      },
+      "version-1.5.0-alpha.1/version-1.5.0-alpha.1-started-lifecycle": {
+        "title": "生命周期"
       }
     },
     "links": {
