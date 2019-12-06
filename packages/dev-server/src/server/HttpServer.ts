@@ -38,8 +38,7 @@ export default class HttpServer {
     app.use(bodyParser.urlencoded({ limit: '10000kb', extended: true }))
 
     app.get('/download', function (req, res) {
-      let filePath = req.query.path
-      filePath = path.join(path.resolve('.'), filePath)
+      const filePath = req.query.path
       if (fs.existsSync(filePath)) {
         res.writeHead(200, {
           // 告诉浏览器这是一个二进制文件
