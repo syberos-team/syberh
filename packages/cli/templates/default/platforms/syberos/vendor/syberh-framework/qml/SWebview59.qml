@@ -59,6 +59,14 @@ CPage{
     // 关闭按钮是否展示
     property bool pageHide: false
 
+    // 页面是否销毁
+    property bool isDestroy: false
+
+    // 设置销毁状态
+    function setDestroyStatus(status) {
+        isDestroy = true;
+    }
+
     //设置背景色
     function setBackgroundColor(color){
         swebview.backgroundColor = color;
@@ -190,7 +198,9 @@ CPage{
         target: gScreenInfo
         ignoreUnknownSignals: true
         onCurrentOrientationChanged: {
-            console.log('屏幕切换接收到信号了×××××××××××××××××××××', webView.orientationPolicy, gScreenInfo.currentOrientation, surl, pageHide)
+            console.log('屏幕切换接收到信号了×××××××××××××××××××××', webView.orientationPolicy, gScreenInfo.currentOrientation, surl, pageHide, isDestroy)
+            // 如果页面销毁，在这里拦截
+            if (isDestroy) return
             webView.orientation({
               pageOrientation: webView.orientationPolicy,
               appOrientation: gScreenInfo.currentOrientation,
@@ -226,6 +236,7 @@ CPage{
         LOG.logger.verbose('SWebview qml Keys.onReleased',Keys.onReleased)
         keyOnReleased(event)
         //event.accepted = true
+        setDestroyStatus(true)
     }
 
     contentAreaItem:Rectangle{
@@ -520,6 +531,7 @@ CPage{
               webView.statusBarHoldEnabled = false
               gScreenInfo.setStatusBar(false);
           } else {
+              webView.statusBarHoldEnabled = true
               gScreenInfo.setStatusBar(true);
               //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
               gScreenInfo.setStatusBarStyle("black");
