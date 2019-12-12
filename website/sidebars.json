@@ -151,6 +151,9 @@
       "apis/path/inner",
       "apis/path/dataRoot"
     ],
+    "扫码": [
+      "apis/qrcode/scan"
+    ],
     "上传": [
       "apis/upload/upload",
       "apis/upload/upload-cancel"

@@ -63,3 +63,14 @@ import syberh from '@syberos/jsbridge'
 // 注册到window对象上，可以全局使用
 window.syberh = syberh
 ```
+
+## 扫码在S1手机上闪退
+
+`S1`手机因为某些原因，需要用单独的扫码模块，按下面步骤实现即可
+
+1、在项目根目录下的`platforms/syberos/vendor`下删除`syberh-qrcode`文件夹
+
+2、在项目根目录下的`platforms/syberos/vendor`下,下载S1手机扫码模块
+```javascript
+git clone -b s1 https://github.com/syberos-team/syberh-qrcode
+```
