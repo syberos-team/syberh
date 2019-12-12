@@ -13,7 +13,7 @@ function WebView (options) {
     name: 'webview',
     module: 'router',
     // source: '../qml/SWebview.qml',
-    methods: ['reload', 'goBack', 'redirectTo', 'navigateTo', 'navigateBack', 'getCurrentPages', 'reLaunch', 'setTitle', 'setBackgroundColor', 'setNavigationBarColor'],
+    methods: ['reload', 'goBack', 'redirectTo', 'navigateTo', 'navigateBack', 'getCurrentPages', 'reLaunch', 'setTitle', 'setBackgroundColor', 'setNavigationBarColor', 'setPageOrientation'],
     autoCreate: true
   };
   if (options) {
@@ -36,6 +36,8 @@ function WebView (options) {
   this.dog = dog.bind(this);
   this.pushQueue = pushQueue.bind(this);
 
+  that.loadComplete = false;
+
   this.on('ready', function (object) {
     logger.verbose('webview:[%s] ,on  ready() start', that.id, pageStack && pageStack.depth);
     logger.verbose('pageStack depth', pageStack && pageStack.depth);
@@ -43,28 +45,23 @@ function WebView (options) {
     swebviews.push(that);
     currentWebview = that;
 
-    var onShowQueueUrl;
-    if (that.currentUrl) {
-      logger.verbose('currentUrl:', that.currentUrl);
-      onShowQueueUrl = that.currentUrl;
-    } else {
-      onShowQueueUrl = that.object.surl;
-    }
-    // 发送onShow订阅
+    // 添加onReady订阅(保证他是队列里的第一个)
     that.pushQueue('subscribe', {
-      url: onShowQueueUrl,
-      handlerName: 'onShow',
-      result: { status: OnShowStautsReady }
+      url: that.object.getCurrentUrl(),
+      handlerName: 'onReady'
     });
+
     if (!that.loadProgressConnect) {
       // 设置绑定信号
       that.loadProgressConnect = true;
       // 页面加载成功信号
       object.sloadingChanged.connect(function (loadRequest) {
+        var curUrl = loadRequest.url.toString();
         if (loadRequest.status === 2) {
-          logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, loadRequest.url.toString());
+          logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, curUrl);
           // 调用任务狗
-          that.dog(loadRequest.url.toString());
+          that.dog(curUrl);
+          that.loadComplete = true;
         }
       });
 
@@ -73,6 +70,24 @@ function WebView (options) {
         that.trigger('navigateBack', object, null, { delta: 1 });
       });
     }
+
+    // 屏幕旋转信号 (每个webview都监听了此信号，所以屏幕选择所有页面都会收到此消息)
+    object.orientation.connect(function (orientationObj) {
+      logger.verbose('orientationObj***********', JSON.stringify(orientationObj));
+
+      that.pushQueue('subscribe', {
+        url: orientationObj.url,
+        handlerName: 'onResize',
+        result: {
+          pageOrientation: orientationObj.pageOrientation,
+          appOrientation: orientationObj.appOrientation
+        }
+      });
+      if (that.loadComplete) {
+        that.dog(orientationObj.url);
+      }
+    });
+
     // 只保证一个webview注册nativesdk
     if (!registrNativeSdkManager) {
       registrNativeSdkManager = true;
@@ -110,14 +125,45 @@ function WebView (options) {
     }
     that.pushQueue('subscribe', {
       url: options.url,
-      handlerName: 'onShow',
-      result: { status: OnShowStautsRedisplay }
+      handlerName: 'onShow'
     });
+
     that.dog(options.url);
+
+    // 页面回到到上个页面，需要重置状态栏 1: 竖屏 2: 横屏 8: 横屏反向
+    var orientation = that.object.orientationPolicy;
+    var appOrientation = gScreenInfo.currentOrientation;
+    var statusBarHoldEnabled = that.object.statusBarHoldEnabled;
+
+    logger.verbose('当前屏幕方向: ', orientation, appOrientation, statusBarHoldEnabled);
+
+    if (orientation == 1 || orientation == 0 && appOrientation == 1) {
+      gScreenInfo.setStatusBar(true);
+      if (!statusBarHoldEnabled) {
+        statusBarHoldEnabled = true;
+      }
+    } else if (orientation == 2 || orientation == 8 ||
+      orientation == 0 && (appOrientation == 2 || appOrientation == 8)) {
+      gScreenInfo.setStatusBar(false);
+      if (statusBarHoldEnabled) {
+        statusBarHoldEnabled = false;
+      }
+    }
   });
 
+  /**
+   * 页面隐藏
+   * (navigateTo 会触发)
+   */
   this.on('hide', function () {
+    logger.verbose('Webivew:, hide');
 
+    that.pushQueue('subscribe', {
+      url: that.object.getCurrentUrl(),
+      handlerName: 'onHide'
+    });
+
+    that.dog(that.object.getCurrentUrl());
   });
 
   this.on('getCurrentPages', function (object, handlerId, param) {
@@ -136,7 +182,11 @@ function WebView (options) {
       logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%s]:', that.id, webview.canGoBack());
       if (currentWebview.id === that.id && webview.canGoBack()) {
         event.accepted = true;
+        that.trigger('unload', { url: webview.getCurrentUrl() });
         webview.goBack();
+        if (!webview.canGoBack() && swebviews.length == 1) {
+          webview.navigationBarBackIconEnable = false;
+        }
       } else {
         that.navigateBack({}, function (res) {
           if (res) {
@@ -207,8 +257,8 @@ function WebView (options) {
 
   // 给页面设置标题
   this.on('setTitle', function (object, handlerId, param) {
-    console.log('Webivew:[%s] , on setTitle() ,param:%s ,', that.id, JSON.stringify(param));
-    console.log('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
+    logger.verbose('Webivew:[%s] , on setTitle() ,param:%s ,', that.id, JSON.stringify(param));
+    logger.verbose('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
 
     // 导航栏visible为false，不让修改标题
     if (!object.getNavigationBarStatus()) {
@@ -232,37 +282,10 @@ function WebView (options) {
     that.trigger('success', handlerId, true);
   });
 
-  // 设置标题
-  this.on('setTitle', function (object, handlerId, param) {
-    console.log('Webivew:[%s] , on setTitle() ,param:%s ,', that.id, JSON.stringify(param));
-    console.log('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
-
-    // 导航栏visible为false，不让修改标题
-    if (!object.getNavigationBarStatus()) {
-      that.trigger('failed', handlerId, 9002, '页面未设置导航栏，无法更改导航栏属性');
-      return;
-    }
-
-    param.title = param.title.trim();
-
-    if (!param.title) {
-      that.trigger('failed', handlerId, 9001, 'title不能为空');
-      return;
-    }
-
-    if (param.title && param.title.length > 8) {
-      that.trigger('failed', handlerId, 9001, '标题最多8个汉字');
-      return;
-    }
-
-    object.setNavigationBarTitle(param.title);
-    that.trigger('success', handlerId, true);
-  });
-
   // 设置导航栏颜色和字体颜色
   this.on('setNavigationBarColor', function (object, handlerId, param) {
-    console.log('Webivew:[%s] , on setNavigationBarColor() ,param:%s ,', that.id, JSON.stringify(param));
-    console.log('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
+    logger.verbose('Webivew:[%s] , on setNavigationBarColor() ,param:%s ,', that.id, JSON.stringify(param));
+    logger.verbose('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
 
     // 导航栏visible为false，不让修改标题
     if (!object.getNavigationBarStatus()) {
@@ -271,16 +294,16 @@ function WebView (options) {
     }
 
     param.color = param.color.trim();
-    param.textColor = param.textColor.trim();
+    param.backgroundColor = param.backgroundColor.trim();
 
-    if (!param.color && !param.textColor) {
+    if (!param.color && !param.backgroundColor) {
       that.trigger('failed', handlerId, 9001, '参数不能为空');
       return;
     }
 
     object.setNavigationBarColor({
       color: param.color,
-      textColor: param.textColor
+      backgroundColor: param.backgroundColor
     });
 
     that.trigger('success', handlerId, true);
@@ -289,14 +312,13 @@ function WebView (options) {
   // 设置背景色
   this.on('setBackgroundColor', function (object, handlerId, param) {
     logger.verbose('Webivew:[%s] , on setBackgroundColor() ,param:%s ,', that.id, JSON.stringify(param));
-    console.log('Webivew:[%s] , on setBackgroundColor() ,param:%s ,', that.id, JSON.stringify(param));
 
-    param.color = param.color.trim();
-    if (!param.color) {
-      that.trigger('failed', handlerId, 9001, 'color不能为空');
+    param.backgroundColor = param.backgroundColor.trim();
+    if (!param.backgroundColor) {
+      that.trigger('failed', handlerId, 9001, 'backgroundColor不能为空');
       return;
     }
-    object.setBackgroundColor(param.color);
+    object.setBackgroundColor(param.backgroundColor);
     that.trigger('success', handlerId, true);
   });
   // 保留当前页面，跳转到某个页面
@@ -320,7 +342,7 @@ function WebView (options) {
     });
   });
 
-  // 关闭所有页面，打开某个页面
+  // 关闭所有页面，打开某个页面 (相当于redirectTo，让第一个webview打开url,成功后吧webview返回到顶层)
   this.on('reLaunch', function (object, handlerId, param) {
     logger.verbose('webview:[%s] on reLaunch', that.id, JSON.stringify(param));
     logger.verbose('reLaunch swebviews:[%d]', swebviews.length);
@@ -334,12 +356,27 @@ function WebView (options) {
         if (loadRequest.status === 2) {
           logger.verbose(' webview:[%s] ,页面加载完成 success: ', that.id, loadRequest.url.toString());
           currentWebview.trigger('success', handlerId, true);
+          // 触发页面卸载方法(因为相当于redirectTo，所以取surl属性就是前一个页面的值)
           that.navigateBack({ delta: webviewMaxDepth }, function (res, webview, msg) {
             logger.verbose('reLaunch navigateBack()', res, msg);
             if (res) {
               logger.verbose('pageStack.busy:[%s]', pageStack.busy);
             }
           });
+
+          if (param.backgroundColor) {
+            currentWebview.object.setBackgroundColor(param.backgroundColor);
+          }
+
+          if (param.orientation) {
+            currentWebview.object.setPageOrientation(param.orientation);
+          }
+
+          if (param.navigationBar) {
+            var params = getNavigateBarParams(param.navigationBar);
+            logger.verbose('navigationBar params*****', JSON.stringify(params));
+            currentWebview.object.showNavigatorBar(params);
+          }
         }
       });
     } catch (error) {
@@ -376,47 +413,84 @@ function WebView (options) {
         removePlugin: true,
         page: true
       });
+
+      var orientationPolicy = globalPageOrientation;
+      var orientation = param.orientation;
+
+      if (orientation != undefined) {
+        if (orientation == 0 || orientation == 1 || orientation == 2 || orientation == 8) {
+          orientationPolicy = orientation;
+        } else {
+          that.trigger('failed', that.handlerId, 9001, 'orientation参数有误');
+          return;
+        }
+      }
+
+      logger.verbose('跳转新页面，设置横竖屏******', orientationPolicy);
+
       dwevview.param = {
-        surl: getUrl(param.url)
+        surl: getUrl(param.url),
+        orientationPolicy: orientationPolicy,
+        backgroundColor: param.backgroundColor
       };
 
-      // webview参数
-      if (param.webview) {
-        for (var key in param.webview) {
-          dwevview.param[key] = param.webview[key];
-        }
-        console.log('dwevview.param--', JSON.stringify(dwevview.param));
+      if (orientationPolicy == 2) {
+        dwevview.param.statusBarHoldEnabled = false;
+        gScreenInfo.setStatusBar(false);
+      } else if (orientationPolicy == 1) {
+        dwevview.param.statusBarHoldEnabled = true;
+        gScreenInfo.setStatusBar(true);
       }
 
       // navigationBar参数
       if (param.navigationBar) {
         for (var key in param.navigationBar) {
           var newKey = 'navigationBar' + key.substring(0, 1).toUpperCase() + key.substring(1);
-          console.log('newKey-', newKey);
+          logger.verbose('newKey-', newKey);
           dwevview.param[newKey] = param.navigationBar[key];
         }
-        console.log('dwevview.param--', JSON.stringify(dwevview.param));
+        logger.verbose('dwevview.param--', JSON.stringify(dwevview.param));
       }
 
       logger.verbose('webviewParams:[%s]', JSON.stringify(dwevview.param));
-      console.log('webviewParams:[%s]', JSON.stringify(dwevview.param));
 
       dwevview.currentUrl = param.url;
+      logger.verbose('navigator TO URL:-------------------', that.currentUrl);
       SYBEROS.addPlugin(dwevview);
       // 设定webview的深度为2
       webviewdepth += 1;
     }
-    console.log('helper.isGtQt56--', helper.isGtQt56());
+    logger.verbose('helper.isGtQt56--', helper.isGtQt56());
     that.trigger('success', handlerId, true);
+
+    that.trigger('hide');
   });
 
   // 不关闭当前页面，跳转到某个页面
   this.on('redirectTo', function (object, handlerId, param) {
     try {
       logger.verbose('webview:[%s] on redirectTo', that.id, JSON.stringify(param));
+      logger.verbose('页面redirectTo*********卸载页面*****', currentWebview.object.getCurrentUrl());
+      var curUrl = currentWebview.object.getCurrentUrl();
       var url = getUrl(param.url);
       currentWebview.object.openUrl(url);
       currentWebview.trigger('success', handlerId, true);
+      currentWebview.trigger('unload', { url: curUrl });
+
+      if (param.backgroundColor) {
+        currentWebview.object.setBackgroundColor(param.backgroundColor);
+      }
+
+      if (param.orientation) {
+        currentWebview.object.setPageOrientation(param.orientation);
+      }
+
+      if (param.navigationBar) {
+        var params = getNavigateBarParams(param.navigationBar);
+        logger.verbose('navigationBar params*****', JSON.stringify(params));
+        currentWebview.object.showNavigatorBar(params);
+      }
+
       if (handlerId) {
         that.trigger('success',
           handlerId,
@@ -428,19 +502,58 @@ function WebView (options) {
       that.trigger('failed', handlerId, 9999, error.message);
     }
   });
+
+  /**
+   * 页面卸载
+   * (如redirectTo或navigateBack或reLaunch到其他页面时)
+   */
+  this.on('unload', function (options) {
+    logger.verbose('页面要卸载了unload******', JSON.stringify(options));
+
+    var curUrl = options.url;
+    // 发送onUnload事件
+    that.pushQueue('subscribe', {
+      url: curUrl,
+      handlerName: 'onUnload'
+    });
+
+    that.dog(curUrl);
+  });
+
+  // 设置屏幕旋转方向
+  this.on('setPageOrientation', function (object, handlerId, param) {
+    logger.verbose('Webivew:[%s] , on setPageOrientation() ,param:%s ,', that.id, JSON.stringify(param), typeof that.param.orientation);
+    var orientation = that.param.orientation;
+
+    object.setPageOrientation(param.orientation);
+    // 不能从qml里面发信号（因为手机没有开屏幕旋转，qml接收不到信号，所以不可依赖）
+    that.trigger('success', handlerId, {
+      pageOrientation: orientation,
+      appOrientation: gScreenInfo.currentOrientation
+    });
+  });
   /**
    * 任务狗，用来处理队列中的消息
    */
   function dog (currentUrl) {
-    logger.verbose('dog()', typeof currentUrl);
+    logger.verbose('dog()', typeof currentUrl, currentUrl);
     var queue = this.messageQueue;
     logger.verbose('dog() 处理消息数:%d', queue.length);
-    for (var i = 0; i < queue.length; i++) {
-      var obj = queue[i];
+    var len = queue.length;
+    for (var i = 0; i < len; i++) {
+      // 每次从头部拿到消息，并从队列删除
+      var obj = queue.shift();
+      if (!obj) {
+        logger.verbose('消息内容:%s', JSON.stringify(obj));
+        continue;
+      }
       logger.verbose('消息内容:%s', JSON.stringify(obj));
       var dUrl = obj.url;
+
       var dret = diffUrl(currentUrl, dUrl);
       if (!dret) {
+        // 如果不是当前页面的消息，再给他加到队列里面，等到了该页面继续推出去(考虑到redirectTo的情况)
+        this.messageQueue.push(obj);
         logger.verbose('当前消息队列不匹配:%s', obj.url);
         continue;
       }
@@ -453,7 +566,6 @@ function WebView (options) {
       if (obj.type === 'subscribe') {
         this.subscribeEvaluate(obj.handlerName, obj.result);
       }
-      queue.splice(i, 1);
       logger.verbose('dog() queue length:', queue.length);
     }
   }
@@ -524,6 +636,9 @@ function WebView (options) {
         webviewdepth -= 1;
         // dwebview.trigger('show', WebviewStatusPop)
         if (dwebview) {
+          logger.verbose('连续返回多个webview****************', dwebview.object.getCurrentUrl());
+          // 用dwebview代表被卸载的webview
+          dwebview.trigger('unload', { url: dwebview.object.getCurrentUrl() });
           // 开始注销
           logger.verbose('Webivew:[%s] , 开始destroy', dwebview.id);
           SYBEROS.destroy(dwebview.id);
@@ -558,7 +673,6 @@ WebView.prototype = SyberPlugin.prototype;
 
 WebView.prototype.onMessageReceived = function (message, webviewId) {
   logger.verbose('webview:[%s] ,onMessageReceived(): ', webviewId, typeof message, typeof message.data, message);
-  console.log('webview:[%s] ,onMessageReceived(): ', webviewId, typeof message, typeof message.data, message.data);
 
   var model;
   if (message && typeof message === 'object') {
@@ -567,7 +681,7 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
     model = JSON.parse(message);
   }
 
-  console.log('**********model**********', JSON.stringify(model));
+  logger.verbose('**********model**********', JSON.stringify(model));
 
   var handlerId = model.callbackId;
   var method = model.handlerName;
@@ -643,11 +757,12 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
     this.trigger('reload', this.object);
     return;
   }
-  if (handlerName === 'onShow') {
+  // 第2个APP被唤起的时候，监听的onReady事件
+  if (handlerName === 'package') {
     var params = {};
     params.url = result.path;
     this.pushQueue('subscribe', {
-      handlerName: handlerName,
+      handlerName: 'onReady',
       url: result.path,
       result: result
     });
@@ -663,7 +778,7 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
   };
   var res = JSON.stringify(resObj);
   logger.verbose('onSubscribe() res:', res);
-  var webview = currentWebview.object;
+  var webview = this.object;
   webview.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + res + ')'
   );
@@ -677,7 +792,8 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
   };
   var res = JSON.stringify(resObj);
   logger.verbose('subscribeEvaluate() res:', res);
-  var webview = currentWebview.object;
+
+  var webview = this.object;
   webview.evaluateJavaScript(
     'JSBridge._handleMessageFromNative(' + res + ')'
   );
@@ -789,4 +905,17 @@ function getLowerWebview () {
   }
   logger.verbose('getLowerWebview() : [ %d ]', idx);
   return idx;
+}
+
+/**
+ * 转换navigateBar的参数
+ */
+function getNavigateBarParams (params) {
+  var obj = {};
+  for (var key in params) {
+    var newKey = 'navigationBar' + key.substring(0, 1).toUpperCase() + key.substring(1);
+    logger.verbose('newKey-', newKey);
+    obj[newKey] = params[key];
+  }
+  return obj;
 }

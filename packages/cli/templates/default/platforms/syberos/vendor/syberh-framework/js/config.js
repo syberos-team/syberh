@@ -5,7 +5,7 @@ var SYBEROS = null
 // 全局WEBVIEW
 var WEBVIEWCORE = currentWebview
 // 返回键的值
-var KEYCODE_BACK = 16777313
+var KEYCODE_BACK = Qt.Key_Back //16777313
 // 当前所有webview对象
 var swebviews = []
 // 全局
@@ -23,3 +23,6 @@ var responseCallbacksLongTerm = {}
 
 //是否注册NativeSdkManager
 var registrNativeSdkManager = false;
+
+// 全局可以修改的属性对象
+var globalPageOrientation = 0

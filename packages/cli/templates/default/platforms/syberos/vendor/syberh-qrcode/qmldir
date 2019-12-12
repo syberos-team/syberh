@@ -1,0 +1,2 @@
+module syberh_qrcode
+BarCodeMain 1.0 qml/BarCodeMain.qml

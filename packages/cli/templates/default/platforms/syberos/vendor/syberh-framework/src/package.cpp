@@ -174,7 +174,7 @@ void Package::openByUrl(QString url){
     result.insert("path", path);
     result.insert("params", query);
 
-    emit subscribe("onShow", result);
+    emit subscribe("package", result);
 }
 
 void Package::openDocument(long callBackID, QString sopId, QString uiappId,
@@ -251,7 +251,7 @@ void Package::openByDocument(QString action, QString mimetype, QString filePath)
 
     qDebug() << "final subscribe result: " << result << endl;
 
-    emit subscribe("onShow", result);
+    emit subscribe("package", result);
 }
 
 QString Package::convertParamToUrl(QString url, QVariantMap paramMap){

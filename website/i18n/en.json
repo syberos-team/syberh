@@ -8,6 +8,9 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/app/setAppOrientation": {
+        "title": "全局配置"
+      },
       "apis/brightness/brightnessInfo": {
         "title": "brightnessInfo"
       },
@@ -182,6 +185,9 @@
       "apis/path/inner": {
         "title": "inner"
       },
+      "apis/qrcode/scan": {
+        "title": "qrcode"
+      },
       "apis/request/request": {
         "title": "request"
       },
@@ -244,7 +250,8 @@
         "title": "APP 配置"
       },
       "app-permissions": {
-        "title": "APP 权限配置"
+        "title": "sopconfig.xml",
+        "sidebar_label": "应用sopconfig.xml"
       },
       "cli-readme": {
         "title": "CLI使用"
@@ -254,6 +261,9 @@
       },
       "first-app": {
         "title": "第一个应用"
+      },
+      "global-event": {
+        "title": "订阅事件"
       },
       "qt/about/desc": {
         "title": "C++ 说明"
@@ -861,6 +871,37 @@
       },
       "version-1.4.1/version-1.4.1-started-lifecycle": {
         "title": "生命周期"
+      },
+      "version-1.5.0-alpha.1/apis/app/version-1.5.0-alpha.1-setAppOrientation": {
+        "title": "全局配置"
+      },
+      "version-1.5.0-alpha.1/apis/package/version-1.5.0-alpha.1-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.5.0-alpha.1/apis/package/version-1.5.0-alpha.1-openUrl": {
+        "title": "openUrl"
+      },
+      "version-1.5.0-alpha.1/apis/qrcode/version-1.5.0-alpha.1-scan": {
+        "title": "qrcode"
+      },
+      "version-1.5.0-alpha.1/apis/router/version-1.5.0-alpha.1-router": {
+        "title": "路由(router)"
+      },
+      "version-1.5.0-alpha.1/version-1.5.0-alpha.1-global-event": {
+        "title": "订阅事件"
+      },
+      "version-1.5.0-alpha.1/version-1.5.0-alpha.1-started-lifecycle": {
+        "title": "生命周期"
+      },
+      "version-1.5.0/apis/qrcode/version-1.5.0-scan": {
+        "title": "qrcode"
+      },
+      "version-1.5.0/version-1.5.0-app-permissions": {
+        "title": "sopconfig.xml",
+        "sidebar_label": "应用sopconfig.xml"
+      },
+      "version-1.5.0/version-1.5.0-specials": {
+        "title": "常见问题"
       }
     },
     "links": {
@@ -874,6 +915,7 @@
       "快速开始": "快速开始",
       "进阶指南": "进阶指南",
       "关于API": "关于API",
+      "全局配置": "全局配置",
       "路由": "路由",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",
@@ -888,6 +930,7 @@
       "文件管理": "文件管理",
       "应用管理": "应用管理",
       "path": "path",
+      "扫码": "扫码",
       "上传": "上传",
       "设备": "设备",
       "震动": "震动",

@@ -57,10 +57,8 @@ void SocketClient::create(const QString &url, const int &port){
     connect(socketClient, &QTcpSocket::connected,this, &SocketClient::connection);
     connect(socketClient,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(socketError(QAbstractSocket::SocketError)));
     connect(timer, SIGNAL(timeout()), this, SLOT(onProgress()));
-    //timer.setInterval(2000);
-    timer->start(30000);
+    timer->start(3000);
     qDebug()<< "热更新服务 create()成功";
-
 }
 
 void SocketClient::socketError(QAbstractSocket::SocketError error){

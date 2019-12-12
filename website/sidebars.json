@@ -10,6 +10,7 @@
       "started-lifecycle"
     ],
     "进阶指南": [
+      "global-event",
       "cli-readme",
       "app-config",
       "app-permissions",
@@ -21,6 +22,9 @@
   "API": {
     "关于API": [
       "apis/about/desc"
+    ],
+    "全局配置": [
+      "apis/app/setAppOrientation"
     ],
     "路由": [
       "apis/router/router"
@@ -146,6 +150,9 @@
       "apis/path/extern",
       "apis/path/inner",
       "apis/path/dataRoot"
+    ],
+    "扫码": [
+      "apis/qrcode/scan"
     ],
     "上传": [
       "apis/upload/upload",

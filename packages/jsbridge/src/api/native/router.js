@@ -170,7 +170,7 @@ export default function authMixin(hybrid) {
                 const args = innerUtil.compatibleStringParamsToObject.call(
                     this,
                     rest,
-                    'color',
+                    'backgroundColor',
                 );
                 hybridJs.callInner.apply(this, args);
             },
@@ -184,7 +184,7 @@ export default function authMixin(hybrid) {
                     this,
                     rest,
                     'color',
-                    'textColor',
+                    'backgroundColor',
                 );
                 hybridJs.callInner.apply(this, args);
             },
@@ -192,6 +192,19 @@ export default function authMixin(hybrid) {
         {
             namespace: 'getCurrentPages',
             os: ['syberos'],
+        },
+        {
+            namespace: 'setPageOrientation',
+            os: ['syberos'],
+            runCode(...rest) {
+                // 兼容字符串形式
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                    'orientation',
+                );
+                hybridJs.callInner.apply(this, args);
+            },
         },
     ]);
 }

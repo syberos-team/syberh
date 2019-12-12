@@ -8,7 +8,7 @@ Item {
 
     anchors {
         fill: flickableItem
-        margins: env.dp(5）
+        margins: env.dp(5)
     }
 
     property bool __movingHorizontally: flickableItem ? flickableItem.movingHorizontally : false

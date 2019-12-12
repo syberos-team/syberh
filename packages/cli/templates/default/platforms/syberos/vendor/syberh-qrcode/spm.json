@@ -1,0 +1,15 @@
+{
+	"name": "syberh-qrcode",
+	"description": "syberos 扫码模块",
+	"version": "1.0.0",
+	"author": {
+		"name": "xuejun",
+		"email": "xuejun@syberos.com",
+		"description": ""
+	},
+	"dependencies": [],
+	"repository": {
+		"url": "https://github.com/syberos-team/syberh-qrcode"
+	},
+	"priFilename": "syberh_qrcode.pri"
+}

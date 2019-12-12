@@ -1,5 +1,5 @@
 ---
-title: 应用sopconfig.xml
+title: sopconfig.xml
 author: 李何佳
 sidebar_label:应用sopconfig.xml
 ---

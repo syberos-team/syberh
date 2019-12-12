@@ -13,8 +13,9 @@
         <file>js/util/polyfill.js</file>
         <file>js/util/tool.js</file>
         <file>js/webview/webview.js</file>
-        <file>js/config.js</file>
+        <file>js/app/app.js</file>
         <file>js/syber.js</file>
+        <file>js/config.js</file>
         <file>qml/CMenu/pics/endHandle.png</file>
         <file>qml/CMenu/pics/menuBg.png</file>
         <file>qml/CMenu/pics/menuBg.sci</file>
@@ -88,5 +89,7 @@
         <file>qml/filesPicker.qml</file>
         <file>res/navClose.png</file>
         <file>res/navBack.png</file>
+        <file>qml/SQrcode.qml</file>
+        <file>js/qrcode/qrcode.js</file>
     </qresource>
 </RCC>

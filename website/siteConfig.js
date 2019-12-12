@@ -47,7 +47,7 @@ const siteConfig = {
   ],
 
   algolia: {
-    apiKey: '56e2cfe735a3b60a7a697a2b99266bfe',
+    apiKey: '509a8634d61269b0091980c05deb1851',
     indexName: 'syberh'
   },
 

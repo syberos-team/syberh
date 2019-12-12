@@ -27,6 +27,8 @@ import brightnessInfoMixin from './native/brightnessInfo';
 import vibratorMixin from './native/vibrateInfo';
 import notificationMixin from './native/notification';
 import databaseMixin from './native/database';
+import qrcodeMixin from './native/qrcode';
+import appMixin from './native/app';
 
 export default function allNative(hybridJs) {
     // 下载模块
@@ -60,4 +62,6 @@ export default function allNative(hybridJs) {
     vibratorMixin(hybridJs);
     notificationMixin(hybridJs);
     databaseMixin(hybridJs);
+    qrcodeMixin(hybridJs);
+    appMixin(hybridJs);
 }
