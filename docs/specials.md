@@ -74,3 +74,29 @@ window.syberh = syberh
 ```javascript
 git clone -b s1 https://github.com/syberos-team/syberh-qrcode
 ```
+
+
+## syberh升级更新项目后，跑不起来了
+
+
+### 为什么会出现这个问题
+`syberh`升级到`1.5.0`版本后，使用`syberh update project`命令更新项目核心代码(`platforms文件夹`)
+
+```
+CBooster::loadMain in
+CBooster loadMain:  /data/apps/com.syberos.example/bin/app
+CBooster loading invoked application failed:  
+//出现下面这个错误
+libzxing.so: cannot open shared object file: No such file or directory  
+lijing loading symbol 'main' failed:  /data/apps/com.syberos.example/bin/app: undefined symbol: main
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  CBooster: Loading symbol 'main' failed: '/data/apps/com.syberos.example/bin/app: undefined symbol: main'
+```
+
+出现这个错误，是因为我们在`1.5.0`版本上新增扫码模块，所以需要更改`/platforms/syberos/syberos.pri`文件
+
+### 如何解决
+需要在`/platforms/syberos/syberos.pri`中，新增一行配置项
+```
+LIB_DIR = /data/app-libs/com.syberos.example  //com.syberos.example 改成自己的sopid
+```
