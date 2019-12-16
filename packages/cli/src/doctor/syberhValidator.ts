@@ -3,9 +3,36 @@ import * as shelljs from 'shelljs';
 import log from '../util/log'
 import latestVersion from '../syberos/latestVersion'
 
-
 // 检查的包的名称
 const pkgName = '@syberos/cli';
+// 包的本地版本号
+let localVersion = '';
+
+// 自动获取本地版本号
+;(function() {
+  localVersion = getSyberhLocalVersion()
+})()
+
+/**
+ * 获取syberh本地版本
+ */
+function getSyberhLocalVersion() {
+  const cmd = 'npm ls @syberos/cli -g';
+  shelljs.config.silent = true
+  const { stdout } = shelljs.exec(cmd);
+  shelljs.config.silent = false
+  log.verbose('stdout**************:', stdout)
+
+  let localVersion;
+  const arr = stdout.trim().split('@') || [];
+  log.verbose('arr**************', JSON.stringify(arr))
+  if (arr.length > 1) {
+    localVersion = arr[arr.length - 1]
+  }
+  log.verbose('localVersion**************:', localVersion)
+  return localVersion
+}
+
 /**
  * 检查syberh是否需要升级
  */
@@ -30,19 +57,6 @@ async function checkSyberhPkg() {
     }
   }
 
-  const cmd = 'npm ls @syberos/cli -g';
-  log.verbose('执行:', cmd)
-  shelljs.config.silent = true
-  const { stdout } = shelljs.exec(cmd);
-  shelljs.config.silent = false
-  log.verbose('stdout:', stdout)
-
-  let localVersion;
-  const arr = stdout.trim().split('@') || [];
-  if (arr.length > 1) {
-    localVersion = arr[arr.length - 1]
-  }
-  log.verbose('localVersion:', localVersion)
   if (localVersion !== remoteVersion) {
     errorLines = [{
       desc: ` ${pkgName}  有新版本`,

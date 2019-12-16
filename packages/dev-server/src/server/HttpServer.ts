@@ -1,6 +1,7 @@
 
 import * as express from 'express'
 import * as fs from 'fs-extra'
+import * as path from 'path'
 import * as os from 'os';
 import * as bodyParser from 'body-parser'
 import ip from 'internal-ip'
@@ -37,7 +38,9 @@ export default class HttpServer {
     app.use(bodyParser.urlencoded({ limit: '10000kb', extended: true }))
 
     app.get('/download', function (req, res) {
-      const filePath = req.query.path
+      let filePath = req.query.path
+      filePath = path.join(path.resolve('.'), filePath)
+      
       if (fs.existsSync(filePath)) {
         res.writeHead(200, {
           // 告诉浏览器这是一个二进制文件
