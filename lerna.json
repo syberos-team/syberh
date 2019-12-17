@@ -11,6 +11,6 @@
       "message": "chore(release):  publish %s"
     }
   },
-  "version": "1.5.1-beta.2",
+  "version": "1.5.1",
   "npmClient": "npm"
 }
