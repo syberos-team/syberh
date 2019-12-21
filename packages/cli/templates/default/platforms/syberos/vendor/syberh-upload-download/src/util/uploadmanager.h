@@ -18,7 +18,7 @@ public:
     void setUploadId(QString uploadId);
 
     // 开始上传文件
-    void uploadFile(QString reqUrl, QString localFile);
+    void uploadFile(QVariantMap params);
 
     // 停止下载工作
     void stopWork();

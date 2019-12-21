@@ -28,13 +28,23 @@ void Upload::request(QString callBackID, QString actionName, QVariantMap params)
     qDebug() << "callbackId:" << callBackID << "actionName:" << actionName << "params:" << params << endl;
 
     if (actionName == "start") {
-        upload(callBackID, params.value("url").toString(), params.value("filePath").toString());
+        upload(callBackID, params);
     } else if (actionName == "cancel") {
         cancel(callBackID, params.value("uploadID").toString());
     }
 }
-void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
+void Upload::upload(QString callBackID, QVariantMap params)
 {
+    QString reqUrl = params.value("url").toString();
+    QString filePath = params.value("filePath").toString();
+    QString name = params.value("name").toString();
+
+    if (name == "") {
+        qDebug() << "name parameter is not empty" << reqUrl << endl;
+        emit failed(callBackID.toLong(), ErrorInfo::InvalidParameter, ErrorInfo::message(ErrorInfo::InvalidParameter, "name不能为空"));
+        return;
+    }
+
     QFile file(filePath);
     if(!file.exists()){
         qDebug() << Q_FUNC_INFO << "文件地址不存在：" << filePath << endl;
@@ -63,7 +73,7 @@ void Upload::upload(QString callBackID, QString reqUrl, QString filePath)
     connect(uploadManager, SIGNAL(signalError(QString, qint64, QString)), this, SLOT(onError(QString, qint64, QString)));
     connect(uploadManager, SIGNAL(signalStarted(QString)), this, SLOT(onStarted(QString)));
     uploadManager->setUploadId(callBackID);
-    uploadManager->uploadFile(reqUrl, filePath);
+    uploadManager->uploadFile(params);
 
 
     // 当前任务记录到tasks
