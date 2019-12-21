@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/syberh_qrcode">
+        <file>qmldir</file>
+        <file>spm.json</file>
+        <file>syberh_qrcode.pri</file>
+        <file>syberh_qrcode.qrc</file>
+        <file>qml/CommonTitlebar.qml</file>
+        <file>qml/CommonPage.qml</file>
+        <file>qml/BarCodeScan.qml</file>
+        <file>js/util/constants.js</file>
+        <file>qml/BarCodeMain.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>res/iconBack.png</file>
+        <file>res/scanAreaCorner.png</file>
+        <file>res/scanAreaOut.png</file>
+        <file>res/scanLine.png</file>
+    </qresource>
+</RCC>
