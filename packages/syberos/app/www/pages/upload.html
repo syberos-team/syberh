@@ -7,7 +7,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>scan</title>
+  <title>upload</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
 </head>
@@ -20,8 +20,36 @@
           <div class="mui-input-group">
               <div class="mui-input-row">
                   <label>URL：</label>
-                  <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://172.16.70.103:8000/upload">
+                  <!-- <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://172.16.70.103:8000/upload"> -->
+                  <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://192.168.100.101:8000/upload">
               </div>
+              <div class="mui-input-row">
+                  <input type="text" id="name" class="mui-input-clear" value="file" />
+              </div>
+              <ul class="mui-table-view">
+                  <li class="mui-table-view-cell mui-collapse">
+                      <a class="mui-navigate-right" href="#">header</a>
+                      <div class="mui-collapse-content">
+                          <div class="mui-input-row" style="height: auto">
+                              <input type="text" class="mui-input-clear" placeholder="header-key[1]" id="headerkey1" value="aaa">
+                              <input type="text" class="mui-input-clear" placeholder="header-val[1]" id="headerval1" value="123123">
+                              <input type="text" class="mui-input-clear" placeholder="header-key[2]" id="headerkey2">
+                              <input type="text" class="mui-input-clear" placeholder="header-val[2]" id="headerval2">
+                          </div>
+                      </div>
+                  </li>
+                  <li class="mui-table-view-cell mui-collapse">
+                      <a class="mui-navigate-right" href="#">formData</a>
+                      <div class="mui-collapse-content">
+                          <div class="mui-input-row" style="height: auto">
+                              <input type="text" class="mui-input-clear" placeholder="data-key[1]" id="datakey1" value="username">
+                              <input type="text" class="mui-input-clear" placeholder="data-val[1]" id="dataval1" value="syberh,syberos">
+                              <input type="text" class="mui-input-clear" placeholder="data-key[2]" id="datakey2">
+                              <input type="text" class="mui-input-clear" placeholder="data-val[2]" id="dataval2">
+                          </div>
+                      </div>
+                  </li>
+              </ul>
               <div class="mui-input-row">
                   <input type="text" readonly value="点我选择文件" onclick="selectFile()" />
               </div>
@@ -49,6 +77,30 @@
 
     var vConsole = new VConsole();
 
+    function getHeaders() {
+      var headers = {};
+      if (document.getElementById("headerkey1").value && document.getElementById("headerval1").value) {
+        headers[document.getElementById("headerkey1").value] = document.getElementById("headerval1").value
+      }
+      if (document.getElementById("headerkey2").value && document.getElementById("headerval2").value) {
+        headers[document.getElementById("headerkey2").value] = document.getElementById("headerval2").value
+      }
+      return headers;
+    }
+
+    function getParams() {
+
+      var params = {};
+      if (document.getElementById("datakey1").value && document.getElementById("dataval1").value) {
+        params[document.getElementById("datakey1").value] = document.getElementById("dataval1").value
+      }
+      if (document.getElementById("datakey2").value && document.getElementById("dataval2").value) {
+        params[document.getElementById("datakey2").value] = document.getElementById("dataval2").value
+      }
+      
+      return params;
+
+    }
 
 
     function clearLog() {
@@ -57,26 +109,32 @@
 
 
     function selectFile() {
-		syberh.filepicker.open({
-        title: '文件选择',
-        showBack: true,
-        success: function (result) {
-          console.log('filepicker open success', JSON.stringify(result))
-          if (result && result.files) {
-            document.getElementById("file-src").value = result.files[0].path.replace("file://", "");
+      syberh.filepicker.open({
+          title: '文件选择',
+          showBack: true,
+          success: function (result) {
+            console.log('filepicker open success', JSON.stringify(result))
+            if (result && result.files) {
+              document.getElementById("file-src").value = result.files[0].path.replace("file://", "");
+            }
+          },
+          fail: function (error) {
+            console.log('filepicker open fail', error)
           }
-        },
-        fail: function (error) {
-          console.log('filepicker open fail', error)
-        }
-      })
-	}
+        })
+    }
 
     function start() {
-      
+      var headers = getHeaders();
+
+      var formData = getParams();
+
       syberh.upload.start({
         'url': document.getElementById("req-url").value,
         'filePath': document.getElementById("file-src").value,
+        'name': document.getElementById("name").value,
+        'header': headers,
+        'formData': formData,
 
         success: function (result) {
           console.log("syberh.upload.start result----" + JSON.stringify(result));

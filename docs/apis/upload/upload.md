@@ -14,6 +14,9 @@ title: start
 | ---------- | ------- | -------- | ---------------- | ---------------------------------- |
 | url | String |  | 是 | 上传路径 |
 | filePath | String |  | 是 | 文件地址 |
+| name | String |  | 是 | 文件对应的 key，开发者在服务端可以通过这个 key 获取文件的二进制内容 |
+| header | Object |  | 否 | HTTP 请求 Header |
+| formData | Object |  | 否 | HTTP 请求中其他额外的 form data |
 | success | function |  | 否 | 回调成功 |
 | fail | function |  | 否 | 回调失败 |
 
@@ -39,8 +42,15 @@ title: start
 ### 示例代码
 ```javascript
 syberh.upload.start({
-    'url': 'http://xx/xx/xx',
-    'filePath': '/home/user/xxx',
+    'url': 'XXX',
+    'filePath': 'XXX',
+    'name': 'file',
+    'header': {
+        a: '123'
+    },
+    'formData': {
+        name: 'syberos'
+    },
     success: function(result) {
         console.log('success',result);    
     },
