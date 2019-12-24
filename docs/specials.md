@@ -100,3 +100,7 @@ terminate called after throwing an instance of 'std::runtime_error'
 ```
 LIB_DIR = /data/app-libs/com.syberos.example  //com.syberos.example 改成自己的sopid
 ```
+
+## 无法使用热更新
+
+cdb调试模式且需要登录VPN上网的手机，导致不在一个网络无法通信，socket服务连接不上
