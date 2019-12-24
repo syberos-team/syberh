@@ -92,21 +92,21 @@ void Download::start(QString callbackId, QString url, QString name, QString stor
         return;
     }
 
-    if(isnetWork){
-        // 检查网络是否可用
-        QString network_cmd = "ping 114.114.114.114 -w 1";//向www.baidu.com请求两包数据，每包数据超时时间为1s
-        QString result;
-        process->start(network_cmd);   //调用ping 指令
-        process->waitForFinished();    //等待指令执行完毕
-        result = process->readAll();   //获取指令执行结果
-        qDebug() << Q_FUNC_INFO << "result" << result << endl;
-        if(!result.contains(QString("ttl="))){   //若包含TTL=字符串则认为网络在线
-            qDebug() << Q_FUNC_INFO << "process:false"  << endl;
-            emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络是否可用"));
-            return;
-        }
-        isnetWork = false;
-    }
+    // if(isnetWork){
+    //     // 检查网络是否可用
+    //     QString network_cmd = "ping 114.114.114.114 -w 1";//向www.baidu.com请求两包数据，每包数据超时时间为1s
+    //     QString result;
+    //     process->start(network_cmd);   //调用ping 指令
+    //     process->waitForFinished();    //等待指令执行完毕
+    //     result = process->readAll();   //获取指令执行结果
+    //     qDebug() << Q_FUNC_INFO << "result" << result << endl;
+    //     if(!result.contains(QString("ttl="))){   //若包含TTL=字符串则认为网络在线
+    //         qDebug() << Q_FUNC_INFO << "process:false"  << endl;
+    //         emit failed(callbackId.toLong(), ErrorInfo::NetworkError, ErrorInfo::message(ErrorInfo::NetworkError, "请检查网络是否可用"));
+    //         return;
+    //     }
+    //     isnetWork = false;
+    // }
 
     if (name.isEmpty()) {
         name = callbackId;
