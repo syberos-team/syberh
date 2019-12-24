@@ -34,8 +34,9 @@ export class ConnectChecker {
 
   isCdbEnabled(): boolean {
     log.verbose('ConnectChecker isCdbEnabled()')
-    const result = this.execCdbDevices()
-    return result.indexOf('-SyberOS') > 0
+    let result = this.execCdbDevices()
+    result = result.toLowerCase()
+    return result.indexOf('syber') > 0
   }
 
   isSshEnabled(ip: string, port: number): boolean {
