@@ -1,6 +1,6 @@
 {
   "name": "@syberos/syberos",
-  "version": "1.5.3-beta.2",
+  "version": "1.5.3-beta.3",
   "description": "syberh native sdk",
   "private": true,
   "main": "index.js",

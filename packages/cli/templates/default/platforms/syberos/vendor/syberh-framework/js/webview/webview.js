@@ -754,7 +754,9 @@ WebView.prototype.onSuccess = function (handlerId, result) {
 WebView.prototype.onSubscribe = function (handlerName, result) {
   logger.verbose('Webview:%s onSubscribe() start', this.id, handlerName, JSON.stringify(result));
   if (handlerName === 'DevToolsReload') {
-    this.trigger('reload', this.object);
+    for (var i in swebviews) {
+      swebviews[i].trigger('reload', swebviews[i].object);
+    }
     return;
   }
   // 第2个APP被唤起的时候，监听的onReady事件
