@@ -224,6 +224,12 @@
       "apis/telephony/dial": {
         "title": "dial"
       },
+      "apis/update/check": {
+        "title": "检查更新"
+      },
+      "apis/update/toStore": {
+        "title": "去更新"
+      },
       "apis/updates/manager": {
         "title": "更新管理",
         "sidebar_label": "更新管理"
@@ -942,6 +948,7 @@
       "震动": "震动",
       "消息通知": "消息通知",
       "数据库操作": "数据库操作",
+      "应用更新": "应用更新",
       "关于问题": "关于问题",
       "图片": "图片",
       "webview": "webview",
