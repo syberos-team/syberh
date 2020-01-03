@@ -24,7 +24,9 @@ myapp/project.config.json
   # 使用的虚拟机target
   "targetSimulator": "target-i686-xuanwu",
   # 项目的sopid
-  "sopid": "com.syberos.example"
+  "sopid": "com.syberos.example",
+  # 企业商店url(需要修改成自己的)
+  "storeBaseUrl": "https://storeinner.syberos.com"
 }
 ```
 
@@ -51,3 +53,9 @@ myapp/project.config.json
 # 通过命令行选择本地已安装的target
 syberh build --type device 
 ```
+
+## storeBaseUrl
+
+> 企业商店基础url（部署在你们公司的服务器url），在`企业商店-》设置`中可以找到
+
+使用[应用更新](/docs/apis/update/check.html) 功能，需要修改此项

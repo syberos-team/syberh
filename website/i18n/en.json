@@ -230,10 +230,6 @@
       "apis/update/toStore": {
         "title": "去更新"
       },
-      "apis/updates/manager": {
-        "title": "更新管理",
-        "sidebar_label": "更新管理"
-      },
       "apis/upload/upload-cancel": {
         "title": "cancel"
       },

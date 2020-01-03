@@ -4,6 +4,8 @@ title: 检查更新
 
 ## syberh.update.check()
 
+> 前提：在企业商店上架，并且修改[storeBaseUrl](/docs/app-config.html)
+ 
 检查服务器上是否有新版本
 
 
@@ -25,12 +27,12 @@ title: 检查更新
 
 ### 代码示例
 ```js
-    syberh.update.check({
-        success: function(res) {
-            console.log('检测更新返回版本～', JSON.stringify(res))
-        },
-        fail: function(error) {
-            console.log('error: ', error.code, error.msg)
-        }
-    })
+  syberh.update.check({
+    success: function(res) {
+      console.log('检测更新返回版本～', JSON.stringify(res))
+    },
+    fail: function(error) {
+      console.log('error: ', error.code, error.msg)
+    }
+  })
 ```
