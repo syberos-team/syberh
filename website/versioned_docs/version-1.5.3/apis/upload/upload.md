@@ -1,5 +1,7 @@
 ---
 title: start
+id: version-1.5.3-upload
+original_id: upload
 ---
 
 上传：上传文件资源，客户端直接发起一个 HTTP POST 请求。

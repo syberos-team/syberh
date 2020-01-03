@@ -47,8 +47,8 @@ const siteConfig = {
   ],
 
   algolia: {
-    apiKey: '509a8634d61269b0091980c05deb1851',
-    indexName: 'syberh'
+    apiKey: '46191f1812a56487daff920ce847f669',
+    indexName: 'syberos_syberh'
   },
 
   // If you have users set above, you add it here:

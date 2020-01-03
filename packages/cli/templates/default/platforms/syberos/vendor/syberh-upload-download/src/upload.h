@@ -34,7 +34,7 @@ public:
 
 private:
     // 上传
-    void upload(QString callBackID, QString reqUrl, QString filePath);
+    void upload(QString callBackID, QVariantMap params);
 
     // 取消
     void cancel(QString callBackID, QString taskId);

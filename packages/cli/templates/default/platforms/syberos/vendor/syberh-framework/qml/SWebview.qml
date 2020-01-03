@@ -3,7 +3,7 @@ import QtWebKit 3.0
 import QtQuick.Window 2.2
 import QtWebKit.experimental 1.0
 import com.syberos.filemanager.filepicker 1.0
-import org.nemomobile.voicecall 1.0
+// import org.nemomobile.voicecall 1.0 8953的target上没有这个库
 import com.syberos.basewidgets 1.0
 import com.syberos.basewidgets 2.0
 import syberh_filepicker 1.0

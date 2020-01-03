@@ -177,7 +177,7 @@
 
       syberh.network.request({
         url: inpUrl,
-        headers: headers,
+        header: headers,
         dataType: dataType,
         method: 'post',
         data: params,
@@ -204,7 +204,7 @@
 
       syberh.network.request({
         url: inpUrl,
-        headers: headers,
+        header: headers,
         dataType: dataType,
         method: 'put',
         data: params,
@@ -228,7 +228,7 @@
 
       syberh.network.request({
         url: inpUrl,
-        headers: headers,
+        header: headers,
         method: 'delete',
         success: function (result) {
           document.getElementById("show-rsp").value = "delete请求响应：<br/>" + JSON.stringify(result);

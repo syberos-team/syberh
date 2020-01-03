@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const fs = require("fs-extra");
+const path = require("path");
 const os = require("os");
 const bodyParser = require("body-parser");
 const internal_ip_1 = require("internal-ip");
@@ -37,7 +38,8 @@ class HttpServer {
             app.use(bodyParser.json({ limit: '10000kb' }));
             app.use(bodyParser.urlencoded({ limit: '10000kb', extended: true }));
             app.get('/download', function (req, res) {
-                const filePath = req.query.path;
+                let filePath = req.query.path;
+                filePath = path.join(path.resolve('.'), filePath);
                 if (fs.existsSync(filePath)) {
                     res.writeHead(200, {
                         // 告诉浏览器这是一个二进制文件
