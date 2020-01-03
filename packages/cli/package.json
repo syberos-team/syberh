@@ -34,7 +34,11 @@
   "author": "YuanXin",
   "license": "MIT",
   "dependencies": {
+<<<<<<< HEAD
+    "@syberos/dev-server": "^1.5.2",
+=======
     "@syberos/dev-server": "^1.5.3",
+>>>>>>> v1.5.0
     "autoprefixer": "^8.4.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "chalk": "2.4.2",
