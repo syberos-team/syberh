@@ -14,6 +14,7 @@ interface IProjectConf {
   projectName: string
   projectDir: string
   sopid: string
+  storeBaseUrl: string
   template: 'default' | 'mobx' | 'redux'
   appName: string
   webPath: string
@@ -45,6 +46,7 @@ export default class Project extends Creator {
         projectDir: '',
         template: 'default',
         sopid: '',
+        storeBaseUrl: CONFIG.STORE_BASE_URL,
         appName: '',
         webPath: CONFIG.SOURCE_DIR,
         example: false,
