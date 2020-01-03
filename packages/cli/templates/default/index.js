@@ -88,6 +88,7 @@ exports.createApp = function (creater, params, helper, cb) {
     src,
     css,
     sopid,
+    storeBaseUrl,
     example,
     targetName
   } = params
@@ -151,7 +152,8 @@ exports.createApp = function (creater, params, helper, cb) {
       projectName,
       sopid,
       target,
-      targetSimulator
+      targetSimulator,
+      storeBaseUrl
     }
   )
 

@@ -29,6 +29,7 @@ import notificationMixin from './native/notification';
 import databaseMixin from './native/database';
 import qrcodeMixin from './native/qrcode';
 import appMixin from './native/app';
+import updateMixin from './native/update';
 
 export default function allNative(hybridJs) {
     // 下载模块
@@ -64,4 +65,5 @@ export default function allNative(hybridJs) {
     databaseMixin(hybridJs);
     qrcodeMixin(hybridJs);
     appMixin(hybridJs);
+    updateMixin(hybridJs);
 }

@@ -4,5 +4,6 @@
   "webPath": "<%= webPath %>",
   "target": "<%= target %>",
   "targetSimulator": "<%= targetSimulator %>",
-  "sopid": "<%= sopid %>"
+  "sopid": "<%= sopid %>",
+  "storeBaseUrl": "<%= storeBaseUrl %>"
 }

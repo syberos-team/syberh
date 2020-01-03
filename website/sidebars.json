@@ -185,6 +185,10 @@
       "apis/database/execute",
       "apis/database/isDatabaseExists",
       "apis/database/isTableExists"
+    ],
+    "应用更新": [
+      "apis/update/check",
+      "apis/update/toStore"
     ]
   },
   "常见问题": {
