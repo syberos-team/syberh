@@ -910,6 +910,18 @@
       },
       "version-1.5.3/apis/upload/version-1.5.3-upload": {
         "title": "start"
+      },
+      "version-1.6.0/apis/update/version-1.6.0-check": {
+        "title": "检查更新"
+      },
+      "version-1.6.0/apis/update/version-1.6.0-toStore": {
+        "title": "去更新"
+      },
+      "version-1.6.0/version-1.6.0-app-config": {
+        "title": "APP 配置"
+      },
+      "version-1.6.0/version-1.6.0-specials": {
+        "title": "常见问题"
       }
     },
     "links": {
