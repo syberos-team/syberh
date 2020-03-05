@@ -255,7 +255,11 @@
     syberh.subscribe('onUnload', function () {
       console.log("onUnload: ", new Date().getTime());
     });
-    
+
+    syberh.subscribe('onKeyRelease', function (res) {
+      console.log("onKeyRelease: ", res.value);
+    });
+
     syberh.subscribe('onResize', function (result) {
       console.log("onResize收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
     });
