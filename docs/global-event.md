@@ -42,59 +42,58 @@ syberh.subscribe('onKeyRelease', function (res) {
 ```
 
 #### 常见的按键键值对 
-|常量 |	键值（16进制） | 键值（10进制） | 对应的按键 |
-| ---- |	:----: |	:----: |	:----: |
-|Qt::Key_VolumeUp	           |	0x01000072	 | 16777330 | 音量+键 |
-|Qt::Key_VolumeDown	         |	0x01000070	 | 16777328 | 音量-键 |
-|Qt::Key_PowerOff	           |	0x010000b7	 | 16777399 | 电源键 |
-|Qt::Key_Back	               | 0x01000061	   | 16777313 | 返回键 |
-|Qt::Key_Left	               | 0x01000012	   |           | ←     |
-|Qt::Key_Up	                 | 0x01000013	   |           | ↑     |
-|Qt::Key_Right	             | 0x01000014	   |           | →     |
-|Qt::Key_Down	               | 0x01000015	   |           | ↓     |
-|Qt::Key_Space	             |   0x20        |           | 空格键 |
-|Qt::Key_Minus               |  0x2d         |           |   -键  |
-|Qt::Key_Delete              |  0x01000007   |           |  Delete键  |
-|Qt::Key_Call	               | 0x01100004    |           |  A key to answer or initiate a call (see Qt::Key_ToggleCallHangup for a key to toggle current call state)  |
-|Qt::Key_ToggleCallHangup	   | 0x01100007    |           | A key to toggle the current call state (ie. either answer, or hangup) depending on current call state        | 
-|Qt::Key_Hangup	             | 0x01100005	   |           |A key to end an ongoing call (see Qt::Key_ToggleCallHangup for a key to toggle current call state) |
-|Qt::Key_0	                 | 0x30	         |           | 数字0键 |
-|Qt::Key_1	                 | 0x31	         |           | 数字1键 |
-|Qt::Key_2	                 | 0x32	         |           | 数字2键 |
-|Qt::Key_3	                 | 0x33	         |           | 数字3键 |
-|Qt::Key_4	                 | 0x34	         |           | 数字4键 |
-|Qt::Key_5	                 | 0x35	         |           | 数字5键 |
-|Qt::Key_6	                 | 0x36	         |           | 数字6键 |
-|Qt::Key_7	                 | 0x37	         |           | 数字7键 |
-|Qt::Key_8	                 | 0x38	         |           | 数字8键 |
-|Qt::Key_9	                 | 0x39	         |           | 数字9键 |
-|Qt::Key_F1	                 | 0x01000030	   |           | F1     |
-|Qt::Key_F2	                 | 0x01000031	   |           | F2     |
-|Qt::Key_F3	                 | 0x01000032	   |           | F3     |
-|Qt::Key_F4	                 | 0x01000033	   |           | F4     |
-|Qt::Key_A	                 | 0x41          |           | 字母键 |
-|Qt::Key_B	                 | 0x42          |           |        |
-|Qt::Key_C	                 | 0x43          |           |        |
-|Qt::Key_D	                 | 0x44          |           |        |
-|Qt::Key_E	                 | 0x45          |           |        |
-|Qt::Key_F	                 | 0x46          |           |        |
-|Qt::Key_G	                 | 0x47          |           |        |
-|Qt::Key_H	                 | 0x48          |           |        |
-|Qt::Key_I	                 | 0x49          |           |        |
-|Qt::Key_J	                 | 0x4a          |           |        |
-|Qt::Key_K	                 | 0x4b          |           |        |
-|Qt::Key_L	                 | 0x4c          |           |        |
-|Qt::Key_M	                 | 0x4d          |           |        |
-|Qt::Key_N	                 | 0x4e          |           |        |
-|Qt::Key_O	                 | 0x4f          |           |        |
-|Qt::Key_P	                 | 0x50          |           |        |
-|Qt::Key_Q	                 | 0x51          |           |        |
-|Qt::Key_R	                 | 0x52          |           |        |
-|Qt::Key_S	                 | 0x53          |           |        |
-|Qt::Key_T	                 | 0x54          |           |        |
-|Qt::Key_U	                 | 0x55          |           |        |
-|Qt::Key_V	                 | 0x56          |           |        |
-|Qt::Key_W	                 | 0x57          |           |        |
-|Qt::Key_X	                 | 0x58          |           |        |
-|Qt::Key_Y	                 | 0x59          |           |        |
-|Qt::Key_Z	                 | 0x5a          |           |        |
+|  按键 | 键值（10进制） | 
+|  :----: |  :----: |
+| 音量+键      | 16777330  | 
+| 音量-键      | 16777328 |
+| 电源键       | 16777399   |
+| 返回键       | 16777313   |
+| ←            | 16777234 | 
+| ↑            | 16777235 | 
+| →            | 16777236 | 
+| ↓            | 16777237 | 
+| 空格键       |   32     |
+|   -键        |   45     | 
+| Delete键     | 16777223 | 
+| 拨打电话键    | 17825796  |
+| 结束通话键    | 17825797  |
+| 数字0键      |    48     |
+| 数字1键      |    49     |
+| 数字2键      |    50     |
+| 数字3键      |    51     |
+| 数字4键      |    52     |
+| 数字5键      |    53     |
+| 数字6键      |    54     |
+| 数字7键      |    55     |
+| 数字8键      |    56     |
+| 数字9键      |    57     |
+| F1     	    |  16777264   |
+| F2     	    |  16777265   |
+| F3     	    |  16777266 |
+| F4     	    |  16777267 |
+| 字母A键     |    65    |
+| 字母B键     |    66     |
+| 字母C键     |    67     |
+| 字母D键     |    68     |
+| 字母E键     |    69     |
+| 字母F键     |    70     |
+| 字母G键     |    71     |
+| 字母H键     |    72     |
+| 字母I键     |    73     |
+| 字母J键     |    74     |
+| 字母K键     |    75     |
+| 字母L键     |    76     |
+| 字母M键     |    77     |
+| 字母N键     |    78     |
+| 字母O键     |    79     |
+| 字母P键     |    80     |
+| 字母Q键     |    81     |
+| 字母R键     |    82     |
+| 字母S键     |    83     |
+| 字母T键     |    84     |
+| 字母U键     |    85     |
+| 字母V键     |    86     |
+| 字母W键     |    87     |
+| 字母X键     |    88     |
+| 字母Y键     |    89     |
+| 字母Z键     |    90     |
