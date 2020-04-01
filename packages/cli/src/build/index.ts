@@ -48,7 +48,7 @@ export async function build(appPath: string, webPath: string, config: AppBuildCo
       // 启动devServer热更新服务
       if (debug) {
         const serverjs = locateScripts('devServer.js')
-        child_process.fork(serverjs, [newConfig.port])
+        child_process.fork(serverjs, [newConfig.port, webPath])
       }
     })
   }

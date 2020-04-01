@@ -32,11 +32,11 @@ myapp/project.config.json
 
 ## webPath
 
-> 可以配置指定目录（必须是相对路径，并且首页是`index.html`）
+> 可以配置指定目录（必须放在根目录下，并且首页是`index.html`）
 
 ```javascript
 {
-  "webPath": "../vuedemo/dist"
+  "webPath": "dist"
 }
 ```
 
