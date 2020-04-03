@@ -1,5 +1,6 @@
-export default function networkMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function networkMixin() {
 
     hybridJs.extendModule('network', [
         {
@@ -13,6 +14,6 @@ export default function networkMixin(hybrid) {
                 data: ''
             },
         }
-        
+
     ]);
 }

@@ -1,5 +1,6 @@
-export default function notificationMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function notificationMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('notification', [{

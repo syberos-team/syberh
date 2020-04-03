@@ -1,5 +1,6 @@
-export default function deviceMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function deviceMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('device', [{

@@ -1,3 +1,4 @@
+import hybridJs from '../hybrid';
 import {
     isObject,
     getFullPath,
@@ -6,8 +7,7 @@ import {
     extend,
 } from '../util/lang';
 
-export default function innerUtilMixin(hybrid) {
-    const hybridJs = hybrid;
+export default function innerUtilMixin() {
     const innerUtil = {};
 
     hybridJs.innerUtil = innerUtil;

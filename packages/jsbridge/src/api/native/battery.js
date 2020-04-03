@@ -1,5 +1,6 @@
-export default function batteryMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function batteryMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('battery', [{

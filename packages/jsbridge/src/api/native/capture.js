@@ -1,5 +1,6 @@
-export default function captureMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function captureMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('camera', [{

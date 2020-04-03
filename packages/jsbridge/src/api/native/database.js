@@ -1,5 +1,6 @@
-export default function databaseMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function databaseMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('database', [{

@@ -1,5 +1,6 @@
-export default function pageMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function pageMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('page', [{
@@ -19,10 +20,10 @@ export default function pageMixin(hybrid) {
                 'data',
             );
             const options = args[0];
-            
+
             // 将额外数据拼接到url中
             options.pageUrl = innerUtil.getFullUrlByParams(options.pageUrl, options.data);
-            
+
             // 普通
             document.location.href = options.pageUrl;
         },

@@ -1,12 +1,9 @@
+import hybridJs from './hybrid';
 import mixin from './mixin';
 import allNative from './api/allnative';
 
-const hybridJs = {};
+mixin();
 
-mixin(hybridJs);
-
-allNative(hybridJs);
-//使用全局变量version
-hybridJs.version = JVERSION;
+allNative();
 
 export default hybridJs;

@@ -1,5 +1,6 @@
-export default function runtimeMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../index';
+
+export default function runtimeMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('runtime', [{

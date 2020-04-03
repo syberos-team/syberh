@@ -1,3 +1,4 @@
+import hybridJs from '../hybrid';
 import {
   noop,
 } from '../util/lang';
@@ -12,8 +13,7 @@ import {
  * showError
  * callInner
  */
-export default function defineapiMixin (hybrid) {
-  const hybridJs = hybrid;
+export default function defineapiMixin () {
   const Proxy = hybridJs.Proxy;
   const globalError = hybridJs.globalError;
   const showError = hybridJs.showError;

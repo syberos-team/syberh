@@ -1,5 +1,6 @@
-export default function modalMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function modalMixin() {
     const innerUtil = hybridJs.innerUtil;
 
 

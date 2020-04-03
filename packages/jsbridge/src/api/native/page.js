@@ -1,5 +1,6 @@
-export default function pageMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function pageMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('page', [{
