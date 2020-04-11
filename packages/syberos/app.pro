@@ -8,7 +8,9 @@ TEMPLATE = subdirs
 
 CONFIG += C++11
 
-SUBDIRS += app tests
+SUBDIRS += app pluginmanager tests
+
+app.depends = pluginmanager
 
 res.files = res
 res.path = $$INSTALL_DIR/

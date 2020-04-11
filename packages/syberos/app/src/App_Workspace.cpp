@@ -15,7 +15,7 @@
 #include "../../vendor/syberh-framework/src/framework/nativesdkmanager.h"
 #include "../../vendor/syberh-framework/src/framework/common/extendedconfig.h"
 #include "../../vendor/syberh-framework/src/util/log.h"
-#include "../../vendor/syberh-framework/src/package.h"
+// #include "../../vendor/syberh-framework/src/package.h"
 #include "../../vendor/syberh-framework/src/util/fileutil.h"
 #include "../../vendor/syberh-framework/src/framework/common/errorinfo.h"
 

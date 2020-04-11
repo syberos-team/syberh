@@ -63,6 +63,7 @@ include (../vendor/vendor.pri)
 
 DEFINES += TDEBUG
 
+
 #vendor_path = ../vendor/vendor.pri
 #syberh_framework_path = ../../../../syberh-framework/syberh_framework.pri
 
