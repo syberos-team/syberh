@@ -21,4 +21,7 @@ meta.path = $$INSTALL_DIR/
 syber.files = sopconfig.xml
 syber.path = $$INSTALL_DIR/
 
-INSTALLS += res meta syber
+lib.files = $$OUT_PWD/lib
+lib.path = $$INSTALL_DIR/
+
+INSTALLS += res meta syber lib

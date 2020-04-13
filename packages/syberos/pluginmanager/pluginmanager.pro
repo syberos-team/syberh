@@ -4,6 +4,7 @@ QT += core widgets
 
 TEMPLATE = lib
 DEFINES += PLUGINMANAGER_LIBRARY
+TARGET = pluginmanager
 
 CONFIG += c++11
 
@@ -24,4 +25,8 @@ HEADERS += \
     $$PWD/src/pluginspec_p.h \
     $$PWD/src/optionsparser.h
 
-#INSTALL += 
+
+DESTDIR += $$clean_path($$OUT_PWD/../lib)
+
+#target.path = $$TARGET_DIR/lib/
+#INSTALLS += target

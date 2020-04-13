@@ -63,6 +63,11 @@ include (../vendor/vendor.pri)
 
 DEFINES += TDEBUG
 
+#PLUGINMANAGER_OUT_DIR = $$clean_path($$OUT_PWD/../libs)
+#QMAKE_LFLAGS += -Wl,-rpath,$$PLUGINMANAGER_OUT_DIR
+
+INCLUDEPATH += ../pluginmanager/src
+#LIBS += L$$PLUGINMANAGER_OUT_DIR -lpluginmanager
 
 #vendor_path = ../vendor/vendor.pri
 #syberh_framework_path = ../../../../syberh-framework/syberh_framework.pri

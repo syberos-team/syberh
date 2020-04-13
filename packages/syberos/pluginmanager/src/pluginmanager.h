@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QReadWriteLock>
 #include <QSet>
+#include <QVector>
 
 QT_BEGIN_NAMESPACE
 class QTextStream;
