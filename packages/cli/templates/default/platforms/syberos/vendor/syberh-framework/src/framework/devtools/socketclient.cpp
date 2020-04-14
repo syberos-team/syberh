@@ -106,8 +106,18 @@ void SocketClient::data(){
     QString serverHost=dataContent.take("server").toString();
 
     total=fileArray.size();
+
+    QString path = ExtendedConfig::instance()->get("webPath").toString();
+    if (path == "") {
+        path = "www";
+    }
+    log->red() <<Q_FUNC_INFO << "path" << path << log->end();
+
     QString webroot=Helper::instance()->getDataWebRootPath();
-    FileUtil::remove(tempPath+"/www",1);
+    log->red() <<Q_FUNC_INFO << "webroot" << webroot <<log->end();
+
+    FileUtil::remove(tempPath+"/" + path,1);
+
     for (int npcIndex = 0; npcIndex < fileArray.size(); ++npcIndex) {
         QString filePath = fileArray[npcIndex].toString();
 
@@ -116,17 +126,23 @@ void SocketClient::data(){
         downloadTasks.insert(uid, downloadManager);
 
         QString url=serverHost+"?path="+filePath;
+
         int lst=webroot.lastIndexOf("/www");
         QString rpath=webroot.mid(0,lst);
-        log->red() <<Q_FUNC_INFO << rpath <<log->end();
-        QString downloadPath=rpath+filePath;
-         QFile toFile(downloadPath);
+        log->red() <<Q_FUNC_INFO << "rpath" << rpath <<log->end();
+
+        QString downloadPath = rpath+filePath;
+        downloadPath.replace(path, "www");
+        log->red() <<Q_FUNC_INFO << "url" << url <<log->end();
+        log->red() <<Q_FUNC_INFO << "downloadPath" << downloadPath <<log->end();
+
+        QFile toFile(downloadPath);
         if(toFile.exists()){
-             log->verbose()<<Q_FUNC_INFO <<"删除历史文件" <<endl;
+            log->verbose()<<Q_FUNC_INFO <<"删除历史文件" <<endl;
             toFile.remove();
         }
 
-        downloadManager->downloadFile(url,downloadPath );
+        downloadManager->downloadFile(url,downloadPath);
         connect(downloadManager, &DevDownload::signalReplyFinished, this, &SocketClient::onReplyFinished);
     }
 

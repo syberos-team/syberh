@@ -199,6 +199,18 @@ function WebView (options) {
         logger.verbose('webview:[%s] 不能回退:[%s]', that.id, webview.canGoBack());
       }
     }
+
+    var curUrl = that.object.getCurrentUrl()
+
+    that.pushQueue('subscribe', {
+      url: curUrl,
+      handlerName: 'onKeyRelease',
+      result: {
+        value: event.key
+      }
+    });
+
+    that.dog(curUrl);
   });
 
   // 接受qml成功返回
