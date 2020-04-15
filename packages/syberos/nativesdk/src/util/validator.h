@@ -1,9 +1,12 @@
 #ifndef VALIDATOR_H
 #define VALIDATOR_H
 
+#include "../nativesdk_global.h"
 #include <QObject>
 
-class Validator : public QObject
+namespace NativeSdk {
+
+class NATIVESDK_EXPORT Validator : public QObject
 {
 public:
     /**
@@ -19,4 +22,5 @@ private:
     Validator& operator=(Validator validator) Q_DECL_EQ_DELETE;
 };
 
+}
 #endif // VALIDATOR_H

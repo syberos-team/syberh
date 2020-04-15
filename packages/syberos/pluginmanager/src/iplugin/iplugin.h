@@ -30,8 +30,8 @@ public:
     IPlugin();
     ~IPlugin() override;
 
-    virtual bool initialize(const QStringList &arguments, QString *errorString) = 0;
-    virtual void extensionsInitialized() = 0;
+    virtual bool initialize(const QStringList &arguments, QString *errorString);
+    virtual void extensionsInitialized();
     virtual bool delayedInitialize() { return false; }
     virtual ShutdownFlag aboutToShutdown() { return SynchronousShutdown; }
     virtual QObject *remoteCommand(const QStringList & /* options */,
@@ -58,18 +58,15 @@ private:
 class SignalManager : public QObject {
     Q_OBJECT
 public:
+    SignalManager();
     ~SignalManager();
 
-    static SignalManager *instance();
-
 signals:
-    void success(QString callbackID, QVariant result);
-    void failed(QString callbackID, QString errorCode,QString errorMsg);
-    void progress(QString callbackID, const int totalLength, const int progress, const int status);
+    void success(long callbackID, QVariant result);
+    void failed(long callbackID, long errorCode,QString errorMsg);
+    void progress(long callbackID, const int totalLength, const int progress, const int status);
     void subscribe(QString handleName, QVariant result);
 
-private:
-    SignalManager();
 };
 
 }

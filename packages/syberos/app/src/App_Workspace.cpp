@@ -8,20 +8,23 @@
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 #include <qtwebengineglobal.h>
 #else
-#include "../../vendor/syberh-framework/src/senvironment.h"
+#include "../../nativesdk/src/senvironment.h"
 #endif
 
-#include "../../vendor/syberh-framework/src/helper.h"
-#include "../../vendor/syberh-framework/src/framework/nativesdkmanager.h"
-#include "../../vendor/syberh-framework/src/framework/common/extendedconfig.h"
-#include "../../vendor/syberh-framework/src/util/log.h"
+#include "../../nativesdk/src/helper.h"
+#include "../../nativesdk/src/framework/nativesdkmanager.h"
+#include "../../nativesdk/src/framework/common/extendedconfig.h"
+#include "../../nativesdk/src/util/log.h"
 // #include "../../vendor/syberh-framework/src/package.h"
-#include "../../vendor/syberh-framework/src/util/fileutil.h"
-#include "../../vendor/syberh-framework/src/framework/common/errorinfo.h"
+#include "../../nativesdk/src/util/fileutil.h"
+#include "../../nativesdk/src/framework/common/errorinfo.h"
 
 #ifdef QRCODE
 #include "../../vendor/syberh-qrcode/src/qrcoderegister.h"
 #endif
+
+
+using namespace NativeSdk;
 
 App_Workspace::App_Workspace()
     : CWorkspace()
@@ -36,6 +39,7 @@ App_Workspace::App_Workspace()
       }
     }
     Log::instance()->setLevel(devLog);
+
 
     // 初始化错误信息
     ErrorInfo::init();
@@ -124,3 +128,4 @@ void App_Workspace::openByUrl(const QUrl& url){
 void App_Workspace::openByDocument(const QString& action, const QString& mimetype, const QString& file){
     NativeSdkManager::getInstance()->openByDocument(action, mimetype, file);
 }
+

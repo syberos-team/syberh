@@ -1,6 +1,5 @@
 #include "helper.h"
 #include <cenvironment.h>
-#include <QApplication>
 #include <QDir>
 #include <QDebug>
 #include <QFile>
@@ -15,12 +14,19 @@
 #include <QSize>
 #include <QTimeZone>
 #include <QLocale>
+#include <QMimeDatabase>
+#include <QMutexLocker>
+
+#include "framework/common/extendedconfig.h"
+
+namespace NativeSdk {
+
+Helper* Helper::m_helper = nullptr;
 
 Helper::Helper(QObject *parent) : QObject(parent)
 {
   env = new CEnvironment(this);
   appInfo = new CAppInfo();
-  extendConfig = ExtendedConfig::instance();
 }
 
 QString Helper::logLevelName()
@@ -46,9 +52,21 @@ bool Helper::exists(QString filePath)
   return file.exists();
 }
 
+Helper *Helper::instance()
+{
+    static QMutex mutex;
+    if(m_helper == nullptr){
+        QMutexLocker locker(&mutex);
+        if(m_helper == nullptr){
+              m_helper = new Helper;
+        }
+    }
+    return m_helper;
+}
+
 QString Helper::getWebRootPath()
 {
-  extendConfig = ExtendedConfig::instance();
+  ExtendedConfig *extendConfig = ExtendedConfig::instance();
   QVariant debug = extendConfig->get("debug");
   if (debug.toBool())
   {
@@ -200,4 +218,5 @@ bool Helper::isAudio(QString filepath)
   QMimeType mime = db.mimeTypeForFile(filepath);
   qDebug() << Q_FUNC_INFO << "isAudio, mime: " << filepath << mime.name() << endl;
   return mime.name().startsWith("audio/");
+}
 }

@@ -8,9 +8,10 @@ TEMPLATE = subdirs
 
 CONFIG += C++11
 
-SUBDIRS += app pluginmanager tests
+SUBDIRS += app pluginmanager nativesdk tests
 
-app.depends = pluginmanager
+nativesdk.depends = pluginmanager
+app.depends = nativesdk
 
 res.files = res
 res.path = $$INSTALL_DIR/
@@ -24,4 +25,7 @@ syber.path = $$INSTALL_DIR/
 lib.files = $$OUT_PWD/lib
 lib.path = $$INSTALL_DIR/
 
-INSTALLS += res meta syber lib
+plugins.files = plugins
+plugins.path = $$INSTALL_DIR/
+
+INSTALLS += res meta syber lib plugins

@@ -54,7 +54,7 @@ struct EXTENSIONSYSTEM_EXPORT PluginArgumentDescription
 
 
 
-class PluginSpec : public QObject
+class EXTENSIONSYSTEM_EXPORT PluginSpec : public QObject
 {
     Q_OBJECT
 public:

@@ -31,7 +31,6 @@ public:
 
     // 当应用是由runDocument接口启动时，回调openByDocument
     void openByDocument(const QString& action, const QString& mimetype, const QString& file);
-
 };
 
 

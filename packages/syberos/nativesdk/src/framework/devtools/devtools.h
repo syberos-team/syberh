@@ -13,13 +13,14 @@
 
 #ifndef DEVTOOLS_H
 #define DEVTOOLS_H
-#include "socketclient.h"
 #include <QString>
 #include <QObject>
 #include <QDebug>
 #include "../nativesdkhandlerbase.h"
 #include "../common/extendedconfig.h"
+#include "socketclient.h"
 
+namespace NativeSdk {
 /**
  * 开发工具类
  * @brief The DevTools class
@@ -51,4 +52,5 @@ public slots:
     void reload();
 };
 
+}
 #endif // DEVTOOLS_H

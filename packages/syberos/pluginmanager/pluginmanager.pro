@@ -3,7 +3,7 @@ include(../syberos.pri)
 QT += core widgets
 
 TEMPLATE = lib
-DEFINES += PLUGINMANAGER_LIBRARY
+DEFINES += EXTENSIONSYSTEM_LIBRARY
 TARGET = pluginmanager
 
 CONFIG += c++11
@@ -28,5 +28,6 @@ HEADERS += \
 
 DESTDIR += $$clean_path($$OUT_PWD/../lib)
 
-#target.path = $$TARGET_DIR/lib/
-#INSTALLS += target
+target.path = $$INSTALL_DIR/lib
+INSTALLS += target
+

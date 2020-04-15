@@ -1,0 +1,12 @@
+#ifndef NATIVESDK_GLOBAL_H
+#define NATIVESDK_GLOBAL_H
+
+#include <QtGlobal>
+
+#if defined(NATIVESDK_LIBRARY)
+#  define NATIVESDK_EXPORT Q_DECL_EXPORT
+#else
+#  define NATIVESDK_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // NATIVESDK_GLOBAL_H

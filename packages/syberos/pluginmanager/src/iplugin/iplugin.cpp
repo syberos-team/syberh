@@ -13,12 +13,27 @@ using namespace ExtensionSystem;
 IPlugin::IPlugin()
     : d(new Internal::IPluginPrivate())
 {
+    d->signalManager = new SignalManager();
 }
 
 IPlugin::~IPlugin()
 {
+    if(d->signalManager){
+        delete d->signalManager;
+        d->signalManager = nullptr;
+    }
     delete d;
     d = nullptr;
+}
+
+bool IPlugin::initialize(const QStringList &arguments, QString *errorString) {
+    Q_UNUSED(arguments);
+    Q_UNUSED(errorString);
+    return false;
+}
+
+
+void IPlugin::extensionsInitialized() {
 }
 
 QVector<QObject *> IPlugin::createTestObjects() const
@@ -33,35 +48,19 @@ PluginSpec *IPlugin::pluginSpec() const
 
 SignalManager *IPlugin::signalManager()
 {
-    return SignalManager::instance();
+    return d->signalManager;
 }
 // ========== IPlugin & ==========
 
 
 // ========== SignalManager ^ ==========
-static QMutex mutex;
-static SignalManager *s = nullptr;
-
 SignalManager::SignalManager()
 {
 }
 
 SignalManager::~SignalManager()
 {
-    if(s != nullptr){
-        delete s;
-        s = nullptr;
-    }
+    QObject::disconnect(this, 0, 0, 0);
 }
 
-SignalManager *SignalManager::instance()
-{
-    if(s == nullptr){
-        QMutexLocker locker(&mutex);
-        if(s == nullptr){
-            s = new SignalManager();
-        }
-    }
-    return s;
-}
 // ========== SignalManager & ==========

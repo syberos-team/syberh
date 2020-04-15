@@ -1,6 +1,8 @@
 #ifndef PLUGINMANAGER_H
 #define PLUGINMANAGER_H
 
+#include "extensionsystem_global.h"
+
 #include <QObject>
 #include <QReadWriteLock>
 #include <QSet>
@@ -18,7 +20,7 @@ class PluginSpec;
 namespace Internal { class PluginManagerPrivate; }
 
 
-class PluginManager : public QObject
+class EXTENSIONSYSTEM_EXPORT PluginManager : public QObject
 {
     Q_OBJECT
 public:

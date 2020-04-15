@@ -6,6 +6,7 @@
 namespace ExtensionSystem {
 
 class PluginSpec;
+class SignalManager;
 
 namespace Internal {
 
@@ -13,6 +14,7 @@ class IPluginPrivate
 {
 public:
     PluginSpec *pluginSpec;
+    SignalManager *signalManager;
 };
 
 } // namespace Internal
