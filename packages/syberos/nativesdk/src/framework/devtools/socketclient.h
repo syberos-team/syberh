@@ -29,8 +29,6 @@
 #include "devdownload.h"
 #include "../../util/log.h"
 
-namespace NativeSdk {
-
 /**
  * Socket客户端工具类
  * @brief The SocketClient class
@@ -72,13 +70,13 @@ public slots:
 
 
 private:
-    Log *log;
-     QTimer *timer;
+    NativeSdk::Log *log;
+    QTimer *timer;
     //连接重试次数
     int connectCount;
     static SocketClient *pSocket;
     bool m_bServerConnected;
-    Helper *helper;
+    NativeSdk::Helper *helper;
     /**
      * @brief hotUpdate 热更新实现
      */
@@ -121,5 +119,4 @@ private:
     QString TEMP_PATH_NAME;
 };
 
-}
 #endif // SOCKETCLIENT_H

@@ -5,7 +5,8 @@
 
 #include <QMutexLocker>
 
-namespace NativeSdk {
+using namespace NativeSdk;
+
 
 static QMap<QString,DevDownload*> downloadTasks;
 
@@ -214,4 +215,3 @@ QString SocketClient::getOrCreateTempPath(){
     return tempPath;
 }
 
-}

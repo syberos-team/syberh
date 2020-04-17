@@ -82,6 +82,8 @@ void NativeSdkManager::openByDocument(const QString& action, const QString& mime
 }
 
 void NativeSdkManager::request(QString className,QString callbackID,QString actionName,QVariantMap params){
+    qDebug() << "className:" << className << "callbackID:" << callbackID << "actionName:" << actionName << "params:" << params;
+
     NativeSdkHandlerBase * handler = d->nativeSdkFactory->getHandler(className);
     if(handler){
         if(!d->nativeSdkFactory->IsInitConnect(className))
@@ -189,7 +191,7 @@ void NativeSdkManagerPrivate::loadPlugins()
     const QStringList pluginPaths = getPluginPaths(qApp->applicationDirPath());
     qDebug() << "PLUGIN_IID:" << pluginIID << "pluginPaths:" << pluginPaths;
 
-    PluginManager pluginManager;
+    PluginManager::instance();
     PluginManager::setPluginIID(pluginIID);
     PluginManager::setGlobalSettings(globalSettings);
     PluginManager::setSettings(settings);

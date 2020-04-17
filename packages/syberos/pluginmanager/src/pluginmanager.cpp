@@ -14,6 +14,7 @@
 #include <QLibrary>
 #include <QLibraryInfo>
 #include <QMetaProperty>
+#include <QMutexLocker>
 #include <QSettings>
 #include <QSysInfo>
 #include <QTextStream>
@@ -51,7 +52,7 @@ namespace ExtensionSystem {
 using namespace Internal;
 
 static Internal::PluginManagerPrivate *d = nullptr;
-static PluginManager *m_instance = nullptr;
+PluginManager* PluginManager::q = nullptr;
 
 // ========== PluginManager ^ ==========
 /*!
@@ -59,7 +60,14 @@ static PluginManager *m_instance = nullptr;
 */
 PluginManager *PluginManager::instance()
 {
-    return m_instance;
+    static QMutex mutex;
+    if(q == nullptr){
+        QMutexLocker locker(&mutex);
+        if(q == nullptr){
+              q = new PluginManager();
+        }
+    }
+    return q;
 }
 
 /*!
@@ -67,7 +75,6 @@ PluginManager *PluginManager::instance()
 */
 PluginManager::PluginManager()
 {
-    m_instance = this;
     d = new PluginManagerPrivate(this);
 }
 
@@ -78,6 +85,8 @@ PluginManager::~PluginManager()
 {
     delete d;
     d = nullptr;
+    delete q;
+    q = nullptr;
 }
 
 /*!
@@ -681,6 +690,7 @@ PluginManagerPrivate::PluginManagerPrivate(PluginManager *pluginManager) :
 PluginManagerPrivate::~PluginManagerPrivate()
 {
     qDeleteAll(pluginSpecs);
+    q = nullptr;
 }
 
 /*!
@@ -969,7 +979,7 @@ void PluginManagerPrivate::startTests()
         failedTests += executeTestPlan(testPlan);
     }
 
-    QTimer::singleShot(0, this, [failedTests]() { emit m_instance->testsFinished(failedTests); });
+    QTimer::singleShot(0, this, [failedTests]() { emit PluginManager::instance()->testsFinished(failedTests); });
 }
 #endif
 

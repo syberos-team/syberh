@@ -6,6 +6,7 @@
 
 #include "../nativesdk_global.h"
 #include "nativesdkhandlerbase.h"
+#include "../../../pluginmanager/src/pluginspec.h"
 
 
 namespace NativeSdk {
@@ -27,6 +28,8 @@ public:
     NativeSdkHandlerBase * getHandler(QString typeID);
     QMap<QString,NativeSdkHandlerBase*>getAllHandlers();
     bool IsInitConnect(QString typeID);
+
+    ExtensionSystem::PluginSpec* loadPlugin(QString className, QString *errorMessage);
 private :
     QMap<QString,NativeSdkHandlerBase*> m_sdkHandlerCache;
     QMap<QString,bool> m_sdkInitConnectCache;

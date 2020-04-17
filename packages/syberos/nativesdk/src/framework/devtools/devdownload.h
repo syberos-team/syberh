@@ -7,8 +7,6 @@
 #include <QUrl>
 #include "cstoragemanager.h"
 
-namespace NativeSdk {
-
 class DevDownload : public QObject
 {
     Q_OBJECT
@@ -98,5 +96,4 @@ public slots:
     void onError(QNetworkReply::NetworkError code);
 };
 
-}
 #endif // DEVDOWNLOAD_H

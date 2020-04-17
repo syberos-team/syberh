@@ -116,6 +116,9 @@ signals:
     void testsFinished(int failedTests);
 
     friend class Internal::PluginManagerPrivate;
+
+private:
+    static PluginManager *q;
 };
 }
 #endif // PLUGINMANAGER_H

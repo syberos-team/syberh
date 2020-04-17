@@ -19,9 +19,6 @@
 #include "../../nativesdk/src/util/fileutil.h"
 #include "../../nativesdk/src/framework/common/errorinfo.h"
 
-#ifdef QRCODE
-#include "../../vendor/syberh-qrcode/src/qrcoderegister.h"
-#endif
 
 
 using namespace NativeSdk;
@@ -57,7 +54,7 @@ App_Workspace::App_Workspace()
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     m_view->engine()->addImportPath("qrc:/");
 
-    QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
+//    QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
 
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
@@ -69,11 +66,6 @@ App_Workspace::App_Workspace()
     FileUtil * fileutil = new FileUtil;
     m_view->rootContext()->setContextProperty("fileutil",fileutil);
 
-    // qrcode
-#ifdef QRCODE
-    QrcodeRegister * qrcode = new QrcodeRegister();
-    qrcode->init(m_view);
-#endif
 
     // QT版本大于5.6，选择进入特定的qml页面, qml适配， 266是9860手机的dpi值
     #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))

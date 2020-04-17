@@ -64,5 +64,5 @@ include (../vendor/vendor.pri)
 DEFINES += TDEBUG
 
 PLUGINMANAGER_OUT_DIR = $$clean_path($$OUT_PWD/../lib)
-LIBS += -L$$PLUGINMANAGER_OUT_DIR -lnativesdk
 LIBS += -L$$PLUGINMANAGER_OUT_DIR -lpluginmanager
+LIBS += -L$$PLUGINMANAGER_OUT_DIR -lnativesdk

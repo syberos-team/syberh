@@ -4,13 +4,13 @@
 #include <QObject>
 #include "common/errorinfo.h"
 
+class DevTools;
 
 namespace NativeSdk {
 
 class NativeSdkManager;
 class NativeSdkFactory;
 class ExtendedConfig;
-class DevTools;
 class PluginSpec;
 
 namespace Internal {

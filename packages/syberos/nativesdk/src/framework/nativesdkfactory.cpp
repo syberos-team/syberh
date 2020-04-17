@@ -1,7 +1,6 @@
 #include "nativesdkfactory.h"
 #include "pluginadapter.h"
 #include "../../../pluginmanager/src/pluginmanager.h"
-#include "../../../pluginmanager/src/pluginspec.h"
 #include "../../../pluginmanager/src/iplugin/iplugin.h"
 
 #include <QDebug>
@@ -21,10 +20,13 @@ NativeSdkFactory::~NativeSdkFactory(){
 
 
 //初始化指定的插件，若插件加载成功则返回否则返回空指针
-static inline PluginSpec* loadPlugin(QString className, QString *errorMessage){
+PluginSpec* NativeSdkFactory::loadPlugin(QString className, QString *errorMessage){
     PluginManager *pluginManager = PluginManager::instance();
 
     QString name = className.remove("*").trimmed();
+
+    qDebug() << "className:" << className << "PluginManager:" << pluginManager;
+
     QVector<PluginSpec *> pluginSpecs = pluginManager->plugins();
     foreach(PluginSpec *spec, pluginSpecs){
         if(spec->name() != name){
@@ -35,14 +37,6 @@ static inline PluginSpec* loadPlugin(QString className, QString *errorMessage){
             *errorMessage = QString("未找到插件: %1").arg(name);
             return nullptr;
         }
-
-        bool isDone = plugin->initialize(spec->arguments(), errorMessage);
-        if(!isDone){
-            return nullptr;
-        }
-        plugin->extensionsInitialized();
-        //TODO 考虑是否需要做延迟加载
-
         return spec;
     }
     return nullptr;
@@ -61,7 +55,9 @@ NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString className){
     const QMetaObject *metaObj = QMetaType::metaObjectForType(type);
     if(metaObj){
         QObject *obj = metaObj->newInstance();
+
         NativeSdkHandlerBase *instance = qobject_cast<NativeSdkHandlerBase*>(obj);
+
         m_sdkHandlerCache.insert(className, instance);
         m_sdkInitConnectCache.insert(className, false);
         return instance;
@@ -75,11 +71,10 @@ NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString className){
     }
     PluginAdapter *adapter = new PluginAdapter();
     adapter->setPluginSpec(pluginSpec);
+
     m_sdkHandlerCache.insert(className, adapter);
     m_sdkInitConnectCache.insert(className, false);
     return adapter;
-
-
 }
 
 QMap<QString,NativeSdkHandlerBase*> NativeSdkFactory::getAllHandlers(){

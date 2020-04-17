@@ -20,12 +20,11 @@
 #include "../common/extendedconfig.h"
 #include "socketclient.h"
 
-namespace NativeSdk {
 /**
  * 开发工具类
  * @brief The DevTools class
  */
-class DevTools:public NativeSdkHandlerBase
+class DevTools:public NativeSdk::NativeSdkHandlerBase
 {
     Q_OBJECT
 public:
@@ -37,7 +36,7 @@ public:
 private:
     static DevTools *pDevTools;
     SocketClient *socketClient;
-    ExtendedConfig *extendConfig;
+    NativeSdk::ExtendedConfig *extendConfig;
     //服务端IP
     QString serverIp();
     //服务端端口
@@ -52,5 +51,4 @@ public slots:
     void reload();
 };
 
-}
 #endif // DEVTOOLS_H

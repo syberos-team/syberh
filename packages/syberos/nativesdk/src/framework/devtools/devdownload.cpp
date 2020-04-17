@@ -6,7 +6,7 @@
 #include <QDateTime>
 #include "../common/errorinfo.h"
 
-namespace NativeSdk {
+using namespace NativeSdk;
 
 #define DATETIME_FMT "yyyyMMddhhmmss"
 
@@ -270,4 +270,3 @@ void DevDownload::onError(QNetworkReply::NetworkError code){
     closeDownload();
 }
 
-}

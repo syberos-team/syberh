@@ -2,7 +2,7 @@
 #include <QMutexLocker>
 #include "../../util/fileutil.h"
 
-namespace NativeSdk {
+using namespace NativeSdk;
 
 int DevTools::typeId = qRegisterMetaType<DevTools*>();
 DevTools *DevTools::pDevTools=NULL;
@@ -102,5 +102,4 @@ bool DevTools::copyWWW(){
         qDebug()<<Q_FUNC_INFO<<"copyWWW failed " + resp.msg <<endl;
         return false;
     }
-}
 }
