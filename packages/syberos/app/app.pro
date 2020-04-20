@@ -59,8 +59,6 @@ DISTFILES += \
 DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
 
 
-include (../vendor/vendor.pri)
-
 DEFINES += TDEBUG
 
 LIB_OUT_DIR = $$clean_path($$PWD/../lib)
