@@ -1161,12 +1161,14 @@ bool PluginManagerPrivate::loadQueue(PluginSpec *spec,
 void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destState)
 {
     if (spec->hasError() || spec->state() != destState-1){
-        qDebug() << "loadPlugin name: " << spec->name() << "hasError:" << spec->hasError() << "spec->state(): " << (spec->state()) << " destState: " << destState;
+        qDebug() << "loadPlugin name: " << spec->name() << "hasError:" << spec->hasError()
+                 << "error:" << spec->errorString() << "spec->state(): " << (spec->state()) << " destState: " << destState;
         return;
     }
     // don't load disabled plugins.
     if (!spec->isEffectivelyEnabled() && destState == PluginSpec::Loaded){
-        qDebug() << "loadPlugin name: " << spec->name() << "spec->isEffectivelyEnabled():" << (spec->isEffectivelyEnabled()) << "destState: " << destState << " PluginSpec::Loaded: " << PluginSpec::Loaded;
+        qDebug() << "loadPlugin name: " << spec->name() << "spec->isEffectivelyEnabled():" << (spec->isEffectivelyEnabled())
+                 << "destState: " << destState << " PluginSpec::Loaded: " << PluginSpec::Loaded;
         return;
     }
 

@@ -22,7 +22,7 @@ meta.path = $$INSTALL_DIR/
 syber.files = sopconfig.xml
 syber.path = $$INSTALL_DIR/
 
-lib.files = $$OUT_PWD/lib
+lib.files = lib
 lib.path = $$INSTALL_DIR/
 
 plugins.files = plugins

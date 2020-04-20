@@ -26,7 +26,7 @@ HEADERS += \
     $$PWD/src/optionsparser.h
 
 
-DESTDIR += $$clean_path($$OUT_PWD/../lib)
+DESTDIR += $$clean_path($$PWD/../lib)
 
 target.path = $$INSTALL_DIR/lib
 INSTALLS += target

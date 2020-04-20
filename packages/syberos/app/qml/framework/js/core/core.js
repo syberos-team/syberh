@@ -57,7 +57,9 @@ Syber.prototype.getPlugin = function (module, method) {
         }
       }
     }
-  }root
+  }
+
+  return rPlugin;
 };
 
 /**

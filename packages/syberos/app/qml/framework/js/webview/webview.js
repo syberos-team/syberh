@@ -416,7 +416,7 @@ function WebView (options) {
     } else {
       var wpId = 'router_' + (swebviews.length + 1);
       logger.verbose('开始创建新的webview:[%s]', wpId);
-      var sourceQml = SYBEROS.moduleVersion == '59.0' ? '../../SWebview59.qml' : '../../SWebview.qml';
+      var sourceQml = SYBEROS.moduleVersion == '59.0' ? '../SWebview59.qml' : '../SWebview.qml';
       dwevview = new WebView({
         id: wpId,
         module: wpId,

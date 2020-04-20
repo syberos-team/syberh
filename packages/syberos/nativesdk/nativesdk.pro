@@ -49,7 +49,7 @@ SOURCES += \
     $$PWD/src/senvironment.cpp 
 
 
-DESTDIR += $$clean_path($$OUT_PWD/../lib)
+DESTDIR += $$clean_path($$PWD/../lib)
 
 target.path = $$INSTALL_DIR/lib
 INSTALLS += target
@@ -57,6 +57,6 @@ INSTALLS += target
 #TARGET_LIB_DIR = $$clean_path($$[QT_INSTALL_HEADERS]/../../lib)
 #LIBS += -L$$TARGET_LIB_DIR -lsyberos-qt
 
-PLUGINMANAGER_OUT_DIR = $$clean_path($$OUT_PWD/../lib)
-LIBS += -L$$PLUGINMANAGER_OUT_DIR -lpluginmanager
+LIB_OUT_DIR = $$clean_path($$PWD/../lib)
+LIBS += -L$$LIB_OUT_DIR -lpluginmanager
 
