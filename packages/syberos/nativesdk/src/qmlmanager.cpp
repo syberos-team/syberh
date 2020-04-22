@@ -20,6 +20,18 @@ QQuickItem *QmlManager::rootItem()
     return initialPage.value<QQuickItem*>();
 }
 
+QQuickItem *QmlManager::currentItem()
+{
+    QQuickView *m_view = SYBEROS::SyberosGuiCache::qQuickView();
+    QQuickItem *root = m_view->rootObject();
+
+    QVariant cpage = call(root, "pageStack.currentPage");
+    if(cpage.isNull() || !cpage.isValid()){
+        return nullptr;
+    }
+    return cpage.value<QQuickItem*>();
+}
+
 QmlObject* QmlManager::create(const QString &qml)
 {
     QQuickItem *root = rootItem();

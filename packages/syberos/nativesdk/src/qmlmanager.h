@@ -17,6 +17,11 @@ public:
      */
     QQuickItem* rootItem();
     /**
+     * @brief 使用pageStack.currentPage获取当前显示的页面
+     * @return 返回当前的页面，若未获取到返回空指针
+     */
+    QQuickItem* currentItem();
+    /**
      * @brief 创建qml组件，该方法会调用rootItem()作为qml组件的父级节点
      * @param qml qml文件路径
      * @return qml映射对象
@@ -77,7 +82,11 @@ public:
      * @param value 属性值
      */
     void setProperty(QmlObject *qmlObject, const QString &property, const QVariant &value);
-
+    /**
+     * @brief 调用qml页面中的js表达式或qml页面中的js函数，该方法会使用rootItem()作为域调用表达式
+     * @param expression js表达式或函数
+     * @return 返回调用结果，若函数或表达式没有返回则为Invalid
+     */
     QVariant call(const QString &expression);
     /**
      * @brief 调用qml页面中的js表达式或qml页面中的js函数

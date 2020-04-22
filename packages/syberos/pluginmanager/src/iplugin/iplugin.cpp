@@ -46,6 +46,13 @@ PluginSpec *IPlugin::pluginSpec() const
     return d->pluginSpec;
 }
 
+void IPlugin::invoke(QString callbackID, QString action, QVariantMap params)
+{
+    Q_UNUSED(callbackID);
+    Q_UNUSED(action);
+    Q_UNUSED(params);
+}
+
 SignalManager *IPlugin::signalManager()
 {
     return d->signalManager;

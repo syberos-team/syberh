@@ -42,7 +42,7 @@ public:
     PluginSpec *pluginSpec() const;
 
     //插件接受JS SDK调用方法,需要实现该方法，处理插件逻辑
-    virtual void invoke(QString callbackID, QString action, QVariantMap params) = 0;
+    virtual void invoke(QString callbackID, QString action, QVariantMap params);
     //信号管理类，通过该类来绑定插件中的信号
     SignalManager* signalManager();
 signals:
