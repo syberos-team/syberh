@@ -18,7 +18,6 @@ class App_Workspace : public CWorkspace
 
 private:
     QQuickView *m_view;
-    QObject *m_root;
 
 public:
     App_Workspace();

@@ -2,9 +2,12 @@
 #define NETWORKSTATUS_H
 
 #include <QObject>
-#include <cnetworkmanager.h>
 
 #include "../../nativesdk_global.h"
+
+QT_BEGIN_NAMESPACE
+class CNetworkManager;
+QT_END_NAMESPACE
 
 namespace NativeSdk {
 
@@ -12,6 +15,12 @@ class NATIVESDK_EXPORT NetworkStatus : public QObject
 {
     Q_OBJECT
 public:
+    enum NetworkType {
+        None,
+        Wifi,
+        Cellular,
+        Ethernet
+    };
 
     /**
      * 单例函数
@@ -42,7 +51,7 @@ public slots:
      * @param flag
      * @param type : 网络类型
      */
-    void slotNetworkStatusChanged(bool flag, CNetworkManager::NetworkType type);
+    void slotNetworkStatusChanged(bool flag, NetworkType type);
 
 private:
     /**
@@ -51,7 +60,7 @@ private:
     NetworkStatus(QObject *parent = 0);
     static NetworkStatus *m_pNetworkStatus; ///<单例对象
     QString m_nConnectNetworkType; ///<链接网络类型
-    CNetworkManager m_nNetWorkManager; ///<移动网络管理的对象
+    CNetworkManager *m_nNetWorkManager; ///<移动网络管理的对象
 };
 }
 #endif // NETWORKSTATUS_H

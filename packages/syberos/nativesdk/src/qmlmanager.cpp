@@ -127,6 +127,7 @@ QVariant QmlManager::call(QQuickItem *item, const QString &expression)
 void QmlManager::destroy(QmlObject *qmlObject)
 {
     qmlObject->destroy();
+    qmlObject->deleteLater();
 }
 
 }

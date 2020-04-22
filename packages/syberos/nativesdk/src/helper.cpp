@@ -17,16 +17,23 @@
 #include <QMimeDatabase>
 #include <QMutexLocker>
 
+#include "helper_p.h"
 #include "framework/common/extendedconfig.h"
 
 namespace NativeSdk {
 
-Helper* Helper::m_helper = nullptr;
+Helper *Helper::helper = nullptr;
 
 Helper::Helper(QObject *parent) : QObject(parent)
 {
-  env = new CEnvironment(this);
-  appInfo = new CAppInfo();
+    d = new Internal::HelperPrivate();
+    d->env = new CEnvironment(this);
+}
+
+Helper::~Helper()
+{
+    delete d;
+    d = nullptr;
 }
 
 QString Helper::logLevelName()
@@ -42,7 +49,7 @@ QString Helper::logLevelName()
     levelName = "info";
   }
 
-  qDebug() << Q_FUNC_INFO << "levelName" << levelName << endl;
+  qDebug() << "levelName" << levelName << endl;
   return levelName;
 }
 
@@ -52,16 +59,18 @@ bool Helper::exists(QString filePath)
   return file.exists();
 }
 
+
+
 Helper *Helper::instance()
 {
     static QMutex mutex;
-    if(m_helper == nullptr){
+    if(helper == nullptr){
         QMutexLocker locker(&mutex);
-        if(m_helper == nullptr){
-              m_helper = new Helper;
+        if(helper == nullptr){
+              helper = new Helper;
         }
     }
-    return m_helper;
+    return helper;
 }
 
 QString Helper::getWebRootPath()
@@ -95,17 +104,17 @@ QString Helper::getDataWebRootPath()
 
 QString Helper::getDataRootPath()
 {
-  return env->dataPath();
+  return d->env->dataPath();
 }
 
 QString Helper::getExternStorageRootPath()
 {
-  return env->externalStoragePath();
+  return d->env->externalStoragePath();
 }
 
 QString Helper::getInnerStorageRootPath()
 {
-  return env->internalStoragePath();
+  return d->env->internalStoragePath();
 }
 
 QString Helper::sopid()
@@ -219,4 +228,20 @@ bool Helper::isAudio(QString filepath)
   qDebug() << Q_FUNC_INFO << "isAudio, mime: " << filepath << mime.name() << endl;
   return mime.name().startsWith("audio/");
 }
+
+// ========== HelperPrivate ^ ==========
+
+namespace Internal {
+
+HelperPrivate::~HelperPrivate()
+{
+    if(env != nullptr){
+        env->deleteLater();
+        env = nullptr;
+    }
+}
+
+}
+// ========== HelperPrivate & ==========
+
 }

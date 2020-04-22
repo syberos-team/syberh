@@ -32,7 +32,8 @@ HEADERS += \
     $$PWD/src/senvironment.h \ 
     $$PWD/src/qmlobject.h \
     $$PWD/src/qmlobject_p.h \
-    $$PWD/src/qmlmanager.h
+    $$PWD/src/qmlmanager.h \
+    src/helper_p.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \

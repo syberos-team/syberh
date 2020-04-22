@@ -30,20 +30,6 @@ public:
      */
     Q_INVOKABLE void request(QString typeID,QString callbackID,QString actionName,QVariantMap params);
     /**
-      *@brief 用于获取需要导出给qml使用的Object
-      *@param typeID 业务类的typeID,通过反射进行业务类的实例化
-      *@param actionName 请求名称，用于区分是哪个请求
-      */
-    Q_INVOKABLE QObject * getUiSource(QString typeID,QString actionName);
-    /**
-      *@brief 用于上层应用使用c++中加载qml的情况
-      *@param parentName 需要加载的qml的父page对象名
-      *@param colNam   需要加载的qml的父对象名称
-      *@param type     需要加载的qml类型，用于区分加载哪个qml文件
-      */
-    Q_INVOKABLE void loadQml(QString typeID,QString parentPageName,QString parentName,QString type);
-
-    /**
       *@brief 唤起应用方法
       *@url 请求信息
       */

@@ -17,7 +17,7 @@ static QmlObject::Status toStatus(QQmlComponent::Status status){
 
 QmlObject::QmlObject(QObject *parent) : QObject(parent)
 {
-    d = new QmlObjectPrivate(parent);
+    d = new Internal::QmlObjectPrivate(parent);
 }
 
 QmlObject::~QmlObject()
@@ -136,8 +136,12 @@ void QmlObject::destroy()
 
 
 // ========== QmlObjectPrivate ^ ==========
+namespace Internal {
+
 QmlObjectPrivate::QmlObjectPrivate(QObject *parent) : QObject(parent)
 {
+}
+
 }
 // ========== QmlObjectPrivate & ==========
 

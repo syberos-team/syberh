@@ -5,8 +5,6 @@
 #include <QVariantMap>
 
 #include "../nativesdk_global.h"
-#include "./common/networkstatus.h"
-#include "./common/errorinfo.h"
 
 namespace NativeSdk {
 /**
@@ -25,12 +23,7 @@ public:
      * @params 请求传递的参数
      */
     virtual void request(QString callbackID,QString actionName,QVariantMap params);
-    virtual QObject * getUiSource(QString actionName);
-    virtual void  loadQml(QString parentPageName, QString parentName, QString type);
 
-protected:
-    QString getNetworkConnectStatus();
-    bool netWorkConnected();
 signals:
     void success(long responseID, QVariant result);
     void failed(long responseID,long errorCode,QString errorMsg);

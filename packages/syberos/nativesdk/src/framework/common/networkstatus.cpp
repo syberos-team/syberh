@@ -1,14 +1,21 @@
 #include "networkstatus.h"
 #include <QDebug>
+#include <cnetworkmanager.h>
 
 namespace NativeSdk {
 
 NetworkStatus *NetworkStatus::m_pNetworkStatus = NULL;
+
 NetworkStatus::NetworkStatus(QObject *parent):QObject(parent)
 {
-    connect(&m_nNetWorkManager,SIGNAL(networkStatusChanged(bool, CNetworkManager::NetworkType)),
-            this,  SLOT(slotNetworkStatusChanged(bool, CNetworkManager::NetworkType)));
-    CNetworkManager::NetworkType type = m_nNetWorkManager.currentNetworkType();
+    m_nNetWorkManager = new CNetworkManager();
+    connect(m_nNetWorkManager, &CNetworkManager::networkStatusChanged,
+            this,  [this](bool connected, CNetworkManager::NetworkType type){
+        int typeInt = type;
+        slotNetworkStatusChanged(connected, static_cast<NetworkStatus::NetworkType>(typeInt));
+    });
+
+    CNetworkManager::NetworkType type = m_nNetWorkManager->currentNetworkType();
     if(type == CNetworkManager::Cellular)
         m_nConnectNetworkType = "cellular";
     else if (type == CNetworkManager::Wifi)
@@ -29,14 +36,18 @@ NetworkStatus::~NetworkStatus()
         delete m_pNetworkStatus;
         m_pNetworkStatus = NULL;
     }
+    if(m_nNetWorkManager != NULL){
+        delete m_nNetWorkManager;
+        m_nNetWorkManager = NULL;
+    }
 }
 
-void NetworkStatus::slotNetworkStatusChanged(bool flag, CNetworkManager::NetworkType type)
+void NetworkStatus::slotNetworkStatusChanged(bool flag, NetworkType type)
 {
     Q_UNUSED(flag)
-    if(type ==  CNetworkManager::Cellular)
+    if(type ==  Cellular)
         m_nConnectNetworkType = "cellular";
-    else if(type == CNetworkManager::Wifi)
+    else if(type == Wifi)
         m_nConnectNetworkType = "wifi";
     else
         m_nConnectNetworkType = "";

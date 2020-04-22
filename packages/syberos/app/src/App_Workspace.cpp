@@ -79,8 +79,6 @@ App_Workspace::App_Workspace()
 
     m_view->showFullScreen();
 
-    m_root = (QObject *)(m_view->rootObject());
-
 }
 
 void App_Workspace::onLaunchComplete(Option option, const QStringList& params)

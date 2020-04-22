@@ -97,16 +97,6 @@ void NativeSdkManager::request(QString className,QString callbackID,QString acti
     qDebug() << msg;
 }
 
-QObject * NativeSdkManager::getUiSource(QString typeID,QString actionName){
-    NativeSdkHandlerBase * handler = d->nativeSdkFactory->getHandler(typeID);
-    QObject * item = nullptr;
-    if(handler){
-        if(!d->nativeSdkFactory->IsInitConnect(typeID))
-            initHandlerConnect(typeID);
-        item =  handler->getUiSource(actionName);
-    }
-    return item;
-}
 
 void NativeSdkManager::initHandlerConnect(QString typeID){
     NativeSdkHandlerBase * handler = d->nativeSdkFactory->getAllHandlers().value(typeID);
@@ -115,15 +105,6 @@ void NativeSdkManager::initHandlerConnect(QString typeID){
         connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
         connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
         connect(handler,SIGNAL(subscribe(QString,QVariant)),this,SIGNAL(subscribe(QString,QVariant)));
-    }
-}
-
-void NativeSdkManager::loadQml(QString typeID,QString parentPageName, QString parentName, QString type){
-    NativeSdkHandlerBase * handler = d->nativeSdkFactory->getHandler(typeID);
-    if(handler){
-        if(!d->nativeSdkFactory->IsInitConnect(typeID))
-            initHandlerConnect(typeID);
-        handler->loadQml(parentPageName,parentName,type);
     }
 }
 // ========== NativeSdkManager & ==========

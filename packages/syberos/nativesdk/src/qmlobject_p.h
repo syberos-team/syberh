@@ -6,6 +6,8 @@
 
 namespace NativeSdk {
 
+namespace Internal {
+
 class QmlObjectPrivate : public QObject {
     Q_OBJECT
 public:
@@ -18,5 +20,6 @@ public:
     QString errorMessage;
 };
 
-}
+} // namespace Internal
+} // namesapce NativeSdk
 #endif // QMLOBJECT_P_H

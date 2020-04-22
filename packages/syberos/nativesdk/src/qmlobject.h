@@ -8,7 +8,9 @@
 
 namespace NativeSdk {
 
-class QmlObjectPrivate;
+namespace Internal {
+    class QmlObjectPrivate;
+}
 
 class NATIVESDK_EXPORT QmlObject : public QObject
 {
@@ -86,7 +88,7 @@ public:
      */
     void destroy();
 private:
-    QmlObjectPrivate *d;
+    Internal::QmlObjectPrivate *d;
 };
 
 }

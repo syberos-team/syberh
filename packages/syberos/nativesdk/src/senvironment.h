@@ -14,6 +14,7 @@ class NATIVESDK_EXPORT SEnvironment : public CEnvironment
 public:
   SEnvironment();
   ~SEnvironment();
+
   Q_INVOKABLE float dp(int num);
 };
 
