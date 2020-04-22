@@ -1,6 +1,6 @@
 include(../syberos.pri)
 
-QT += core network
+QT += core network quick
 
 TEMPLATE = lib
 DEFINES += NATIVESDK_LIBRARY
@@ -29,7 +29,10 @@ HEADERS += \
     $$PWD/src/util/validator.h \
     $$PWD/src/nativesdk_global.h \
     $$PWD/src/helper.h \
-    $$PWD/src/senvironment.h 
+    $$PWD/src/senvironment.h \ 
+    $$PWD/src/qmlobject.h \
+    $$PWD/src/qmlobject_p.h \
+    $$PWD/src/qmlmanager.h
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
@@ -46,7 +49,9 @@ SOURCES += \
     $$PWD/src/util/log.cpp \
     $$PWD/src/util/validator.cpp \
     $$PWD/src/helper.cpp \
-    $$PWD/src/senvironment.cpp 
+    $$PWD/src/senvironment.cpp \ 
+    $$PWD/src/qmlobject.cpp \
+    $$PWD/src/qmlmanager.cpp
 
 
 DESTDIR += $$clean_path($$PWD/../lib)
