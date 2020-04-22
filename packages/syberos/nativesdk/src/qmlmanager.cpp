@@ -4,6 +4,8 @@
 #include <QQmlExpression>
 #include <SyberosGuiCache>
 
+namespace NativeSdk {
+
 QmlManager::QmlManager(QObject *parent) : QObject(parent)
 {
 
@@ -125,4 +127,6 @@ QVariant QmlManager::call(QQuickItem *item, const QString &expression)
 void QmlManager::destroy(QmlObject *qmlObject)
 {
     qmlObject->destroy();
+}
+
 }

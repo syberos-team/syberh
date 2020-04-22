@@ -6,6 +6,8 @@
 #include <QQmlError>
 #include <SyberosGuiCache>
 
+namespace NativeSdk {
+
 // ========== QmlObject ^ ==========
 static QmlObject::Status toStatus(QQmlComponent::Status status){
     int statusInt = status;
@@ -138,3 +140,5 @@ QmlObjectPrivate::QmlObjectPrivate(QObject *parent) : QObject(parent)
 {
 }
 // ========== QmlObjectPrivate & ==========
+
+}

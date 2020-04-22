@@ -4,6 +4,7 @@
 #include "qmlobject.h"
 #include <QQuickItem>
 
+namespace NativeSdk {
 
 class QmlObjectPrivate : public QObject {
     Q_OBJECT
@@ -17,4 +18,5 @@ public:
     QString errorMessage;
 };
 
+}
 #endif // QMLOBJECT_P_H

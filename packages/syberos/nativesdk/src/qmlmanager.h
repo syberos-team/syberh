@@ -2,11 +2,14 @@
 #define QMLMANAGER_H
 
 #include "qmlobject.h"
+#include "nativesdk_global.h"
 
 #include <QObject>
 #include <QQuickItem>
 
-class QmlManager : public QObject
+namespace NativeSdk {
+
+class NATIVESDK_EXPORT QmlManager : public QObject
 {
     Q_OBJECT
 public:
@@ -116,4 +119,5 @@ signals:
     void error(QString message);
 };
 
+}
 #endif // QMLMANAGER_H

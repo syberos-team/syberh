@@ -1,12 +1,16 @@
 #ifndef QMLOBJECT_H
 #define QMLOBJECT_H
 
+#include "nativesdk_global.h"
+
 #include <QObject>
 #include <QQuickItem>
 
+namespace NativeSdk {
+
 class QmlObjectPrivate;
 
-class QmlObject : public QObject
+class NATIVESDK_EXPORT QmlObject : public QObject
 {
     Q_OBJECT
 public:
@@ -85,4 +89,5 @@ private:
     QmlObjectPrivate *d;
 };
 
+}
 #endif // QMLOBJECT_H
