@@ -64,6 +64,15 @@ QmlObject *QmlManager::open(const QString &qml, QQuickItem *parentItem, const QV
     return qmlObject;
 }
 
+void QmlManager::close(QmlObject *qmlObject)
+{
+    QQuickItem *root = rootItem();
+    qmlObject->close(root);
+    if(qmlObject->hasError()){
+        emit error(qmlObject->errorMessage());
+    }
+}
+
 void QmlManager::connectSignal(QmlObject *qmlObject, const char *signal, const QObject *receiver, const char *member)
 {
     qmlObject->connectSignal(signal, receiver, member);

@@ -62,6 +62,17 @@ void QmlObject::open(const QString &qml, QQuickItem *parentItem, const QVariantM
     d->errorMessage = QString();
 }
 
+void QmlObject::close(QQuickItem *parentItem)
+{
+    QQuickView *m_view = SYBEROS::SyberosGuiCache::qQuickView();
+    QQmlExpression exp(m_view->rootContext(), parentItem, "pageStack.pop()");
+    exp.evaluate();
+    if(exp.hasError()){
+        d->status = Error;
+        d->errorMessage = exp.error().toString();
+    }
+}
+
 void QmlObject::connectSignal(const char *signal, const QObject *receiver, const char *member)
 {
     QObject::connect(d->qmlItem, signal, receiver, member);

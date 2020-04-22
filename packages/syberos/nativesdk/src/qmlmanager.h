@@ -58,6 +58,10 @@ public:
      */
     QmlObject* open(const QString &qml, QQuickItem *parentItem, const QVariantMap &properties);
     /**
+     * @brief 使用PageStack对象pop qml页面，与open()方法配对使用
+     */
+    void close(QmlObject *qmlObject);
+    /**
      * @brief 绑定qml页面中的信号
      * @param qmlObject qml映射对象
      * @param signal qml中的信号，使用SIGNAL()宏生成

@@ -23,8 +23,15 @@ public:
     /**
      * @brief 使用pageStack打开新页面
      * @param qml qml文件路径
+     * @param parentItem 调用PageStack的域
+     * @param properties 打开页面是为页面设置属性
      */
     void open(const QString &qml, QQuickItem *parentItem, const QVariantMap &properties);
+    /**
+     * @brief 使用pageStatck关闭最顶层页面
+     * @param parentItem 调用PageStack的域
+     */
+    void close(QQuickItem *parentItem);
     /**
      * @brief 链接qml中的信号
      * @param signal qml中的信号
