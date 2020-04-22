@@ -77,6 +77,8 @@ public:
      * @param value 属性值
      */
     void setProperty(QmlObject *qmlObject, const QString &property, const QVariant &value);
+
+    QVariant call(const QString &expression);
     /**
      * @brief 调用qml页面中的js表达式或qml页面中的js函数
      * @param qmlObject qml映射对象

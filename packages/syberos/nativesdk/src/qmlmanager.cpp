@@ -83,6 +83,12 @@ void QmlManager::setProperty(QmlObject *qmlObject, const QString &property, cons
     qmlObject->setProperty(property, value);
 }
 
+QVariant QmlManager::call(const QString &expression)
+{
+    QQuickItem *root = rootItem();
+    return call(root, expression);
+}
+
 QVariant QmlManager::call(QmlObject *qmlObject, const QString &expression)
 {
     QVariant result = qmlObject->call(expression);
