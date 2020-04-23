@@ -29,11 +29,12 @@ HEADERS += \
     $$PWD/src/util/validator.h \
     $$PWD/src/nativesdk_global.h \
     $$PWD/src/helper.h \
+    $$PWD/src/helper_p.h \
     $$PWD/src/senvironment.h \ 
     $$PWD/src/qmlobject.h \
     $$PWD/src/qmlobject_p.h \
-    $$PWD/src/qmlmanager.h \
-    src/helper_p.h
+    $$PWD/src/qmlmanager.h
+
 
 SOURCES += \
     $$PWD/src/framework/nativesdkmanager.cpp \
