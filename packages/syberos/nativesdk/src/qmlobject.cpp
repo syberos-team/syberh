@@ -22,7 +22,9 @@ QmlObject::QmlObject(QObject *parent) : QObject(parent)
 
 QmlObject::~QmlObject()
 {
-    d->deleteLater();
+    if(d != nullptr){
+        delete d;
+    }
 }
 
 void QmlObject::create(const QString &qml, QQuickItem *parentItem)
@@ -78,6 +80,11 @@ void QmlObject::close(QQuickItem *parentItem)
 void QmlObject::connectSignal(const char *signal, const QObject *receiver, const char *member)
 {
     QObject::connect(d->qmlItem, signal, receiver, member);
+}
+
+void QmlObject::disconnectSignals()
+{
+    QObject::disconnect(d->qmlItem, 0, 0, 0);
 }
 
 void QmlObject::setProperty(const QString &property, const QVariant &value)

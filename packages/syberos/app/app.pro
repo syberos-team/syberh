@@ -30,7 +30,7 @@ QML_FILES = qml/*.qml
 
 OTHER_FILES += $$QML_FILES *.qm
 
-QMAKE_LFLAGS += -Wl,-rpath,$$INSTALL_DIR/lib
+QMAKE_LFLAGS += -Wl,-rpath=$$INSTALL_DIR/lib
 # The .cpp file which was generated for your project.
 SOURCES += src/main.cpp \
     src/App_Workspace.cpp

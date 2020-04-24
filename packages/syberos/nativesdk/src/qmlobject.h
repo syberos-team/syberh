@@ -46,6 +46,10 @@ public:
      */
     void connectSignal(const char *signal, const QObject *receiver, const char *member);
     /**
+     * @brief 取消qml中的所有信号链接
+     */
+    void disconnectSignals();
+    /**
      * @brief 设置qml中的属性值
      * @param property 属性名
      * @param value 属性值
