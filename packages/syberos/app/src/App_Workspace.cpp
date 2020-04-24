@@ -54,7 +54,7 @@ App_Workspace::App_Workspace()
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     m_view->engine()->addImportPath("qrc:/");
 
-//    QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
+    QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
 
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
