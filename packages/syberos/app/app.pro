@@ -1,16 +1,15 @@
 include(../syberos.pri)
 
-QT_VERSION = $$[QT_VERSION]
-QT_VERSION = $$split(QT_VERSION, ".")
-QT_VER_MAJ = $$member(QT_VERSION, 0)
-QT_VER_MIN = $$member(QT_VERSION, 1)
+SYBERH_QT_VERSION = $$[QT_VERSION]
+SYBERH_QT_VERSION = $$split(SYBERH_QT_VERSION, ".")
+QT_VER_MIN = $$member(SYBERH_QT_VERSION, 1)
 
-lessThan(QT_VER_MAJ, 5) | lessThan(QT_VER_MIN, 6) {
-	message(Qt版本小于5.6)
-  QT += webkit
+lessThan(QT_VER_MIN, 6) {
+    message(Qt版本小于5.6)
+    QT += webkit
 } else {
-  message(Qt版本大于等于5.6)
-  QT += webengine webchannel
+    message(Qt版本大于等于5.6)
+    QT += webengine webchannel
 }
 
 QT += gui qml quick widgets network multimedia core sql dbus

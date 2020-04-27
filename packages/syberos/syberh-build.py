@@ -4,7 +4,6 @@ import argparse
 import os
 import sys
 import time
-import pexpect
 from multiprocessing import cpu_count
 from string import Template
 
@@ -71,6 +70,11 @@ def search_sop(build_path):
             return f
 
 
+def is_support_pexpect():
+    py_verion = sys.version_info
+    return py_verion.major >= 3 and py_verion.minor >= 5
+
+
 def need_package_sop(pro_path):
     pro_dir = os.path.dirname(pro_path)
     xml_path = os.path.join(pro_dir, 'sopconfig.xml')
@@ -80,6 +84,12 @@ def scp_sop(sop_path):
     if not os.path.exists(sop_path):
         print('未找到sop包: ' + sop_path)
         raise SystemExit(1)
+    
+    if not is_support_pexpect():
+        os.system('/usr/bin/expect ./syberh-scp ' + sop_path)
+        return
+
+    import pexpect
 
     child = pexpect.spawn('scp ' + sop_path + ' developer@192.168.100.100:/tmp', encoding='utf-8')
     child.logfile = sys.stdout

@@ -4,7 +4,7 @@
 #include <QLoggingCategory>
 #include <QTimer>
 
-static Q_LOGGING_CATEGORY(benchmarksLog, "qtc.benchmark", QtWarningMsg);
+static Q_LOGGING_CATEGORY(benchmarksLog, "qtc.benchmark");
 
 namespace Utils {
 
@@ -52,9 +52,9 @@ void Benchmarker::report(const QLoggingCategory &cat, const QString &testsuite, 
 
     const QByteArray testSuite = testsuite.toUtf8();
     const QByteArray testCase = testcase.toUtf8();
-    qCDebug(cat, "%s::%s: %lld { %s }", testSuite.data(), testCase.data(), ms, t.toUtf8().data());
+    qCWarning(cat, "%s::%s: %lld { %s }", testSuite.data(), testCase.data(), ms, t.toUtf8().data());
     if (!quitAfter.isEmpty() && quitAfter == testSuite + "::" + testCase)
-        QTimer::singleShot(1000, qApp, &QCoreApplication::quit);
+        QTimer::singleShot(1000, qApp, SLOT(quit()));
 }
 
 

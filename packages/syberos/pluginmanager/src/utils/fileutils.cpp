@@ -9,7 +9,6 @@
 #include <QDir>
 #include <QDebug>
 #include <QDateTime>
-#include <QOperatingSystemVersion>
 #include <QRegExp>
 #include <QTimer>
 #include <QUrl>
@@ -17,15 +16,6 @@
 
 #ifdef QT_GUI_LIB
 #include <QMessageBox>
-#endif
-
-#ifdef Q_OS_WIN
-// We need defines for Windows 8
-#undef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_WIN8
-
-#include <qt_windows.h>
-#include <shlobj.h>
 #endif
 
 
@@ -339,21 +329,8 @@ bool FileUtils::makeWritable(const FilePath &path)
 // This mimics the logic in QDeclarative_isFileCaseCorrect
 QString FileUtils::normalizePathName(const QString &name)
 {
-#ifdef Q_OS_WIN
-    const QString nativeSeparatorName(QDir::toNativeSeparators(name));
-    const auto nameC = reinterpret_cast<LPCTSTR>(nativeSeparatorName.utf16()); // MinGW
-    PIDLIST_ABSOLUTE file;
-    HRESULT hr = SHParseDisplayName(nameC, NULL, &file, 0, NULL);
-    if (FAILED(hr))
-        return name;
-    TCHAR buffer[MAX_PATH];
-    const bool success = SHGetPathFromIDList(file, buffer);
-    ILFree(file);
-    return success ? QDir::fromNativeSeparators(QString::fromUtf16(reinterpret_cast<const ushort *>(buffer)))
-                   : name;
-#else // do not try to handle case-insensitive file systems on Linux
+    // do not try to handle case-insensitive file systems on Linux
     return name;
-#endif
 }
 
 bool FileUtils::isRelativePath(const QString &path)
@@ -389,61 +366,12 @@ FilePath FileUtils::commonPath(const FilePath &oldCommonPath, const FilePath &fi
     return newCommonPath.canonicalPath();
 }
 
-// Copied from qfilesystemengine_win.cpp
-#ifdef Q_OS_WIN
-
-// File ID for Windows up to version 7.
-static inline QByteArray fileIdWin7(HANDLE handle)
-{
-    BY_HANDLE_FILE_INFORMATION info;
-    if (GetFileInformationByHandle(handle, &info)) {
-        char buffer[sizeof "01234567:0123456701234567\0"];
-        qsnprintf(buffer, sizeof(buffer), "%lx:%08lx%08lx",
-                  info.dwVolumeSerialNumber,
-                  info.nFileIndexHigh,
-                  info.nFileIndexLow);
-        return QByteArray(buffer);
-    }
-    return QByteArray();
-}
-
-// File ID for Windows starting from version 8.
-static QByteArray fileIdWin8(HANDLE handle)
-{
-    QByteArray result;
-    FILE_ID_INFO infoEx;
-    if (GetFileInformationByHandleEx(handle,
-                                     static_cast<FILE_INFO_BY_HANDLE_CLASS>(18), // FileIdInfo in Windows 8
-                                     &infoEx, sizeof(FILE_ID_INFO))) {
-        result = QByteArray::number(infoEx.VolumeSerialNumber, 16);
-        result += ':';
-        // Note: MinGW-64's definition of FILE_ID_128 differs from the MSVC one.
-        result += QByteArray(reinterpret_cast<const char *>(&infoEx.FileId), int(sizeof(infoEx.FileId))).toHex();
-    }
-    return result;
-}
-
-static QByteArray fileIdWin(HANDLE fHandle)
-{
-    return QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows8 ?
-                fileIdWin8(HANDLE(fHandle)) : fileIdWin7(HANDLE(fHandle));
-}
-#endif
 
 QByteArray FileUtils::fileId(const FilePath &fileName)
 {
     QByteArray result;
 
-#ifdef Q_OS_WIN
-    const HANDLE handle =
-            CreateFile((wchar_t*)fileName.toUserOutput().utf16(), 0,
-                       FILE_SHARE_READ, NULL, OPEN_EXISTING,
-                       FILE_FLAG_BACKUP_SEMANTICS, NULL);
-    if (handle != INVALID_HANDLE_VALUE) {
-        result = fileIdWin(handle);
-        CloseHandle(handle);
-    }
-#else // Copied from qfilesystemengine_unix.cpp
+    // Copied from qfilesystemengine_unix.cpp
     if (Q_UNLIKELY(fileName.isEmpty()))
         return result;
 
@@ -453,7 +381,6 @@ QByteArray FileUtils::fileId(const FilePath &fileName)
     result = QByteArray::number(quint64(statResult.st_dev), 16);
     result += ':';
     result += QByteArray::number(quint64(statResult.st_ino));
-#endif
     return result;
 }
 
@@ -958,13 +885,4 @@ QTextStream &operator<<(QTextStream &s, const FilePath &fn)
     return s << fn.toString();
 }
 
-#ifdef Q_OS_WIN
-template <>
-void withNtfsPermissions(const std::function<void()> &task)
-{
-    qt_ntfs_permission_lookup++;
-    task();
-    qt_ntfs_permission_lookup--;
-}
-#endif
 } // namespace Utils

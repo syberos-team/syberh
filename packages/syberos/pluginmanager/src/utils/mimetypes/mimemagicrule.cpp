@@ -314,10 +314,16 @@ MimeMagicRule::MimeMagicRule(MimeMagicRule::Type theType,
         d->matchFunction = matchString;
         break;
     case RegExp:
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
         d->regexp.setPatternOptions(QRegularExpression::MultilineOption
                                     | QRegularExpression::DotMatchesEverythingOption
                                     | QRegularExpression::OptimizeOnFirstUsageOption
                                     );
+    #else
+        d->regexp.setPatternOptions(QRegularExpression::MultilineOption
+                                    | QRegularExpression::DotMatchesEverythingOption
+                                    );
+    #endif
         d->regexp.setPattern(QString::fromUtf8(d->value));
         if (!d->regexp.isValid()) {
             d->type = Invalid;

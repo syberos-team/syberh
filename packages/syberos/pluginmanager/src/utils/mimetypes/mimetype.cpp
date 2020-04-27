@@ -127,7 +127,7 @@ MimeType::MimeType() :
 /*!
     Constructs this MimeType object as a copy of \a other.
  */
-MimeType::MimeType(const MimeType &other) = default;
+MimeType::MimeType(const MimeType &other) {Q_UNUSED(other)}
 
 /*!
     Assigns the data of \a other to this MimeType object, and returns a reference to this object.

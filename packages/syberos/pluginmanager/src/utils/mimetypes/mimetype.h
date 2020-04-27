@@ -41,6 +41,7 @@
 
 #include <QtCore/qshareddata.h>
 #include <QtCore/qstring.h>
+#include <QtCore/qhash.h>
 
 QT_BEGIN_NAMESPACE
 class QFileinfo;

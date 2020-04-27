@@ -37,7 +37,7 @@
 
 #include <functional>
 
-Q_LOGGING_CATEGORY(pluginLog, "qtc.extensionsystem", QtDebugMsg)
+Q_LOGGING_CATEGORY(pluginLog, "qtc.extensionsystem")
 
 const char C_IGNORED_PLUGINS[] = "Plugins/Ignored";
 const char C_FORCEENABLED_PLUGINS[] = "Plugins/ForceEnabled";
@@ -1030,7 +1030,16 @@ void PluginManagerPrivate::removeObject(QObject *obj)
 
     emit q->aboutToRemoveObject(obj);
     QWriteLocker lock(&m_lock);
-    allObjects.removeAll(obj);
+
+    QList<int> removeIndexes;
+    for( int i = 0; i < allObjects.size(); i++ ) {
+        if(allObjects.at(i) == obj){
+            removeIndexes.append(i);
+        }
+    }
+    for( int i = 0; i < removeIndexes.size(); i++ ){
+        allObjects.removeAt(i);
+    }
 }
 
 
@@ -1409,7 +1418,7 @@ static inline QString getPlatformName()
 
 QString PluginManager::platformName()
 {
-    static const QString result = getPlatformName() + " (" + QSysInfo::prettyProductName() + ')';
+    static const QString result = getPlatformName() + " (SyberOS)";
     return result;
 }
 

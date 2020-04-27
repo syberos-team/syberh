@@ -59,7 +59,7 @@ enum { defaultMaxHangTimerCount = 10 };
 
 namespace Utils {
 
-Q_LOGGING_CATEGORY(processLog, "qtc.utils.synchronousprocess", QtWarningMsg);
+Q_LOGGING_CATEGORY(processLog, "qtc.utils.synchronousprocess");
 
 // A special QProcess derivative allowing for terminal control.
 class TerminalControllingProcess : public QProcess {
@@ -255,9 +255,16 @@ SynchronousProcess::SynchronousProcess() :
 {
     d->m_timer.setInterval(1000);
     connect(&d->m_timer, &QTimer::timeout, this, &SynchronousProcess::slotTimeout);
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     connect(&d->m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, &SynchronousProcess::finished);
     connect(&d->m_process, &QProcess::errorOccurred, this, &SynchronousProcess::error);
+#else
+    connect(&d->m_process, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
+            this, &SynchronousProcess::finished);
+    connect(&d->m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(error(QProcess::ProcessError)));
+#endif
     connect(&d->m_process, &QProcess::readyReadStandardOutput,
             this, [this]() {
                 d->m_hangTimerCount = 0;
@@ -402,7 +409,7 @@ static bool isGuiThread()
 SynchronousProcessResponse SynchronousProcess::run(const CommandLine &cmd,
                                                    const QByteArray &writeData)
 {
-    qCDebug(processLog).noquote() << "Starting:" << cmd.toUserOutput();
+    qCDebug(processLog) << "Starting:" << cmd.toUserOutput();
     ExecuteOnDestruction logResult([this] {
         qCDebug(processLog) << d->m_result;
     });
@@ -456,7 +463,7 @@ SynchronousProcessResponse SynchronousProcess::run(const CommandLine &cmd,
 
 SynchronousProcessResponse SynchronousProcess::runBlocking(const CommandLine &cmd)
 {
-    qCDebug(processLog).noquote() << "Starting blocking:" << cmd.toUserOutput();
+    qCDebug(processLog) << "Starting blocking:" << cmd.toUserOutput();
     ExecuteOnDestruction logResult([this] {
         qCDebug(processLog) << d->m_result;
     });

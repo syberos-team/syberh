@@ -38,7 +38,7 @@ private:
   ExtendedConfig(const ExtendedConfig &) Q_DECL_EQ_DELETE;
   ExtendedConfig &operator=(ExtendedConfig config) Q_DECL_EQ_DELETE;
 
-  void init(QLatin1String exCfg = QLatin1String());
+  void init(QLatin1String exCfg = QLatin1String(nullptr));
 
   static ExtendedConfig *_instance;
 

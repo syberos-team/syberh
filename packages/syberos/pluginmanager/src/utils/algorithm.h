@@ -1171,9 +1171,10 @@ inline void sort(Container &container, R (S::*function)() const)
 template <typename Container, typename Op>
 inline void reverseForeach(const Container &c, const Op &operation)
 {
-    auto rend = c.rend();
-    for (auto it = c.rbegin(); it != rend; ++it)
-        operation(*it);
+    for (auto it = c.end(); it != c.begin();)
+    {
+        operation(*(--it));
+    }
 }
 
 //////////////////

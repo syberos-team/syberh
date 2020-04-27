@@ -181,7 +181,6 @@ void NameValueItem::apply(NameValueDictionary *dictionary, Operation op) const
 QDebug operator<<(QDebug debug, const NameValueItem &i)
 {
     QDebugStateSaver saver(debug);
-    debug.noquote();
     debug.nospace();
     debug << "KeyValueItem(";
     switch (i.operation) {
