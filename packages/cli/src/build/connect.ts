@@ -27,6 +27,9 @@ export class ConnectChecker {
   private pdkRootPath: string
   private targetName: string
 
+  // 记录调用 isSshEnabled 的次数，不允许操过3次
+  private callIsSshEnabledNum: number = 0;
+
   constructor(pdkRootPath: string, targetName: string) {
     this.pdkRootPath = pdkRootPath
     this.targetName = targetName
@@ -42,10 +45,24 @@ export class ConnectChecker {
   isSshEnabled(ip: string, port: number): boolean {
     log.verbose('ConnectChecker isSshEnabled()')
 
+    this.callIsSshEnabledNum += 1;
+    if (this.callIsSshEnabledNum > 3) {
+      log.verbose('超过调用isSshEnabled()次数，预期组多3次，实际%s次', this.callIsSshEnabledNum);
+      return false;
+    }
+
     shelljs.config.silent = true
     const result = shelljs.exec(expectScript.testSsh(ip, port))
     shelljs.config.silent = false
     log.verbose('ssh连接测试结果：\n >> stdout:%s \n >> stderr:%s', result.stdout, result.stderr)
+
+    if (result.stdout.indexOf('RSA host key for 192.168.100.100 has changed') > 0) {
+      const userHome = process.env.HOME || process.env.USERPROFILE
+      const rmKeyCmd = `ssh-keygen -f "${userHome}/.ssh/known_hosts" -R "192.168.100.100"`;
+      log.verbose('删除本地 ssh RSA key：', rmKeyCmd)
+      shelljs.exec(rmKeyCmd);
+      this.isSshEnabled(ip, port);
+    }
     return result.stdout.includes('/data/developer')
   }
 

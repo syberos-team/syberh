@@ -33,8 +33,9 @@ exports.createCore = function () {
   log.verbose('createCore()')
   // cli 下的核心文件
   const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
-  const vendor = path.join(getTemplatePath(), 'platforms', 'syberos', 'vendor')
-  const spmJson = path.join(getTemplatePath(), 'platforms', 'syberos', 'spm.json')
+  const nativesdk = path.join(getTemplatePath(), 'platforms', 'syberos', 'nativesdk')
+  const pluginmanager = path.join(getTemplatePath(), 'platforms', 'syberos', 'pluginmanager')
+  const syberhPlugins = path.join(getTemplatePath(), 'platforms', 'syberos', 'syberh-plugins')
   const versionPath = path.join(getTemplatePath(), 'platforms', 'syberos', 'VERSION')
   const jssdkPath = path.join(getTemplatePath(), 'www', 'lib', 'syberh.min.js')
   log.verbose('app path ', app)
@@ -50,15 +51,21 @@ exports.createCore = function () {
   const projectAppDir = path.join(projectSyberosDir, 'app')
   log.verbose('projectAppDir path', projectAppDir)
 
-  const projectVendor = path.join(projectSyberosDir, 'vendor')
-  const projectSpmJson = path.join(projectSyberosDir, 'spm.json')
-  log.verbose('projectVendor path', projectVendor)
-
   const projectVersionPath = path.join(projectDir, platformsDirName, 'syberos', 'VERSION')
   log.verbose('projectVersionPath', projectVersionPath)
 
   const projecwJSSDK = path.join(projectDir, 'www', 'lib', 'syberh.min.js')
   log.verbose('projecwJSSDK', projecwJSSDK)
+
+  const projectNativesdk = path.join(projectSyberosDir, 'nativesdk')
+  log.verbose('projectNativesdk', projectNativesdk)
+
+  const projectPluginmanager = path.join(projectSyberosDir, 'pluginmanager')
+  log.verbose('projectPluginmanager', projectPluginmanager)
+
+  const projectSyberhPlugins = path.join(projectSyberosDir, 'syberh-plugins')
+  log.verbose('projectSyberhPlugins', projectSyberhPlugins)
+
   // 删除 app com 目录
   fs.ensureDirSync(projectAppDir)
   log.verbose('removeSync 完成')
@@ -66,13 +73,17 @@ exports.createCore = function () {
   // 重新拷贝app com 目录
   log.verbose('开始拷贝cli app目录')
   fs.copySync(app, projectAppDir)
+  log.verbose('拷贝app完成')
+  fs.copySync(nativesdk, projectNativesdk)
+  log.verbose('拷贝nativesdk完成')
+  fs.copySync(pluginmanager, projectPluginmanager)
+  log.verbose('拷贝pluginmanager完成')
+  fs.copySync(syberhPlugins, projectSyberhPlugins)
+  log.verbose('拷贝syberh-plugins完成')
   fs.copySync(versionPath, projectVersionPath)
   log.verbose('拷贝VERSION完成')
   fs.copySync(jssdkPath, projecwJSSDK)
   log.verbose('拷贝JS-SDK完成')
-  fs.copySync(vendor, projectVendor)
-  fs.copySync(spmJson, projectSpmJson)
-  log.verbose('拷贝vendor完成')
   console.log(
     `${chalk.green('✔ ')}更新 [project] 完成`
   )

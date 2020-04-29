@@ -121,10 +121,10 @@
   resolved "https://registry.npm.taobao.org/@sindresorhus/is/download/@sindresorhus/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha1-n7OjzzEyMoFR81PeRjLgHlIQK+o=
 
-"@syberos/dev-server@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.npmjs.org/@syberos/dev-server/-/dev-server-1.4.1.tgz#631d41298c047561de59f9c8057ad4d9f04b13ff"
-  integrity sha512-6z/v/5UQYwqnf5LBO0QsoCHAMOLopxwboxIOBALecBtoJ3dxq+3oHDgJDvyJd5mmdsVO2Xmtl9Po0SrtmOiIZA==
+"@syberos/dev-server@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.npm.taobao.org/@syberos/dev-server/download/@syberos/dev-server-1.5.3.tgz#5e4ea07aa36b383a8425c14ccc40ec8c81751c80"
+  integrity sha1-Xk6geqNrODqEJcFMzEDsjIF1HIA=
   dependencies:
     archiver "^2.1.1"
     autoprefixer "^8.4.1"

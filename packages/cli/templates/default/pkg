@@ -12,7 +12,7 @@
     "build:device": "syberh build --type device",
     "dev:device": "syberh build --type device  --debug",
     "dev:simulator": "syberh build --type simulator  --debug",
-    "build": "syberh build"
+    "build": "syberh build --type device --onlybuild"
   },
   "author": "YuanXin",
   "license": "MIT",

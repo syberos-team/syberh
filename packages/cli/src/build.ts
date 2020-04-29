@@ -31,7 +31,7 @@ export default async function build(appPath, webPath, buildConfig: IBuildConfig)
 
 async function diagnoseFastfail(buildConfig: IBuildConfig) {
   if (!buildConfig.nodoctor) {
-    const hasFail = await diagnose({checkGlobalTarget: false})
+    const hasFail = await diagnose({ checkGlobalTarget: false })
     if (hasFail) {
       process.exit(0)
     }
@@ -44,7 +44,8 @@ async function buildForDevice(appPath: string, webPath: string, buildConfig: IBu
   await b.build(appPath, webPath, {
     target: projectConfig.target,
     debug: buildConfig.debug,
-    adapter: DEVICES_TYPES.DEVICE
+    adapter: DEVICES_TYPES.DEVICE,
+    onlyBuildSop: buildConfig.onlyBuild
   })
 }
 
@@ -65,6 +66,7 @@ async function buildSop(appPath: string, webPathh: string, buildConfig: IBuildCo
     target: projectConfig.target,
     debug: buildConfig.debug,
     adapter: DEVICES_TYPES.DEVICE,
-    onlyBuildSop: true
+    onlyBuildSop: true,
+    s1: buildConfig.s1
   })
 }
