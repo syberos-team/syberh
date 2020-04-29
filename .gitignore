@@ -17,6 +17,8 @@ packages/syberos/*.pro.user
 packages/cli/dist
 packages/dev-server/dist
 packages/dev-server/www
+packages/syberos/plugins/*
+!packages/syberos/plugins/readme.md
+packages/syberos/lib/
 fetch.sh
 .markdown
-packages/syberos/vendor

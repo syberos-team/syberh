@@ -1,0 +1,3 @@
+[submodule "syberh-plugins"]
+	path = packages/syberos/syberh-plugins
+	url = git@github.com:syberos-team/syberh-plugins.git

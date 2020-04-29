@@ -166,6 +166,8 @@ export interface AppBuildConfig {
   adapter?: DEVICES_TYPES
   // 只打SOP包，不运行
   onlyBuildSop?: boolean
+  // 支持s1手机
+  s1?: boolean
   debug?: boolean
   envHasBeenSet?: boolean
   port?: number
