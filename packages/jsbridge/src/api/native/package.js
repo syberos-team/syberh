@@ -7,7 +7,7 @@ export default function packageMixin(hybrid) {
         os: ['syberos'],
         defaultParams: {
             scheme: '',
-            path: '',
+            path: 'index.html',
             params: {},
         },
         runCode(...rest) {
@@ -28,7 +28,7 @@ export default function packageMixin(hybrid) {
             sopid: '',
             uiappid: '',
             action: 'openPage',
-            path: '',
+            path: 'index.html',
             params: {},
         },
         runCode(...rest) {
