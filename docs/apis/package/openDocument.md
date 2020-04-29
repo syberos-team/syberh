@@ -4,7 +4,9 @@ title: openDocument
 
 ## syberh.package.openDocument(Object object)
 
-唤起应用，如果path传值了，就打开对应页面，然后处理参数，如果path为空，则在当前页面处理
+唤起应用
+
+> 默认打开第二个应用的`index.html`, 不可修改, 如有需要跳转其他页面的, 可自行跳转
 
 此功能需要在被唤起应用的sopconfig.xml中配置doctype [具体配置](../../app-permissions.html#doctype)
 
@@ -17,7 +19,6 @@ title: openDocument
 | sopid | String | 是 | sopid [具体配置](../../app-permissions.html#sopconfig) |
 | uiappid | String | 是 | uiappid [具体配置](../../app-permissions.html#uiapp) |
 | action | String | 是 | 应用可以执行的操作，值：openPage，其余值可参见[具体配置](../../app-permissions.html#doctype) |
-| path | String | 否 | 跳转的页面路径，如果为空则不跳转 |
 | param | Object | 否 | 打开文档的参数 |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
@@ -57,7 +58,6 @@ syberh.package.openDocument({
     sopid:"com.syberh.myaap1",
     uiappid:"myaap1",
     action:"openPage",
-    path:"second.html?name=zhangsan",
     params:{
         mimeType:"*/*",
         filePath:"/data/data/com.syberh.myaap1/test.txt",
