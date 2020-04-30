@@ -113,6 +113,10 @@ public:
 
 signals:
     /**
+     * @brief 调用create()前应该链接该信号，组件创建完成后会触发该信号，该信号出发后才能进行组件的其他操作
+     */
+    void createReady();
+    /**
      * @brief 该类中方法调用出现错误时发送该信号
      * @param message 错误信息
      */

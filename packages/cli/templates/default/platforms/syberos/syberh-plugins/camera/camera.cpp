@@ -1,48 +1,100 @@
-#include <QObject>
-#include <QDebug>
-#include <QException>
-#include <QCameraInfo>
-#include <QCameraImageCapture>
 #include <QDir>
-#include <QDebug>
-#include <QFile>
 #include <QDateTime>
-
+#include <QException>
 #include "camera.h"
-#include "helper.h"
 #include "framework/common/errorinfo.h"
-
-using namespace NativeSdk;
+#include "helper.h"
+#include <SyberosGuiCache>
+#include <QKeyEvent>
 
 Camera::Camera()
 {
 }
 
+void Camera::extensionsInitialized()
+{
+    // error signal
+    connect(&qmlManager, SIGNAL(error(QString)), this, SLOT(error(QString)));
+    qDebug() << Q_FUNC_INFO << "## hello plugin(2)!!!";
+}
 
 void Camera::invoke(QString callbackID, QString actionName, QVariantMap params)
 {
-    qDebug() << "  callbackID:" << callbackID << "actionName:" << actionName << "params:" << params;
+    qDebug() << Q_FUNC_INFO << "## invoke hello plugin(4)!!!" << "  callbackID:" << callbackID << "actionName:" << actionName << "params:" << params;
 
-    if (actionName == "changeImagePath") {
+    if (actionName == "takePhoto") {
+        takePhoto(callbackID, params);
+    } else if (actionName == "changeCameraImagePath") {
         changeCameraImagePath(callbackID, params);
     }
 }
 
-void Camera::changeCameraImagePath(QString callbackID,QVariantMap params){
+void Camera::takePhoto(QString callbackID, QVariantMap params)
+{
+    qDebug() << Q_FUNC_INFO << "params" << params;
+    globalCallbackID = callbackID.toLong();
+
+    QString enableCut = params.value("enableCut").toString();
+
+    qDebug() << Q_FUNC_INFO << "currentItem***************" << qmlManager.currentItem();
+
+    QVariant page = qmlManager.call(qmlManager.currentItem(), "var webviewPage = pageStack.currentPage;console.log(webviewPage);var cameraComponent = pageStack.push('qrc:/qml/SCamera.qml', {'pageItem': webviewPage, 'enableCut':"+ enableCut +"});cameraComponent");
+
+    qDebug() << Q_FUNC_INFO << "page" << page;
+
+    cameraQml = page.value<QQuickItem*>();
+
+    connect(cameraQml, SIGNAL(imageConfirmed(QString, bool)), this, SLOT(imageConfirmed(QString)));
+    connect(cameraQml, SIGNAL(imageCancele()), this, SLOT(imageCancele()));
+}
+
+void Camera::imageConfirmed(QString filePath)
+{
+    qDebug() << Q_FUNC_INFO << "filePath" << filePath<< "****************************";
+
+    QJsonObject jsonObject;
+    jsonObject.insert("path", filePath);
+
+    signalManager()->success(globalCallbackID, QVariant(jsonObject));
+
+    globalCallbackID = 0;
+
+    qmlManager.call(cameraQml, "cameraBack()");
+}
+
+void Camera::error(QString errorMsg)
+{
+    qDebug() << Q_FUNC_INFO << "errorMsg::" << errorMsg;
+    globalCallbackID = 0;
+}
+
+
+void Camera::imageCancele()
+{
+    qDebug() << Q_FUNC_INFO << "****************************";
+
+    signalManager()->success(globalCallbackID, "");
+    globalCallbackID = 0;
+}
+
+
+void Camera::changeCameraImagePath(QString callbackID, QVariantMap params){
     qDebug() << Q_FUNC_INFO << "changeCameraImagePath" << params << endl;
+    globalCallbackID = callbackID.toLong();
+
     QString filePath = params.value("path").toString();
 
     QFile file(filePath);
-    if(!file.exists()){
+    if (!file.exists()) {
         qDebug() << Q_FUNC_INFO << "文件地址不存在：" << filePath << endl;
-        signalManager()->failed(callbackID.toLong(), ErrorInfo::InvalidURLError, "无效的url:照片文件不存在");
+        signalManager()->failed(globalCallbackID, ErrorInfo::InvalidURLError, "无效的url:照片文件不存在");
         return;
     }
 
     //设置系统相机路径
     QString path = Helper::instance()->getInnerStorageRootPath() + "/DCIM";
     QDir dir(path);
-    if(!dir.exists()){
+    if (!dir.exists()) {
         dir.mkpath(path);
     }
     QFileInfo fileInfo(file);
@@ -60,21 +112,14 @@ void Camera::changeCameraImagePath(QString callbackID,QVariantMap params){
         file.remove();
     } catch (QException e) {
         qDebug() << Q_FUNC_INFO << "将照片移动到系统相册失败" << endl;
-        signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, "系统错误:将照片移动到系统相册失败");
+        signalManager()->failed(globalCallbackID, ErrorInfo::SystemError, "系统错误:将照片移动到系统相册失败");
         return;
     }
 
     QJsonObject jsonObject;
     jsonObject.insert("path", newFile);
     QJsonValue::fromVariant(jsonObject);
-    signalManager()->success(callbackID.toLong(), QVariant(jsonObject));
-
-//    camera = new QCamera;
-//    QCameraInfo cameraInfo(camera);
-//    cameraInfo.orientation();//获取照片角度
-//    qDebug() << Q_FUNC_INFO << "cameraInfo.orientation(): " << cameraInfo.orientation() << endl;
-
+    signalManager()->success(globalCallbackID, QVariant(jsonObject));
+    globalCallbackID = 0;
 }
-
-
 

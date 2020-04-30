@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/SConfirm.qml</file>
+        <file>qml/SButton.qml</file>
+        <file>qml/SAlert.qml</file>
+        <file>res/warning.png</file>
+        <file>res/warning_big.png</file>
+        <file>res/success_primary.png</file>
+        <file>res/success_primary_big.png</file>
+        <file>qml/SToast.qml</file>
+        <file>qml/SInputDialog.qml</file>
+        <file>js/util/tool.js</file>
+        <file>res/toast-success.png</file>
+        <file>res/toast-fail.png</file>
+    </qresource>
+</RCC>

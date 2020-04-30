@@ -91,6 +91,16 @@ public:
      * @brief 销毁qml组件
      */
     void destroy();
+
+signals:
+    /**
+     * @brief 创建组件前，需要链接该信号，出发该信号后才可以调用组件的其他方法
+     */
+    void ready();
+
+private slots:
+    void statusChanged(QQmlComponent::Status status);
+
 private:
     Internal::QmlObjectPrivate *d;
 };
