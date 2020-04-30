@@ -7,8 +7,10 @@
 #include "iplugin/iplugin.h"
 #include "cellular_global.h"
 
-class CELLULARSHARED_EXPORT Cellular : public ExtensionSystem::IPlugin
+class CELLULARSHARED_EXPORT Cellular: public ExtensionSystem::IPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "com.syberos.syberh.SyberhPlugin" FILE "plugin.json")
 
 public:
     Cellular();

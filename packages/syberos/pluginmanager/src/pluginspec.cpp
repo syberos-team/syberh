@@ -861,40 +861,36 @@ QVector<PluginSpec *> PluginSpecPrivate::enableDependenciesIndirectly(bool enabl
 
 bool PluginSpecPrivate::loadLibrary()
 {
-    qDebug() << "  (0)loadLibrary name: " << name  << "state: " << state;
+    qDebug() << name < " loadLibrary name: " << name  << "state: " << state;
     if (hasError){
-        qDebug() << "  (1)loadLibrary name: " << name  << "state: " << state;
+        qDebug() << name  << "hasError: " << errorString;
         return false;
     }
     if (state != PluginSpec::Resolved) {
-        qDebug() << "  (2)loadLibrary name: " << name  << "state: " << state;
         if (state == PluginSpec::Loaded){
-            qDebug() << "  (3)loadLibrary name: " << name  << "state: " << state;
             return true;
         }
         errorString = QCoreApplication::translate("PluginSpec", "Loading the library failed because state != Resolved");
         hasError = true;
         return false;
     }
-    qDebug() << "  (4)loadLibrary name: " << name  << "state: " << state;
+    qDebug() << name  << "before loader.load()";
     if (!loader.load()) {
-        qDebug() << "  (5)loadLibrary name: " << name  << "state: " << state;
         hasError = true;
         errorString = QDir::toNativeSeparators(filePath)
             + QString::fromLatin1(": ") + loader.errorString();
-        qDebug() << "  " << errorString;
+        qDebug() << name << "failure loader.load() " << errorString;
         return false;
     }
-    qDebug() << "  (6)loadLibrary name: " << name  << "state: " << state;
+    qDebug() << name  << " before loader.instance()";
     auto *pluginObject = qobject_cast<IPlugin*>(loader.instance());
     if (!pluginObject) {
-        qDebug() << "  (7)loadLibrary name: " << name  << "state: " << state;
         hasError = true;
         errorString = QCoreApplication::translate("PluginSpec", "Plugin is not valid (does not derive from IPlugin)");
+        qDebug() << name  << "failure loader.instance()" << errorString;
         loader.unload();
         return false;
     }
-    qDebug() << "  (8)loadLibrary name: " << name  << "state: " << state;
     state = PluginSpec::Loaded;
     plugin = pluginObject;
     plugin->d->pluginSpec = q;
@@ -919,6 +915,7 @@ bool PluginSpecPrivate::initializePlugin()
         hasError = true;
         return false;
     }
+    qDebug() << name <<  "pluginspec initialize before plugin->initialize()";
     QString err;
     if (!plugin->initialize(arguments, &err)) {
         errorString = QCoreApplication::translate("PluginSpec", "Plugin initialization failed: %1").arg(err);
@@ -926,6 +923,7 @@ bool PluginSpecPrivate::initializePlugin()
         return false;
     }
     state = PluginSpec::Initialized;
+    qDebug() << name <<  "plugin initialize PluginSpec::Initialized";
     return true;
 }
 
@@ -947,9 +945,10 @@ bool PluginSpecPrivate::initializeExtensions()
         hasError = true;
         return false;
     }
-    qDebug() << "pluginspec initializeExtensions before plugin->extensionsInitialized()";
+    qDebug() << name <<  "pluginspec initializeExtensions before plugin->extensionsInitialized()";
     plugin->extensionsInitialized();
     state = PluginSpec::Running;
+    qDebug() << name <<  "plugin extensionsInitialized PluginSpec::Running";
     return true;
 }
 

@@ -32,6 +32,9 @@ void QmlObject::create(const QString &qml, QQuickItem *parentItem)
     QQuickView *m_view = SYBEROS::SyberosGuiCache::qQuickView();
 
     QQmlComponent component(m_view->engine(), qml);
+
+    QObject::connect(&component, SIGNAL(statusChanged(QQmlComponent::Status)), this, SLOT(statusChanged(QQmlComponent::Status)));
+
     QQuickItem *childItem = qobject_cast<QQuickItem*>(component.beginCreate(m_view->rootContext()));
     childItem->setParentItem(parentItem);
     component.completeCreate();
@@ -64,6 +67,7 @@ void QmlObject::open(const QString &qml, QQuickItem *parentItem, const QVariantM
     d->parentItem = parentItem;
     d->status = Ready;
     d->errorMessage = QString();
+    emit ready();
 }
 
 void QmlObject::close(QQuickItem *parentItem)
@@ -137,6 +141,14 @@ void QmlObject::destroy()
         d->qmlItem->deleteLater();
         d->qmlItem = nullptr;
         d->parentItem = nullptr;
+    }
+}
+
+void QmlObject::statusChanged(QQmlComponent::Status status)
+{
+    d->status = toStatus(status);
+    if(d->status == Ready){
+        emit ready();
     }
 }
 // ========== QmlObject & ==========

@@ -17,6 +17,7 @@ class AUDIOSHARED_EXPORT Audio : public ExtensionSystem::IPlugin
 
 public:
     Audio();
+    ~Audio();
 
     void invoke(QString callbackID, QString actionName, QVariantMap params);
 

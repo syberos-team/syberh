@@ -31,3 +31,6 @@ LIB_OUT_DIR = $$absolute_path("lib", $$SYBERH_APP)
 LIBS += -L$$LIB_OUT_DIR -lnativesdk -lpluginmanager
 
 DESTDIR = $$absolute_path("plugins", $$SYBERH_APP)
+
+INCLUDEPATH += /home/xuejun/syberh-v2.0/syberh/packages/syberos/nativesdk/src
+INCLUDEPATH += /home/xuejun/syberh-v2.0/syberh/packages/syberos/pluginmanager/src
