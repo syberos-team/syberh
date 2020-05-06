@@ -1,7 +1,8 @@
-export default function utilMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function utilMixin() {
     const innerUtil = hybridJs.innerUtil;
-    
+
     hybridJs.extendModule('util', [{
         namespace: 'scan',
         os: ['syberos'],
@@ -48,7 +49,7 @@ export default function utilMixin(hybrid) {
                 this,
                 rest,
                 'path');
-            
+
             hybridJs.callInner.apply(this, args);
         },
     }]);

@@ -1,5 +1,6 @@
-export default function navigatorMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function navigatorMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   /**

@@ -1,5 +1,6 @@
-export default function recordMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function recordMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('record', [{

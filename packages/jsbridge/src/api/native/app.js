@@ -1,5 +1,6 @@
-export default function appMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function appMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('app', [

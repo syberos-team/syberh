@@ -1,6 +1,6 @@
-export default function qrcodeMixin (hybrid) {
-    const hybridJs = hybrid;
-  
+import hybridJs from '../../hybrid';
+
+export default function qrcodeMixin () {
     hybridJs.extendModule('qrcode', [{
       namespace: 'scan',
       os: ['syberos'],

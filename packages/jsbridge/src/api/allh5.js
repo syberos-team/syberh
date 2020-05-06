@@ -3,9 +3,7 @@ import pageMixin from './h5/page';
 import storageMixin from './h5/storage';
 import deviceMixin from './h5/device';
 
-const hybridJs = window.syberos;
-
-uiMixin(hybridJs);
-pageMixin(hybridJs);
-storageMixin(hybridJs);
-deviceMixin(hybridJs);
+uiMixin();
+pageMixin();
+storageMixin();
+deviceMixin();

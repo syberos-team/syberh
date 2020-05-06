@@ -1,9 +1,9 @@
 /**
  * 电话接口
- * @param hybrid
  */
-export default function telephonyMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function telephonyMixin () {
   const innerUtil = hybridJs.innerUtil;
 
 

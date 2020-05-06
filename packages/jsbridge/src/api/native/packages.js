@@ -1,13 +1,14 @@
-export default function packageMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function packagesMixin() {
     const innerUtil = hybridJs.innerUtil;
 
-    hybridJs.extendModule('package', [{
+    hybridJs.extendModule('packages', [{
         namespace: 'openUrl',
         os: ['syberos'],
         defaultParams: {
             scheme: '',
-            path: '',
+            path: 'index.html',
             params: {},
         },
         runCode(...rest) {
@@ -28,7 +29,7 @@ export default function packageMixin(hybrid) {
             sopid: '',
             uiappid: '',
             action: 'openPage',
-            path: '',
+            path: 'index.html',
             params: {},
         },
         runCode(...rest) {

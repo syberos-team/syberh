@@ -1,5 +1,6 @@
-export default function deviceMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function deviceMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('device', [{
@@ -15,7 +16,7 @@ export default function deviceMixin(hybrid) {
                 rest,
                 'phoneNum');
             const phoneNum = args[0].phoneNum;
-            
+
             window.location.href = `tel:${phoneNum}`;
         },
     }, {
@@ -34,7 +35,7 @@ export default function deviceMixin(hybrid) {
                 'message');
             const phoneNum = args[0].phoneNum;
             const message = args[0].message;
-            
+
             window.location.href = `sms:${phoneNum}?body=${message}`;
         },
     }, {
@@ -56,7 +57,7 @@ export default function deviceMixin(hybrid) {
             const mail = args[0].mail;
             const subject = args[0].subject;
             const cc = args[0].cc;
-            
+
             window.location.href = `mailto:${mail}?subject=${subject}&cc=${cc}`;
         },
     }]);

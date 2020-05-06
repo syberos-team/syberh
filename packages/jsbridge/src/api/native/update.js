@@ -1,11 +1,11 @@
 /**
  * 文件下载接口
- * @param hybrid
  */
-export default function updateMixin (hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function updateMixin () {
     const innerUtil = hybridJs.innerUtil;
-  
+
     hybridJs.extendModule('update', [{
       namespace: 'check',
       os: ['syberos'],

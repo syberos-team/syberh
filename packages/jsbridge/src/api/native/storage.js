@@ -1,9 +1,9 @@
 /**
  * 存储
- * @param {*} hybrid
  */
-export default function storageMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function storageMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('storage', [{

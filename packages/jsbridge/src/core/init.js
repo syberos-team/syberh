@@ -1,11 +1,11 @@
+import hybridJs from '../hybrid';
 import { log } from '../util/debug';
 import { extend, compareVersion } from '../util/lang';
 
 /**
  * 初始化给配置全局函数
  */
-export default function initMixin (hybrid) {
-  const hybridJs = hybrid;
+export default function initMixin () {
   const globalError = hybridJs.globalError;
   const showError = hybridJs.showError;
   const JSBridge = hybridJs.JSBridge;

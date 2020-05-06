@@ -3,8 +3,9 @@
  * h5和原生交互，jsbridge核心代码
  * 依赖于showError，globalError，os
  */
-export default function jsbridgeMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../hybrid';
+
+export default function jsbridgeMixin() {
 
     // 必须要有一个全局的JSBridge，否则原生和H5无法通信
     // 定义每次重新生成一个JSBridge

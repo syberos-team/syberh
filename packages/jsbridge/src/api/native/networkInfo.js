@@ -1,5 +1,6 @@
-export default function networkInfoMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function networkInfoMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('networkInfo', [{

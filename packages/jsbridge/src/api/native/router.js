@@ -1,5 +1,6 @@
-export default function authMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function authMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('router', [

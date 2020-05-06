@@ -1,5 +1,6 @@
-export default function systemMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function systemMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('system', [{

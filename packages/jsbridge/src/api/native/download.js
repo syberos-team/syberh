@@ -1,9 +1,9 @@
 /**
  * 文件下载接口
- * @param hybrid
  */
-export default function downloadMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function downloadMixin () {
   const innerUtil = hybridJs.innerUtil;
 
 

@@ -1,5 +1,6 @@
-export default function brightnessInfoMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function brightnessInfoMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('brightness', [{

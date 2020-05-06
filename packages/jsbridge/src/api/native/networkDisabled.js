@@ -1,5 +1,6 @@
-export default function networkSetCellularEnabledMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function networkSetCellularEnabledMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('cellular', [{

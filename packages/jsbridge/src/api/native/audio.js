@@ -1,5 +1,6 @@
-export default function audioMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function audioMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('audio', [{

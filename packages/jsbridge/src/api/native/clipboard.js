@@ -1,5 +1,6 @@
-export default function clipboardMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function clipboardMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('clipboard', [{

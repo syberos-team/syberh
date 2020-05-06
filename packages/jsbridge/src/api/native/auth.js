@@ -1,6 +1,6 @@
-export default function authMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../index';
 
+export default function authMixin () {
   hybridJs.extendModule('auth', [{
     namespace: 'getToken',
     os: ['syberos'],

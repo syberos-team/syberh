@@ -1,5 +1,6 @@
-export default function filepickerMixin (hybrid) {
-  const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function filepickerMixin () {
   const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('filepicker', [

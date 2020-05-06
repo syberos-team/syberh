@@ -1,5 +1,6 @@
-export default function vibratorMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../../hybrid';
+
+export default function vibratorMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('vibrator', [{

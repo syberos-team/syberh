@@ -1,3 +1,4 @@
+import hybridJs from '../hybrid';
 import generateJSBridgeTrigger from '../inner/triggerjsbridge';
 
 /**
@@ -5,8 +6,7 @@ import generateJSBridgeTrigger from '../inner/triggerjsbridge';
  * 一般指调用原生环境下的API
  * 依赖于Promise,calljsbridgeMixin
  */
-export default function callnativeapiMixin(hybrid) {
-    const hybridJs = hybrid;
+export default function callnativeapiMixin() {
     const JSBridge = hybridJs.JSBridge;
     const callJsBridge = generateJSBridgeTrigger(JSBridge);
 

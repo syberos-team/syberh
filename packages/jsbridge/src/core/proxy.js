@@ -2,9 +2,9 @@
  * 依赖于以下的基础库
  * Promise
  */
-export default function proxyMixin(hybrid) {
-    const hybridJs = hybrid;
+import hybridJs from '../hybrid';
 
+export default function proxyMixin() {
     /**
      * 对所有的API进行统一参数预处理，promise逻辑支持等操作
      * @param {Object} api 对应的API
@@ -22,7 +22,7 @@ export default function proxyMixin(hybrid) {
     Proxy.prototype.walk = function walk() {
         // 实时获取promise
         const Promise = hybridJs.getPromise();
-        
+
         // 返回一个闭包函数
         return (...rest) => {
             let args = rest;
@@ -53,7 +53,7 @@ export default function proxyMixin(hybrid) {
                     finallyCallback.apply(this, args);
                 });
             }
-            
+
             return finallyCallback && finallyCallback.apply(this, args);
         };
     };

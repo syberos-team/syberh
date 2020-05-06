@@ -1,11 +1,10 @@
 /**
  * 扫描条码
- * @param hybrid
  */
-export default function barcodeMixin (hybrid) {
-  const hybridJs = hybrid;
-  const innerUtil = hybridJs.innerUtil;
+import hybridJs from '../../index';
 
+export default function barcodeMixin () {
+  const innerUtil = hybridJs.innerUtil;
 
   hybridJs.extendModule('barcode', [{
     namespace: 'scan',
