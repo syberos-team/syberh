@@ -31,7 +31,8 @@ void QmlObject::create(const QString &qml, QQuickItem *parentItem)
 {
     QQuickView *m_view = SYBEROS::SyberosGuiCache::qQuickView();
 
-    QQmlComponent component(m_view->engine(), qml);
+    // 必须加QUrl() 为了在os2.1上兼容(alert方法找不到路径会报错)
+    QQmlComponent component(m_view->engine(), QUrl(qml));
 
     QObject::connect(&component, SIGNAL(statusChanged(QQmlComponent::Status)), this, SLOT(statusChanged(QQmlComponent::Status)));
 

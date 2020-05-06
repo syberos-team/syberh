@@ -11,8 +11,9 @@ DevTools::DevTools()
     qDebug()<<Q_FUNC_INFO <<endl;
     extendConfig= ExtendedConfig::instance();
     QVariant debug = extendConfig->get("debug");
+    qDebug()<<Q_FUNC_INFO<<"debug模式"<< debug.toBool() << endl;
+
     if(debug.toBool()){
-        qDebug()<<Q_FUNC_INFO<<"debug模式"<<debug.toBool() << endl;
         if(socketClient==NULL){
              qDebug()<<Q_FUNC_INFO<<"debug模式";
             //拷贝www到data目录下

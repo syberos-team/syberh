@@ -11,6 +11,7 @@ CONFIG += c++11
 
 PKGCONFIG += syberos-qt
 
+DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
 
 HEADERS += \
     $$PWD/src/framework/nativesdkmanager.h \
