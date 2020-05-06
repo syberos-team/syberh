@@ -8,7 +8,7 @@ import { log } from '../util/log'
 export interface CompileGeneralConfig {
   // 编译输出目录
   buildPath: string
-  // pdk命令所在位置
+  // Syberos-Pdk所在位置
   pdkPath: string
   // target完整名称：target-armv7tnhl-xuanwu
   targetName: string
@@ -90,6 +90,15 @@ export class Compiler {
     const nativeSdkSoPath = path.join(platformSyberosPath, 'lib/libnativesdk.so');
     log.verbose('existsLib()  pluginmanager: %s,  nativesdk: %s', pluginManagerSoPath, nativeSdkSoPath);
     return fs.existsSync(pluginManagerSoPath) && fs.existsSync(nativeSdkSoPath);
+  }
+
+  /**
+   * 判断syberh-plugins目录是否存在
+   * @param platformSyberosPath syberh应用中platform/syberos位置
+   */
+  public isSyberhPluginsExists(platformSyberosPath: string): boolean {
+    const syberhPluginsPath = path.join(platformSyberosPath, 'syberh-plugins')
+    return fs.existsSync(syberhPluginsPath);
   }
 
 

@@ -181,8 +181,23 @@ export class Build {
     console.log(chalk.green('准备执行编译指令'))
 
     const compiler = new compile.Compiler()
+
+    const platformsSyberosPath = path.join(this.appPath, 'platforms/syberos');
+    // syberh-plugins是否存在，不存在时只编译syberh应用
+    const existsSyberhPlugins = compiler.isSyberhPluginsExists(platformsSyberosPath);
+    if (!existsSyberhPlugins) {
+      try {
+        const sopPath = this.compileApp(true);
+        log.info('编译完成，sop：', sopPath);
+        return sopPath;
+      } catch (e) {
+        log.error('编译syberh应用失败: ', e)
+        return null;
+      }
+    }
+    // syberh-plugins存在，需要编译插件
     try {
-      if (!compiler.existsLib(path.join(this.appPath, 'platforms/syberos'))) {
+      if (!compiler.existsLib(platformsSyberosPath)) {
         log.verbose('lib中未找到so，编译插件前先编译一次应用')
         this.compileApp(false);
       }
