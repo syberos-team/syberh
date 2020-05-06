@@ -16,7 +16,8 @@
       "app-permissions",
       "started-ide",
       "started-spm",
-      "return_code"
+      "return_code",
+      "vue-use-syberh"
     ]
   },
   "API": {

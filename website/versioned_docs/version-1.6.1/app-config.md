@@ -1,5 +1,7 @@
 ---
 title: APP 配置
+id: version-1.6.1-app-config
+original_id: app-config
 ---
 
 `project.config.json`配置项目相关信息
