@@ -328,7 +328,7 @@ function npmInstall (shouldUseYarn, projectName, helper, cb) {
   // install
   let command
   if (shouldUseYarn) {
-    command = 'yarn install'
+    command = 'yarn'
   } else if (helper.shouldUseCnpm()) {
     command = 'cnpm install'
   } else {

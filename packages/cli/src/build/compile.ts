@@ -72,7 +72,7 @@ export class Compiler {
       conf.qmakeArgs = [];
     }
     conf.qmakeArgs.push('SYBERH_APP=' + conf.platformSyberosPath);
-    conf.qmakeArgs.push('SOPID=', conf.sopid);
+    conf.qmakeArgs.push('SOPID=' + conf.sopid);
 
     for (const pluginName of conf.plugins) {
       const pluginProPath = this.findPluginProPath(pluginName, conf.platformSyberosPath);
