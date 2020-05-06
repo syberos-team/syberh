@@ -10,6 +10,7 @@ import "./js/util/log.js" as LOG
 
 
 CPage{
+    objectName: "webView"
     id: webView
     // 屏幕自动旋转
     orientationPolicy: CPageOrientation.Automatic
@@ -173,6 +174,11 @@ CPage{
 
     }
 
+    // 获取页面旋转方向, 默认是自动旋转(0)
+    function getPageOrientation() {
+        return webView.orientationPolicy || CPageOrientation.Automatic
+    }
+
     // 设置页面旋转方向 1: 竖屏 2：横屏 默认： 跟着设备旋转
     function setPageOrientation(orientation) {
         if (orientation == 1) {
@@ -285,11 +291,6 @@ CPage{
             }
             url:surl
             webChannel: channel
-
-            // 设置页面横竖屏方向
-            function setPageOrientation(orientation) {
-                webView.changePageOrientation(orientation)
-            }
 
             profile: WebEngineProfile{
               httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS " + helper.aboutPhone().osVersionCode + " " + helper.getQtVersion() +";"

@@ -861,7 +861,7 @@ QVector<PluginSpec *> PluginSpecPrivate::enableDependenciesIndirectly(bool enabl
 
 bool PluginSpecPrivate::loadLibrary()
 {
-    qDebug() << name < " loadLibrary name: " << name  << "state: " << state;
+    qDebug() << name << " loadLibrary name: " << name  << "state: " << state;
     if (hasError){
         qDebug() << name  << "hasError: " << errorString;
         return false;

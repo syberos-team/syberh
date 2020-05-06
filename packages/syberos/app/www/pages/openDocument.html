@@ -70,7 +70,6 @@
       var sopid = document.getElementById("sopid").value;
       var uiappid = document.getElementById("uiappid").value;
       var action = document.getElementById("action").value;
-      var path = document.getElementById("path").value;
       var mimeType = document.getElementById("mimeType").value;
       var filePath = document.getElementById("filePath").value;
       var value1 = document.getElementById("value1").value;
@@ -90,11 +89,10 @@
         params["key2"] = value2;
       }
 
-      syberh.package.openDocument({
+      syberh.packages.openDocument({
         sopid: sopid,
         uiappid: uiappid,
         action: action,
-        path: path,
         params: params,
         success: function (result) {
           document.getElementById("resultMsg").innerHTML = result;

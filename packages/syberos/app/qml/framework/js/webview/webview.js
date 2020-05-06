@@ -6,6 +6,9 @@ var WebviewStatusPop = 1;
 var OnShowStautsReady = 'ready';
 var OnShowStautsRedisplay = 'redisplay';
 
+// 初次打开的页面
+var HomePageUrl = '';
+
 function WebView (options) {
   // 默认参数
   var defaultOpts = {
@@ -100,6 +103,9 @@ function WebView (options) {
       NativeSdkManager.subscribe.connect(that.onSubscribe.bind(that));
 
       logger.verbose('on ready registrNativeSdkManager:[%s] 绑定完成', registrNativeSdkManager);
+      
+      // 第一次的时候,获取url地址
+      HomePageUrl = swebviews[0].object.getCurrentUrl();
     }
 
     // 绑定消息接受信号
@@ -113,7 +119,7 @@ function WebView (options) {
     });
 
     NativeSdkManager.request('DevTools*', 12378, '', '');
-    NativeSdkManager.request('Package*', 151010, '', '');
+    NativeSdkManager.request('Packages*', 151010, '', '');
   });
 
   // 页面被打开
@@ -425,8 +431,9 @@ function WebView (options) {
         removePlugin: true,
         page: true
       });
-
-      var orientationPolicy = globalPageOrientation;
+      
+      // 通过第一个页面的方向来判断全局页面的方向(因为第一个页面方向无法通过navigateTo跳转带上方向)
+      var orientationPolicy =  swebviews[0].object.getPageOrientation();
       var orientation = param.orientation;
 
       if (orientation != undefined) {
@@ -719,6 +726,11 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
     logger.verbose(JSON.stringify(currentWebview.module));
     module = currentWebview.module;
     logger.verbose('onMessageReceived() laset module ', module);
+  } else if (module === 'packages') {
+    // 如果是packages模块,发送消息的页面在这里进行修改
+    var urlArr = HomePageUrl.split('/')
+    funcArgs.path = urlArr[urlArr.length-1]
+    console.log('packages****funcArgs****', JSON.stringify(funcArgs))
   }
 
   // 如果为ui模块
@@ -748,7 +760,6 @@ WebView.prototype.onSuccess = function (handlerId, result) {
   }
   // 返回内容
   var resObj = {
-    // handlerName:"handleError",
     responseId: Number(handlerId),
     responseData: {
       result: result
@@ -771,19 +782,20 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
     }
     return;
   }
-  // 第2个APP被唤起的时候，监听的onReady事件
+
+  // 第2个APP被唤起的时候，监听的onReady事件,消息推送到HomePageUrl页面
   if (handlerName === 'package') {
-    var params = {};
-    params.url = result.path;
     this.pushQueue('subscribe', {
       handlerName: 'onReady',
-      url: result.path,
+      url: HomePageUrl,
       result: result
     });
-    this.trigger('redirectTo', this.object, null, params);
-
+    
+    // 每次进来都是首页,重新加载, 在ready事件中,页面加载到100%的时候,会dog一下,onReady事件就触发了
+    swebviews[0].object.reload();
     return;
   }
+
   var resObj = {
     handlerName: handlerName,
     data: {

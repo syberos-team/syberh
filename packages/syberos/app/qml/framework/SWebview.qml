@@ -9,6 +9,7 @@ import "./js/util/log.js" as LOG
 
 
 CPage{
+    objectName: "webView"
     id: webView
     // 屏幕自动旋转
     orientationPolicy: CPageOrientation.Automatic
@@ -173,6 +174,11 @@ CPage{
                         )
         }
 
+    }
+
+    // 获取页面旋转方向, 默认是自动旋转(0)
+    function getPageOrientation() {
+        return webView.orientationPolicy || CPageOrientation.Automatic
     }
 
     // 设置页面旋转方向 1: 竖屏 2：横屏 默认： 跟着设备旋转
