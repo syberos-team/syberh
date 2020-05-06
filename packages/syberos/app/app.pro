@@ -55,11 +55,6 @@ INSTALLS += target qm web res
 DISTFILES += \
     res/app.png
 
-DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
-
-
-DEFINES += TDEBUG
-
 LIB_OUT_DIR = $$clean_path($$PWD/../lib)
 LIBS += -L$$LIB_OUT_DIR -lpluginmanager
 LIBS += -L$$LIB_OUT_DIR -lnativesdk
