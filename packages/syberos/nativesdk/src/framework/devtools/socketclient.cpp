@@ -68,15 +68,13 @@ void SocketClient::create(const QString &url, const int &port){
 }
 
 void SocketClient::socketError(QAbstractSocket::SocketError error){
-    Q_UNUSED(error);
     if(connectCount<3){
         connectCount+=1;
     }else{
         timer->stop();
         qDebug() <<Q_FUNC_INFO <<"stop timer";
     }
-    qDebug() <<Q_FUNC_INFO <<"socketError";
-
+    qDebug() <<Q_FUNC_INFO << "socketError" << error;
 }
 
 
