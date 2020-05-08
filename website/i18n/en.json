@@ -5,6 +5,9 @@
     "previous": "Previous",
     "tagline": "Syberh是一款轻量级的支持SyberOS Hybrid App开发框架",
     "docs": {
+      "add-plugins": {
+        "title": "拓展插件"
+      },
       "apis/about/desc": {
         "title": "API 说明"
       },
@@ -266,6 +269,9 @@
       },
       "global-event": {
         "title": "订阅事件"
+      },
+      "library": {
+        "title": "C++库"
       },
       "qt/about/desc": {
         "title": "C++ 说明"

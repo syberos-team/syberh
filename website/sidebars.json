@@ -15,9 +15,10 @@
       "app-config",
       "app-permissions",
       "started-ide",
-      "started-spm",
       "return_code",
-      "vue-use-syberh"
+      "vue-use-syberh",
+      "add-plugins",
+      "library"
     ]
   },
   "API": {
