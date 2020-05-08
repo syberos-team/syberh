@@ -8,6 +8,7 @@ TARGET = nativesdk
 
 CONFIG += link_pkgconfig
 CONFIG += c++11
+CONFIG += plugin
 
 PKGCONFIG += syberos-qt
 
