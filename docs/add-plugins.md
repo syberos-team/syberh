@@ -293,35 +293,44 @@ Syberh框架在`NativeSdk`下提供了`QmlManager`类, 用来操作qml
 
 一种是像`modal`模块这样, 一种是像`filepicker`模块, 具体区别如下:
 
-- `modal`模块下的`toast`方法
+- `modal`模块下的`confirm`方法
 ```C++
-// SToast.qml
-Rectangle {
-  function show(title, icon, duration) {
-    // 具体代码...
-  }
+// SConfirm.qml
+CAbstractPopLayer{
+   // 拒绝信号，当点击默认的“取消”按钮时发射
+   signal rejected()
+
+   // 接受信号，当点击默认的“确定”按钮时发射
+   signal accepted()
+
+   function show() {}
 }
 ```
 
 ```C++
   QmlManager qmlManager;
-  // 创建一个modal模块下的SToast.qml, create第二个参数表示在qml组件创建在当前Item上
-  QmlObject *toastQml = qmlManager.create("qrc:/qml/SToast.qml", qmlManager.currentItem());
-  
-  // 通过qmlManager.call()执行SToast.qml中的show()方法, 这里需要注意字符串拼接
-  QVariant result = qmlManager.call(toastQml, "show('"+ title + "','" + icon + "','" + duration +"')");
+  // 创建一个modal模块下的SConfirm.qml, create第二个参数表示在qml组件创建在当前Item上
+  confirmQml = qmlManager.create("qrc:/qml/SConfirm.qml", qmlManager.currentItem());
 
-  // 接收qmlManager.call()执行结果, 来判断是成功还是失败 (SToast.qml中show()出错会返回错误码)
-  QString errorMsg = result.toString();
-  if (errorMsg.isEmpty()) {
-      // 返回成功信号,并且销毁qml组件
-      signalManager()->success(callbackID.toLong(), "");
-      qmlManager.destroy(toastQml);
-  } else {
-      // 返回失败信号,并且销毁qml组件
-      signalManager()->failed(callbackID.toLong(), ErrorInfo::InvalidParameter, errorMsg);
-      qmlManager.destroy(toastQml);
-  }
+  // 设置属性
+  qmlManager.setProperty(confirmQml, "titleText", title);
+
+  // 连接信号
+  qmlManager.connectSignal(confirmQml, SIGNAL(accepted()), this, SLOT(confirmSuccess()));
+  qmlManager.connectSignal(confirmQml, SIGNAL(rejected()), this, SLOT(confirmReject()));
+
+  // 调用qml的show()来显示
+  qmlManager.call(confirmQml, "show()");
+```
+
+```C++
+void Modal::confirmSuccess()
+{
+    // 返回成功信号
+    signalManager()->success(globalCallbackID, true);
+    // 销毁组件
+    qmlManager.destroy(confirmQml);
+}
 ```
 
 - `filepicker`模块下的`open`方法, 最外层必须是`CPage{}`
@@ -330,6 +339,7 @@ Rectangle {
 CPage {
   property string titleText: ""
   signal cancel()
+  // filesPath是一个对象,返回的时候转化成json字符串
   signal ok(string filesPath)
 }
 ```
