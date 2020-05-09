@@ -9,8 +9,6 @@ import QtWebEngine 1.5
 import QtWebChannel 1.0
 
 import "../js/util/log.js" as LOG
-import "./"
-import "./CMenu"
 
 
 CPage{

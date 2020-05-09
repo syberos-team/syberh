@@ -17,13 +17,13 @@ void Package::request(QString callBackID, QString actionName, QVariantMap params
     Q_UNUSED(callBackID);
     Q_UNUSED(actionName);
     Q_UNUSED(params);
-    qDebug() << "params: " << params << endl;
+    qDebug() << Q_FUNC_INFO << "params: " << params << endl;
 
     long callBackIDLong = callBackID.toLong();
     if (actionName == "openUrl") {
 
         QString scheme = params.value("scheme").toString();
-        QString path = params.value("path").toString();
+        QString path = "index.html";
         QVariantMap pathParams = params.value("params").toMap();
 
         openUrl(callBackIDLong, scheme, path, pathParams);
@@ -40,7 +40,7 @@ void Package::request(QString callBackID, QString actionName, QVariantMap params
         QString sopId = params.value("sopid").toString();
         QString uiappId = params.value("uiappid").toString();
         QString action = params.value("action").toString();
-        QString path = params.value("path").toString();
+        QString path = "index.html";
         QVariantMap pathParams = params.value("params").toMap();
 
         openDocument(callBackIDLong, sopId, uiappId, action, path, pathParams);
@@ -64,6 +64,7 @@ void Package::submit(QString typeID, QString callBackID, QString actionName, QVa
 
 void Package::openUrl(long callBackID, QString scheme, QString path, QVariantMap params){
     using namespace SYBEROS;
+    qDebug() << Q_FUNC_INFO << "params: " << scheme << params << endl;
 
     if(scheme.isEmpty()){
         emit failed(callBackID, ErrorInfo::InvalidParameter, "scheme参数不能为空");
@@ -79,13 +80,14 @@ void Package::openUrl(long callBackID, QString scheme, QString path, QVariantMap
     if(schemeList.value(1).indexOf("openPage") >= 0){
         openPage(callBackID, scheme, path, params);
     }else{
-        qApp->openUrl(scheme + path);
+        qApp->openUrl(scheme);
         emit success(callBackID, "success");
     }
 }
 
 void Package::openPage(long callBackID, QString scheme, QString path, QVariantMap params){
     using namespace SYBEROS;
+    qDebug() << Q_FUNC_INFO << "params: " << scheme << params << endl;
 
     //遍历params拼接成key=value&key=value格式
     QString paramStr = "";
@@ -105,10 +107,7 @@ void Package::openPage(long callBackID, QString scheme, QString path, QVariantMa
 
     //如果路径包含多个?，提示路径错误
     QStringList list = path.split("?");
-    if(list.size() != 2){
-        emit failed(callBackID, 500, "Illegal Path");
-        return;
-    }
+
     if(list.size() == 1){
         path = path + "?" + paramStr;
     }else{
@@ -122,6 +121,7 @@ void Package::openPage(long callBackID, QString scheme, QString path, QVariantMa
 }
 
 void Package::openByUrl(QString url){
+    qDebug() << Q_FUNC_INFO << "url: " << url << endl;
 
     //url格式为: scheme://openPage/index.html?key=value&key=value
     QStringList list = url.split("://");
@@ -181,6 +181,7 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
                   QString action, QString path, QVariantMap params){
 
     using namespace SYBEROS;
+    qDebug() << Q_FUNC_INFO << "params: " << sopId << uiappId << action << path << params << endl;
 
     if(sopId.isEmpty()){
         emit failed(callBackID, ErrorInfo::InvalidParameter, "sopid is empty");
@@ -226,6 +227,8 @@ void Package::openDocument(long callBackID, QString sopId, QString uiappId,
 
 void Package::openByDocument(QString action, QString mimetype, QString filePath){
 
+    qDebug() << Q_FUNC_INFO << "action: " << action << mimetype << filePath << endl;
+
     QString path = action;
     if(path.isEmpty()){
         path = "index.html";
@@ -256,6 +259,8 @@ void Package::openByDocument(QString action, QString mimetype, QString filePath)
 
 QString Package::convertParamToUrl(QString url, QVariantMap paramMap){
 
+    qDebug() << Q_FUNC_INFO << "url: " << url << paramMap << endl;
+
     QMap<QString, QVariant>::Iterator it = paramMap.begin();
 
     QString paramStr;
@@ -281,6 +286,8 @@ QString Package::convertParamToUrl(QString url, QVariantMap paramMap){
 }
 
 QVariantMap Package::parseUrlToParam(QString url, QVariantMap paramMap){
+
+    qDebug() << Q_FUNC_INFO << "url: " << url << paramMap << endl;
 
     if(url.isEmpty()){
         return paramMap;

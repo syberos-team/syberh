@@ -931,6 +931,12 @@
       },
       "version-1.6.1/version-1.6.1-vue-use-syberh": {
         "title": "vue项目使用syberh"
+      },
+      "version-1.6.4/apis/package/version-1.6.4-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.6.4/apis/package/version-1.6.4-openUrl": {
+        "title": "openUrl"
       }
     },
     "links": {
