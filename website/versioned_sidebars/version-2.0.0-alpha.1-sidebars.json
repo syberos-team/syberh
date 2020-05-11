@@ -1,0 +1,201 @@
+{
+  "version-2.0.0-alpha.1-docs": {
+    "关于Syberh": [
+      "version-2.0.0-alpha.1-README"
+    ],
+    "快速开始": [
+      "version-2.0.0-alpha.1-started-cli",
+      "version-2.0.0-alpha.1-started-install",
+      "version-2.0.0-alpha.1-first-app",
+      "version-2.0.0-alpha.1-started-lifecycle"
+    ],
+    "进阶指南": [
+      "version-2.0.0-alpha.1-global-event",
+      "version-2.0.0-alpha.1-cli-readme",
+      "version-2.0.0-alpha.1-app-config",
+      "version-2.0.0-alpha.1-app-permissions",
+      "version-2.0.0-alpha.1-started-ide",
+      "version-2.0.0-alpha.1-return_code",
+      "version-2.0.0-alpha.1-vue-use-syberh",
+      "version-2.0.0-alpha.1-add-plugins",
+      "version-2.0.0-alpha.1-library"
+    ]
+  },
+  "version-2.0.0-alpha.1-API": {
+    "关于API": [
+      "version-2.0.0-alpha.1-apis/about/desc"
+    ],
+    "全局配置": [
+      "version-2.0.0-alpha.1-apis/app/setAppOrientation"
+    ],
+    "路由": [
+      "version-2.0.0-alpha.1-apis/router/router"
+    ],
+    "模态弹窗": [
+      "version-2.0.0-alpha.1-apis/modal/toast",
+      "version-2.0.0-alpha.1-apis/modal/gtoast",
+      "version-2.0.0-alpha.1-apis/modal/alert",
+      "version-2.0.0-alpha.1-apis/modal/confirm",
+      "version-2.0.0-alpha.1-apis/modal/prompt"
+    ],
+    "媒体": [
+      {
+        "label": "相机",
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/multimedia/camera/takePhoto"
+        ]
+      },
+      {
+        "label": "录音",
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/multimedia/record/list",
+          "version-2.0.0-alpha.1-apis/multimedia/record/start",
+          "version-2.0.0-alpha.1-apis/multimedia/record/pause",
+          "version-2.0.0-alpha.1-apis/multimedia/record/resume",
+          "version-2.0.0-alpha.1-apis/multimedia/record/stop",
+          "version-2.0.0-alpha.1-apis/multimedia/record/remove"
+        ]
+      },
+      {
+        "label": "音频",
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/multimedia/audio/start",
+          "version-2.0.0-alpha.1-apis/multimedia/audio/pause",
+          "version-2.0.0-alpha.1-apis/multimedia/audio/resume",
+          "version-2.0.0-alpha.1-apis/multimedia/audio/stop"
+        ]
+      },
+      {
+        "label": "图片",
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/image/chooseImage",
+          "version-2.0.0-alpha.1-apis/image/previewImage",
+          "version-2.0.0-alpha.1-apis/image/saveImageToPhotosAlbum",
+          "version-2.0.0-alpha.1-apis/image/getImageInfo"
+        ]
+      }
+    ],
+    "电话": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/telephony/dial"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/clipboard/setClipboardData",
+          "version-2.0.0-alpha.1-apis/clipboard/getClipboardData"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/system/aboutPhone",
+          "version-2.0.0-alpha.1-apis/system/battery",
+          "version-2.0.0-alpha.1-apis/system/networkInfo"
+        ]
+      }
+    ],
+    "数据网络": [
+      "version-2.0.0-alpha.1-apis/cellular/networkDisabled",
+      "version-2.0.0-alpha.1-apis/cellular/networkEnabled"
+    ],
+    "数据存储": [
+      "version-2.0.0-alpha.1-apis/storage/setItem",
+      "version-2.0.0-alpha.1-apis/storage/getItem",
+      "version-2.0.0-alpha.1-apis/storage/removeItem",
+      "version-2.0.0-alpha.1-apis/storage/getAllKeys",
+      "version-2.0.0-alpha.1-apis/storage/removeAll"
+    ],
+    "网络": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/request/request"
+        ]
+      }
+    ],
+    "下载": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/download/download",
+          "version-2.0.0-alpha.1-apis/download/download-cancel"
+        ]
+      }
+    ],
+    "文件选择": [
+      "version-2.0.0-alpha.1-apis/filepicker/filepicker"
+    ],
+    "文件管理": [
+      "version-2.0.0-alpha.1-apis/fileManager/move",
+      "version-2.0.0-alpha.1-apis/fileManager/copy",
+      "version-2.0.0-alpha.1-apis/fileManager/fileList",
+      "version-2.0.0-alpha.1-apis/fileManager/getInfo",
+      "version-2.0.0-alpha.1-apis/fileManager/remove"
+    ],
+    "应用管理": [
+      "version-2.0.0-alpha.1-apis/package/openUrl",
+      "version-2.0.0-alpha.1-apis/package/openDocument"
+    ],
+    "path": [
+      "version-2.0.0-alpha.1-apis/path/extern",
+      "version-2.0.0-alpha.1-apis/path/inner",
+      "version-2.0.0-alpha.1-apis/path/dataRoot"
+    ],
+    "扫码": [
+      "version-2.0.0-alpha.1-apis/qrcode/scan"
+    ],
+    "上传": [
+      "version-2.0.0-alpha.1-apis/upload/upload",
+      "version-2.0.0-alpha.1-apis/upload/upload-cancel"
+    ],
+    "设备": [
+      {
+        "label": "屏幕亮度",
+        "type": "subcategory",
+        "ids": [
+          "version-2.0.0-alpha.1-apis/brightness/brightnessInfo",
+          "version-2.0.0-alpha.1-apis/brightness/setAmbientLightSensorEnabled",
+          "version-2.0.0-alpha.1-apis/brightness/setBlankTimeout",
+          "version-2.0.0-alpha.1-apis/brightness/setBrightness"
+        ]
+      }
+    ],
+    "震动": [
+      "version-2.0.0-alpha.1-apis/vibrator/vibrate"
+    ],
+    "消息通知": [
+      "version-2.0.0-alpha.1-apis/notification/badgeShow",
+      "version-2.0.0-alpha.1-apis/notification/sendNotification",
+      "version-2.0.0-alpha.1-apis/notification/removeAllNotifications",
+      "version-2.0.0-alpha.1-apis/notification/removeNotification"
+    ],
+    "数据库操作": [
+      "version-2.0.0-alpha.1-apis/database/createTable",
+      "version-2.0.0-alpha.1-apis/database/query",
+      "version-2.0.0-alpha.1-apis/database/execute",
+      "version-2.0.0-alpha.1-apis/database/isDatabaseExists",
+      "version-2.0.0-alpha.1-apis/database/isTableExists"
+    ],
+    "应用更新": [
+      "version-2.0.0-alpha.1-apis/update/check",
+      "version-2.0.0-alpha.1-apis/update/toStore"
+    ]
+  },
+  "version-2.0.0-alpha.1-常见问题": {
+    "关于问题": [
+      "version-2.0.0-alpha.1-specials"
+    ]
+  }
+}

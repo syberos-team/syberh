@@ -1,5 +1,7 @@
 ---
 title: 拓展插件
+id: version-2.0.0-alpha.1-add-plugins
+original_id: add-plugins
 ---
 
 拓展插件分为2步: 
