@@ -8,9 +8,11 @@ TARGET = nativesdk
 
 CONFIG += link_pkgconfig
 CONFIG += c++11
+CONFIG += plugin
 
 PKGCONFIG += syberos-qt
 
+DEFINES += EX_CONFIG=\\\"$$EX_CONFIG\\\"
 
 HEADERS += \
     $$PWD/src/framework/nativesdkmanager.h \

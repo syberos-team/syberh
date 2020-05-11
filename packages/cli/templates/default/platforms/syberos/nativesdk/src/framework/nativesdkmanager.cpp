@@ -69,7 +69,7 @@ NativeSdkManager * NativeSdkManager::getInstance(){
 void NativeSdkManager::openByUrl(const QUrl& url){
     QVariantMap params;
     params.insert("url", url.toString());
-    request("Package*","123","openByUrl", params);
+    request("Packages*","123","openByUrl", params);
 }
 
 void NativeSdkManager::openByDocument(const QString& action, const QString& mimetype,
@@ -78,7 +78,7 @@ void NativeSdkManager::openByDocument(const QString& action, const QString& mime
     params.insert("action", action);
     params.insert("mimetype", mimetype);
     params.insert("filePath", filePath);
-    request("Package*","321","openByDocument", params);
+    request("Packages*","321","openByDocument", params);
 }
 
 void NativeSdkManager::request(QString className,QString callbackID,QString actionName,QVariantMap params){

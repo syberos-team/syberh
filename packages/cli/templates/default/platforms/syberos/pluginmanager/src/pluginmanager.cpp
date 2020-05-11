@@ -1181,7 +1181,6 @@ void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destSt
         return;
     }
 
-    qDebug() << "(0)loadPlugin name: " << spec->name()  << "spec->state(): " << (spec->state());
     switch (destState) {
     case PluginSpec::Running:
         profilingReport(">initializeExtensions", spec);
@@ -1197,8 +1196,6 @@ void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destSt
         break;
     }
 
-    qDebug() << "(1)loadPlugin name: " << spec->name()  << "spec->state(): " << (spec->state());
-
     // check if dependencies have loaded without error
     const QHash<PluginDependency, PluginSpec *> deps = spec->dependencySpecs();
     for (auto it = deps.cbegin(), end = deps.cend(); it != end; ++it) {
@@ -1213,16 +1210,13 @@ void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destSt
             return;
         }
     }
-    qDebug() << "(2)loadPlugin name: " << spec->name()  << "spec->state(): " << (spec->state());
     switch (destState) {
     case PluginSpec::Loaded:
-        qDebug() << "(3)loadPlugin name: " << spec->name()  << "spec->state(): " << (spec->state());
         profilingReport(">loadLibrary", spec);
         spec->d->loadLibrary();
         profilingReport("<loadLibrary", spec);
         break;
     case PluginSpec::Initialized:
-        qDebug() << "(4)loadPlugin name: " << spec->name()  << "spec->state(): " << (spec->state());
         profilingReport(">initializePlugin", spec);
         spec->d->initializePlugin();
         profilingReport("<initializePlugin", spec);
