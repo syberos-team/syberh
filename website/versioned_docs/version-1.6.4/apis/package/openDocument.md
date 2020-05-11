@@ -1,5 +1,7 @@
 ---
 title: openDocument
+id: version-1.6.4-openDocument
+original_id: openDocument
 ---
 
 ## syberh.package.openDocument(Object object)

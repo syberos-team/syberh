@@ -28,10 +28,6 @@
         <label>action:</label>
         <input type="text" id="action" value="openPage" class="mui-input-clear" />
       </div>
-      <div class="mui-input-row" style="height: auto">
-        <label>path:</label>
-        <textarea class="mui-input-clear" id="path" cols="30" rows="5">second.html?name=zhangsan</textarea>
-      </div>
       <div class="mui-input-row">
         <label>mimeType:</label>
         <input type="text" id="mimeType" value="*/*" class="mui-input-clear" />
@@ -70,7 +66,6 @@
       var sopid = document.getElementById("sopid").value;
       var uiappid = document.getElementById("uiappid").value;
       var action = document.getElementById("action").value;
-      var path = document.getElementById("path").value;
       var mimeType = document.getElementById("mimeType").value;
       var filePath = document.getElementById("filePath").value;
       var value1 = document.getElementById("value1").value;
@@ -94,7 +89,6 @@
         sopid: sopid,
         uiappid: uiappid,
         action: action,
-        path: path,
         params: params,
         success: function (result) {
           document.getElementById("resultMsg").innerHTML = result;

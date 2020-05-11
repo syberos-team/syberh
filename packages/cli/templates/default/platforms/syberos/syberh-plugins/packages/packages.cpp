@@ -30,7 +30,7 @@ void Packages::invoke(QString callbackID, QString actionName, QVariantMap params
         QString sopId = params.value("sopid").toString();
         QString uiappId = params.value("uiappid").toString();
         QString action = params.value("action").toString();
-        QString path = params.value("path").toString();
+        QString path = "index.html";
         QVariantMap pathParams = params.value("params").toMap();
 
         openDocument(callbackID, sopId, uiappId, action, path, pathParams);
@@ -45,6 +45,7 @@ void Packages::invoke(QString callbackID, QString actionName, QVariantMap params
 }
 
 void Packages::openUrl(QString callbackID, QString scheme, QString path, QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "  callbackID:" << callbackID << "scheme:" << scheme << path << params;
     using namespace SYBEROS;
 
     if (scheme.isEmpty()) {
@@ -67,6 +68,7 @@ void Packages::openUrl(QString callbackID, QString scheme, QString path, QVarian
 }
 
 void Packages::openPage(QString callbackID, QString scheme, QString path, QVariantMap params){
+    qDebug() << Q_FUNC_INFO << "  callbackID:" << callbackID << "scheme:" << scheme << path << params;
     using namespace SYBEROS;
 
     //遍历params拼接成key=value&key=value格式
@@ -86,10 +88,7 @@ void Packages::openPage(QString callbackID, QString scheme, QString path, QVaria
 
     //如果路径包含多个?，提示路径错误
     QStringList list = path.split("?");
-    if (list.size() != 2) {
-        signalManager()->failed(callbackID.toLong(), 500, "Illegal Path");
-        return;
-    }
+
     if (list.size() == 1) {
         path = path + "?" + paramStr;
     } else {
@@ -103,6 +102,7 @@ void Packages::openPage(QString callbackID, QString scheme, QString path, QVaria
 }
 
 void Packages::openByUrl(QString url) {
+    qDebug() << Q_FUNC_INFO << "  url:" << url;
 
     //url格式为: scheme://openPage/index.html?key=value&key=value
     QStringList list = url.split("://");
@@ -161,6 +161,7 @@ void Packages::openByUrl(QString url) {
 void Packages::openDocument(QString callbackID, QString sopId, QString uiappId,
                   QString action, QString path, QVariantMap params){
 
+    qDebug() << Q_FUNC_INFO << "  params:" << callbackID << sopId << uiappId << action << path << params;
     using namespace SYBEROS;
 
     if (sopId.isEmpty()) {
@@ -206,6 +207,7 @@ void Packages::openDocument(QString callbackID, QString sopId, QString uiappId,
 }
 
 void Packages::openByDocument(QString action, QString mimetype, QString filePath){
+    qDebug() << Q_FUNC_INFO << "  params:" << action << mimetype << filePath;
 
     QString path = action;
     if(path.isEmpty()){

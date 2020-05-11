@@ -1,5 +1,7 @@
 ---
 title: openUrl
+id: version-1.6.4-openUrl
+original_id: openUrl
 ---
 
 ## syberh.package.openUrl(Object object)
