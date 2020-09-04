@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>qml/SCamera.qml</file>
-    </qresource>
-</RCC>
