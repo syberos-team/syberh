@@ -9,13 +9,16 @@ function main () {
   // 定义拷贝的文件或者目录 { name: 'vendor', excludes: ['.git', '.github'] }
   const files = [
     { name: 'app' },
+    { name: 'nativesdk' },
+    { name: 'pluginmanager' },
+    { name: 'syberh-plugins', excludes: ['.git'] },
+    { name: 'plugins' },
     { name: 'tests' },
     { name: 'META-INF' },
     { name: 'app.pro' },
     { name: 'sopconfig.xml' },
     { name: 'syberos.pri' },
-    { name: 'VERSION' },
-    { name: 'spm.json' }
+    { name: 'VERSION' }
   ];
   // 获取根目录
   const tempPath = path.resolve('.');
@@ -23,7 +26,9 @@ function main () {
   syncVersion();
 
   log.verbose('template路径:', tempPath);
+
   const copyTo = path.resolve('../cli/templates/default/platforms/syberos');
+
   fs.emptyDirSync(copyTo);
   log.verbose('cli路径:', copyTo);
   for (let nameInfo of files) {
@@ -38,7 +43,7 @@ function main () {
   fs.moveSync(wwwPath, defaulWWW, { overwrite: true });
   log.verbose('cli www move 完成');
 
-  spmInstall(copyTo);
+  // spmInstall(copyTo);
 
   log.info('template发布完成');
 }
@@ -55,22 +60,24 @@ function syncVersion () {
 }
 
 function copy (from, to, excludes) {
+  if (!fs.existsSync(from)) {
+    log.verbose('skip copy: original file does not exist. ', from);
+    return;
+  }
   const basename = path.basename(from);
-  if (fs.existsSync(from)) {
-    fs.copySync(from, path.join(to, basename), {
-      filter: (src, dest) => {
-        if (!excludes || !(excludes instanceof Array)) {
-          return true;
-        }
-        for (const exclude of excludes) {
-          if (path.basename(src) === exclude) {
-            return false;
-          }
-        }
+  fs.copySync(from, path.join(to, basename), {
+    filter: (src, dest) => {
+      if (!excludes || !(excludes instanceof Array)) {
         return true;
       }
-    });
-  }
+      for (const exclude of excludes) {
+        if (path.basename(src) === exclude) {
+          return false;
+        }
+      }
+      return true;
+    }
+  });
 }
 
 // 使用spm安装依赖

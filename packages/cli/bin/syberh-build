@@ -16,15 +16,17 @@ program
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
   .option('--port [port]', '使用指定端口启动热更新服务')
+  .option('--onlybuild', '构建完成后不安装sop')
   .option('--nodoctor', '构建时不执行环境检查')
+  .option('--s1', '构建S1手机可用的应用')
   .parse(process.argv)
 
-const { type, debug, nodoctor } = program
+const { type, debug, nodoctor, onlybuild, s1 } = program
 let { port, env } = program
 log.verbose('debug:', debug)
 log.verbose('env:', env)
 log.verbose('type:', type)
-port = parseInt(port)
+port = parseInt(port, 10)
 log.verbose('port:', typeof port, port)
 if (isNaN(port)) {
   port = undefined
@@ -32,7 +34,7 @@ if (isNaN(port)) {
 env = process.env.NODE_ENV || env
 
 // 是否只打包
-const onlyBuild = program.rawArgs.length === 2
+const onlyBuild = !!onlybuild
 
 if (!fs.existsSync(projectConfPath)) {
   console.log(
@@ -68,6 +70,7 @@ targetReset(appPath, program).then(() => {
     debug,
     port,
     nodoctor,
-    onlyBuild
+    onlyBuild,
+    s1
   })
 })

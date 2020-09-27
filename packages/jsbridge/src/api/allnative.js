@@ -12,7 +12,7 @@ import networkMixin from './native/network';
 import captureMixin from './native/capture';
 import clipboardMixin from './native/clipboard';
 import recordMixin from './native/record';
-import packageMixin from './native/package';
+import packagesMixin from './native/packages';
 import filepickerMixin from './native/filepicker';
 import networkInfoMixin from './native/networkInfo';
 import batteryMixin from './native/battery';
@@ -53,7 +53,11 @@ export default function allNative() {
     networkEnabledMixin();
     filepickerMixin();
     fileManagerMixin();
+<<<<<<< HEAD
     packageMixin();
+=======
+    packagesMixin();
+>>>>>>> syber/master
     pathMixin();
     filepickerMixin();
     imageMixin();

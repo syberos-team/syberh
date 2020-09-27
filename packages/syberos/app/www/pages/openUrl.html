@@ -20,10 +20,6 @@
         <label>scheme:</label>
         <input type="text" id="scheme" value="myapp1://openPage" class="mui-input-clear" />
       </div>
-      <div class="mui-input-row" style="height: auto">
-        <label>path:</label>
-        <textarea class="mui-input-clear" id="path" cols="30" rows="5">second.html?name=zhangsan</textarea>
-      </div>
       <div class="mui-input-row">
         <label>key1:</label>
         <input type="text" id="value1" value="abc" class="mui-input-clear" />
@@ -60,7 +56,6 @@
 
     function btnClick() {
       var scheme = document.getElementById("scheme").value;
-      var path = document.getElementById("path").value;
       var value1 = document.getElementById("value1").value;
       var value2 = document.getElementById("value2").value;
       var value3 = document.getElementById("value3").value;
@@ -80,9 +75,8 @@
         params["key4"] = value4;
       }
 
-      syberh.package.openUrl({
+      syberh.packages.openUrl({
         scheme: scheme,
-        path: path,
         params: params,
         success: function (result) {
           document.getElementById("resultMsg").innerHTML = result;

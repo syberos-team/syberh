@@ -2,7 +2,7 @@ import * as child_process from 'child_process'
 import * as ip from 'internal-ip'
 import * as os from 'os'
 import { AppBuildConfig } from '../util/constants'
-import Build from './build'
+import * as b from './build'
 import { getProjectConfig, locateScripts } from '../syberos/helper'
 import { log } from '../util/log';
 
@@ -40,9 +40,9 @@ export async function build(appPath: string, webPath: string, config: AppBuildCo
   log.verbose('config:', JSON.stringify(newConfig))
   const { debug = false } = config
 
-  const build = new Build(appPath, webPath, newConfig)
+  const build = new b.Build(appPath, webPath, newConfig)
   if (newConfig.onlyBuildSop === true) {
-    await build.buildSop(null)
+    await build.start(null)
   } else {
     await build.start(() => {
       // 启动devServer热更新服务

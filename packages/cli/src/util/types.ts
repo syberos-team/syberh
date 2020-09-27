@@ -51,7 +51,8 @@ export interface IBuildConfig {
   port?: number,
   release?: boolean,
   onlyBuild?: boolean,
-  nodoctor?: boolean
+  nodoctor?: boolean,
+  s1?: boolean
 }
 
 export interface IMiniAppBuildConfig {

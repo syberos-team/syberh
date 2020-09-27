@@ -5,6 +5,9 @@
     "previous": "Previous",
     "tagline": "Syberh是一款轻量级的支持SyberOS Hybrid App开发框架",
     "docs": {
+      "add-plugins": {
+        "title": "拓展插件"
+      },
       "apis/about/desc": {
         "title": "API 说明"
       },
@@ -267,6 +270,9 @@
       "global-event": {
         "title": "订阅事件"
       },
+      "library": {
+        "title": "C++库"
+      },
       "qt/about/desc": {
         "title": "C++ 说明"
       },
@@ -335,6 +341,9 @@
       },
       "started-spm": {
         "title": "spm 工具"
+      },
+      "vue-use-syberh": {
+        "title": "vue项目使用syberh"
       },
       "version-1.1.0/apis/about/version-1.1.0-desc": {
         "title": "API 说明"
@@ -922,6 +931,24 @@
       },
       "version-1.6.0/version-1.6.0-specials": {
         "title": "常见问题"
+      },
+      "version-1.6.1/version-1.6.1-app-config": {
+        "title": "APP 配置"
+      },
+      "version-1.6.1/version-1.6.1-vue-use-syberh": {
+        "title": "vue项目使用syberh"
+      },
+      "version-1.6.4/apis/package/version-1.6.4-openDocument": {
+        "title": "openDocument"
+      },
+      "version-1.6.4/apis/package/version-1.6.4-openUrl": {
+        "title": "openUrl"
+      },
+      "version-2.0.0-alpha.1/version-2.0.0-alpha.1-add-plugins": {
+        "title": "拓展插件"
+      },
+      "version-2.0.0-alpha.1/version-2.0.0-alpha.1-library": {
+        "title": "C++库"
       }
     },
     "links": {

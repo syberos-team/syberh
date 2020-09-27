@@ -18,7 +18,6 @@ class App_Workspace : public CWorkspace
 
 private:
     QQuickView *m_view;
-    QObject *m_root;
 
 public:
     App_Workspace();
@@ -31,7 +30,6 @@ public:
 
     // 当应用是由runDocument接口启动时，回调openByDocument
     void openByDocument(const QString& action, const QString& mimetype, const QString& file);
-
 };
 
 

@@ -50,8 +50,8 @@
 
     function start() {
       syberh.download.start({
-        'url': 'http://online.qianqian.com/qianqian/info/ffaeb0b4503d0ee83768998b03140732.exe',
-        'name': 'qianqian.exe',
+        'url': 'https://dldir1.qq.com/qqfile/QQIntl/QQi_PC/QQIntl2.11.exe',
+        'name': 'qq.apk',
         success: function (result) {
           console.log("syberh.download.start result: " + JSON.stringify(result));
 
@@ -79,6 +79,7 @@
             mui("#progress-" + result.downloadID).progressbar().setProgress(Math.round((result.received / result.total) * 100));
             if (result.received / result.total === 1) {
               document.getElementById('button_' + result.downloadID).style.display = 'none'
+              console.log('下载完成: ', result.path)
             }
           }
         },
