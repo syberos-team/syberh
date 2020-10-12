@@ -7,7 +7,7 @@ export default function filePreviewMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('filePreview', [{
-        namespace: 'text',
+        namespace: 'previewText',
         os: ['syberos'],
         defaultParams: {
             path: ''
