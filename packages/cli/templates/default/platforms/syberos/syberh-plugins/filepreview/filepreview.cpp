@@ -104,7 +104,7 @@ void FilePreview::invoke(QString callbackID, QString actionName, QVariantMap par
 {
     qDebug() << Q_FUNC_INFO << "callbackID:" << callbackID << "actionName:" << actionName << "params:" << params;
     d->reset();
-    if (actionName == "text") {
+    if (actionName == "previewText") {
         d->previewTxt(callbackID, params);
     }
 
