@@ -73,7 +73,6 @@
         "type": "subcategory",
         "ids": [
           "apis/image/chooseImage",
-          "apis/image/previewImage",
           "apis/image/saveImageToPhotosAlbum",
           "apis/image/getImageInfo"
         ]
@@ -119,30 +118,56 @@
     ],
     "网络": [
       {
+        "label": "请求",
         "type": "subcategory",
         "ids": [
           "apis/request/request"
         ]
-      }
-    ],
-    "下载": [
+      },
       {
+        "label": "下载",
         "type": "subcategory",
         "ids": [
           "apis/download/download",
           "apis/download/download-cancel"
         ]
+      },
+      {
+        "label": "上传",
+        "type": "subcategory",
+        "ids": [
+          "apis/upload/upload",
+          "apis/upload/upload-cancel"
+        ]
       }
     ],
-    "文件选择": [
-      "apis/filepicker/filepicker"
-    ],
-    "文件管理": [
-      "apis/fileManager/move",
-      "apis/fileManager/copy",
-      "apis/fileManager/fileList",
-      "apis/fileManager/getInfo",
-      "apis/fileManager/remove"
+    "文件": [
+      {
+        "label": "文件管理",
+        "type": "subcategory",
+        "ids": [
+          "apis/fileManager/move",
+          "apis/fileManager/copy",
+          "apis/fileManager/fileList",
+          "apis/fileManager/getInfo",
+          "apis/fileManager/remove"
+        ]
+      },
+      {
+        "label": "文件选择",
+        "type": "subcategory",
+        "ids": [
+          "apis/filepicker/filepicker"
+        ]
+      },
+      {
+        "label": "文件预览",
+        "type": "subcategory",
+        "ids": [
+          "apis/filePreview/previewText",
+          "apis/image/previewImage"
+        ]
+      }
     ],
     "应用管理": [
       "apis/package/openUrl",
@@ -155,10 +180,6 @@
     ],
     "扫码": [
       "apis/qrcode/scan"
-    ],
-    "上传": [
-      "apis/upload/upload",
-      "apis/upload/upload-cancel"
     ],
     "设备": [
       {
