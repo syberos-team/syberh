@@ -78,7 +78,7 @@ Rectangle {
     CTitleBar {
         id: toptitle
         visible: fileListRect.titleText || fileListRect.leftItemEnabled
-        anchors.top: parent.top
+        anchors.top: fileListRect.top
         height: Tool.UI.TITLEBAR_HEIGHT
         titleText: fileListRect.titleText
         titleAreaCentered: true
@@ -103,7 +103,7 @@ Rectangle {
             } else {
                 filesPicker.cancel();
 //                在SWebview.qml中引用了该页面，所以退出页面的信号得在接受信号的地方处理是否退出页面
-//                pageStack.pop();
+                pageStack.pop();
             }
         }
 
@@ -130,9 +130,11 @@ Rectangle {
                     })
                 }
                 console.log("SFilesPickerView.qml*****files***********", JSON.stringify(files))
-                filesPicker.ok(JSON.stringify({"files": files}));
 //                在SWebview.qml中引用了该页面，所以退出页面的信号得在接受信号的地方处理是否退出页面
-//                pageStack.pop();
+
+                pageStack.pop();
+                filesPicker.ok(JSON.stringify({"files": files}));
+
             } else {
                 // 文件夹
                 filesPicker.dirPath = filesPicker.getDirPath();
@@ -147,11 +149,11 @@ Rectangle {
     CIconLabel {
         id: noItemArea
         visible: fileList.count === 0 ? true : false
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.left: parent.left
+        width: fileListRect.width
+        anchors.top: fileListRect.top
+        anchors.bottom: fileListRect.bottom
+        anchors.horizontalCenter: fileListRect.horizontalCenter
+        anchors.left: fileListRect.left
         z: fileList.z + 1
         iconSource: "qrc:/img/document.png"
         text: "暂无文件"
@@ -159,9 +161,9 @@ Rectangle {
 
     CEditListView {
         id: fileList
-        anchors.top: titleAreaEnable ? toptitle.bottom : parent.top
-        anchors.bottom: parent.bottom
-        width: parent.width
+        anchors.top: titleAreaEnable ? toptitle.bottom : fileListRect.top
+        anchors.bottom: fileListRect.bottom
+        width: fileListRect.width
         clip: true
         interactive: true
         editable: false //Disable editing

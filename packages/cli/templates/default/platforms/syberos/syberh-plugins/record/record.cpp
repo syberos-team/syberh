@@ -14,6 +14,21 @@ Record::Record()
 {
     recoder = new QAudioRecorder();
     historydata = new HistoryData();
+
+    //通过QAudioEncoderSettings类进行音频设置
+    QAudioEncoderSettings audioSettings;
+    // OS4.1.1版本(QT版本大于5.6)， 音频保存格式变了
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    audioSettings.setCodec("audio/mpeg, mpegversion=(int)4");
+    #else
+    audioSettings.setCodec("audio/AAC");
+    #endif
+    audioSettings.setQuality(QMultimedia::HighQuality);
+    recoder->setEncodingSettings(audioSettings);
+
+    qDebug() << Q_FUNC_INFO << "supported audio codecs: " << recoder->supportedAudioCodecs();
+    qDebug() << Q_FUNC_INFO << "supported audio sample rates: " << recoder->supportedAudioSampleRates();
+
 }
 
 Record::~Record(){
@@ -56,17 +71,6 @@ void Record::list(QString callbackID,QVariantMap params){
 void Record::start(QString callbackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "start" << params << endl;
 
-    //通过QAudioEncoderSettings类进行音频设置
-    QAudioEncoderSettings audioSettings;
-    // OS4.1.1版本(QT版本大于5.6)， 音频保存格式变了
-    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    audioSettings.setCodec("audio/mpeg, mpegversion=(int)4");
-    #else
-    audioSettings.setCodec("audio/AAC");
-    #endif
-    audioSettings.setQuality(QMultimedia::HighQuality);
-    recoder->setAudioSettings(audioSettings);
-
     //获取用户文件存储地址
     QString path = Helper::instance()->getInnerStorageRootPath() + "/record";
     QDir dir(path);
@@ -83,13 +87,28 @@ void Record::start(QString callbackID,QVariantMap params){
     currPath = newFile;
     QFile file(newFile);
 
-    if(file.open(QFile::WriteOnly)){
-        //设置文件权限
-        file.setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner|QFileDevice::ReadUser);
-        file.close();
-        //设置保存的路径及文件名
-        recoder->setOutputLocation(QUrl(file.fileName()));
-        recoder->record();
+    qDebug() << Q_FUNC_INFO << "file:" << newFile << " file.fileName():" << file.fileName();
+
+    if(!file.open(QIODevice::WriteOnly)){
+        qDebug() << Q_FUNC_INFO << " WARNING , can not open file " << newFile ;
+        signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, "系统错误:打开录音记录失败");
+        return;
+    }
+    if (!file.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner
+                             | QFileDevice::ReadGroup /*| QFileDevice::WriteGroup*/
+                             | QFileDevice::ReadOther /*| QFileDevice::WriteOther*/ )) {
+        qDebug() << Q_FUNC_INFO << " WARNING , can not change permissions " << newFile ;
+    }
+    file.close();
+
+    recoder->setOutputLocation(QUrl::fromLocalFile(newFile));
+    recoder->record();
+
+    qDebug() << Q_FUNC_INFO << " error:" << recoder->error() << "  " << recoder->errorString();
+    if(recoder->error() != QMediaRecorder::NoError){
+        recoder->stop();
+        signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, QString("录音失败") + recoder->errorString());
+        return;
     }
 
     try  {

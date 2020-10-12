@@ -44,10 +44,16 @@ void Filepicker::chooseOk(QString filesPath)
     // js传递json字符串过来
     qDebug() << Q_FUNC_INFO << "filesPath" << filesPath;
 
+    if (filepickerQml != nullptr) {
+        filepickerQml->deleteLater();
+        filepickerQml = nullptr;
+    }
+
     QJsonDocument jsonDocument = QJsonDocument::fromJson(filesPath.toUtf8());
     if (jsonDocument.isNull()) {
         qDebug()<< "===> please check the string "<< filesPath.toLocal8Bit().data();
         signalManager()->failed(globalCallbackID, ErrorInfo::PluginError, "返回数据格式错误");
+        return;
     }
 
     // json字符串转换为QJsonArray
@@ -57,14 +63,16 @@ void Filepicker::chooseOk(QString filesPath)
 
     signalManager()->success(globalCallbackID, QVariant(result));
     globalCallbackID = 0;
-
-    qmlManager.close(filepickerQml);
 }
 
 void Filepicker::chooseCancel()
 {
     qDebug() << Q_FUNC_INFO;
+
+    if (filepickerQml != nullptr) {
+        filepickerQml->deleteLater();
+        filepickerQml = nullptr;
+    }
     signalManager()->success(globalCallbackID, "");
     globalCallbackID = 0;
-    qmlManager.close(filepickerQml);
 }

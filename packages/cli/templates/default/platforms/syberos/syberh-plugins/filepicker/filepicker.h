@@ -25,7 +25,7 @@ public:
 private:
     long globalCallbackID;
     QmlManager qmlManager;
-    QmlObject *filepickerQml;
+    QmlObject *filepickerQml = nullptr;
 
 public slots:
     void chooseOk(QString filesPath);
