@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/STextPreview.qml</file>
+        <file>js/util.js</file>
+        <file>img/editBarTopLine.png</file>
+    </qresource>
+</RCC>

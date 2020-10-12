@@ -6,6 +6,8 @@
 #include <QQmlError>
 #include <SyberosGuiCache>
 
+#include <QDebug>
+
 namespace NativeSdk {
 
 // ========== QmlObject ^ ==========
@@ -57,12 +59,29 @@ void QmlObject::open(const QString &qml, QQuickItem *parentItem, const QVariantM
 
     QQmlExpression exp(m_view->rootContext(), parentItem, expression);
     QVariant result = exp.evaluate();
+
+    qDebug() << Q_FUNC_INFO << "exp.evaluate() result:" << result;
+
     if(exp.hasError()){
+        qDebug() << Q_FUNC_INFO << "exp.evaluate() error:" << exp.error();
         d->status = Error;
         d->errorMessage = exp.error().toString();
         return;
     }
+    if(result.isNull() || !result.isValid()){
+        qDebug() << Q_FUNC_INFO << "exp.evaluate() isNull || !isValid";
+        d->status = Error;
+        d->errorMessage = "the last operation did not end.";
+        return;
+    }
     QQuickItem *childItem = result.value<QQuickItem*>();
+    if(childItem == nullptr){
+        qDebug() << Q_FUNC_INFO << "exp.evaluate() childItem:" << childItem;
+        d->status = Error;
+        d->errorMessage = "the last operation did not end.";
+        return;
+    }
+    qDebug() << Q_FUNC_INFO << "exp.evaluate() success:" << childItem;
 
     d->qmlItem = childItem;
     d->parentItem = parentItem;
@@ -126,14 +145,12 @@ QmlObject::Status QmlObject::status()
 
 bool QmlObject::hasError()
 {
-    return !(d->errorMessage.isEmpty());
+    return d->status == Error;
 }
 
 QString QmlObject::errorMessage()
 {
-    QString err = d->errorMessage;
-    d->errorMessage = QString();
-    return err;
+    return d->errorMessage;
 }
 
 void QmlObject::destroy()
