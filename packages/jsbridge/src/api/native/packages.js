@@ -1,10 +1,6 @@
 import hybridJs from '../../hybrid';
 
-<<<<<<< HEAD:packages/jsbridge/src/api/native/package.js
-export default function packageMixin() {
-=======
 export default function packagesMixin() {
->>>>>>> syber/master:packages/jsbridge/src/api/native/packages.js
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('packages', [{
