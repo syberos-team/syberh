@@ -21,5 +21,20 @@ export default function filePreviewMixin() {
             );
             hybridJs.callInner.apply(this, args);
         },
+    }, {
+        namespace: 'previewVideo',
+        os: ['syberos'],
+        defaultParams: {
+            path: ''
+        },
+        runCode(...rest) {
+            // 兼容字符串形式
+            const args = innerUtil.compatibleStringParamsToObject.call(
+                this,
+                rest,
+                'path'
+            );
+            hybridJs.callInner.apply(this, args);
+        },
     }]);
 }

@@ -92,6 +92,9 @@
       "apis/filePreview/previewText": {
         "title": "previewText"
       },
+      "apis/filePreview/previewVideo": {
+        "title": "previewVideo"
+      },
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
