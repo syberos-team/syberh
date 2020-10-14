@@ -164,8 +164,9 @@
         "label": "文件预览",
         "type": "subcategory",
         "ids": [
+          "apis/image/previewImage",
           "apis/filePreview/previewText",
-          "apis/image/previewImage"
+          "apis/filePreview/previewVideo"
         ]
       }
     ],
