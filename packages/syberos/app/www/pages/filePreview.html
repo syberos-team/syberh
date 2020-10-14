@@ -36,7 +36,7 @@
     <div id="pt0" class="mui-card">
       <div class="mui-card-header">视频文件</div>
       <div class="mui-card-content item_content" style="display: none">
-        <p class="file-path" onclick="previewText()"></p>
+        <p class="file-path" onclick="previewVideo()"></p>
       </div>
       <div class="mui-card-footer">
         <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="chooseVideo()">选择</button>
@@ -51,6 +51,9 @@
   <script>
     var vConsole = new VConsole()
 
+    var txtPath = ''
+    var videoPath = ''
+
     function chooseText() {
       syberh.filepicker.open({
         title: '选择文本',
@@ -60,10 +63,10 @@
         success: function(result) {
           if (result && result.files) {
             var p = document.getElementsByClassName('file-path')[0];
-            var path = (result.files)[0].path;
-            p.innerText = path
+            txtPath = (result.files)[0].path;
+            p.innerText = txtPath
             document.getElementsByClassName('item_content')[0].style.display="block"
-            previewText(path);
+            previewText();
           }
         },
         fail: function(error) {
@@ -72,13 +75,13 @@
       })
     }
 
-    function previewText(path) {
-      if(!path){
+    function previewText() {
+      if(!txtPath){
         return;
       }
 
       syberh.filePreview.previewText({
-        path: path,
+        path: txtPath,
         success: function (result) {
           console.log('previewText success:', result);
         },
@@ -98,10 +101,10 @@
         success: function(result) {
           if (result && result.files) {
             var p = document.getElementsByClassName('file-path')[1];
-            var path = (result.files)[0].path;
-            p.innerText = path
+            videoPath = (result.files)[0].path;
+            p.innerText = videoPath
             document.getElementsByClassName('item_content')[1].style.display="block"
-            previewVideo(path);
+            previewVideo(videoPath);
           }
         },
         fail: function(error) {
@@ -110,13 +113,13 @@
       })
     }
 
-    function previewVideo(path) {
-      if(!path){
+    function previewVideo() {
+      if(!videoPath){
         return;
       }
 
       syberh.filePreview.previewVideo({
-        path: path,
+        path: videoPath,
         success: function (result) {
           console.log('previewVideo success:', result);
         },
