@@ -18,8 +18,8 @@ CPage{
     signal sloadProgress(var loadProgress)
     //加载信号
     signal sloadingChanged(var loadRequest)
-    //返回键信号
-    signal keyOnReleased(var event)
+    // 按键信号
+    signal keyEvent(string eventType, var event)
     //接受消息信号
     signal receiveMessage(var message)
     //导航栏关闭信号
@@ -236,8 +236,14 @@ CPage{
 
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased',Keys.onReleased)
-        keyOnReleased(event)
+        keyEvent('onReleased', event)
         //event.accepted = true
+        setDestroyStatus(true)
+    }
+
+    Keys.onPressed: {
+        LOG.logger.verbose('SWebview qml Keys.onPressed',Keys.onPressed)
+        keyEvent('onPressed', event)
         setDestroyStatus(true)
     }
 
@@ -293,7 +299,7 @@ CPage{
             webChannel: channel
 
             profile: WebEngineProfile{
-              httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS " + helper.aboutPhone().osVersionCode + " " + helper.getQtVersion() +";"
+              httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS 4.1.1 5.9.6;"
             }
 
             property bool _autoLoad: true
@@ -393,6 +399,10 @@ CPage{
               }
               authDialog.clear();
               authDialog.show();
+            }
+
+            onContextMenuRequested: function(request){
+                request.accepted = true;
             }
         }
 

@@ -113,9 +113,9 @@ function WebView (options) {
       that.onMessageReceived(message, that.id);
     });
     // 绑定keys监听事件
-    object.keyOnReleased.connect(function (event) {
-      logger.verbose(' webview.keyOnReleased:[%s]', that.id);
-      that.trigger('keyRelease', object, event);
+    object.keyEvent.connect(function (eventType, event) {
+      logger.verbose(' webview.keyEvent:[%s, %s]', eventType, that.id);
+      that.trigger('keyEvent', object, eventType, event);
     });
 
     NativeSdkManager.request('DevTools*', 12378, '', '');
@@ -181,8 +181,8 @@ function WebView (options) {
   /**
    * 监听手机key
    */
-  this.on('keyRelease', function (webview, event) {
-    logger.verbose('webview:[%s] , on keyRelease() ,key:[%s] ,currentWebview: [%s]', that.id, event.key, currentWebview.id);
+  this.on('keyEvent', function (webview, eventType, event) {
+    logger.verbose('webview:[%s] , on keyEvent(%s) ,key:[%s] ,currentWebview: [%s]', that.id, eventType, event.key, currentWebview.id);
     // 处理返回键事件
     if (KEYCODE_BACK === event.key) {
       logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%s]:', that.id, webview.canGoBack());
@@ -210,8 +210,9 @@ function WebView (options) {
 
     that.pushQueue('subscribe', {
       url: curUrl,
-      handlerName: 'onKeyRelease',
+      handlerName: 'onKeyEvent',
       result: {
+        type: eventType,
         value: event.key
       }
     });
