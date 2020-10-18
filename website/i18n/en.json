@@ -227,8 +227,14 @@
       "apis/system/battery": {
         "title": "battery"
       },
+      "apis/system/date": {
+        "title": "Date"
+      },
       "apis/system/networkInfo": {
         "title": "networkInfo"
+      },
+      "apis/system/VirtualPanel": {
+        "title": "VirtualPanel"
       },
       "apis/telephony/dial": {
         "title": "dial"
