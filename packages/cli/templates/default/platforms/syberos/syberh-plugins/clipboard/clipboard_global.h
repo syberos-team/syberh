@@ -1,0 +1,12 @@
+#ifndef CLIPBOARD_GLOBAL_H
+#define CLIPBOARD_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(CLIPBOARD_LIBRARY)
+#  define CLIPBOARDSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define CLIPBOARDSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // CLIPBOARD_GLOBAL_H

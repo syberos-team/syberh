@@ -1,0 +1,12 @@
+#ifndef TELEPHONY_GLOBAL_H
+#define TELEPHONY_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(TELEPHONY_LIBRARY)
+#  define TELEPHONYSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define TELEPHONYSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // TELEPHONY_GLOBAL_H

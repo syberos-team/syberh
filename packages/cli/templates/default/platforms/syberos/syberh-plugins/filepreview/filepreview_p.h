@@ -19,6 +19,7 @@ public:
 
     void reset();
     void previewTxt(QString &callbackID, QVariantMap &params);
+    void previewVideo(QString &callbackID, QVariantMap &params);
 
     bool hasError() {return m_hasError;}
     ErrorInfo::ErrorCode error() {return m_errorCode;}
@@ -26,6 +27,7 @@ public:
 
 public slots:
     void slotPreviewTxt();
+    void slotPreviewVideo();
 
 private:
     bool m_retried = false;

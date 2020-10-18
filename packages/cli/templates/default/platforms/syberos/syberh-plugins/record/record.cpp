@@ -12,27 +12,10 @@ using namespace NativeSdk;
 
 Record::Record()
 {
-    recoder = new QAudioRecorder();
     historydata = new HistoryData();
-
-    //通过QAudioEncoderSettings类进行音频设置
-    QAudioEncoderSettings audioSettings;
-    // OS4.1.1版本(QT版本大于5.6)， 音频保存格式变了
-    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    audioSettings.setCodec("audio/mpeg, mpegversion=(int)4");
-    #else
-    audioSettings.setCodec("audio/AAC");
-    #endif
-    audioSettings.setQuality(QMultimedia::HighQuality);
-    recoder->setEncodingSettings(audioSettings);
-
-    qDebug() << Q_FUNC_INFO << "supported audio codecs: " << recoder->supportedAudioCodecs();
-    qDebug() << Q_FUNC_INFO << "supported audio sample rates: " << recoder->supportedAudioSampleRates();
-
 }
 
 Record::~Record(){
-    delete recoder;
     delete historydata;
 }
 
@@ -83,7 +66,7 @@ void Record::start(QString callbackID,QVariantMap params){
     int timeT = time.toTime_t();                     //将当前时间转为时间戳
     QString timeStr = time.toString("yyyyMMdd");
 
-    QString newFile = path + "/" +  timeStr + "_" + QString::number(timeT) + ".aac"; 
+    QString newFile = path + "/" +  timeStr + "_" + QString::number(timeT) + ".wav"; 
     currPath = newFile;
     QFile file(newFile);
 
@@ -101,15 +84,13 @@ void Record::start(QString callbackID,QVariantMap params){
     }
     file.close();
 
-    recoder->setOutputLocation(QUrl::fromLocalFile(newFile));
-    recoder->record();
-
-    qDebug() << Q_FUNC_INFO << " error:" << recoder->error() << "  " << recoder->errorString();
-    if(recoder->error() != QMediaRecorder::NoError){
-        recoder->stop();
-        signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, QString("录音失败") + recoder->errorString());
-        return;
+    if(audioInput != nullptr){
+        audioInput->deleteLater();
+        audioInput = nullptr;
     }
+    audioInput = new AudioInput();
+    audioInput->setFilePath(newFile);
+    audioInput->record();
 
     try  {
         //在数据库中添加录音记录，文件大小、总时长默认0
@@ -130,27 +111,38 @@ void Record::start(QString callbackID,QVariantMap params){
 
 void Record::pause(QString callbackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "pause" << params << endl;
-
-    recoder->pause();
+    if(audioInput == nullptr){
+        signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, "系统错误:录音不存在");
+        return;
+    }
+    audioInput->suspend();
     signalManager()->success(callbackID.toLong(), true);
 }
 
 void Record::resume(QString callbackID,QVariantMap params){
     qDebug() << Q_FUNC_INFO << "resume" << params << endl;
+    if(audioInput == nullptr){
+        signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, "系统错误:录音不存在");
+        return;
+    }
 
-    recoder->record();
+    audioInput->resume();
     signalManager()->success(callbackID.toLong(), true);
 }
 
 void Record::stop(QString callbackID, QVariantMap params){
     qDebug() << Q_FUNC_INFO << "stop" << params << endl;
 
-    recoder->stop();
+    if(audioInput == nullptr){
+        return;
+    }
 
+    int duration= audioInput->stop();
+     qDebug() << Q_FUNC_INFO << "录音时长(微妙):" << duration << endl;
     try  {
         //在数据库中修改录音记录，增加文件大小、总时长
         FileInfo fileInfo = FileUtil::getInfo(currPath);
-        historydata->updateMetadata(currPath,fileInfo.size,recoder->duration());
+        historydata->updateMetadata(currPath,fileInfo.size,duration);
     } catch (QException e) {
          qDebug() << Q_FUNC_INFO << "在数据库中修改录音记录失败"  << endl;
          signalManager()->failed(callbackID.toLong(), ErrorInfo::SystemError, "系统错误:在数据库中修改录音记录失败");

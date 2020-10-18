@@ -238,8 +238,14 @@ CPage{
 
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased',Keys.onReleased)
-        keyOnReleased(event)
+        keyEvent('onReleased', event)
         //event.accepted = true
+        setDestroyStatus(true)
+    }
+
+    Keys.onPressed: {
+        LOG.logger.verbose('SWebview qml Keys.onPressed',Keys.onPressed)
+        keyEvent('onPressed', event)
         setDestroyStatus(true)
     }
 

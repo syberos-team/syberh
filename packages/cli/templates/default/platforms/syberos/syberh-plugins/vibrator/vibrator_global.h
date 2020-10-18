@@ -1,0 +1,12 @@
+#ifndef VIBRATOR_GLOBAL_H
+#define VIBRATOR_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(VIBRATOR_LIBRARY)
+#  define VIBRATORSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define VIBRATORSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // VIBRATOR_GLOBAL_H
