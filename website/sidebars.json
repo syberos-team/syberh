@@ -101,7 +101,9 @@
         "ids": [
           "apis/system/aboutPhone",
           "apis/system/battery",
-          "apis/system/networkInfo"
+          "apis/system/networkInfo",
+          "apis/system/date",
+          "apis/system/VirtualPanel"
         ]
       }
     ],
