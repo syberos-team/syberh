@@ -1,54 +1,72 @@
 import * as child_process from 'child_process'
-import * as ip from 'internal-ip'
-import * as os from 'os'
-import { AppBuildConfig } from '../util/constants'
+import chalk from 'chalk'
+import { BuildConfig } from './types'
 import * as b from './build'
-import { getProjectConfig, locateScripts } from '../syberos/helper'
+import { getProjectConfig, locateScripts, isTargetOS_5 } from '../syberos/helper'
 import { log } from '../util/log';
+import { DEVICES_TYPES } from '../util/constants'
+import diagnose from '../doctor/index'
+import { IProjectConfig } from '../util/types'
+import CONFIG from '../config'
+
+
+
+export default async function build(appPath: string, buildConfig: BuildConfig) {
+  if(buildConfig.type !== DEVICES_TYPES.DEVICE && buildConfig.type !== DEVICES_TYPES.SIMULATOR){
+    console.log(
+      chalk.red('输入类型错误，目前只支持 device(真机)/simulator类型')
+    )
+    return;
+  }
+  await diagnoseFastfail(buildConfig)
+  await executeBuild(appPath, buildConfig)
+}
+
+async function diagnoseFastfail(buildConfig: BuildConfig) {
+  if (!buildConfig.nodoctor) {
+    const hasFail = await diagnose({ checkGlobalTarget: false })
+    if (hasFail) {
+      process.exit(0)
+    }
+  }
+}
 
 /**
  * 编译APP
  * @param appPath 工程目录
  * @param param1 参数信息
  */
-export async function build(appPath: string, webPath: string, config: AppBuildConfig) {
+async function executeBuild(appPath: string, config: BuildConfig) {
   log.verbose('build() start')
-  const newConfig = { ...config, ...getProjectConfig(appPath) }
-  const serverPort = 4399
-  if (!newConfig.port) {
-    Object.assign(newConfig, { port: serverPort })
-  }
-  if (!newConfig.serverIp) {
-    let sip
-    const ifaces = os.networkInterfaces()
-    Object.keys(ifaces).forEach(function (dev) {
-      ifaces[dev].forEach(function (details) {
-        if (details.family === 'IPv4') {
-          // 优先使用192.168.100.x段ip
-          if (details.address.indexOf('192.168.100.10') >= 0) {
-            sip = details.address
-          }
-        }
-      })
-    })
+  // 获取project.config.json
+  const projectConf : IProjectConfig = getProjectConfig(appPath)
+  // build命令参数
+  const buildConfig : BuildConfig = { ...config }
 
-    if (!sip) {
-      sip = await ip.v4()
-    }
-    Object.assign(newConfig, { serverIp: sip })
+  // 设置默认配置
+  if(!projectConf.devServerIP){
+    projectConf.devServerIP = CONFIG.DEV_SERVER_IP
   }
-  log.verbose('config:', JSON.stringify(newConfig))
-  const { debug = false } = config
+  if(!projectConf.devServerPort){
+    projectConf.devServerPort = CONFIG.DEV_SERVER_PORT
+  }
 
-  const build = new b.Build(appPath, webPath, newConfig)
-  if (newConfig.onlyBuildSop === true) {
+  console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
+
+  const build = new b.Build(appPath, projectConf, buildConfig)
+  if (buildConfig.onlyBuild) {
     await build.start(null)
   } else {
     await build.start(() => {
       // 启动devServer热更新服务
-      if (debug) {
+      if (buildConfig.debug) {
+        // TODO 5.0暂时关闭热更新服务
+        if(isTargetOS_5(projectConf.target)){
+          log.verbose('os5.0暂时关闭热更新服务')
+          return;
+        }
         const serverjs = locateScripts('devServer.js')
-        child_process.fork(serverjs, [newConfig.port, webPath])
+        child_process.fork(serverjs, [projectConf.devServerPort, projectConf.webPath])
       }
     })
   }

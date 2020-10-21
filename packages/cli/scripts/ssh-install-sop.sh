@@ -9,6 +9,6 @@ set timeout 1000
 spawn ssh -p $port developer@$ip "/usr/bin/ins-tool -siu /tmp/$sopFilename && rm -f /tmp/$sopFilename"
 expect {
   "(yes/no)?" {send "yes\r"; exp_continue}
-  "password:" {send "system\r"}
+  "assword:" {send "system\r"}
 }
 expect eof

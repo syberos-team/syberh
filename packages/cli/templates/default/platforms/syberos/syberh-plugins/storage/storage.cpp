@@ -4,24 +4,26 @@
 #include <QJsonObject>
 #include "util/log.h"
 #include "framework/common/errorinfo.h"
+#include <ccryptostoragemanager.h>
 
 using namespace NativeSdk;
 
+static CCryptoStorageManager* manager = nullptr;
 
 Storage::Storage()
 {
-    manager = CCryptoStorageManager::createCryptoStorageManager(CStorageBasic::CapabilityBasicOnly);
 }
 
 Storage::~Storage(){
-    CCryptoStorageManager::freeCryptoStorageManager(manager);
-    manager = 0;
 }
 
 
 void Storage::invoke(QString callbackId, QString actionName, QVariantMap params) {
     qDebug() << "callbackId:" << callbackId << "actionName:" << actionName << "params:" << params << endl;
 
+    if (manager == nullptr){
+        manager = CCryptoStorageManager::createCryptoStorageManager(CStorageBasic::CapabilityBasicOnly);
+    }
     if (actionName=="setItem"){
         setItem(callbackId, params.value("key").toString(), params.value("value"));
     }else if(actionName=="getItem") {
@@ -34,6 +36,10 @@ void Storage::invoke(QString callbackId, QString actionName, QVariantMap params)
         removeAll(callbackId);
     }else {
         emit signalManager()->failed(callbackId.toLong(), ErrorInfo::InvalidCall, ErrorInfo::message(ErrorInfo::InvalidCall, "方法不存在"));
+    }
+    if (manager != nullptr){
+        CCryptoStorageManager::freeCryptoStorageManager(manager);
+        manager = nullptr;
     }
 }
 

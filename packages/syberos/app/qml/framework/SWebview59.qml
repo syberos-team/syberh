@@ -326,15 +326,34 @@ CPage{
 
             onLoadingChanged: function(loadRequest){
                 LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
-                if (!loading && loadRequest.status === WebEngineView.LoadFailedStatus){
-                    LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
-                    //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
-                    //swebview.reload();
+                if (loadRequest.status === WebEngineView.LoadFailedStatus){
+                    var failedMessage = '[' + loadRequest.errorCode + ']' + loadRequest.errorString;
+                    LOG.logger.error('SWebview qml onLoadingChanged LoadFailedStatus: ' + loadRequest.url + ', error:' + failedMessage)
+
+                    gToast.requestToast('加载失败: ' + failedMessage);
                 }
                 if(!loading && loadRequest.status===WebEngineView.LoadSucceededStatus){
                     sloadingChanged(loadRequest);
                 }
+            }
 
+            onRenderProcessTerminated: function(terminationStatus, exitCode){
+                var termMessage = '渲染中断: [' + exitCode + ']';
+                switch(terminationStatus){
+                    case WebEngineView.NormalTerminationStatus:
+                        termMessage += 'NormalTerminationStatus';
+                        break;
+                    case WebEngineView.AbnormalTerminationStatus:
+                        termMessage += 'AbnormalTerminationStatus';
+                        break;
+                    case WebEngineView.CrashedTerminationStatus:
+                        termMessage += 'CrashedTerminationStatus';
+                        break;
+                    case WebEngineView.KilledTerminationStatus:
+                        termMessage += 'KilledTerminationStatus';
+                        break;
+                }
+                gToast.requestToast(termMessage);
             }
 
             onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){

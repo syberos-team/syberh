@@ -19,8 +19,7 @@ SOURCES += telephony.cpp
 HEADERS += telephony.h\
         telephony_global.h
 
-INCLUDEPATH += /usr/include/syberos_application
-
+INCLUDEPATH += $$[QT_INSTALL_HEADERS]/../syberos_application
 LIBS += -L/usr/lib -lsyberos-application
 
 

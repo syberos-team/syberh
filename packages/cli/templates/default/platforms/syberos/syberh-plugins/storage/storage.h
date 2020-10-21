@@ -3,9 +3,7 @@
 
 #include <QObject>
 
-#include <ccryptostoragemanager.h>
 #include "iplugin/iplugin.h"
-
 #include "storage_global.h"
 
 class STORAGESHARED_EXPORT Storage : public ExtensionSystem::IPlugin
@@ -48,7 +46,6 @@ public:
     void getAllKeys(QString callbackId);
 
 private:
-    CCryptoStorageManager* manager;
     /**
      * 检查key，通过参数控制是否发送失败信号
      */

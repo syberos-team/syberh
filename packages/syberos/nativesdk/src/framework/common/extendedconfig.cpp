@@ -13,14 +13,6 @@ ExtendedConfig::ExtendedConfig(QObject *parent) : QObject(parent)
 #ifdef EX_CONFIG
     init(QLatin1String(EX_CONFIG));
 #endif
-
-#ifdef TDEBUG
-    qDebug() << Q_FUNC_INFO << " TDEBUG " << TDEBUG<< endl;
-    config->insert("debug",true);
-    QString  serverIp="192.168.100.101";
-    config->insert("serverIp",serverIp);
-
-#endif
 }
 
 ExtendedConfig::~ExtendedConfig(){
@@ -77,4 +69,63 @@ QVariantMap* ExtendedConfig::getConfigs(){
 QVariant ExtendedConfig::get(const QString& key){
     return this->config->value(key);
 }
+
+QString ExtendedConfig::getString(const QString &key)
+{
+    QVariant val = this->config->value(key);
+    if(val.isNull() || !val.isValid()){
+        return QString();
+    }
+    return val.toString();
+}
+
+bool ExtendedConfig::getBool(const QString &key)
+{
+    QVariant val = this->config->value(key);
+    if(val.isNull() || !val.isValid()){
+        return false;
+    }
+    return val.toBool();
+}
+
+QString ExtendedConfig::getLogLevel()
+{
+    return getString("logLevel");
+}
+
+bool ExtendedConfig::isDebug()
+{
+    return getBool("debug");
+}
+
+QString ExtendedConfig::getHomePage()
+{
+    return getString("homePage");
+}
+
+QString ExtendedConfig::getStoreBaseUrl()
+{
+    return getString("storeBaseUrl");
+}
+
+QString ExtendedConfig::getDeployIP()
+{
+    return getString("deployIP");
+}
+
+QString ExtendedConfig::getDeployPort()
+{
+    return getString("deployPort");
+}
+
+QString ExtendedConfig::getDevServerIP()
+{
+    return getString("devServerIP");
+}
+
+QString ExtendedConfig::getDevServerPort()
+{
+    return getString("devServerPort");
+}
+
 }

@@ -43,7 +43,7 @@ QmlObject* QmlManager::create(const QString &qml)
 QmlObject* QmlManager::create(const QString &qml, QQuickItem *parentItem)
 {
     QmlObject *qmlObject = new QmlObject(this);
-    QObject::connect(qmlObject, SIGNAL(ready()), this, SLOT(createReady()));
+    QObject::connect(qmlObject, SIGNAL(ready()), this, SIGNAL(createReady()));
 
     qmlObject->create(qml, parentItem);
     if(qmlObject->hasError()){
