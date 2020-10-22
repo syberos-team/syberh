@@ -9,15 +9,12 @@ import { shouldUseYarn, shouldUseCnpm, getPkgVersion } from '../util'
 import CONFIG from '../config'
 import log from '../util/log'
 import { qtversions } from '../syberos/configfile'
+import { IProjectConfig } from '../util/types'
 
-interface IProjectConf {
-  projectName: string
+
+interface ICreateProjectConf extends IProjectConfig{
   projectDir: string
-  sopid: string
-  storeBaseUrl: string
   template: 'default' | 'mobx' | 'redux'
-  appName: string
-  webPath: string
   typescript?: boolean
   css: 'none' | 'sass' | 'stylus' | 'less'
   date?: string
@@ -29,9 +26,9 @@ interface IProjectConf {
 
 export default class Project extends Creator {
   public rootPath: string
-  public conf: IProjectConf
+  public conf: ICreateProjectConf
 
-  constructor(options: IProjectConf) {
+  constructor(options: ICreateProjectConf) {
     super()
     const unSupportedVer = semver.lt(process.version, 'v7.6.0')
     if (unSupportedVer) {
@@ -50,7 +47,11 @@ export default class Project extends Creator {
         appName: '',
         webPath: CONFIG.SOURCE_DIR,
         example: false,
-        targetName: ''
+        targetName: '',
+        deployIP: CONFIG.DEPLOY_IP,
+        deployPort: CONFIG.DEPLOY_PORT,
+        devServerIP: CONFIG.DEV_SERVER_IP,
+        devServerPort: CONFIG.DEV_SERVER_PORT
       },
       options
     )
@@ -67,7 +68,7 @@ export default class Project extends Creator {
   }
 
   create() {
-    this.ask().then(answers => {
+    this.ask().then((answers:any) => {
       const date = new Date()
       // 对象
       const newAnswer = {}
@@ -78,6 +79,10 @@ export default class Project extends Creator {
       this.conf = Object.assign(this.conf, newAnswer)
       this.conf.date = `${date.getFullYear()}-${date.getMonth() +
         1}-${date.getDate()}`
+      // 设置默认值
+      this.conf.target = 'target-' + this.conf.targetName
+      this.conf.targetSimulator = 'target-' + this.conf.targetName
+
       this.write()
     })
   }
@@ -93,7 +98,10 @@ export default class Project extends Creator {
     }
     const targetNames: string[] = []
     for (const targetName of targetFullNames) {
-      const name = targetName.split('-')[2]
+      let name = targetName;
+      if(targetName.startsWith('target-')){
+        name = targetName.substring(7);
+      }
       if (!targetNames.includes(name)) {
         targetNames.push(name)
       }
@@ -180,7 +188,6 @@ export default class Project extends Creator {
         type: 'list',
         name: 'targetName',
         message: '请选择target：',
-        default: 'xuanwu',
         choices: targetNames
       })
     }

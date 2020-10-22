@@ -20,7 +20,7 @@ title: list
 | fileName | String | 录音名称 |
 | path | String | 录音路径 |
 | size | number | 录音大小 |
-| duration | String | 录音时长(00:00:01) |
+| duration | String | 录音时长(微秒) |
 | created | String | 创建时间(yyyy-MM-dd hh:mm:ss) |
 
 #### object.fail回调函数

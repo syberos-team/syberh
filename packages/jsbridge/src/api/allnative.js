@@ -30,6 +30,7 @@ import databaseMixin from './native/database';
 import qrcodeMixin from './native/qrcode';
 import appMixin from './native/app';
 import updateMixin from './native/update';
+import filePreviewMixin from './native/filePreview';
 
 export default function allNative() {
     // 下载模块
@@ -66,4 +67,5 @@ export default function allNative() {
     qrcodeMixin();
     appMixin();
     updateMixin();
+    filePreviewMixin();
 }

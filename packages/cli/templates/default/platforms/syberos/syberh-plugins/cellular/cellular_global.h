@@ -1,0 +1,12 @@
+#ifndef CELLULAR_GLOBAL_H
+#define CELLULAR_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(CELLULAR_LIBRARY)
+#  define CELLULARSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define CELLULARSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // CELLULAR_GLOBAL_H

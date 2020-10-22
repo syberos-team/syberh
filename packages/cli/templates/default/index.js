@@ -93,22 +93,16 @@ exports.createApp = function (creater, params, helper, cb) {
     projectName,
     projectDir,
     appName,
-    webPath,
     template,
     typescript,
     src,
     css,
     sopid,
-    storeBaseUrl,
-    example,
-    targetName
+    example
   } = params
 
   // APP 模板目录
   const syberosDir = 'syberos'
-
-  const target = 'target-armv7tnhl-' + targetName
-  const targetSimulator = 'target-i686-' + targetName
 
   const libDir = 'lib'
   const projectPath = path.join(projectDir, projectName)
@@ -157,15 +151,7 @@ exports.createApp = function (creater, params, helper, cb) {
     template,
     'project',
     path.join(projectPath, 'project.config.json'),
-    {
-      appName,
-      webPath,
-      projectName,
-      sopid,
-      target,
-      targetSimulator,
-      storeBaseUrl
-    }
+    params
   )
 
   // 创建默认git忽略

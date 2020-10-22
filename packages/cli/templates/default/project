@@ -1,9 +1,14 @@
 {
   "projectName": "<%= projectName %>",
   "appName": "<%= appName %>",
-  "webPath": "<%= webPath %>",
+  "sopid": "<%= sopid %>",
   "target": "<%= target %>",
   "targetSimulator": "<%= targetSimulator %>",
-  "sopid": "<%= sopid %>",
-  "storeBaseUrl": "<%= storeBaseUrl %>"
+  "webPath": "<%= webPath %>",
+  "homePage": "",
+  "storeBaseUrl": "<%= storeBaseUrl %>",
+  "deployIP": "<%= deployIP %>",
+  "deployPort": "<%= deployPort %>",
+  "devServerIP": "<%= devServerIP %>",
+  "devServerPort": "<%= devServerPort %>"
 }

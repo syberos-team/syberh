@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/SCamera.qml</file>
+        <file>qml/SChooseImage.qml</file>
+        <file>qml/SEditGridViewPage.qml</file>
+        <file>qml/SPhotoAlternate.qml</file>
+        <file>qml/SPhotoAndVideoBrowser.qml</file>
+        <file>qml/SPhotoAndVideoModel.qml</file>
+        <file>qml/SPhotoEditTitleBar.qml</file>
+        <file>qml/SPhotoPreviewModel.qml</file>
+        <file>qml/SPhotoToolBar.qml</file>
+        <file>qml/SPhotoToolBar copy.qml</file>
+        <file>qml/SPreviewImage.qml</file>
+        <file>qml/status.js</file>
+        <file>qml/SChooseImagePage.qml</file>
+        <file>qml/SCheckGridView.qml</file>
+        <file>qml/SCheckViewModel.qml</file>
+        <file>qml/SImageListPreview.qml</file>
+    </qresource>
+</RCC>

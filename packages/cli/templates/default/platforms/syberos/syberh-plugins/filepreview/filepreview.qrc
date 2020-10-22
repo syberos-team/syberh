@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/STextPreview.qml</file>
+        <file>js/util.js</file>
+        <file>img/editBarTopLine.png</file>
+        <file>qml/video/ImageButton.qml</file>
+        <file>qml/video/PlayerControls.qml</file>
+        <file>qml/video/PlayingInterface.qml</file>
+        <file>qml/video/ProgressBar.qml</file>
+        <file>qml/video/QmlVideoOutput.qml</file>
+        <file>js/config.js</file>
+        <file>img/zanting.png</file>
+        <file>img/bofang.png</file>
+    </qresource>
+</RCC>

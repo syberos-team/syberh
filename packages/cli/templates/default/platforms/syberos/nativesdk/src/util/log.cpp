@@ -71,7 +71,10 @@ void output(QtMsgType type, const QMessageLogContext &context, const QString &ms
 
 
 Log::Log(QObject *parent) : QObject(parent){
+    // os 5.0暂时不使用自定义日志处理
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
     qInstallMessageHandler(output);
+    #endif
 
     levelNameMap.insert(Log::VERBOSE, "VERB");
     levelNameMap.insert(Log::INFO, "INFO");
@@ -108,6 +111,10 @@ void Log::setLevel(Log::Level level){
 }
 
 void Log::setLevel(const QString &level){
+    if(level.isEmpty()){
+        setLevel(Log::INFO);
+        return;
+    }
     QString lev = level.toLower();
     if(lev==LOG_VERBOSE){
         setLevel(Log::VERBOSE);

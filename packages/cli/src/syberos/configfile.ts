@@ -27,6 +27,8 @@ class Qtversions implements QtversionsInterface {
   private sdkKeyword: string = 'sdk-install-path='
   private path: string
 
+  private _lines : string[] = []
+
   constructor() {
     this.path = this.getPath(homedir)
   }
@@ -76,26 +78,29 @@ class Qtversions implements QtversionsInterface {
     })
   }
 
-  private readLine(startsWith: string): Promise<string> {
-    log.verbose('读取行：', this.path)
-    let lineContent: string
-    return new Promise((resolve: (value: string) => void): void => {
-      readline.createInterface({
-        input: fs.createReadStream(this.path)
-      }).on('line', line => {
-        if (line.startsWith(startsWith)) {
-          lineContent = line
-        }
-      }).on('close', () => {
-        log.verbose('读取行内容：%s', lineContent)
-        resolve(lineContent)
-      })
-    })
+  private async readLine(startsWith: string): Promise<string> {
+    const lines = await this.readLines();
+
+    for(const line of lines){
+      if (line.startsWith(startsWith)) {
+        return line;
+      }
+    }
+    return ''
   }
 
   private async readLines(): Promise<string[]> {
-    log.verbose('读取所有行：', this.path)
-    const lines: string[] = []
+    const useCache = this._lines.length > 0;
+    log.verbose(`读取所有行${useCache?'(cache)':''}： ${this.path}`)
+
+    let lines: string[] = []
+    if(useCache){
+      lines = this._lines
+      return new Promise((resolve: (value: string[]) => void): void => {
+        resolve(lines)
+      })
+    }
+
     return new Promise((resolve: (value: string[]) => void): void => {
       readline.createInterface({
         input: fs.createReadStream(this.path)
@@ -103,6 +108,7 @@ class Qtversions implements QtversionsInterface {
         lines.push(line)
       }).on('close', () => {
         log.verbose('读取行内容：%j', lines)
+        this._lines = lines;
         resolve(lines)
       })
     })
@@ -120,9 +126,22 @@ class Qtversions implements QtversionsInterface {
     })
   }
 
+  /**
+   * 
+   * @param targetName e.g. /home/abeir/SyberOS-Pdk
+   * @param installPath e.g. target-armv7tnhl-os4_1_1
+   * @throws Error
+   */
   public targetInstallPath(targetName: string, installPath: string) {
     const key = targetName + '='
-    const qmakePath = path.join(installPath, 'targets', targetName, 'usr/lib/qt5/bin/qmake')
+    let targetPath = path.join(installPath, 'targets')
+    if(!fs.pathExistsSync(targetPath)){
+      targetPath = path.join(installPath, 'SyberOS5_0')
+      if(!fs.pathExistsSync(targetPath)){
+        throw new Error('Cannot find target install folder:' + targetPath);
+      }
+    }
+    const qmakePath = path.join(targetPath, targetName, 'usr/lib/qt5/bin/qmake')
     this.readReplace(key, qmakePath).then(lines => {
       this.flush(lines)
     })
@@ -141,7 +160,7 @@ class Qtversions implements QtversionsInterface {
     const startsWith = targetName + '='
     const line = await this.readLine(startsWith)
     if (line) {
-      return line.substring(startsWith.length, line.length)
+      return line.substring(startsWith.length, line.length);
     }
     return ''
   }
@@ -156,6 +175,9 @@ class Qtversions implements QtversionsInterface {
       if (line.startsWith(this.sdkKeyword)) {
         continue
       }
+      if (!line.startsWith('target-')) {
+        continue
+      }
       const lineArray = line.split('=')
       if (lineArray && lineArray.length >= 2) {
         paths.push(lineArray[1])
@@ -165,13 +187,16 @@ class Qtversions implements QtversionsInterface {
   }
 
   public async getInstallTargets(): Promise<TargetPath[]> {
-    const lines = await this.readLines()
     const targetPaths: TargetPath[] = []
+    const lines = await this.readLines()
     for (const line of lines) {
       if (!line) {
         continue
       }
       if (line.startsWith(this.sdkKeyword)) {
+        continue
+      }
+      if (!line.startsWith('target-')) {
         continue
       }
       const lineArray = line.split('=')

@@ -89,6 +89,12 @@
       "apis/filepicker/filepicker": {
         "title": "filepicker"
       },
+      "apis/filePreview/previewText": {
+        "title": "previewText"
+      },
+      "apis/filePreview/previewVideo": {
+        "title": "previewVideo"
+      },
       "apis/image/chooseImage": {
         "title": "chooseImage"
       },
@@ -221,8 +227,14 @@
       "apis/system/battery": {
         "title": "battery"
       },
+      "apis/system/date": {
+        "title": "Date"
+      },
       "apis/system/networkInfo": {
         "title": "networkInfo"
+      },
+      "apis/system/VirtualPanel": {
+        "title": "VirtualPanel"
       },
       "apis/telephony/dial": {
         "title": "dial"
@@ -949,6 +961,21 @@
       },
       "version-2.0.0-alpha.1/version-2.0.0-alpha.1-library": {
         "title": "C++库"
+      },
+      "version-2.1.0/apis/filePreview/version-2.1.0-previewText": {
+        "title": "previewText"
+      },
+      "version-2.1.0/apis/filePreview/version-2.1.0-previewVideo": {
+        "title": "previewVideo"
+      },
+      "version-2.1.0/apis/multimedia/record/version-2.1.0-list": {
+        "title": "list"
+      },
+      "version-2.1.0/apis/system/version-2.1.0-date": {
+        "title": "Date"
+      },
+      "version-2.1.0/apis/system/version-2.1.0-VirtualPanel": {
+        "title": "VirtualPanel"
       }
     },
     "links": {
@@ -972,19 +999,20 @@
       "数据网络": "数据网络",
       "数据存储": "数据存储",
       "网络": "网络",
-      "下载": "下载",
-      "文件选择": "文件选择",
-      "文件管理": "文件管理",
+      "文件": "文件",
       "应用管理": "应用管理",
       "path": "path",
       "扫码": "扫码",
-      "上传": "上传",
       "设备": "设备",
       "震动": "震动",
       "消息通知": "消息通知",
       "数据库操作": "数据库操作",
       "应用更新": "应用更新",
       "关于问题": "关于问题",
+      "下载": "下载",
+      "文件选择": "文件选择",
+      "文件管理": "文件管理",
+      "上传": "上传",
       "图片": "图片",
       "webview": "webview",
       "url": "url"

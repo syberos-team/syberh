@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const program = require('commander')
 const chalk = require('chalk')
-const build = require('../dist/build').default
+const build = require('../dist/build/index').default
 const { targetReset } = require('../dist/build/target')
 const { PROJECT_CONFIG } = require('../dist/util/constants')
 const { log } = require('../dist/util/log')
@@ -15,22 +15,17 @@ program
   .option('--debug', 'debug模式运行,支持热更新')
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
-  .option('--port [port]', '使用指定端口启动热更新服务')
   .option('--onlybuild', '构建完成后不安装sop')
   .option('--nodoctor', '构建时不执行环境检查')
   .option('--s1', '构建S1手机可用的应用')
   .parse(process.argv)
 
 const { type, debug, nodoctor, onlybuild, s1 } = program
-let { port, env } = program
+let { env } = program
 log.verbose('debug:', debug)
 log.verbose('env:', env)
 log.verbose('type:', type)
-port = parseInt(port, 10)
-log.verbose('port:', typeof port, port)
-if (isNaN(port)) {
-  port = undefined
-}
+
 env = process.env.NODE_ENV || env
 
 // 是否只打包
@@ -59,16 +54,9 @@ targetReset(appPath, program).then(() => {
 
   process.env.SYBEROS_ENV = type
 
-  const projectConf = require(projectConfPath)
-
-  console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
-
-  const webPath = projectConf.webPath
-
-  build(appPath, webPath, {
+  build(appPath, {
     type,
     debug,
-    port,
     nodoctor,
     onlyBuild,
     s1

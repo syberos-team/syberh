@@ -1,0 +1,12 @@
+#ifndef BRIGHTNESS_GLOBAL_H
+#define BRIGHTNESS_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(BRIGHTNESS_LIBRARY)
+#  define BRIGHTNESSSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define BRIGHTNESSSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // BRIGHTNESS_GLOBAL_H

@@ -39,7 +39,7 @@ Helper::~Helper()
 QString Helper::logLevelName()
 {
   QString levelName;
-  bool debug = ExtendedConfig::instance()->get("debug").toBool();
+  bool debug = ExtendedConfig::instance()->isDebug();
   if (debug)
   {
     levelName = "verbose";
@@ -75,17 +75,22 @@ Helper *Helper::instance()
 
 QString Helper::getWebRootPath()
 {
-  ExtendedConfig *extendConfig = ExtendedConfig::instance();
-  QVariant debug = extendConfig->get("debug");
-  if (debug.toBool())
-  {
-    qDebug() << "webroot:" << this->getDataWebRootPath();
-    return this->getDataWebRootPath();
-  }
-  else
-  {
+  //TODO 5.0暂时不使用热更新目录
+  #if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
     return this->getDefaultWebRootPath();
-  }
+  #else
+    ExtendedConfig *extendConfig = ExtendedConfig::instance();
+    bool debug = extendConfig->isDebug();
+    if (debug)
+    {
+      qDebug() << "webroot:" << this->getDataWebRootPath();
+      return this->getDataWebRootPath();
+    }
+    else
+    {
+      return this->getDefaultWebRootPath();
+    }
+  #endif
 }
 
 QString Helper::getDefaultWebRootPath()
@@ -227,6 +232,16 @@ bool Helper::isAudio(QString filepath)
   QMimeType mime = db.mimeTypeForFile(filepath);
   qDebug() << Q_FUNC_INFO << "isAudio, mime: " << filepath << mime.name() << endl;
   return mime.name().startsWith("audio/");
+}
+
+QString Helper::getHomePage()
+{
+  QString page = ExtendedConfig::instance()->getHomePage();
+  if(page.isEmpty()){
+    QString dir = getWebRootPath();
+    page = QString("file://%1/index.html").arg(dir);
+  }
+  return page;
 }
 
 // ========== HelperPrivate ^ ==========

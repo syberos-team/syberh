@@ -46,7 +46,6 @@ SOURCES += \
     $$PWD/src/framework/common/networkstatus.cpp \
     $$PWD/src/framework/common/errorinfo.cpp \
     $$PWD/src/framework/common/extendedconfig.cpp \
-    $$PWD/src/framework/devtools/devtools.cpp \
     $$PWD/src/framework/devtools/socketclient.cpp \
     $$PWD/src/framework/devtools/devdownload.cpp \
     $$PWD/src/util/fileutil.cpp \
@@ -56,6 +55,18 @@ SOURCES += \
     $$PWD/src/senvironment.cpp \ 
     $$PWD/src/qmlobject.cpp \
     $$PWD/src/qmlmanager.cpp
+
+
+SYBERH_QT_VERSION = $$[QT_VERSION]
+SYBERH_QT_VERSION = $$split(SYBERH_QT_VERSION, ".")
+QT_VER_MIN = $$member(SYBERH_QT_VERSION, 1)
+
+# //TODO 5.0暂时不适用热更新
+lessThan(QT_VER_MIN, 12) {
+    SOURCES += $$PWD/src/framework/devtools/devtools.cpp
+} else {
+    SOURCES += $$PWD/src/framework/devtools/devtools_os5.cpp
+}
 
 
 DESTDIR += $$clean_path($$PWD/../lib)

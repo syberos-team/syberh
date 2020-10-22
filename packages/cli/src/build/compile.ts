@@ -3,6 +3,8 @@ import * as path from 'path'
 import * as os from 'os'
 import * as shelljs from 'shelljs'
 import { log } from '../util/log'
+import { isTargetOS_5 } from '../syberos/helper'
+import { qtversions } from '../syberos/configfile'
 
 
 export interface CompileGeneralConfig {
@@ -41,7 +43,7 @@ export type CompileResult = {
 }
 
 export class CompileError extends Error {
-  constructor(msg) {
+  constructor(msg: string) {
     super(msg)
     this.name = 'CompileError'
   }
@@ -49,12 +51,11 @@ export class CompileError extends Error {
 
 export class Compiler {
 
-  private qmakePath = '/usr/lib/qt5/bin/qmake'
   /**
    * 编译syberh应用
    */
-  public buildApp(conf: CompileConfig, buildPkg: boolean = true): CompileResult {
-    log.verbose('buildApp()  conf: %j', conf);
+  public async buildApp(conf: CompileConfig, buildPkg: boolean = true): Promise<CompileResult> {
+    log.verbose('buildApp()');
 
     conf = this.checkAppConfig(conf);
     return this.doBuild(conf, buildPkg);
@@ -75,7 +76,17 @@ export class Compiler {
     conf.qmakeArgs.push('SOPID=' + conf.sopid);
 
     for (const pluginName of conf.plugins) {
-      const pluginProPath = this.findPluginProPath(pluginName, conf.platformSyberosPath);
+      let pluginProPath: string;
+      try{
+        pluginProPath = this.findPluginProPath(pluginName, conf.platformSyberosPath);
+      }catch(e){
+        if(e instanceof CompileError){
+          log.warn('未找到插件编译文件，跳过插件：', pluginName);
+        }else{
+          log.warn(e.stack)
+        }
+        continue;
+      }
       const compileConfig = this.toCompileConfig(conf, pluginProPath)
       this.doBuild(compileConfig, false);
     }
@@ -102,29 +113,72 @@ export class Compiler {
   }
 
 
-  private doBuild(conf: CompileConfig, buildPkg: boolean): CompileResult {
-    log.verbose('doBuild()  conf: %j,  buildPkg: %s', conf, buildPkg);
+  private async doBuild(conf: CompileConfig, buildPkg: boolean): Promise<CompileResult> {
+    let result : CompileResult;
+    // 检查target是否是5.0版本，若是5.0版本使用不同5.0编译流程
+    if(isTargetOS_5(conf.targetName)){
+      result = await this.buildByOS5(conf, buildPkg);
+    } else{
+      result = this.buildByNotOS5(conf, buildPkg);
+    }
 
-    const currentDir = shelljs.pwd();
-    shelljs.cd(conf.buildPath);
+    return result;
+  }
+
+  private buildByNotOS5(conf: CompileConfig, buildPkg: boolean): CompileResult {
+    log.verbose('buildByNotOS5()  conf: %j,  buildPkg: %s', conf, buildPkg);
+
+    let sopPath: string | null = null;
 
     const kchrootPath = path.join(conf.pdkPath, 'sdk/script/kchroot');
     const qmakeArgs = this.composeQmakeArgs(conf);
 
-    const setup1 = `${kchrootPath} 'sb2 -t ${conf.targetName} -R' '${this.qmakePath} ${conf.proPath} -r -spec linux-g++ ${qmakeArgs}'`;
+    const setup1 = `${kchrootPath} 'sb2 -t ${conf.targetName} -R' '/usr/lib/qt5/bin/qmake ${conf.proPath} -r -spec linux-g++ ${qmakeArgs}'`;
     const setup2 = `${kchrootPath} 'sb2 -t ${conf.targetName} -R' '/usr/bin/make -j${conf.processNum}'`;
     const setup3 = `${kchrootPath} 'sb2 -t ${conf.targetName} -R' 'buildpkg ${conf.proPath}'`;
 
+    shelljs.cd(conf.buildPath);
     this.shell(setup1);
     this.shell(setup2);
 
-    let sopPath: string | null = null;
     if (buildPkg) {
       this.shell(setup3);
       sopPath = this.findSop(conf);
     }
 
-    shelljs.cd(currentDir);
+    return {
+      sopPath: sopPath
+    };
+  }
+
+  private async buildByOS5(conf: CompileConfig, buildPkg: boolean): Promise<CompileResult> {
+    log.verbose('buildByOS5()  conf: %j,  buildPkg: %s', conf, buildPkg);
+
+    let sopPath: string | null = null;
+
+    const qmakeArgs = this.composeQmakeArgs(conf);
+    const qmakePath = await qtversions.getTargetInstallPath(conf.targetName);
+    let buildpkg;
+    try {
+      buildpkg = this.getBuildpkgByOS(qmakePath);
+    } catch (e) {
+      log.error(e);
+      return { sopPath: null };
+    }
+
+    const setup1 = `${qmakePath} ${conf.proPath} -r -spec devices/linux-syberos-g++ ${qmakeArgs}`;
+    const setup2 = `/usr/bin/make -j${conf.processNum}`;
+    const setup3 = `${buildpkg} ${conf.proPath}`;
+
+    shelljs.cd(conf.buildPath);
+    this.shell(setup1);
+    this.shell(setup2);
+
+    if (buildPkg) {
+      this.shell(setup3);
+      sopPath = this.findSop(conf);
+    }
+
     return {
       sopPath: sopPath
     };
@@ -173,13 +227,16 @@ export class Compiler {
       log.verbose('编译输出目录不存在，创建目录：', conf.buildPath);
       fs.mkdirsSync(conf.buildPath);
     }
-    if (!conf.pdkPath || !fs.existsSync(conf.pdkPath)) {
-      log.warn('未找到pdk命令：', conf.pdkPath);
-      throw new CompileError('未找到pdk命令');
-    }
     if (!conf.targetName) {
       log.warn('未配置target', conf.targetName);
       throw new CompileError('未配置target');
+    }
+    // os5时不检查pdk
+    if(!isTargetOS_5(conf.targetName)){
+      if (!conf.pdkPath || !fs.existsSync(conf.pdkPath)) {
+        log.warn('未找到pdk命令：', conf.pdkPath);
+        throw new CompileError('未找到pdk命令');
+      }
     }
     if (!conf.processNum || conf.processNum <= 0) {
       const cpus = this.cpuNum();
@@ -216,7 +273,7 @@ export class Compiler {
     const qmakeArgs: Array<string> = []
     // debug
     if (conf.debug) {
-      qmakeArgs.push('CONFIG+=qml_debug')
+      qmakeArgs.push('CONFIG+=debug CONFIG+=qml_debug')
     } else {
       qmakeArgs.push('CONFIG+=release')
     }
@@ -254,7 +311,6 @@ export class Compiler {
   private findPluginProPath(pluginName: string, platformSyberosPath: string): string {
     const proPath = path.join(platformSyberosPath, 'syberh-plugins', pluginName, pluginName + '.pro');
     if (!fs.existsSync(proPath)) {
-      log.warn('未找到插件：', proPath);
       throw new CompileError('未找到插件' + pluginName);
     }
     return proPath
@@ -268,5 +324,18 @@ export class Compiler {
     shelljs.exec(cmd);
     // 执行完成后重新打开
     // shelljs.config.silent = false;
+  }
+
+  /**
+   * 获取buildpkg命令全路径，只适用于os5的target，
+   * @param qmakePath os5的target中的qmake路径
+   * @throws CompileError 若未找打buildpkg时抛出
+   */
+  private getBuildpkgByOS(qmakePath : string) : string{
+    const buildpkg = path.resolve(qmakePath, '../../../sysroot/usr/bin/buildpkg');
+    if(!fs.existsSync(buildpkg)){
+      throw new CompileError(`未找到 buildpkg: ${buildpkg}`);
+    }
+    return buildpkg
   }
 }
