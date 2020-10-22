@@ -38,6 +38,7 @@ void PluginAdapter::request(QString callbackID,QString actionName,QVariantMap pa
         emit failed(callbackID.toLong(), ErrorInfo::PluginError, "插件已卸载");
     }else{
         IPlugin *plugin = pluginSpec->plugin();
+        plugin->beforeInvoke();
         plugin->invoke(callbackID, actionName, params);
     }
 }

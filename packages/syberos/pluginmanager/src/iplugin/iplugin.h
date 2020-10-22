@@ -41,6 +41,10 @@ public:
 
     PluginSpec *pluginSpec() const;
 
+    // 调用invoke前调用该方法，该方法第一次被调用时会调用invokeInitialize()，之后再被调用时不再调用invokeInitialize()
+    void beforeInvoke();
+    // 调用invoke前的初始化工作，该方法只会被调用一次
+    virtual void invokeInitialize();
     //插件接受JS SDK调用方法,需要实现该方法，处理插件逻辑
     virtual void invoke(QString callbackID, QString action, QVariantMap params);
     //信号管理类，通过该类来绑定插件中的信号

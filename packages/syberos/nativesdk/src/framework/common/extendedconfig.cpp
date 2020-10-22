@@ -79,6 +79,15 @@ QString ExtendedConfig::getString(const QString &key)
     return val.toString();
 }
 
+QString ExtendedConfig::getString(const QString &key, const QString &defaultValue)
+{
+    QString val = getString(key);
+    if(val.isEmpty()){
+        return defaultValue;
+    }
+    return val;
+}
+
 bool ExtendedConfig::getBool(const QString &key)
 {
     QVariant val = this->config->value(key);
@@ -86,46 +95,6 @@ bool ExtendedConfig::getBool(const QString &key)
         return false;
     }
     return val.toBool();
-}
-
-QString ExtendedConfig::getLogLevel()
-{
-    return getString("logLevel");
-}
-
-bool ExtendedConfig::isDebug()
-{
-    return getBool("debug");
-}
-
-QString ExtendedConfig::getHomePage()
-{
-    return getString("homePage");
-}
-
-QString ExtendedConfig::getStoreBaseUrl()
-{
-    return getString("storeBaseUrl");
-}
-
-QString ExtendedConfig::getDeployIP()
-{
-    return getString("deployIP");
-}
-
-QString ExtendedConfig::getDeployPort()
-{
-    return getString("deployPort");
-}
-
-QString ExtendedConfig::getDevServerIP()
-{
-    return getString("devServerIP");
-}
-
-QString ExtendedConfig::getDevServerPort()
-{
-    return getString("devServerPort");
 }
 
 }

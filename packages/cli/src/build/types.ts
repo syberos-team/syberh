@@ -3,18 +3,18 @@ import { IProjectConfig } from '../util/types'
 
 // build命令参数
 export interface BuildConfig {
-    /**
-     * 适配器
-     */
+    // 真机或模拟器
     type: DEVICES_TYPES
-    nodoctor?: boolean,
+    // 是否检查项目
+    nodoctor?: boolean
     // 只打SOP包，不运行
     onlyBuild?: boolean
     // 支持s1手机
     s1?: boolean
-    debug: boolean
+    release: boolean
 }
 
+// 编译扩展参数
 export interface ExConfig extends IProjectConfig {
     logLevel: string
     debug: boolean

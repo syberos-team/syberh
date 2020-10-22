@@ -28,4 +28,7 @@ lib.path = $$INSTALL_DIR/
 plugins.files = plugins
 plugins.path = $$INSTALL_DIR/
 
-INSTALLS += res meta syber lib plugins
+projectconfig.files = project.config.json
+projectconfig.path = $$INSTALL_DIR/
+
+INSTALLS += res meta syber lib plugins projectconfig

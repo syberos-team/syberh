@@ -23,6 +23,7 @@ HEADERS += \
     $$PWD/src/framework/common/networkstatus.h \
     $$PWD/src/framework/common/errorinfo.h \
     $$PWD/src/framework/common/extendedconfig.h \
+    $$PWD/src/framework/common/projectconfig.h \
     $$PWD/src/framework/devtools/devtools.h \
     $$PWD/src/framework/devtools/socketclient.h \
     $$PWD/src/framework/devtools/devdownload.h \
@@ -46,6 +47,7 @@ SOURCES += \
     $$PWD/src/framework/common/networkstatus.cpp \
     $$PWD/src/framework/common/errorinfo.cpp \
     $$PWD/src/framework/common/extendedconfig.cpp \
+    $$PWD/src/framework/common/projectconfig.cpp \
     $$PWD/src/framework/devtools/socketclient.cpp \
     $$PWD/src/framework/devtools/devdownload.cpp \
     $$PWD/src/util/fileutil.cpp \

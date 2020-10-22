@@ -27,38 +27,6 @@ public:
    * 获取指定的配置信息，需使用QVariant.isValid()判断返回的配置是否存在
    */
   QVariant get(const QString &key);
-  /**
-   * 获取日志级别
-   */
-  QString getLogLevel();
-  /**
-   * 是否开启debug
-   */
-  bool isDebug();
-  /**
-   * 获取首页
-   */
-  QString getHomePage();
-  /**
-   * 获取应用仓库url
-   */
-  QString getStoreBaseUrl();
-  /**
-   * 手机ssh IP
-   */
-  QString getDeployIP();
-  /**
-   * 手机ssh端口
-   */
-  QString getDeployPort();
-  /**
-   * 获取开发服务IP
-   */
-  QString getDevServerIP();
-  /**
-   * 获取开发服务端口
-   */
-  QString getDevServerPort();
 
 private:
   explicit ExtendedConfig(QObject *parent = 0);
@@ -68,6 +36,7 @@ private:
   void init(QLatin1String exCfg = QLatin1String(nullptr));
 
   QString getString(const QString &key);
+  QString getString(const QString &key, const QString &defaultValue);
   bool getBool(const QString &key);
 
   static ExtendedConfig *_instance;

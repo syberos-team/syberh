@@ -20,7 +20,7 @@ export interface CompileGeneralConfig {
   processNum?: number
   // 是否使用debug编译
   debug?: boolean
-  // 扩展参数
+  // 预留扩展参数
   exConfig?: object
 }
 

@@ -9,11 +9,11 @@ DevTools *DevTools::pDevTools=NULL;
 DevTools::DevTools()
 {
     qDebug()<<Q_FUNC_INFO <<endl;
-    extendConfig= ExtendedConfig::instance();
-    QVariant debug = extendConfig->get("debug");
-    qDebug()<<Q_FUNC_INFO<<"debug模式"<< debug.toBool() << endl;
+    projectConfig= ProjectConfig::instance();
+    bool debug = projectConfig->isDebug();
+    qDebug()<<Q_FUNC_INFO<<"debug模式"<< debug << endl;
 
-    if(debug.toBool()){
+    if(debug){
         if(socketClient==NULL){
              qDebug()<<Q_FUNC_INFO<<"debug模式";
             //拷贝www到data目录下
@@ -53,8 +53,7 @@ DevTools::~DevTools(){
 }
 
 QString DevTools::serverIp(){
-    extendConfig->get("serverIp").toString();
-    QString serverIp=extendConfig->get("serverIp").toString();
+    QString serverIp=projectConfig->getDevServerIP();
     if(serverIp.isEmpty()){
 
         qDebug()<<Q_FUNC_INFO<<"serverIP不存在,设置默认值"<<serverIp <<endl;
@@ -69,9 +68,9 @@ QString DevTools::serverIp(){
 int DevTools::serverPort(){
 
     int port=4399;
-    int sport=extendConfig->get("port").toInt();
-    if(sport>0){
-        port=sport;
+    QString sport=projectConfig->getDevServerPort();
+    if(!sport.isEmpty()){
+        port=sport.toInt();
     }
     qDebug()<<Q_FUNC_INFO<<"server port"<<port<<endl;
     return port;

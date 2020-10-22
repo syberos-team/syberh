@@ -10,5 +10,6 @@
   "deployIP": "<%= deployIP %>",
   "deployPort": "<%= deployPort %>",
   "devServerIP": "<%= devServerIP %>",
-  "devServerPort": "<%= devServerPort %>"
+  "devServerPort": "<%= devServerPort %>",
+  "debuggingPort": "<%= debuggingPort %>"
 }
