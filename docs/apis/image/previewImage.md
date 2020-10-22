@@ -12,8 +12,8 @@ title: previewImage
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------------ | -------- | :------: | ------------ |
-| urls | Array.<string> |  | 否 | 需要预览的图片链接列表 |
-| current | string |  	urls 的第一张  | 否 | 当前显示图片的链接 |
+| urls | Array.<string> |  | 是 | 需要预览的图片链接列表 |
+| current | string |  	urls 的第一张  | 是 | 当前显示图片的链接 |
 | success | function |  |  否     | 回调成功      |
 | fail   | function |  |  否     | 回调失败      |
 
