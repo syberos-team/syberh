@@ -21,7 +21,7 @@ import {
   processTypeMap,
   processTypeEnum,
   MINI_APP_FILES,
-  BUILD_TYPES,
+  DEVICES_TYPES,
   CONFIG_MAP,
   REG_STYLE
 } from './constants'
@@ -320,7 +320,7 @@ export function cssImports (content: string): string[] {
   return results
 }
 
-export function processStyleImports (content: string, adapter: BUILD_TYPES, processFn: (a: string, b: string) => string) {
+export function processStyleImports (content: string, adapter: DEVICES_TYPES, processFn: (a: string, b: string) => string) {
   const style: string[] = []
   const imports: string[] = []
   const styleReg = new RegExp(`\\${MINI_APP_FILES[adapter].STYLE}`)

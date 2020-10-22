@@ -27,15 +27,13 @@ App_Workspace::App_Workspace()
     : CWorkspace()
 {
 
-    // 设置日志级别
-    QString devLog = ExtendedConfig::instance()->get(EX_DEV_LOG).toString();
-    if(devLog.isEmpty()){
-      bool debug=  ExtendedConfig::instance()->get(EX_DEBUG).toBool();
-      if(debug){
-          devLog=LOG_VERBOSE;
-      }
+    // 设置日志级别，若开启了debug将日志级别强制设为verbose
+    QString logLevel = ExtendedConfig::instance()->getLogLevel();
+    bool debug = ExtendedConfig::instance()->isDebug();
+    if(debug){
+        logLevel = LOG_VERBOSE;
     }
-    Log::instance()->setLevel(devLog);
+    Log::instance()->setLevel(logLevel);
 
 
     // 初始化错误信息
@@ -47,6 +45,13 @@ App_Workspace::App_Workspace()
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     //QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+
+    // 开启 chromium devtools
+    if(debug){
+        QString devToolServer = ExtendedConfig::instance()->getDeployIP().append(":9867");
+        qputenv("QTWEBENGINE_REMOTE_DEBUGGING", devToolServer.toLatin1());
+        qDebug() << "QTWEBENGINE_REMOTE_DEBUGGING:" << devToolServer;
+    }
 
     QtWebEngine::initialize();
     #endif

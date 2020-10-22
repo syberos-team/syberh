@@ -1,4 +1,5 @@
-Bag Attributes
+export const CERT_NAME = 'SyberOSSdkDebug.pem'
+export const CERT_CONTENT = `Bag Attributes
     localKeyID: 01 00 00 00 
     friendlyName: le-e9deac00-1200-492b-83e4-071656d8caba
     Microsoft CSP Name: Microsoft Enhanced Cryptographic Provider v1.0
@@ -70,4 +71,4 @@ vwVFAtcCco5o34PhulsO6NPJWBcgVOiPvpnxu85lXB7vvJcy4aBnsviqgJ0ZtKpM
 4iLtbtDXr7J5bjSZN0xaLBZrJSkSANWDTbdcB9btgNduDlHzPuWXWTEYdt+dpr2X
 tFi8/bvVteMCG5vbaGd4b+JDq/WAYVuKm9qqGgbE6GCjxXltP7nocvOhAYwaiXTZ
 NEI49WoWjb0=
------END CERTIFICATE-----
+-----END CERTIFICATE-----`

@@ -6,7 +6,7 @@ import "./js/syber.js" as Syberh
 
 SWebview{
     id:spage
-    surl:"file://" + helper.getWebRootPath() + "/index.html"
+    surl: helper.getHomePage()
     // surl: "chrome://gpu/"
     // surl: "http://webglreport.com"
     // surl: "http://sdk.iexplorer.geovis.online/examples/index.html#BasicLayer"

@@ -59,6 +59,11 @@ public:
       */
     Q_INVOKABLE bool isAudio(QString filepath);
 
+    /**
+     * 获取首页，首先尝试从扩展参数中获取，若为空，则调用getWebRootPath()获取
+     */
+    Q_INVOKABLE QString getHomePage();
+
 private:
     explicit Helper(QObject *parent = 0);
     Helper(const Helper &) Q_DECL_EQ_DELETE;

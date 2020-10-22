@@ -88,11 +88,11 @@ export class CdbSop implements ICdbSop {
 
 export class SshSop implements ISshSop {
   private ip: string
-  private port: number
+  private port: string
   private sopid: string
   private projectName: string
 
-  constructor(ip: string, port: number, sopid: string, projectName: string) {
+  constructor(ip: string, port: string, sopid: string, projectName: string) {
     this.ip = ip
     this.port = port
     this.sopid = sopid

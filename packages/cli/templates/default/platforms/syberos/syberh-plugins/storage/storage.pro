@@ -19,10 +19,19 @@ CONFIG += link_pkgconfig
 PKGCONFIG += syberos-qt
 
 
-SOURCES += storage.cpp
+SYBERH_QT_VERSION = $$[QT_VERSION]
+SYBERH_QT_VERSION = $$split(SYBERH_QT_VERSION, ".")
+QT_VER_MIN = $$member(SYBERH_QT_VERSION, 1)
+
 
 HEADERS += storage.h\
         storage_global.h
+
+lessThan(QT_VER_MIN, 12) {
+    SOURCES += storage.cpp
+} else {
+    SOURCES += storage_os5.cpp
+}
 
 OTHER_FILES += plugin.json
 

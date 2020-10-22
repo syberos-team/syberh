@@ -2,8 +2,7 @@ import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
 import * as t from 'babel-types'
 
-import { BUILD_TYPES, IMINI_APP_FILE_TYPE } from './constants'
-import { IBabelOptions } from '../config/babel'
+import { IMINI_APP_FILE_TYPE } from './constants'
 
 export interface IInstallOptions {
   dev: boolean,
@@ -44,24 +43,6 @@ export interface IPrettierConfig {
   endOfLine?: 'auto' | 'lf' | 'crlf' | 'cr'
 }
 
-export interface IBuildConfig {
-  type?: BUILD_TYPES,
-  debug?: boolean,
-  platform?: string,
-  port?: number,
-  release?: boolean,
-  onlyBuild?: boolean,
-  nodoctor?: boolean,
-  s1?: boolean
-}
-
-export interface IMiniAppBuildConfig {
-  adapter: BUILD_TYPES,
-  debug?: boolean,
-  envHasBeenSet?: boolean,
-  port?: number,
-  release?: boolean
-}
 
 export interface IOption {
   [key: string]: any
@@ -327,29 +308,23 @@ export interface IManifestConfig extends ISyberhManifestConfig {
   display?: IDisplayConfig
 }
 
+// 对应与项目下的 project.config.json文件
 export interface IProjectConfig {
-  projectName?: string,
-  date?: string,
-  designWidth?: number,
-  watcher?: [],
-  deviceRatio?: {
-    [key: string]: number
-  },
-  sourceRoot?: string,
-  outputRoot?: string,
-  plugins?: {
-    babel?: IBabelOptions,
-    csso?: TogglableOptions,
-    uglify?: TogglableOptions
-  },
-  ui?: {
-    extraWatchFiles?: any[]
-  },
-  env?: IOption,
-  alias?: IOption,
-  defineConstants?: IOption,
-  copy?: ICopyOptions,
-  weapp?: IMiniAppConfig,
-  h5?: IH5Config,
-  quickApp?: ISyberhManifestConfig
+  projectName: string
+  appName: string
+  sopid: string
+  target: string
+  targetSimulator: string
+  webPath: string
+  // 首页
+  homePage: string
+  storeBaseUrl: string
+  // 手机ip
+  deployIP: string
+  // 手机端口
+  deployPort: string
+  // dev服务IP
+  devServerIP: string
+  // dev服务端口
+  devServerPort: string
 }
