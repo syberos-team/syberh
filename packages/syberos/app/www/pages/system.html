@@ -29,6 +29,33 @@
       <div class="mui-card-header">
         <button type="button" class="mui-btn mui-btn-primary" onclick="baseParam()">获取系统信息</button>
       </div>
+      
+    </div>
+
+    <div class="mui-card">
+      <ul class="mui-table-view ">
+        <li class="mui-table-view-cell mui-collapse mui-active">
+          <a class="mui-navigate-right" href="#">setDate</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>date:</label>
+              <input id="date" type="text" value="2020-11-10 00:00:00">
+            </div>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="setDate()">setDate</button>
+            
+        </li>
+
+        <li class="mui-table-view-cell mui-collapse mui-active">
+          <a class="mui-navigate-right" href="#">setVirtualPanel</a>
+          <div class="mui-collapse-content">
+            <div class="mui-input-row">
+              <label>visible:</label>
+              <input id="visible" type="text" value="true">
+            </div>
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="setVirtualPanel()">setVirtualPanel</button>
+            
+        </li>
+        </ul>
     </div>
     <div class="mui-card-content">
       <div class="mui-card">
@@ -161,8 +188,6 @@
     </div>
   </div>
 
-
-
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
@@ -216,6 +241,40 @@
         }
       });
     }
+
+
+    function setDate() {
+      var date = document.getElementById('date').value;
+      syberh.system.setDate({
+        date:date,
+        success: function (result) {
+          console.info("result-设置时间完成: " + result)
+          console.log("返回时间",result.date)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+
+    function setVirtualPanel() {
+
+    var visible = document.getElementById('visible').value;
+
+    console.log(eval(visible.toLowerCase()))
+    syberh.system.setVirtualPanel({
+      visible:eval(visible.toLowerCase()),
+      success: function (result) {
+        console.info("result-设置虚拟按键完成: " + result)
+        console.log("返回状态",result.visible)
+      },
+      fail: function (error) {
+        console.info(error)
+        alert(error.msg);
+      }
+    });
+}
 
     function blankHandle(param) {
       return !param ? '' : param;

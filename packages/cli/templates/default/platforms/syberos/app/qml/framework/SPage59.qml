@@ -6,7 +6,7 @@ import "./js/syber.js" as Syberh
 
 SWebview59 {
     id:spage
-    surl:"file://" + helper.getWebRootPath() + "/index.html"
+    surl: helper.getHomePage()
     Component.onCompleted: {
         LOG.logger.verbose("SPage:onCompleted ,url:[%s]",spage.surl)
         Syberh.init(spage,spage)

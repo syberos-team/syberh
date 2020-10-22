@@ -2,17 +2,18 @@ import { log } from '../util/log'
 import * as shelljs from 'shelljs'
 import chalk from 'chalk'
 import * as path from 'path'
+import { isTargetOS_5 } from '../syberos/helper'
 
 const expectScript = {
   // 测试ssh连接
-  testSsh(ip: string, port: number): string {
+  testSsh(ip: string, port: string): string {
     return `expect<<EOF 
 log_user 1
 set timeout 1000
 spawn ssh -o ConnectTimeout=2 -p ${port} developer@${ip} "pwd"
 expect {
   "(yes/no)?" {send "yes\r"; exp_continue}
-  "password:" {send "system\r"}
+  "assword:" {send "system\r"}
 }
 expect eof
 EOF`
@@ -37,12 +38,16 @@ export class ConnectChecker {
 
   isCdbEnabled(): boolean {
     log.verbose('ConnectChecker isCdbEnabled()')
+    // os5不检查cdb
+    if(isTargetOS_5(this.targetName)){
+      return false;
+    }
     let result = this.execCdbDevices()
     result = result.toLowerCase()
     return result.indexOf('syber') > 0
   }
 
-  isSshEnabled(ip: string, port: number): boolean {
+  isSshEnabled(ip: string, port: string): boolean {
     log.verbose('ConnectChecker isSshEnabled()')
 
     this.callIsSshEnabledNum += 1;
@@ -51,9 +56,9 @@ export class ConnectChecker {
       return false;
     }
 
-    shelljs.config.silent = true
+    // shelljs.config.silent = true
     const result = shelljs.exec(expectScript.testSsh(ip, port))
-    shelljs.config.silent = false
+    // shelljs.config.silent = false
     log.verbose('ssh连接测试结果：\n >> stdout:%s \n >> stderr:%s', result.stdout, result.stderr)
 
     if (result.stdout.indexOf('RSA host key for 192.168.100.100 has changed') > 0) {

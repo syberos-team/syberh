@@ -227,8 +227,14 @@
       "apis/system/battery": {
         "title": "battery"
       },
+      "apis/system/date": {
+        "title": "Date"
+      },
       "apis/system/networkInfo": {
         "title": "networkInfo"
+      },
+      "apis/system/VirtualPanel": {
+        "title": "VirtualPanel"
       },
       "apis/telephony/dial": {
         "title": "dial"
@@ -955,6 +961,21 @@
       },
       "version-2.0.0-alpha.1/version-2.0.0-alpha.1-library": {
         "title": "C++库"
+      },
+      "version-2.1.0/apis/filePreview/version-2.1.0-previewText": {
+        "title": "previewText"
+      },
+      "version-2.1.0/apis/filePreview/version-2.1.0-previewVideo": {
+        "title": "previewVideo"
+      },
+      "version-2.1.0/apis/multimedia/record/version-2.1.0-list": {
+        "title": "list"
+      },
+      "version-2.1.0/apis/system/version-2.1.0-date": {
+        "title": "Date"
+      },
+      "version-2.1.0/apis/system/version-2.1.0-VirtualPanel": {
+        "title": "VirtualPanel"
       }
     },
     "links": {

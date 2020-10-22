@@ -98,11 +98,6 @@ export const CSS_IMPORT_REG: RegExp = /@import (["'])(.+?)\1;/g
 export const NODE_MODULES = 'node_modules'
 export const NODE_MODULES_REG = /(.*)node_modules/
 
-export const enum BUILD_TYPES {
-  DEVICE = 'device',
-  SIMULATOR = 'simulator'
-}
-
 /**
  * 支持的设备
  */
@@ -158,22 +153,6 @@ export const enum TARGET_NAME_TYPES {
   'target-armv7tnhl-os_2_1_lts' = 'target-armv7tnhl-os_2_1_lts'
 }
 
-export interface AppBuildConfig {
-  /**
-   * 适配器
-   */
-  target: any
-  adapter?: DEVICES_TYPES
-  // 只打SOP包，不运行
-  onlyBuildSop?: boolean
-  // 支持s1手机
-  s1?: boolean
-  debug?: boolean
-  envHasBeenSet?: boolean
-  port?: number
-  release?: boolean
-}
-
 export const enum TEMPLATE_TYPES {
   WEAPP = '.wxml',
   SWAN = '.swan',
@@ -221,13 +200,13 @@ export type IMINI_APP_FILES = {
   [key: string]: IMINI_APP_FILE_TYPE
 }
 export const MINI_APP_FILES: IMINI_APP_FILES = {
-  [BUILD_TYPES.DEVICE]: {
+  [DEVICES_TYPES.DEVICE]: {
     TEMPL: TEMPLATE_TYPES.WEAPP,
     STYLE: STYLE_TYPES.WEAPP,
     SCRIPT: SCRIPT_TYPES.WEAPP,
     CONFIG: CONFIG_TYPES.WEAPP
   },
-  [BUILD_TYPES.SIMULATOR]: {
+  [DEVICES_TYPES.SIMULATOR]: {
     TEMPL: TEMPLATE_TYPES.SWAN,
     STYLE: STYLE_TYPES.SWAN,
     SCRIPT: SCRIPT_TYPES.SWAN,
@@ -236,7 +215,7 @@ export const MINI_APP_FILES: IMINI_APP_FILES = {
 }
 
 export const CONFIG_MAP = {
-  [BUILD_TYPES.DEVICE]: {
+  [DEVICES_TYPES.DEVICE]: {
     navigationBarTitleText: 'navigationBarTitleText',
     navigationBarBackgroundColor: 'navigationBarBackgroundColor',
     enablePullDownRefresh: 'enablePullDownRefresh',
@@ -246,7 +225,7 @@ export const CONFIG_MAP = {
     selectedIconPath: 'selectedIconPath',
     color: 'color'
   },
-  [BUILD_TYPES.SIMULATOR]: {
+  [DEVICES_TYPES.SIMULATOR]: {
     navigationBarTitleText: 'navigationBarTitleText',
     navigationBarBackgroundColor: 'navigationBarBackgroundColor',
     enablePullDownRefresh: 'enablePullDownRefresh',

@@ -2,14 +2,24 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as shelljs from 'shelljs'
 import chalk from 'chalk'
-import { AppBuildConfig, DEVICES_TYPES } from '../util/constants'
+import { DEVICES_TYPES } from '../util/constants'
 import * as helper from '../syberos/helper'
 import config from '../config/index'
 import { log } from '../util/log'
 import * as sop from './sop'
 import * as connect from './connect'
 import * as compile from './compile'
+import * as cert from './cert'
+import { BuildConfig, ExConfig } from './types'
+import { IProjectConfig } from '../util/types'
 
+// 设备网络配置
+const adapterConfig = {
+  simulator: {
+    ip: 'localhost',
+    port: '5555'
+  }
+}
 
 export type BuildSuccessCallback = () => void
 
@@ -17,39 +27,29 @@ export class Build {
   // 日志级别
   private devLog: string = process.env.DEV_LOG || 'info'
 
-  private conf: any = {}
-  private appPath: string
-  private webPath: string
+  private appPath : string
+  private buildConfig : BuildConfig
+  private projectConfig : IProjectConfig
 
   // pdk根路径
   private pdkRootPath: string
-  private targetName: string
   // 定义编译目录
   private buildDir: string
   // 是否安装至模拟器
   private useSimulator: boolean = false
-  // 设备网络配置
-  private adapterConfig = {
-    device: {
-      ip: '192.168.100.100',
-      port: 22
-    },
-    simulator: {
-      ip: 'localhost',
-      port: 5555
-    }
-  }
 
-  constructor(appPath: string, webPath: string, config: AppBuildConfig) {
+  constructor(appPath: string, projectConf : IProjectConfig, config: BuildConfig) {
     this.appPath = appPath
-    this.webPath = webPath
-    this.conf = { ...this.conf, ...config }
+    this.projectConfig = projectConf
+    this.buildConfig = config
 
     if (log.isVerboseEnabled()) {
-      log.verbose('Build constructor(%s, %s, %j)', appPath, webPath, config)
-      log.verbose('配置参数:%j', this.conf)
+      log.verbose('Build constructor()', appPath, JSON.stringify(projectConf), JSON.stringify(config))
     }
-    this.targetName = helper.getTargetName(this.appPath, this.conf.adapter)
+    // 检查安装至模拟器还是真机
+    if (DEVICES_TYPES.SIMULATOR === this.buildConfig.type) {
+      this.useSimulator = true
+    }
   }
 
   /**
@@ -62,18 +62,18 @@ export class Build {
     log.verbose('pdkRootPath:', this.pdkRootPath)
 
     // 当不设置仅编译参数时，检查设备连接
-    if (!this.conf.onlyBuildSop) {
-      this.checkConnect(this.pdkRootPath, this.targetName)
+    if (!this.buildConfig.onlyBuild) {
+      this.checkConnect()
     }
 
     console.log(chalk.green('开始编译'))
-    log.verbose('appPath:%s, conf:%j', this.appPath, this.conf)
+    log.verbose('appPath:%s, conf:%j', this.appPath, this.buildConfig)
 
     // 执行编译
     const sopPath = await this.buildSop(buildSuccessCallback)
 
     // 设置仅编译参数时，不安装sop
-    if (this.conf.onlyBuildSop) {
+    if (this.buildConfig.onlyBuild) {
       console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
       return;
     }
@@ -84,15 +84,15 @@ export class Build {
   /**
    * 检查手机是否连接
    */
-  private checkConnect(pdkRootPath: string, targetName: string) {
-    log.verbose('Build checkConnect(%s, %s)', pdkRootPath, targetName)
-    const { adapter } = this.conf
-    if (DEVICES_TYPES.DEVICE !== adapter) {
+  private checkConnect() {
+    log.verbose('Build checkConnect(%s, %s)', this.pdkRootPath, this.projectConfig.target)
+    const { type } = this.buildConfig
+    if (DEVICES_TYPES.DEVICE !== type) {
       log.verbose('当前设备类型为：%s, 无须检查设备连接')
       return
     }
-    const checker = new connect.ConnectChecker(pdkRootPath, targetName)
-    if (checker.isCdbEnabled() || checker.isSshEnabled(this.adapterConfig.device.ip, this.adapterConfig.device.port)) {
+    const checker = new connect.ConnectChecker(this.pdkRootPath, this.projectConfig.target)
+    if (checker.isCdbEnabled() || checker.isSshEnabled(this.projectConfig.deployIP, this.projectConfig.deployPort)) {
       return
     }
     console.log(chalk.red('未检测到设备'))
@@ -104,14 +104,17 @@ export class Build {
    */
   public async buildSop(buildSuccessCallback: BuildSuccessCallback | null): Promise<string | null> {
     log.verbose('Build buildSop()')
+
     this.pdkRootPath = await helper.locateSdk()
     // 1、生成编译目录
     this.mkdirBuild()
     // 2、拷贝www路径到模板下
     await this.copywww()
-    // 3、执行构建命令
+    // 3、生成证书
+    this.generateCert();
+    // 4、执行构建命令
     const sopPath = this.compile()
-    // 4、构建完成后执行回调
+    // 5、构建完成后执行回调
     if (typeof buildSuccessCallback === 'function') {
       // 构建完成后，回退到项目根目录
       shelljs.cd('..')
@@ -126,19 +129,13 @@ export class Build {
   private mkdirBuild() {
     console.log(chalk.green('准备编译目录'))
     log.verbose('Build mkdirBuild()')
-    const appPath = this.appPath
-    const { adapter, debug, onlyBuildSop } = this.conf
 
     // 定义编译目录
-    if (onlyBuildSop === true) {
+    if (this.buildConfig.onlyBuild === true) {
       // 如果是只打SOP包， 目录名的设备名为 device
-      this.buildDir = `${appPath}/.build-${DEVICES_TYPES.DEVICE}-${
-        this.targetName
-        }${debug ? '-Debug' : ''}`
+      this.buildDir = `${this.appPath}/.build-${DEVICES_TYPES.DEVICE}-${this.projectConfig.target}${this.buildConfig.debug ? '-Debug' : ''}`
     } else {
-      this.buildDir = `${appPath}/.build-${adapter}-${this.targetName}${
-        debug ? '-Debug' : ''
-        }`
+      this.buildDir = `${this.appPath}/.build-${this.buildConfig.type}-${this.projectConfig.target}${this.buildConfig.debug ? '-Debug' : ''}`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -153,14 +150,14 @@ export class Build {
    * 拷贝www路径
    * @param appPath
    */
-  private async copywww(appPath: string = this.appPath, webPath: string = this.webPath) {
+  private async copywww() {
     console.log(chalk.green('准备拷贝www目录'))
-    log.verbose('Build copywww(%s)', appPath)
-    // const projectName = getProjectName(appPath)
-    const wwwPath = path.join(appPath, webPath || config.SOURCE_DIR)
+    log.verbose('Build copywww(%s)', this.appPath)
+
+    const wwwPath = path.join(this.appPath, this.projectConfig.webPath || config.SOURCE_DIR)
 
     // 模板目录
-    const syberosPath = path.join(appPath, 'platforms', 'syberos', 'app', 'www')
+    const syberosPath = path.join(this.appPath, 'platforms', 'syberos', 'app', 'www')
     try {
       // 清空www目录
       await fs.emptyDir(syberosPath)
@@ -172,11 +169,33 @@ export class Build {
     }
     log.info('已拷贝www目录，From：', wwwPath, ' To：', syberosPath)
   }
+
+  /**
+   * 生成证书
+   */
+  private generateCert(){
+    log.verbose('Build generateCert()')
+    console.log(chalk.green('准备生成证书'))
+
+    const certGenerator = new cert.CertGenerator({
+      appPath: this.appPath,
+      targetName: this.projectConfig.target
+    });
+    try{
+      const certPath = certGenerator.generate();
+      log.info('已生成证书：', certPath);
+    }catch(e){
+      if(e instanceof cert.CertError){
+        log.warn(e.getMessage());
+      }
+    }
+  }
+
   /**
    * 执行构建，检查lib中是否已存在需要的库，若不存在时先编译一次syberh应用生成so，之后编译插件，再编译syberh
    * 编译成功返回sop路径，失败时返回null
    */
-  private compile(): string | null {
+  private async compile(): Promise<string | null> {
     log.verbose('Build compile()')
     console.log(chalk.green('准备执行编译指令'))
 
@@ -187,7 +206,7 @@ export class Build {
     const existsSyberhPlugins = compiler.isSyberhPluginsExists(platformsSyberosPath);
     if (!existsSyberhPlugins) {
       try {
-        const sopPath = this.compileApp(true);
+        const sopPath = await this.compileApp(true);
         log.info('编译完成，sop：', sopPath);
         return sopPath;
       } catch (e) {
@@ -202,7 +221,7 @@ export class Build {
         this.compileApp(false);
       }
       this.compilePlugins();
-      const sopPath = this.compileApp(true);
+      const sopPath = await this.compileApp(true);
       log.info('编译完成，sop：', sopPath);
       return sopPath;
     } catch (e) {
@@ -215,14 +234,17 @@ export class Build {
    * 编译syberh应用
    * @param buildPkg 是否需要打sop包
    */
-  private compileApp(buildPkg: boolean): string | null {
+  private async compileApp(buildPkg: boolean): Promise<string | null> {
     log.verbose('Build compileApp(%s)', buildPkg)
 
-    const exConfigObj = { ...this.conf }
-    exConfigObj.DEV_LOG = this.devLog
+    const exConfigObj : ExConfig = { 
+      debug: this.buildConfig.debug,
+      logLevel: this.devLog,
+      ...this.projectConfig
+    }
 
     const compiler = new compile.Compiler()
-    const compileResult = compiler.buildApp({
+    const compileResult = await compiler.buildApp({
       // 编译项目的pro文件位置
       proPath: path.join(this.appPath, 'platforms/syberos/app.pro'),
       // 编译输出目录
@@ -230,7 +252,7 @@ export class Build {
       // pdk命令所在位置
       pdkPath: this.pdkRootPath,
       // target完整名称：target-armv7tnhl-xuanwu
-      targetName: this.targetName,
+      targetName: this.projectConfig.target,
       // 额外的qmake编译参数
       qmakeArgs: [],
       // 是否使用debug编译
@@ -261,12 +283,15 @@ export class Build {
 
     // 支持s1手机时增加额外参数
     const qmakeArgs: Array<string> = [];
-    if (this.conf.s1) {
+    if (this.buildConfig.s1) {
       qmakeArgs.push('DEFINES+=S1');
     }
 
-    const exConfigObj = { ...this.conf }
-    exConfigObj.DEV_LOG = this.devLog
+    const exConfigObj : ExConfig = { 
+      debug: this.buildConfig.debug,
+      logLevel: this.devLog,
+      ...this.projectConfig
+    }
 
     const compiler = new compile.Compiler()
     compiler.buildPlugins({
@@ -281,7 +306,7 @@ export class Build {
       // pdk命令所在位置
       pdkPath: this.pdkRootPath,
       // target完整名称：target-armv7tnhl-xuanwu
-      targetName: this.targetName,
+      targetName: this.projectConfig.target,
       // 额外的qmake编译参数
       qmakeArgs: qmakeArgs,
       // 是否使用debug编译
@@ -298,34 +323,21 @@ export class Build {
     log.verbose('Build installSop()')
     console.log(chalk.green('开始安装sop包...'))
 
-    if (!sopPath) {
+    if (!sopPath || !fs.existsSync(sopPath)) {
       log.error('未找到sop包，停止安装sop包')
       return;
-    }
-
-    const { adapter, sopid, projectName } = this.conf
-
-    let adapterConfig: any
-    // 检查安装至模拟器还是真机
-    if (DEVICES_TYPES.DEVICE === adapter) {
-      adapterConfig = this.adapterConfig.device
-    } else if (DEVICES_TYPES.SIMULATOR === adapter) {
-      adapterConfig = this.adapterConfig.simulator
-      this.useSimulator = true
-    } else {
-      throw new Error('adapter类型错误')
     }
 
     // 构建完成退出到根目录了，所以这里需要进入到打包目录(.build-*)
     shelljs.cd(this.buildDir)
 
     // 启动虚拟机
-    if (DEVICES_TYPES.SIMULATOR === adapter) {
+    if (this.useSimulator) {
       console.log(chalk.green('准备启动模拟器'))
       await helper.startvm()
     }
 
-    const cdbSop = new sop.CdbSop(this.pdkRootPath, this.targetName, sopid, projectName)
+    const cdbSop = new sop.CdbSop(this.pdkRootPath, this.projectConfig.target, this.projectConfig.sopid, this.projectConfig.projectName)
     // 非模拟器，支持cdb
     if (!this.useSimulator && cdbSop.isSupportCdb()) {
       // 发送
@@ -335,7 +347,14 @@ export class Build {
       // 启动
       cdbSop.startApp()
     } else {
-      const sshSop = new sop.SshSop(adapterConfig.ip, adapterConfig.port, sopid, projectName)
+      let ip = this.projectConfig.deployIP
+      let port = this.projectConfig.deployPort
+      // 使用模拟器时切换模拟器IP、端口
+      if(this.useSimulator){
+        ip = adapterConfig.simulator.ip
+        port = adapterConfig.simulator.port
+      }
+      const sshSop = new sop.SshSop(ip, port, this.projectConfig.sopid, this.projectConfig.projectName)
       // 发送
       sshSop.send(sopPath)
       // 安装

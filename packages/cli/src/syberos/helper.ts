@@ -131,3 +131,14 @@ export const startvm = async (port: number | string = 5555) => {
     console.log(chalk.red('启动模拟器失败'))
   }
 }
+
+/**
+ * 根据target判断是否是os5
+ * @param targetName 
+ */
+export const isTargetOS_5 = (targetName: string): boolean => {
+  if(!targetName){
+    return false;
+  }
+  return targetName.endsWith('5_0');
+}
