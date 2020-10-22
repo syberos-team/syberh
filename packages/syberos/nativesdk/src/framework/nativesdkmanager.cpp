@@ -2,7 +2,7 @@
 #include "nativesdkmanager_p.h"
 #include "nativesdkfactory.h"
 #include "nativesdkhandlerbase.h"
-#include "common/extendedconfig.h"
+#include "common/projectconfig.h"
 #include "devtools/devtools.h"
 #include "../../../pluginmanager/src/pluginmanager.h"
 #include "../../../pluginmanager/src/pluginspec.h"
@@ -34,14 +34,14 @@ NativeSdkManager::NativeSdkManager() {
     //加载插件
     d->loadPlugins();
 
-    d->extendConfig = ExtendedConfig::instance();
-    QVariant debug = d->extendConfig->get("debug");
-    if(debug.toBool()){
+    d->projectConfig = ProjectConfig::instance();
+    bool debug = d->projectConfig->isDebug();
+    if(debug){
         if(!d->devTools){
              d->devTools=DevTools::getInstance();
         }
     }
-    qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << debug.isValid() << endl;
+    qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << endl;
 }
 
 NativeSdkManager::~NativeSdkManager(){
@@ -134,9 +134,9 @@ NativeSdkManagerPrivate::~NativeSdkManagerPrivate(){
         nativeSdkFactory = nullptr;
     }
 
-    if(extendConfig != nullptr){
-        delete extendConfig;
-        extendConfig = nullptr;
+    if(projectConfig != nullptr){
+        delete projectConfig;
+        projectConfig = nullptr;
     }
     if(devTools != nullptr){
         delete devTools;

@@ -18,7 +18,7 @@
 #include <QMutexLocker>
 
 #include "helper_p.h"
-#include "framework/common/extendedconfig.h"
+#include "framework/common/projectconfig.h"
 
 namespace NativeSdk {
 
@@ -39,7 +39,7 @@ Helper::~Helper()
 QString Helper::logLevelName()
 {
   QString levelName;
-  bool debug = ExtendedConfig::instance()->isDebug();
+  bool debug = ProjectConfig::instance()->isDebug();
   if (debug)
   {
     levelName = "verbose";
@@ -79,8 +79,7 @@ QString Helper::getWebRootPath()
   #if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
     return this->getDefaultWebRootPath();
   #else
-    ExtendedConfig *extendConfig = ExtendedConfig::instance();
-    bool debug = extendConfig->isDebug();
+    bool debug = ProjectConfig::instance()->isDebug();
     if (debug)
     {
       qDebug() << "webroot:" << this->getDataWebRootPath();
@@ -236,7 +235,7 @@ bool Helper::isAudio(QString filepath)
 
 QString Helper::getHomePage()
 {
-  QString page = ExtendedConfig::instance()->getHomePage();
+  QString page = ProjectConfig::instance()->getHomePage();
   if(page.isEmpty()){
     QString dir = getWebRootPath();
     page = QString("file://%1/index.html").arg(dir);

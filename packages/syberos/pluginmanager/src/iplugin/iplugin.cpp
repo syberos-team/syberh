@@ -46,6 +46,19 @@ PluginSpec *IPlugin::pluginSpec() const
     return d->pluginSpec;
 }
 
+void IPlugin::beforeInvoke()
+{
+    if(d->isInvokeInitialized){
+        return;
+    }
+    d->isInvokeInitialized = true;
+    invokeInitialize();
+}
+
+void IPlugin::invokeInitialize()
+{
+}
+
 void IPlugin::invoke(QString callbackID, QString action, QVariantMap params)
 {
     Q_UNUSED(callbackID);

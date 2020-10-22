@@ -10,7 +10,11 @@ import { IProjectConfig } from '../util/types'
 import CONFIG from '../config'
 
 
-
+/**
+ * build命令入口
+ * @param appPath 应用路径
+ * @param buildConfig build命令参数
+ */
 export default async function build(appPath: string, buildConfig: BuildConfig) {
   if(buildConfig.type !== DEVICES_TYPES.DEVICE && buildConfig.type !== DEVICES_TYPES.SIMULATOR){
     console.log(
@@ -50,6 +54,9 @@ async function executeBuild(appPath: string, config: BuildConfig) {
   if(!projectConf.devServerPort){
     projectConf.devServerPort = CONFIG.DEV_SERVER_PORT
   }
+  if(!projectConf.debuggingPort){
+    projectConf.debuggingPort = CONFIG.DEBUGGING_PORT
+  }
 
   console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
@@ -58,8 +65,8 @@ async function executeBuild(appPath: string, config: BuildConfig) {
     await build.start(null)
   } else {
     await build.start(() => {
-      // 启动devServer热更新服务
-      if (buildConfig.debug) {
+      // 非release构建时，启动devServer热更新服务
+      if (!buildConfig.release) {
         // TODO 5.0暂时关闭热更新服务
         if(isTargetOS_5(projectConf.target)){
           log.verbose('os5.0暂时关闭热更新服务')
