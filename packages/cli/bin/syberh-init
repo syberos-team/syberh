@@ -4,6 +4,8 @@ const program = require('commander')
 
 const Project = require('../dist/create/project').default
 
+program.storeOptionsAsProperties(false)
+
 program
   .option('--name [name]', '项目名称')
   .option('--description [description]', '项目介绍')
@@ -11,7 +13,7 @@ program
   .parse(process.argv)
 
 const args = program.args
-const { template = 'default', description, name, css = 'none', example = false } = program
+const { template = 'default', description, name, css = 'none', example = false } = program.opts()
 let typescript
 
 /**
