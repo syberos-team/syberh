@@ -976,6 +976,12 @@
       },
       "version-2.1.0/apis/system/version-2.1.0-VirtualPanel": {
         "title": "VirtualPanel"
+      },
+      "version-2.1.2/apis/image/version-2.1.2-previewImage": {
+        "title": "previewImage"
+      },
+      "version-2.1.2/apis/image/version-2.1.2-saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
       }
     },
     "links": {
