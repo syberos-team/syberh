@@ -12,7 +12,7 @@ const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 
 program
   .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
-  .option('--debug', 'debug模式运行,支持热更新')
+  .option('--release', '构建release版本')
   .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
   .option('--env [env]', 'Env type')
   .option('--onlybuild', '构建完成后不安装sop')
@@ -20,9 +20,9 @@ program
   .option('--s1', '构建S1手机可用的应用')
   .parse(process.argv)
 
-const { type, debug, nodoctor, onlybuild, s1 } = program
+const { type, release, nodoctor, onlybuild, s1 } = program
 let { env } = program
-log.verbose('debug:', debug)
+log.verbose('release:', release)
 log.verbose('env:', env)
 log.verbose('type:', type)
 
@@ -45,10 +45,10 @@ targetReset(appPath, program).then(() => {
   if (env) {
     process.env.NODE_ENV = env
   } else {
-    if (debug) {
-      process.env.NODE_ENV = 'development'
-    } else {
+    if (release) {
       process.env.NODE_ENV = 'production'
+    } else {
+      process.env.NODE_ENV = 'development'
     }
   }
 
@@ -56,7 +56,7 @@ targetReset(appPath, program).then(() => {
 
   build(appPath, {
     type,
-    debug,
+    release,
     nodoctor,
     onlyBuild,
     s1

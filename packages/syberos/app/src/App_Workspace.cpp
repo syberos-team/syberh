@@ -13,9 +13,8 @@
 
 #include "../../nativesdk/src/helper.h"
 #include "../../nativesdk/src/framework/nativesdkmanager.h"
-#include "../../nativesdk/src/framework/common/extendedconfig.h"
+#include "../../nativesdk/src/framework/common/projectconfig.h"
 #include "../../nativesdk/src/util/log.h"
-// #include "../../vendor/syberh-framework/src/package.h"
 #include "../../nativesdk/src/util/fileutil.h"
 #include "../../nativesdk/src/framework/common/errorinfo.h"
 
@@ -26,10 +25,10 @@ using namespace NativeSdk;
 App_Workspace::App_Workspace()
     : CWorkspace()
 {
-
+    ProjectConfig *projectConfig = ProjectConfig::instance();
     // 设置日志级别，若开启了debug将日志级别强制设为verbose
-    QString logLevel = ExtendedConfig::instance()->getLogLevel();
-    bool debug = ExtendedConfig::instance()->isDebug();
+    QString logLevel = projectConfig->getLogLevel();
+    bool debug = projectConfig->isDebug();
     if(debug){
         logLevel = LOG_VERBOSE;
     }
@@ -48,7 +47,7 @@ App_Workspace::App_Workspace()
 
     // 开启 chromium devtools
     if(debug){
-        QString devToolServer = ExtendedConfig::instance()->getDeployIP().append(":9867");
+        QString devToolServer = QString("%1:%2").arg(projectConfig->getDeployIP()).arg(projectConfig->getDebuggingPort());
         qputenv("QTWEBENGINE_REMOTE_DEBUGGING", devToolServer.toLatin1());
         qDebug() << "QTWEBENGINE_REMOTE_DEBUGGING:" << devToolServer;
     }
@@ -63,7 +62,6 @@ App_Workspace::App_Workspace()
 
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
-
 
     NativeSdkManager * nativeSdkManager = NativeSdkManager::getInstance();
     m_view->rootContext()->setContextProperty("NativeSdkManager",nativeSdkManager);

@@ -10,12 +10,12 @@ spawn $cdbPath -s $cdbDevice shell
 expect {
   "developer@" {
     send "exit\r"
-    spawn $cdbPath -s $cdbDevice shell "/usr/bin/ins-tool -siu /tmp/$sopFilename && rm -f /tmp/$sopFilename"
+    spawn $cdbPath -s $cdbDevice shell "/usr/bin/ins-tool -iu /tmp/$sopFilename && rm -f /tmp/$sopFilename"
   }
   "root@" {
     send "su install\r"
     expect "install@" {
-      send "/usr/bin/ins-tool -siu /tmp/$sopFilename && exit\r"
+      send "/usr/bin/ins-tool -iu /tmp/$sopFilename && exit\r"
       expect "root@" {send "rm -f /tmp/$sopFilename && exit\r"} 
     }
   }

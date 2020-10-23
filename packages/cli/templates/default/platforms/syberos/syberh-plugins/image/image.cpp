@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QImage>
+#include <QByteArray>
 
 Image::Image()
 {
@@ -130,54 +131,110 @@ void Image::saveImageToPhotosAlbum(QString callbackID, QVariantMap params)
 {
     qDebug() << Q_FUNC_INFO << "params" << params << endl;
     globalCallbackID = callbackID.toLong();
-
+    // 选取的图片路径
     QString filePath = params.value("filePath").toString();
+    // base64 data
+    QString data = params.value("data").toString();
+    // 要保存的位置
+    QString path = params.value("path").toString();
+    // 文件名
+    QString name = params.value("name").toString();
+    // 是否覆盖
+    bool isCover = params.value("isCover").toBool();
 
-    if (filePath.isEmpty()) {
-        qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
-        signalManager()->failed(globalCallbackID, ErrorInfo::InvalidParameter, "不合法的参数:filePath不能为空");
-        return;
-    }
+    qDebug() << Q_FUNC_INFO << "isCover" << isCover;
 
-    bool ret = Helper::instance()->isPicture(filePath);
-    if (!ret) {
-        qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
-        signalManager()->failed(globalCallbackID, ErrorInfo::IllegalMediaTypeError, "不合法的媒体文件类型:不是图片文件");
-        return;
-    }
-
+    QImage newImg;
     QFile file(filePath);
-    if (!file.exists()) {
-        qDebug() << Q_FUNC_INFO << "文件不存在：" << filePath << endl;
-        signalManager()->failed(globalCallbackID, ErrorInfo::InvalidURLError, "无效的url:图片不存在");
-        return;
+
+    if (data.isEmpty()) {
+        if (filePath.isEmpty()) {
+            qDebug() << Q_FUNC_INFO << "文件路径不能为空" << endl;
+            signalManager()->failed(globalCallbackID, ErrorInfo::InvalidParameter, "不合法的参数:filePath不能为空");
+            return;
+        }
+
+        bool ret = Helper::instance()->isPicture(filePath);
+        if (!ret) {
+            qDebug() << Q_FUNC_INFO << "不是图片文件" << endl;
+            signalManager()->failed(globalCallbackID, ErrorInfo::IllegalMediaTypeError, "不合法的媒体文件类型:不是图片文件");
+            return;
+        }
+
+        if (!file.exists()) {
+            qDebug() << Q_FUNC_INFO << "文件不存在：" << filePath << endl;
+            signalManager()->failed(globalCallbackID, ErrorInfo::InvalidURLError, "无效的url:图片不存在");
+            return;
+        }
+    } else {
+        int idx = data.indexOf("base64,");
+        data = data.mid(idx + 7, data.length()-1);
+        newImg = base64ToImg(data);
     }
 
     //设置系统相机路径
-    QString path = Helper::instance()->getInnerStorageRootPath() + "/DCIM";
-    QDir dir(path);
-    if(!dir.exists()){
-        dir.mkpath(path);
-    }
-    QFileInfo fileInfo(file);
+    QString _path = Helper::instance()->getInnerStorageRootPath() + "/DCIM";
+    QString newFile;
 
-    //设置文件名
-    QDateTime time = QDateTime::currentDateTime();   //获取当前时间
-    int timeT = time.toTime_t();                     //将当前时间转为时间戳
-    QStringList filenameArr = fileInfo.fileName().split(".");
-    QString filename = filenameArr[0]+"_"+ QString::number(timeT)+"."+filenameArr[1];
-    QString newFile = path + "/" + filename;
+    if (name.isEmpty()) {
+        QDir dir(_path);
+        if(!dir.exists()){
+            dir.mkpath(_path);
+        }
+        QFileInfo fileInfo(file);
 
-    try  {
-        //将照片复制到系统相册
-        QFile::copy(filePath, newFile);
-    } catch (QException e) {
-        qDebug() << Q_FUNC_INFO << "保存图片到系统相册失败" << endl;
-        signalManager()->failed(globalCallbackID, ErrorInfo::SystemError, "系统错误:保存图片到系统相册失败");
-        return;
+        //设置文件名
+        QDateTime time = QDateTime::currentDateTime();   //获取当前时间
+        int timeT = time.toTime_t();                     //将当前时间转为时间戳
+        QStringList filenameArr = fileInfo.fileName().split(".");
+        QString filename = filenameArr[0]+"_"+ QString::number(timeT)+"."+filenameArr[1];
+        newFile = _path + "/" + filename;
+    } else {
+        newFile = _path + "/" + name;
     }
 
-    signalManager()->success(globalCallbackID, newFile);
+    if (data.isEmpty()) {
+        if (!filePath.isEmpty()) {
+            try {
+                //将照片复制到系统相册
+                QFile::copy(filePath, newFile);
+            } catch (QException e) {
+                qDebug() << Q_FUNC_INFO << "保存图片到系统相册失败" << endl;
+                signalManager()->failed(globalCallbackID, ErrorInfo::SystemError, "系统错误:保存图片到系统相册失败");
+                return;
+            }
+            signalManager()->success(globalCallbackID, newFile);
+        }
+    } else {
+        QString newImgName;
+        bool result;
+        if (path.isEmpty()) {
+            newImgName = _path + "/" + name;
+        } else {
+            if (path.endsWith("/")) {
+                path = path.mid(0, path.length()-1);
+            }
+            newImgName = path + "/" + name;
+        }
+
+
+        bool isExist = Helper::instance()->exists(newImgName);
+
+        if (isExist == true) {
+            if (isCover == false) {
+                signalManager()->failed(globalCallbackID, ErrorInfo::SystemError, "系统错误:保存图片失败,文件已存在");
+                return;
+            }
+        }
+
+        result = newImg.save(newImgName);
+
+        if (result) {
+            signalManager()->success(globalCallbackID, newImgName);
+        } else {
+            signalManager()->failed(globalCallbackID, ErrorInfo::SystemError, "系统错误:保存图片失败");
+        }
+    }
     globalCallbackID = 0;
 }
 
@@ -227,4 +284,15 @@ void Image::getImageInfo(QString callbackID, QVariantMap params)
     globalCallbackID = 0;
 }
 
-
+//base64 转 QImage
+QImage Image::base64ToImg(const QString & str)
+{
+    qDebug() << Q_FUNC_INFO << str;
+    QImage img;
+    QByteArray arr_base64 = str.toLatin1();
+    qDebug() << Q_FUNC_INFO << arr_base64 << "###arr_base64  toLatin1";
+    bool res = img.loadFromData(QByteArray::fromBase64(arr_base64));
+    qDebug() << Q_FUNC_INFO << "##img.loadFromData##" << res;
+    qDebug() << Q_FUNC_INFO << img;
+    return img;
+}

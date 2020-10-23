@@ -1,7 +1,7 @@
 #include "socketclient.h"
 #include "../../util/fileutil.h"
 #include "../../util/log.h"
-#include "../common/extendedconfig.h"
+#include "../common/projectconfig.h"
 
 #include <QMutexLocker>
 
@@ -17,7 +17,7 @@ SocketClient::SocketClient(const QString &url, const int &port)
 
     connectCount=0;
     helper=Helper::instance();
-    bool debug=ExtendedConfig::instance()->get("debug").toBool();
+    bool debug=ProjectConfig::instance()->isDebug();
     purl=url;
     pport=port;
     total=0;
@@ -111,7 +111,7 @@ void SocketClient::data(){
 
     total=fileArray.size();
 
-    QString path = ExtendedConfig::instance()->get("webPath").toString();
+    QString path = ProjectConfig::instance()->getWebPath();
     if (path == "") {
         path = "www";
     }

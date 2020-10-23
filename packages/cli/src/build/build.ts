@@ -110,11 +110,13 @@ export class Build {
     this.mkdirBuild()
     // 2、拷贝www路径到模板下
     await this.copywww()
-    // 3、生成证书
+    // 3、在platforms/syberos目录下生成project.config.json
+    this.generateProjectConfig();
+    // 4、生成证书
     this.generateCert();
-    // 4、执行构建命令
+    // 5、执行构建命令
     const sopPath = this.compile()
-    // 5、构建完成后执行回调
+    // 6、构建完成后执行回调
     if (typeof buildSuccessCallback === 'function') {
       // 构建完成后，回退到项目根目录
       shelljs.cd('..')
@@ -133,9 +135,9 @@ export class Build {
     // 定义编译目录
     if (this.buildConfig.onlyBuild === true) {
       // 如果是只打SOP包， 目录名的设备名为 device
-      this.buildDir = `${this.appPath}/.build-${DEVICES_TYPES.DEVICE}-${this.projectConfig.target}${this.buildConfig.debug ? '-Debug' : ''}`
+      this.buildDir = `${this.appPath}/.build-${DEVICES_TYPES.DEVICE}-${this.projectConfig.target}${this.buildConfig.release ? '' : '-Debug'}`
     } else {
-      this.buildDir = `${this.appPath}/.build-${this.buildConfig.type}-${this.projectConfig.target}${this.buildConfig.debug ? '-Debug' : ''}`
+      this.buildDir = `${this.appPath}/.build-${this.buildConfig.type}-${this.projectConfig.target}${this.buildConfig.release ? '' : '-Debug'}`
     }
 
     if (!fs.pathExistsSync(this.buildDir)) {
@@ -168,6 +170,21 @@ export class Build {
       return
     }
     log.info('已拷贝www目录，From：', wwwPath, ' To：', syberosPath)
+  }
+
+  /**
+   * 在platforms/syberos目录下生成project.config.json
+   */
+  private generateProjectConfig(){
+    const projectConfObj : ExConfig = { 
+      debug: !this.buildConfig.release,
+      logLevel: this.devLog,
+      ...this.projectConfig
+    }
+    const projectConfigPath = path.join(this.appPath, 'platforms/syberos/project.config.json');
+
+    fs.writeJSONSync(projectConfigPath, projectConfObj);
+    log.info('生成配置：', projectConfigPath)
   }
 
   /**
@@ -237,12 +254,6 @@ export class Build {
   private async compileApp(buildPkg: boolean): Promise<string | null> {
     log.verbose('Build compileApp(%s)', buildPkg)
 
-    const exConfigObj : ExConfig = { 
-      debug: this.buildConfig.debug,
-      logLevel: this.devLog,
-      ...this.projectConfig
-    }
-
     const compiler = new compile.Compiler()
     const compileResult = await compiler.buildApp({
       // 编译项目的pro文件位置
@@ -256,9 +267,9 @@ export class Build {
       // 额外的qmake编译参数
       qmakeArgs: [],
       // 是否使用debug编译
-      debug: !!exConfigObj.debug,
-      // 扩展参数
-      exConfig: exConfigObj
+      debug: !this.buildConfig.release
+      // 预留扩展参数
+      // exConfig: exConfigObj
     }, buildPkg);
     return compileResult.sopPath;
   }
@@ -287,12 +298,6 @@ export class Build {
       qmakeArgs.push('DEFINES+=S1');
     }
 
-    const exConfigObj : ExConfig = { 
-      debug: this.buildConfig.debug,
-      logLevel: this.devLog,
-      ...this.projectConfig
-    }
-
     const compiler = new compile.Compiler()
     compiler.buildPlugins({
       // 指向应用中platform/syberos位置
@@ -300,7 +305,7 @@ export class Build {
       // 编译插件的名称
       plugins: plugins,
       // 应用的sopid
-      sopid: exConfigObj.sopid,
+      sopid: this.projectConfig.sopid,
       // 编译输出目录
       buildPath: this.buildDir,
       // pdk命令所在位置
@@ -310,9 +315,9 @@ export class Build {
       // 额外的qmake编译参数
       qmakeArgs: qmakeArgs,
       // 是否使用debug编译
-      debug: !!exConfigObj.debug,
-      // 扩展参数
-      exConfig: exConfigObj
+      debug: !this.buildConfig.release
+      // 预留扩展参数
+      // exConfig: exConfigObj
     });
   }
 

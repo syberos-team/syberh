@@ -22,6 +22,8 @@ public:
 
     void chooseImage(QString callbackID, QVariantMap params);
     void previewImage(QString callbackID, QVariantMap params);
+    //base64 转 QImage
+    QImage base64ToImg(const QString& str);
 
 private:
     QmlManager qmlManager;
