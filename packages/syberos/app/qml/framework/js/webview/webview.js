@@ -118,8 +118,8 @@ function WebView (options) {
       that.trigger('keyEvent', object, eventType, event);
     });
 
-    NativeSdkManager.request('DevTools*', 12378, '', '');
-    NativeSdkManager.request('Packages*', 151010, '', '');
+    NativeSdkManager.request('DevTools*', 12378, '', {});
+    NativeSdkManager.request('Packages*', 151010, '', {});
   });
 
   // 页面被打开

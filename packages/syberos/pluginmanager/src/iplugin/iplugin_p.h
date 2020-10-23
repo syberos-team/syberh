@@ -15,6 +15,7 @@ class IPluginPrivate
 public:
     PluginSpec *pluginSpec;
     SignalManager *signalManager;
+    bool isInvokeInitialized = false;
 };
 
 } // namespace Internal

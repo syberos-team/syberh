@@ -10,7 +10,7 @@ namespace NativeSdk {
 
 class NativeSdkManager;
 class NativeSdkFactory;
-class ExtendedConfig;
+class ProjectConfig;
 class PluginSpec;
 
 namespace Internal {
@@ -22,8 +22,8 @@ public:
     ~NativeSdkManagerPrivate();
 
     NativeSdkFactory *nativeSdkFactory;
-    //拓展配置
-    ExtendedConfig *extendConfig = nullptr;
+    //项目配置
+    ProjectConfig *projectConfig = nullptr;
     //开发工具
     DevTools *devTools = nullptr;
 

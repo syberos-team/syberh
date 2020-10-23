@@ -327,4 +327,6 @@ export interface IProjectConfig {
   devServerIP: string
   // dev服务端口
   devServerPort: string
+  // qtwebengine remote debugging 端口
+  debuggingPort: string
 }

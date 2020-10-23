@@ -51,7 +51,8 @@ export default class Project extends Creator {
         deployIP: CONFIG.DEPLOY_IP,
         deployPort: CONFIG.DEPLOY_PORT,
         devServerIP: CONFIG.DEV_SERVER_IP,
-        devServerPort: CONFIG.DEV_SERVER_PORT
+        devServerPort: CONFIG.DEV_SERVER_PORT,
+        debuggingPort: CONFIG.DEBUGGING_PORT
       },
       options
     )
