@@ -27,9 +27,6 @@ module.exports = {
     },
     // add your custom rules here
     'rules': {
-        // 关闭react拓展
-        'jsx-a11y/href-no-hash': 0,
-        'react/require-extension': 0,
         "import/no-extraneous-dependencies": 0,
         // 只允许对ejs这个参数的属性二次赋值
         // 'no-param-reassign': [2, { 'props': true, 'ignorePropertyModificationsFor': ['ejs'] }],

@@ -19,7 +19,7 @@ async function packageJson(name: string, timeout: number, options: any = {}) {
     version: 'latest'
   }, options);
 
-  const headers = {
+  const headers: any = {
     accept: 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*'
   };
 

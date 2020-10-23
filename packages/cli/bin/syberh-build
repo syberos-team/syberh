@@ -10,6 +10,8 @@ const { log } = require('../dist/util/log')
 const appPath = process.cwd()
 const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 
+program.storeOptionsAsProperties(false)
+
 program
   .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
   .option('--release', '构建release版本')
@@ -20,8 +22,10 @@ program
   .option('--s1', '构建S1手机可用的应用')
   .parse(process.argv)
 
-const { type, release, nodoctor, onlybuild, s1 } = program
-let { env } = program
+const buildOpts = program.opts()
+
+const { type, release, nodoctor, onlybuild, s1 } = buildOpts
+let { env } = buildOpts
 log.verbose('release:', release)
 log.verbose('env:', env)
 log.verbose('type:', type)
@@ -41,7 +45,7 @@ if (!fs.existsSync(projectConfPath)) {
 }
 
 // 检查是否需要重置target
-targetReset(appPath, program).then(() => {
+targetReset(appPath, buildOpts).then(() => {
   if (env) {
     process.env.NODE_ENV = env
   } else {
