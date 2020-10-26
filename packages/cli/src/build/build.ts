@@ -37,6 +37,8 @@ export class Build {
   private buildDir: string
   // 是否安装至模拟器
   private useSimulator: boolean = false
+  // 是否检测到设备连接
+  private isDeviceConnected: boolean = false
 
   constructor(appPath: string, projectConf : IProjectConfig, config: BuildConfig) {
     this.appPath = appPath
@@ -61,21 +63,21 @@ export class Build {
     this.pdkRootPath = await helper.locateSdk()
     log.verbose('pdkRootPath:', this.pdkRootPath)
 
-    // 当不设置仅编译参数时，检查设备连接
-    if (!this.buildConfig.onlyBuild) {
-      this.checkConnect()
-    }
-
-    console.log(chalk.green('开始编译'))
+    console.log(chalk.green(`开始编译 ${chalk.bold(this.buildConfig.release ? 'Release' : 'Debug')}`))
     log.verbose('appPath:%s, conf:%j', this.appPath, this.buildConfig)
 
     // 执行编译
     const sopPath = await this.buildSop(buildSuccessCallback)
 
+    console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
     // 设置仅编译参数时，不安装sop
     if (this.buildConfig.onlyBuild) {
-      console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
       return;
+    }
+
+    // 当不设置仅编译参数时，检查设备连接
+    if (!this.buildConfig.onlyBuild) {
+      this.checkConnect()
     }
     // 安装sop
     await this.installSop(sopPath)
@@ -93,10 +95,11 @@ export class Build {
     }
     const checker = new connect.ConnectChecker(this.pdkRootPath, this.projectConfig.target)
     if (checker.isCdbEnabled() || checker.isSshEnabled(this.projectConfig.deployIP, this.projectConfig.deployPort)) {
+      this.isDeviceConnected = true
       return
     }
-    console.log(chalk.red('未检测到设备'))
-    process.exit(0)
+    console.log(chalk.yellow('未检测到设备'))
+    this.isDeviceConnected = false
   }
 
   /**
@@ -327,6 +330,11 @@ export class Build {
   private async installSop(sopPath: string | null) {
     log.verbose('Build installSop()')
     console.log(chalk.green('开始安装sop包...'))
+
+    if(!this.isDeviceConnected){
+      log.warn('未连接设备，停止安装sop包');
+      return;
+    }
 
     if (!sopPath || !fs.existsSync(sopPath)) {
       log.error('未找到sop包，停止安装sop包')
