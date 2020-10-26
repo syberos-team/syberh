@@ -138,10 +138,13 @@ export class Compiler {
     const setup3 = `${kchrootPath} 'sb2 -t ${conf.targetName} -R' 'buildpkg ${conf.proPath}'`;
 
     shelljs.cd(conf.buildPath);
+    log.verbose('buildByNotOS5() setup1:', setup1);
     this.shell(setup1);
+    log.verbose('buildByNotOS5() setup2:', setup2);
     this.shell(setup2);
 
     if (buildPkg) {
+      log.verbose('buildByNotOS5() setup3:', setup3);
       this.shell(setup3);
       sopPath = this.findSop(conf);
     }
@@ -171,10 +174,13 @@ export class Compiler {
     const setup3 = `${buildpkg} ${conf.proPath}`;
 
     shelljs.cd(conf.buildPath);
+    log.verbose('buildByOS5() setup1:', setup1);
     this.shell(setup1);
+    log.verbose('buildByOS5() setup2:', setup2);
     this.shell(setup2);
 
     if (buildPkg) {
+      log.verbose('buildByOS5() setup3:', setup3);
       this.shell(setup3);
       sopPath = this.findSop(conf);
     }
@@ -294,15 +300,36 @@ export class Compiler {
 
   /**
    * 查找conf参数中的buildPath路径下的sop文件，未找到时返回null
+   * 若存在多个sop文件，则返回更改时间最新的文件
    */
   private findSop<T extends CompileGeneralConfig>(conf: T): string | null {
+    log.verbose('findSop()  buildPath:', conf.buildPath);
     const files = fs.readdirSync(conf.buildPath, { encoding: 'utf8' });
+
+    const sopFilePathes: Array<string> = [];
     for (const f of files) {
-      if (f.endsWith('.sop')) {
-        return path.join(conf.buildPath, f);
+      if(f.endsWith('.sop')){
+        sopFilePathes.push(path.join(conf.buildPath, f));
+        continue;
       }
     }
-    return null
+    if(sopFilePathes.length === 0){
+      return null;
+    }
+
+    let tmpCtime: number = -1;
+    let tmpSopPath: string|null = null;
+    for(const sopFilePath of sopFilePathes){
+      if(!fs.existsSync(sopFilePath)){
+        continue;
+      }
+      const fileCtimeMs = fs.statSync(sopFilePath).ctimeMs;
+      if(fileCtimeMs > tmpCtime){
+        tmpCtime = fileCtimeMs;
+        tmpSopPath = sopFilePath;
+      }
+    }
+    return tmpSopPath;
   }
 
   /**
