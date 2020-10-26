@@ -12,7 +12,7 @@ lessThan(QT_VER_MIN, 6) {
     QT += webengine webchannel
 }
 
-QT += gui qml quick widgets network multimedia core sql dbus
+QT += gui qml quick widgets core
 
 TEMPLATE = app
 
@@ -23,7 +23,7 @@ CONFIG += C++11
 
 RESOURCES += res.qrc
 
-PKGCONFIG += syberos-application syberos-application-cache syberos-qt-system syberos-qt
+PKGCONFIG += syberos-application syberos-application-cache syberos-qt
 
 QML_FILES = qml/*.qml
 

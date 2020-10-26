@@ -14,19 +14,13 @@
         <file>res/navBack.png</file>
         <file>qml/framework/js/core/core.js</file>
         <file>qml/framework/js/core/plugin.js</file>
-        <file>qml/framework/js/modal/alert.js</file>
-        <file>qml/framework/js/modal/confirm.js</file>
-        <file>qml/framework/js/modal/prompt.js</file>
-        <file>qml/framework/js/modal/toast.js</file>
         <file>qml/framework/js/root/root.js</file>
         <file>qml/framework/js/util/polyfill.js</file>
         <file>qml/framework/js/util/tool.js</file>
         <file>qml/framework/js/webview/webview.js</file>
-        <file>qml/framework/js/app/app.js</file>
         <file>qml/framework/js/syber.js</file>
         <file>qml/framework/js/config.js</file>
         <file>qml/framework/js/util/log.js</file>
-        <file>qml/framework/js/modal/gtoast.js</file>
         <file>qml/framework/root.qml</file>
         <file>qml/framework/SAlert.qml</file>
         <file>qml/framework/SButton.qml</file>
@@ -37,8 +31,6 @@
         <file>qml/framework/ItemSelector.qml</file>
         <file>qml/framework/SWebview.qml</file>
         <file>qml/framework/SWebview59.qml</file>
-        <file>qml/framework/SPage.qml</file>
-        <file>qml/framework/SPage59.qml</file>
         <file>qml/framework/SNavigationBar.qml</file>
         <file>qml/framework/AuthenticationDialog.qml</file>
         <file>qml/framework/filesPicker.qml</file>

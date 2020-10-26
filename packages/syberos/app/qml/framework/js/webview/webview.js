@@ -10,6 +10,7 @@ var OnShowStautsRedisplay = 'redisplay';
 var HomePageUrl = '';
 
 function WebView (options) {
+  console.log('@@@@@@@@@ webview.js');
   // 默认参数
   var defaultOpts = {
     id: 'webview',
