@@ -106,6 +106,7 @@ Syber.prototype._initPlugin = function (plugin, parent, callback) {
       plugin.isReady = true;
       // 对webview进行特殊处理
       if (plugin.id === 'webview') {
+        logger.verbose('core.js _initPlugin() _spage:', _spage)
         plugin.object = _spage;
         plugin.trigger('ready', _spage);
       }
@@ -246,6 +247,7 @@ Syber.prototype._addBuiltInPlugins = function () {
  * @private
  */
 Syber.prototype._autoRun = function () {
+  logger.verbose('Syber _autoRun() pluginList:', Object.keys(this.pluginList))
   this.isInited = true;
 
   // init plugins
@@ -266,6 +268,7 @@ Syber.prototype.addPlugin = function (plugin) {
   }
   this.pluginList[plugin.id] = plugin;
   // init plugin only if Syber is ready
+  logger.verbose('Syber addPlugin() isInited:', this.isInited)
   if (this.isInited && plugin.autoCreate) {
     this._initPlugin(plugin);
   }
@@ -303,6 +306,7 @@ Syber.prototype.removePlugin = function (pluginID) {
  */
 Syber.prototype.triggerEvent = function (eventName, param) {
   eventName = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1);
+  console.log('core.js triggerEvent eventName:', eventName, ', param:', param, ', func:', this.option[eventName]);
   if (isFunction(this.option[eventName])) {
     this.option[eventName].apply(this, param);
   }

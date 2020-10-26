@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
-import com.syberos.basewidgets 1.0
 import com.syberos.basewidgets 2.0
 import QtQml.Models 2.2
 import QtWebEngine 1.5

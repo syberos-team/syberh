@@ -1,3 +1,0 @@
-SYBERH_APP=$HOME/syberh-v2.0/syberh/packages/syberos
-TARGET_NAME=target-armv7tnhl-os4_1_1
-SOPID=com.syberos.demo

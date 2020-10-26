@@ -1,0 +1,14 @@
+node_modules
+.cache
+.DS_Store
+lerna-debug.log
+yarn-error.log
+_book
+.idea
+.vscode
+temp
+.temp
+.history
+.markdown
+dist/
+templates/default/platforms/syberos/
