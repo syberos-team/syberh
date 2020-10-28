@@ -72,7 +72,6 @@ App_Workspace::App_Workspace()
 
     // QT版本大于5.6，选择进入特定的qml页面, qml适配， 266是9860手机的dpi值
     #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    CEnvironment::initAppDpi(266);
     m_view->setSource(QUrl("qrc:/qml/main59.qml"));
     #else
     SEnvironment *env = new SEnvironment;

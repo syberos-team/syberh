@@ -24,7 +24,7 @@ Rectangle {
     id: stoast;
 
     /*! 模态框和页面的缩放比例 */
-    property real scaleFactor: Screen.width / 1080
+    property real scaleFactor: env.dp(1)
 
     /*! 提示的内容 */
     //property string title: ""
@@ -40,7 +40,7 @@ Rectangle {
     /*! 成功信号，动画执行完发射 */
     signal accepted()
 
-    width: unit.dp(330)
+    width: scaleFactor * 330
     height: scaleFactor * 330
     x: parent.width/ 2 - width / 2
     y: parent.height  / 2 - height / 2 - gScreenInfo.statusBarHeight

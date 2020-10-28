@@ -82,3 +82,6 @@ INSTALLS += target
 LIB_OUT_DIR = $$clean_path($$PWD/../lib)
 LIBS += -L$$LIB_OUT_DIR -lpluginmanager
 
+CONFIG(release, debug|release){
+    QMAKE_POST_LINK=$(STRIP) $(DESTDIR)$(TARGET)
+}

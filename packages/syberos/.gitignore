@@ -2,3 +2,5 @@ build-*/
 build/
 .idea
 app/*.pro.user
+app/www/lib/syberh.min.js
+app/www/lib/syberh.min.js.*

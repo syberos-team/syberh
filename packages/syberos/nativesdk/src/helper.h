@@ -19,15 +19,22 @@ public:
 
     static Helper *instance();
 
+    //获取应用www目录位置，该目录受debug模式影响。
+    //非debug模式：/data/apps/[sopid]/www，
+    //debug模式：/data/data/[sopid]/www
     Q_INVOKABLE QString getWebRootPath();
+    //获取应用默认的www目录位置。/data/apps/[sopid]/www
     Q_INVOKABLE QString getDefaultWebRootPath();
+    //获取应用程序或者服务的私有数据目录。/data/data/[sopid]
     Q_INVOKABLE QString getDataRootPath();
+    //获取外置存储的目录，如记忆卡等设备。/mnt/sdcard
     Q_INVOKABLE QString getExternStorageRootPath();
+    //获取内置存储的目录。 /home/user
     Q_INVOKABLE QString getInnerStorageRootPath();
     //获取日志级别
     Q_INVOKABLE QString logLevelName();
 
-    //获取data/data/x/www路径
+    //获取应用私有数据中的www目录。/data/data/[sopid]/www
     Q_INVOKABLE QString getDataWebRootPath();
     //文件是否存在
     Q_INVOKABLE bool exists(QString filePath);

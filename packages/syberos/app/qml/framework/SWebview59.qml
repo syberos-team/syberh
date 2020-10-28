@@ -76,14 +76,14 @@ CPage{
     // 设置NavigationBar Title
     function setNavigationBarTitle(title) {
         //设置navigatorBar title
-        LOG.logger.verbose('setNavigationBarTitle-title-',title);
+        LOG.logger.verbose('setNavigationBarTitle-title- %s',title);
         sNavigationBar.setTitle(title);
     }
 
     // 设置NavigationBar 背景颜色和字体颜色
     function setNavigationBarColor(options) {
         //设置navigatorBar title
-        LOG.logger.verbose('setNavigationBarColor--', JSON.stringify(options));
+        LOG.logger.verbose('setNavigationBarColor-- %j', options);
         if (options.backgroundColor) {
             sNavigationBar.setBackgroundColor(options.backgroundColor);
         }
@@ -138,9 +138,9 @@ CPage{
     }
     //打开url
     function openUrl(url){
-        LOG.logger.verbose('swebview openUrl()',url)
+        LOG.logger.verbose('swebview openUrl(%s)', url)
         if(swebview.loading){
-            LOG.logger.verbose('swebview loading',swebview.loading)
+            LOG.logger.verbose('swebview loading %s', swebview.loading)
             swebview.stop();
         }
         if(swebview.url.toString()===url){
@@ -162,12 +162,12 @@ CPage{
     function evaluateJavaScript(res){
         if(typeof res ==='string'){
             swebview.runJavaScript('JSBridge._handleMessageFromNative(' + res + ')', function(result){
-              LOG.logger.verbose('evaluateJavaScript:', res, 'result:', result);
+              LOG.logger.verbose('evaluateJavaScript: %s  result: %s', res, result);
             })
         }else{
             var param = JSON.stringify(res)
             swebview.runJavaScript('JSBridge._handleMessageFromNative(' + param + ')', function(result){
-              LOG.logger.verbose('evaluateJavaScript:', param, 'result:', result);
+              LOG.logger.verbose('evaluateJavaScript: %s  result: %s', param, result);
             })
         }
 
@@ -234,13 +234,13 @@ CPage{
     }
 
     Keys.onReleased: {
-        LOG.logger.verbose('SWebview qml Keys.onReleased ', event.key, event.text)
+        LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
         keyEvent('onReleased', event)
         setDestroyStatus(true)
     }
 
     Keys.onPressed: {
-        LOG.logger.verbose('SWebview qml Keys.onPressed', event.key, event.text)
+        LOG.logger.verbose('SWebview qml Keys.onPressed %s %s', event.key, event.text)
         keyEvent('onPressed', event)
         setDestroyStatus(true)
     }
@@ -269,7 +269,7 @@ CPage{
             WebChannel.id: "trans"
 
             function postMessage(msg){
-                LOG.logger.verbose('trans postMessage ', msg)
+                LOG.logger.verbose('trans postMessage: %s', msg)
                 receiveMessage(msg)
             }
         }
@@ -308,25 +308,23 @@ CPage{
             property string navigateUrl: ""
             property string telNumber: ""
             onNavigationRequested: {
-                var logger=LOG.logger;
-                logger.verbose("onNavigationRequested request.navigationType:",request.navigationType)
-                logger.verbose("onNavigationRequested",helper.getWebRootPath())
+                LOG.logger.verbose("onNavigationRequested request.navigationType: %s", request.navigationType)
             }
 
             onUrlChanged: {
-                LOG.logger.verbose('SWebview onUrlChanged',loadProgress)
+                LOG.logger.verbose('SWebview onUrlChanged %s',loadProgress)
             }
 
             onLoadProgressChanged: {
-                LOG.logger.verbose('SWebview qml onLoadProgressChanged',loadProgress)
+                LOG.logger.verbose('SWebview qml onLoadProgressChanged %s',loadProgress)
                 sloadProgress(loadProgress)
             }
 
             onLoadingChanged: function(loadRequest){
-                LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
+                LOG.logger.verbose('SWebview qml onLoadingChanged status:%s, url:%s', loadRequest.status, loadRequest.url)
                 if (loadRequest.status === WebEngineView.LoadFailedStatus){
                     var failedMessage = '[' + loadRequest.errorCode + ']' + loadRequest.errorString;
-                    LOG.logger.error('SWebview qml onLoadingChanged LoadFailedStatus: ' + loadRequest.url + ', error:' + failedMessage)
+                    LOG.logger.error('SWebview qml onLoadingChanged LoadFailedStatus: %s, error: %s', loadRequest.url, failedMessage)
 
                     gToast.requestToast('加载失败: ' + failedMessage);
                 }
@@ -357,13 +355,13 @@ CPage{
             onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){
               switch(level){
                 case WebEngineView.InfoMessageLevel:
-                  LOG.logger.verbose('line:', lineNumber, 'sourceID:', sourceID, 'msg:', message)
+                  LOG.logger.verbose(message)
                   break;
                 case WebEngineView.WarningMessageLevel:
-                  LOG.logger.warn('line:', lineNumber, 'sourceID:', sourceID, 'msg:', message)
+                  LOG.logger.warn(message)
                   break;
                 case WebEngineView.ErrorMessageLevel:
-                  LOG.logger.error('line:', lineNumber, 'sourceID:', sourceID, 'msg:', message)
+                  LOG.logger.error(message)
                   break;
               }
             }
@@ -397,7 +395,6 @@ CPage{
 
             onFileDialogRequested: function(request){
               LOG.logger.verbose('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择')
-              console.log('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择')
               request.accepted = true
               salert.messageText = '请调用filepicker API实现'
               salert.show()
