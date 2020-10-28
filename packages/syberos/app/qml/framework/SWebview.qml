@@ -76,14 +76,14 @@ CPage{
     // 设置NavigationBar Title
     function setNavigationBarTitle(title) {
         //设置navigatorBar title
-        LOG.logger.verbose('setNavigationBarTitle-title-',title);
+        LOG.logger.verbose('setNavigationBarTitle-title- %s',title);
         sNavigationBar.setTitle(title);
     }
 
     // 设置NavigationBar 背景颜色和字体颜色
     function setNavigationBarColor(options) {
         //设置navigatorBar title
-        LOG.logger.verbose('setNavigationBarColor--', JSON.stringify(options));
+        LOG.logger.verbose('setNavigationBarColor-- %j', options);
         if (options.backgroundColor) {
             sNavigationBar.setBackgroundColor(options.backgroundColor);
         }
@@ -139,9 +139,9 @@ CPage{
     }
     //打开url
     function openUrl(url){
-        LOG.logger.verbose('swebview openUrl()',url)
+        LOG.logger.verbose('swebview openUrl(%s)', url)
         if(swebview.loading){
-            LOG.logger.verbose('swebview loading',swebview.loading)
+            LOG.logger.verbose('swebview loading %s',swebview.loading)
             swebview.stop();
         }
         if(swebview.url.toString()===url){
@@ -237,14 +237,14 @@ CPage{
     }
 
     Keys.onReleased: {
-        LOG.logger.verbose('SWebview qml Keys.onReleased',Keys.onReleased)
+        LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
         keyEvent('onReleased', event)
         //event.accepted = true
         setDestroyStatus(true)
     }
 
     Keys.onPressed: {
-        LOG.logger.verbose('SWebview qml Keys.onPressed',Keys.onPressed)
+        LOG.logger.verbose('SWebview qml Keys.onPressed %s %s', event.key, event.text)
         keyEvent('onPressed', event)
         setDestroyStatus(true)
     }
@@ -432,22 +432,20 @@ CPage{
             property string navigateUrl: ""
             property string telNumber: ""
             onNavigationRequested: {
-                var logger=LOG.logger;
-                logger.verbose("onNavigationRequested request.navigationType:",request.navigationType)
-                logger.verbose("onNavigationRequested",helper.getWebRootPath())
+                LOG.logger.verbose("onNavigationRequested request.navigationType:%s", request.navigationType)
             }
 
             onUrlChanged: {
-                LOG.logger.verbose('SWebview onUrlChanged',loadProgress)
+                LOG.logger.verbose('SWebview onUrlChanged %s', loadProgress)
             }
 
             onLoadProgressChanged: {
-                LOG.logger.verbose('SWebview qml onLoadProgressChanged',loadProgress)
+                LOG.logger.verbose('SWebview qml onLoadProgressChanged %s', loadProgress)
                 sloadProgress(loadProgress)
             }
 
             onLoadingChanged:{
-                LOG.logger.verbose('SWebview qml onLoadingChanged',loadRequest.status,loadRequest.url)
+                LOG.logger.verbose('SWebview qml onLoadingChanged status:%s, url:%s', loadRequest.status, loadRequest.url)
                 if (!loading && loadRequest.status === WebView.LoadFailedStatus){
                     LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
                     //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
@@ -460,7 +458,7 @@ CPage{
             }
 
             onSms: {
-                LOG.logger.verbose("onSms", url, body);
+                LOG.logger.verbose("onSms %s, %s", url, body);
                 gApp.openUrl("sms:?body=" + body);
             }
 

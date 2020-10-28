@@ -31,3 +31,6 @@ DESTDIR += $$clean_path($$PWD/../lib)
 target.path = $$INSTALL_DIR/lib
 INSTALLS += target
 
+CONFIG(release, debug|release){
+    QMAKE_POST_LINK=$(STRIP) $(DESTDIR)$(TARGET)
+}

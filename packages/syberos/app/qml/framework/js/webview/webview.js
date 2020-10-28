@@ -71,13 +71,17 @@ function WebView (options) {
 
       // 关闭当前webview信号
       object.navigationBarClose.connect(function () {
+        if(swebviews.length == 0){
+          Qt.quit();
+          return;
+        }
         that.trigger('navigateBack', object, null, { delta: 1 });
       });
     }
 
     // 屏幕旋转信号 (每个webview都监听了此信号，所以屏幕选择所有页面都会收到此消息)
     object.orientation.connect(function (orientationObj) {
-      logger.verbose('orientationObj***********', JSON.stringify(orientationObj));
+      logger.verbose('orientationObj*********** %j', orientationObj);
 
       that.pushQueue('subscribe', {
         url: orientationObj.url,
@@ -229,7 +233,7 @@ function WebView (options) {
     for (var sum = 0; sum < len; sum += 1) {
       funcArgs.push(arguments[sum]);
     }
-    logger.verbose('webview on success() funcArgs:', JSON.stringify(funcArgs));
+    logger.verbose('webview on success() funcArgs: %j', funcArgs);
 
     that.onSuccess.apply(this, funcArgs);
   });
@@ -277,7 +281,7 @@ function WebView (options) {
 
   // 给页面设置标题
   this.on('setTitle', function (object, handlerId, param) {
-    logger.verbose('Webivew:[%s] , on setTitle() ,param:%s ,', that.id, JSON.stringify(param));
+    logger.verbose('Webivew:[%s] , on setTitle() ,param:%j', that.id, param);
     logger.verbose('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
 
     // 导航栏visible为false，不让修改标题
@@ -304,7 +308,7 @@ function WebView (options) {
 
   // 设置导航栏颜色和字体颜色
   this.on('setNavigationBarColor', function (object, handlerId, param) {
-    logger.verbose('Webivew:[%s] , on setNavigationBarColor() ,param:%s ,', that.id, JSON.stringify(param));
+    logger.verbose('Webivew:[%s] , on setNavigationBarColor() ,param:%j', that.id, param);
     logger.verbose('---Webivew NavigationBar visible---', object.getNavigationBarStatus());
 
     // 导航栏visible为false，不让修改标题
@@ -331,7 +335,7 @@ function WebView (options) {
 
   // 设置背景色
   this.on('setBackgroundColor', function (object, handlerId, param) {
-    logger.verbose('Webivew:[%s] , on setBackgroundColor() ,param:%s ,', that.id, JSON.stringify(param));
+    logger.verbose('Webivew:[%s] , on setBackgroundColor() ,param:%j', that.id, param);
 
     param.backgroundColor = param.backgroundColor.trim();
     if (!param.backgroundColor) {
@@ -344,7 +348,7 @@ function WebView (options) {
   // 保留当前页面，跳转到某个页面
   this.on('navigateBack', function (object, handlerId, param) {
     logger.verbose('Webview:[%s],on navigateBack() start', that.id);
-    logger.verbose('handlerId:%s ,param:', that.id, handlerId, JSON.stringify(param));
+    logger.verbose('handlerId:%s ,param:%j', handlerId, param);
     if (!isNumber(param.delta)) {
       var msg = 'delta参数类型错误';
       that.trigger('fail', 6004, msg);
@@ -364,7 +368,7 @@ function WebView (options) {
 
   // 关闭所有页面，打开某个页面 (相当于redirectTo，让第一个webview打开url,成功后吧webview返回到顶层)
   this.on('reLaunch', function (object, handlerId, param) {
-    logger.verbose('webview:[%s] on reLaunch', that.id, JSON.stringify(param));
+    logger.verbose('webview:[%s] on reLaunch %j', that.id, param);
     logger.verbose('reLaunch swebviews:[%d]', swebviews.length);
     logger.verbose('webviewdepth:[%d]', webviewdepth);
 
@@ -394,7 +398,7 @@ function WebView (options) {
 
           if (param.navigationBar) {
             var params = getNavigateBarParams(param.navigationBar);
-            logger.verbose('navigationBar params*****', JSON.stringify(params));
+            logger.verbose('navigationBar params***** %j', params);
             currentWebview.object.showNavigatorBar(params);
           }
         }
@@ -406,7 +410,7 @@ function WebView (options) {
   });
   // 保留当前页面，跳转到某个页面
   this.on('navigateTo', function (object, handlerId, param) {
-    logger.verbose('webview:[%s] on navigateTo', that.id, JSON.stringify(param));
+    logger.verbose('webview:[%s] on navigateTo %j', that.id, param);
     logger.verbose('navigateTo swebviews:[%d]', swebviews.length);
     logger.verbose('webviewdepth:[%d]', webviewdepth);
     var dwevview = null;
@@ -470,10 +474,10 @@ function WebView (options) {
           logger.verbose('newKey-', newKey);
           dwevview.param[newKey] = param.navigationBar[key];
         }
-        logger.verbose('dwevview.param--', JSON.stringify(dwevview.param));
+        logger.verbose('dwevview.param-- %j', dwevview.param);
       }
 
-      logger.verbose('webviewParams:[%s]', JSON.stringify(dwevview.param));
+      logger.verbose('webviewParams:%j', dwevview.param);
 
       dwevview.currentUrl = param.url;
       logger.verbose('navigator TO URL:-------------------', that.currentUrl);
@@ -490,7 +494,7 @@ function WebView (options) {
   // 不关闭当前页面，跳转到某个页面
   this.on('redirectTo', function (object, handlerId, param) {
     try {
-      logger.verbose('webview:[%s] on redirectTo', that.id, JSON.stringify(param));
+      logger.verbose('webview:[%s] on redirectTo %j', that.id, param);
       logger.verbose('页面redirectTo*********卸载页面*****', currentWebview.object.getCurrentUrl());
       var curUrl = currentWebview.object.getCurrentUrl();
       var url = getUrl(param.url);
@@ -508,7 +512,7 @@ function WebView (options) {
 
       if (param.navigationBar) {
         var params = getNavigateBarParams(param.navigationBar);
-        logger.verbose('navigationBar params*****', JSON.stringify(params));
+        logger.verbose('navigationBar params***** %j', params);
         currentWebview.object.showNavigatorBar(params);
       }
 
@@ -529,7 +533,7 @@ function WebView (options) {
    * (如redirectTo或navigateBack或reLaunch到其他页面时)
    */
   this.on('unload', function (options) {
-    logger.verbose('页面要卸载了unload******', JSON.stringify(options));
+    logger.verbose('页面要卸载了unload****** %j', options);
 
     var curUrl = options.url;
     // 发送onUnload事件
@@ -543,7 +547,7 @@ function WebView (options) {
 
   // 设置屏幕旋转方向
   this.on('setPageOrientation', function (object, handlerId, param) {
-    logger.verbose('Webivew:[%s] , on setPageOrientation() ,param:%s ,', that.id, JSON.stringify(param), typeof that.param.orientation);
+    logger.verbose('Webivew:[%s] , on setPageOrientation() ,param:%j ,', that.id, param, typeof that.param.orientation);
     var orientation = that.param.orientation;
 
     object.setPageOrientation(param.orientation);
@@ -553,6 +557,7 @@ function WebView (options) {
       appOrientation: gScreenInfo.currentOrientation
     });
   });
+
   /**
    * 任务狗，用来处理队列中的消息
    */
@@ -565,10 +570,10 @@ function WebView (options) {
       // 每次从头部拿到消息，并从队列删除
       var obj = queue.shift();
       if (!obj) {
-        logger.verbose('消息内容:%s', JSON.stringify(obj));
+        logger.verbose('消息内容:%j', obj);
         continue;
       }
-      logger.verbose('消息内容:%s', JSON.stringify(obj));
+      logger.verbose('消息内容:%j', obj);
       var dUrl = obj.url;
 
       var dret = diffUrl(currentUrl, dUrl);
@@ -596,7 +601,7 @@ function WebView (options) {
    * @param {Object} object 消息构造体 {result,handlerName||handlerId}
    */
   function pushQueue (type, object) {
-    logger.verbose('pushQueue() type:%s ,content:%s', type, JSON.stringify(object));
+    logger.verbose('pushQueue() type:%s ,content:%j', type, object);
     var obj = {};
     // 合并相同任务
     if (object.handlerName === 'subscribe') {
@@ -624,7 +629,7 @@ function WebView (options) {
       }
     }
     Object.assign(obj, object, { type: type });
-    logger.verbose('pushQueue() content:%s', type, JSON.stringify(obj));
+    logger.verbose('pushQueue() type:%s, content:%j', type, obj);
     this.messageQueue.push(obj);
   }
 
@@ -702,7 +707,7 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
     model = JSON.parse(message);
   }
 
-  logger.verbose('**********model**********', JSON.stringify(model));
+  logger.verbose('**********model********** %j', model);
 
   var handlerId = model.callbackId;
   var method = model.handlerName;
@@ -725,14 +730,14 @@ WebView.prototype.onMessageReceived = function (message, webviewId) {
   }
 
   if (module === 'webview' || module === 'router') {
-    logger.verbose(JSON.stringify(currentWebview.module));
+    logger.verbose('onMessageReceived() currentWebview.module: %j', currentWebview.module);
     module = currentWebview.module;
     logger.verbose('onMessageReceived() laset module ', module);
   } else if (module === 'packages') {
     // 如果是packages模块,发送消息的页面在这里进行修改
     var urlArr = HomePageUrl.split('/')
     funcArgs.path = urlArr[urlArr.length-1]
-    console.log('packages****funcArgs****', JSON.stringify(funcArgs))
+    logger.verbose('packages****funcArgs**** %j', funcArgs)
   }
 
   // 如果为ui模块
@@ -767,17 +772,14 @@ WebView.prototype.onSuccess = function (handlerId, result) {
       result: result
     }
   };
-  var res = JSON.stringify(resObj);
-  logger.verbose('Webview onSuccess() return', handlerId, res);
+  logger.verbose('Webview onSuccess() return: %j', resObj);
 
   var webview = msgWebview.object;
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.onSubscribe = function (handlerName, result) {
-  logger.verbose('Webview:%s onSubscribe() start', this.id, handlerName, JSON.stringify(result));
+  logger.verbose('Webview:%s onSubscribe() start  handlerName:%s, result:%j', this.id, handlerName, result);
   if (handlerName === 'DevToolsReload') {
     for (var i in swebviews) {
       swebviews[i].trigger('reload', swebviews[i].object);
@@ -804,12 +806,9 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
       result: result
     }
   };
-  var res = JSON.stringify(resObj);
-  logger.verbose('onSubscribe() res:', res);
+  logger.verbose('onSubscribe() res: %j', resObj);
   var webview = this.object;
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.subscribeEvaluate = function (handlerName, data) {
@@ -818,13 +817,10 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
     handlerName: handlerName,
     data: data
   };
-  var res = JSON.stringify(resObj);
-  logger.verbose('subscribeEvaluate() res:', res);
+  logger.verbose('subscribeEvaluate() res: %j', resObj);
 
   var webview = this.object;
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
@@ -842,18 +838,15 @@ WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
   }
   var webview = msgWebview.object;
 
-  var obj = {
+  var resObj = {
     responseId: Number(handlerId),
     responseData: {
       code: Number(errorCode),
       msg: errorMsg
     }
   };
-  var res = JSON.stringify(obj);
-  logger.verbose('onFailed() res: ', res);
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  logger.verbose('onFailed() res: %j', resObj);
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.getWebViewIdByHandlerId = function (handlerId) {

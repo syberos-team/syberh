@@ -58,3 +58,7 @@ DISTFILES += \
 LIB_OUT_DIR = $$clean_path($$PWD/../lib)
 LIBS += -L$$LIB_OUT_DIR -lpluginmanager
 LIBS += -L$$LIB_OUT_DIR -lnativesdk
+
+CONFIG(release, debug|release){
+    QMAKE_POST_LINK=$(STRIP) $(TARGET)
+}

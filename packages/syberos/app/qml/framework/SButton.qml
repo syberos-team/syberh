@@ -91,16 +91,17 @@ MouseArea {
 
    /*! 内容区组件，用于定制按钮的内容标示  */
    property Component labelComponent: Row {
+       id: btnRow
        spacing:button.spacing
        Image {
            id: icon
            source: button.iconSource
-           anchors.verticalCenter: parent.verticalCenter
+           anchors.verticalCenter: btnRow.verticalCenter
        }
 
        Text {
            id: text
-           anchors.verticalCenter: parent.verticalCenter
+           anchors.verticalCenter: btnRow.verticalCenter
            font.pixelSize: button.pixelSize
            color: button.textColor
            text: button.text
