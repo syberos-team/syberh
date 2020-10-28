@@ -262,6 +262,10 @@
     syberh.subscribe('onResize', function (result) {
       console.log("onResize收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
     });
+
+    syberh.subscribe('onKeyEvent', function (result) {
+      console.log("onKeyEvent: ", JSON.stringify(result));
+    });
   </script>
 </body>
 

@@ -51,8 +51,8 @@ function uuid (_length) {
  * @returns {boolean}
  */
 function diffUrl (url, diffUrl) {
-  logger.verbose('tool diffUrl() url:%s', url, typeof url);
-  logger.verbose('tool diffUrl() diffUrl:', diffUrl);
+  logger.verbose('tool diffUrl() url:%s  %s', url, typeof url);
+  logger.verbose('tool diffUrl() diffUrl: %s', diffUrl);
 
   if (!url || !diffUrl) {
     logger.verbose('tool diffUrl() url or diffUrl is undefined');
@@ -148,19 +148,19 @@ function getStrLength (inputStr) {
  * @param {string} url
  */
 function getUrl (url) {
-  logger.verbose('getUrl() url', url);
+  logger.verbose('getUrl() url %s', url);
   if (!url) {
     throw new Error('url不存在', url);
   }
   // 如果是网络地址,直接返回
   if (/^(http|https|ftp|chrome|\/\/)/g.test(url)) {
-    logger.verbose('http||https  url:', url);
+    logger.verbose('http||https  url: %s', url);
     return url;
   }
 
   var filePath = helper.getWebRootPath() + '/' + url;
   var checkPath;
-  logger.verbose('filePath:', filePath);
+  logger.verbose('filePath: %s', filePath);
   if (filePath.indexOf('?') >= 0) {
     checkPath = filePath.split('?')[0];
   } else {

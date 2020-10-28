@@ -28,7 +28,7 @@ CAbstractPopLayer{
    canceledOnBackKeyReleased: false
 
    /*! 模态框和页面的缩放比例 */
-   property real scaleFactor: Screen.width / 1080
+   property real scaleFactor: env.dp(1)
 
    /*! 模态框背景的宽度 */
    property real contentBgWidth: 840 * scaleFactor
@@ -273,6 +273,7 @@ CAbstractPopLayer{
            id: dialogContentAreaLoader
            anchors.fill: parent
            sourceComponent: Item{
+               id: dialogContentAreaItem
                Rectangle{
                    anchors.fill: parent
                    color: "#ffffff"
@@ -280,9 +281,9 @@ CAbstractPopLayer{
                }
                Rectangle{
                    height:buttonHeight
-                   anchors.bottom: parent.bottom
+                   anchors.bottom: dialogContentAreaItem.bottom
                    color: "transparent"
-                   width:parent.width
+                   width:dialogContentAreaItem.width
                    radius: sconfirm.radius
                }
            }
@@ -450,14 +451,15 @@ CAbstractPopLayer{
                         }
                     }
                     Rectangle {
+                        id: bottomLine
                         visible: acceptButtonLoading
                         width: buttonWidth - buttonAreaSpacing
                         height: sconfirm.buttonHeight
 
                         SCollisionIndicator {
                             implicitWidth: buttonWidth
-                            anchors.left: parent.left
-                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: bottomLine.left
+                            anchors.verticalCenter: bottomLine.verticalCenter
                             running: acceptButtonLoading
                         }
                     }

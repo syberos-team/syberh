@@ -10,7 +10,7 @@ Rectangle {
     visible: false
 
     /*! 模态框和页面的缩放比例 */
-    property real scaleFactor: Screen.width / 1080
+    property real scaleFactor: env.dp(1)
 
     // 导航栏高度
     property real navigationBarHeight: 148 * scaleFactor
@@ -114,7 +114,7 @@ Rectangle {
             id: line
             width: parent.width
             height: 1
-            anchors.top: parent.top
+            anchors.top: controlsRow.top
             anchors.topMargin: navigationBarHeight - line.height
             color: '#B5B5B5'
             z: 999
@@ -127,7 +127,7 @@ Rectangle {
             height: parent.height
             // 给元素扩大位置, 方便点击
             width: iconHeight + leftIconMargin * 2
-            anchors.left: parent.left
+            anchors.left: controlsRow.left
             // 给元素扩大位置, 方便点击
             anchors.leftMargin: navigationBarBothSidesWidth - leftIconMargin
 
