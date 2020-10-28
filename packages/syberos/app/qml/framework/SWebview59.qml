@@ -349,9 +349,23 @@ CPage{
                         termMessage += 'KilledTerminationStatus';
                         break;
                 }
+                reloadTimer.running = true;
                 gToast.requestToast(termMessage);
             }
 
+             onWindowCloseRequested: function(){
+                console.log('onWindowCloseRequested');
+                 navigationBarClose();
+            }
+            
+            Timer {
+                    id: reloadTimer
+                    interval: 0
+                    running: false
+                    repeat: false
+                    onTriggered: swebview.reload()
+            }
+            
             onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){
               switch(level){
                 case WebEngineView.InfoMessageLevel:

@@ -71,6 +71,11 @@ function WebView (options) {
 
       // 关闭当前webview信号
       object.navigationBarClose.connect(function () {
+        logger.info('navigationBarClose*********** %j', swebviews.length);
+        if(swebviews.length == 1){
+          Qt.quit();
+          return;
+        }
         that.trigger('navigateBack', object, null, { delta: 1 });
       });
     }
@@ -553,6 +558,7 @@ function WebView (options) {
       appOrientation: gScreenInfo.currentOrientation
     });
   });
+
   /**
    * 任务狗，用来处理队列中的消息
    */
