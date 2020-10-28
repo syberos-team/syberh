@@ -1,212 +1,175 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-var logger = new Logger();
-
 /**
  * 日志工具类
  */
-function Logger () {
-  this.levelName = helper.logLevelName();
+function Logger(levelName, printTag) {
 
-  var LogLevel = {};
-  LogLevel.error = 1;
-  LogLevel.warn = 2;
-  LogLevel.info = 3;
-  LogLevel.verbose = 4;
-  /**
-   * 获取用于打印的日志级别标识
-   * @param level 日志级别
-   */
-  function getLevelTag (level) {
-    switch (level) {
-      case LogLevel.error:
-        return 'ERR ';
-      case LogLevel.warn:
-        return 'WARN';
-      case LogLevel.info:
-        return 'INFO';
-      case LogLevel.verbose:
-        return 'VERB';
-    }
-  }
+  this.LogLevel = {
+    error: 1,
+    warn: 2,
+    info: 3,
+    verbose: 4
+  };
 
-  function sprintf () {
-    var args = arguments;
-    var text = args[0];
-    var res = [];
-    var i = 1;
-    var rtext = text.replace(/%((%)|s|d)/g, function (m) {
-      // m is the matched format, e.g. %s, %d
-      var val = null;
-      if (m[2]) {
-        val = m[2];
-      } else {
-        val = args[i];
-        // A switch statement so that the formatter can be extended. Default is %s
-        switch (m) {
-          case '%d':
-            val = parseFloat(val);
-            if (isNaN(val)) {
-              val = 0;
-            }
-            break;
-        }
-        i++;
-      }
-      return val;
-    });
-    if (rtext) {
-      res.push(rtext);
-    }
-    // 处理剩余参数
-    for (var s = i; s < arguments.length; s++) {
-      res.push(arguments[s]);
-    }
-
-    return res;
-  }
-
-  /**
-    * 字符串格式的日志级别转换成枚举类型
-    * @param logLevel 日志级别，默认为info
-    */
-  function logLevelName (logLevel) {
-    switch (logLevel) {
+  this.toLevel = function(levelName) {
+    switch (levelName) {
       case 'error':
-        return LogLevel.error;
+        return this.LogLevel.error;
       case 'warn':
-        return LogLevel.warn;
+        return this.LogLevel.warn;
       case 'info':
-        return LogLevel.info;
+        return this.LogLevel.info;
       case 'verbose':
-        return LogLevel.verbose;
+        return this.LogLevel.verbose;
       default:
-        return LogLevel.info;
-    }
-  }
-  function getLevel () {
-    return this.level;
-  }
-
-  function defaultPrintFunction (levelTag, timestamp) {
-    return levelTag + ' ' + timestamp + ' | ';
-  }
-  /**
-  * 默认的时间格式化函数
-  * @param date 时间
-  * @return {string}
-  */
-  function defaultDateFormatFunction (date) {
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
-    var stampStr = '';
-    stampStr += hour < 10 ? '0' + hour : hour;
-    stampStr += ':';
-    stampStr += min < 10 ? '0' + min : min;
-    stampStr += ':';
-    stampStr += sec < 10 ? '0' + sec : sec;
-    return stampStr;
-  }
-
-  /**
-    * 打印error日志，支持格式化字符：%s, %d, %j
-    * @param message
-    * @param args
-    */
-  function error (message, args) {
-    if (this.isLevelEnabled(LogLevel.error)) {
-      var len = arguments.length;
-      var funcArgs = [];
-      for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum]);
-      }
-      funcArgs.unshift(LogLevel.error);
-      this.log.apply(this, funcArgs);
+        return this.LogLevel.info;
     }
   }
 
-  function isVerboseEnabled () {
-    return this.isLevelEnabled(LogLevel.verbose);
-  }
-  function isLevelEnabled (level) {
-    return this.level >= level;
-  }
-  function log () {
-    // var timestamp = this.dateFormatFunction(new Date())
-    var len = arguments.length;
-    // const args = Array.prototype.slice.call(arguments, 3) || []
-    var logLevel = arguments[0];
-    // var msg = this.printFunction(this.getLevelTag(logLevel), timestamp)
-    var funcArgs = [];
-    for (var sum = 1; sum < len; sum += 1) {
-      funcArgs.push(arguments[sum]);
-    }
-
-    var res = sprintf.apply(null, funcArgs) || [];
-    // res.unshift(msg)
-    console.log.apply(console, res);
-  }
-  /**
-   * 打印warn日志，支持格式化字符：%s, %d, %j
-   * @param message
-   * @param args
-   */
-  function warn () {
-    if (this.isLevelEnabled(LogLevel.warn)) {
-      var len = arguments.length;
-      var funcArgs = [];
-      for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum]);
-      }
-      funcArgs.unshift(LogLevel.warn);
-      this.log.apply(this, funcArgs);
-    }
-  }
-  /**
-   * 打印info日志，支持格式化字符：%s, %d, %j
-   * @param message
-   * @param args
-   */
-  function info () {
-    if (this.isLevelEnabled(LogLevel.info)) {
-      var len = arguments.length;
-      var funcArgs = [];
-      for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum]);
-      }
-      funcArgs.unshift(LogLevel.info);
-      this.log.apply(this, funcArgs);
-    }
-  }
-  /**
-   * 打印verbose日志，支持格式化字符：%s, %d, %j
-   * @param message
-   * @param args
-   */
-  function verbose () {
-    if (this.isLevelEnabled(LogLevel.verbose)) {
-      var len = arguments.length;
-      var funcArgs = [];
-      for (var sum = 0; sum < len; sum += 1) {
-        funcArgs.push(arguments[sum]);
-      }
-      funcArgs.unshift(LogLevel.verbose);
-      this.log.apply(this, funcArgs);
-    }
-  }
-  this.logLevelName = logLevelName.bind(this);
-  this.level = this.logLevelName(this.levelName);
-  this.printFunction = defaultPrintFunction.bind(this);
-  this.dateFormatFunction = defaultDateFormatFunction.bind(this);
-  this.getLevelTag = getLevelTag.bind(this);
-  this.getLevel = getLevel.bind(this);
-  this.isLevelEnabled = isLevelEnabled.bind(this);
-  this.isVerboseEnabled = isVerboseEnabled.bind(this);
-  this.log = log.bind(this);
-  this.error = error.bind(this);
-  this.warn = warn.bind(this);
-  this.verbose = verbose.bind(this);
-  this.info = info.bind(this);
+  this.levelName = levelName ? levelName : 'info';
+  this.level = this.toLevel(this.levelName);
+  this.isPrintTag = !!printTag
 }
+
+Logger.prototype.toLevelTag = function(level) {
+  switch (level) {
+    case this.LogLevel.error:
+      return 'ERR ';
+    case this.LogLevel.warn:
+      return 'WARN';
+    case this.LogLevel.info:
+      return 'INFO';
+    case this.LogLevel.verbose:
+      return 'VERB';
+  }
+}
+
+Logger.prototype.getLevel = function() {
+  return this.level;
+}
+
+Logger.prototype.isLevelEnabled = function(level) {
+  return this.level >= level;
+}
+
+Logger.prototype.isVerboseEnabled = function() {
+  return this.isLevelEnabled(this.LogLevel.verbose);
+}
+
+Logger.prototype.isInfoEnabled = function() {
+  return this.isLevelEnabled(this.LogLevel.info);
+}
+
+Logger.prototype.isWarnEnabled = function() {
+  return this.isLevelEnabled(this.LogLevel.warn);
+}
+
+Logger.prototype.isErrorEnabled = function() {
+  return this.isLevelEnabled(this.LogLevel.error);
+}
+
+Logger.prototype.error = function() {
+    if (!this.isErrorEnabled()) {
+      return;
+    }
+    if(arguments && arguments.length > 0){
+      this.log(this.LogLevel.error, Array.apply(null, arguments));
+    }
+  }
+
+Logger.prototype.warn = function() {
+  if (!this.isWarnEnabled()) {
+    return;
+  }
+  if(arguments && arguments.length > 0){
+    this.log(this.LogLevel.warn, Array.apply(null, arguments));
+  }
+}
+
+Logger.prototype.info = function() {
+  if (!this.isInfoEnabled()) {
+    return;
+  }
+  if(arguments && arguments.length > 0){
+    this.log(this.LogLevel.info, Array.apply(null, arguments));
+  }
+}
+
+Logger.prototype.verbose = function() {
+  if (!this.isVerboseEnabled()) {
+    return;
+  }
+  if(arguments && arguments.length > 0){
+    this.log(this.LogLevel.verbose, Array.apply(null, arguments));
+  }
+}
+
+Logger.prototype.log = function(level, args) {
+  if(!args || args.length === 0){
+    console.log('');
+    return;
+  }
+  var res = '';
+  if(args.length === 1){
+    res = args[0];
+  }else{
+    res = this.sprintf(args);
+  }
+  if(this.isPrintTag){
+    console.log(this.tag(level), res || '');
+  }else{
+    console.log(res || '');
+  }
+}
+
+Logger.prototype.sprintf = function(args) {
+  var message = args[0];
+  var i = 1;
+  var sprintfMessage = message.replace(/%((%)|s|d|f|j)/g, function (m) {
+    var val = args[i];
+    i++;
+    if(!val){
+      return '';
+    }
+    switch(m){
+      case '%s':
+        return val;
+      case '%d':
+        return val;
+      case '%f':
+        return val;
+      case '%j':
+        return JSON.stringify(val);
+      default:
+        return m;
+    }
+  });
+  if(i < args.length){
+    return sprintfMessage + ' ' + args.slice(i).join(' ')
+  }
+  return sprintfMessage;
+}
+
+Logger.prototype.tag = function(level) {
+  return this.toLevelTag(level) + ' ' + this.timeFormat() + ' |';
+}
+
+Logger.prototype.timeFormat = function(date) {
+  if(!date){
+    date = new Date();
+  }
+  var hour = date.getHours();
+  var min = date.getMinutes();
+  var sec = date.getSeconds();
+  var stampStr = '';
+  stampStr += hour < 10 ? '0' + hour : hour;
+  stampStr += ':';
+  stampStr += min < 10 ? '0' + min : min;
+  stampStr += ':';
+  stampStr += sec < 10 ? '0' + sec : sec;
+  return stampStr;
+}
+
+var logger = new Logger((typeof helper !== 'undefined') ? helper.logLevelName() : 'info', false);
