@@ -12,3 +12,5 @@ temp
 .markdown
 dist/
 templates/default/platforms/syberos/
+templates/default/www/
+templates/default/lib/
