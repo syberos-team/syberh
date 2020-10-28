@@ -71,7 +71,8 @@ function WebView (options) {
 
       // 关闭当前webview信号
       object.navigationBarClose.connect(function () {
-        if(swebviews.length == 0){
+        logger.info('navigationBarClose*********** %j', swebviews.length);
+        if(swebviews.length == 1){
           Qt.quit();
           return;
         }
