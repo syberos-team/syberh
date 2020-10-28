@@ -767,13 +767,10 @@ WebView.prototype.onSuccess = function (handlerId, result) {
       result: result
     }
   };
-  var res = JSON.stringify(resObj);
-  logger.verbose('Webview onSuccess() return', handlerId, res);
+  logger.verbose('Webview onSuccess() return: %j', resObj);
 
   var webview = msgWebview.object;
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.onSubscribe = function (handlerName, result) {
@@ -804,12 +801,9 @@ WebView.prototype.onSubscribe = function (handlerName, result) {
       result: result
     }
   };
-  var res = JSON.stringify(resObj);
-  logger.verbose('onSubscribe() res:', res);
+  logger.verbose('onSubscribe() res: %j', resObj);
   var webview = this.object;
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.subscribeEvaluate = function (handlerName, data) {
@@ -818,13 +812,10 @@ WebView.prototype.subscribeEvaluate = function (handlerName, data) {
     handlerName: handlerName,
     data: data
   };
-  var res = JSON.stringify(resObj);
-  logger.verbose('subscribeEvaluate() res:', res);
+  logger.verbose('subscribeEvaluate() res: %j', resObj);
 
   var webview = this.object;
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
@@ -842,18 +833,15 @@ WebView.prototype.onFailed = function (handlerId, errorCode, errorMsg) {
   }
   var webview = msgWebview.object;
 
-  var obj = {
+  var resObj = {
     responseId: Number(handlerId),
     responseData: {
       code: Number(errorCode),
       msg: errorMsg
     }
   };
-  var res = JSON.stringify(obj);
-  logger.verbose('onFailed() res: ', res);
-  webview.evaluateJavaScript(
-    'JSBridge._handleMessageFromNative(' + res + ')'
-  );
+  logger.verbose('onFailed() res: %j', resObj);
+  webview.evaluateJavaScript(resObj);
 };
 
 WebView.prototype.getWebViewIdByHandlerId = function (handlerId) {
