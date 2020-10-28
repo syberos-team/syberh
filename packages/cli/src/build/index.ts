@@ -27,7 +27,7 @@ export default async function build(appPath: string, buildConfig: BuildConfig) {
 }
 
 async function diagnoseFastfail(buildConfig: BuildConfig) {
-  if (!buildConfig.nodoctor) {
+  if (buildConfig.doctor) {
     const hasFail = await diagnose({ checkGlobalTarget: false })
     if (hasFail) {
       process.exit(0)
