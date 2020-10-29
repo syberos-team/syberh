@@ -429,7 +429,19 @@ function WebView (options) {
     } else {
       var wpId = 'router_' + (swebviews.length + 1);
       logger.verbose('开始创建新的webview:[%s]', wpId);
-      var sourceQml = SYBEROS.moduleVersion == '59.0' ? '../SWebview59.qml' : '../SWebview.qml';
+      // 根据 moduleVersion 中设定的版本使用不同的webview
+      var sourceQml = '';
+      switch(SYBEROS.moduleVersion){
+        case '2':
+          sourceQml = '../SWebview.qml'
+          break;
+        case '5':
+          sourceQml = '../SWebview5.qml'
+          break;
+        default:
+          sourceQml = '../SWebview4.qml'
+          break;
+      }
       dwevview = new WebView({
         id: wpId,
         module: wpId,
