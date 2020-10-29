@@ -284,7 +284,7 @@ CPage{
                 console.log('--swebview--title', title);
             }
 
-            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS "+helper.aboutPhone().osVersionCode+ " " + helper.getQtVersion() + ";"
+            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS 2.1.1 " + helper.getQtVersionName() + ";"
             experimental.minimumScale: false
             experimental.preferredMinimumContentsWidth: Screen.width
             experimental.deviceWidth:Screen.width

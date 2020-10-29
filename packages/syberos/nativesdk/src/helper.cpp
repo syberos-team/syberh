@@ -126,7 +126,12 @@ QString Helper::sopid()
   return qApp->property("sopid").toString();
 }
 
-QString Helper::getQtVersion()
+qint32 Helper::getQtVersion()
+{
+  return QT_VERSION;
+}
+
+QString Helper::getQtVersionName()
 {
   return QT_VERSION_STR;
 }
