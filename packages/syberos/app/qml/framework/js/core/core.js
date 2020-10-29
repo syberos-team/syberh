@@ -3,7 +3,19 @@
  */
 
 function Syber (parent) {
-  this.moduleVersion = helper.isGtQt56() ? '59.0' : '1.0';
+  var qtVersion = helper.getQtVersion();
+
+  //系统版本
+  this.moduleVersion = '';
+  if(qtVersion < 0x050600){
+    this.moduleVersion = '2'
+  }else if(qtVersion < 0x050c00){
+    this.moduleVersion = '4'
+  }else{
+    this.moduleVersion = '5'
+  }
+
+
   this.version = '1.0.0';
   this.isInited = false;
   this.pluginList = {};
