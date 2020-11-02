@@ -1,3 +1,0 @@
-PRO_PATH=$HOME/workspace/syberh/abeir/syberh/packages/syberos/app.pro
-BUILD_PATH=$HOME/workspace/syberh/abeir/build-syberh
-TARGET_NAME=target-armv7tnhl-os4_1_1
