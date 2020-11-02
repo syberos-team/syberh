@@ -1,6 +1,9 @@
 build-*/
 build/
 .idea
+yarn.lock
+package-lock.json
+dist/
 app/*.pro.user
 app/www/lib/syberh.min.js
 app/www/lib/syberh.min.js.*
