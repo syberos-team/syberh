@@ -73,7 +73,7 @@ public:
 
 private:
     explicit ProjectConfig(QObject *parent = nullptr);
-    rojectConfig(const ProjectConfig &) Q_DECL_EQ_DELETE;
+    ProjectConfig(const ProjectConfig &) Q_DECL_EQ_DELETE;
     ProjectConfig &operator=(ProjectConfig config) Q_DECL_EQ_DELETE;
 
     void load();

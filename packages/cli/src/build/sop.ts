@@ -1,7 +1,6 @@
 import * as shelljs from 'shelljs'
 import chalk from 'chalk'
 import * as path from 'path'
-import * as os from 'os'
 import { log } from '../util/log'
 import * as helper from '../syberos/helper'
 import * as connect from './connect'
@@ -106,7 +105,7 @@ export class SshSop implements ISshSop {
 
     const cmd = `expect ${helper.locateScripts('scp-sop.sh')} ${this.ip} ${this.port} ${sopPath}`
     log.verbose('执行：', cmd)
-    this.exec(cmd)
+    helper.runShell(cmd)
   }
 
   install(sopFilename: string): void {
@@ -118,7 +117,7 @@ export class SshSop implements ISshSop {
 
     const cmd = `expect ${helper.locateScripts('ssh-install-sop.sh')} ${this.ip} ${this.port} ${nameSplit[0]} ${sopFilename}`
     log.verbose('执行：', cmd)
-    this.exec(cmd)
+    helper.runShell(cmd)
   }
 
   startApp(): void {
@@ -128,19 +127,7 @@ export class SshSop implements ISshSop {
 
     const cmd = `expect ${helper.locateScripts('ssh-start-app.sh')} ${this.ip} ${this.port} ${this.sopid} ${this.projectName}`
     log.verbose('执行：', cmd)
-    this.exec(cmd)
-  }
-
-  private exec(cmd: string) {
-    const result = shelljs.exec(cmd)
-    if (result.stdout.includes('WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED')) {
-      const rmKeyCmd = `ssh-keygen -f "${os.homedir()}/.ssh/known_hosts" -R "${this.ip}"`
-      log.verbose('执行：', rmKeyCmd)
-      shelljs.exec(rmKeyCmd)
-      // 再次尝试执行
-      log.verbose('再次执行：', cmd)
-      shelljs.exec(cmd)
-    }
+    helper.runShell(cmd)
   }
 
 }

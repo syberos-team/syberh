@@ -1,8 +1,16 @@
 import { DEVICES_TYPES } from '../util/constants'
 import { IProjectConfig } from '../util/types'
 
+// build时的问询结果
+export interface BuildAsk {
+    // 当前用户密码
+    password?: string
+}
+
 // build命令参数
 export interface BuildConfig {
+    // build时的问询信息
+    buildAsk?: BuildAsk
     // 真机或模拟器
     type: DEVICES_TYPES
     // 是否检查项目
