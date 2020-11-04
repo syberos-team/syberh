@@ -11,5 +11,9 @@
   "deployPort": "<%= deployPort %>",
   "devServerIP": "<%= devServerIP %>",
   "devServerPort": "<%= devServerPort %>",
-  "debuggingPort": "<%= debuggingPort %>"
+  "debuggingPort": "<%= debuggingPort %>",
+  "statusBar": {
+    "show": true,
+    "style" : "black"
+  }
 }

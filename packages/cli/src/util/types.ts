@@ -14,6 +14,11 @@ export interface ICopyArgOptions {
   filter?: (src: string) => boolean
 }
 
+export interface IStatusBar {
+    show : boolean,
+    style : string
+}
+
 
 // 对应与项目下的 project.config.json文件
 export interface IProjectConfig {
@@ -35,5 +40,7 @@ export interface IProjectConfig {
   // dev服务端口
   devServerPort: string
   // qtwebengine remote debugging 端口
-  debuggingPort: string
+  debuggingPort: string ,
+  // 状态栏相关信息
+  statusBar : IStatusBar
 }
