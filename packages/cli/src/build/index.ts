@@ -2,12 +2,14 @@ import * as child_process from 'child_process'
 import chalk from 'chalk'
 import { BuildConfig } from './types'
 import * as b from './build'
-import { getProjectConfig, locateScripts, isTargetOS_5 } from '../syberos/helper'
+import * as helper from '../syberos/helper'
 import { log } from '../util/log';
 import { DEVICES_TYPES } from '../util/constants'
 import diagnose from '../doctor/index'
 import { IProjectConfig } from '../util/types'
 import CONFIG from '../config'
+import * as inquirer from 'inquirer'
+import * as ora from 'ora'
 
 
 /**
@@ -27,7 +29,7 @@ export default async function build(appPath: string, buildConfig: BuildConfig) {
 }
 
 async function diagnoseFastfail(buildConfig: BuildConfig) {
-  if (!buildConfig.nodoctor) {
+  if (buildConfig.doctor) {
     const hasFail = await diagnose({ checkGlobalTarget: false })
     if (hasFail) {
       process.exit(0)
@@ -43,7 +45,7 @@ async function diagnoseFastfail(buildConfig: BuildConfig) {
 async function executeBuild(appPath: string, config: BuildConfig) {
   log.verbose('build() start')
   // 获取project.config.json
-  const projectConf : IProjectConfig = getProjectConfig(appPath)
+  const projectConf : IProjectConfig = helper.getProjectConfig(appPath)
   // build命令参数
   const buildConfig : BuildConfig = { ...config }
 
@@ -58,6 +60,36 @@ async function executeBuild(appPath: string, config: BuildConfig) {
     projectConf.debuggingPort = CONFIG.DEBUGGING_PORT
   }
 
+  // os5.0时不校验用户密码
+  if(helper.isTargetOS_5(projectConf.target)){
+    // 开始构建
+    buildApp(appPath, projectConf, buildConfig)
+    return
+  }
+
+  // 问询
+  const answers = await ask()
+  const userPassword = answers['password']
+
+  const spinner = ora('校验用户密码...').start()
+  helper.checkSudoPasswordAsync(userPassword).then((success:boolean) => {
+    if(success){
+      buildConfig.buildAsk = {
+        password: userPassword
+      }
+      spinner.succeed('密码校验通过')
+      // 开始构建
+      buildApp(appPath, projectConf, buildConfig)
+    }else{
+      spinner.fail('密码校验失败，终止编译')
+      process.exit(1)
+    }
+  })
+}
+
+
+// 开始构建应用
+async function buildApp(appPath: string, projectConf : IProjectConfig, buildConfig : BuildConfig){
   console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
   const build = new b.Build(appPath, projectConf, buildConfig)
@@ -68,13 +100,31 @@ async function executeBuild(appPath: string, config: BuildConfig) {
       // 非release构建时，启动devServer热更新服务
       if (!buildConfig.release) {
         // TODO 5.0暂时关闭热更新服务
-        if(isTargetOS_5(projectConf.target)){
+        if(helper.isTargetOS_5(projectConf.target)){
           log.verbose('os5.0暂时关闭热更新服务')
           return;
         }
-        const serverjs = locateScripts('devServer.js')
+        const serverjs = helper.locateScripts('devServer.js')
         child_process.fork(serverjs, [projectConf.devServerPort, projectConf.webPath])
       }
     })
   }
 }
+
+// 询问密码
+async function ask() : Promise<inquirer.PromptModule> {
+  const prompts: object[] = []
+  prompts.push({
+    type: 'password',
+    name: 'password',
+    message: '请输入当前用户密码:',
+    validate(input:any) {
+      if (!input) {
+        return '必须输入当前用户密码！'
+      }
+      return true
+    }
+  })
+  return inquirer.prompt(prompts)
+}
+

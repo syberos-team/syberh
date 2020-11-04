@@ -5,6 +5,7 @@ import { getRootPath } from '../util/index'
 import * as shelljs from 'shelljs'
 import chalk from 'chalk'
 import { qtversions } from './configfile'
+import { ChildProcess } from 'child_process'
 
 /**
  *  读取project.config.json配置文件
@@ -133,7 +134,102 @@ export const startvm = async (port: number | string = 5555) => {
 }
 
 /**
+ * 执行shell命令
+ * @param cmd 
+ */
+export const runShell = (cmd: string, retry: boolean = true) => {
+  const result = shelljs.exec(cmd)
+  const out = result.stdout
+  if (out.includes('WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED')) {
+    const lines = out.split('\n')
+
+    let rmKeyCmd: string = ''
+    for(const line of lines){
+      if(line.indexOf('ssh-keygen -f') >= 0){
+        rmKeyCmd = line.trim()
+        break
+      }
+    }
+    if(rmKeyCmd){
+      console.log('执行：', rmKeyCmd)
+      shelljs.exec(rmKeyCmd)
+    }
+    // 再次尝试执行
+    if(retry){
+      console.log('再次执行：', cmd)
+      shelljs.exec(cmd)
+    }
+  }
+}
+
+const sudoPasswordCommand = (password:string) => {
+  return `expect<<EOF
+spawn sudo echo "test password"
+expect {
+    "sudo" {
+        send "${password}\r"
+        exp_continue
+    } eof {
+        send_user "failed\n"
+        exit
+    }
+    "test password" { 
+        send_user "successed\n"
+    }
+}
+expect eof
+EOF`
+}
+
+/**
+ * 同步校验当前用户密码
+ */
+export const checkSudoPassword = (password: string) : boolean | Promise<boolean> => {
+  if(!password){
+    return false
+  }
+  const cmd = sudoPasswordCommand(password)
+
+  shelljs.config.silent = true
+  const result = shelljs.exec(cmd)
+  shelljs.config.silent = false
+  return result.stdout.includes('successed')
+}
+
+/**
+ * 异步校验当前用户密码
+ */
+export const checkSudoPasswordAsync = (password: string) : Promise<boolean> => {
+  return new Promise<boolean>((resolve, reject)=>{
+    if(!password){
+      resolve(false)
+      return
+    }
+    const cmd = sudoPasswordCommand(password)
+
+    shelljs.config.silent = true
+    const childProcess: ChildProcess = shelljs.exec(cmd, {async: true})
+
+    let isValid: boolean = false
+    childProcess.stdout?.on('data', (data) =>{
+      if(typeof data === 'string'){
+        isValid = data.includes('successed')
+      }
+    })
+    childProcess.on('exit', () => {
+      shelljs.config.silent = false
+      resolve(isValid)
+    })
+    childProcess.on('error', (code) => {
+      shelljs.config.silent = false
+      reject(code)
+    })
+  })
+}
+
+/**
  * 根据target判断是否是os5
+ * 目前根据target名称结尾是否存在5_0字符串，以后可能需要修改判断
  * @param targetName 
  */
 export const isTargetOS_5 = (targetName: string): boolean => {

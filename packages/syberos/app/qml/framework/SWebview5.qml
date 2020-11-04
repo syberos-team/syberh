@@ -1,9 +1,10 @@
 import QtQuick 2.0
-import QtWebKit 3.0
 import QtQuick.Window 2.2
-import QtWebKit.experimental 1.0
-// import org.nemomobile.voicecall 1.0 8953的target上没有这个库
 import com.syberos.basewidgets 2.0
+import QtQml.Models 2.2
+import QtWebEngine 1.8
+import QtWebChannel 1.0
+import com.syberos.webview 1.0
 
 import "./js/util/log.js" as LOG
 
@@ -17,8 +18,8 @@ CPage{
     signal sloadProgress(var loadProgress)
     //加载信号
     signal sloadingChanged(var loadRequest)
-    //返回键信号
-    signal keyOnReleased(var event)
+    // 按键信号
+    signal keyEvent(string eventType, var event)
     //接受消息信号
     signal receiveMessage(var message)
     //导航栏关闭信号
@@ -65,12 +66,13 @@ CPage{
 
     //设置背景色
     function setBackgroundColor(color){
-        root.color = color;
+        swebview.backgroundColor = color;
     }
 
     // 展示navigatorBar
     function showNavigatorBar(options){
        sNavigationBar.show(options);
+       swebview.anchors.topMargin = sNavigationBar.navigationBarHeight
     }
 
     // 设置NavigationBar Title
@@ -108,7 +110,6 @@ CPage{
     //删除所有cookies
     function deleteAllCookies()
     {
-        swebview.experimental.deleteAllCookies()
     }
 
     function canGoForward(){
@@ -141,15 +142,13 @@ CPage{
     function openUrl(url){
         LOG.logger.verbose('swebview openUrl(%s)', url)
         if(swebview.loading){
-            LOG.logger.verbose('swebview loading %s',swebview.loading)
+            LOG.logger.verbose('swebview loading %s', swebview.loading)
             swebview.stop();
         }
         if(swebview.url.toString()===url){
             return;
         }
-
         swebview.url=url;
-
     }
     //停止当前所有动作
     function stop(){
@@ -164,14 +163,14 @@ CPage{
     //执行JavaScript代码
     function evaluateJavaScript(res){
         if(typeof res ==='string'){
-            swebview.experimental.evaluateJavaScript(
-                        'JSBridge._handleMessageFromNative(' + res + ')'
-                        )
-            return;
+            swebview.runJavaScript('JSBridge._handleMessageFromNative(' + res + ')', function(result){
+              LOG.logger.verbose('evaluateJavaScript: %s  result: %s', res, result);
+            })
         }else{
-            swebview.experimental.evaluateJavaScript(
-                        'JSBridge._handleMessageFromNative(' + JSON.stringify(res) + ')'
-                        )
+            var param = JSON.stringify(res)
+            swebview.runJavaScript('JSBridge._handleMessageFromNative(' + param + ')', function(result){
+              LOG.logger.verbose('evaluateJavaScript: %s  result: %s', param, result);
+            })
         }
 
     }
@@ -196,7 +195,7 @@ CPage{
         }
         console.log('orientation---webView.orientationPolicy---', orientation, webView.orientationPolicy, CPageOrientation.LockLandscape)
     }
-        
+
     // 关联屏幕旋转信号(被动旋转是gScreenInfo.currentOrientation， 主动旋转webView.orientationPolicy)
     Connections {
         target: gScreenInfo
@@ -212,7 +211,7 @@ CPage{
               url: swebview.url.toString()
             })
             // 横屏需要隐藏状态栏
-            if(gScreenInfo.currentOrientation == CScreenInfo.Landscape 
+            if(gScreenInfo.currentOrientation == CScreenInfo.Landscape
                 || gScreenInfo.currentOrientation == CScreenInfo.LandscapeInverted
                 || webView.orientationPolicy == CScreenInfo.Landscape
                 || webView.orientationPolicy == CScreenInfo.LandscapeInverted
@@ -239,7 +238,6 @@ CPage{
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
         keyEvent('onReleased', event)
-        //event.accepted = true
         setDestroyStatus(true)
     }
 
@@ -268,163 +266,38 @@ CPage{
                 navigationBarClose();
             }
         }
-        WebView {
+        ObjectModel {
+            id: trans
+            WebChannel.id: "trans"
+
+            function postMessage(msg){
+                LOG.logger.verbose('trans postMessage: %s', msg)
+                receiveMessage(msg)
+            }
+        }
+
+        WebChannel {
+            id: channel
+            registeredObjects: [trans]
+        }
+
+        CWebView {
             id: swebview
             focus: true
-            signal downLoadConfirmRequest
             property url curHoverUrl: ""
+
             anchors {
-                top: sNavigationBar.visible ? sNavigationBar.bottom : parent.top
+                top: parent.top
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
             }
             url:surl
-            onTitleChanged: {
-                console.log('--swebview--title', title);
+            webChannel: channel
+
+            profile: WebEngineProfile{
+              httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS 5.0.0 5.12.2;"
             }
-
-            experimental.userAgent: "Mozilla/5.0 (Linux; Android 4.4.2; GT-I9505 Build/JDQ39) SyberOS 2.1.1 " + helper.getQtVersionName() + ";"
-            experimental.minimumScale: false
-            experimental.preferredMinimumContentsWidth: Screen.width
-            experimental.deviceWidth:Screen.width
-            experimental.deviceHeight:Screen.height
-            experimental.preferences.navigatorQtObjectEnabled: true
-            experimental.preferences.webGLEnabled: true
-            experimental.preferences.webAudioEnabled: true
-            experimental.preferences.minimumFontSize: 13
-            experimental.gpsEnable: false
-            experimental.itemSelector:ItemSelector{}
-            experimental.alertDialog: SAlert {
-                id: salert
-                messageText: model.message
-                onAccepted: {
-                    model.accept()
-                }
-                Component.onCompleted: {
-                    show()
-                }
-            }
-            experimental.confirmDialog: SConfirm {
-                id: confirmDialog
-                messageText: model.message
-                onAccepted: {
-                    model.accept()
-                }
-                onRejected: {
-                    model.reject()
-                }
-                Component.onCompleted: {
-                    show()
-                }
-            }
-            experimental.promptDialog: CInputDialog{
-                id: promptDialog
-                canceledOnOutareaClicked: false
-                titleText: model.message
-                onAccepted: {
-                    model.accept(messageAreaItem.text)
-                }
-                onRejected: {
-                    model.reject()
-                }
-                onCanceled: {
-                    model.reject()
-                }
-                Component.onCompleted:{
-                    setText(model.defaultValue)
-                    show()
-                }
-            }
-            experimental.authenticationDialog: CInputDialog {
-                id: authDialog
-                canceledOnOutareaClicked: false
-                titleText: model.hostname + ":\n" + model.realm
-                messageAreaComponent: Column {
-                    property alias nameText: nameEdit.text
-                    property alias passText: password.text
-                    CLineEdit {
-                        id: nameEdit
-                        width: authDialog.width - messageAreaLeftMargin - messageAreaRightMargin
-                        echoMode: TextInput.Normal
-                        inputMethodHints: authDialog.inputMethodHints
-                        maximumLength: authDialog.maximumLength
-                        onTextChanged: {
-                            authDialog.textChanged(text)
-                        }
-                    }
-                    CLine {
-                        width: parent.width
-                        height: 2
-                    }
-
-                    CLineEdit {
-                        id: password
-                        width: authDialog.width - messageAreaLeftMargin - messageAreaRightMargin
-                        echoMode: TextInput.Password
-                        inputMethodHints: authDialog.inputMethodHints
-                        maximumLength: authDialog.maximumLength
-                        onTextChanged: {
-                            authDialog.textChanged(text)
-                        }
-                    }
-
-                    CLine {
-                        width: parent.width
-                    }
-                }
-                onAccepted: {
-                    model.accepted(messageAreaItem.nameText, messageAreaItem.passText)
-                }
-                onRejected: {
-                    model.reject()
-                }
-                onCanceled: {
-                    model.reject()
-                }
-
-                Component.onCompleted: {
-                    show()
-                }
-            }
-
-            // syberh_filepicker包里面引入
-            experimental.filePicker: SFilesPicker {
-                id: picker
-                titleText: "文件选择"
-                leftItemEnabled: true
-                count: allowMultipleFiles?30:1
-
-                Connections {
-                    target: picker
-                    onOk: {
-                        model.accept(picker.filesPath);
-                    }
-                    onCancel: {
-                        model.reject();
-                    }
-                }
-
-                Keys.onReleased: {
-                    if (event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
-                        model.rejected();
-                        event.accepted =true;
-                    }
-                }
-
-                Component.onCompleted:{
-                    parent = gAppUtils.pageStackWindow
-                    visible = true
-                    status = 2
-                    focus = true
-                }
-            }
-
-
-            experimental.onMessageReceived: {
-                receiveMessage(message)
-            }
-            property bool _autoLoad: true
 
             onLinkHovered: {
                 curHoverUrl= hoveredUrl
@@ -432,68 +305,154 @@ CPage{
             property string navigateUrl: ""
             property string telNumber: ""
             onNavigationRequested: {
-                LOG.logger.verbose("onNavigationRequested request.navigationType:%s", request.navigationType)
+                LOG.logger.verbose("onNavigationRequested request.navigationType: %s", request.navigationType)
             }
 
             onUrlChanged: {
-                LOG.logger.verbose('SWebview onUrlChanged %s', loadProgress)
+                LOG.logger.verbose('SWebview onUrlChanged %s',loadProgress)
             }
 
             onLoadProgressChanged: {
-                LOG.logger.verbose('SWebview qml onLoadProgressChanged %s', loadProgress)
+                LOG.logger.verbose('SWebview qml onLoadProgressChanged %s',loadProgress)
                 sloadProgress(loadProgress)
             }
 
-            onLoadingChanged:{
+            onLoadingChanged: function(loadRequest){
                 LOG.logger.verbose('SWebview qml onLoadingChanged status:%s, url:%s', loadRequest.status, loadRequest.url)
-                if (!loading && loadRequest.status === WebView.LoadFailedStatus){
-                    LOG.logger.error('SWebview qml onLoadingChanged 加载失败')
-                    //swebview.loadHtml("加载失败 " + loadRequest.url, "", loadRequest.url)
-                    //swebview.reload();
+                if (loadRequest.status === WebEngineView.LoadFailedStatus){
+                    var failedMessage = '[' + loadRequest.errorCode + ']' + loadRequest.errorString;
+                    LOG.logger.error('SWebview qml onLoadingChanged LoadFailedStatus: %s, error: %s', loadRequest.url, failedMessage)
+
+                    gToast.requestToast('加载失败: ' + failedMessage);
                 }
-                if(!loading && loadRequest.status===WebView.LoadSucceededStatus){
+                if(!loading && loadRequest.status===WebEngineView.LoadSucceededStatus){
                     sloadingChanged(loadRequest);
                 }
-
             }
 
-            onSms: {
-                LOG.logger.verbose("onSms %s, %s", url, body);
-                gApp.openUrl("sms:?body=" + body);
+            onRenderProcessTerminated: function(terminationStatus, exitCode){
+                var termMessage = '渲染中断: [' + exitCode + ']';
+                switch(terminationStatus){
+                    case WebEngineView.NormalTerminationStatus:
+                        termMessage += 'NormalTerminationStatus';
+                        break;
+                    case WebEngineView.AbnormalTerminationStatus:
+                        termMessage += 'AbnormalTerminationStatus';
+                        break;
+                    case WebEngineView.CrashedTerminationStatus:
+                        termMessage += 'CrashedTerminationStatus';
+                        break;
+                    case WebEngineView.KilledTerminationStatus:
+                        termMessage += 'KilledTerminationStatus';
+                        break;
+                }
+                reloadTimer.running = true;
+                gToast.requestToast(termMessage);
             }
 
-            onMailto: {
-                LOG.logger.verbose("onMailto url:[%s], body:[%s]", url, body);
-                gApp.openUrl("email:writeMail?address="+ url + "&content=" + body + "&attach=");
+            Timer {
+                id: reloadTimer
+                interval: 0
+                running: false
+                repeat: false
+                onTriggered: swebview.reload()
             }
 
-            onTel: {
-                //电话拨打功能,暂未实现
-                //console.log("onTelonTeonTeonTeonTeonTeonTeonTeonTeonTeonTeonTelllllllllll", telNum);
-                //        telNumber = telNum;
-                //        if (!gAppUtils.pageStackWindow.confirmDialog)
-                //        {
-                //            gAppUtils.pageStackWindow.createConfirmDialog(mainPage)
-                //        }
-
-                //        gAppUtils.pageStackWindow.confirmDialog.messageText = os.i18n.ctr(qsTr("are you sure to call the number: ")) + telNum  //确定呼叫:
-                //        gAppUtils.pageStackWindow.confirmDialog.requestShow()
-                //        confirmDialogOfDial.target = gAppUtils.pageStackWindow.confirmDialog
+             onWindowCloseRequested: function(){
+                console.log('onWindowCloseRequested');
+                navigationBarClose();
             }
 
-            Component.onCompleted: {
-                LOG.logger.verbose("SWebview Component.onCompleted")
-                swebview.SetJavaScriptCanOpenWindowsAutomatically(false)
+            onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){
+              switch(level){
+                case WebEngineView.InfoMessageLevel:
+                  LOG.logger.verbose(message)
+                  break;
+                case WebEngineView.WarningMessageLevel:
+                  LOG.logger.warn(message)
+                  break;
+                case WebEngineView.ErrorMessageLevel:
+                  LOG.logger.error(message)
+                  break;
+              }
+            }
+
+            onAuthenticationDialogRequested: function(request){
+              request.accepted = true;
+              authDialog.request = request;
+              switch(request.type){
+                case WebEngineAuthenticationDialogRequest.AuthenticationTypeHTTP:
+                  authDialog.titleText = request.url + ":\n" + request.realm;
+                  break;
+                case WebEngineAuthenticationDialogRequest.AuthenticationTypeProxy:
+                  authDialog.titleText = request.proxyHost + ":\n" + request.realm;
+                  break;
+              }
+              authDialog.clear();
+              authDialog.show();
             }
         }
 
+        CInputDialog {
+            id: authDialog
+            property AuthenticationDialogRequest request
+            canceledOnOutareaClicked: false
+            titleText: ''
+            messageAreaComponent: Column {
+                property alias nameText: nameEdit.text
+                property alias passText: password.text
+                CLineEdit {
+                    id: nameEdit
+                    width: authDialog.width - authDialog.messageAreaLeftMargin - authDialog.messageAreaRightMargin
+                    echoMode: TextInput.Normal
+                    inputMethodHints: authDialog.inputMethodHints
+                    maximumLength: authDialog.maximumLength
+                    onTextChanged: {
+                        authDialog.textChanged(text)
+                    }
+                }
+                CLine {
+                    width: parent.width
+                    height: 2
+                }
+
+                CLineEdit {
+                    id: password
+                    width: authDialog.width - authDialog.messageAreaLeftMargin - authDialog.messageAreaRightMargin
+                    echoMode: TextInput.Password
+                    inputMethodHints: authDialog.inputMethodHints
+                    maximumLength: authDialog.maximumLength
+                    onTextChanged: {
+                        authDialog.textChanged(text)
+                    }
+                }
+
+                CLine {
+                    width: parent.width
+                }
+            }
+            onAccepted: {
+                request.dialogAccept(messageAreaItem.nameText, messageAreaItem.passText)
+            }
+            onRejected: {
+                request.dialogReject()
+            }
+            onCanceled: {
+                request.dialogReject()
+            }
+            function clear(){
+              messageAreaItem.nameText = "";
+              messageAreaItem.passText = "";
+            }
+        }
     }
 
+    // 在页面状态变化的时候，处理状态栏展示or隐藏
     onStatusChanged:{
       if(status == CPageStatus.Show){
-        console.log('页面展示了', surl)
+        console.log('页面展示了！！！', surl)
           pageHide = false
-          console.log('gScreenInfo*************', JSON.stringify(gScreenInfo), webView.orientationPolicy)
+          console.log('gScreenInfo*************', JSON.stringify(gScreenInfo))
           // 跟随屏幕旋转的时候，横屏进入下一个页面，页面状态栏需要手动隐藏，隐藏需2个方法一起使用，才可生效（亲测）
           // 主动被动都需要走这个方法
           if(webView.orientationPolicy == CScreenInfo.Landscape
@@ -515,7 +474,15 @@ CPage{
       }
     }
 
+
     Component.onCompleted: {
+        WebEngine.settings.webGLEnabled = true;
+        swebview.settings.webGLEnabled = true;
+
+        console.log('gScreenInfo--', JSON.stringify(gScreenInfo))
+
+        // 设置缩放比例
+        swebview.zoomFactor = gScreenInfo.density
 
         console.log('swebview-navigationBarBackgroundColor-', navigationBarBackgroundColor)
         console.log('swebview-navigationBarTitle-', navigationBarTitle)

@@ -3,11 +3,14 @@ import * as path from 'path'
 import * as os from 'os'
 import * as shelljs from 'shelljs'
 import { log } from '../util/log'
-import { isTargetOS_5 } from '../syberos/helper'
 import { qtversions } from '../syberos/configfile'
+import * as helper from '../syberos/helper'
+import chalk from 'chalk'
 
 
 export interface CompileGeneralConfig {
+  // 当前用户的密码
+  password?: string
   // 编译输出目录
   buildPath: string
   // Syberos-Pdk所在位置
@@ -58,7 +61,15 @@ export class Compiler {
     log.verbose('buildApp()');
 
     conf = this.checkAppConfig(conf);
-    return this.doBuild(conf, buildPkg);
+
+    let result : CompileResult;
+    // 检查target是否是5.0版本，若是5.0版本使用不同5.0编译流程
+    if(helper.isTargetOS_5(conf.targetName)){
+      result = await this.buildByOS5(conf, buildPkg);
+    } else{
+      result = this.buildByNotOS5(conf, buildPkg);
+    }
+    return result;
   }
 
   /**
@@ -75,6 +86,13 @@ export class Compiler {
     conf.qmakeArgs.push('SYBERH_APP=' + conf.platformSyberosPath);
     conf.qmakeArgs.push('SOPID=' + conf.sopid);
 
+    // 非5.0版本插件编译
+    if(!helper.isTargetOS_5(conf.targetName)){
+      this.buildPluginsByNotOS5(conf)
+      return
+    }
+
+    // 5.0版本插件编译
     for (const pluginName of conf.plugins) {
       let pluginProPath: string;
       try{
@@ -88,42 +106,56 @@ export class Compiler {
         continue;
       }
       const compileConfig = this.toCompileConfig(conf, pluginProPath)
-      this.doBuild(compileConfig, false);
+      this.buildByOS5(compileConfig, false);
     }
   }
 
-  /**
-   * 判断libpluginmanager.so是否存在
-   * @param platformSyberosPath syberh应用中platform/syberos位置
-   */
-  public existsLib(platformSyberosPath: string): boolean {
-    const pluginManagerSoPath = path.join(platformSyberosPath, 'lib/libpluginmanager.so');
-    const nativeSdkSoPath = path.join(platformSyberosPath, 'lib/libnativesdk.so');
-    log.verbose('existsLib()  pluginmanager: %s,  nativesdk: %s', pluginManagerSoPath, nativeSdkSoPath);
-    return fs.existsSync(pluginManagerSoPath) && fs.existsSync(nativeSdkSoPath);
-  }
 
-  /**
-   * 判断syberh-plugins目录是否存在
-   * @param platformSyberosPath syberh应用中platform/syberos位置
-   */
-  public isSyberhPluginsExists(platformSyberosPath: string): boolean {
-    const syberhPluginsPath = path.join(platformSyberosPath, 'syberh-plugins')
-    return fs.existsSync(syberhPluginsPath);
-  }
+  // 非5.0系统，使用expect脚本编译插件
+  private buildPluginsByNotOS5(conf: CompilePluginsConfig) {
+    log.verbose('buildPluginsByNotOS5()  conf: %j', conf);
 
+    const pluginProPathes: string[] = []
+    for (const pluginName of conf.plugins) {
+      let pluginProPath: string;
+      try{
+        pluginProPath = this.findPluginProPath(pluginName, conf.platformSyberosPath);
+        pluginProPathes.push(pluginProPath)
+      }catch(e){
+        if(e instanceof CompileError){
+          log.warn('未找到插件编译文件，跳过插件：', pluginName);
+        }else{
+          log.warn(e.stack)
+        }
+        continue;
+      }
+    }
+    log.verbose('plugins pro：', pluginProPathes)
 
-  private async doBuild(conf: CompileConfig, buildPkg: boolean): Promise<CompileResult> {
-    let result : CompileResult;
-    // 检查target是否是5.0版本，若是5.0版本使用不同5.0编译流程
-    if(isTargetOS_5(conf.targetName)){
-      result = await this.buildByOS5(conf, buildPkg);
-    } else{
-      result = this.buildByNotOS5(conf, buildPkg);
+    const proPathes = pluginProPathes.join(',')
+    const password = conf.password
+    const processNum = conf.processNum ? conf.processNum : 1
+    const kchrootPath = path.join(conf.pdkPath, 'sdk/script/kchroot');
+    const qmakeArgs = this.composeQmakeArgs(conf);
+
+    if(!password){
+      console.log(chalk.redBright('未输入当前用户密码'));
+      process.exit(1)
+    }
+    if(!conf.targetName){
+      console.log(chalk.redBright('未设置target'));
+      process.exit(1)
+    }
+    if(!proPathes){
+      console.log(chalk.yellow('未找到任何插件编译文件，跳过插件编译'));
+      return
     }
 
-    return result;
+    const cmd = `expect ${helper.locateScripts('sb2-build-plugins.sh')} ${password} ${processNum} ${kchrootPath} ${conf.targetName} '${proPathes}' '${qmakeArgs}'`
+    log.verbose('执行：', cmd)
+    helper.runShell(cmd)
   }
+
 
   private buildByNotOS5(conf: CompileConfig, buildPkg: boolean): CompileResult {
     log.verbose('buildByNotOS5()  conf: %j,  buildPkg: %s', conf, buildPkg);
@@ -191,6 +223,26 @@ export class Compiler {
   }
 
   /**
+   * 判断libpluginmanager.so是否存在
+   * @param platformSyberosPath syberh应用中platform/syberos位置
+   */
+  public existsLib(platformSyberosPath: string): boolean {
+    const pluginManagerSoPath = path.join(platformSyberosPath, 'lib/libpluginmanager.so');
+    const nativeSdkSoPath = path.join(platformSyberosPath, 'lib/libnativesdk.so');
+    log.verbose('existsLib()  pluginmanager: %s,  nativesdk: %s', pluginManagerSoPath, nativeSdkSoPath);
+    return fs.existsSync(pluginManagerSoPath) && fs.existsSync(nativeSdkSoPath);
+  }
+
+  /**
+   * 判断syberh-plugins目录是否存在
+   * @param platformSyberosPath syberh应用中platform/syberos位置
+   */
+  public isSyberhPluginsExists(platformSyberosPath: string): boolean {
+    const syberhPluginsPath = path.join(platformSyberosPath, 'syberh-plugins')
+    return fs.existsSync(syberhPluginsPath);
+  }
+
+  /**
    * 检查应用编译参数，未通过检查时抛出CompileError
    */
   private checkAppConfig(conf: CompileConfig): CompileConfig {
@@ -238,7 +290,7 @@ export class Compiler {
       throw new CompileError('未配置target');
     }
     // os5时不检查pdk
-    if(!isTargetOS_5(conf.targetName)){
+    if(!helper.isTargetOS_5(conf.targetName)){
       if (!conf.pdkPath || !fs.existsSync(conf.pdkPath)) {
         log.warn('未找到pdk命令：', conf.pdkPath);
         throw new CompileError('未找到pdk命令');

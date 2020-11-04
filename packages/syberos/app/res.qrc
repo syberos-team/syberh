@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/main.qml</file>
-        <file>qml/main59.qml</file>
         <file>res/app.png</file>
         <file>res/splash.png</file>
         <file>res/success_primary.png</file>
@@ -12,6 +10,9 @@
         <file>res/warning_big.png</file>
         <file>res/navClose.png</file>
         <file>res/navBack.png</file>
+        <file>qml/main.qml</file>
+        <file>qml/main4.qml</file>
+        <file>qml/main5.qml</file>
         <file>qml/framework/js/core/core.js</file>
         <file>qml/framework/js/core/plugin.js</file>
         <file>qml/framework/js/root/root.js</file>
@@ -30,7 +31,8 @@
         <file>qml/framework/SToast.qml</file>
         <file>qml/framework/ItemSelector.qml</file>
         <file>qml/framework/SWebview.qml</file>
-        <file>qml/framework/SWebview59.qml</file>
+        <file>qml/framework/SWebview4.qml</file>
+        <file>qml/framework/SWebview5.qml</file>
         <file>qml/framework/SNavigationBar.qml</file>
         <file>qml/framework/AuthenticationDialog.qml</file>
         <file>qml/framework/filesPicker.qml</file>

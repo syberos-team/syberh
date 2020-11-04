@@ -71,6 +71,7 @@ CPage{
     // 展示navigatorBar
     function showNavigatorBar(options){
        sNavigationBar.show(options);
+       swebview.anchors.topMargin = sNavigationBar.navigationBarHeight
     }
 
     // 设置NavigationBar Title
@@ -288,7 +289,7 @@ CPage{
             property url curHoverUrl: ""
 
             anchors {
-                top: sNavigationBar.visible ? sNavigationBar.bottom : parent.top
+                top: parent.top
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom

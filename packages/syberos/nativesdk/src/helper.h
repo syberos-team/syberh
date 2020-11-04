@@ -43,8 +43,11 @@ public:
 
     Q_INVOKABLE QJsonObject aboutPhone();
 
-    // 获取Qt版本号
-    Q_INVOKABLE QString getQtVersion();
+    // 获取Qt版本号，示例：0x050900
+    // 注意，由于返回的是16进制数，如需与qt5.12.0版本比较，需使用 0x050c00 比较，示例：helper.getQtVersion() >= 0x050c00
+    Q_INVOKABLE qint32 getQtVersion();
+    // 获取Qt版本号，示例：5.9.0
+    Q_INVOKABLE QString getQtVersionName();
 
     // 获取Qt版本号是否大于5.6.0
     Q_INVOKABLE bool isGtQt56();

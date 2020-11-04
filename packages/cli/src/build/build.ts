@@ -259,6 +259,7 @@ export class Build {
 
     const compiler = new compile.Compiler()
     const compileResult = await compiler.buildApp({
+      password: this.buildConfig.buildAsk?.password,
       // 编译项目的pro文件位置
       proPath: path.join(this.appPath, 'platforms/syberos/app.pro'),
       // 编译输出目录
@@ -303,6 +304,7 @@ export class Build {
 
     const compiler = new compile.Compiler()
     compiler.buildPlugins({
+      password: this.buildConfig.buildAsk?.password,
       // 指向应用中platform/syberos位置
       platformSyberosPath: path.join(this.appPath, 'platforms/syberos'),
       // 编译插件的名称
