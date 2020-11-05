@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
-import "./framework/js/syber.js" as Syberh
-import "./framework"
+import "../js/syber.js" as Syberh
+
 
 CPageStackWindow {
     initialPage: SWebview{

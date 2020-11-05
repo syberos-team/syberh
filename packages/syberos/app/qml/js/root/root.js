@@ -2,7 +2,7 @@
 var opts = {
   id: 'rootItem',
   name: 'root',
-  source: '../../root.qml'
+  source: '../root.qml'
 }
 
 var RootItem = new SyberPlugin(opts)

@@ -156,10 +156,10 @@ CAbstractPopLayer{
    // Button区域属性设置相关
 
    /*! 取消按钮文本，默认为“取消” */
-   property string rejectButtonText: qsTr("取消")
+   property string rejectButtonText: "取消"
 
    /*! 确认按钮文本，默认为“确定” */
-   property string acceptedButtonText: qsTr("确定")
+   property string acceptedButtonText: "确定"
 
    /*! 取消按钮是否展示 */
    property bool rejectButtonVisible: true

@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/os2/main.qml</file>
+        <file>qml/os2/SAlert.qml</file>
+        <file>qml/os2/SWebview.qml</file>
+        <file>qml/os2/SButton.qml</file>
+        <file>qml/os2/SCollisionIndicator.qml</file>
+        <file>qml/os2/SConfirm.qml</file>
+        <file>qml/os2/ItemSelector.qml</file>
+        <file>qml/os2/SFilesPicker.qml</file>
+        <file>qml/os2/SFilesPickerView.qml</file>
+        <file>qml/os2/SDelegateComponent.qml</file>
+    </qresource>
+</RCC>

@@ -6,8 +6,8 @@ import QtWebEngine 1.8
 import QtWebChannel 1.0
 import com.syberos.webview 1.0
 
-import "./js/util/log.js" as LOG
-
+import "../js/util/log.js" as LOG
+import "../"
 
 CPage{
     objectName: "webView"
@@ -19,7 +19,7 @@ CPage{
     //加载信号
     signal sloadingChanged(var loadRequest)
     // 按键信号
-    signal keyEvent(string eventType, var event)
+    signal skeyEvent(string eventType, var event)
     //接受消息信号
     signal receiveMessage(var message)
     //导航栏关闭信号
@@ -237,14 +237,12 @@ CPage{
 
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
-        keyEvent('onReleased', event)
-        setDestroyStatus(true)
+        skeyEvent('onReleased', event)
     }
 
     Keys.onPressed: {
         LOG.logger.verbose('SWebview qml Keys.onPressed %s %s', event.key, event.text)
-        keyEvent('onPressed', event)
-        setDestroyStatus(true)
+        skeyEvent('onPressed', event)
     }
 
     contentAreaItem:Rectangle{
@@ -287,10 +285,10 @@ CPage{
             property url curHoverUrl: ""
 
             anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+                top: root.top
+                left: root.left
+                right: root.right
+                bottom: root.bottom
             }
             url:surl
             webChannel: channel

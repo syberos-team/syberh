@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/os5/main.qml</file>
+        <file>qml/os5/SWebview.qml</file>
+    </qresource>
+</RCC>

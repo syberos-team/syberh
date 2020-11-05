@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/os4/main.qml</file>
+        <file>qml/os4/SWebview.qml</file>
+        <file>qml/cwebview/permission.js</file>
+        <file>qml/cwebview/AlbumPage.qml</file>
+        <file>qml/cwebview/AlertDialog.qml</file>
+        <file>qml/cwebview/CameraPage.qml</file>
+        <file>qml/cwebview/CFileSelector.qml</file>
+        <file>qml/cwebview/ConfirmDialog.qml</file>
+        <file>qml/cwebview/CWebView.qml</file>
+        <file>qml/cwebview/FeaturePermission.qml</file>
+        <file>qml/cwebview/FilePickerPage.qml</file>
+        <file>qml/cwebview/PromptDialog.qml</file>
+    </qresource>
+</RCC>

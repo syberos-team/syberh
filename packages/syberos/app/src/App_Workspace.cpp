@@ -74,11 +74,11 @@ App_Workspace::App_Workspace()
     #if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
         SEnvironment *env = new SEnvironment;
         m_view->rootContext()->setContextProperty("env", env);
-        m_view->setSource(QUrl("qrc:/qml/main.qml"));
+        m_view->setSource(QUrl("qrc:/qml/os2/main.qml"));
     #elif (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
-        m_view->setSource(QUrl("qrc:/qml/main4.qml"));
+        m_view->setSource(QUrl("qrc:/qml/os4/main.qml"));
     #else
-        m_view->setSource(QUrl("qrc:/qml/main5.qml"));
+        m_view->setSource(QUrl("qrc:/qml/os5/main.qml"));
     #endif
 
     m_view->showFullScreen();

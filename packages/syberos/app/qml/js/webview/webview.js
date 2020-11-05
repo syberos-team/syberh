@@ -119,8 +119,8 @@ function WebView (options) {
       that.onMessageReceived(message, that.id);
     });
     // 绑定keys监听事件
-    object.keyEvent.connect(function (eventType, event) {
-      logger.verbose(' webview.keyEvent:[%s, %s]', eventType, that.id);
+    object.skeyEvent.connect(function (eventType, event) {
+      logger.verbose(' webview.skeyEvent:[%s, %s]', eventType, that.id);
       that.trigger('keyEvent', object, eventType, event);
     });
 
@@ -130,10 +130,10 @@ function WebView (options) {
 
   // 页面被打开
   this.on('show', function (options) {
-    logger.verbose('Webivew:[%s] , on show() ,status:[%d]', that.id, status);
+    logger.verbose('Webivew:[%s] , on show() ,status:[%d]', that.id, options.status);
     // 页面被pop唤起,注销上一级页面
     if (options.status === WebviewStatusPop) {
-      logger.verbose('Webivew:[%s] ,当前打开方式为pop，开始注销上一层', that.id, status);
+      logger.verbose('Webivew:[%s] ,当前打开方式为pop，开始注销上一层', that.id, options.status);
     }
     that.pushQueue('subscribe', {
       url: options.url,
@@ -433,13 +433,13 @@ function WebView (options) {
       var sourceQml = '';
       switch(SYBEROS.moduleVersion){
         case '2':
-          sourceQml = '../SWebview.qml'
+          sourceQml = '../os2/SWebview.qml'
           break;
         case '5':
-          sourceQml = '../SWebview5.qml'
+          sourceQml = '../os5/SWebview.qml'
           break;
         default:
-          sourceQml = '../SWebview4.qml'
+          sourceQml = '../os4/SWebview.qml'
           break;
       }
       dwevview = new WebView({

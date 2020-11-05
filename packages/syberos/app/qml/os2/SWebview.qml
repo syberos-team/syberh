@@ -5,8 +5,8 @@ import QtWebKit.experimental 1.0
 // import org.nemomobile.voicecall 1.0 8953的target上没有这个库
 import com.syberos.basewidgets 2.0
 
-import "./js/util/log.js" as LOG
-
+import "../js/util/log.js" as LOG
+import "../"
 
 CPage{
     objectName: "webView"
@@ -18,7 +18,7 @@ CPage{
     //加载信号
     signal sloadingChanged(var loadRequest)
     //返回键信号
-    signal keyOnReleased(var event)
+    signal skeyEvent(string eventType, var event)
     //接受消息信号
     signal receiveMessage(var message)
     //导航栏关闭信号
@@ -238,14 +238,14 @@ CPage{
 
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
-        keyEvent('onReleased', event)
+        skeyEvent('onReleased', event)
         //event.accepted = true
         setDestroyStatus(true)
     }
 
     Keys.onPressed: {
         LOG.logger.verbose('SWebview qml Keys.onPressed %s %s', event.key, event.text)
-        keyEvent('onPressed', event)
+        skeyEvent('onPressed', event)
         setDestroyStatus(true)
     }
 
