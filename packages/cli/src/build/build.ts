@@ -179,14 +179,17 @@ export class Build {
    * 在platforms/syberos目录下生成project.config.json
    */
   private generateProjectConfig(){
-    const projectConfObj : ExConfig = { 
+    const projectConfObj : ExConfig = {
       debug: !this.buildConfig.release,
       logLevel: this.devLog,
       ...this.projectConfig
     }
     const projectConfigPath = path.join(this.appPath, 'platforms/syberos/project.config.json');
-
-    fs.writeJSONSync(projectConfigPath, projectConfObj);
+    // 增加json文件格式化
+    fs.writeJSONSync(projectConfigPath, projectConfObj,{
+        spaces: '\t',
+        EOL: '\n'
+      });
     log.info('生成配置：', projectConfigPath)
   }
 
