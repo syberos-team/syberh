@@ -130,6 +130,21 @@ QString ProjectConfig::getDebuggingPort()
     return d->getString("debuggingPort");
 }
 
+bool ProjectConfig::statusBarShow()
+{
+    return d->getBool("statusBar","show");
+}
+
+QString ProjectConfig::statusBarStyle()
+{
+     QString style=d->getString("statusBar","style");
+     if(style.isEmpty()){
+         style="black";
+     }
+     return style;
+}
+
+
 
 // ---- ProjectConfigPrivate ----
 bool ProjectConfigPrivate::load()

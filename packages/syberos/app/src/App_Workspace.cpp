@@ -60,6 +60,7 @@ App_Workspace::App_Workspace()
 
     QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
 
+    m_view->rootContext()->setContextProperty("projectConfig", projectConfig);
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
 
