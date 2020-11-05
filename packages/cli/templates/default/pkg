@@ -4,8 +4,7 @@
   "private": true,
   "description": "<%= description %>",
   "templateInfo": {
-    "name": "<%= template %>",
-    "css": "<%= css %>"
+    "name": "<%= template %>"
   },
   "scripts": {
     "build:simulator": "syberh build --type simulator",

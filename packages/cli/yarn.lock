@@ -233,6 +233,16 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/ejs@*":
+  version "3.0.5"
+  resolved "https://registry.npm.taobao.org/@types/ejs/download/@types/ejs-3.0.5.tgz?cache=0&sync_timestamp=1603157894033&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fejs%2Fdownload%2F%40types%2Fejs-3.0.5.tgz#95a3a1c3d9603eba80fe67ff56da1ba275ef2eda"
+  integrity sha1-laOhw9lgPrqA/mf/VtobonXvLto=
+
+"@types/expect@^1.20.4":
+  version "1.20.4"
+  resolved "https://registry.npm.taobao.org/@types/expect/download/@types/expect-1.20.4.tgz#8288e51737bf7e3ab5d7c77bfa695883745264e5"
+  integrity sha1-gojlFze/fjq118d7+mlYg3RSZOU=
+
 "@types/fs-extra@^9.0.2":
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-9.0.2.tgz#e1e1b578c48e8d08ae7fc36e552b94c6f4621609"
@@ -265,10 +275,10 @@
     "@types/through" "*"
     rxjs "^6.4.0"
 
-"@types/json-schema@^7.0.3":
+"@types/json-schema@*", "@types/json-schema@^7.0.3":
   version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
-  integrity sha512-3c+yGKvVP5Y9TYBEibGNR+kLtijnj7mYrXRg+WpFb2X9xm04g/DXYkfg4hmzJQosc9snFNUPkbYIhu+KAm6jJw==
+  resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
+  integrity sha1-9MfsQ+gbMZqYFRFQMXCfJph4kfA=
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -279,6 +289,26 @@
   version "4.14.162"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.162.tgz#65d78c397e0d883f44afbf1f7ba9867022411470"
   integrity sha512-alvcho1kRUnnD1Gcl4J+hK0eencvzq9rmzvFPRmP5rPHx9VVsJj6bKLTATPVf9ktgv4ujzh7T+XWKp+jhuODig==
+
+"@types/mem-fs-editor@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.npm.taobao.org/@types/mem-fs-editor/download/@types/mem-fs-editor-7.0.0.tgz#e6576e0f66e20055481b2cdbf193457f1a2c4e65"
+  integrity sha1-5lduD2biAFVIGyzb8ZNFfxosTmU=
+  dependencies:
+    "@types/ejs" "*"
+    "@types/glob" "*"
+    "@types/json-schema" "*"
+    "@types/mem-fs" "*"
+    "@types/node" "*"
+    "@types/vinyl" "*"
+
+"@types/mem-fs@*", "@types/mem-fs@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/@types/mem-fs/download/@types/mem-fs-1.1.2.tgz#e7e4cc741225dea109b5f3ceb519b45f353e1393"
+  integrity sha1-5+TMdBIl3qEJtfPOtRm0XzU+E5M=
+  dependencies:
+    "@types/node" "*"
+    "@types/vinyl" "*"
 
 "@types/minimatch@*", "@types/minimatch@^3.0.3":
   version "3.0.3"
@@ -314,6 +344,14 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.0.tgz#fef1904e4668b6e5ecee60c52cc6a078ffa6697d"
   integrity sha512-I99sngh224D0M7XgW1s120zxCt3VYQ3IQsuw3P3jbq5GG4yc79+ZjyKznyOGIQrflfylLgcfekeZW/vk0yng6A==
+
+"@types/vinyl@*":
+  version "2.0.4"
+  resolved "https://registry.npm.taobao.org/@types/vinyl/download/@types/vinyl-2.0.4.tgz#9a7a8071c8d14d3a95d41ebe7135babe4ad5995a"
+  integrity sha1-mnqAccjRTTqV1B6+cTW6vkrVmVo=
+  dependencies:
+    "@types/expect" "^1.20.4"
+    "@types/node" "*"
 
 "@typescript-eslint/eslint-plugin@^4.5.0":
   version "4.5.0"

@@ -3,50 +3,14 @@ import * as fs from 'fs-extra'
 import * as memFs from 'mem-fs'
 import * as editor from 'mem-fs-editor'
 import * as _ from 'lodash'
+import { IMemFsEditor, ICreator } from './types'
+import { getRootPath } from '../util'
 
-import {
-  getRootPath
-} from '../util'
 
-interface IFile {
-  contents: Buffer | NodeJS.ReadableStream | null,
-  cwd: string,
-  base: string | null | undefined,
-  history: string[],
-  relative: string,
-  dirname: string,
-  basename: string,
-  stem: string,
-  extname: string,
-  symlink: string,
-  stat: fs.Stats | null
-}
+export default class Creator implements ICreator {
+  private fs: IMemFsEditor
 
-interface IReadOptions {
-  raw?: boolean
-}
-
-interface IAppendOptions {
-  trimEnd?: boolean,
-  separator?: string
-}
-
-interface IMemFsEditor {
-  store: {
-    [key: string]: IFile
-  },
-  read(filePath: string, options?: IReadOptions): string | Buffer,
-  readJSON(filePath: string, defaults?: JSON): JSON,
-  write(filePath: string, contents: string | Buffer): string,
-  writeJSON(filepath: string, contents: JSON, replacer?: ((key: string, value: any) => any) | undefined, space?: string | number | undefined): string,
-  append(filePath: string, contents: string | Buffer, options?: IAppendOptions): string | Buffer,
-  copyTpl(from: string, to: string, context: object, templateOptions: object),
-  commit(cb: () => void)
-}
-
-export default class Creator {
-  fs: IMemFsEditor
-  protected _rootPath: string
+  private _rootPath: string
   private _destinationRoot: string
 
   constructor () {
@@ -108,6 +72,10 @@ export default class Creator {
       options
     )
     return this
+  }
+
+  getFs(): IMemFsEditor {
+    return this.fs;
   }
 
   writeGitKeepFile (dirname: string) {
