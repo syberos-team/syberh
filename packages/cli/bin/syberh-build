@@ -14,6 +14,7 @@ program.storeOptionsAsProperties(false)
 program
   .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
   .option('--release', '构建release版本')
+  .option('--debug', '构建debug版本')
   .option('--only-build', '构建完成后不安装sop')
   .option('--no-doctor', '构建时不执行环境检查')
   .option('--s1', '构建S1手机可用的应用')

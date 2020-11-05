@@ -182,8 +182,12 @@ CPage{
     // 设置页面旋转方向 1: 竖屏 2：横屏 默认： 跟着设备旋转
     function setPageOrientation(orientation) {
         if (orientation == 1) {
-            webView.statusBarHoldEnabled = true
-            gScreenInfo.setStatusBar(true);
+             if(projectConfig.statusBarShow()){
+                webView.statusBarHoldEnabled = true
+                gScreenInfo.setStatusBar(true);
+             }else{
+                 webView.statusBarHoldEnabled = false
+             }
             webView.orientationPolicy = CPageOrientation.LockPortrait
         } else if(orientation == 2 || orientation == 8) {
             webView.statusBarHoldEnabled = false
@@ -200,7 +204,9 @@ CPage{
         target: gScreenInfo
         ignoreUnknownSignals: true
         onCurrentOrientationChanged: {
+
             console.log('屏幕切换接收到信号了×××××××××××××××××××××', webView.orientationPolicy, gScreenInfo.currentOrientation, surl, pageHide, isDestroy)
+             console.log('全屏状态====>', projectConfig.statusBarShow())
             // 如果页面销毁，在这里拦截
             if (isDestroy) return
             webView.orientation({
@@ -225,11 +231,22 @@ CPage{
                      webView.anchors.bottomMargin = 0
                  }
             } else {
-                console.log('监听到信号*****************竖屏')
-                webView.anchors.bottomMargin = 0
-                webView.statusBarHoldEnabled = true
-                gScreenInfo.setStatusBar(true);
-                gScreenInfo.setStatusBarStyle("black");
+                if(projectConfig.statusBarShow()){
+                   console.log('监听到信号*****************竖屏')
+                    webView.anchors.bottomMargin = 0
+                    webView.statusBarHoldEnabled = true
+                    gScreenInfo.setStatusBar(true);
+                    gScreenInfo.setStatusBarStyle(projectConfig.statusBarStyle());
+
+                }else{
+                    webView.statusBarHoldEnabled = false
+                    if(gInputContext.softwareInputPanelVisible) {
+                     webView.anchors.bottomMargin = -142
+                     } else {
+                         webView.anchors.bottomMargin = 0
+                    }
+                }
+
             }
         }
     }
@@ -358,7 +375,7 @@ CPage{
                 console.log('onWindowCloseRequested');
                  navigationBarClose();
             }
-            
+
             Timer {
                     id: reloadTimer
                     interval: 0
@@ -366,7 +383,7 @@ CPage{
                     repeat: false
                     onTriggered: swebview.reload()
             }
-            
+
             onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){
               switch(level){
                 case WebEngineView.InfoMessageLevel:
@@ -567,17 +584,29 @@ CPage{
               webView.statusBarHoldEnabled = false
               gScreenInfo.setStatusBar(false);
           } else {
-              webView.statusBarHoldEnabled = true
-              gScreenInfo.setStatusBar(true);
-              //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
-              gScreenInfo.setStatusBarStyle("black");
+               console.log('全屏状态===>', projectConfig.statusBarShow())
+              //如果为全屏
+              if(projectConfig.statusBarShow()){
+                 webView.statusBarHoldEnabled = true
+                 gScreenInfo.setStatusBar(true);
+                 //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
+                 gScreenInfo.setStatusBarStyle(projectConfig.statusBarStyle());
+              }else{
+                  webView.statusBarHoldEnabled = false
+                  gScreenInfo.setStatusBar(false);
+                  if(gInputContext.softwareInputPanelVisible) {
+                     webView.anchors.bottomMargin = -140
+                  } else {
+                     webView.anchors.bottomMargin = 0
+                  }
+              }
+
           }
       } else if (status == CPageStatus.Hide) {
           console.log('页面将要隐藏啦！！！', surl)
           pageHide = true
       }
     }
-
 
     Component.onCompleted: {
         WebEngine.settings.webGLEnabled = true;
