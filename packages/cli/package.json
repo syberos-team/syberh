@@ -62,6 +62,8 @@
     "@types/lodash": "^4.14.162",
     "@types/node": "^12.12.6",
     "@types/shelljs": "^0.8.8",
+    "@types/mem-fs": "^1.1.2",
+    "@types/mem-fs-editor": "^7.0.0",
     "babel-eslint": "^10.1.0",
     "babel-generator": "^6.26.1",
     "babel-plugin-danger-remove-unused-import": "^1.1.2",

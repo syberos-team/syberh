@@ -1,35 +1,21 @@
-const fs = require('fs-extra')
-const path = require('path')
-const chalk = require('chalk')
-const { exec } = require('child_process')
-const ora = require('ora')
-const { log } = require('../../dist/util/log')
-const { getRootPath } = require('../../dist/util')
-const {
-  SOURCE_DIR
-} = require('../../dist/config/index').default
+import * as fs from 'fs-extra'
+import * as path from 'path'
+import chalk from 'chalk'
+import { exec } from 'child_process'
+import * as ora from 'ora'
+import { log } from '../util/log'
+import * as util from '../util/index'
+import { IProjectTemplate, ICreator, ICreateProjectOption } from './types'
 
 // syberh app 模块目录
 const platformsDirName = 'platforms'
 
-exports.createPage = function (creater, params, cb) {
-  const { projectDir, src, template } = params
-  let pageCSSName
-  const sourceDir = path.join(projectDir, src)
-  creater.template(template, 'scss', path.join(sourceDir, 'www', pageCSSName))
-  creater.fs.commit(() => {
-    if (typeof cb === 'function') {
-      cb()
-    }
-  })
-}
-
 function getTemplatePath (template = 'default') {
-  return path.join(getRootPath(), 'templates', template)
+  return path.join(util.getRootPath(), 'templates', template)
 }
 
 // 只创建核心项目
-exports.createCore = function () {
+export const createCore = function () {
   log.verbose('createCore()')
   // cli 下的核心文件
   const app = path.join(getTemplatePath(), 'platforms', 'syberos', 'app')
@@ -88,37 +74,29 @@ exports.createCore = function () {
     `${chalk.green('✔ ')}更新 [project] 完成`
   )
 }
-exports.createApp = function (creater, params, helper, cb) {
-  const {
-    projectName,
-    projectDir,
-    appName,
-    template,
-    typescript,
-    src,
-    css,
-    sopid,
-    example
-  } = params
+
+
+// 使用模板生成项目
+export const createApp = function (creater: ICreator, option: ICreateProjectOption, params: IProjectTemplate, cb?: Function) {
+  const { projectDir, template = 'default', example } = option
+  const { projectName, appName, sopid } = params
 
   // APP 模板目录
   const syberosDir = 'syberos'
+  const src = 'www'
 
   const libDir = 'lib'
   const projectPath = path.join(projectDir, projectName)
   const sourceDir = path.join(projectPath, src)
   const platformsDir = path.join(projectPath, platformsDirName)
-  const version = helper.getPkgVersion()
+  const version = util.getPkgVersion()
   const yarnLockfilePath = path.join('yarn-lockfiles', `${version}-yarn.lock`)
-  const shouldUseYarn = helper.shouldUseYarn()
+  const shouldUseYarn = util.shouldUseYarn()
   const useNpmrc = shouldUseYarn === false
   const useYarnLock =
     shouldUseYarn &&
     fs.existsSync(creater.templatePath(template, yarnLockfilePath))
-  let pageCSSName
-  // let appCSSName
 
-  params.page = 'index'
   fs.ensureDirSync(projectPath)
   fs.ensureDirSync(sourceDir)
   fs.ensureDirSync(path.join(sourceDir, 'lib'))
@@ -141,18 +119,15 @@ exports.createApp = function (creater, params, helper, cb) {
     description: appName,
     projectName,
     version,
-    css,
-    typescript,
     template
   })
 
   // 创建project.config.json
-  creater.template(
-    template,
-    'project',
-    path.join(projectPath, 'project.config.json'),
-    params
-  )
+  fs.writeJSONSync(path.join(projectPath, 'project.config.json'), params, {
+    encoding: 'utf-8',
+    spaces: '\t',
+    EOL: '\n'
+  })
 
   // 创建默认git忽略
   creater.template(template, 'gitignore', path.join(projectPath, '.gitignore'))
@@ -165,21 +140,13 @@ exports.createApp = function (creater, params, helper, cb) {
   // 是否创建demo项目
   if (example) {
     fs.copySync(
-      path.join(creater.templatePath(), template, SOURCE_DIR),
+      path.join(creater.templatePath(), template, 'www'),
       path.join(sourceDir)
     )
   } else {
     // 创建index.html
     creater.template(template, 'indexhtml', path.join(sourceDir, 'index.html'))
   }
-
-  switch (css) {
-    default:
-      pageCSSName = 'index.css'
-      break
-  }
-  // 创建 默认 index.css
-  creater.template(template, 'scss', path.join(sourceDir, pageCSSName))
 
   // 创建syberos.pri文件
   creater.template(
@@ -212,7 +179,7 @@ exports.createApp = function (creater, params, helper, cb) {
       path.join(projectPath, 'yarn.lock')
     )
   }
-  creater.fs.commit(() => {
+  creater.getFs().commit(() => {
     console.log(
       `${chalk.green('✔ ')}${chalk.grey(
         `创建项目: ${chalk.grey.bold(projectName)}`
@@ -238,7 +205,7 @@ exports.createApp = function (creater, params, helper, cb) {
     if (example) {
       console.log(
         `${chalk.green('✔ ')}${chalk.grey(
-          `创建 example : ${projectName}/${src}`
+          `创建 example: ${projectName}/${src}`
         )}`
       )
     } else {
@@ -284,12 +251,12 @@ exports.createApp = function (creater, params, helper, cb) {
     // git init
     gitInit(projectName, projectPath, () => {
       // install
-      npmInstall(shouldUseYarn, projectName, helper, cb)
+      npmInstall(shouldUseYarn, projectName, cb)
     })
   })
 }
 
-function gitInit (projectName, projectPath, next) {
+function gitInit (projectName: string, projectPath: string, next?: Function) {
   const gitInitSpinner = ora(
     `cd ${chalk.cyan.bold(projectName)}, 执行 ${chalk.cyan.bold('git init')}`
   ).start()
@@ -299,23 +266,23 @@ function gitInit (projectName, projectPath, next) {
   cmd.on('close', code => {
     if (code === 0) {
       gitInitSpinner.color = 'green'
-      gitInitSpinner.succeed(cmd.stdout.read())
+      gitInitSpinner.succeed(cmd.stdout?.read())
       if (typeof next === 'function') {
         next()
       }
     } else {
       gitInitSpinner.color = 'red'
-      gitInitSpinner.fail(cmd.stderr.read())
+      gitInitSpinner.fail(cmd.stderr?.read())
     }
   })
 }
 
-function npmInstall (shouldUseYarn, projectName, helper, cb) {
+function npmInstall (shouldUseYarn: boolean, projectName: string, cb?: Function) {
   // install
   let command
   if (shouldUseYarn) {
     command = 'yarn'
-  } else if (helper.shouldUseCnpm()) {
+  } else if (util.shouldUseCnpm()) {
     command = 'cnpm install'
   } else {
     command = 'npm install'
