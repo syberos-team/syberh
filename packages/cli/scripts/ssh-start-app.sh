@@ -9,7 +9,10 @@ set timeout 1000
 spawn ssh -p $port developer@$ip "sdk-invoker 0 $sopid:$appid:uiapp"
 expect {
   "(yes/no)?" {send "yes\r"; exp_continue}
-  "?assword:" {send "system\r"}
+  "?assword:" {
+    send "system\r"
+    expect "Failed to initiate connect on the socket" { exit }
+  }
 }
 interact {         
   timeout 60 {send "\x20"} 

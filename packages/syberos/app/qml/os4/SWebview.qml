@@ -5,8 +5,9 @@ import QtQml.Models 2.2
 import QtWebEngine 1.5
 import QtWebChannel 1.0
 
-import "./js/util/log.js" as LOG
-
+import "../js/util/log.js" as LOG
+import "../cwebview"
+import "../"
 
 CPage{
     objectName: "webView"
@@ -18,7 +19,7 @@ CPage{
     //加载信号
     signal sloadingChanged(var loadRequest)
     // 按键信号
-    signal keyEvent(string eventType, var event)
+    signal skeyEvent(string eventType, var event)
     //接受消息信号
     signal receiveMessage(var message)
     //导航栏关闭信号
@@ -182,7 +183,7 @@ CPage{
     // 设置页面旋转方向 1: 竖屏 2：横屏 默认： 跟着设备旋转
     function setPageOrientation(orientation) {
         if (orientation == 1) {
-             if(projectConfig.statusBarShow()){
+            if(projectConfig.statusBarShow()){
                 webView.statusBarHoldEnabled = true
                 gScreenInfo.setStatusBar(true);
              }else{
@@ -204,9 +205,7 @@ CPage{
         target: gScreenInfo
         ignoreUnknownSignals: true
         onCurrentOrientationChanged: {
-
             console.log('屏幕切换接收到信号了×××××××××××××××××××××', webView.orientationPolicy, gScreenInfo.currentOrientation, surl, pageHide, isDestroy)
-             console.log('全屏状态====>', projectConfig.statusBarShow())
             // 如果页面销毁，在这里拦截
             if (isDestroy) return
             webView.orientation({
@@ -231,8 +230,8 @@ CPage{
                      webView.anchors.bottomMargin = 0
                  }
             } else {
+                console.log('监听到信号*****************竖屏')
                 if(projectConfig.statusBarShow()){
-                   console.log('监听到信号*****************竖屏')
                     webView.anchors.bottomMargin = 0
                     webView.statusBarHoldEnabled = true
                     gScreenInfo.setStatusBar(true);
@@ -246,21 +245,18 @@ CPage{
                          webView.anchors.bottomMargin = 0
                     }
                 }
-
             }
         }
     }
 
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
-        keyEvent('onReleased', event)
-        setDestroyStatus(true)
+        skeyEvent('onReleased', event)
     }
 
     Keys.onPressed: {
         LOG.logger.verbose('SWebview qml Keys.onPressed %s %s', event.key, event.text)
-        keyEvent('onPressed', event)
-        setDestroyStatus(true)
+        skeyEvent('onPressed', event)
     }
 
     contentAreaItem:Rectangle{
@@ -297,19 +293,16 @@ CPage{
             registeredObjects: [trans]
         }
 
-        WebEngineView {
+        CWebView {
             id: swebview
             focus: true
-            // zoomFactor: 3.0
-            // backgroundColor: "red"
-            signal downLoadConfirmRequest
             property url curHoverUrl: ""
 
             anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+                top: root.top
+                left: root.left
+                right: root.right
+                bottom: root.bottom
             }
             url:surl
             webChannel: channel
@@ -317,8 +310,6 @@ CPage{
             profile: WebEngineProfile{
               httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS 4.1.1 5.9.6;"
             }
-
-            property bool _autoLoad: true
 
             onLinkHovered: {
                 curHoverUrl= hoveredUrl
@@ -371,66 +362,19 @@ CPage{
                 gToast.requestToast(termMessage);
             }
 
+            Timer {
+                id: reloadTimer
+                interval: 0
+                running: false
+                repeat: false
+                onTriggered: swebview.reload()
+            }
+
              onWindowCloseRequested: function(){
                 console.log('onWindowCloseRequested');
-                 navigationBarClose();
+                navigationBarClose();
             }
 
-            Timer {
-                    id: reloadTimer
-                    interval: 0
-                    running: false
-                    repeat: false
-                    onTriggered: swebview.reload()
-            }
-
-            onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID){
-              switch(level){
-                case WebEngineView.InfoMessageLevel:
-                  LOG.logger.verbose(message)
-                  break;
-                case WebEngineView.WarningMessageLevel:
-                  LOG.logger.warn(message)
-                  break;
-                case WebEngineView.ErrorMessageLevel:
-                  LOG.logger.error(message)
-                  break;
-              }
-            }
-
-            onJavaScriptDialogRequested: function(request){
-              request.accepted = true;
-              switch(request.type){
-                case JavaScriptDialogRequest.DialogTypeAlert:
-                  salert.request = request;
-                  salert.titleText = request.title
-                  salert.messageText = request.message
-                  salert.show();
-                  break;
-                case JavaScriptDialogRequest.DialogTypeConfirm:
-                  confirmDialog.request = request;
-                  confirmDialog.titleText = request.title
-                  confirmDialog.messageText = request.message
-                  confirmDialog.show();
-                  break;
-                case JavaScriptDialogRequest.DialogTypePrompt:
-                  promptDialog.request = request;
-                  promptDialog.titleText = request.message
-                  promptDialog.setText(request.defaultText);
-                  promptDialog.show();
-                  break;
-                case JavaScriptDialogRequest.DialogTypeUnload:
-                  LOG.logger.verbose('用户离开页面询问尚未实现')
-                  break;
-              }
-            }
-
-            onFileDialogRequested: function(request){
-              LOG.logger.verbose('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择')
-              request.accepted = true
-              salert.messageText = '请调用filepicker API实现'
-              salert.show()
-            }
 
             onAuthenticationDialogRequested: function(request){
               request.accepted = true;
@@ -447,73 +391,15 @@ CPage{
               authDialog.show();
             }
 
+            onColorDialogRequested: function(request) {
+                request.accepted = true;
+            }
+
             onContextMenuRequested: function(request){
                 request.accepted = true;
             }
         }
 
-        SAlert {
-            id: salert
-            property JavaScriptDialogRequest request
-            titleText: ''
-            messageText: ''
-            onAccepted: {
-                request.dialogAccept()
-            }
-        }
-        SConfirm {
-            id: confirmDialog
-            property JavaScriptDialogRequest request
-            titleText: ''
-            messageText: ''
-            onAccepted: {
-                request.dialogAccept()
-            }
-            onRejected: {
-                request.dialogReject()
-            }
-        }
-        CInputDialog{
-            id: promptDialog
-            property JavaScriptDialogRequest request
-            canceledOnOutareaClicked: false
-            titleText: ''
-            onAccepted: {
-                request.dialogAccept(messageAreaItem.text)
-            }
-            onRejected: {
-                request.dialogReject()
-            }
-            onCanceled: {
-                request.dialogReject()
-            }
-        }
-
-        // SFilesPicker {
-        //     id: picker
-        //     property FileDialogRequest request
-        //     titleText: "文件选择"
-        //     leftItemEnabled: true
-        //     count: 1
-
-        //     Keys.onReleased: {
-        //         if (event.key == Qt.Key_Back || event.key == Qt.Key_Escape) {
-        //             console.log('***********Keys.onReleased**Key_Back******')
-        //             LOG.logger.verbose('***********Keys.onReleased**Key_Back******')
-        //             event.accepted =true;
-        //             picker.request.dialogReject();
-        //         }
-        //     }
-
-        //     // function show(){
-        //     //     parent = gAppUtils.pageStackWindow
-        //     //     visible = true
-        //     //     status = 2
-        //     //     focus = true
-        //     //     LOG.logger.verbose('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择*****show')
-        //     //    console.log('onFileDialogRequested >>>>>>>>>>>>>>>>>>>>>文件选择*****show')
-        //     // }
-        // }
         CInputDialog {
             id: authDialog
             property AuthenticationDialogRequest request
@@ -570,42 +456,41 @@ CPage{
 
     // 在页面状态变化的时候，处理状态栏展示or隐藏
     onStatusChanged:{
-      if(status == CPageStatus.Show){
-        console.log('页面展示了！！！', surl)
-          pageHide = false
-          console.log('gScreenInfo*************', JSON.stringify(gScreenInfo))
-          // 跟随屏幕旋转的时候，横屏进入下一个页面，页面状态栏需要手动隐藏，隐藏需2个方法一起使用，才可生效（亲测）
-          // 主动被动都需要走这个方法
-          if(webView.orientationPolicy == CScreenInfo.Landscape
-              || webView.orientationPolicy == CScreenInfo.LandscapeInverted
-              || gScreenInfo.currentOrientation == CScreenInfo.Landscape
-              || gScreenInfo.currentOrientation == CScreenInfo.LandscapeInverted
+        if(status == CPageStatus.Show){
+            console.log('页面展示了！！！', surl)
+            pageHide = false
+            console.log('gScreenInfo*************', JSON.stringify(gScreenInfo))
+            // 跟随屏幕旋转的时候，横屏进入下一个页面，页面状态栏需要手动隐藏，隐藏需2个方法一起使用，才可生效（亲测）
+            // 主动被动都需要走这个方法
+            if(webView.orientationPolicy == CScreenInfo.Landscape
+                || webView.orientationPolicy == CScreenInfo.LandscapeInverted
+                || gScreenInfo.currentOrientation == CScreenInfo.Landscape
+                || gScreenInfo.currentOrientation == CScreenInfo.LandscapeInverted
             ) {
-              webView.statusBarHoldEnabled = false
-              gScreenInfo.setStatusBar(false);
-          } else {
-               console.log('全屏状态===>', projectConfig.statusBarShow())
-              //如果为全屏
-              if(projectConfig.statusBarShow()){
-                 webView.statusBarHoldEnabled = true
-                 gScreenInfo.setStatusBar(true);
-                 //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
-                 gScreenInfo.setStatusBarStyle(projectConfig.statusBarStyle());
-              }else{
-                  webView.statusBarHoldEnabled = false
-                  gScreenInfo.setStatusBar(false);
-                  if(gInputContext.softwareInputPanelVisible) {
-                     webView.anchors.bottomMargin = -140
-                  } else {
-                     webView.anchors.bottomMargin = 0
-                  }
-              }
-
-          }
-      } else if (status == CPageStatus.Hide) {
-          console.log('页面将要隐藏啦！！！', surl)
-          pageHide = true
-      }
+                webView.statusBarHoldEnabled = false
+                gScreenInfo.setStatusBar(false);
+            } else {
+                console.log('全屏状态===>', projectConfig.statusBarShow())
+                //如果为全屏
+                if(projectConfig.statusBarShow()){
+                    webView.statusBarHoldEnabled = true
+                    gScreenInfo.setStatusBar(true);
+                    //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
+                    gScreenInfo.setStatusBarStyle(projectConfig.statusBarStyle());
+                }else{
+                    webView.statusBarHoldEnabled = false
+                    gScreenInfo.setStatusBar(false);
+                    if(gInputContext.softwareInputPanelVisible) {
+                        webView.anchors.bottomMargin = -140
+                    } else {
+                        webView.anchors.bottomMargin = 0
+                    }
+                }
+            }
+        } else if (status == CPageStatus.Hide) {
+            console.log('页面将要隐藏啦！！！', surl)
+            pageHide = true
+        }
     }
 
     Component.onCompleted: {

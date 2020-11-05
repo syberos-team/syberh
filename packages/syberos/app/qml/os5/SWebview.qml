@@ -6,8 +6,8 @@ import QtWebEngine 1.8
 import QtWebChannel 1.0
 import com.syberos.webview 1.0
 
-import "./js/util/log.js" as LOG
-
+import "../js/util/log.js" as LOG
+import "../"
 
 CPage{
     objectName: "webView"
@@ -19,7 +19,7 @@ CPage{
     //加载信号
     signal sloadingChanged(var loadRequest)
     // 按键信号
-    signal keyEvent(string eventType, var event)
+    signal skeyEvent(string eventType, var event)
     //接受消息信号
     signal receiveMessage(var message)
     //导航栏关闭信号
@@ -251,13 +251,13 @@ CPage{
 
     Keys.onReleased: {
         LOG.logger.verbose('SWebview qml Keys.onReleased %s %s', event.key, event.text)
-        keyEvent('onReleased', event)
+        skeyEvent('onReleased', event)
         setDestroyStatus(true)
     }
 
     Keys.onPressed: {
         LOG.logger.verbose('SWebview qml Keys.onPressed %s %s', event.key, event.text)
-        keyEvent('onPressed', event)
+        skeyEvent('onPressed', event)
         setDestroyStatus(true)
     }
 
@@ -301,10 +301,10 @@ CPage{
             property url curHoverUrl: ""
 
             anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+                top: root.top
+                left: root.left
+                right: root.right
+                bottom: root.bottom
             }
             url:surl
             webChannel: channel
@@ -463,41 +463,41 @@ CPage{
 
     // 在页面状态变化的时候，处理状态栏展示or隐藏
     onStatusChanged:{
-      if(status == CPageStatus.Show){
-        console.log('页面展示了！！！', surl)
-          pageHide = false
-          console.log('gScreenInfo*************', JSON.stringify(gScreenInfo))
-          // 跟随屏幕旋转的时候，横屏进入下一个页面，页面状态栏需要手动隐藏，隐藏需2个方法一起使用，才可生效（亲测）
-          // 主动被动都需要走这个方法
-          if(webView.orientationPolicy == CScreenInfo.Landscape
-              || webView.orientationPolicy == CScreenInfo.LandscapeInverted
-              || gScreenInfo.currentOrientation == CScreenInfo.Landscape
-              || gScreenInfo.currentOrientation == CScreenInfo.LandscapeInverted
+        if(status == CPageStatus.Show){
+            console.log('页面展示了！！！', surl)
+            pageHide = false
+            console.log('gScreenInfo*************', JSON.stringify(gScreenInfo))
+            // 跟随屏幕旋转的时候，横屏进入下一个页面，页面状态栏需要手动隐藏，隐藏需2个方法一起使用，才可生效（亲测）
+            // 主动被动都需要走这个方法
+            if(webView.orientationPolicy == CScreenInfo.Landscape
+                || webView.orientationPolicy == CScreenInfo.LandscapeInverted
+                || gScreenInfo.currentOrientation == CScreenInfo.Landscape
+                || gScreenInfo.currentOrientation == CScreenInfo.LandscapeInverted
             ) {
-              webView.statusBarHoldEnabled = false
-              gScreenInfo.setStatusBar(false);
-          } else {
-              console.log('全屏状态===>', projectConfig.statusBarShow())
-              //如果为全屏
-              if(projectConfig.statusBarShow()){
-                 webView.statusBarHoldEnabled = true
-                 gScreenInfo.setStatusBar(true);
-                 //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
-                 gScreenInfo.setStatusBarStyle(projectConfig.statusBarStyle());
-              }else{
-                  webView.statusBarHoldEnabled = false
-                  gScreenInfo.setStatusBar(false);
-                  if(gInputContext.softwareInputPanelVisible) {
-                     webView.anchors.bottomMargin = -140
-                  } else {
-                     webView.anchors.bottomMargin = 0
-                  }
-              }
-          }
-      } else if (status == CPageStatus.Hide) {
-          console.log('页面将要隐藏啦！！！', surl)
-          pageHide = true
-      }
+                webView.statusBarHoldEnabled = false
+                gScreenInfo.setStatusBar(false);
+            } else {
+                console.log('全屏状态===>', projectConfig.statusBarShow())
+                //如果为全屏
+                if(projectConfig.statusBarShow()){
+                    webView.statusBarHoldEnabled = true
+                    gScreenInfo.setStatusBar(true);
+                    //设置状态栏样式，取值为"black"，"white"，"transwhite"和"transblack"
+                    gScreenInfo.setStatusBarStyle(projectConfig.statusBarStyle());
+                }else{
+                    webView.statusBarHoldEnabled = false
+                    gScreenInfo.setStatusBar(false);
+                    if(gInputContext.softwareInputPanelVisible) {
+                        webView.anchors.bottomMargin = -140
+                    } else {
+                        webView.anchors.bottomMargin = 0
+                    }
+                }
+            }
+        } else if (status == CPageStatus.Hide) {
+            console.log('页面将要隐藏啦！！！', surl)
+            pageHide = true
+        }
     }
 
 
