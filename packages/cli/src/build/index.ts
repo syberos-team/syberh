@@ -9,6 +9,7 @@ import diagnose from '../doctor/index'
 import { IProjectConfig, DEFAULT_PROJECT_CONFIG } from '../util/types'
 import * as inquirer from 'inquirer'
 import * as ora from 'ora'
+import { LocalConfig } from '../syberos/localConfig'
 
 
 /**
@@ -58,6 +59,33 @@ async function executeBuild(appPath: string, config: BuildConfig) {
     return
   }
 
+  checkUserPassword((passwd: string) => {
+    buildConfig.buildAsk = {
+      password: passwd
+    }
+    // 开始构建
+    buildApp(appPath, projectConf, buildConfig)
+  })
+}
+
+// 校验用户密码
+async function checkUserPassword(successCallback: (password:string) => void) {
+  log.verbose('checkUserPassword()')
+  const localConfig = new LocalConfig()
+  localConfig.load()
+  // 校验本地存储的密码
+  const localPassword = localConfig.getUserPassword()
+  if(localPassword){
+    log.verbose('发现历史记录，尝试使用存储的密码进行校验')
+    const isPass = await helper.checkSudoPasswordAsync(localPassword)
+    log.verbose('使用存储的密码进行校验结果:', isPass)
+    if(isPass){
+      if(typeof successCallback === 'function'){
+        successCallback(localPassword)
+      }
+      return
+    }
+  }
   // 问询
   const answers = await ask()
   const userPassword = answers['password']
@@ -65,12 +93,14 @@ async function executeBuild(appPath: string, config: BuildConfig) {
   const spinner = ora('校验用户密码...').start()
   helper.checkSudoPasswordAsync(userPassword).then((success:boolean) => {
     if(success){
-      buildConfig.buildAsk = {
-        password: userPassword
-      }
       spinner.succeed('密码校验通过')
-      // 开始构建
-      buildApp(appPath, projectConf, buildConfig)
+      // 更新本地密码
+      localConfig.setUserPassword(userPassword)
+      localConfig.save()
+
+      if(typeof successCallback === 'function'){
+        successCallback(userPassword)
+      }
     }else{
       spinner.fail('密码校验失败，终止编译')
       process.exit(1)
