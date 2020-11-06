@@ -22,6 +22,7 @@ export const createCore = function () {
   const nativesdk = path.join(getTemplatePath(), 'platforms', 'syberos', 'nativesdk')
   const pluginmanager = path.join(getTemplatePath(), 'platforms', 'syberos', 'pluginmanager')
   const syberhPlugins = path.join(getTemplatePath(), 'platforms', 'syberos', 'syberh-plugins')
+  const appProPath = path.join(getTemplatePath(), 'platforms', 'syberos', 'app.pro')
   const versionPath = path.join(getTemplatePath(), 'platforms', 'syberos', 'VERSION')
   const jssdkPath = path.join(getTemplatePath(), 'www', 'lib', 'syberh.min.js')
   log.verbose('app path ', app)
@@ -37,7 +38,10 @@ export const createCore = function () {
   const projectAppDir = path.join(projectSyberosDir, 'app')
   log.verbose('projectAppDir path', projectAppDir)
 
-  const projectVersionPath = path.join(projectDir, platformsDirName, 'syberos', 'VERSION')
+  const projectAppProPath = path.join(projectSyberosDir, 'app.pro')
+  log.verbose('projectAppProPath', projectAppProPath)
+
+  const projectVersionPath = path.join(projectSyberosDir, 'VERSION')
   log.verbose('projectVersionPath', projectVersionPath)
 
   const projecwJSSDK = path.join(projectDir, 'www', 'lib', 'syberh.min.js')
@@ -54,6 +58,9 @@ export const createCore = function () {
 
   // 删除 app com 目录
   fs.ensureDirSync(projectAppDir)
+  fs.ensureDirSync(projectNativesdk)
+  fs.ensureDirSync(projectPluginmanager)
+  fs.ensureDirSync(projectSyberhPlugins)
   log.verbose('removeSync 完成')
 
   // 重新拷贝app com 目录
@@ -66,6 +73,8 @@ export const createCore = function () {
   log.verbose('拷贝pluginmanager完成')
   fs.copySync(syberhPlugins, projectSyberhPlugins)
   log.verbose('拷贝syberh-plugins完成')
+  fs.copySync(appProPath, projectAppProPath)
+  log.verbose('拷贝app.pro完成')
   fs.copySync(versionPath, projectVersionPath)
   log.verbose('拷贝VERSION完成')
   fs.copySync(jssdkPath, projecwJSSDK)
