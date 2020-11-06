@@ -1,21 +1,21 @@
 ---
-title: VirtualPanel
+title: 截屏
 ---
 
-## syberh.system.setVirtualPanel(Object object)
+## syberh.system.captureScreen(Object object)
 
-设置系统虚拟按键显示隐藏
+截屏
 
 <!-- 支持`Promise` 使用。 -->
 
 ### 参数
 
 
+
 #### Object object
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| visible | boolean  | 是      | 设置虚拟按键显示状态      |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
 
@@ -23,7 +23,7 @@ title: VirtualPanel
 #### 参数
 | 属性           | 类型    | 描述                                 |
 | -------------- | ------  | ------------------------------------ |
-| visible       | boolean  | 当前系统虚拟按键显示状态     |
+| success       | boolean  | 截屏成功      |
 
 #### object.fail回调函数参数
 #### 参数
@@ -35,9 +35,9 @@ title: VirtualPanel
 
 ### 代码示例
 ```js
-syberh.system.setVirtualPanel({
+syberh.system.captureScreen({
 	success:function(result){
-        console.log('visible: ', result.visible);
+        console.log('success: ', result.success);
     },
     fail:function(error){
         console.log('fail: ', error.code, error.msg);

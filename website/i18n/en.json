@@ -227,6 +227,9 @@
       "apis/system/battery": {
         "title": "battery"
       },
+      "apis/system/captureScreen": {
+        "title": "截屏"
+      },
       "apis/system/date": {
         "title": "Date"
       },
