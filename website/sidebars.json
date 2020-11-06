@@ -103,7 +103,8 @@
           "apis/system/battery",
           "apis/system/networkInfo",
           "apis/system/date",
-          "apis/system/VirtualPanel"
+          "apis/system/VirtualPanel",
+          "apis/system/captureScreen"
         ]
       }
     ],

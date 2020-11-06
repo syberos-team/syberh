@@ -39,7 +39,7 @@ title: Date
 syberh.system.setDate({
 	success:function(result){
         console.log('date: ', result.date);
-    }
+    },
     fail:function(error){
         console.log('fail: ', error.code, error.msg);
     }
