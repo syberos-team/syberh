@@ -9,6 +9,7 @@ program
   .command('init [projectName]', '创建默认项目')
   .command('build', 'Build a project with options')
   .command('update', '更新Sbyerh')
+  .command('target', '重置target')
   .command('doctor', 'Diagnose syberh project')
   .command('simulator', 'Start the simulator')
   .command('install', 'Install sdk and target')

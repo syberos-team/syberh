@@ -54,6 +54,24 @@ export const getTargetName = (appPath: string, adapter?: DEVICES_TYPES) => {
 }
 
 /**
+ * 查找已安装的所有target，若未找到任何target则返回空数组
+ */
+export async function findTargets(): Promise<string[]> {
+  const targetNames: string[] = []
+  const targetFullNames = await qtversions.getTargetNames()
+  if (!targetFullNames || targetFullNames.length === 0) {
+      return targetNames
+  }
+  for (const targetName of targetFullNames) {
+      const name = targetName;
+      if (!targetNames.includes(name)) {
+        targetNames.push(name)
+      }
+  }
+  return targetNames;
+}
+
+/**
  * 主进程休眠
  * @param ms 休眠时长（毫秒）
  */

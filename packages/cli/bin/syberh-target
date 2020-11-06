@@ -1,28 +1,24 @@
 #!/usr/bin/env node
-const path = require('path')
-const fs = require('fs-extra')
-const program = require('commander')
 const chalk = require('chalk')
-const build = require('../dist/build').default
-const { targetReset } = require('../dist/build/target')
+const fs = require('fs-extra')
+const path = require('path')
+const program = require('commander')
+const types = require('../dist/target/types')
 const { PROJECT_CONFIG } = require('../dist/util/constants')
-const appPath = process.cwd()
-const projectConfPath = path.join(appPath, PROJECT_CONFIG)
+const { resetTarget } = require('../dist/target')
+
+program.storeOptionsAsProperties(false)
 
 program
-  .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
-  .option('--debug', 'debug模式运行,支持热更新')
-  .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
-  .option('--env [env]', 'Env type')
-  .option('--port [port]', 'Specified port')
+  .option('--type <type>', '重置真机或模拟器的target, device:真机 simulator:模拟器', types.TargetType.ALL)
   .parse(process.argv)
 
-const { type, debug, port } = program
-let { env } = program
+const { type } = program.opts()
 
-env = process.env.NODE_ENV || env
+const appPath = process.cwd()
+const projectConfigPath = path.join(appPath, PROJECT_CONFIG)
 
-if (!fs.existsSync(projectConfPath)) {
+if (!fs.existsSync(projectConfigPath)) {
   console.log(
     chalk.red(
       `找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是SyberOS-Hybrid项目根目录!`
@@ -31,27 +27,14 @@ if (!fs.existsSync(projectConfPath)) {
   process.exit(1)
 }
 
-// 检查是否需要重置target
-targetReset(appPath, program)
-
-if (env) {
-  process.env.NODE_ENV = env
-} else {
-  if (debug) {
-    process.env.NODE_ENV = 'development'
-  } else {
-    process.env.NODE_ENV = 'production'
-  }
+const TYPES = Object.values(types.TargetType)
+if(TYPES.indexOf(type) < 0){
+  console.log(chalk.red(`type 参数错误，有效值为：${TYPES.join(', ')}`));
+  process.exit(1)
 }
 
-process.env.SYBEROS_ENV = type
-
-const projectConf = require(projectConfPath)
-
-console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
-
-build(appPath, {
+resetTarget({
   type,
-  debug,
-  port: typeof port === 'string' ? port : undefined
+  projectConfigPath
 })
+

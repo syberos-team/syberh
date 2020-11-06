@@ -5,7 +5,7 @@ import * as inquirer from 'inquirer'
 import * as semver from 'semver'
 import Creator from './creator'
 import log from '../util/log'
-import { qtversions } from '../syberos/configfile'
+import { findTargets } from '../syberos/helper'
 import { DEFAULT_PROJECT_CONFIG } from '../util/types'
 import { ICreateProjectOption, IProjectTemplate } from './types'
 import { createApp } from './template'
@@ -56,8 +56,12 @@ export default class Project extends Creator {
   async ask() {
     const prompts: object[] = []
 
-    const targetNames = await this.findTargets()
+    const targetNames = await findTargets()
     log.verbose('targetNames: %j', targetNames)
+    if(!targetNames || targetNames.length === 0){
+      console.log(chalk.yellow('未检测到已安装的target，请先安装target'))
+      process.exit(1)
+    }
 
     if (this.option.example) {
       console.log(chalk.green(`正在创建示例项目!`))
@@ -152,19 +156,4 @@ export default class Project extends Creator {
     )
   }
 
-  async findTargets(): Promise<string[]> {
-    const targetFullNames = await qtversions.getTargetNames()
-    if (!targetFullNames || targetFullNames.length === 0) {
-      console.log(chalk.red('未安装target，请先安装target'))
-      process.exit(1)
-    }
-    const targetNames: string[] = []
-    for (const targetName of targetFullNames) {
-      const name = targetName;
-      if (!targetNames.includes(name)) {
-        targetNames.push(name)
-      }
-    }
-    return targetNames;
-  }
 }
