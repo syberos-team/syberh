@@ -28,6 +28,10 @@ public:
      * 是否开启debug
      */
     Q_INVOKABLE bool isDebug();
+    /**
+     * 是否开启热更新
+     */
+    Q_INVOKABLE bool isUseHot();
 
     Q_INVOKABLE QString getProjectName();
 

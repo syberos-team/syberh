@@ -8,7 +8,7 @@ const ora = require('ora')
 const inquirer = require('inquirer')
 const exec = require('child_process').exec
 const { PROJECT_CONFIG } = require('../dist/util/constants')
-const { createCore } = require('../templates/default/index')
+const { createCore } = require('../dist/create/template')
 const projectConfPath = path.join(process.cwd(), PROJECT_CONFIG)
 
 // 这里没有使用 command 的形式：syberh-update-self

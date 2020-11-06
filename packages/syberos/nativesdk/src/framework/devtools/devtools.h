@@ -17,7 +17,6 @@
 #include <QObject>
 #include <QDebug>
 #include "../nativesdkhandlerbase.h"
-#include "../common/projectconfig.h"
 #include "socketclient.h"
 
 /**
@@ -36,7 +35,6 @@ public:
 private:
     static DevTools *pDevTools;
     SocketClient *socketClient;
-    NativeSdk::ProjectConfig *projectConfig;
     //服务端IP
     QString serverIp();
     //服务端端口

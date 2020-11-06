@@ -6,8 +6,7 @@ import * as helper from '../syberos/helper'
 import { log } from '../util/log';
 import { DEVICES_TYPES } from '../util/constants'
 import diagnose from '../doctor/index'
-import { IProjectConfig } from '../util/types'
-import CONFIG from '../config'
+import { IProjectConfig, DEFAULT_PROJECT_CONFIG } from '../util/types'
 import * as inquirer from 'inquirer'
 import * as ora from 'ora'
 
@@ -45,20 +44,12 @@ async function diagnoseFastfail(buildConfig: BuildConfig) {
 async function executeBuild(appPath: string, config: BuildConfig) {
   log.verbose('build() start')
   // 获取project.config.json
-  const projectConf : IProjectConfig = helper.getProjectConfig(appPath)
+  let projectConf : IProjectConfig = helper.getProjectConfig(appPath)
+  // 设置默认值
+  projectConf = Object.assign(DEFAULT_PROJECT_CONFIG, projectConf)
+
   // build命令参数
   const buildConfig : BuildConfig = { ...config }
-
-  // 设置默认配置
-  if(!projectConf.devServerIP){
-    projectConf.devServerIP = CONFIG.DEV_SERVER_IP
-  }
-  if(!projectConf.devServerPort){
-    projectConf.devServerPort = CONFIG.DEV_SERVER_PORT
-  }
-  if(!projectConf.debuggingPort){
-    projectConf.debuggingPort = CONFIG.DEBUGGING_PORT
-  }
 
   // os5.0时不校验用户密码
   if(helper.isTargetOS_5(projectConf.target)){
@@ -97,8 +88,8 @@ async function buildApp(appPath: string, projectConf : IProjectConfig, buildConf
     await build.start(null)
   } else {
     await build.start(() => {
-      // 非release构建时，启动devServer热更新服务
-      if (!buildConfig.release) {
+      // 开启热更新，启动devServer热更新服务
+      if (buildConfig.hot) {
         // TODO 5.0暂时关闭热更新服务
         if(helper.isTargetOS_5(projectConf.target)){
           log.verbose('os5.0暂时关闭热更新服务')

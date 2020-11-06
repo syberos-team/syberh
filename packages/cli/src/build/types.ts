@@ -19,11 +19,16 @@ export interface BuildConfig {
     onlyBuild?: boolean
     // 支持s1手机
     s1?: boolean
+    // 开启release模式
     release: boolean
+    // 开启热更新
+    hot?: boolean
 }
 
 // 编译扩展参数
 export interface ExConfig extends IProjectConfig {
     logLevel: string
     debug: boolean
+    // 开启热更新
+    hot: boolean
 }

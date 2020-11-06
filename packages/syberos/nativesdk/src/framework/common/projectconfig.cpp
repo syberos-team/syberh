@@ -65,6 +65,11 @@ bool ProjectConfig::isDebug()
     return d->getBool("debug");
 }
 
+bool ProjectConfig::isUseHot()
+{
+    return d->getBool("hot");
+}
+
 QString ProjectConfig::getProjectName()
 {
     return d->getString("projectName");
