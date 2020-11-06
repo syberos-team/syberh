@@ -18,12 +18,13 @@ program
   .option('--only-build', '构建完成后不安装sop')
   .option('--no-doctor', '构建时不执行环境检查')
   .option('--s1', '构建S1手机可用的应用')
+  .option('--hot', '开启热更新')
   .parse(process.argv)
 
 const buildOpts = program.opts()
 log.verbose('build:', buildOpts)
 
-const { type, release, doctor, onlyBuild, s1 } = buildOpts
+const { type, release, doctor, onlyBuild, s1, hot } = buildOpts
 
 if (!fs.existsSync(projectConfPath)) {
   console.log(
@@ -45,5 +46,6 @@ build(appPath, {
   release,
   doctor,
   onlyBuild,
-  s1
+  s1,
+  hot
 })

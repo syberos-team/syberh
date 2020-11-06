@@ -35,13 +35,13 @@ NativeSdkManager::NativeSdkManager() {
     d->loadPlugins();
 
     d->projectConfig = ProjectConfig::instance();
-    bool debug = d->projectConfig->isDebug();
-    if(debug){
+    bool useHot = d->projectConfig->isUseHot();
+    if(useHot){
         if(!d->devTools){
-             d->devTools=DevTools::getInstance();
+             d->devTools = DevTools::getInstance();
         }
     }
-    qDebug() <<Q_FUNC_INFO<< "$$$ debug:" << debug << endl;
+    qDebug() <<Q_FUNC_INFO<< "$$$ use hot:" << useHot << endl;
 }
 
 NativeSdkManager::~NativeSdkManager(){

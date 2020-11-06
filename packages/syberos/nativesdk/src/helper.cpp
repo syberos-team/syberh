@@ -79,8 +79,8 @@ QString Helper::getWebRootPath()
   #if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
     return this->getDefaultWebRootPath();
   #else
-    bool debug = ProjectConfig::instance()->isDebug();
-    if (debug)
+    bool useHot = ProjectConfig::instance()->isUseHot();
+    if (useHot)
     {
       qDebug() << "webroot:" << this->getDataWebRootPath();
       return this->getDataWebRootPath();

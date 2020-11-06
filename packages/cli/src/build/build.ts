@@ -4,7 +4,6 @@ import * as shelljs from 'shelljs'
 import chalk from 'chalk'
 import { DEVICES_TYPES } from '../util/constants'
 import * as helper from '../syberos/helper'
-import config from '../config/index'
 import { log } from '../util/log'
 import * as sop from './sop'
 import * as connect from './connect'
@@ -159,7 +158,7 @@ export class Build {
     console.log(chalk.green('准备拷贝www目录'))
     log.verbose('Build copywww(%s)', this.appPath)
 
-    const wwwPath = path.join(this.appPath, this.projectConfig.webPath || config.SOURCE_DIR)
+    const wwwPath = path.join(this.appPath, this.projectConfig.webPath)
 
     // 模板目录
     const syberosPath = path.join(this.appPath, 'platforms', 'syberos', 'app', 'www')
@@ -181,6 +180,7 @@ export class Build {
   private generateProjectConfig(){
     const projectConfObj : ExConfig = {
       debug: !this.buildConfig.release,
+      hot: this.buildConfig.hot || false,
       logLevel: this.devLog,
       ...this.projectConfig
     }
