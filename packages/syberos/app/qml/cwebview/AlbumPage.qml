@@ -37,7 +37,7 @@ CEditGridViewPage {
         }
         if(filesPath.length > 0){
             selected(filesPath);
-            pageStack.pop(parentItem);
+            pageStack.pop();
         }
     }
 
