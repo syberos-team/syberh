@@ -1,6 +1,6 @@
 {
   "name": "@syberos/cli",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "description": "cli tool for syberh",
   "main": "index.js",
   "publishConfig": {
@@ -60,10 +60,12 @@
     "@types/got": "^9.6.11",
     "@types/inquirer": "^7.3.1",
     "@types/lodash": "^4.14.162",
-    "@types/node": "^12.12.6",
-    "@types/shelljs": "^0.8.8",
     "@types/mem-fs": "^1.1.2",
     "@types/mem-fs-editor": "^7.0.0",
+    "@types/node": "^12.12.6",
+    "@types/shelljs": "^0.8.8",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
     "babel-eslint": "^10.1.0",
     "babel-generator": "^6.26.1",
     "babel-plugin-danger-remove-unused-import": "^1.1.2",
@@ -82,8 +84,6 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
     "typescript": "^4.0.3",
-    "@typescript-eslint/parser": "^4.5.0",
-    "@typescript-eslint/eslint-plugin": "^4.5.0",
     "webpack": "^4.44.2",
     "webpack-dev-server": "^3.11.0"
   },

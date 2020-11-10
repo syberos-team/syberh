@@ -15,7 +15,7 @@ CameraPlugin {
         if(image){
             confirmed(image, isFullImage)
             if(parentItem){
-                pageStack.pop(parentItem)
+                pageStack.pop()
             }
         }
     }
