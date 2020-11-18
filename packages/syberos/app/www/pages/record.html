@@ -64,8 +64,12 @@
   </div><br>
 
   <div id="recorderArea"> 录制操作：
-    <div align="center" id="startRecorder">录音:<img height="35" width="35" src="../images/playR.png"
+    <div align="center" id="startRecorder">录音WAV:<img height="35" width="35" src="../images/playR.png"
         onclick="startRecorder()" /></div>
+        <div align="center" id="startRecorderAAC">录音AAC:<img height="35" width="35" src="../images/playR.png"
+            onclick="startRecorder('aac')" /></div>
+            <div align="center" id="startRecorderMP3">录音MP3:<img height="35" width="35" src="../images/playR.png"
+                onclick="startRecorder('mp3')" /></div>
     <div align="center" id="pauseRecorder" style="display: none">暂停:<img height="35" width="35"
         src="../images/stopR.png" onclick="pauseRecorder()" /></div>
     <div align="center" id="continueRecorder" style="display: none">继续:<img height="35" width="35"
@@ -133,7 +137,7 @@
       var path = document.getElementById('text').value;
       var record_list = $('.items_info').length
       if (record_list === 0) return
-      
+
       if (path === 'undefined' || path === null || path === "") {
         alert("请选择录音记录，没有请先录音");
       } else {
@@ -193,7 +197,7 @@
     //点击停止播放。显示播放,隐藏继续播放、暂停播放、停止播放
     function stopPlay() {
       $("#recorderArea").show();
-      
+
       syberh.audio.stop({
         success: function (result) {
           $("#startPlay").show();
@@ -210,17 +214,23 @@
     }
 
     //点击开始录音。隐藏录音、继续录音，显示暂停录音、停止录音
-    function startRecorder() {
+    function startRecorder(format) {
       $("#audioArea").hide();
-      
+
       syberh.record.start({
+        format: format,
+        sampleRate: 8000,
+        sampleSize: 16,
+        numberOfChannels: 1,
         success: function (result) {
           $("#startRecorder").hide();
+          $("#startRecorderAAC").hide();
+          $("#startRecorderMP3").hide();
           $("#pauseRecorder").show();
           $("#continueRecorder").hide();
           $("#stopRecorder").show();
           $("#content").html("<spen style=\"color:Red\">提示：开始录音</spen><br>");
-          console.log('success: ', result.path);
+          console.log('syberh.record.start success: ', result.path,  '##format##', format);
         },
         fail: function (error) {
           console.log('fail: ', error.code, error.msg);
@@ -233,6 +243,8 @@
       syberh.record.pause({
         success: function (result) {
           $("#startRecorder").hide();
+          $("#startRecorderAAC").hide();
+          $("#startRecorderMP3").hide();
           $("#pauseRecorder").hide();
           $("#continueRecorder").show();
           $("#stopRecorder").show();
@@ -250,6 +262,8 @@
       syberh.record.resume({
         success: function (result) {
           $("#startRecorder").hide();
+          $("#startRecorderAAC").hide();
+          $("#startRecorderMP3").hide();
           $("#pauseRecorder").show();
           $("#continueRecorder").hide();
           $("#stopRecorder").show();
@@ -268,6 +282,8 @@
       syberh.record.stop({
         success: function (result) {
           $("#startRecorder").show();
+          $("#startRecorderAAC").show();
+          $("#startRecorderMP3").show();
           $("#pauseRecorder").hide();
           $("#continueRecorder").hide();
           $("#stopRecorder").hide();
@@ -302,3 +318,4 @@
 </body>
 
 </html>
+
