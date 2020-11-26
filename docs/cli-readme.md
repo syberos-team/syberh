@@ -87,6 +87,7 @@ $ syberh doctor
 
 | 参数 | 描述 |
 | ---  | --------- |
+| ----name [name] | 项目名称    |
 | --description [description] | 项目介绍    |
 | --example      | 创建示例项目 |
 
@@ -103,10 +104,12 @@ $ syberh init --example
 | 参数 | 描述 |
 | ------  | ----------- |
 | --type [typeName]      | 运行编译类型,device:真机 simulator:模拟器    |
-| --debug                | debug模式运行,支持热更新    |
-| --target [targetName]  | 重置target,device:真机 simulator:模拟器    |
-| --env [env]            | Env type    |
-| --port [port]          | Specified port    |
+| --release                |  构建release版本    |
+| --debug                |  构建debug版本    |
+| --only-build            | 构建完成后不安装sop    |
+| --no-doctor          | 构建时不执行环境检查    |
+| --s1          | 构建S1手机可用的应用    |
+| --hot          | 开启热更新    |
 
 ``` bash
 # 打包并跑在真机上
@@ -125,6 +128,19 @@ $ syberh build --type device --debug
 
 ``` bash
 $ syberh update self
+```
+
+### target
+> 重置target
+
+| 参数 | 描述 |
+| ---  | --------- |
+| --type <type>    | 重置真机或模拟器的target(默认重置所有target) <br/>device:真机 <br/>simulator:模拟器  |
+
+``` bash
+$ syberh target
+# 选择模拟器target
+$ syberh target --type simulator
 ```
 
 ### doctor
