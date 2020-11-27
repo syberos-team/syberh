@@ -153,7 +153,7 @@ void SocketClient::data(){
 }
 
 
-void SocketClient::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
+void SocketClient::onReplyFinished(const QString &downloadId, const QString &path, int statusCode, const QString &errorMessage){
     Q_UNUSED(path);
     Q_UNUSED(statusCode);
     Q_UNUSED(errorMessage);

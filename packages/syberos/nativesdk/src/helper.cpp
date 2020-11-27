@@ -53,7 +53,7 @@ QString Helper::logLevelName()
   return levelName;
 }
 
-bool Helper::exists(QString filePath)
+bool Helper::exists(const QString &filePath)
 {
   QFile file(filePath);
   return file.exists();
@@ -222,7 +222,7 @@ bool Helper::emptyDir(const QString &path)
   return dir.rmpath(dir.absolutePath());
 }
 
-bool Helper::isPicture(QString filepath)
+bool Helper::isPicture(const QString &filepath)
 {
   QMimeDatabase db;
   QMimeType mime = db.mimeTypeForFile(filepath);
@@ -230,7 +230,7 @@ bool Helper::isPicture(QString filepath)
   return mime.name().startsWith("image/");
 }
 
-bool Helper::isAudio(QString filepath)
+bool Helper::isAudio(const QString &filepath)
 {
   QMimeDatabase db;
   QMimeType mime = db.mimeTypeForFile(filepath);

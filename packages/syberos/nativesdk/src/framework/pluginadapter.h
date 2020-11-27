@@ -21,7 +21,7 @@ public:
 
     void setPluginSpec(ExtensionSystem::PluginSpec *spec);
 
-    void request(QString callbackID,QString actionName,QVariantMap params);
+    void request(const QString &callbackID, const QString &actionName, const QVariantMap &params);
 
 private:
     ExtensionSystem::PluginSpec *pluginSpec;

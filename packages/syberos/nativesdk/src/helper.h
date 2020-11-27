@@ -37,7 +37,7 @@ public:
     //获取应用私有数据中的www目录。/data/data/[sopid]/www
     Q_INVOKABLE QString getDataWebRootPath();
     //文件是否存在
-    Q_INVOKABLE bool exists(QString filePath);
+    Q_INVOKABLE bool exists(const QString &filePath);
 
     Q_INVOKABLE QString sopid();
 
@@ -61,13 +61,13 @@ public:
       * @brief isPicture 判断是否是图片
       * @param filepath
       */
-    Q_INVOKABLE bool isPicture(QString filepath);
+    Q_INVOKABLE bool isPicture(const QString &filepath);
 
     /**
       * @brief isAudio 判断是否是音频
       * @param filepath
       */
-    Q_INVOKABLE bool isAudio(QString filepath);
+    Q_INVOKABLE bool isAudio(const QString &filepath);
 
     /**
      * 获取首页，首先尝试从扩展参数中获取，若为空，则调用getWebRootPath()获取

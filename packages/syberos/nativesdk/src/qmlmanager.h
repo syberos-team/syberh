@@ -120,7 +120,7 @@ signals:
      * @brief 该类中方法调用出现错误时发送该信号
      * @param message 错误信息
      */
-    void error(QString message);
+    void error(const QString &message);
 };
 
 }

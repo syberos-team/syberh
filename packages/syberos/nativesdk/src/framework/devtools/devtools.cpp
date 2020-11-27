@@ -27,7 +27,7 @@ DevTools::DevTools()
     qDebug() << Q_FUNC_INFO << "------DevTools" << endl;
 }
 
-void DevTools::request(QString callBackID, QString actionName, QVariantMap params){
+void DevTools::request(const QString &callBackID, const QString &actionName, const QVariantMap &params){
     Q_UNUSED(callBackID);
     Q_UNUSED(actionName);
     Q_UNUSED(params);

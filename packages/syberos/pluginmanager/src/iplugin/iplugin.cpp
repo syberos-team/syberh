@@ -59,7 +59,7 @@ void IPlugin::invokeInitialize()
 {
 }
 
-void IPlugin::invoke(QString callbackID, QString action, QVariantMap params)
+void IPlugin::invoke(const QString &callbackID, const QString &action, const QVariantMap &params)
 {
     Q_UNUSED(callbackID);
     Q_UNUSED(action);

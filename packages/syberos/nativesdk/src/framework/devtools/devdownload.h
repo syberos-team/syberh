@@ -25,7 +25,7 @@ public:
     // 获取当前下载链接
     QString getDownloadUrl();
     // 开始下载文件，传入下载链接和文件的路径
-    void downloadFile(QString url , QString fileName);
+    void downloadFile(const QString &url , const QString &fileName);
     // 停止下载工作
     void stopWork();
     // 暂停下载按钮被按下,暂停当前下载
@@ -33,12 +33,12 @@ public:
     // 重置参数
     void reset();
     // 删除文件
-    void removeFile(QString fileName);
+    void removeFile(const QString &fileName);
     // 停止下载按钮被按下，关闭下载，重置参数，并删除下载的临时文件
     void closeDownload();
 
     //设置downloadId
-    void setDownloadId(QString downloadId);
+    void setDownloadId(const QString &downloadId);
     //设置存储位置
     void setStorage(DevDownload::Storage storage);
 
@@ -77,13 +77,13 @@ private:
 
 signals:
 
-    void signalStarted(QString downloadId, QString path);
+    void signalStarted(const QString &downloadId, const QString &path);
 
-    void signalDownloadProcess(QString downloadId, QString path, qint64 bytesReceived, qint64 bytesTotal);
+    void signalDownloadProcess(const QString &downloadId, const QString &path, qint64 bytesReceived, qint64 bytesTotal);
 
-    void signalReplyFinished(QString downloadId, QString path, int statusCode, QString error);
+    void signalReplyFinished(const QString &downloadId, const QString &path, int statusCode, const QString &error);
 
-    void signalDownloadError(QString downloadId, qint64 statusCode, QString error);
+    void signalDownloadError(const QString &downloadId, qint64 statusCode, const QString &error);
 
 public slots:
     // 下载进度信息

@@ -20,10 +20,10 @@ NativeSdkFactory::~NativeSdkFactory(){
 
 
 //初始化指定的插件，若插件加载成功则返回否则返回空指针
-PluginSpec* NativeSdkFactory::loadPlugin(QString className, QString *errorMessage){
+PluginSpec* NativeSdkFactory::loadPlugin(const QString &className, QString *errorMessage){
     PluginManager *pluginManager = PluginManager::instance();
 
-    QString name = className.remove("*").trimmed();
+    QString name = QString(className).remove("*").trimmed();
 
     qDebug() << "className:" << className << "PluginManager:" << pluginManager;
 
@@ -43,7 +43,7 @@ PluginSpec* NativeSdkFactory::loadPlugin(QString className, QString *errorMessag
 }
 
 
-NativeSdkHandlerBase *  NativeSdkFactory::getHandler(QString className){
+NativeSdkHandlerBase *  NativeSdkFactory::getHandler(const QString &className){
     if(m_sdkHandlerCache.contains(className)){
         m_sdkInitConnectCache.insert(className, true);
         qDebug() << "find module in cache:" << className;
@@ -85,7 +85,7 @@ QMap<QString,NativeSdkHandlerBase*> NativeSdkFactory::getAllHandlers(){
     return m_sdkHandlerCache;
 }
 
-bool NativeSdkFactory::IsInitConnect(QString typeID){
+bool NativeSdkFactory::IsInitConnect(const QString &typeID){
     return m_sdkInitConnectCache.value(typeID);
 }
 

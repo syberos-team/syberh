@@ -22,13 +22,13 @@ public:
      * @param actionName 请求名称，用于区分是哪个请求
      * @params 请求传递的参数
      */
-    virtual void request(QString callbackID,QString actionName,QVariantMap params);
+    virtual void request(const QString &callbackID, const QString &actionName, const QVariantMap &params);
 
 signals:
-    void success(long responseID, QVariant result);
-    void failed(long responseID,long errorCode,QString errorMsg);
-    void progress(long responseID,const int totalLength,const int progress,const int status);
-    void subscribe(QString handleName, QVariant result);
+    void success(long responseID, const QVariant &result);
+    void failed(long responseID, long errorCode, const QString &errorMsg);
+    void progress(long responseID, const int totalLength, const int progress, const int status);
+    void subscribe(const QString &handleName, const QVariant &result);
 };
 }
 #endif // NATIVESDKHANDLERBASE_H

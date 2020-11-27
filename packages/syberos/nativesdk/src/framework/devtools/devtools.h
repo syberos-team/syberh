@@ -30,7 +30,7 @@ public:
     Q_INVOKABLE DevTools();
     ~DevTools();
     static DevTools *getInstance();
-    void request(QString callBackID,QString actionName,QVariantMap params);
+    void request(const QString &callBackID, const QString &actionName, const QVariantMap &params);
     static int typeId;
 private:
     static DevTools *pDevTools;
