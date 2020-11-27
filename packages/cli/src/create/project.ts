@@ -72,11 +72,11 @@ export default class Project extends Creator {
       })
     }
 
-    if (typeof this.projectConfig.projectName !== 'string') {
+    if (!this.projectConfig.projectName) {
       prompts.push({
         type: 'input',
         name: 'projectName',
-        message: '请输入项目名称:',
+        message: '请输入项目名称(应用id):',
         validate(input) {
           if (!input) {
             return '项目名不能为空！'
