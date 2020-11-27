@@ -16,7 +16,7 @@ FileUtil::FileUtil()
 {
 
 }
-RespResult FileUtil::move(QString srcPath, QString destPath)
+RespResult FileUtil::move(const QString &srcPath, const QString &destPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << " destPath: " << destPath;
 
@@ -83,7 +83,7 @@ RespResult FileUtil::move(QString srcPath, QString destPath)
     }
 }
 
-bool FileUtil::chmodr(QString path)
+bool FileUtil::chmodr(const QString &path)
 {
     qDebug() << Q_FUNC_INFO << "path: " << path;
 
@@ -111,7 +111,7 @@ bool FileUtil::chmodr(QString path)
     return true;
 }
 
-RespResult FileUtil::copy(QString srcPath, QString destPath)
+RespResult FileUtil::copy(const QString &srcPath, const QString &destPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << " destPath: " << destPath;
 
@@ -183,7 +183,7 @@ RespResult FileUtil::copy(QString srcPath, QString destPath)
     }
 }
 
-QFileInfoList FileUtil::fileList(QString srcPath)
+QFileInfoList FileUtil::fileList(const QString &srcPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
@@ -192,7 +192,7 @@ QFileInfoList FileUtil::fileList(QString srcPath)
     return dir.entryInfoList(filters, QDir::AllDirs|QDir::Files);
 }
 
-FileUtil::FileType FileUtil::fileType(QString srcPath)
+FileUtil::FileType FileUtil::fileType(const QString &srcPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
@@ -211,7 +211,7 @@ FileUtil::FileType FileUtil::fileType(QString srcPath)
     }
 }
 
-RespResult FileUtil::remove(QString srcPath, int recursive)
+RespResult FileUtil::remove(const QString &srcPath, int recursive)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << " recursive: " << recursive;
 
@@ -258,7 +258,7 @@ RespResult FileUtil::remove(QString srcPath, int recursive)
         return respResult;
     }
 }
-FileInfo FileUtil::getInfo(QString srcPath)
+FileInfo FileUtil::getInfo(const QString &srcPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
@@ -275,7 +275,7 @@ FileInfo FileUtil::getInfo(QString srcPath)
     return file;
 }
 
-qint64 FileUtil::getInfoSize(QString srcPath)
+qint64 FileUtil::getInfoSize(const QString &srcPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
@@ -290,14 +290,14 @@ qint64 FileUtil::getInfoSize(QString srcPath)
     return file.size;
 }
 
-bool FileUtil::exists(QString srcPath)
+bool FileUtil::exists(const QString &srcPath)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath;
 
     QFileInfo fileinfo(srcPath);
     return fileinfo.exists();
 }
-RespResult FileUtil::rename(QString srcPath, QString newName)
+RespResult FileUtil::rename(const QString &srcPath, const QString &newName)
 {
     qDebug() << Q_FUNC_INFO << "srcPath: " << srcPath << "newName: " << newName;
 

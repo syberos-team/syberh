@@ -47,27 +47,27 @@ public:
      * @param destPath      目标路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    Q_INVOKABLE static RespResult move(QString srcPath, QString destPath);
+    Q_INVOKABLE static RespResult move(const QString &srcPath, const QString &destPath);
     /**
      * @brief copy          复制
      * @param srcPath       源路径
      * @param destPath      目标路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    Q_INVOKABLE static RespResult copy(QString srcPath, QString destPath);
+    Q_INVOKABLE static RespResult copy(const QString &srcPath, const QString &destPath);
     /**
      * @brief fileList      获取文件列表
      * @param srcPath       源路径
      * @return              成功返回：sucess，失败返回：失败原因
      */
-    Q_INVOKABLE static QFileInfoList fileList(QString srcPath);
+    Q_INVOKABLE static QFileInfoList fileList(const QString &srcPath);
 
     /**
      * @brief fileType      文件类型
      * @param srcPath       源路径
      * @return              0：文件，1：文件夹，2：其他
      */
-    Q_INVOKABLE static FileUtil::FileType fileType(QString srcPath);
+    Q_INVOKABLE static FileUtil::FileType fileType(const QString &srcPath);
 
     /**
      * @brief remove        移除
@@ -75,35 +75,35 @@ public:
      * @param recursive    是否递归删除 0：否，1：是
      * @return
      */
-    Q_INVOKABLE static RespResult remove(QString srcPath, int recursive);
+    Q_INVOKABLE static RespResult remove(const QString &srcPath, int recursive);
 
     /**
      * @brief getInfo       获取文件信息
      * @param srcPath       源路径
      * @return
      */
-    Q_INVOKABLE static FileInfo getInfo(QString srcPath);
+    Q_INVOKABLE static FileInfo getInfo(const QString &srcPath);
 
     /**
      * @brief getInfo       获取文件信息
      * @param srcPath       源路径
      * @return
      */
-    Q_INVOKABLE static qint64 getInfoSize(QString srcPath);
+    Q_INVOKABLE static qint64 getInfoSize(const QString &srcPath);
 
     /**
      * @brief exists        判断文件是否存在
      * @param srcPath       源路径
      * @return
      */
-    Q_INVOKABLE static bool exists(QString srcPath);
+    Q_INVOKABLE static bool exists(const QString &srcPath);
 
     /**
      * @brief chmodr        赋予权限
      * @param path       源路径
      * @return
      */
-    Q_INVOKABLE static bool chmodr(QString path);
+    Q_INVOKABLE static bool chmodr(const QString &path);
 
     /**
      * @brief rename        重命名
@@ -111,7 +111,7 @@ public:
      * @param newName       新名称
      * @return
      */
-    Q_INVOKABLE static RespResult rename(QString srcPath, QString newName);
+    Q_INVOKABLE static RespResult rename(const QString &srcPath, const QString &newName);
 
 };
 

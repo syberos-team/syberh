@@ -28,7 +28,7 @@ public:
      * @param actionName 请求名称，用于区分是哪个请求
      * @params 请求传递的参数
      */
-    Q_INVOKABLE void request(QString typeID,QString callbackID,QString actionName,QVariantMap params);
+    Q_INVOKABLE void request(const QString &typeID, const QString &callbackID, const QString &actionName, const QVariantMap &params);
     /**
       *@brief 唤起应用方法
       *@url 请求信息
@@ -48,14 +48,14 @@ signals:
       *@responseID 请求传入的唯一标志，用于应用判断是否为自己发送的请求
       *@result 请求结果
       */
-    void success(long responseID,QVariant result);
+    void success(long responseID, const QVariant &result);
     /**
       *@brief signal 请求失败信号
       *@responseID 请求传入的唯一标志，用于应用判断是否为自己发送的请求
       *@errorCode 错误码
       *@errorMsg 错误信息
       */
-    void failed(long responseID,long errorCode,QString errorMsg);
+    void failed(long responseID, long errorCode, const QString &errorMsg);
     /**
       *@brief signal 请求进度信号
       *@responseID 请求传入的唯一标志，用于应用判断是否为自己发送的请求
@@ -63,17 +63,17 @@ signals:
       *@progress  当前上传/下载的进度
       *@status 上传/下载状态  开始下载 下载中 下载完成
       */
-    void progress(long responseID,const int totalLength,const int progress,const int status);
+    void progress(long responseID, const int totalLength, const int progress, const int status);
 
     /**
       *@brief signal 订阅方法
       *@handleName 调用的方法
       *@data 回调数据
       */
-    void subscribe(QString handleName,QVariant data);
+    void subscribe(const QString &handleName, const QVariant &data);
 
 signals:
-    void error(int errorCode, QString errorMessage);
+    void error(int errorCode, const QString &errorMessage);
 
 private:
     NativeSdkManager();
@@ -84,7 +84,7 @@ private:
      * @brief 连接所有的handler 信号
      * @param typeID 业务类的typeID,通过反射进行业务类实例化
      */
-    void initHandlerConnect(QString typeID);
+    void initHandlerConnect(const QString &typeID);
 };
 }
 #endif // NATIVESDKMANAGER_H

@@ -24,7 +24,7 @@ void PluginAdapter::setPluginSpec(PluginSpec *spec){
     QObject::connect(signalManager, &SignalManager::subscribe, this, &PluginAdapter::subscribe);
 }
 
-void PluginAdapter::request(QString callbackID,QString actionName,QVariantMap params){
+void PluginAdapter::request(const QString &callbackID, const QString &actionName, const QVariantMap &params){
     if(pluginSpec == nullptr){
             //插件未找到
         emit failed(callbackID.toLong(), ErrorInfo::PluginError, "插件未加载");
