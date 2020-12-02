@@ -2,7 +2,7 @@
 title: openDocument
 ---
 
-## syberh.package.openDocument(Object object)
+## syberh.packages.openDocument(Object object)
 
 唤起应用
 
@@ -54,7 +54,7 @@ title: openDocument
 
 ### 代码示例
 ```js
-syberh.package.openDocument({
+syberh.packages.openDocument({
     sopid:"com.syberh.myaap1",
     uiappid:"myaap1",
     action:"openPage",

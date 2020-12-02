@@ -174,8 +174,8 @@
       }
     ],
     "应用管理": [
-      "apis/package/openUrl",
-      "apis/package/openDocument"
+      "apis/packages/openUrl",
+      "apis/packages/openDocument"
     ],
     "path": [
       "apis/path/extern",

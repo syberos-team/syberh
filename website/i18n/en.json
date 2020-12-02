@@ -179,10 +179,10 @@
       "apis/notification/sendNotification": {
         "title": "sendNotification"
       },
-      "apis/package/openDocument": {
+      "apis/packages/openDocument": {
         "title": "openDocument"
       },
-      "apis/package/openUrl": {
+      "apis/packages/openUrl": {
         "title": "openUrl"
       },
       "apis/path/dataRoot": {
@@ -228,7 +228,7 @@
         "title": "battery"
       },
       "apis/system/captureScreen": {
-        "title": "截屏"
+        "title": "captureScreen"
       },
       "apis/system/date": {
         "title": "Date"

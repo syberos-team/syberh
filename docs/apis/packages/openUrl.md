@@ -2,7 +2,7 @@
 title: openUrl
 ---
 
-## syberh.package.openUrl(Object object)
+## syberh.packages.openUrl(Object object)
 
 唤起应用
 
@@ -40,7 +40,7 @@ title: openUrl
 
 ### 代码示例
 ```js
-syberh.package.openUrl({
+syberh.packages.openUrl({
     scheme:"myapp1://openPage",
     param:{
         age:18,
