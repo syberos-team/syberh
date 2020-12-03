@@ -8,6 +8,7 @@ import { log } from '../util/log'
 import { PROJECT_CONFIG } from '../util/constants'
 import chalk from 'chalk';
 import * as ora from 'ora'
+import * as helper from '../syberos/helper'
 
 const validators = {
   validators: [
@@ -80,6 +81,11 @@ export default async function diagnose({checkGlobalTarget = false}): Promise<boo
   const spinner = ora('正在诊断项目...').start()
 
   log.verbose('projectConfig', projectConfig)
+
+  // OS5.0上不验证targetSdk
+  if(helper.isTargetOS_5(projectConfig['target'])){
+    validators.validators = [syberhValidator, sdkValidator]
+  }
 
   const reportsP = _.map(validator => validator({
     appPath,
