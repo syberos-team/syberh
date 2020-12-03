@@ -81,7 +81,7 @@ void NativeSdkManager::openByDocument(const QString& action, const QString& mime
     request("Packages*","321","openByDocument", params);
 }
 
-void NativeSdkManager::request(QString className,QString callbackID,QString actionName,QVariantMap params){
+void NativeSdkManager::request(const QString &className, const QString &callbackID, const QString &actionName, const QVariantMap &params){
     qDebug() << "className:" << className << "callbackID:" << callbackID << "actionName:" << actionName << "params:" << params;
 
     NativeSdkHandlerBase * handler = d->nativeSdkFactory->getHandler(className);
@@ -98,13 +98,13 @@ void NativeSdkManager::request(QString className,QString callbackID,QString acti
 }
 
 
-void NativeSdkManager::initHandlerConnect(QString typeID){
+void NativeSdkManager::initHandlerConnect(const QString &typeID){
     NativeSdkHandlerBase * handler = d->nativeSdkFactory->getAllHandlers().value(typeID);
     if(handler){
-        connect(handler,SIGNAL(success(long,QVariant)),this,SIGNAL(success(long,QVariant)));
-        connect(handler,SIGNAL(failed(long,long,QString)),this,SIGNAL(failed(long,long,QString)));
-        connect(handler,SIGNAL(progress(long,int,int,int)),this,SIGNAL(progress(long,int,int,int)));
-        connect(handler,SIGNAL(subscribe(QString,QVariant)),this,SIGNAL(subscribe(QString,QVariant)));
+        connect(handler, &NativeSdkHandlerBase::success, this, &NativeSdkManager::success);
+        connect(handler, &NativeSdkHandlerBase::failed, this, &NativeSdkManager::failed);
+        connect(handler, &NativeSdkHandlerBase::progress, this, &NativeSdkManager::progress);
+        connect(handler, &NativeSdkHandlerBase::subscribe, this, &NativeSdkManager::subscribe);
     }
 }
 // ========== NativeSdkManager & ==========
