@@ -138,7 +138,7 @@ var mui = (function(document, undefined) {
 			return object instanceof Array;
 		};
 	/**
-	 * mui isArrayLike 
+	 * mui isArrayLike
 	 * @param {Object} obj
 	 */
 	$.isArrayLike = function(obj) {
@@ -449,7 +449,7 @@ var mui = (function(document, undefined) {
 			return this;
 		}
 	};
-	
+
 	/**
 	 * 兼容 AMD 模块
 	 **/
@@ -988,7 +988,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (document.activeElement && document.activeElement !== targetElement) {
 				document.activeElement.blur();
 			}
-			touch = event.detail.gesture.changedTouches[0];
+			// 获取触摸手指，在OS50系统的浏览器上用event.detail.changedTouches
+			// 以前版本用event.detail.gesture.changedTouches
+			if (event.detail.changedTouches && event.detail.changedTouches.length > 0) {
+				touch = event.detail.changedTouches[0];
+			} else {
+				touch = event.detail.gesture.changedTouches[0];
+			}
 			// Synthesise a click event, with an extra attribute so it can be tracked
 			clickEvent = document.createEvent('MouseEvents');
 			clickEvent.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
@@ -2029,7 +2035,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			left : box.left + window.pageXOffset - element.clientLeft
 		};
 	};
-})(mui, window); 
+})(mui, window);
 /**
  * mui animation
  */
@@ -3835,7 +3841,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (target.parentNode && target.parentNode.classList && target.parentNode.classList.contains(CLASS_SEGMENTED_CONTROL_VERTICAL)) {
 				//vertical 如果preventDefault会导致无法滚动
 			} else {
-				event.preventDefault(); //stop hash change				
+				event.preventDefault(); //stop hash change
 			}
 			//			if (target.hash) {
 			return target;
@@ -4658,7 +4664,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 	};
 	/**
-	 * 创建并显示进度条 
+	 * 创建并显示进度条
 	 * @param {Object} container  可选，默认body，支持selector,DOM Node,mui wrapper
 	 * @param {Object} progress 可选，undefined表示循环，数字表示具体进度
 	 * @param {Object} color 可选，指定颜色样式(目前暂未提供实际样式，可暂时不暴露此参数)
@@ -4701,7 +4707,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		return progressbar;
 	};
 	/**
-	 * 关闭进度条 
+	 * 关闭进度条
 	 * @param {Object} container 可选，默认body，支持selector,DOM Node,mui wrapper
 	 */
 	var hideProgressbar = function(container) {
@@ -4722,7 +4728,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		return;
 	};
 	/**
-	 * 设置指定进度条进度 
+	 * 设置指定进度条进度
 	 * @param {Object} container  可选，默认body，支持selector,DOM Node,mui wrapper
 	 * @param {Object} progress 可选，默认0 取值范围[0-100]
 	 * @param {Object} speed 进度条动画时间
