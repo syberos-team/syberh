@@ -112,13 +112,6 @@
       "apis/cellular/networkDisabled",
       "apis/cellular/networkEnabled"
     ],
-    "数据存储": [
-      "apis/storage/setItem",
-      "apis/storage/getItem",
-      "apis/storage/removeItem",
-      "apis/storage/getAllKeys",
-      "apis/storage/removeAll"
-    ],
     "网络": [
       {
         "label": "请求",
