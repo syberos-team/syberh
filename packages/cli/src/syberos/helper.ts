@@ -230,6 +230,9 @@ export const checkSudoPasswordAsync = (password: string) : Promise<boolean> => {
 
     let isValid: boolean = false
     childProcess.stdout?.on('data', (data) =>{
+      if(isValid){
+        return
+      }
       if(typeof data === 'string'){
         isValid = data.includes('successed')
       }
