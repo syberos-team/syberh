@@ -179,10 +179,10 @@
       "apis/notification/sendNotification": {
         "title": "sendNotification"
       },
-      "apis/package/openDocument": {
+      "apis/packages/openDocument": {
         "title": "openDocument"
       },
-      "apis/package/openUrl": {
+      "apis/packages/openUrl": {
         "title": "openUrl"
       },
       "apis/path/dataRoot": {
@@ -228,7 +228,7 @@
         "title": "battery"
       },
       "apis/system/captureScreen": {
-        "title": "截屏"
+        "title": "captureScreen"
       },
       "apis/system/date": {
         "title": "Date"
@@ -1006,7 +1006,6 @@
       "剪贴板": "剪贴板",
       "系统信息": "系统信息",
       "数据网络": "数据网络",
-      "数据存储": "数据存储",
       "网络": "网络",
       "文件": "文件",
       "应用管理": "应用管理",
@@ -1018,6 +1017,7 @@
       "数据库操作": "数据库操作",
       "应用更新": "应用更新",
       "关于问题": "关于问题",
+      "数据存储": "数据存储",
       "下载": "下载",
       "文件选择": "文件选择",
       "文件管理": "文件管理",

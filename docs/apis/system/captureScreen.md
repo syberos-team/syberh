@@ -1,5 +1,5 @@
 ---
-title: 截屏
+title: captureScreen
 ---
 
 ## syberh.system.captureScreen(Object object)
