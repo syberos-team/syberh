@@ -55,7 +55,7 @@ title: openDocument
 ### 代码示例
 ```js
 syberh.packages.openDocument({
-    sopid:"com.syberh.myaap1",
+    sopid:"com.syberh.myapp1",
     uiappid:"myaap1",
     action:"openPage",
     params:{
@@ -73,7 +73,7 @@ syberh.packages.openDocument({
 });
 ```
 
-> 被唤起应用示例放到了git上，地址：https://github.com/xue99999/myapp1
+> 被唤起应用示例放到了git上，地址：https://github.com/syberos-team/myapp1
 
 ### 应用被唤起回调
 
