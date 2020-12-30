@@ -362,8 +362,10 @@ export class Build {
       cdbSop.send(sopPath)
       // 安装
       cdbSop.install(path.basename(sopPath))
-      // 启动
-      cdbSop.startApp()
+      // 启动，os5暂时不启动app
+      if(!helper.isTargetOS_5(this.projectConfig.target)){
+        cdbSop.startApp()
+      }
     } else {
       let ip = this.projectConfig.deployIP
       let port = this.projectConfig.deployPort
@@ -377,8 +379,10 @@ export class Build {
       sshSop.send(sopPath)
       // 安装
       sshSop.install(path.basename(sopPath))
-      // 启动
-      sshSop.startApp()
+      // 启动，os5暂时不启动app
+      if(!helper.isTargetOS_5(this.projectConfig.target)){
+        sshSop.startApp()
+      }
     }
   }
 
