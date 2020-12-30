@@ -32,7 +32,9 @@ public:
      * 是否开启热更新
      */
     Q_INVOKABLE bool isUseHot();
-
+    /**
+     * 获取项目名，即appid
+     */
     Q_INVOKABLE QString getProjectName();
 
     Q_INVOKABLE QString getAppName();
