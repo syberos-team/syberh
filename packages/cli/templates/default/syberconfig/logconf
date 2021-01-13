@@ -1,0 +1,9 @@
+[global]
+rotate lock file = /data/data/<%=sopid %>/log/syberh_zlog.lock
+
+[formats]
+normal = "%V [%d(%F %T.%l)] %F[%L] %U - %m%n"
+
+[rules]
+*.debug >syslog, LOG_USER; normal
+*.info "/data/data/<%=sopid %>/log/syberh.log", 20MB * 5 ~ "/data/data/<%=sopid %>/log/syberh.#s.log"; normal
