@@ -178,6 +178,17 @@ export const createApp = function (creater: ICreator, option: ICreateProjectOpti
     }
   )
 
+  // 日志配置
+  creater.template(
+    template,
+    'syberconfig/logconf',
+    path.join(platformsDir, syberosDir, 'log.conf'),
+    {
+      projectName,
+      sopid
+    }
+  )
+
   if (useNpmrc) {
     creater.template(template, 'npmrc', path.join(projectPath, '.npmrc'))
   }

@@ -1,4 +1,5 @@
 include(../syberos.pri)
+include($$PWD/src/log/log.pri)
 
 QT += core network quick
 

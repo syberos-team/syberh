@@ -73,6 +73,13 @@ Helper *Helper::instance()
     return helper;
 }
 
+QString Helper::getAppRootPath()
+{
+  QDir dir(qApp->applicationDirPath());
+  dir.cdUp();
+  return dir.absolutePath();
+}
+
 QString Helper::getWebRootPath()
 {
   //TODO 5.0暂时不使用热更新目录

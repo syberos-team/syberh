@@ -19,6 +19,8 @@ public:
 
     static Helper *instance();
 
+    //获取应用根目录：/data/apps/[sopid]
+    Q_INVOKABLE QString getAppRootPath();
     //获取应用www目录位置，该目录受debug模式影响。
     //非debug模式：/data/apps/[sopid]/www，
     //debug模式：/data/data/[sopid]/www
