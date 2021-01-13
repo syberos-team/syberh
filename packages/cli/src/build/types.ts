@@ -23,6 +23,8 @@ export interface BuildConfig {
     release: boolean
     // 开启热更新
     hot?: boolean
+    // 指定编译的插件
+    plugin: string[]|boolean
 }
 
 // 编译扩展参数

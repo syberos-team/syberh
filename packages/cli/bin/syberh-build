@@ -12,19 +12,21 @@ const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 program.storeOptionsAsProperties(false)
 
 program
-  .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
+  .option('--type <typeName>', '运行编译类型,device:真机 simulator:模拟器')
   .option('--release', '构建release版本')
   .option('--debug', '构建debug版本')
   .option('--only-build', '构建完成后不安装sop')
   .option('--no-doctor', '构建时不执行环境检查')
   .option('--s1', '构建S1手机可用的应用')
   .option('--hot', '开启热更新')
+  .option('--no-plugin', '不编译任何插件')
+  .option('--plugin <pluginName...>', '指定需要编译的插件')
   .parse(process.argv)
 
 const buildOpts = program.opts()
 log.verbose('build:', buildOpts)
 
-const { type, release, doctor, onlyBuild, s1, hot } = buildOpts
+const { type, release, doctor, onlyBuild, s1, hot, plugin } = buildOpts
 
 if (!fs.existsSync(projectConfPath)) {
   console.log(
@@ -47,5 +49,6 @@ build(appPath, {
   doctor,
   onlyBuild,
   s1,
-  hot
+  hot,
+  plugin
 })
