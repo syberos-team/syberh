@@ -262,10 +262,6 @@ export class Compiler {
       log.warn('未找到syberos平台应用目录：', conf.platformSyberosPath);
       throw new CompileError('未找到syberos平台应用目录');
     }
-    if (!conf.plugins || conf.plugins.length === 0) {
-      log.warn('未指定需要编译的插件：', conf.plugins);
-      throw new CompileError('未指定需要编译的插件');
-    }
     if (!conf.sopid) {
       log.warn('未指定sopid：', conf.sopid);
       throw new CompileError('未指定sopid件');

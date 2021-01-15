@@ -288,16 +288,7 @@ export class Build {
     log.verbose('Build compilePlugins()')
 
     // 查找插件
-    const pluginsPath = path.join(this.appPath, 'platforms/syberos/syberh-plugins');
-    if (!fs.existsSync(pluginsPath)) {
-      log.warn('未找到插件源码目录：', pluginsPath);
-      return;
-    }
-    let plugins = fs.readdirSync(pluginsPath);
-    plugins = plugins.filter((f) => {
-      const stat = fs.statSync(path.join(pluginsPath, f));
-      return stat.isDirectory();
-    });
+    const plugins = this.searchPlguins();
 
     // 支持s1手机时增加额外参数
     const qmakeArgs: Array<string> = [];
@@ -384,6 +375,44 @@ export class Build {
         sshSop.startApp()
       }
     }
+  }
+
+  /**
+   * 查找插件
+   * plugin===true：编译所有插件
+   * plugin===false：不编译任何插件
+   * plugin is [...]：编译指定的插件
+   */
+  private searchPlguins(): string[] {
+
+    // 检索syberh-plugins下的所有插件
+    const pluginsPath = path.join(this.appPath, 'platforms/syberos/syberh-plugins');
+    if (!fs.existsSync(pluginsPath)) {
+      log.warn('未找到插件源码目录：', pluginsPath);
+      return [];
+    }
+    // 插件目录
+    let plugins = fs.readdirSync(pluginsPath);
+    plugins = plugins.filter((f) => {
+      const stat = fs.statSync(path.join(pluginsPath, f));
+      return stat.isDirectory();
+    });
+
+    if(this.buildConfig.plugin === true){
+      return plugins;
+    }else if(this.buildConfig.plugin === false){
+      return [];
+    }else if(this.buildConfig.plugin instanceof Array){
+      const pluginNames: string[] = this.buildConfig.plugin;
+      if(pluginNames.length === 0){
+        return [];
+      }
+      // 筛选掉参数中与实际插件名不同的，保留有效的插件名
+      return plugins.filter((p) => {
+        return pluginNames.includes(p);
+      })
+    }
+    return plugins;
   }
 
 }
