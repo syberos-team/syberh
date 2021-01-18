@@ -50,7 +50,7 @@ syberh.record.start({
 });
 
 syberh.record.start({
-	format: format,
+	format: 'aac',
 	sampleRate: 8000,
 	sampleSize: 16,
 	numberOfChannels: 1,
