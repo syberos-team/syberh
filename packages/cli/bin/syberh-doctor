@@ -2,17 +2,14 @@
 const program = require('commander')
 const diagnose = require('../dist/doctor/index').default
 
+program.storeOptionsAsProperties(false)
+
 program
-  .option('-v --verbose', 'Print all message')
   .option('-g --global', '检查全局环境')
   .parse(process.argv)
 
-const args = program.rawArgs
+const doctorOpts = program.opts()
 
-let checkGlobalTarget = false
-
-if (args.indexOf('--global') !== -1 || args.indexOf('-g') !== -1) {
-  checkGlobalTarget = true
-}
+const checkGlobalTarget = doctorOpts.global || false
 
 diagnose({ checkGlobalTarget })
