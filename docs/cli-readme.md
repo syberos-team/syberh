@@ -53,7 +53,7 @@ Syberh 提供了更新命令来更新 CLI 工具自身和 升级到最新的core
 更新 Syberh CLI 工具
 ```bash
 #syberh
-$ syberh update self
+$ syberh update --self
 # npm
 $ npm i -g @syberos/cli@latest
 # yarn
@@ -63,7 +63,7 @@ $ yarn global add @syberos/cli@latest
 更新项目中 Syberh 相关的依赖
 
 ```bash
-$ syberh update project
+$ syberh update --project
 ```
 
 
@@ -86,8 +86,8 @@ $ syberh doctor
 > 初始化项目
 
 | 参数 | 描述 |
-| ---  | --------- |
-| ----name [name] | 项目名称    |
+| ------  | ----------- |
+| --name [name] | 项目名称    |
 | --description [description] | 项目介绍    |
 | --example      | 创建示例项目 |
 
@@ -99,35 +99,44 @@ $ syberh init --example
 ```
 
 ### build
-> 打包运行项目
+> 打包运行项目，默认使用debug模式构建应用
+
 
 | 参数 | 描述 |
 | ------  | ----------- |
-| --type [typeName]      | 运行编译类型,device:真机 simulator:模拟器    |
-| --release                |  构建release版本    |
-| --debug                |  构建debug版本    |
-| --only-build            | 构建完成后不安装sop    |
-| --no-doctor          | 构建时不执行环境检查    |
-| --s1          | 构建S1手机可用的应用    |
-| --hot          | 开启热更新    |
+| --type [typeName]     | 运行编译类型,device:真机 simulator:模拟器 |
+| --release             | 构建release版本 |
+| --debug               | 构建debug版本（可选） |
+| --only-build          | 构建完成后不安装sop |
+| --no-doctor           | 构建时不执行环境检查 |
+| --s1                  | 构建S1手机可用的应用 |
+| --hot                 | 开启热更新 |
+| --no-plugin           | 不编译任何插件 |
+| --plugin <pluginName...> | 指定需要编译的插件 |
 
 ``` bash
-# 打包并跑在真机上
-$ syberh build --type device
 # debug模式，打包并跑在真机上
-$ syberh build --type device --debug
+$ syberh build --type device
+# release模式，打包并跑在真机上
+$ syberh build --type device --release
+# 仅打包
+$ syberh build --type device --only-build
+# 不编译任何插件
+$ syberh build --type device --no-plugin
+# 仅编译modal和network插件
+$ syberh build --type device --plugin modal network
 ```
 
 ### update
-> 更新cli工具或者更新核心文件
+> 更新cli工具或者更新项目核心文件
 
 | 参数 | 描述 |
 | ------  | ----------- |
-| self      | 更新cli工具    |
-| project      | 更新当前项目核心文件    |
+| --self     | 更新cli工具    |
+| --project  | 更新当前项目核心文件    |
 
 ``` bash
-$ syberh update self
+$ syberh update --self
 ```
 
 ### target
@@ -148,7 +157,7 @@ $ syberh target --type simulator
 
 | 参数 | 描述 |
 | ---  | --------- |
-| --global    | 检查全局环境 |
+| --global    | 检查全局环境（可选） |
 
 ``` bash
 $ syberh doctor
@@ -158,6 +167,10 @@ $ syberh doctor --global
 
 ### simulator
 > 启动模拟器
+
+| 参数 | 描述 |
+| ---  | --------- |
+| --port | 模拟器ssh端口（可选），默认使用端口5555 |
 
 ``` bash
 $ syberh simulator
