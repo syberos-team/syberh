@@ -9,34 +9,25 @@ const inquirer = require('inquirer')
 const exec = require('child_process').exec
 const { PROJECT_CONFIG } = require('../dist/util/constants')
 const { createCore } = require('../dist/create/template')
+const { log } = require('../dist/util/log')
 const projectConfPath = path.join(process.cwd(), PROJECT_CONFIG)
 
-// 这里没有使用 command 的形式：syberh-update-self
-program.parse(process.argv)
+program.storeOptionsAsProperties(false)
 
-const args = program.args
+program
+  .option('--self', '更新 Syberh 开发工具 cli 到最新版本')
+  .option('--project', '更新当前项目核心文件')
+  .parse(process.argv)
 
-if (args.length === 1) {
-  switch (args[0]) {
-    case 'self': {
-      updateSelf()
-      break
-    }
-    case 'project': {
-      updateProject()
-      break
-    }
-    default:
-      info()
-  }
+const updateOpts = program.opts()
+log.verbose('update:', updateOpts)
+
+if(updateOpts.self){
+  updateSelf()
+} else if(updateOpts.project){
+  updateProject()
 } else {
-  info()
-}
-
-function info () {
-  console.log(chalk.red('命令错误:'))
-  console.log(`${chalk.green('syberh update self')} 更新 Syberh 开发工具 cli 到最新版本`)
-  console.log(`${chalk.green('syberh update project')} 更新项目所有 Syberh 相关依赖到最新版本...`)
+  program.help()
 }
 
 function updateSelf () {

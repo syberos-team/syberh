@@ -20,8 +20,8 @@ title: start
 | sampleSize  | number | 16       | 否       | 比特                 | 2.2.2|
 | numberOfChannels  | number | 1       | 否       | 录音通道数(仅支持1和2)  | 2.2.2|
 | format  | string | wav       | 否       | 音频格式(支持wav, aac, mp3) | 2.2.2|
-| success | function |        | 否       | 回调成功                    |
-| fail   | function |        | 否       | 回调失败                    |
+| success | function |        | 否       | 回调成功                    | |
+| fail   | function |        | 否       | 回调失败                    | |
 
 #### object.success回调函数
 #### 参数
@@ -50,7 +50,7 @@ syberh.record.start({
 });
 
 syberh.record.start({
-	format: format,
+	format: 'aac',
 	sampleRate: 8000,
 	sampleSize: 16,
 	numberOfChannels: 1,

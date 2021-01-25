@@ -37,6 +37,8 @@ WebEngineView {
     property bool defalutPermission: true
     /*! 是否开启静默授权,默认为false,需手动允许或拒绝。如果为true,则(地理位置获取等)默认允许使用 */
     property bool slienAuth: false
+    /*! 是否静默忽略证书错误,默认为false,出现证书错误时弹出确认框。如果为true,则自动确认忽略证书错误 */
+    property bool slienCertificateError: false
     /*! 是否开日志打印,默认开启 */
     property bool printLog: false
     //FeaturePermission Object
@@ -121,6 +123,27 @@ WebEngineView {
         }
     }
 
+    // 证书错误
+    onCertificateError: function(certErr){
+        console.log('[onCertificateError]:', certErr.url, certErr.description, certErr.error, certErr.overridable);
+        if(slienCertificateError){
+            certErr.ignoreCertificateError();
+            return;
+        }
+
+        certErr.defer();
+
+        showDialog({
+            type: JavaScriptDialogRequest.DialogTypeConfirm,
+            message: '证书错误: \n' + certErr.description + '\n' + certErr.url,
+            acceptedButtonText: '继续',
+            rejectButtonText: '取消',
+            dialogAccept: certErr.ignoreCertificateError,
+            dialogReject: certErr.rejectCertificate
+        })
+    }
+
+
     //处理Permission请求
     function permissionAction(securityOrigin, feature) {
         var action = Permission.getPermission(securityOrigin, feature)
@@ -156,22 +179,48 @@ WebEngineView {
         }
     }
 
-    //alert、confirm、prompt弹出框
+    /**
+     * alert、confirm、prompt弹出框
+     * 参数 request:
+     *    type                  弹出框类型：DialogTypeAlert, DialogTypeConfirm, DialogTypePrompt
+     *    message               消息内容文本
+     *    defaultText           默认的值，仅适用于 DialogTypePrompt
+     *    acceptedButtonText    确认按钮文本
+     *    rejectButtonText      取消按钮文本
+     *    dialogAccept          确认回调函数，仅 DialogTypePrompt时有参数text，表示输入的值
+     *    dialogReject          取消回调函数
+     */
     function showDialog(request) {
         if(!request){
             console.log('[showDialog] failed: request is null');
             return;
         }
+        var properties = {'text': request.message};
         var qml;
         switch(request.type){
         case JavaScriptDialogRequest.DialogTypeAlert:
-            qml = "AlertDialog.qml";
+            qml = Qt.resolvedUrl("AlertDialog.qml");
+            if(request.acceptedButtonText){
+                properties.alertButtonText = request.acceptedButtonText;
+            }
             break;
         case JavaScriptDialogRequest.DialogTypeConfirm:
-            qml = "ConfirmDialog.qml";
+            qml = Qt.resolvedUrl("ConfirmDialog.qml");
+            if(request.acceptedButtonText){
+                properties.acceptedButtonText = request.acceptedButtonText;
+            }
+            if(request.rejectButtonText){
+                properties.rejectButtonText = request.rejectButtonText;
+            }
             break;
         case JavaScriptDialogRequest.DialogTypePrompt:
-            qml = "PromptDialog.qml";
+            qml = Qt.resolvedUrl("PromptDialog.qml");
+            if(request.acceptedButtonText){
+                properties.acceptedButtonText = request.acceptedButtonText;
+            }
+            if(request.rejectButtonText){
+                properties.rejectButtonText = request.rejectButtonText;
+            }
             break;
         }
         if(!qml){
@@ -183,7 +232,7 @@ WebEngineView {
             console.log('[showDialog] failed:', component.errorString());
             return;
         }
-        var componentObj = component.createObject(webview, {'text': request.message});
+        var componentObj = component.createObject(webview, properties);
         componentObj.rejected.connect(function(){
             request.dialogReject();
             componentObj.destroy();
