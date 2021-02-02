@@ -17,7 +17,7 @@ expect {
   "sudo" {
     send "$password\r"; exp_continue
   }
-  "SB2" {
+  "*" {
     for {set i 0} {$i < [llength $proPathList]} {incr i} {
         set proPath [lindex $proPathList  $i]
         send "/usr/lib/qt5/bin/qmake $proPath -r -spec linux-g++ $qmakeArgs && /usr/bin/make -j$processNum \r"
