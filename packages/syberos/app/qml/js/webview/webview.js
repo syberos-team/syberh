@@ -207,7 +207,7 @@ function WebView (options) {
     }
 
     // 处理返回键事件
-    if (KEYCODE_BACK === event.key) {
+    if (KEYCODE_BACK === event.key && eventType === 'onReleased') {
       logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%b]:', that.id, webview.canGoBack());
       event.accepted = true;
       if(currentWebview.id === that.id){
