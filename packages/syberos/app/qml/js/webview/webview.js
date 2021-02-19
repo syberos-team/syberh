@@ -184,46 +184,50 @@ function WebView (options) {
     that.trigger('success', handlerId, { depth: depth });
   });
 
+
   /**
    * 监听手机key
    */
   this.on('keyEvent', function (webview, eventType, event) {
     logger.verbose('webview:[%s] , on keyEvent(%s) ,key:[%s] ,currentWebview: [%s]', that.id, eventType, event.key, currentWebview.id);
-    // 处理返回键事件
-    if (KEYCODE_BACK === event.key) {
-      logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%s]:', that.id, webview.canGoBack());
-      if (currentWebview.id === that.id && webview.canGoBack()) {
-        event.accepted = true;
-        that.trigger('unload', { url: webview.getCurrentUrl() });
-        webview.goBack();
-        if (!webview.canGoBack() && swebviews.length == 1) {
-          webview.navigationBarBackIconEnable = false;
+
+    // 防止返回键的press和release事件两次执行
+    if(currentWebview.id === that.id){
+      var curUrl = that.object.getCurrentUrl()
+
+      that.pushQueue('subscribe', {
+        url: curUrl,
+        handlerName: 'onKeyEvent',
+        result: {
+          type: eventType,
+          value: event.key
         }
-      } else {
-        that.navigateBack({}, function (res) {
-          if (res) {
-            // 阻止回退事件
-            if (event) {
-              event.accepted = true;
-            }
-          }
-        });
-        logger.verbose('webview:[%s] 不能回退:[%s]', that.id, webview.canGoBack());
-      }
+      });
+      that.dog(curUrl);
     }
 
-    var curUrl = that.object.getCurrentUrl()
-
-    that.pushQueue('subscribe', {
-      url: curUrl,
-      handlerName: 'onKeyEvent',
-      result: {
-        type: eventType,
-        value: event.key
+    // 处理返回键事件
+    if (KEYCODE_BACK === event.key) {
+      logger.verbose('返回事件 | webview:[%s] | 是否能回退:[%b]:', that.id, webview.canGoBack());
+      event.accepted = true;
+      if(currentWebview.id === that.id){
+        if(webview.canGoBack()){
+          that.trigger('unload', { url: webview.getCurrentUrl() });
+          webview.goBack();
+          if (!webview.canGoBack() && swebviews.length == 1) {
+            webview.navigationBarBackIconEnable = false;
+          }
+        }else{
+          logger.verbose('webview:[%s] 不能回退:[%b]', that.id, webview.canGoBack());
+          that.navigateBack({}, function (block) {
+            // 防止已经到达根webview后无法最小化应用的问题
+            if(!block){
+              event.accepted = false;
+            }
+          });
+        }
       }
-    });
-
-    that.dog(curUrl);
+    }
   });
 
   // 接受qml成功返回

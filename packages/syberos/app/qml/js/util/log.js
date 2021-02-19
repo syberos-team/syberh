@@ -127,21 +127,20 @@ Logger.prototype.log = function(level, args) {
 Logger.prototype.sprintf = function(args) {
   var message = args[0];
   var i = 1;
-  var sprintfMessage = message.replace(/%((%)|s|d|f|j)/g, function (m) {
+  var sprintfMessage = message.replace(/%((%)|s|d|f|j|b)/g, function (m) {
     var val = args[i];
     i++;
-    if(!val){
-      return '';
-    }
     switch(m){
       case '%s':
-        return val;
+        return val?val:'';
       case '%d':
-        return val;
+        return val?val:'';
       case '%f':
-        return val;
+        return val?val:'';
       case '%j':
-        return JSON.stringify(val);
+        return val?JSON.stringify(val):'{}';
+      case '%b':
+        return (!!val).toString();
       default:
         return m;
     }
