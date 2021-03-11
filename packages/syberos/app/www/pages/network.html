@@ -18,7 +18,7 @@
       <div class="mui-card-header">
           <div class="mui-input-row">
               <label>URL：</label>
-              <input type="text" class="mui-input-clear" placeholder="请求URL" id="inp-url">
+              <input type="text" class="mui-input-clear" placeholder="请求URL" id="inp-url" value="https://www.baidu.com">
           </div>
       </div>
       <div class="mui-card-content">
@@ -125,6 +125,8 @@
         goPut(inpUrl, dataType);
       } else if (method == "delete") {
         goDel(inpUrl);
+      } else {
+        showTips('未设置method');
       }
 
     }

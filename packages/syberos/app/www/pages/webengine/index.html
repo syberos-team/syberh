@@ -115,22 +115,40 @@
       </div>
     </div>
     <div class="mui-card">
-        <div class="mui-card-header">
-          菜单
-        </div>
-        <div class="mui-card-content">
-          <div class="mui-input-group">
-            <div class="group-row">
-              <a href="#openMenu" class="link">Right click on text to see link context menu</a>
-            </div>
-            <div class="group-row">
-              <input type="text" value="Test cut menu" class="mui-input-clear" style="border:1px solid rgba(0, 0, 0, .2)">
-            </div>
+      <div class="mui-card-header">
+        菜单
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+          <div class="group-row">
+            <a href="#openMenu" class="link">Right click on text to see link context menu</a>
+          </div>
+          <div class="group-row">
+            <input type="text" value="Test cut menu" class="mui-input-clear" style="border:1px solid rgba(0, 0, 0, .2)">
           </div>
         </div>
-        <div class="mui-card-footer">
+      </div>
+      <div class="mui-card-footer">
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        webrtc
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+          <div class="group-row">
+            <video id="video-userMedia"></video>
+          </div>
+          <div class="group-row">
+            <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="rtcEnumerateDevices()"> enumerateDevices </button>
+            <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="rtcGetUserMedia()"> getUserMedia </button>
+          </div>
         </div>
       </div>
+      <div class="mui-card-footer">
+      </div>
+    </div>
   </div>
   <input type="color" id="colorpicker" value="#ff0000" style="visibility:hidden" />
   <input type="file" id="filepicker" style="visibility:hidden" onchange="fileSelected(this.files)"/>
@@ -140,6 +158,32 @@
   <script type="text/javascript" src="../../lib/syberh.min.js"></script>
   <script type="text/javascript" src="../../common/common.js"></script>
   <script>
+    function rtcEnumerateDevices() {
+      navigator.mediaDevices.enumerateDevices()
+      .then(function(devices){
+        let msg = '';
+        devices.forEach(function(dev){
+          msg += dev.kind + ': ' + dev.label + ' id = ' + dev.deviceId + '\n';
+        });
+        alert(msg);
+      }).catch(function(e) {
+        alert(e.name + ': ' + e.message);
+      });
+    }
+
+    function rtcGetUserMedia(){
+      navigator.mediaDevices.getUserMedia({audio: false, video: true})
+      .then(function(mediaStream){
+        var video = document.querySelector("#video-userMedia");
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function(){
+          video.play();
+        }
+      }).catch(function(e){
+        alert(e.name + ': ' + e.message);
+      })
+    }
+
     function randomColor() {
         const rand = '1234567890abcdef';
         let color = '#';
