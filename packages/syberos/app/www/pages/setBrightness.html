@@ -39,7 +39,8 @@
       </div>
     </div>
 
-      <div class="mui-card">
+      <!--  此设置为暗屏至灭屏的时间，以后不再控制该时间  -->
+      <!-- <div class="mui-card">
         <div class="mui-card-header">
           <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setBlankTimeout()">设置</button>
         </div>
@@ -57,7 +58,7 @@
         <div class="mui-card-footer">
           <p id="setBlankTimeout-result">&nbsp;</p>
         </div>
-      </div>
+      </div> -->
 
       <div class="mui-card">
         <div class="mui-card-header">
@@ -66,16 +67,11 @@
         <div class="mui-card-content">
           <form class="mui-input-group">
             <div class="mui-input-row">
-              <input type="text" value="设置自动亮度调节(0|1)" readonly="readonly" />
+              <input type="text" value="环境光感器" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
-              <label>value：</label>
-              <input type="number" class="mui-input-clear" name="setAmbientLightSensorEnabledKey" value="0">
-              <!-- <select name="setAmbientLightSensorEnabledKey">
-                <option value="请选择">请选择</option>
-                <option value="0">关闭</option>
-                <option value="1">打开</option>
-              </select> -->
+            <div class="mui-input-row mui-checkbox">
+              <label for="setAmbientLightSensor">是否启用：</label>
+              <input type="checkbox" id="setAmbientLightSensor">
             </div>
           </form>
         </div>
@@ -84,26 +80,41 @@
         </div>
       </div>
       
-      <!-- 系统API无法正常使用，待修复完成打开此代码 -->
-      <!-- <div class="mui-card">
+      <div class="mui-card">
         <div class="mui-card-header">
           <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setDimTimeout()">设置</button>
         </div>
         <div class="mui-card-content">
           <form class="mui-input-group">
             <div class="mui-input-row">
-              <input type="text" value="设置无操作时屏幕进入暗屏状态的时长" readonly="readonly" />
+              <input type="text" value="设置息屏时长" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
-              <label>value：</label>
-              <input type="text" id="setDimTimeout" pattern="value" value="13" class="mui-input-clear" />
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="dimTimeout15s">15秒</label>
+              <input type="radio" id="dimTimeout15s" name="dimTimeout" value="15">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="dimTimeout30s">30秒</label>
+              <input type="radio" id="dimTimeout30s" name="dimTimeout" value="30">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="dimTimeout1m">1分钟</label>
+              <input type="radio" id="dimTimeout1m" name="dimTimeout" value="60">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="dimTimeout5m">5分钟</label>
+              <input type="radio" id="dimTimeout5m" name="dimTimeout" value="300">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="dimTimeout10m">10分钟</label>
+              <input type="radio" id="dimTimeout10m" name="dimTimeout" value="600">
             </div>
           </form>
         </div>
         <div class="mui-card-footer">
           <p id="setDimTimeout-result">&nbsp;</p>
         </div>
-      </div> -->
+      </div>
         
         <!-- 系统API无法使用，待修复完成打开此代码 -->
         <!-- <div class="mui-card">
@@ -136,27 +147,29 @@
     var vConsole = new VConsole()
     console.log('Hello world-屏幕亮度-设置')
 
-    // 获取系统休眠时间
-    syberh.brightness.brightnessInfo({
-      success: function (result) {
-        document.getElementById('setDimTimeout').value = result.dimTimeout
-      }
-    })
-
-    function goBack() {
-      syberh.webview.goBack({
+    window.onload = function(){
+      // 获取系统休眠时间
+      syberh.brightness.brightnessInfo({
         success: function (result) {
-          console.info(result)
-        },
-        fail: function (error) {
-          console.info('失败:' + JSON.stringify(error))
+          if(result && result.dimTimeout && result.blankTime){
+            var timeout = result.dimTimeout + result.blankTime + "";
+            var items = document.querySelectorAll("input[name=dimTimeout]");
+            if(items){
+              items.forEach(it => {
+                if(it.value == timeout){
+                  it.checked = true;
+                }
+              });
+            }
+          }
         }
       })
     }
 
-    function setBrightness(param) {
+
+    function setBrightness() {
       syberh.brightness.setBrightness({
-        brightness:document.getElementById('setBrightness').value,
+        brightness: document.getElementById('setBrightness').value,
         success: function (result) {
           document.getElementById('setBrightnessKey-result').innerText = JSON.stringify(result)
         },
@@ -167,8 +180,8 @@
       });
     }
     
-    function setBlankTimeout(param) {
-      var timeout = document.getElementById('setBlankTimeout').value
+    function setBlankTimeout() {
+      var timeout = document.getElementById('setBlankTimeout').value;
       syberh.brightness.setBlankTimeout({
         timeout: timeout,
         success: function (result) {
@@ -181,12 +194,10 @@
       });
     }
 
-    function setAmbientLightSensorEnabled(param) {
-      var state = document.querySelector("input[name='setAmbientLightSensorEnabledKey']").value
-      if (state != 0 && state != 1) {
-        alert('value值只能是0,1');
-        return
-      }
+    function setAmbientLightSensorEnabled() {
+      var element = document.querySelector("#setAmbientLightSensor")
+      var state = element.checked ? "1" : "0";
+
       syberh.brightness.setAmbientLightSensorEnabled({
         state: state,
         success: function (result) {
@@ -197,20 +208,34 @@
           alert(error.msg);
         }
       });
-    }  
+    }
 
-    // function setDimTimeout(param) {
-    //   syberh.brightness.setDimTimeout({
-    //     timeout:document.getElementById('setDimTimeout').value,
-    //     success: function (result) {
-    //       document.getElementById('setDimTimeout-result').innerText = JSON.stringify(result)
-    //     },
-    //     fail: function (error) {
-    //       console.info(error)
-    //       alert(error.msg);
-    //     }
-    //   });
-    // }
+    function setDimTimeout() {
+      var dimTimeout;
+      var items = document.querySelectorAll("input[name=dimTimeout]");
+      if(items){
+        items.forEach(it => {
+          if(it.checked){
+            dimTimeout = it.value;
+          }
+        });
+      }
+      if(!dimTimeout){
+        showTips('设置息屏时长');
+        return;
+      }
+
+      syberh.brightness.setDimTimeout({
+        timeout: dimTimeout,
+        success: function (result) {
+          document.getElementById('setDimTimeout-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
     
     // function setAdaptiveDimmingEnabled(param) {
     //   syberh.brightness.setAdaptiveDimmingEnabled({
