@@ -31,6 +31,7 @@ HEADERS += \
     $$PWD/src/util/fileutil.h \
     $$PWD/src/util/log.h \
     $$PWD/src/util/validator.h \
+    $$PWD/src/util/util.h \
     $$PWD/src/nativesdk_global.h \
     $$PWD/src/helper.h \
     $$PWD/src/helper_p.h \
@@ -54,6 +55,7 @@ SOURCES += \
     $$PWD/src/util/fileutil.cpp \
     $$PWD/src/util/log.cpp \
     $$PWD/src/util/validator.cpp \
+    $$PWD/src/util/util.cpp \
     $$PWD/src/helper.cpp \
     $$PWD/src/senvironment.cpp \ 
     $$PWD/src/qmlobject.cpp \

@@ -34,7 +34,7 @@ title: setAmbientLightSensorEnabled
 ### 代码示例
 ```js
 syberh.brightness.setAmbientLightSensorEnabled({
-    state:"0",
+    state: "0",
 	success:function(result){
      
     },
