@@ -200,11 +200,10 @@
       "apis/notification/removeNotification"
     ],
     "数据库操作": [
-      "apis/database/createTable",
       "apis/database/query",
-      "apis/database/execute",
-      "apis/database/isDatabaseExists",
-      "apis/database/isTableExists"
+      "apis/database/exec",
+      "apis/database/databaseExists",
+      "apis/database/tableExists"
     ],
     "应用更新": [
       "apis/update/check",
