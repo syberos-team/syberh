@@ -22,3 +22,5 @@ packages/syberos/plugins/*
 packages/syberos/lib/
 fetch.sh
 .markdown
+package-lock.json
+
