@@ -48,37 +48,39 @@ module.exports = {
         'Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.',
       ].join('\n')
     ),
-    new CopyWebpackPlugin([
-      {
-        // copy到cli/templates/default/lib/syberh.min.js
-        from: Path.resolve(__dirname, './dist/syberh.min.js'),
-        to: Path.join(
-          Path.dirname(Path.resolve(__dirname)),
-          'cli/templates/default/lib/syberh.min.js',
-        ),
-      },
-      {
-        from: Path.resolve(__dirname, './dist/syberh.min.js.LICENSE.txt'),
-        to: Path.join(
-          Path.dirname(Path.resolve(__dirname)),
-          'cli/templates/default/lib/syberh.min.js.LICENSE.txt',
-        ),
-      },
-      {
-        from: Path.resolve(__dirname, './dist/syberh.min.js'),
-        to: Path.join(
-          Path.dirname(Path.resolve(__dirname)),
-          'syberos/app/www/lib/syberh.min.js',
-        ),
-      },
-      {
-        from: Path.resolve(__dirname, './dist/syberh.min.js.LICENSE.txt'),
-        to: Path.join(
-          Path.dirname(Path.resolve(__dirname)),
-          'syberos/app/www/lib/syberh.min.js.LICENSE.txt',
-        ),
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          // copy到cli/templates/default/lib/syberh.min.js
+          from: Path.resolve(__dirname, './dist/syberh.min.js'),
+          to: Path.join(
+            Path.dirname(Path.resolve(__dirname)),
+            'cli/templates/default/lib/syberh.min.js',
+          ),
+        },
+        {
+          from: Path.resolve(__dirname, './dist/syberh.min.js.LICENSE.txt'),
+          to: Path.join(
+            Path.dirname(Path.resolve(__dirname)),
+            'cli/templates/default/lib/syberh.min.js.LICENSE.txt',
+          ),
+        },
+        {
+          from: Path.resolve(__dirname, './dist/syberh.min.js'),
+          to: Path.join(
+            Path.dirname(Path.resolve(__dirname)),
+            'syberos/app/www/lib/syberh.min.js',
+          ),
+        },
+        {
+          from: Path.resolve(__dirname, './dist/syberh.min.js.LICENSE.txt'),
+          to: Path.join(
+            Path.dirname(Path.resolve(__dirname)),
+            'syberos/app/www/lib/syberh.min.js.LICENSE.txt',
+          ),
+        },
+      ]
+    }),
     new Webpack.DefinePlugin({
       'JVERSION': JSON.stringify(pkg.version)
     }),

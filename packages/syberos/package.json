@@ -1,6 +1,6 @@
 {
   "name": "@syberos/syberos",
-  "version": "2.2.2-beta.4",
+  "version": "2.2.2-beta.5",
   "description": "syberh native sdk",
   "private": true,
   "main": "index.js",
@@ -12,8 +12,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^8.1.0",
-    "shelljs": "^0.8.4"
+    "fs-extra": "~8.1.0",
+    "shelljs": "~0.8.4"
   },
   "gitHead": "ffc4619cd7bdd5b1693a736e18ca30a4b760a5d3"
 }
