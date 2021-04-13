@@ -27,8 +27,8 @@ public:
             AsynchronousShutdown
         };
 
-    IPlugin();
-    ~IPlugin() override;
+    IPlugin(QObject *parent = nullptr);
+    virtual ~IPlugin();
 
     virtual bool initialize(const QStringList &arguments, QString *errorString);
     virtual void extensionsInitialized();

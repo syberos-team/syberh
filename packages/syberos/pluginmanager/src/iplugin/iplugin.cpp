@@ -10,8 +10,8 @@ using namespace ExtensionSystem;
 
 // ========== IPlugin ^ ==========
 
-IPlugin::IPlugin()
-    : d(new Internal::IPluginPrivate())
+IPlugin::IPlugin(QObject *parent) : QObject(parent)
+    , d(new Internal::IPluginPrivate())
 {
     d->signalManager = new SignalManager();
 }

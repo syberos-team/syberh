@@ -47,17 +47,17 @@
       "apis/database/createTable": {
         "title": "createTable"
       },
-      "apis/database/execute": {
-        "title": "execute"
+      "apis/database/databaseExists": {
+        "title": "databaseExists"
       },
-      "apis/database/isDatabaseExists": {
-        "title": "isDatabaseExists"
-      },
-      "apis/database/isTableExists": {
-        "title": "isTableExists"
+      "apis/database/exec": {
+        "title": "exec"
       },
       "apis/database/query": {
         "title": "query"
+      },
+      "apis/database/tableExists": {
+        "title": "tableExists"
       },
       "apis/download/download-cancel": {
         "title": "cancel"
