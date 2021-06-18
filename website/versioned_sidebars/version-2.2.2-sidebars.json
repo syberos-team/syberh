@@ -1,0 +1,217 @@
+{
+  "version-2.2.2-docs": {
+    "关于Syberh": [
+      "version-2.2.2-README"
+    ],
+    "快速开始": [
+      "version-2.2.2-started-cli",
+      "version-2.2.2-started-install",
+      "version-2.2.2-first-app",
+      "version-2.2.2-started-lifecycle"
+    ],
+    "进阶指南": [
+      "version-2.2.2-global-event",
+      "version-2.2.2-cli-readme",
+      "version-2.2.2-app-config",
+      "version-2.2.2-app-permissions",
+      "version-2.2.2-started-ide",
+      "version-2.2.2-return_code",
+      "version-2.2.2-vue-use-syberh",
+      "version-2.2.2-add-plugins",
+      "version-2.2.2-library"
+    ]
+  },
+  "version-2.2.2-API": {
+    "关于API": [
+      "version-2.2.2-apis/about/desc"
+    ],
+    "应用管理": [
+      "version-2.2.2-apis/app/setAppOrientation",
+      "version-2.2.2-apis/app/quit",
+      "version-2.2.2-apis/packages/openUrl",
+      "version-2.2.2-apis/packages/openDocument"
+    ],
+    "路由": [
+      "version-2.2.2-apis/router/router"
+    ],
+    "模态弹窗": [
+      "version-2.2.2-apis/modal/toast",
+      "version-2.2.2-apis/modal/gtoast",
+      "version-2.2.2-apis/modal/alert",
+      "version-2.2.2-apis/modal/confirm",
+      "version-2.2.2-apis/modal/prompt"
+    ],
+    "媒体": [
+      {
+        "label": "相机",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/multimedia/camera/takePhoto"
+        ]
+      },
+      {
+        "label": "录音",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/multimedia/record/list",
+          "version-2.2.2-apis/multimedia/record/start",
+          "version-2.2.2-apis/multimedia/record/pause",
+          "version-2.2.2-apis/multimedia/record/resume",
+          "version-2.2.2-apis/multimedia/record/stop",
+          "version-2.2.2-apis/multimedia/record/remove"
+        ]
+      },
+      {
+        "label": "音频",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/multimedia/audio/start",
+          "version-2.2.2-apis/multimedia/audio/pause",
+          "version-2.2.2-apis/multimedia/audio/resume",
+          "version-2.2.2-apis/multimedia/audio/stop"
+        ]
+      },
+      {
+        "label": "图片",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/image/chooseImage",
+          "version-2.2.2-apis/image/saveImageToPhotosAlbum",
+          "version-2.2.2-apis/image/getImageInfo"
+        ]
+      }
+    ],
+    "电话": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/telephony/dial"
+        ]
+      }
+    ],
+    "剪贴板": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/clipboard/setClipboardData",
+          "version-2.2.2-apis/clipboard/getClipboardData"
+        ]
+      }
+    ],
+    "系统信息": [
+      {
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/system/aboutPhone",
+          "version-2.2.2-apis/system/battery",
+          "version-2.2.2-apis/system/networkInfo",
+          "version-2.2.2-apis/system/date",
+          "version-2.2.2-apis/system/VirtualPanel",
+          "version-2.2.2-apis/system/captureScreen"
+        ]
+      }
+    ],
+    "数据网络": [
+      "version-2.2.2-apis/cellular/networkDisabled",
+      "version-2.2.2-apis/cellular/networkEnabled"
+    ],
+    "网络": [
+      {
+        "label": "请求",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/request/request"
+        ]
+      },
+      {
+        "label": "下载",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/download/download",
+          "version-2.2.2-apis/download/download-cancel"
+        ]
+      },
+      {
+        "label": "上传",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/upload/upload",
+          "version-2.2.2-apis/upload/upload-cancel"
+        ]
+      }
+    ],
+    "文件": [
+      {
+        "label": "文件管理",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/fileManager/move",
+          "version-2.2.2-apis/fileManager/copy",
+          "version-2.2.2-apis/fileManager/fileList",
+          "version-2.2.2-apis/fileManager/getInfo",
+          "version-2.2.2-apis/fileManager/remove"
+        ]
+      },
+      {
+        "label": "文件选择",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/filepicker/filepicker"
+        ]
+      },
+      {
+        "label": "文件预览",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/image/previewImage",
+          "version-2.2.2-apis/filePreview/previewText",
+          "version-2.2.2-apis/filePreview/previewVideo"
+        ]
+      }
+    ],
+    "path": [
+      "version-2.2.2-apis/path/extern",
+      "version-2.2.2-apis/path/inner",
+      "version-2.2.2-apis/path/dataRoot"
+    ],
+    "扫码": [
+      "version-2.2.2-apis/qrcode/scan"
+    ],
+    "设备": [
+      {
+        "label": "屏幕亮度",
+        "type": "subcategory",
+        "ids": [
+          "version-2.2.2-apis/brightness/brightnessInfo",
+          "version-2.2.2-apis/brightness/setAmbientLightSensorEnabled",
+          "version-2.2.2-apis/brightness/setBlankTimeout",
+          "version-2.2.2-apis/brightness/setBrightness"
+        ]
+      }
+    ],
+    "震动": [
+      "version-2.2.2-apis/vibrator/vibrate"
+    ],
+    "消息通知": [
+      "version-2.2.2-apis/notification/badgeShow",
+      "version-2.2.2-apis/notification/sendNotification",
+      "version-2.2.2-apis/notification/removeAllNotifications",
+      "version-2.2.2-apis/notification/removeNotification"
+    ],
+    "数据库操作": [
+      "version-2.2.2-apis/database/query",
+      "version-2.2.2-apis/database/exec",
+      "version-2.2.2-apis/database/databaseExists",
+      "version-2.2.2-apis/database/tableExists"
+    ],
+    "应用更新": [
+      "version-2.2.2-apis/update/check",
+      "version-2.2.2-apis/update/toStore"
+    ]
+  },
+  "version-2.2.2-常见问题": {
+    "关于问题": [
+      "version-2.2.2-specials"
+    ]
+  }
+}
