@@ -11,8 +11,11 @@
       "apis/about/desc": {
         "title": "API 说明"
       },
+      "apis/app/quit": {
+        "title": "quit"
+      },
       "apis/app/setAppOrientation": {
-        "title": "全局配置"
+        "title": "setAppOrientation"
       },
       "apis/brightness/brightnessInfo": {
         "title": "brightnessInfo"
@@ -985,6 +988,75 @@
       },
       "version-2.1.2/apis/image/version-2.1.2-saveImageToPhotosAlbum": {
         "title": "saveImageToPhotosAlbum"
+      },
+      "version-2.2.2/apis/about/version-2.2.2-desc": {
+        "title": "API 说明"
+      },
+      "version-2.2.2/apis/app/version-2.2.2-quit": {
+        "title": "quit"
+      },
+      "version-2.2.2/apis/app/version-2.2.2-setAppOrientation": {
+        "title": "setAppOrientation"
+      },
+      "version-2.2.2/apis/brightness/version-2.2.2-setAmbientLightSensorEnabled": {
+        "title": "setAmbientLightSensorEnabled"
+      },
+      "version-2.2.2/apis/brightness/version-2.2.2-setBlankTimeout": {
+        "title": "setBlankTimeout"
+      },
+      "version-2.2.2/apis/brightness/version-2.2.2-setBrightness": {
+        "title": "setBrightness"
+      },
+      "version-2.2.2/apis/brightness/version-2.2.2-setDimTimeout": {
+        "title": "setDimTimeout"
+      },
+      "version-2.2.2/apis/database/version-2.2.2-databaseExists": {
+        "title": "databaseExists"
+      },
+      "version-2.2.2/apis/database/version-2.2.2-exec": {
+        "title": "exec"
+      },
+      "version-2.2.2/apis/database/version-2.2.2-query": {
+        "title": "query"
+      },
+      "version-2.2.2/apis/database/version-2.2.2-tableExists": {
+        "title": "tableExists"
+      },
+      "version-2.2.2/apis/image/version-2.2.2-saveImageToPhotosAlbum": {
+        "title": "saveImageToPhotosAlbum"
+      },
+      "version-2.2.2/apis/multimedia/record/version-2.2.2-start": {
+        "title": "start"
+      },
+      "version-2.2.2/apis/packages/version-2.2.2-openDocument": {
+        "title": "openDocument"
+      },
+      "version-2.2.2/apis/packages/version-2.2.2-openUrl": {
+        "title": "openUrl"
+      },
+      "version-2.2.2/apis/request/version-2.2.2-request": {
+        "title": "request"
+      },
+      "version-2.2.2/apis/system/version-2.2.2-aboutPhone": {
+        "title": "aboutPhone"
+      },
+      "version-2.2.2/apis/system/version-2.2.2-battery": {
+        "title": "battery"
+      },
+      "version-2.2.2/apis/system/version-2.2.2-captureScreen": {
+        "title": "captureScreen"
+      },
+      "version-2.2.2/apis/system/version-2.2.2-date": {
+        "title": "Date"
+      },
+      "version-2.2.2/apis/system/version-2.2.2-VirtualPanel": {
+        "title": "VirtualPanel"
+      },
+      "version-2.2.2/version-2.2.2-app-config": {
+        "title": "APP 配置"
+      },
+      "version-2.2.2/version-2.2.2-cli-readme": {
+        "title": "CLI使用"
       }
     },
     "links": {
@@ -998,7 +1070,7 @@
       "快速开始": "快速开始",
       "进阶指南": "进阶指南",
       "关于API": "关于API",
-      "全局配置": "全局配置",
+      "应用管理": "应用管理",
       "路由": "路由",
       "模态弹窗": "模态弹窗",
       "媒体": "媒体",
@@ -1008,7 +1080,6 @@
       "数据网络": "数据网络",
       "网络": "网络",
       "文件": "文件",
-      "应用管理": "应用管理",
       "path": "path",
       "扫码": "扫码",
       "设备": "设备",
@@ -1017,6 +1088,7 @@
       "数据库操作": "数据库操作",
       "应用更新": "应用更新",
       "关于问题": "关于问题",
+      "全局配置": "全局配置",
       "数据存储": "数据存储",
       "下载": "下载",
       "文件选择": "文件选择",

@@ -3,7 +3,7 @@ import hybridJs from '../../hybrid';
 export default function appMixin() {
     const innerUtil = hybridJs.innerUtil;
 
-    hybridJs.extendModule('app', [
+    hybridJs.extendModule('application', [
         {
             namespace: 'setAppOrientation',
             os: ['syberos'],

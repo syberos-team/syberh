@@ -1,5 +1,7 @@
 ---
 title: setAppOrientation
+id: version-2.2.2-setAppOrientation
+original_id: setAppOrientation
 ---
 
 ## syberh.application.setAppOrientation(Object object)

@@ -25,8 +25,11 @@
     "关于API": [
       "apis/about/desc"
     ],
-    "全局配置": [
-      "apis/app/setAppOrientation"
+    "应用管理": [
+      "apis/app/setAppOrientation",
+      "apis/app/quit",
+      "apis/packages/openUrl",
+      "apis/packages/openDocument"
     ],
     "路由": [
       "apis/router/router"
@@ -165,10 +168,6 @@
           "apis/filePreview/previewVideo"
         ]
       }
-    ],
-    "应用管理": [
-      "apis/packages/openUrl",
-      "apis/packages/openDocument"
     ],
     "path": [
       "apis/path/extern",
