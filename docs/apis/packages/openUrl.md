@@ -75,7 +75,7 @@ syberh.packages.openUrl({
 | path  | String | 跳转的页面路径，index.html?key1=value1&key2=value2 |
 | params | Object | 传递的参数，{key1=value1, key2=value2}格式         |
 
-```
+```js
 syberh.subscribe('onReady', function(result) {
 	console.log("path: "+ result.path);
 	console.log("params: "+ JSON.stringify(result.params));
