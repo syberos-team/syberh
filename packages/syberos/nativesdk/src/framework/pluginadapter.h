@@ -5,7 +5,6 @@
 #include <QVariantMap>
 
 #include "nativesdkhandlerbase.h"
-#include "./common/networkstatus.h"
 #include "./common/errorinfo.h"
 #include "../../../pluginmanager/src/pluginspec.h"
 

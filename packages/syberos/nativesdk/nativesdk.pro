@@ -21,7 +21,6 @@ HEADERS += \
     $$PWD/src/framework/nativesdkhandlerbase.h \
     $$PWD/src/framework/nativesdkfactory.h \
     $$PWD/src/framework/pluginadapter.h \
-    $$PWD/src/framework/common/networkstatus.h \
     $$PWD/src/framework/common/errorinfo.h \
     $$PWD/src/framework/common/extendedconfig.h \
     $$PWD/src/framework/common/projectconfig.h \
@@ -46,7 +45,6 @@ SOURCES += \
     $$PWD/src/framework/nativesdkfactory.cpp \
     $$PWD/src/framework/nativesdkhandlerbase.cpp \
     $$PWD/src/framework/pluginadapter.cpp \
-    $$PWD/src/framework/common/networkstatus.cpp \
     $$PWD/src/framework/common/errorinfo.cpp \
     $$PWD/src/framework/common/extendedconfig.cpp \
     $$PWD/src/framework/common/projectconfig.cpp \

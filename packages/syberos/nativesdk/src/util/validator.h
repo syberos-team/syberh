@@ -15,8 +15,7 @@ public:
      * @return
      */
     static bool isHttpUrl(const QString &url);
-    static QString getNetworkConnectStatus();
-    static bool netWorkConnected();
+    static bool isNetworkConnected();
 
 private:
     explicit Validator(QObject *parent = 0);

@@ -1,6 +1,6 @@
 #include "validator.h"
-#include "../framework/common/networkstatus.h"
 #include <QRegExp>
+#include <cnetworkmanager.h>
 
 namespace NativeSdk {
 
@@ -14,13 +14,9 @@ bool Validator::isHttpUrl(const QString &url){
     return pattern.exactMatch(url);
 }
 
-bool Validator::netWorkConnected() {
-    NetworkStatus::NetworkType networkType = NetworkStatus::getInstance()->getNetworkConnectType();
-    return networkType != NetworkStatus::None;
-}
-
-QString Validator::getNetworkConnectStatus() {
-    return NetworkStatus::getInstance()->getNetworkConnectStatus();
+bool Validator::isNetworkConnected() {
+    CNetworkManager manager;
+    return manager.isNetworkAvailable();
 }
 
 }
