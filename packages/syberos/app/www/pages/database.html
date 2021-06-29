@@ -11,345 +11,282 @@
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
   <style>
-    .li_items {
-      position: relative;
-      display: -webkit-flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .li_items_right {
-      position: absolute;
-      top: 48px;
-      right: 5px;
-    }
-
-    .li_items_icon {
-      position: absolute;
-      right: 5px;
-      top: 5px;
-    }
-
-    .li_items_icons {
-      position: absolute;
-      right: 30px;
-      top: 5px;
-    }
-
-    .items_info {
-      margin-top: 15px;
-      font-size: 12px;
+    .pt0 {
+      margin-top: 1em;
     }
   </style>
 </head>
 
 <body>
-
   <div class="mui-content pt0">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell">
-        <a class="mui-navigate-right api-class">数据库操作</a>
-      </li>
-
-      <div class="mui-collapse-content">
-        <div class="mui-input-row">
-          <label>数据库名</label>
-          <input type="text" id="databaseName" value="syberos-database" />
-        </div>
-        <div class="mui-input-row">
-          <label>表名</label>
-          <input type="text" id="tableName" value="datas" />
-        </div>
-        <div class="mui-input-row">
-          <label>标题</label>
-          <input type="text" id="title" value="标题" />
-        </div>
-        <div class="mui-input-row">
-          <label>内容</label>
-          <input type="text" id="content" value="内容" />
-        </div>
-
-        <button type="button" class="mui-btn mui-btn-primary" onclick="createTable()">创建表</button>
-        <button type="button" class="mui-btn mui-btn-primary" onclick="insertMetadata()">新增数据</button><br>
-        <button type="button" class="mui-btn mui-btn-primary" onclick="isDatabaseExists()">数据库是否存在</button>
-        <button type="button" class="mui-btn mui-btn-primary" onclick="isTableExists()">表是否存在</button>
-
+    <div class="mui-card">
+      <div class="mui-card-header">
+        数据库表
       </div>
-      <div id="results"></div>
-    </ul>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>数据库</label>
+            <input type="text" id="database" placeholder="数据库" value="syberh_db" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>表名</label>
+            <input type="text" id="table" pattern="表名" value="test_table" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <p id="db-result">&nbsp;</p>
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="dbExists('#database', '#db-result')">数据库是否存在</button>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="tableExits('#database', '#table', '#db-result')">表是否存在</button>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        创建表
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>数据库</label>
+            <input type="text" id="crt-tbl-db" placeholder="数据库" value="syberh_db" class="mui-input-clear" readonly/>
+          </div>
+          <div class="mui-input-row">
+            <label>SQL</label>
+            <p id="crt-tbl-sql">create table test_table(id int, name varchar(20))</p>
+          </div>
+          <div class="mui-input-row">
+            <p id="crt-tbl-result">&nbsp;</p>
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-success mui-btn-outlined" onclick="execSql('#crt-tbl-db', '#crt-tbl-sql','#crt-tbl-result')">创建</button>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        查询数据
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>数据库</label>
+            <input type="text" id="query-db" placeholder="数据库" value="syberh_db" class="mui-input-clear" readonly/>
+          </div>
+          <div class="mui-input-row">
+            <label>SQL</label>
+            <p id="query-sql">select * from test_table</p>
+          </div>
+          <div class="mui-input-row">
+            <p id="query-result">&nbsp;</p>
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-royal mui-btn-outlined" onclick="querySql('#query-db', '#query-sql','#query-result')">查询</button>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        插入数据
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>数据库</label>
+            <input type="text" id="ist-db" placeholder="数据库" value="syberh_db" class="mui-input-clear" readonly/>
+          </div>
+          <div class="mui-input-row">
+            <label>SQL</label>
+            <p id="ist-sql">insert into test_table(id, name) values(?, ?)</p>
+          </div>
+          <div class="mui-input-row">
+            <label>id</label>
+            <input type="text" id="ist-id" pattern="id" value="1" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>name</label>
+            <input type="text" id="ist-name" pattern="name" value="jack" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <p id="ist-result">&nbsp;</p>
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-warning mui-btn-outlined" onclick="insertSql('#ist-db', '#ist-sql','#ist-id', '#ist-name', '#ist-result')">插入</button>
+      </div>
+    </div>
   </div>
 
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
-  <script type="text/javascript" src="../../dist/quick.js"></script>
-  <script type="text/javascript" src="../../dist/quick.native.js"></script>
-  <script type="text/javascript" src="../../dist/quick.h5.js"></script>
   <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
-  <script type="text/javascript" src="../common/jquery-1.7.min.js"></script>
 
   <script>
     var vConsole = new VConsole();
-    $(document).ready(function () {
-      refresh();
-    });
 
-    function refresh() {
-      var databaseName = document.getElementById('databaseName').value;
-      var tableName = document.getElementById('tableName').value;
-      var sql = "select id,title,content,created from " + tableName + " order by created desc";
+    function dbExists(dbId, rsId){
+      var dbName = Util.getDB(dbId);
+      if(!dbName){
+        return;
+      }
+      syberh.database.databaseExists({
+        database: dbName,
+        success: function(res){
+          Util.showResult(rsId, 'databaseExists: ' + JSON.stringify(res))
+        },
+        fail: function(err){
+          Util.showResult(rsId, 'databaseExists: ' + JSON.stringify(err))
+        }
+      })
+    }
 
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else {
-        syberh.database.query({
-          sql: sql,
-          tableName: tableName,
-          databaseName: databaseName,
-          success: function (result) {
-            var str = "<li class=\"mui-table-view-cell\">";
-            str += "<a class=\"mui-navigate-right api-class\">数据列表</a>";
-            str += "</li>";
+    function tableExits(dbId, tblId, rsId){
+      var dbName = Util.getDB(dbId);
+      if(!dbName){
+        return;
+      }
+      var tableName = Util.getTable(tblId);
+      if(!tableName){
+        return;
+      }
+      syberh.database.tableExists({
+        database: dbName,
+        table: tableName,
+        success: function(res){
+          Util.showResult(rsId, 'tableExists: ' + JSON.stringify(res))
+        },
+        fail: function(err){
+          Util.showResult(rsId, 'tableExists: ' + JSON.stringify(err))
+        }
+      })
+    }
 
-            for (i = 0; i < result.length; i++) {
-              str += "<li class=\"mui-table-view-cell\">"
-                + "<a onclick=\"selectMetadataById('" + result[i].id + "')\" >" + result[i].title + "</a>"
-                + "<div onclick=\"updateMetadata('" + result[i].id + "')\"><span class=\"li_items_right li_items_icons mui-icon mui-icon-compose\""
-                + "height=35 width=35 ></span ><div>"
-                + "<div onclick=\"removeMetadata('" + result[i].id + "')\"><span class=\"li_items_right li_items_icon mui-icon mui-icon-trash\""
-                + "height=35 width=35></span><div>";
+    function execSql(dbId, sqlId, rsId){
+      var dbName = Util.getDB(dbId);
+      if(!dbName){
+        return;
+      }
+      var sqlVal = Util.getSql(sqlId);
+      if(!sqlVal){
+        return;
+      }
+      syberh.database.exec({
+        database: dbName,
+        sql: sqlVal,
+        success: function(res){
+          Util.showResult(rsId, 'exec: ' + JSON.stringify(res))
+        },
+        fail: function(err){
+          Util.showResult(rsId, 'exec: ' + JSON.stringify(err))
+        }
+      })
+    }
 
-              str += "<div class=\"items_info\"><span class=\"li_items\">" + result[i].created + "</span>"
-                + "<span class=\"li_items_right\">" + result[i].content + "</span></div>"
-                + "</li>";
-            }
+    function querySql(dbId, sqlId, rsId){
+      var dbName = Util.getDB(dbId);
+      if(!dbName){
+        return;
+      }
+      var sqlVal = Util.getSql(sqlId);
+      if(!sqlVal){
+        return;
+      }
+      syberh.database.query({
+        database: dbName,
+        sql: sqlVal,
+        success: function(res){
+          Util.showResult(rsId, 'query: ' + JSON.stringify(res))
+        },
+        fail: function(err){
+          Util.showResult(rsId, 'query: ' + JSON.stringify(err))
+        }
+      })
+    }
 
-            $("li").html(str);
-            console.log('success: ', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
+    function insertSql(dbId, sqlId, fid, fnid, rsId){
+      var dbName = Util.getDB(dbId);
+      if(!dbName){
+        return;
+      }
+      var sqlVal = Util.getSql(sqlId);
+      if(!sqlVal){
+        return;
+      }
+      var insertParams = Util.getInsertParams(fid, fnid);
+      if(!insertParams){
+        return;
+      }
+      syberh.database.exec({
+        database: dbName,
+        sql: sqlVal,
+        params: [insertParams.id, insertParams.name],
+        success: function(res){
+          Util.showResult(rsId, 'insert: ' + JSON.stringify(res))
+        },
+        fail: function(err){
+          Util.showResult(rsId, 'insert: ' + JSON.stringify(err))
+        }
+      })
+    }
+
+    var Util = {};
+    Util.getDB = function(eid){
+      var elem = document.querySelector(eid);
+      if(!elem || !elem.value){
+        showTips('未设置数据库');
+        return null;
+      }
+      return elem.value;
+    }
+    Util.getTable = function(eid){
+      var elem = document.querySelector(eid);
+      if(!elem || !elem.value){
+        showTips('未设置表名');
+        return null;
+      }
+      return elem.value;
+    }
+    Util.getSql = function(eid){
+      var elem = document.querySelector(eid);
+      if(!elem || !elem.innerText){
+        showTips('未找到SQL');
+        return null;
+      }
+      return elem.innerText;
+    }
+    Util.getInsertParams = function(iid, nid){
+      var idElem = document.querySelector(iid);
+      var nameElem = document.querySelector(nid);
+      if(!idElem || !idElem.value){
+        showTips('未输入id');
+        return null;
+      }
+      var idVal;
+      try{
+        idVal = parseInt(idElem.value);
+      }catch(e){
+        showTips('id不是一个有效的整数');
+        return;
+      }
+      if(!nameElem || !nameElem.value){
+        showTips('未输入name');
+        return null;
+      }
+      return {id: idVal, name: nameElem.value};
+    }
+    Util.showResult = function(eid, result){
+      var elem = document.querySelector(eid);
+      if(elem){
+        elem.innerHTML = result;
       }
     }
 
-    function selectMetadataById(id) {
-      var databaseName = document.getElementById('databaseName').value;
-      var tableName = document.getElementById('tableName').value;
-      var sql = "select id,title,content,created from " + tableName + " where id = " + id;
-
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else if (id === 'undefined' || id === null || id === "") {
-        alert("id不能为空");
-      } else {
-        syberh.database.query({
-          sql: sql,
-          tableName: tableName,
-          databaseName: databaseName,
-          success: function (result) {
-            document.getElementById("title").value = result[0].title;
-            document.getElementById("content").value = result[0].content;
-            $("#results").html("<spen style=\"color:Red\">提示：查询成功</spen><br>");
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-    function removeMetadata(id) {
-      var databaseName = document.getElementById('databaseName').value;
-      var tableName = document.getElementById('tableName').value;
-      var sql = "delete from " + tableName + " where id = " + id;
-
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else if (id === 'undefined' || id === null || id === "") {
-        alert("id不能为空");
-      } else {
-        syberh.database.execute({
-          sql: sql,
-          tableName: tableName,
-          databaseName: databaseName,
-          success: function (result) {
-            $("#results").html("<spen style=\"color:Red\">提示：删除成功</spen><br>");
-            refresh();
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-    function updateMetadata(id) {
-      var databaseName = document.getElementById('databaseName').value;
-      var title = document.getElementById('title').value;
-      var content = document.getElementById('content').value;
-      var tableName = document.getElementById('tableName').value;
-      var sql = "update " + tableName + " set title = \'" + title + "\',content = \'" + content + "\' where id = " + id;
-
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else if (id === 'undefined' || id === null || id === "") {
-        alert("id不能为空");
-      } else if (title === 'undefined' || title === null || title === "") {
-        alert("标题不能为空");
-      } else {
-        syberh.database.execute({
-          sql: sql,
-          tableName: tableName,
-          databaseName: databaseName,
-          success: function (result) {
-            $("#results").html("<spen style=\"color:Red\">提示：修改成功</spen><br>");
-            refresh();
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-    function insertMetadata() {
-      var databaseName = document.getElementById('databaseName').value;
-      var title = document.getElementById('title').value;
-      var content = document.getElementById('content').value;
-      var tableName = document.getElementById('tableName').value;
-      var sql = "insert into " + tableName + "(id, title, content, created) "
-        + "values(NULL, \'" + title + "\', \'" + content + "\', \'" + getDate() + "\') ";
-      var sqlIndex = "CREATE INDEX IF NOT EXISTS idx_datas_id ON datas(id)";
-
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else if (title === 'undefined' || title === null || title === "") {
-        alert("标题不能为空");
-      } else {
-        syberh.database.execute({
-          sql: sql,
-          databaseName: databaseName,
-          success: function (result) {
-            $("#results").html("<spen style=\"color:Red\">提示：新增成功</spen><br>");
-            refresh();
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-    function createTable() {
-      var databaseName = document.getElementById('databaseName').value;
-      var tableName = document.getElementById('tableName').value;
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else {
-        var sql = "CREATE TABLE IF NOT EXISTS " + tableName
-          + " (id INTEGER PRIMARY KEY autoincrement, title TEXT, content TEXT, created TEXT )";
-        var sqlindex = "CREATE INDEX IF NOT EXISTS idx_" + tableName + "_id ON " + tableName + "(id)";
-
-        syberh.database.createTable({
-          sql: sql,
-          sqlindex: sqlindex,
-          databaseName: databaseName,
-          success: function (result) {
-            $("#results").html("<spen style=\"color:Red\">提示：创建成功</spen><br>");
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-    function isDatabaseExists() {
-      var databaseName = document.getElementById('databaseName').value;
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else {
-        syberh.database.isDatabaseExists({
-          databaseName: databaseName,
-          success: function (result) {
-            $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-    function isTableExists() {
-      var databaseName = document.getElementById('databaseName').value;
-      var tableName = document.getElementById('tableName').value;
-      if (databaseName === 'undefined' || databaseName === null || databaseName === "") {
-        alert("数据库名不能为空");
-      } else if (tableName === 'undefined' || tableName === null || tableName === "") {
-        alert("表名不能为空");
-      } else {
-        syberh.database.isTableExists({
-          tableName: tableName,
-          databaseName: databaseName,
-          success: function (result) {
-            $("#results").html("<spen style=\"color:Red\">提示：存在</spen><br>");
-            console.log('success', result);
-          },
-          fail: function (error) {
-            $("#results").html("<spen style=\"color:Red\">提示：" + error.msg + "</spen><br>");
-            console.log('fail: ', error.code, error.msg);
-          }
-        });
-      }
-    }
-
-
-    function getDate() {
-      var myDate = new Date();
-
-      var year = myDate.getFullYear();        //获取当前年
-      var month = myDate.getMonth() + 1;   //获取当前月
-      var date = myDate.getDate();            //获取当前日
-
-      var h = myDate.getHours();              //获取当前小时数(0-23)
-      var m = myDate.getMinutes();          //获取当前分钟数(0-59)
-      var s = myDate.getSeconds();
-
-      var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
-      return now;
-    }
-
-    function getNow(s) {
-      return s < 10 ? '0' + s : s;
-    }
 
   </script>
 </body>

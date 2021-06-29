@@ -3,7 +3,7 @@ import hybridJs from '../../hybrid';
 export default function appMixin() {
     const innerUtil = hybridJs.innerUtil;
 
-    hybridJs.extendModule('app', [
+    hybridJs.extendModule('application', [
         {
             namespace: 'setAppOrientation',
             os: ['syberos'],
@@ -17,5 +17,17 @@ export default function appMixin() {
                 hybridJs.callInner.apply(this, args);
             },
         },
+        {
+            namespace: 'quit',
+            os: ['syberos'],
+            runCode(...rest) {
+                // 兼容字符串形式
+                const args = innerUtil.compatibleStringParamsToObject.call(
+                    this,
+                    rest,
+                );
+                hybridJs.callInner.apply(this, args);
+            }
+        }
     ]);
 }

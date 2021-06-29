@@ -15,12 +15,8 @@ bool Validator::isHttpUrl(const QString &url){
 }
 
 bool Validator::netWorkConnected() {
-    bool bConnected = false;
-    QString netWorkType = NetworkStatus::getInstance()->getNetworkConnectStatus();
-    if(netWorkType == "cellular" || netWorkType == "wifi"){
-         bConnected = true;
-    }
-    return bConnected;
+    NetworkStatus::NetworkType networkType = NetworkStatus::getInstance()->getNetworkConnectType();
+    return networkType != NetworkStatus::None;
 }
 
 QString Validator::getNetworkConnectStatus() {

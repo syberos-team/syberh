@@ -1,5 +1,13 @@
-templates/default/yarn-lockfiles
 node_modules
+.cache
+.DS_Store
+lerna-debug.log
+yarn-error.log
+_book
+.idea
+.vscode
+temp
+.temp
 .history
-yarn-error*
-.tmp
+.markdown
+dist/

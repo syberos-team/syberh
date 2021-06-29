@@ -25,11 +25,11 @@ public:
      * @param typeID 业务类的typeID
      * @return 对应typeID的业务类实例指针
      */
-    NativeSdkHandlerBase * getHandler(QString typeID);
+    NativeSdkHandlerBase * getHandler(const QString &typeID);
     QMap<QString,NativeSdkHandlerBase*>getAllHandlers();
-    bool IsInitConnect(QString typeID);
+    bool IsInitConnect(const QString &typeID);
 
-    ExtensionSystem::PluginSpec* loadPlugin(QString className, QString *errorMessage);
+    ExtensionSystem::PluginSpec* loadPlugin(const QString &className, QString *errorMessage);
 private :
     QMap<QString,NativeSdkHandlerBase*> m_sdkHandlerCache;
     QMap<QString,bool> m_sdkInitConnectCache;

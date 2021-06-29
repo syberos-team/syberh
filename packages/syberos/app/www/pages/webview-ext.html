@@ -24,6 +24,10 @@
       <li class="mui-table-view-cell">
         <input id="file1" type="file" accept="image/*" value="图片" />
       </li>
+      <li class="mui-table-view-cell">
+        <button onclick="goBack()">goBack</button>
+        <button onclick="syberh.application.quit()">退出应用</button>
+      </li>
     </ul>
     <div id="text"></div>
     <div id="text2"></div>
@@ -67,6 +71,19 @@
           console.error('错误！没有相应API');
       }
     };
+
+    function goBack() {
+      syberh.router.goBack({
+        success: function (result) {
+          showTips('goBack: ' + JSON.stringify(result))
+          console.info(result)
+        },
+        fail: function (error) {
+          showTips(JSON.stringify(error))
+          console.info(error)
+        }
+      })
+    }
   </script>
 
 </body>

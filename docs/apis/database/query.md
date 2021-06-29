@@ -3,7 +3,7 @@ title: query
 ---
 
 
-查询数据：根据sql语句查询表中数据，查询成功则返回查询结果。例如查询所有、条件查询操作。
+查询数据：执行查询sql，返回查询数据。
 
 
 
@@ -12,8 +12,9 @@ title: query
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------|
-| databaseName | string |        | 是       | 数据库名                           |
-| sql | string |        | 是       | sql语句                           |
+| database | string |        | 是       | 数据库名                           |
+| sql | string |        | 是       | sql语句，支持绑定参数。例如： select * from test_tbl where id = ? |
+| params | array |        | 否       | sql语句中的绑定参数               |
 | success | function |        | 否       | 回调成功                    |
 | fail   | function |        | 否       | 回调失败                    |
 
@@ -34,14 +35,27 @@ title: query
 
 ### **代码示例**
 ``` javascript
+// 无参数sql
 syberh.database.query({
-  databaseName: "",
-  sql: "xxxx",
-	success: function(result){
-    console.log('success', result);  
-	},
-	fail: function(error){
-		console.log('fail: ', error.code, error.msg);
-	}
+  database: "test_db",
+  sql: "select * from test_tbl",
+  success: function(result){
+    console.log('success', result);
+  },
+  fail: function(error){
+    console.log('fail: ', error.code, error.msg);
+  }
+});
+// 绑定参数
+syberh.database.query({
+  database: "test_db",
+  sql: "select * from test_tbl where id=? and name=?",
+  params: [1, 'jack'],
+  success: function(result){
+    console.log('success', result);
+  },
+  fail: function(error){
+    console.log('fail: ', error.code, error.msg);
+  }
 });
 ```

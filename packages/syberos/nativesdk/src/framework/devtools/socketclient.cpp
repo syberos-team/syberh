@@ -17,7 +17,7 @@ SocketClient::SocketClient(const QString &url, const int &port)
 
     connectCount=0;
     helper=Helper::instance();
-    bool debug=ProjectConfig::instance()->isDebug();
+    bool useHot = ProjectConfig::instance()->isUseHot();
     purl=url;
     pport=port;
     total=0;
@@ -27,8 +27,8 @@ SocketClient::SocketClient(const QString &url, const int &port)
     hasSend=0;
     TEMP_PATH_NAME="tmp";
 
-    if(debug){
-        qDebug() <<Q_FUNC_INFO << "SocketClient dubug:true" <<endl;
+    if(useHot){
+        qDebug() <<Q_FUNC_INFO << "SocketClient use hot:true" <<endl;
         create(url,port);
         getOrCreateTempPath();
     }
@@ -153,7 +153,7 @@ void SocketClient::data(){
 }
 
 
-void SocketClient::onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage){
+void SocketClient::onReplyFinished(const QString &downloadId, const QString &path, int statusCode, const QString &errorMessage){
     Q_UNUSED(path);
     Q_UNUSED(statusCode);
     Q_UNUSED(errorMessage);

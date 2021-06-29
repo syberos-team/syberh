@@ -4,15 +4,14 @@
   "private": true,
   "description": "<%= description %>",
   "templateInfo": {
-    "name": "<%= template %>",
-    "css": "<%= css %>"
+    "name": "<%= template %>"
   },
   "scripts": {
-    "build:simulator": "syberh build --type simulator",
-    "build:device": "syberh build --type device",
-    "dev:device": "syberh build --type device  --debug",
-    "dev:simulator": "syberh build --type simulator  --debug",
-    "build": "syberh build --type device --onlybuild"
+    "build:simulator": "syberh build --type simulator --release",
+    "build:device": "syberh build --type device --release",
+    "dev:device": "syberh build --type device",
+    "dev:simulator": "syberh build --type simulator",
+    "build": "syberh build --type device --only-build"
   },
   "author": "YuanXin",
   "license": "MIT",

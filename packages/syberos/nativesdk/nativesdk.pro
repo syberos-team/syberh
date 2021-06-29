@@ -1,4 +1,5 @@
 include(../syberos.pri)
+include($$PWD/src/log/log.pri)
 
 QT += core network quick
 
@@ -30,6 +31,7 @@ HEADERS += \
     $$PWD/src/util/fileutil.h \
     $$PWD/src/util/log.h \
     $$PWD/src/util/validator.h \
+    $$PWD/src/util/util.h \
     $$PWD/src/nativesdk_global.h \
     $$PWD/src/helper.h \
     $$PWD/src/helper_p.h \
@@ -53,6 +55,7 @@ SOURCES += \
     $$PWD/src/util/fileutil.cpp \
     $$PWD/src/util/log.cpp \
     $$PWD/src/util/validator.cpp \
+    $$PWD/src/util/util.cpp \
     $$PWD/src/helper.cpp \
     $$PWD/src/senvironment.cpp \ 
     $$PWD/src/qmlobject.cpp \
@@ -82,3 +85,6 @@ INSTALLS += target
 LIB_OUT_DIR = $$clean_path($$PWD/../lib)
 LIBS += -L$$LIB_OUT_DIR -lpluginmanager
 
+CONFIG(release, debug|release){
+    QMAKE_POST_LINK=$(STRIP) $(DESTDIR)$(TARGET)
+}

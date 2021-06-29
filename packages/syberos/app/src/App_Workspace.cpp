@@ -60,6 +60,7 @@ App_Workspace::App_Workspace()
 
     QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
 
+    m_view->rootContext()->setContextProperty("projectConfig", projectConfig);
     Helper *helper = Helper::instance();
     m_view->rootContext()->setContextProperty("helper", helper);
 
@@ -70,14 +71,15 @@ App_Workspace::App_Workspace()
     m_view->rootContext()->setContextProperty("fileutil",fileutil);
 
 
-    // QT版本大于5.6，选择进入特定的qml页面, qml适配， 266是9860手机的dpi值
-    #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    CEnvironment::initAppDpi(266);
-    m_view->setSource(QUrl("qrc:/qml/main59.qml"));
+    // 根据QT版本调用对应系统版本的main.qml
+    #if (QT_VERSION < QT_VERSION_CHECK(5, 6, 0))
+        SEnvironment *env = new SEnvironment;
+        m_view->rootContext()->setContextProperty("env", env);
+        m_view->setSource(QUrl("qrc:/qml/os2/main.qml"));
+    #elif (QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
+        m_view->setSource(QUrl("qrc:/qml/os4/main.qml"));
     #else
-    SEnvironment *env = new SEnvironment;
-    m_view->rootContext()->setContextProperty("env", env);
-    m_view->setSource(QUrl("qrc:/qml/main.qml"));
+        m_view->setSource(QUrl("qrc:/qml/os5/main.qml"));
     #endif
 
     m_view->showFullScreen();

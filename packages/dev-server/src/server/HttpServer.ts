@@ -39,6 +39,9 @@ export default class HttpServer {
 
     app.get('/download', function (req, res) {
       let filePath = req.query.path
+      if(typeof filePath !== 'string' ){
+        return
+      }
       filePath = path.join(path.resolve('.'), filePath)
       
       if (fs.existsSync(filePath)) {

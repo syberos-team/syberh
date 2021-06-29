@@ -8,6 +8,6 @@ set timeout 1000
 spawn scp -P $port $sopPath developer@$ip:/tmp
 expect {
   "(yes/no)?" {send "yes\r"; exp_continue}
-  "assword:" {send "system\r"}
+  "?assword:" {send "system\r"}
 }
 expect eof

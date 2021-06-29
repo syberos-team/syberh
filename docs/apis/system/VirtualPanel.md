@@ -38,7 +38,7 @@ title: VirtualPanel
 syberh.system.setVirtualPanel({
 	success:function(result){
         console.log('visible: ', result.visible);
-    }
+    },
     fail:function(error){
         console.log('fail: ', error.code, error.msg);
     }

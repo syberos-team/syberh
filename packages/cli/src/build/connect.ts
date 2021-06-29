@@ -13,7 +13,7 @@ set timeout 1000
 spawn ssh -o ConnectTimeout=2 -p ${port} developer@${ip} "pwd"
 expect {
   "(yes/no)?" {send "yes\r"; exp_continue}
-  "assword:" {send "system\r"}
+  "?assword:" {send "system\r"}
 }
 expect eof
 EOF`

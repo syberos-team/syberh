@@ -15,7 +15,7 @@ title: setBrightness
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| brightness | string   | 是       | 设置屏幕亮度，单位秒，范围0-100。                                    |
+| brightness | number   | 是       | 设置屏幕亮度，范围0-100。                                    |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
 
@@ -37,7 +37,7 @@ title: setBrightness
 ### 代码示例
 ```js
 syberh.brightness.setDimTimeout({
-    brightness="100",
+    brightness: 100,
 	success:function(result){
         console.log('result: ', result.result);
     },

@@ -12,30 +12,16 @@ program
   .option('--example', '创建示例项目')
   .parse(process.argv)
 
-const args = program.args
-const { template = 'default', description, name, css = 'none', example = false } = program.opts()
-let typescript
+const { name, description = '', example = false } = program.opts()
 
-/**
- * 非标准做法
- * 为了兼容不指定typescript参数时，在inquirer中询问是否使用typescript的情况
- */
-if (program.rawArgs.indexOf('--typescript') !== -1) {
-  typescript = true
-} else if (program.rawArgs.indexOf('--no-typescript') !== -1) {
-  typescript = false
-}
-
-const projectName = args[0] || name
+const projectName = program.args[0] || name
 
 const project = new Project({
   projectName,
-  projectDir: process.cwd(),
-  template,
   description,
-  typescript,
-  css,
-  example
+  projectDir: process.cwd(),
+  example,
+  template: 'default'
 })
 
 project.create()

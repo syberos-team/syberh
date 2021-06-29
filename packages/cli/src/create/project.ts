@@ -1,63 +1,34 @@
-import * as path from 'path'
 import * as fs from 'fs-extra'
 import chalk from 'chalk'
 import * as _ from 'lodash'
 import * as inquirer from 'inquirer'
 import * as semver from 'semver'
 import Creator from './creator'
-import { shouldUseYarn, shouldUseCnpm, getPkgVersion } from '../util'
-import CONFIG from '../config'
 import log from '../util/log'
-import { qtversions } from '../syberos/configfile'
-import { IProjectConfig } from '../util/types'
+import { findTargets } from '../syberos/helper'
+import { DEFAULT_PROJECT_CONFIG } from '../util/types'
+import { ICreateProjectOption, IProjectTemplate } from './types'
+import { createApp } from './template'
 
 
-interface ICreateProjectConf extends IProjectConfig{
-  projectDir: string
-  template: 'default' | 'mobx' | 'redux'
-  typescript?: boolean
-  css: 'none' | 'sass' | 'stylus' | 'less'
-  date?: string
-  src?: string
-  // 是否创建demo项目
-  example?: boolean
-  targetName: string
-}
 
 export default class Project extends Creator {
-  public rootPath: string
-  public conf: ICreateProjectConf
+  private option: ICreateProjectOption
+  private projectConfig: IProjectTemplate
 
-  constructor(options: ICreateProjectConf) {
+  constructor(option: ICreateProjectOption) {
     super()
     const unSupportedVer = semver.lt(process.version, 'v7.6.0')
     if (unSupportedVer) {
       throw new Error('Node.js 版本过低，推荐升级 Node.js 至 v8.0.0+')
     }
-    this.rootPath = this._rootPath
+    this.option = option
+    this.projectConfig = {
+      ...DEFAULT_PROJECT_CONFIG
+    }
+    this.projectConfig.projectName = option.projectName || ''
 
-    this.conf = Object.assign(
-      {
-        typescript: false,
-        projectName: '',
-        projectDir: '',
-        template: 'default',
-        sopid: '',
-        storeBaseUrl: CONFIG.STORE_BASE_URL,
-        appName: '',
-        webPath: CONFIG.SOURCE_DIR,
-        example: false,
-        targetName: '',
-        deployIP: CONFIG.DEPLOY_IP,
-        deployPort: CONFIG.DEPLOY_PORT,
-        devServerIP: CONFIG.DEV_SERVER_IP,
-        devServerPort: CONFIG.DEV_SERVER_PORT,
-        debuggingPort: CONFIG.DEBUGGING_PORT
-      },
-      options
-    )
-
-    log.verbose('Project constructor() conf:', this.conf)
+    log.verbose('Project constructor() conf:', this.projectConfig)
   }
 
   init() {
@@ -70,19 +41,13 @@ export default class Project extends Creator {
 
   create() {
     this.ask().then((answers:any) => {
-      const date = new Date()
       // 对象
       const newAnswer = {}
       for (const obj in answers) {
         const value = _.trim(answers[obj])
         newAnswer[obj] = value
       }
-      this.conf = Object.assign(this.conf, newAnswer)
-      this.conf.date = `${date.getFullYear()}-${date.getMonth() +
-        1}-${date.getDate()}`
-      // 设置默认值
-      this.conf.target = 'target-' + this.conf.targetName
-      this.conf.targetSimulator = 'target-' + this.conf.targetName
+      this.projectConfig = Object.assign(this.projectConfig, newAnswer)
 
       this.write()
     })
@@ -90,41 +55,28 @@ export default class Project extends Creator {
 
   async ask() {
     const prompts: object[] = []
-    const conf = this.conf
 
-    const targetFullNames = await qtversions.getTargetNames()
-    if (!targetFullNames || targetFullNames.length === 0) {
-      console.log(chalk.red('未安装target，请先安装target'))
+    const targetNames = await findTargets()
+    log.verbose('targetNames: %j', targetNames)
+    if(!targetNames || targetNames.length === 0){
+      console.log(chalk.yellow('未检测到已安装的target，请先安装target'))
       process.exit(1)
     }
-    const targetNames: string[] = []
-    for (const targetName of targetFullNames) {
-      let name = targetName;
-      if(targetName.startsWith('target-')){
-        name = targetName.substring(7);
-      }
-      if (!targetNames.includes(name)) {
-        targetNames.push(name)
-      }
-    }
 
-    log.verbose('targetNames: %j', targetNames)
-
-    if (conf.example) {
+    if (this.option.example) {
       console.log(chalk.green(`正在创建示例项目!`))
-      this.conf = Object.assign(this.conf, {
+      this.projectConfig = Object.assign(this.projectConfig, {
         projectName: 'example',
         appName: 'example',
         sopid: 'com.syberos.example'
       })
     }
 
-    // tslint:disable-next-line: strict-type-predicates
-    if (typeof conf.projectName !== 'string') {
+    if (!this.projectConfig.projectName) {
       prompts.push({
         type: 'input',
         name: 'projectName',
-        message: '请输入项目名称:',
+        message: '请输入项目名称(应用id):',
         validate(input) {
           if (!input) {
             return '项目名不能为空！'
@@ -135,7 +87,7 @@ export default class Project extends Creator {
           return true
         }
       })
-    } else if (fs.existsSync(conf.projectName)) {
+    } else if (fs.existsSync(this.projectConfig.projectName)) {
       prompts.push({
         type: 'input',
         name: 'projectName',
@@ -152,7 +104,7 @@ export default class Project extends Creator {
       })
     }
 
-    if (!conf.appName) {
+    if (!this.projectConfig.appName) {
       prompts.push({
         type: 'input',
         name: 'appName',
@@ -166,7 +118,7 @@ export default class Project extends Creator {
       })
     }
 
-    if (!conf.sopid) {
+    if (!this.projectConfig.sopid) {
       prompts.push({
         type: 'input',
         name: 'sopid',
@@ -184,10 +136,10 @@ export default class Project extends Creator {
         }
       })
     }
-    if (!conf.targetName) {
+    if (!this.projectConfig.target) {
       prompts.push({
         type: 'list',
-        name: 'targetName',
+        name: 'target',
         message: '请选择target：',
         choices: targetNames
       })
@@ -195,23 +147,13 @@ export default class Project extends Creator {
     return inquirer.prompt(prompts)
   }
 
-  write(cb?: () => void) {
-    const { template } = this.conf
-    this.conf.src = CONFIG.SOURCE_DIR
-    const { createApp } = require(path.join(
-      this.templatePath(),
-      template,
-      'index.js'
-    ))
+  write(cb?: Function) {
     createApp(
       this,
-      this.conf,
-      {
-        shouldUseYarn,
-        shouldUseCnpm,
-        getPkgVersion
-      },
+      this.option,
+      this.projectConfig,
       cb
     )
   }
+
 }

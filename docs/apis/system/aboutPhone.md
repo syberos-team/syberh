@@ -77,7 +77,7 @@ syberh.system.aboutPhone({
         console.log('pixelRatio: ', result.pixelRatio);
         console.log('language: ', result.language);
         console.log('region: ', result.region);
-    }
+    },
     fail:function(error){
         console.log('fail: ', error.code, error.msg);
     }

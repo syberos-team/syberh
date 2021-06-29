@@ -66,7 +66,7 @@ public slots:
     void onProgress();
     void data();
     //下载完成信号
-    void onReplyFinished(QString downloadId, QString path, int statusCode, QString errorMessage);
+    void onReplyFinished(const QString &downloadId, const QString &path, int statusCode, const QString &errorMessage);
 
 
 private:

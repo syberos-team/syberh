@@ -1,8 +1,8 @@
 ---
-title: 全局配置
+title: setAppOrientation
 ---
 
-## syberh.app.setAppOrientation(Object object)
+## syberh.application.setAppOrientation(Object object)
 
 设置当前应用的屏幕旋转，[相关订阅事件](/docs/global-event.html#onresize)
 
@@ -33,7 +33,7 @@ title: 全局配置
 
 ### 代码示例
 ``` javascript
-syberh.app.setAppOrientation({
+syberh.application.setAppOrientation({
     orientation: 2,
     success: function (result) {
         console.log('应用旋转成功', JSON.stringify(result))

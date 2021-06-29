@@ -1,0 +1,4 @@
+/home/xuejun/SyberOS-SDK/script/install_syberos_crosscompile_env.sh /home/xuejun/test /home/xuejun/SyberOS-SDK/script/SyberOS_5.0_devel_2020-11-13.tar.xz /home/xuejun/SyberOS-SDK
+
+
+sed -i 's#INSTALL_CROSSCOMPILE_PATH#'$compiler_path'#g' ${syberos_sdk_path%/}/ide/bin/qtcSyberIDE

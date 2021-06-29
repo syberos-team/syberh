@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+
+    <title>Custom UI</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <table align="center" style="margin-top:120px">
+        <tr>
+            <td>
+                <div class="div"><a href="#openMenu" class="link">Right click on text to see link context menu</a></div>
+            </td>
+            <td>
+                <div class="div">
+                    <p title="I am a tooltip.">Hover this text to display a tooltip</a>
+                </div>
+            </td>
+            <td>
+                <input type="text" value="Test cut menu" class="div">
+            </td>
+        </tr>
+        <tr>
+            <td><button class="button" onclick="window.location = 'http://localhost.:5555/OPEN_AUTH'">
+                    Open Authentication Dialog</button></td>
+            <td><button class="button" onclick="window.location = 'http://localhost.:5555/OPEN_PROXY'">
+                    Open Proxy Dialog</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button class="button" onclick="alert('This is the Alert Dialog !')">
+                    Open Alert Dialog</button></td>
+            <td><button class="button" onclick="doConfirm()" id="btn-confirm">
+                    Open Confirm Dialog</button></td>
+            <td><button class="button" onclick="doPrompt()" id="btn-prompt">
+                    Open Prompt Dialog</button></td>
+        </tr>
+        <tr>
+            <td><button class="button" onclick="document.getElementById('colorpicker').click()">
+                    Open Color Dialog</button>
+            </td>
+            <td><button class="button" onclick="selectFile()">Open File Dialog</button>
+            </td>
+            <td>
+                <button class="button" onclick="selectImage()">Select Image</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="date" class="div" />
+            </td>
+            <td>
+                <select>
+                    <option>select1</option>
+                    <option>select2</option>
+                    <option>select3</option>
+                    <option>select4</option>
+                    <option>select5</option>
+                    <option>select6</option>
+                    <option>select7</option>
+                    <option>select8</option>
+                    <option>select9</option>
+                    <option>select10</option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="div">
+                    <img src="https://syberh.syberos.com/img/syberos.png">
+                </div>
+            </td>
+            <td>
+                <div class="div">
+                    <a href="https://dldir1.qq.com/weixin/android/weixin7014android1660_arm64.apk" class="link">Download
+                        WeiXin</a>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" value="https://www.baidu.com" placeholder="URL" id="input-url" class="div">
+            </td>
+            <td>
+                <button class="button" onclick="doGo()">Go URL</button>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <video class="div"></video>
+            </td>
+            <td>
+                <button class="button" onclick="openCameraByJs()">Open Camera By JS</button>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <button class="button" onclick="openWebGL()">Open WebGL</button>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" name="my" value="1">
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <input type="color" id="colorpicker" value="#ff0000" style="visibility:hidden" />
+    <input type="file" id="filepicker" accept=".cpp, .html, .h, .png, .qdoc, .qml" style="visibility:hidden" />
+    <input type="file" id="imagePicker" accept="image/*" style="visibility:hidden" />
+    <script type="text/javascript">
+        console.info("test info");
+        console.error("test error");
+        console.warn("test warn");
+        function randomColor() {
+            const rand = '1234567890abcdef';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                const index = Math.floor(Math.random() * rand.length);
+                color += rand[index];
+            }
+            return color;
+        }
+
+        function doConfirm() {
+            const rs = confirm('This is the Confirm Dialog.');
+            if (rs) {
+                const btn = document.querySelector("#btn-confirm");
+                btn.style.background = randomColor();
+            }
+        }
+
+        function doPrompt() {
+            const rs = prompt('Is this the Prompt Dialog ?', 'Yes');
+            if (rs) {
+                const btn = document.querySelector('#btn-prompt');
+                if (btn.innerHTML.indexOf(' - ') > 0) {
+                    btn.innerHTML = btn.innerHTML.substring(0, btn.innerHTML.indexOf(' - ')) + ' - ' + rs;
+                } else {
+                    btn.innerHTML = btn.innerHTML + ' - ' + rs;
+                }
+            }
+        }
+
+        function doGo(e) {
+            const inputUrlDom = document.querySelector("#input-url");
+            location.href = inputUrlDom.value;
+        }
+
+        function openCameraByJs() {
+            navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: {
+                    width: 1280,
+                    height: 720
+                }
+            }).then(function (mediaStream) {
+                const videoDom = document.querySelector('video');
+                videoDom.srcObject = mediaStream;
+                videoDom.onloadedmetadata = function (e) {
+                    videoDom.play();
+                }
+            }).catch(function (err) {
+                alert(err.name + ': ' + err.message);
+            })
+        }
+
+        function selectImage() {
+            document.querySelector("#imagePicker").click();
+        }
+
+        function openWebGL() {
+            location.href = "webgl.html"
+        }
+
+        function selectFile() {
+            document.getElementById('filepicker').click();
+        }
+    </script>
+</body>
+
+</html>

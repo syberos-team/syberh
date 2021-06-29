@@ -25,8 +25,11 @@
     "关于API": [
       "apis/about/desc"
     ],
-    "全局配置": [
-      "apis/app/setAppOrientation"
+    "应用管理": [
+      "apis/app/setAppOrientation",
+      "apis/app/quit",
+      "apis/packages/openUrl",
+      "apis/packages/openDocument"
     ],
     "路由": [
       "apis/router/router"
@@ -103,20 +106,14 @@
           "apis/system/battery",
           "apis/system/networkInfo",
           "apis/system/date",
-          "apis/system/VirtualPanel"
+          "apis/system/VirtualPanel",
+          "apis/system/captureScreen"
         ]
       }
     ],
     "数据网络": [
       "apis/cellular/networkDisabled",
       "apis/cellular/networkEnabled"
-    ],
-    "数据存储": [
-      "apis/storage/setItem",
-      "apis/storage/getItem",
-      "apis/storage/removeItem",
-      "apis/storage/getAllKeys",
-      "apis/storage/removeAll"
     ],
     "网络": [
       {
@@ -172,10 +169,6 @@
         ]
       }
     ],
-    "应用管理": [
-      "apis/package/openUrl",
-      "apis/package/openDocument"
-    ],
     "path": [
       "apis/path/extern",
       "apis/path/inner",
@@ -206,11 +199,10 @@
       "apis/notification/removeNotification"
     ],
     "数据库操作": [
-      "apis/database/createTable",
       "apis/database/query",
-      "apis/database/execute",
-      "apis/database/isDatabaseExists",
-      "apis/database/isTableExists"
+      "apis/database/exec",
+      "apis/database/databaseExists",
+      "apis/database/tableExists"
     ],
     "应用更新": [
       "apis/update/check",

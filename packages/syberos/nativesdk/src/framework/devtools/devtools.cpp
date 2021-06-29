@@ -1,6 +1,7 @@
 #include "devtools.h"
 #include <QMutexLocker>
 #include "../../util/fileutil.h"
+#include "../common/projectconfig.h"
 
 using namespace NativeSdk;
 
@@ -8,14 +9,14 @@ int DevTools::typeId = qRegisterMetaType<DevTools*>();
 DevTools *DevTools::pDevTools=NULL;
 DevTools::DevTools()
 {
-    qDebug()<<Q_FUNC_INFO <<endl;
-    projectConfig= ProjectConfig::instance();
-    bool debug = projectConfig->isDebug();
-    qDebug()<<Q_FUNC_INFO<<"debug模式"<< debug << endl;
+    qDebug() << Q_FUNC_INFO << endl;
+    
+    bool useHot = ProjectConfig::instance()->isUseHot();
+    qDebug()<< Q_FUNC_INFO << "use hot:" << useHot << endl;
 
-    if(debug){
+    if(useHot){
         if(socketClient==NULL){
-             qDebug()<<Q_FUNC_INFO<<"debug模式";
+             qDebug() << Q_FUNC_INFO << "hot模式";
             //拷贝www到data目录下
             this->copyWWW();
             socketClient=new SocketClient(serverIp(),serverPort());
@@ -23,10 +24,10 @@ DevTools::DevTools()
             connect(socketClient,&SocketClient::update,this,&DevTools::reload);
         }
     }
-    qDebug()<<Q_FUNC_INFO<< "------DevTools" <<endl;
+    qDebug() << Q_FUNC_INFO << "------DevTools" << endl;
 }
 
-void DevTools::request(QString callBackID, QString actionName, QVariantMap params){
+void DevTools::request(const QString &callBackID, const QString &actionName, const QVariantMap &params){
     Q_UNUSED(callBackID);
     Q_UNUSED(actionName);
     Q_UNUSED(params);
@@ -53,7 +54,7 @@ DevTools::~DevTools(){
 }
 
 QString DevTools::serverIp(){
-    QString serverIp=projectConfig->getDevServerIP();
+    QString serverIp=ProjectConfig::instance()->getDevServerIP();
     if(serverIp.isEmpty()){
 
         qDebug()<<Q_FUNC_INFO<<"serverIP不存在,设置默认值"<<serverIp <<endl;
@@ -68,7 +69,7 @@ QString DevTools::serverIp(){
 int DevTools::serverPort(){
 
     int port=4399;
-    QString sport=projectConfig->getDevServerPort();
+    QString sport=ProjectConfig::instance()->getDevServerPort();
     if(!sport.isEmpty()){
         port=sport.toInt();
     }

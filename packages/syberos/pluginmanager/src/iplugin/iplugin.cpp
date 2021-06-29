@@ -10,8 +10,8 @@ using namespace ExtensionSystem;
 
 // ========== IPlugin ^ ==========
 
-IPlugin::IPlugin()
-    : d(new Internal::IPluginPrivate())
+IPlugin::IPlugin(QObject *parent) : QObject(parent)
+    , d(new Internal::IPluginPrivate())
 {
     d->signalManager = new SignalManager();
 }
@@ -59,7 +59,7 @@ void IPlugin::invokeInitialize()
 {
 }
 
-void IPlugin::invoke(QString callbackID, QString action, QVariantMap params)
+void IPlugin::invoke(const QString &callbackID, const QString &action, const QVariantMap &params)
 {
     Q_UNUSED(callbackID);
     Q_UNUSED(action);

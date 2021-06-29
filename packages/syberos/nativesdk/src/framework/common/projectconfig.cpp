@@ -65,6 +65,11 @@ bool ProjectConfig::isDebug()
     return d->getBool("debug");
 }
 
+bool ProjectConfig::isUseHot()
+{
+    return d->getBool("hot");
+}
+
 QString ProjectConfig::getProjectName()
 {
     return d->getString("projectName");
@@ -129,6 +134,21 @@ QString ProjectConfig::getDebuggingPort()
 {
     return d->getString("debuggingPort");
 }
+
+bool ProjectConfig::statusBarShow()
+{
+    return d->getBool("statusBar","show");
+}
+
+QString ProjectConfig::statusBarStyle()
+{
+     QString style=d->getString("statusBar","style");
+     if(style.isEmpty()){
+         style="black";
+     }
+     return style;
+}
+
 
 
 // ---- ProjectConfigPrivate ----

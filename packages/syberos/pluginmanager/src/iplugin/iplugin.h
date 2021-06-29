@@ -27,8 +27,8 @@ public:
             AsynchronousShutdown
         };
 
-    IPlugin();
-    ~IPlugin() override;
+    IPlugin(QObject *parent = nullptr);
+    virtual ~IPlugin();
 
     virtual bool initialize(const QStringList &arguments, QString *errorString);
     virtual void extensionsInitialized();
@@ -46,7 +46,7 @@ public:
     // 调用invoke前的初始化工作，该方法只会被调用一次
     virtual void invokeInitialize();
     //插件接受JS SDK调用方法,需要实现该方法，处理插件逻辑
-    virtual void invoke(QString callbackID, QString action, QVariantMap params);
+    virtual void invoke(const QString &callbackID, const QString &action, const QVariantMap &params);
     //信号管理类，通过该类来绑定插件中的信号
     SignalManager* signalManager();
 signals:
@@ -66,10 +66,10 @@ public:
     ~SignalManager();
 
 signals:
-    void success(long callbackID, QVariant result);
-    void failed(long callbackID, long errorCode,QString errorMsg);
+    void success(long callbackID, const QVariant &result);
+    void failed(long callbackID, long errorCode, const QString &errorMsg);
     void progress(long callbackID, const int totalLength, const int progress, const int status);
-    void subscribe(QString handleName, QVariant result);
+    void subscribe(const QString &handleName, const QVariant &result);
 
 };
 

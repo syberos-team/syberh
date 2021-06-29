@@ -4,11 +4,8 @@ title: setDimTimeout
 
 ## syberh.brightness.setDimTimeout(Object object)
 
-设置无操作时屏幕进入暗屏状态的时长。
+设置息屏时长。
 
-### 如何生效(两个条件都满足才会生效)
-- 条件一： 需要比系统设置，休眠时间长
-- 条件二： 需要比自定义的时间大（每次把最大值写入配置文件，且不会删除）
 
 ### 权限
 
@@ -19,7 +16,7 @@ title: setDimTimeout
 
 | 属性    | 类型     | 必填 | 描述                                                         |
 | ------- | -------- | -------- | ------------------------------------------------------------ |
-| timeout | string   | 是       | 设置要暗屏时长，单位秒。                                    |
+| timeout | number   | 是       | 设置要暗屏时长，单位秒，仅支持 15/30/60/300/600    |
 | success | function | 否       | 成功回调                                       |
 | fail    | function | 否       | 失败回调                                       |
 
@@ -39,7 +36,7 @@ title: setDimTimeout
 ### 代码示例
 ```js
 syberh.brightness.setDimTimeout({
-    timeout="100",
+    timeout: 30,
 	success:function(result){
         console.log('result: ', result.result);
     },

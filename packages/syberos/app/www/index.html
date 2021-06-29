@@ -171,9 +171,18 @@
       <li class="mui-table-view-cell">
         <a class="mui-navigate-right api-class" id="./pages/app.html">全局配置</a>
       </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/iframe/index.html">iframe</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a class="mui-navigate-right api-class" id="./pages/webengine/index.html">webengine</a>
+      </li>
       <li class="mui-table-view-cell mui-collapse">
         <a class="mui-navigate-right" href="#">webgl</a>
         <ul class="mui-collapse-content">
+          <li class="mui-table-view-cell secondMenu">
+            <a class="mui-navigate-right api-class" id="./pages/webengine/webgl.html">local.webgl</a>
+          </li>
           <li class="mui-table-view-cell secondMenu">
             <a class="mui-navigate-right api-class" id="https://get.webgl.org/">get.webgl</a>
           </li>
@@ -204,6 +213,9 @@
       <li class="mui-table-view-cell">
         <a id="syberhVersion" class="mui-navigate-right" href="javascript:;">当前syberh版本: </a>
       </li>
+      <li class="mui-table-view-cell">
+        <button onclick="syberh.application.quit()">退出应用</button>
+      </li>
     </ul>
 
 
@@ -216,8 +228,8 @@
   <script>
     var vConsole = new VConsole()
 
-    console.log("当前os版本:", syberh.os.version)
-    console.log("当前syberh版本:", syberh.version)
+    console.log("当前os版本:" + syberh.os.version)
+    console.log("当前syberh版本:" + syberh.version)
     document.getElementById('osVersion').innerText = '当前os版本: ' + syberh.os.version
     document.getElementById('syberhVersion').innerText = '当前syberh版本: ' + syberh.version
 
@@ -261,6 +273,10 @@
     
     syberh.subscribe('onResize', function (result) {
       console.log("onResize收到应用旋转消息: ", JSON.stringify(result), new Date().getTime());
+    });
+
+    syberh.subscribe('onKeyEvent', function (result) {
+      console.log("onKeyEvent: ", JSON.stringify(result));
     });
   </script>
 </body>

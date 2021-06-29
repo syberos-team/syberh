@@ -23,57 +23,73 @@ public:
     /**
      * 获取日志级别
      */
-    QString getLogLevel();
+    Q_INVOKABLE QString getLogLevel();
     /**
      * 是否开启debug
      */
-    bool isDebug();
+    Q_INVOKABLE bool isDebug();
+    /**
+     * 是否开启热更新
+     */
+    Q_INVOKABLE bool isUseHot();
+    /**
+     * 获取项目名，即appid
+     */
+    Q_INVOKABLE QString getProjectName();
 
-    QString getProjectName();
+    Q_INVOKABLE QString getAppName();
 
-    QString getAppName();
+    Q_INVOKABLE QString getSopid();
 
-    QString getSopid();
+    Q_INVOKABLE QString getTarget();
 
-    QString getTarget();
-
-    QString getTargetSimulator();
+    Q_INVOKABLE QString getTargetSimulator();
     /**
      * 获取web目录位置
-     */
-    QString getWebPath();
+    */
+    Q_INVOKABLE QString getWebPath();
     /**
      * 获取首页
      */
-    QString getHomePage();
+    Q_INVOKABLE QString getHomePage();
     /**
      * 获取应用仓库url
      */
-    QString getStoreBaseUrl();
+    Q_INVOKABLE QString getStoreBaseUrl();
     /**
      * 手机ssh IP
      */
-    QString getDeployIP();
+    Q_INVOKABLE QString getDeployIP();
     /**
      * 手机ssh端口
      */
-    QString getDeployPort();
+    Q_INVOKABLE QString getDeployPort();
     /**
      * 获取开发服务IP
      */
-    QString getDevServerIP();
+    Q_INVOKABLE QString getDevServerIP();
     /**
      * 获取开发服务端口
      */
-    QString getDevServerPort();
+    Q_INVOKABLE QString getDevServerPort();
     /**
      * QtWebengine remote debugging 端口
      */
-    QString getDebuggingPort();
+    Q_INVOKABLE QString getDebuggingPort();
+
+    /**
+     * StatusBar 状态
+     */
+    Q_INVOKABLE bool statusBarShow();
+
+     /**
+     * StatusBar Style
+     */
+    Q_INVOKABLE QString statusBarStyle();
 
 private:
     explicit ProjectConfig(QObject *parent = nullptr);
-    rojectConfig(const ProjectConfig &) Q_DECL_EQ_DELETE;
+    ProjectConfig(const ProjectConfig &) Q_DECL_EQ_DELETE;
     ProjectConfig &operator=(ProjectConfig config) Q_DECL_EQ_DELETE;
 
     void load();

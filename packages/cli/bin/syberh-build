@@ -4,7 +4,6 @@ const fs = require('fs-extra')
 const program = require('commander')
 const chalk = require('chalk')
 const build = require('../dist/build/index').default
-const { targetReset } = require('../dist/build/target')
 const { PROJECT_CONFIG } = require('../dist/util/constants')
 const { log } = require('../dist/util/log')
 const appPath = process.cwd()
@@ -13,27 +12,21 @@ const projectConfPath = path.join(appPath, PROJECT_CONFIG)
 program.storeOptionsAsProperties(false)
 
 program
-  .option('--type [typeName]', '运行编译类型,device:真机 simulator:模拟器')
+  .option('--type <typeName>', '运行编译类型,device:真机 simulator:模拟器')
   .option('--release', '构建release版本')
-  .option('--target [targetName]', '重置target,device:真机 simulator:模拟器')
-  .option('--env [env]', 'Env type')
-  .option('--onlybuild', '构建完成后不安装sop')
-  .option('--nodoctor', '构建时不执行环境检查')
+  .option('--debug', '构建debug版本')
+  .option('--only-build', '构建完成后不安装sop')
+  .option('--no-doctor', '构建时不执行环境检查')
   .option('--s1', '构建S1手机可用的应用')
+  .option('--hot', '开启热更新')
+  .option('--no-plugin', '不编译任何插件')
+  .option('--plugin <pluginName...>', '指定需要编译的插件')
   .parse(process.argv)
 
 const buildOpts = program.opts()
+log.verbose('build:', buildOpts)
 
-const { type, release, nodoctor, onlybuild, s1 } = buildOpts
-let { env } = buildOpts
-log.verbose('release:', release)
-log.verbose('env:', env)
-log.verbose('type:', type)
-
-env = process.env.NODE_ENV || env
-
-// 是否只打包
-const onlyBuild = !!onlybuild
+const { type, release, doctor, onlyBuild, s1, hot, plugin } = buildOpts
 
 if (!fs.existsSync(projectConfPath)) {
   console.log(
@@ -44,25 +37,18 @@ if (!fs.existsSync(projectConfPath)) {
   process.exit(1)
 }
 
-// 检查是否需要重置target
-targetReset(appPath, buildOpts).then(() => {
-  if (env) {
-    process.env.NODE_ENV = env
-  } else {
-    if (release) {
-      process.env.NODE_ENV = 'production'
-    } else {
-      process.env.NODE_ENV = 'development'
-    }
-  }
+if (release) {
+  process.env.NODE_ENV = 'production'
+} else {
+  process.env.NODE_ENV = 'development'
+}
 
-  process.env.SYBEROS_ENV = type
-
-  build(appPath, {
-    type,
-    release,
-    nodoctor,
-    onlyBuild,
-    s1
-  })
+build(appPath, {
+  type,
+  release,
+  doctor,
+  onlyBuild,
+  s1,
+  hot,
+  plugin
 })

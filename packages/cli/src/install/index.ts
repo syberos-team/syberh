@@ -122,6 +122,48 @@ function targetAsk(): object[] {
   return prompts
 }
 
+function cceAsk(): object[] {
+  const prompts: object[] = []
+  prompts.push({
+    type: 'input',
+    name: 'installCCEPath',
+    message: 'cce安装路径：',
+    default: () => {
+      return os.homedir()
+    },
+    validate: val => {
+      if (!val) {
+        return '请输入安装的路径';
+      }
+      return true;
+    },
+    when: answers => {
+      return answers.installType === 'cce'
+    }
+  })
+  prompts.push({
+    type: 'input',
+    name: 'ccePath',
+    message: 'cce安装包的路径：',
+    default: helper.sdkPackagePath(),
+    validate: val => {
+      if (!val) {
+        return '请输入cce安装包的路径';
+      }
+      if (!fs.existsSync(val)) {
+        return 'cce安装包的路径无效，未找到安装包'
+      }
+      if (!fs.lstatSync(val).isFile()) {
+        return 'cce安装包的路径无效，无效的安装包'
+      }
+      return true;
+    },
+    when: answers => {
+      return answers.installType === 'cce'
+    }
+  })
+  return prompts
+}
 
 function ask() {
   let prompts: object[] = []
@@ -131,10 +173,12 @@ function ask() {
     message: '选择安装的类型：',
     choices: [
       'sdk',
-      'target'
+      'target',
+      'cce'
     ]
   })
-  prompts = prompts.concat(sdkAsk()).concat(targetAsk())
+  prompts = prompts.concat(sdkAsk()).concat(targetAsk().concat(cceAsk()))
+
   prompts.push({
     type: 'password',
     name: 'password',
@@ -144,6 +188,9 @@ function ask() {
         return '请输入当前用户密码';
       }
       return true;
+    },
+    when: answers => {
+      return answers.installType !== 'cce'
     }
   })
   return inquirer.prompt(prompts)
@@ -151,12 +198,15 @@ function ask() {
 
 export default function install(): void {
   ask().then(answers => {
+    console.log(JSON.stringify(answers))
     const option: InstallOption = {
       password: answers['password'],
       installType: Install.installType(answers['installType']),
       sdkPath: answers['sdkPath'],
       targetPath: answers['targetPath'],
-      installPath: answers['installPath']
+      ccePath: answers['ccePath'],
+      installPath: answers['installPath'],
+      installCCEPath: answers['installCCEPath']
     }
 
     new Install(option).exec()

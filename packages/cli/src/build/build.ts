@@ -4,7 +4,6 @@ import * as shelljs from 'shelljs'
 import chalk from 'chalk'
 import { DEVICES_TYPES } from '../util/constants'
 import * as helper from '../syberos/helper'
-import config from '../config/index'
 import { log } from '../util/log'
 import * as sop from './sop'
 import * as connect from './connect'
@@ -37,6 +36,8 @@ export class Build {
   private buildDir: string
   // 是否安装至模拟器
   private useSimulator: boolean = false
+  // 是否检测到设备连接
+  private isDeviceConnected: boolean = false
 
   constructor(appPath: string, projectConf : IProjectConfig, config: BuildConfig) {
     this.appPath = appPath
@@ -61,21 +62,21 @@ export class Build {
     this.pdkRootPath = await helper.locateSdk()
     log.verbose('pdkRootPath:', this.pdkRootPath)
 
-    // 当不设置仅编译参数时，检查设备连接
-    if (!this.buildConfig.onlyBuild) {
-      this.checkConnect()
-    }
-
-    console.log(chalk.green('开始编译'))
+    console.log(chalk.green(`开始编译 ${chalk.bold(this.buildConfig.release ? 'Release' : 'Debug')}`))
     log.verbose('appPath:%s, conf:%j', this.appPath, this.buildConfig)
 
     // 执行编译
     const sopPath = await this.buildSop(buildSuccessCallback)
 
+    console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
     // 设置仅编译参数时，不安装sop
     if (this.buildConfig.onlyBuild) {
-      console.log(chalk.blue('打包完成，SOP包的位置是=>'), sopPath)
       return;
+    }
+
+    // 当不设置仅编译参数时，检查设备连接
+    if (!this.buildConfig.onlyBuild) {
+      this.checkConnect()
     }
     // 安装sop
     await this.installSop(sopPath)
@@ -93,10 +94,11 @@ export class Build {
     }
     const checker = new connect.ConnectChecker(this.pdkRootPath, this.projectConfig.target)
     if (checker.isCdbEnabled() || checker.isSshEnabled(this.projectConfig.deployIP, this.projectConfig.deployPort)) {
+      this.isDeviceConnected = true
       return
     }
-    console.log(chalk.red('未检测到设备'))
-    process.exit(0)
+    console.log(chalk.yellow('未检测到设备'))
+    this.isDeviceConnected = false
   }
 
   /**
@@ -156,7 +158,7 @@ export class Build {
     console.log(chalk.green('准备拷贝www目录'))
     log.verbose('Build copywww(%s)', this.appPath)
 
-    const wwwPath = path.join(this.appPath, this.projectConfig.webPath || config.SOURCE_DIR)
+    const wwwPath = path.join(this.appPath, this.projectConfig.webPath)
 
     // 模板目录
     const syberosPath = path.join(this.appPath, 'platforms', 'syberos', 'app', 'www')
@@ -176,14 +178,18 @@ export class Build {
    * 在platforms/syberos目录下生成project.config.json
    */
   private generateProjectConfig(){
-    const projectConfObj : ExConfig = { 
+    const projectConfObj : ExConfig = {
       debug: !this.buildConfig.release,
+      hot: this.buildConfig.hot || false,
       logLevel: this.devLog,
       ...this.projectConfig
     }
     const projectConfigPath = path.join(this.appPath, 'platforms/syberos/project.config.json');
-
-    fs.writeJSONSync(projectConfigPath, projectConfObj);
+    // 增加json文件格式化
+    fs.writeJSONSync(projectConfigPath, projectConfObj,{
+        spaces: '\t',
+        EOL: '\n'
+      });
     log.info('生成配置：', projectConfigPath)
   }
 
@@ -256,6 +262,7 @@ export class Build {
 
     const compiler = new compile.Compiler()
     const compileResult = await compiler.buildApp({
+      password: this.buildConfig.buildAsk?.password,
       // 编译项目的pro文件位置
       proPath: path.join(this.appPath, 'platforms/syberos/app.pro'),
       // 编译输出目录
@@ -281,16 +288,7 @@ export class Build {
     log.verbose('Build compilePlugins()')
 
     // 查找插件
-    const pluginsPath = path.join(this.appPath, 'platforms/syberos/syberh-plugins');
-    if (!fs.existsSync(pluginsPath)) {
-      log.warn('未找到插件源码目录：', pluginsPath);
-      return;
-    }
-    let plugins = fs.readdirSync(pluginsPath);
-    plugins = plugins.filter((f) => {
-      const stat = fs.statSync(path.join(pluginsPath, f));
-      return stat.isDirectory();
-    });
+    const plugins = this.searchPlguins();
 
     // 支持s1手机时增加额外参数
     const qmakeArgs: Array<string> = [];
@@ -300,6 +298,7 @@ export class Build {
 
     const compiler = new compile.Compiler()
     compiler.buildPlugins({
+      password: this.buildConfig.buildAsk?.password,
       // 指向应用中platform/syberos位置
       platformSyberosPath: path.join(this.appPath, 'platforms/syberos'),
       // 编译插件的名称
@@ -328,6 +327,11 @@ export class Build {
     log.verbose('Build installSop()')
     console.log(chalk.green('开始安装sop包...'))
 
+    if(!this.isDeviceConnected){
+      log.warn('未连接设备，停止安装sop包');
+      return;
+    }
+
     if (!sopPath || !fs.existsSync(sopPath)) {
       log.error('未找到sop包，停止安装sop包')
       return;
@@ -349,8 +353,10 @@ export class Build {
       cdbSop.send(sopPath)
       // 安装
       cdbSop.install(path.basename(sopPath))
-      // 启动
-      cdbSop.startApp()
+      // 启动，os5暂时不启动app
+      if(!helper.isTargetOS_5(this.projectConfig.target)){
+        cdbSop.startApp()
+      }
     } else {
       let ip = this.projectConfig.deployIP
       let port = this.projectConfig.deployPort
@@ -364,9 +370,49 @@ export class Build {
       sshSop.send(sopPath)
       // 安装
       sshSop.install(path.basename(sopPath))
-      // 启动
-      sshSop.startApp()
+      // 启动，os5暂时不启动app
+      if(!helper.isTargetOS_5(this.projectConfig.target)){
+        sshSop.startApp()
+      }
     }
+  }
+
+  /**
+   * 查找插件
+   * plugin===true：编译所有插件
+   * plugin===false：不编译任何插件
+   * plugin is [...]：编译指定的插件
+   */
+  private searchPlguins(): string[] {
+
+    // 检索syberh-plugins下的所有插件
+    const pluginsPath = path.join(this.appPath, 'platforms/syberos/syberh-plugins');
+    if (!fs.existsSync(pluginsPath)) {
+      log.warn('未找到插件源码目录：', pluginsPath);
+      return [];
+    }
+    // 插件目录
+    let plugins = fs.readdirSync(pluginsPath);
+    plugins = plugins.filter((f) => {
+      const stat = fs.statSync(path.join(pluginsPath, f));
+      return stat.isDirectory();
+    });
+
+    if(this.buildConfig.plugin === true){
+      return plugins;
+    }else if(this.buildConfig.plugin === false){
+      return [];
+    }else if(this.buildConfig.plugin instanceof Array){
+      const pluginNames: string[] = this.buildConfig.plugin;
+      if(pluginNames.length === 0){
+        return [];
+      }
+      // 筛选掉参数中与实际插件名不同的，保留有效的插件名
+      return plugins.filter((p) => {
+        return pluginNames.includes(p);
+      })
+    }
+    return plugins;
   }
 
 }

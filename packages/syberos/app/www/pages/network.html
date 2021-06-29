@@ -10,19 +10,43 @@
   <title>page</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .hide{
+      display: none;
+    }
+    .result{
+      padding-left:15px;
+      color: #888;
+      font-size: 13px;
+    }
+    .result-less{
+      min-height: 180px;
+    }
+    .result-more{
+      min-height: 380px;
+    }
+    #rsp-alert{
+      color: rgb(230, 88, 63);
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
   <div class="mui-content pt0">
     <div class="mui-card">
       <div class="mui-card-header">
-          <div class="mui-input-row">
-              <label>URL：</label>
-              <input type="text" class="mui-input-clear" placeholder="请求URL" id="inp-url">
-          </div>
+          请求
       </div>
       <div class="mui-card-content">
         <ul class="mui-table-view">
+          <li class="mui-table-view-cell mui-collapse mui-active">
+            <a class="mui-navigate-right" href="#">URL</a>
+            <div class="mui-collapse-content">
+              <input type="text" class="mui-input-clear" placeholder="请求URL" id="inp-url" value="https://www.baidu.com">
+            </div>
+          </li>
           <li class="mui-table-view-cell mui-collapse">
             <a class="mui-navigate-right" href="#">method</a>
             <div class="mui-collapse-content">
@@ -82,9 +106,50 @@
         </ul>
       </div>
       <div class="mui-card-footer">
-          <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">请求</button>
+          <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="doRequest()">请求</button>
       </div>
-      <textarea name="" id="show-rsp" cols="30" rows="10"></textarea>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-card-header">
+        响应 <span id="rsp-alert"></span>
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group hide" id="rsp-content-contaier">
+          <div class="mui-input-row">
+            <label>statusCode</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 20px;">
+            <textarea class="result" id="rsp-statusCode" readonly></textarea>
+          </div>
+          <div class="mui-input-row">
+            <label>header</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 200px;">
+            <textarea class="result result-less" id="rsp-header" readonly></textarea>
+          </div>
+          <div class="mui-input-row">
+            <label>cookie</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 200px;">
+            <textarea class="result result-less" id="rsp-cookie" readonly></textarea>
+          </div>
+          <div class="mui-input-row">
+            <label>data</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 400px;">
+            <textarea class="result result-more" id="rsp-data" readonly></textarea>
+          </div>
+        </form>
+        <form class="mui-input-group hide" id="rsp-error-contaier">
+          <div class="mui-input-row">
+            <label>Error</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 200px;">
+            <textarea class="result result-less" id="rsp-error" readonly></textarea>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -93,10 +158,45 @@
   <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
-    var vConsole = new VConsole()
-    
+    var vConsole = new VConsole();
 
-    function start() {
+    function doRequest() {
+      var inpUrl = getUrl();
+      if(!inpUrl){
+        return;
+      }
+      var method = getMethod();
+      var dataType = getDataType();
+      var headers = getHeaders();
+      var params = getParams();
+
+      syberh.network.request({
+        url: inpUrl,
+        header: headers,
+        dataType: dataType,
+        method: method,
+        data: params,
+        success: function (result) {
+          showResult(dataType, result);
+          console.log(result);
+        },
+        fail: function (err) {
+          showError(err);
+          console.log(err);
+        }
+      })
+    }
+
+    function getUrl() {
+      var url = document.getElementById("inp-url").value;
+      if(!url){
+        showTips('未设置URL');
+        return null;
+      }
+      return url;
+    }
+
+    function getMethod() {
       var obj = document.getElementsByName("method");
       var method;
       for (i = 0; i < obj.length; i++) {
@@ -105,28 +205,19 @@
           break;
         }
       }
+      return method;
+    }
 
-      var obj1 = document.getElementsByName("dataType");
+    function getDataType() {
+      var obj = document.getElementsByName("dataType");
       var dataType;
-      for (i = 0; i < obj1.length; i++) {
-        if (obj1[i].checked) {
-          dataType = obj1[i].value;
+      for (i = 0; i < obj.length; i++) {
+        if (obj[i].checked) {
+          dataType = obj[i].value;
           break;
         }
       }
-
-      var inpUrl =  document.getElementById("inp-url").value
-
-      if (method == "get") {
-        goGet(inpUrl, dataType);
-      } else if (method == "post") {
-        goPost(inpUrl, dataType);
-      } else if (method == "put") {
-        goPut(inpUrl, dataType);
-      } else if (method == "delete") {
-        goDel(inpUrl);
-      }
-
+      return dataType;
     }
 
     function getHeaders() {
@@ -141,7 +232,6 @@
     }
 
     function getParams() {
-
       var params = {};
       if (document.getElementById("datakey1").value && document.getElementById("dataval1").value) {
         params[document.getElementById("datakey1").value] = document.getElementById("dataval1").value
@@ -149,96 +239,63 @@
       if (document.getElementById("datakey2").value && document.getElementById("dataval2").value) {
         params[document.getElementById("datakey2").value] = document.getElementById("dataval2").value
       }
-      
       return params;
-
     }
 
-    function goGet(inpUrl, dataType) {
+    window.onload = function(){
+      if(syberh?.os?.syberos){
+        return;
+      }
+      document.querySelector('#rsp-alert').innerText = '< 示例 >'
 
-      syberh.network.request({
-        url: inpUrl,
-        dataType: dataType,
-        success: function (result) {
-          document.getElementById("show-rsp").value = "GET请求响应：<br/>" + JSON.stringify(result);
-          console.info(JSON.stringify(result))
-        },
-        fail: function (error) {
-          document.getElementById("show-rsp").value = JSON.stringify(error);
-          console.info(error)
-        }
+      showResult('', {
+        cookie:["redirecturl=http://www.baidu.com/; domain=10.200.58.4; path=/","-ejs-session-=x6844593cf31d921b8b3b1c70d0c3b81b; domain=10.200.58.4; path=/"],
+        header: {Location:'abc'},
+        statusCode: '200',
+        data: "\n\n\n\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n"
       })
     }
-    function goPost(inpUrl, dataType) {
 
-      var headers = getHeaders();
+    function showResult(dataType, result){
+      if(!result){
+        showTips('响应为空');
+        return;
+      }
+      document.querySelector('#rsp-statusCode').innerText = result.statusCode;
+      document.querySelector('#rsp-header').innerText = result.header ? JSON.stringify(result.header) : '{}';
+      document.querySelector('#rsp-cookie').innerText = result.cookie ? JSON.stringify(result.cookie) : '[]';
+      if(dataType === 'json'){
+        document.querySelector('#rsp-data').innerText = result.data ? JSON.stringify(result.data) : '{}';
+      }else{
+        document.querySelector('#rsp-data').innerText = result.data;
+      }
 
-      var params = getParams();
-
-      syberh.network.request({
-        url: inpUrl,
-        header: headers,
-        dataType: dataType,
-        method: 'post',
-        data: params,
-        success: function (result) {
-          if (dataType == 'json' || !dataType) {
-            document.getElementById("show-rsp").value = "POST请求响应JSON：<br/>" + JSON.stringify(result);
-          } else {
-            document.getElementById("show-rsp").value = "POST请求响应TEXT：<br/>" + result;
-          }
-
-          console.info(result)
-        },
-        fail: function (error) {
-          document.getElementById("show-rsp").value = JSON.stringify(error);
-          console.info(error)
-        }
-      })
+      elementDisplay("#rsp-content-contaier", true)
+      elementDisplay("#rsp-error-contaier", false)
     }
-    function goPut(inpUrl, dataType) {
 
-      var headers = getHeaders();
+    function showError(err){
+      if(!err){
+        return;
+      }
+      document.querySelector('#rsp-error').innerText = JSON.stringify(err);
 
-      var params = getParams();
-
-      syberh.network.request({
-        url: inpUrl,
-        header: headers,
-        dataType: dataType,
-        method: 'put',
-        data: params,
-        success: function (result) {
-          if (dataType == 'json' || !dataType) {
-            document.getElementById("show-rsp").value = "put请求响应JSON：<br/>" + JSON.stringify(result);
-          } else {
-            document.getElementById("show-rsp").value = "put请求响应TEXT：<br/>" + result;
-          }
-          // console.info(result)
-        },
-        fail: function (error) {
-          document.getElementById("show-rsp").value = JSON.stringify(error);
-          // console.info(error)
-        }
-      })
+      elementDisplay("#rsp-content-contaier", false)
+      elementDisplay("#rsp-error-contaier", true)
     }
-    function goDel(inpUrl) {
 
-      var headers = getHeaders();
 
-      syberh.network.request({
-        url: inpUrl,
-        header: headers,
-        method: 'delete',
-        success: function (result) {
-          document.getElementById("show-rsp").value = "delete请求响应：<br/>" + JSON.stringify(result);
-          // console.info(result)
-        },
-        fail: function (error) {
-          document.getElementById("show-rsp").value = JSON.stringify(error);
-          // console.info(error)
-        }
-      })
+    function elementDisplay(selector, show){
+      var elem = document.querySelector(selector);
+      if(!elem){
+        return;
+      }
+      if(!show){
+        elem.classList.add('hide')
+      }else{
+        elem.classList.remove('hide')
+      }
+
     }
   </script>
 </body>

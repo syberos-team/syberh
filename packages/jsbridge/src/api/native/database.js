@@ -4,73 +4,16 @@ export default function databaseMixin() {
     const innerUtil = hybridJs.innerUtil;
 
     hybridJs.extendModule('database', [{
-        namespace: 'createTable',
-        os: ['syberos'],
-        defaultParams: {
-            sql: '',
-            sqlindex: '',
-            databaseName: '',
-        },
-        runCode(...rest) {
-            const args = innerUtil.compatibleStringParamsToObject.call(
-                this,
-                rest,
-                'sql',
-                'sqlindex',
-                'databaseName',
-            );
-            hybridJs.callInner.apply(this, args);
-        },
-    }, {
         namespace: 'query',
-        os: ['syberos'],
-        defaultParams: {
-            sql: '',
-            databaseName: '',
-        },
-        runCode(...rest) {
-            const args = innerUtil.compatibleStringParamsToObject.call(
-                this,
-                rest,
-                'sql',
-                'databaseName',
-            );
-            hybridJs.callInner.apply(this, args);
-        },
+        os: ['syberos']
     }, {
-        namespace: 'execute',
-        os: ['syberos'],
-        defaultParams: {
-            sql: '',
-            databaseName: '',
-        },
-        runCode(...rest) {
-            const args = innerUtil.compatibleStringParamsToObject.call(
-                this,
-                rest,
-                'sql',
-                'databaseName',
-            );
-            hybridJs.callInner.apply(this, args);
-        },
+        namespace: 'exec',
+        os: ['syberos']
     }, {
-        namespace: 'isDatabaseExists',
-        os: ['syberos'],
+        namespace: 'databaseExists',
+        os: ['syberos']
     }, {
-        namespace: 'isTableExists',
-        os: ['syberos'],
-        defaultParams: {
-            tableName: '',
-            databaseName: '',
-        },
-        runCode(...rest) {
-            const args = innerUtil.compatibleStringParamsToObject.call(
-                this,
-                rest,
-                'tableName',
-                'databaseName',
-            );
-            hybridJs.callInner.apply(this, args);
-        },
+        namespace: 'tableExists',
+        os: ['syberos']
     }]);
 }

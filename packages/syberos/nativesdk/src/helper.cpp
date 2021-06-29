@@ -53,7 +53,7 @@ QString Helper::logLevelName()
   return levelName;
 }
 
-bool Helper::exists(QString filePath)
+bool Helper::exists(const QString &filePath)
 {
   QFile file(filePath);
   return file.exists();
@@ -73,14 +73,21 @@ Helper *Helper::instance()
     return helper;
 }
 
+QString Helper::getAppRootPath()
+{
+  QDir dir(qApp->applicationDirPath());
+  dir.cdUp();
+  return dir.absolutePath();
+}
+
 QString Helper::getWebRootPath()
 {
   //TODO 5.0暂时不使用热更新目录
   #if (QT_VERSION >= QT_VERSION_CHECK(5, 12, 0))
     return this->getDefaultWebRootPath();
   #else
-    bool debug = ProjectConfig::instance()->isDebug();
-    if (debug)
+    bool useHot = ProjectConfig::instance()->isUseHot();
+    if (useHot)
     {
       qDebug() << "webroot:" << this->getDataWebRootPath();
       return this->getDataWebRootPath();
@@ -126,7 +133,12 @@ QString Helper::sopid()
   return qApp->property("sopid").toString();
 }
 
-QString Helper::getQtVersion()
+qint32 Helper::getQtVersion()
+{
+  return QT_VERSION;
+}
+
+QString Helper::getQtVersionName()
 {
   return QT_VERSION_STR;
 }
@@ -217,7 +229,7 @@ bool Helper::emptyDir(const QString &path)
   return dir.rmpath(dir.absolutePath());
 }
 
-bool Helper::isPicture(QString filepath)
+bool Helper::isPicture(const QString &filepath)
 {
   QMimeDatabase db;
   QMimeType mime = db.mimeTypeForFile(filepath);
@@ -225,7 +237,7 @@ bool Helper::isPicture(QString filepath)
   return mime.name().startsWith("image/");
 }
 
-bool Helper::isAudio(QString filepath)
+bool Helper::isAudio(const QString &filepath)
 {
   QMimeDatabase db;
   QMimeType mime = db.mimeTypeForFile(filepath);

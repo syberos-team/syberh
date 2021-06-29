@@ -6,7 +6,8 @@ import * as shelljs from 'shelljs'
 
 export enum InstallType {
   sdk = 'sdk',
-  target = 'target'
+  target = 'target',
+  cce = 'cce'
 }
 
 export type InstallOption = {
@@ -18,8 +19,11 @@ export type InstallOption = {
   sdkPath: string
   // target安装包的路径，可以使用网络路径
   targetPath: string
+  ccePath: string
   // 安装路径(若用户没有定义，默认安装路径为~/Syberos-Pdk)
   installPath: string
+
+  installCCEPath: string
 }
 
 
@@ -46,6 +50,9 @@ export class Install {
       case InstallType.target:
         this.target();
         break;
+      case InstallType.cce:
+          this.cce();
+          break;
       default:
         console.log(chalk.red('安装类型错误'))
         log.error('安装类型错误: %j', this.option)
@@ -64,6 +71,12 @@ export class Install {
     const targetInstallPath = path.join(this.option.installPath, 'targets')
     const cmd = `${helper.locateScripts('PDKInstallManager.sh')} --sudo-password ${this.option.password} --sdk-install-path ${this.option.installPath} --target-install-path ${targetInstallPath} --target-package ${this.option.targetPath}`
     log.verbose('安装target：%s', cmd)
+    shelljs.exec(cmd)
+  }
+
+  private async cce() {
+    const cmd = `${helper.locateScripts('CCEInstall.sh')} ${this.option.installCCEPath} ${this.option.ccePath}`
+    log.verbose('安装cce：%s', cmd)
     shelljs.exec(cmd)
   }
 

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../../common/mui/mui.css" />
+  <link rel="stylesheet" href="../../common/common.css" />
+  <style>
+    .pt0 {
+      margin-top: 1em;
+    }
+    .mui-card-content .mui-input-group {
+        margin: 15px;
+    }
+    .mui-input-group .group-row {
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mui-content pt0">
+    <div class="mui-card">
+      <div class="mui-card-header">
+        对话框
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+            <div class="group-row">
+                <button class="mui-btn" onclick="alert('This is the Alert Dialog !')">Alert Dialog</button>
+            </div>
+            <div class="group-row">
+                <button class="mui-btn" onclick="doConfirm()" id="btn-confirm">Confirm Dialog</button>
+            </div>
+          <div class="group-row">
+            <button class="mui-btn" onclick="doPrompt()" id="btn-prompt">Prompt Dialog</button>
+          </div>
+        </div>
+      </div>
+      <div class="mui-card-footer">
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        特殊输入框
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+            <div class="group-row">
+                <input type="date"/>
+            </div>
+            <div class="group-row">
+                <button class="mui-btn mui-btn-outlined" onclick="selectColor()">Open Color Dialog</button>
+            </div>
+            <div class="group-row">
+                <button class="mui-btn mui-btn-outlined" onclick="selectFile()">Open File Dialog</button>
+            </div>
+            <div class="group-row">
+                <button class="mui-btn mui-btn-outlined" onclick="selectImage()">Select Image</button>
+            </div>
+            <div class="group-row">
+                <select>
+                    <option>select1</option>
+                    <option>select2</option>
+                    <option>select3</option>
+                    <option>select4</option>
+                    <option>select5</option>
+                    <option>select6</option>
+                    <option>select7</option>
+                    <option>select8</option>
+                    <option>select9</option>
+                    <option>select10</option>
+                </select>
+            </div>
+        </div>
+      </div>
+      <div class="mui-card-footer">
+        <div id="file-selected"></div>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+          下载
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+            <div class="group-row">
+                <img src="https://syberh.syberos.com/img/syberos.png">
+            </div>
+            <div class="group-row">
+                <a href="https://dldir1.qq.com/weixin/android/weixin7014android1660_arm64.apk">下载测试 WeiXin</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+          访问网站
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+            <div class="group-row">
+                <input type="text" value="https://www.baidu.com" placeholder="URL" id="input-url" class="mui-input-clear" style="border:1px solid rgba(0, 0, 0, .2)">
+            </div>
+        </div>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="doGo()"> Go </button>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        菜单
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+          <div class="group-row">
+            <a href="#openMenu" class="link">Right click on text to see link context menu</a>
+          </div>
+          <div class="group-row">
+            <input type="text" value="Test cut menu" class="mui-input-clear" style="border:1px solid rgba(0, 0, 0, .2)">
+          </div>
+        </div>
+      </div>
+      <div class="mui-card-footer">
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        webrtc
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-input-group">
+          <div class="group-row">
+            <video id="video-userMedia"></video>
+          </div>
+          <div class="group-row">
+            <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="rtcEnumerateDevices()"> enumerateDevices </button>
+            <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="rtcGetUserMedia()"> getUserMedia </button>
+          </div>
+        </div>
+      </div>
+      <div class="mui-card-footer">
+      </div>
+    </div>
+  </div>
+  <input type="color" id="colorpicker" value="#ff0000" style="visibility:hidden" />
+  <input type="file" id="filepicker" style="visibility:hidden" onchange="fileSelected(this.files)"/>
+  <input type="file" id="imagePicker" accept="image/*" style="visibility:hidden" onchange="fileSelected(this.files)"/>
+
+  <script type="text/javascript" src="../../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../../common/common.js"></script>
+  <script>
+    function rtcEnumerateDevices() {
+      navigator.mediaDevices.enumerateDevices()
+      .then(function(devices){
+        let msg = '';
+        devices.forEach(function(dev){
+          msg += dev.kind + ': ' + dev.label + ' id = ' + dev.deviceId + '\n';
+        });
+        alert(msg);
+      }).catch(function(e) {
+        alert(e.name + ': ' + e.message);
+      });
+    }
+
+    function rtcGetUserMedia(){
+      navigator.mediaDevices.getUserMedia({audio: false, video: true})
+      .then(function(mediaStream){
+        var video = document.querySelector("#video-userMedia");
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function(){
+          video.play();
+        }
+      }).catch(function(e){
+        alert(e.name + ': ' + e.message);
+      })
+    }
+
+    function randomColor() {
+        const rand = '1234567890abcdef';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            const index = Math.floor(Math.random() * rand.length);
+            color += rand[index];
+        }
+        return color;
+    }
+
+    function doConfirm() {
+        var rs = confirm('This is the Confirm Dialog.');
+        if (rs) {
+            var btn = document.getElementById("btn-confirm");
+            btn.style.background = randomColor();
+        }
+    }
+
+    function doPrompt() {
+        var rs = prompt('Is this the Prompt Dialog ?', 'Yes');
+        if (rs) {
+            var btn = document.getElementById('btn-prompt');
+            if (btn.innerHTML.indexOf(' - ') > 0) {
+                btn.innerHTML = btn.innerHTML.substring(0, btn.innerHTML.indexOf(' - ')) + ' - ' + rs;
+            } else {
+                btn.innerHTML = btn.innerHTML + ' - ' + rs;
+            }
+        }
+    }
+
+    function doGo(e) {
+        var inputUrlDom = document.getElementById("input-url");
+        location.href = inputUrlDom.value;
+    }
+
+    function openCameraByJs() {
+        navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: {
+                width: 1280,
+                height: 720
+            }
+        }).then(function (mediaStream) {
+            const videoDom = document.querySelector('video');
+            videoDom.srcObject = mediaStream;
+            videoDom.onloadedmetadata = function (e) {
+                videoDom.play();
+            }
+        }).catch(function (err) {
+            alert(err.name + ': ' + err.message);
+        })
+    }
+
+    function selectColor() {
+      document.getElementById('colorpicker').click()
+    }
+
+    function selectImage() {
+        document.getElementById("imagePicker").click();
+    }
+
+    function selectFile() {
+        document.getElementById('filepicker').click();
+    }
+
+    function fileSelected(files){
+      var div = document.getElementById('file-selected');
+      div.innerText = '';
+      if(files){
+        var text = '<ul>';
+        for(var i=0; i<files.length; i++){
+            var f = files[i]
+            text += '<li> { name: "' + f.name + '", type: "' + f.type + '", lastModifiedDate: "' + f.lastModifiedDate + '" } </li>';
+        }
+        text += '</ul>'
+        div.innerHTML = text;
+      }
+    }
+  </script>
+</body>
+
+</html>

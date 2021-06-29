@@ -2,12 +2,14 @@ import * as child_process from 'child_process'
 import chalk from 'chalk'
 import { BuildConfig } from './types'
 import * as b from './build'
-import { getProjectConfig, locateScripts, isTargetOS_5 } from '../syberos/helper'
+import * as helper from '../syberos/helper'
 import { log } from '../util/log';
 import { DEVICES_TYPES } from '../util/constants'
 import diagnose from '../doctor/index'
-import { IProjectConfig } from '../util/types'
-import CONFIG from '../config'
+import { IProjectConfig, DEFAULT_PROJECT_CONFIG } from '../util/types'
+import * as inquirer from 'inquirer'
+import * as ora from 'ora'
+import { LocalConfig } from '../syberos/localConfig'
 
 
 /**
@@ -27,7 +29,7 @@ export default async function build(appPath: string, buildConfig: BuildConfig) {
 }
 
 async function diagnoseFastfail(buildConfig: BuildConfig) {
-  if (!buildConfig.nodoctor) {
+  if (buildConfig.doctor) {
     const hasFail = await diagnose({ checkGlobalTarget: false })
     if (hasFail) {
       process.exit(0)
@@ -43,21 +45,72 @@ async function diagnoseFastfail(buildConfig: BuildConfig) {
 async function executeBuild(appPath: string, config: BuildConfig) {
   log.verbose('build() start')
   // 获取project.config.json
-  const projectConf : IProjectConfig = getProjectConfig(appPath)
+  let projectConf : IProjectConfig = helper.getProjectConfig(appPath)
+  // 设置默认值
+  projectConf = Object.assign(DEFAULT_PROJECT_CONFIG, projectConf)
+
   // build命令参数
   const buildConfig : BuildConfig = { ...config }
 
-  // 设置默认配置
-  if(!projectConf.devServerIP){
-    projectConf.devServerIP = CONFIG.DEV_SERVER_IP
-  }
-  if(!projectConf.devServerPort){
-    projectConf.devServerPort = CONFIG.DEV_SERVER_PORT
-  }
-  if(!projectConf.debuggingPort){
-    projectConf.debuggingPort = CONFIG.DEBUGGING_PORT
+  // os5.0时不校验用户密码
+  if(helper.isTargetOS_5(projectConf.target)){
+    // 开始构建
+    buildApp(appPath, projectConf, buildConfig)
+    return
   }
 
+  checkUserPassword((passwd: string) => {
+    buildConfig.buildAsk = {
+      password: passwd
+    }
+    // 开始构建
+    buildApp(appPath, projectConf, buildConfig)
+  })
+}
+
+// 校验用户密码
+async function checkUserPassword(successCallback: (password:string) => void) {
+  log.verbose('checkUserPassword()')
+  const localConfig = new LocalConfig()
+  localConfig.load()
+  // 校验本地存储的密码
+  const localPassword = localConfig.getUserPassword()
+  if(localPassword){
+    log.verbose('发现历史记录，尝试使用存储的密码进行校验')
+    const isPass = await helper.checkSudoPasswordAsync(localPassword)
+    log.verbose('使用存储的密码进行校验结果:', isPass)
+    if(isPass){
+      if(typeof successCallback === 'function'){
+        successCallback(localPassword)
+      }
+      return
+    }
+  }
+  // 问询
+  const answers = await ask()
+  const userPassword = answers['password']
+
+  const spinner = ora('校验用户密码...').start()
+  helper.checkSudoPasswordAsync(userPassword).then((success:boolean) => {
+    if(success){
+      spinner.succeed('密码校验通过')
+      // 更新本地密码
+      localConfig.setUserPassword(userPassword)
+      localConfig.save()
+
+      if(typeof successCallback === 'function'){
+        successCallback(userPassword)
+      }
+    }else{
+      spinner.fail('密码校验失败，终止编译')
+      process.exit(1)
+    }
+  })
+}
+
+
+// 开始构建应用
+async function buildApp(appPath: string, projectConf : IProjectConfig, buildConfig : BuildConfig){
   console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
 
   const build = new b.Build(appPath, projectConf, buildConfig)
@@ -65,16 +118,34 @@ async function executeBuild(appPath: string, config: BuildConfig) {
     await build.start(null)
   } else {
     await build.start(() => {
-      // 非release构建时，启动devServer热更新服务
-      if (!buildConfig.release) {
+      // 开启热更新，启动devServer热更新服务
+      if (buildConfig.hot) {
         // TODO 5.0暂时关闭热更新服务
-        if(isTargetOS_5(projectConf.target)){
+        if(helper.isTargetOS_5(projectConf.target)){
           log.verbose('os5.0暂时关闭热更新服务')
           return;
         }
-        const serverjs = locateScripts('devServer.js')
+        const serverjs = helper.locateScripts('devServer.js')
         child_process.fork(serverjs, [projectConf.devServerPort, projectConf.webPath])
       }
     })
   }
 }
+
+// 询问密码
+async function ask() : Promise<inquirer.PromptModule> {
+  const prompts: object[] = []
+  prompts.push({
+    type: 'password',
+    name: 'password',
+    message: '请输入当前用户密码:',
+    validate(input:any) {
+      if (!input) {
+        return '必须输入当前用户密码！'
+      }
+      return true
+    }
+  })
+  return inquirer.prompt(prompts)
+}
+

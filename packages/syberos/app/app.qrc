@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/app.png</file>
+        <file>res/splash.png</file>
+        <file>res/success_primary.png</file>
+        <file>res/success_primary_big.png</file>
+        <file>res/toast-fail.png</file>
+        <file>res/toast-success.png</file>
+        <file>res/warning.png</file>
+        <file>res/warning_big.png</file>
+        <file>res/navClose.png</file>
+        <file>res/navBack.png</file>
+        <file>qml/js/core/core.js</file>
+        <file>qml/js/core/plugin.js</file>
+        <file>qml/js/root/root.js</file>
+        <file>qml/js/util/polyfill.js</file>
+        <file>qml/js/util/tool.js</file>
+        <file>qml/js/webview/webview.js</file>
+        <file>qml/js/syber.js</file>
+        <file>qml/js/config.js</file>
+        <file>qml/js/util/log.js</file>
+        <file>qml/root.qml</file>
+        <file>qml/SNavigationBar.qml</file>
+    </qresource>
+</RCC>

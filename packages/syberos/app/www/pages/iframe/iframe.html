@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link rel="stylesheet" href="../../common/mui/mui.css" />
+  <style>
+    .pt0 {
+      margin: 1em;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="mui-content pt0">
+        <p>这是一个子页面</p>
+        <button class="mui-btn" onclick="iframeAlert()">Alert Dialog</button>
+    </div>
+    <script type="text/javascript" src="../../common/mui/mui.js"></script>
+    <script>
+    function iframeAlert() {
+        parent.syberh.modal.alert({
+            title: 'iframe',
+            content: '这是一个在iframe中调用的对话框',
+            success: function () {
+              console.log('alert success')
+            },
+            fail: function(error) {
+                console.log('alert fail: ', error.code, error.msg);
+            }
+        })
+    }
+    </script>
+</body>
+
+</html>
