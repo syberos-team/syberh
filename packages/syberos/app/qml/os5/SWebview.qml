@@ -309,10 +309,6 @@ CPage{
             url:surl
             webChannel: channel
 
-            profile: WebEngineProfile{
-              httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS 5.0.0 5.12.2;"
-            }
-
             onLinkHovered: {
                 curHoverUrl= hoveredUrl
             }

@@ -280,7 +280,9 @@ function WebView (options) {
       object.goBack();
       that.trigger('success', handlerId, true);
     } else {
-      that.trigger('failed', handlerId, 2007, false);
+      that.navigateBack({});
+      that.trigger('success', handlerId, true);
+      // that.trigger('failed', handlerId, 2007, false);
     }
   });
 
