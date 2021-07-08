@@ -32,7 +32,8 @@ export interface IProjectConfig {
   webPath: string
   // 首页
   homePage: string
-  storeBaseUrl: string
+  // 应用商店配置
+  appStore?: IAppStore
   // 手机ip
   deployIP: string
   // 手机端口
@@ -47,6 +48,13 @@ export interface IProjectConfig {
   statusBar?: IStatusBar
 }
 
+export interface IAppStore {
+  // 应用商店url
+  url: string
+  // app信息接口
+  appInfoPath: string
+}
+
 // 默认的 project.config.json 内容
 export const DEFAULT_PROJECT_CONFIG: IProjectConfig = {
   projectName: '',
@@ -56,7 +64,10 @@ export const DEFAULT_PROJECT_CONFIG: IProjectConfig = {
   targetSimulator: '',
   webPath: 'www',
   homePage: '',
-  storeBaseUrl: 'https://storeinner.syberos.com',
+  appStore: {
+    url: 'https://storeinner.syberos.com',
+    appInfoPath: '/api/v1/app'
+  },
   deployIP: '192.168.100.100',
   deployPort: '22',
   devServerIP: '192.168.100.101',

@@ -55,7 +55,9 @@ public:
     /**
      * 获取应用仓库url
      */
-    Q_INVOKABLE QString getStoreBaseUrl();
+    Q_INVOKABLE QString getAppStoreUrl();
+
+    Q_INVOKABLE QString getAppInfoPath();
     /**
      * 手机ssh IP
      */
