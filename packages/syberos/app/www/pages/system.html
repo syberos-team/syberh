@@ -133,12 +133,6 @@
       </div>
       <div class="mui-card">
         <div class="mui-input-row">
-          <label>操作系统小版本号</label>
-          <input type="text" id="osVersionCode" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-        </div>
-      </div>
-      <div class="mui-card">
-        <div class="mui-input-row">
           <label>内核版本号</label>
           <input type="text" id="kernelVersion" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
@@ -243,7 +237,6 @@
           document.getElementById("osType").value = blankHandle(result.osType);
           document.getElementById("osVersionName").value = blankHandle(result.osVersionName);
           document.getElementById("osVersion").value = blankHandle(result.osVersion);
-          document.getElementById("osVersionCode").value = blankHandle(result.osVersionCode);
           document.getElementById("kernelVersion").value = blankHandle(result.kernelVersion);
           document.getElementById("screenWidth").value = blankHandle(result.screenWidth);
           document.getElementById("screenHeight").value = blankHandle(result.screenHeight);
