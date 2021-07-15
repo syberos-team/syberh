@@ -13,7 +13,7 @@ title: cancel
 #### Object object
 | 属性     | 类型   | 默认值  |  必填 | 描述                         |
 | ---------- | ------- | -------- | ---------------- | ----------------------------------
-| uploadID | String |  | 是 | 上传ID |
+| id | String |  | 是 | 上传ID |
 | success | Function |  | 否 | 回调成功 |
 | fail | Function |  | 否 |  回调失败 |
 
