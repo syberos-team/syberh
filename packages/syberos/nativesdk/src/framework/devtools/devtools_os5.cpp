@@ -1,6 +1,5 @@
 #include "devtools.h"
 #include <QMutexLocker>
-#include "../../util/fileutil.h"
 
 using namespace NativeSdk;
 

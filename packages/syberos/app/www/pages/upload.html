@@ -229,6 +229,8 @@
         return;
       }
 
+      showProgress(0, 0);
+
       syberh.upload.start({
         'url': document.getElementById("req-url").value,
         'name': document.getElementById("name").value,
@@ -298,7 +300,6 @@
     }
 
     function clearResult(){
-      showProgress(0, 0)
       document.querySelector('#rsp-statusCode').innerText = '';
       document.querySelector('#rsp-header').innerText = '';
       document.querySelector('#rsp-cookie').innerText = '';
