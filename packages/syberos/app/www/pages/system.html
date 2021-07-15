@@ -46,17 +46,6 @@
         </li>
 
         <li class="mui-table-view-cell mui-collapse mui-active">
-          <a class="mui-navigate-right" href="#">setVirtualPanel</a>
-          <div class="mui-collapse-content">
-            <div class="mui-input-row">
-              <label>visible:</label>
-              <input id="visible" type="text" value="true">
-            </div>
-            <button type="button" class="mui-btn mui-btn-outlined" onclick="setVirtualPanel()">setVirtualPanel</button>
-
-        </li>
-
-        <li class="mui-table-view-cell mui-collapse mui-active">
             <a class="mui-navigate-right" href="#">截屏</a>
             <div class="mui-collapse-content">
               <button type="button" class="mui-btn mui-btn-outlined" onclick="captureScreen()">captureScreen</button>
@@ -129,12 +118,6 @@
         <div class="mui-input-row">
           <label>操作系统版本号</label>
           <input type="text" id="osVersion" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
-        </div>
-      </div>
-      <div class="mui-card">
-        <div class="mui-input-row">
-          <label>操作系统小版本号</label>
-          <input type="text" id="osVersionCode" pattern="value" value="" readonly="readonly" class="mui-input-clear" />
         </div>
       </div>
       <div class="mui-card">
@@ -243,7 +226,6 @@
           document.getElementById("osType").value = blankHandle(result.osType);
           document.getElementById("osVersionName").value = blankHandle(result.osVersionName);
           document.getElementById("osVersion").value = blankHandle(result.osVersion);
-          document.getElementById("osVersionCode").value = blankHandle(result.osVersionCode);
           document.getElementById("kernelVersion").value = blankHandle(result.kernelVersion);
           document.getElementById("screenWidth").value = blankHandle(result.screenWidth);
           document.getElementById("screenHeight").value = blankHandle(result.screenHeight);
@@ -276,24 +258,6 @@
         }
       });
     }
-
-    function setVirtualPanel() {
-
-    var visible = document.getElementById('visible').value;
-
-    console.log(eval(visible.toLowerCase()))
-    syberh.system.setVirtualPanel({
-      visible:eval(visible.toLowerCase()),
-      success: function (result) {
-        console.info("result-设置虚拟按键完成: " + result)
-        console.log("返回状态",result.visible)
-      },
-      fail: function (error) {
-        console.info(error)
-        alert(error.msg);
-      }
-    });
-}
 
     function blankHandle(param) {
       return !param ? '' : param;
