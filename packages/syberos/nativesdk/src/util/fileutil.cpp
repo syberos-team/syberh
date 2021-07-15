@@ -27,7 +27,7 @@ RespResult FileUtil::move(const QString &srcPath, const QString &destPath)
         qDebug() << Q_FUNC_INFO << "判断目标文件是否存在: " << destInfo.exists();
         respResult.code = ErrorInfo::FileNotExists;
         respResult.flag = false;
-        respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, destPath);
+        respResult.msg = "目标文件不存在";
         return respResult;
     }
     // 判断目标文件是否是文件夹
