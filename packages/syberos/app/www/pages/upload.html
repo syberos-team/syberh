@@ -10,62 +10,136 @@
   <title>upload</title>
   <link rel="stylesheet" href="../common/mui/mui.css" />
   <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .hide{
+      display: none;
+    }
+    .result{
+      padding-left:15px;
+      color: #888;
+      font-size: 13px;
+    }
+    .result-less{
+      min-height: 180px;
+    }
+    .result-more{
+      min-height: 380px;
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="mui-content pt0">
     <div class="mui-card">
       <div class="mui-card-header">
-          <div class="mui-input-group">
-              <div class="mui-input-row">
-                  <label>URL：</label>
-                  <!-- <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://172.16.70.103:8000/upload"> -->
-                  <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://192.168.100.101:8000/upload">
-              </div>
-              <div class="mui-input-row">
-                  <input type="text" id="name" class="mui-input-clear" value="file" />
-              </div>
-              <ul class="mui-table-view">
-                  <li class="mui-table-view-cell mui-collapse">
-                      <a class="mui-navigate-right" href="#">header</a>
-                      <div class="mui-collapse-content">
-                          <div class="mui-input-row" style="height: auto">
-                              <input type="text" class="mui-input-clear" placeholder="header-key[1]" id="headerkey1" value="aaa">
-                              <input type="text" class="mui-input-clear" placeholder="header-val[1]" id="headerval1" value="123123">
-                              <input type="text" class="mui-input-clear" placeholder="header-key[2]" id="headerkey2">
-                              <input type="text" class="mui-input-clear" placeholder="header-val[2]" id="headerval2">
-                          </div>
-                      </div>
-                  </li>
-                  <li class="mui-table-view-cell mui-collapse">
-                      <a class="mui-navigate-right" href="#">formData</a>
-                      <div class="mui-collapse-content">
-                          <div class="mui-input-row" style="height: auto">
-                              <input type="text" class="mui-input-clear" placeholder="data-key[1]" id="datakey1" value="username">
-                              <input type="text" class="mui-input-clear" placeholder="data-val[1]" id="dataval1" value="syberh,syberos">
-                              <input type="text" class="mui-input-clear" placeholder="data-key[2]" id="datakey2">
-                              <input type="text" class="mui-input-clear" placeholder="data-val[2]" id="dataval2">
-                          </div>
-                      </div>
-                  </li>
-              </ul>
-              <div class="mui-input-row">
-                  <input type="text" readonly value="点我选择文件" onclick="selectFile()" />
-              </div>
-              <textarea name="" id="file-src" cols="20" rows="5"></textarea>
-              <div class="mui-button-row">
-                  <button type="button" class="mui-btn mui-btn-primary" onclick="start()">上传</button>
-              </div>
-          </div>
+          上传
       </div>
       <div class="mui-card-content" id="mui-card-content">
-
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>URL</label>
+            <input type="text" class="mui-input-clear" placeholder="请求URL" id="req-url" value="http://192.168.100.101:8000/upload">
+          </div>
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-collapse">
+              <a class="mui-navigate-right" href="#">cookie</a>
+              <div class="mui-collapse-content">
+                  <div class="mui-input-row" style="height: auto">
+                      <input type="text" class="mui-input-clear" placeholder="cookie name" id="c-name1" value="cookie_key">
+                      <input type="text" class="mui-input-clear" placeholder="cookie value" id="c-value1" value="cookie_value">
+                      <input type="text" class="mui-input-clear" placeholder="cookie name" id="c-name2">
+                      <input type="text" class="mui-input-clear" placeholder="cookie value" id="c-value2">
+                  </div>
+              </div>
+          </li>
+            <li class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#">header</a>
+                <div class="mui-collapse-content">
+                    <div class="mui-input-row" style="height: auto">
+                        <input type="text" class="mui-input-clear" placeholder="header name" id="h-name1" value="header_key">
+                        <input type="text" class="mui-input-clear" placeholder="header value" id="h-value1" value="header_value">
+                        <input type="text" class="mui-input-clear" placeholder="header name" id="h-name2">
+                        <input type="text" class="mui-input-clear" placeholder="header value" id="h-value2">
+                    </div>
+                </div>
+            </li>
+            <li class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#">form</a>
+                <div class="mui-collapse-content">
+                    <div class="mui-input-row" style="height: auto">
+                        <input type="text" class="mui-input-clear" placeholder="field name" id="f-name1" value="username">
+                        <input type="text" class="mui-input-clear" placeholder="field value" id="f-value1" value="syberh">
+                        <input type="text" class="mui-input-clear" placeholder="field name" id="f-name2">
+                        <input type="text" class="mui-input-clear" placeholder="field value" id="f-value2">
+                    </div>
+                </div>
+            </li>
+          </ul>
+          <div class="mui-input-row">
+            <label>name</label>
+            <input type="text" class="mui-input-clear" placeholder="文件提交时的name" id="name" value="file">
+          </div>
+          <div class="mui-input-row" style="min-height: 80px;">
+            <textarea class="result" id="file-selected" readonly></textarea>
+          </div>
+          <div class="mui-button-row">
+            <button type="button" class="mui-btn mui-btn-outlined" onclick="selectFile()">选择文件</button>
+          </div>
+        </form>
       </div>
       <div class="mui-card-footer">
-        <textarea id="texta-result"cols="30" rows="10"></textarea>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="start()">上传</button>
       </div>
-      <button type="button" class="mui-btn mui-btn-primary" onclick="clearLog()">清空日志</button>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-card-header">
+        响应
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group hide" id="rsp-content-contaier">
+          <div class="mui-input-row">
+            <label>进度</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 20px;">
+            <div id="progress" class="mui-progressbar">
+              <span></span>
+            </div>
+          </div>
+          <div class="mui-input-row">
+            <label>statusCode</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 20px;">
+            <textarea class="result" id="rsp-statusCode" readonly></textarea>
+          </div>
+          <div class="mui-input-row">
+            <label>header</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 80px;">
+            <textarea class="result" id="rsp-header" readonly></textarea>
+          </div>
+          <div class="mui-input-row">
+            <label>cookie</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 80px;">
+            <textarea class="result" id="rsp-cookie" readonly></textarea>
+          </div>
+          <div class="mui-input-row">
+            <label>body</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 120px;">
+            <textarea class="result" id="rsp-data" readonly></textarea>
+          </div>
+        </form>
+        <form class="mui-input-group hide" id="rsp-error-contaier">
+          <div class="mui-input-row">
+            <label>Error</label>
+          </div>
+          <div class="mui-input-row" style="min-height: 200px;">
+            <textarea class="result result-less" id="rsp-error" readonly></textarea>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
@@ -74,117 +148,184 @@
   <script type="text/javascript" src="../common/common.js"></script>
 
   <script>
-
     var vConsole = new VConsole();
 
-    function getHeaders() {
-      var headers = {};
-      if (document.getElementById("headerkey1").value && document.getElementById("headerval1").value) {
-        headers[document.getElementById("headerkey1").value] = document.getElementById("headerval1").value
+    function selectFile(){
+      syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        count: 1,
+        success: function (result) {
+          console.log('selected ', JSON.stringify(result))
+          if (result && result.files) {
+            let paths = [];
+            for(let f of result.files){
+              paths.push(f.path)
+            }
+            document.getElementById('file-selected').value = paths.join(';')
+          }
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+    }
+
+    function getCookies(){
+      var cookies = {};
+      var name1 = document.getElementById("c-name1").value;
+      var value1 = document.getElementById("c-value1").value;
+      var name2 = document.getElementById("c-name2").value;
+      var value2 = document.getElementById("c-value2").value;
+      if (name1 && value1) {
+        cookies[name1] = value1
       }
-      if (document.getElementById("headerkey2").value && document.getElementById("headerval2").value) {
-        headers[document.getElementById("headerkey2").value] = document.getElementById("headerval2").value
+      if (name2 && value2) {
+        cookies[name2] = value2
+      }
+      return cookies;
+    }
+
+    function getHeaders(){
+      var headers = {};
+      var name1 = document.getElementById("h-name1").value;
+      var value1 = document.getElementById("h-value1").value;
+      var name2 = document.getElementById("h-name2").value;
+      var value2 = document.getElementById("h-value2").value;
+      if (name1 && value1) {
+        headers[name1] = value1
+      }
+      if (name2 && value2) {
+        headers[name2] = value2
       }
       return headers;
     }
 
-    function getParams() {
-
+    function getParams(){
       var params = {};
-      if (document.getElementById("datakey1").value && document.getElementById("dataval1").value) {
-        params[document.getElementById("datakey1").value] = document.getElementById("dataval1").value
+      var name1 = document.getElementById("f-name1").value;
+      var value1 = document.getElementById("f-value1").value;
+      var name2 = document.getElementById("f-name2").value;
+      var value2 = document.getElementById("f-value2").value;
+      if (name1 && value1) {
+        params[name1] = value1
       }
-      if (document.getElementById("datakey2").value && document.getElementById("dataval2").value) {
-        params[document.getElementById("datakey2").value] = document.getElementById("dataval2").value
+      if (name2 && value2) {
+        params[name2] = value2
       }
-      
       return params;
-
     }
 
 
-    function clearLog() {
-      document.getElementById("texta-result").value = "";
-    }
+    function start(){
+      clearResult();
 
-
-    function selectFile() {
-      syberh.filepicker.open({
-          title: '文件选择',
-          showBack: true,
-          success: function (result) {
-            console.log('filepicker open success', JSON.stringify(result))
-            if (result && result.files) {
-              document.getElementById("file-src").value = result.files[0].path.replace("file://", "");
-            }
-          },
-          fail: function (error) {
-            console.log('filepicker open fail', error)
-          }
-        })
-    }
-
-    function start() {
+      var cookies = getCookies();
       var headers = getHeaders();
-
       var formData = getParams();
+      var filePath = document.getElementById("file-selected").value;
+      if(!filePath){
+        showTips('请选择文件');
+        return;
+      }
 
       syberh.upload.start({
         'url': document.getElementById("req-url").value,
-        'filePath': document.getElementById("file-src").value,
         'name': document.getElementById("name").value,
+        'file': filePath,
+        'cookie': cookies,
         'header': headers,
-        'formData': formData,
+        'form': formData,
 
         success: function (result) {
-          console.log("syberh.upload.start result----" + JSON.stringify(result));
-
-          document.getElementById("texta-result").value = document.getElementById("texta-result").value + "\n" + JSON.stringify(result);
-
-          if (result.status == 1) {
-            var html = ' \
-          <ul class="mui-table-view">\
-            <li class="mui-table-view-cell">uploadID:<span id="{{uploadID}}">{{ruploadID}}</span>\
-              <button type="button" id="{{btnId}}" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="cancel({{canDownId}})">cancel(取消上传)</button></li>\
-          </ul>\
-          <div id="progress-{{progressbarId}}" class="mui-progressbar">\
-            <span></span>\
-          </div>\
-        '
-            html = html.replace('{{uploadID}}', result.uploadID)
-            html = html.replace('{{progressbarId}}', result.uploadID)
-            html = html.replace('{{ruploadID}}', result.uploadID)
-            html = html.replace('{{canDownId}}', result.uploadID)
-            html = html.replace('{{btnId}}', 'button_' + result.uploadID)
-
-            const div = document.createElement('div')
-            div.innerHTML = html
-            document.getElementById("mui-card-content").appendChild(div);
-            mui("#progress-" + result.uploadID).progressbar().setProgress(0);
-          } else {
-            mui("#progress-" + result.uploadID).progressbar().setProgress(Math.round((result.received / result.total) * 100));
-            if (result.received / result.total === 1) {
-              document.getElementById('button_' + result.uploadID).style.display = 'none'
-            }
+          switch(result.status){
+            case 1:   // start
+              break;
+            case 2:   // progress
+              showProgress(result.sent, result.total);
+              break;
+            case 3:   // finish
+              showProgress(result.sent, result.total);
+              showResult(result.response)
+              break;
           }
         },
-        fail: function (error) {
-          document.getElementById("texta-result").value = document.getElementById("texta-result").value + "\n" + "fail" + JSON.stringify(error);
+        fail: function (err) {
+          showError(err)
         }
       })
     }
 
-    function cancel(canDownId) {
+    function cancel(canDownId){
       syberh.upload.cancel({
         'uploadID': canDownId,
         success: function (rs) {
-          mui("#progress-" + canDownId).progressbar().setProgress(0);
-          document.getElementById("texta-result").value = document.getElementById("texta-result").value + "\n" + "已取消，" + JSON.stringify(rs);
+          mui("#progress").progressbar().setProgress(0);
+
+          showTips('已取消');
+          console.log('cancel: ' + JSON.stringify(rs));
         },
-        fail: function (er) {
-          document.getElementById("texta-result").value = document.getElementById("texta-result").value + "\n" + "取消失败，" + JSON.stringify(er);
+        fail: function (err) {
+          showError(err)
         }
       })
+    }
+
+    function showProgress(sent, total){
+      elementDisplay("#rsp-content-contaier", true)
+      elementDisplay("#rsp-error-contaier", false)
+
+      if(!total){
+        mui("#progress").progressbar().setProgress(0);
+        return;
+      }
+      mui("#progress").progressbar().setProgress(Math.round((sent / total) * 100));
+    }
+
+
+    function showResult(resp){
+      if(!resp){
+        showTips('响应为空');
+        return;
+      }
+      document.querySelector('#rsp-statusCode').innerText = resp.statusCode;
+      document.querySelector('#rsp-header').innerText = resp.header ? JSON.stringify(resp.header) : '{}';
+      document.querySelector('#rsp-cookie').innerText = resp.cookie ? JSON.stringify(resp.cookie) : '[]';
+      document.querySelector('#rsp-data').innerText = resp.body;
+
+      elementDisplay("#rsp-content-contaier", true)
+      elementDisplay("#rsp-error-contaier", false)
+    }
+
+    function clearResult(){
+      showProgress(0, 0)
+      document.querySelector('#rsp-statusCode').innerText = '';
+      document.querySelector('#rsp-header').innerText = '';
+      document.querySelector('#rsp-cookie').innerText = '';
+      document.querySelector('#rsp-data').innerText = '';
+    }
+
+
+    function showError(err){
+      if(!err){
+        return;
+      }
+      document.querySelector('#rsp-error').innerText = JSON.stringify(err);
+
+      elementDisplay("#rsp-content-contaier", false)
+      elementDisplay("#rsp-error-contaier", true)
+    }
+
+    function elementDisplay(selector, show){
+      var elem = document.querySelector(selector);
+      if(!elem){
+        return;
+      }
+      if(!show){
+        elem.classList.add('hide')
+      }else{
+        elem.classList.remove('hide')
+      }
     }
 
   </script>

@@ -28,7 +28,6 @@ void ErrorInfo::init(){
     errors.insert(ErrorCode::UploadFileMissing, "上传文件缺失");
     errors.insert(ErrorCode::IllegalUploadFileType, "上传素材的文件类型不合法");
     errors.insert(ErrorCode::IllegalUploadFileSize, "上传素材的文件尺寸不合法");
-    errors.insert(ErrorCode::UploadFileFailed, "上传失败");
     errors.insert(ErrorCode::CannelFailed, "取消失败");
     errors.insert(ErrorCode::NotEnoughSpace, "空间不足");
     errors.insert(ErrorCode::InvalidFilePermission, "文件无操作权限");

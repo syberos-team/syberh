@@ -51,8 +51,6 @@ public:
         IllegalUploadFileType = 6002,
         //上传素材的文件尺寸不合法
         IllegalUploadFileSize = 6003,
-        //上传失败
-        UploadFileFailed = 6004,
         //取消失败
         CannelFailed = 6005,
 

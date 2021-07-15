@@ -105,9 +105,14 @@ QString ProjectConfig::getHomePage()
     return d->getString("homePage");
 }
 
-QString ProjectConfig::getStoreBaseUrl()
+QString ProjectConfig::getAppStoreUrl()
 {
-    return d->getString("storeBaseUrl");
+    return d->getString("appStore", "url");
+}
+
+QString ProjectConfig::getAppInfoPath()
+{
+    return d->getString("appStore", "appInfoPath");
 }
 
 QString ProjectConfig::getDeployIP()
