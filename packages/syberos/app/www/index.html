@@ -116,6 +116,9 @@
           <li class="mui-table-view-cell secondMenu">
             <a class="mui-navigate-right api-class" id="pages/openDocument.html">openDocument</a>
           </li>
+          <li class="mui-table-view-cell">
+            <a class="mui-navigate-right" href="javascript:;" onclick="openDial()">唤起拨号</a>
+          </li>
         </ul>
       </li>
       <li class="mui-table-view-cell">
@@ -253,6 +256,18 @@
           showTips('失败:' + JSON.stringify(error))
         }
       })
+    }
+
+    function openDial(){
+      syberh.packages.openUrl({
+        scheme: 'dial://showdialpage?15011111111',
+        success: function(rs){
+          console.log('open dial: ', rs);
+        },
+        fail: function(e){
+          console.log('open dial failed: ', e);
+        }
+      });
     }
 
     syberh.subscribe('onReady', function () {
