@@ -308,7 +308,11 @@ CPage{
             webChannel: channel
 
             profile: WebEngineProfile{
-              httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS 4.1.1 5.9.6;"
+                storageName: 'Profile'
+                offTheRecord: false
+                cachePath: helper.getDataRootPath() + '/Cache'
+                persistentStoragePath: helper.getDataRootPath() + '/Data'
+                httpUserAgent: "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3770.100 Mobile Safari/537.36 SyberOS 4.1.1 5.9.6;"
             }
 
             onLinkHovered: {
