@@ -15,51 +15,97 @@
 <body>
 
   <div class="mui-content pt0">
-    <form class="mui-input-group">
-      <div class="mui-input-row">
-        <label>scheme:</label>
-        <input type="text" id="scheme" value="myapp1://openPage" class="mui-input-clear" />
+    <div class="mui-card">
+      <div class="mui-card-header">
+        打开syberh应用
       </div>
-      <div class="mui-input-row">
-        <label>key1:</label>
-        <input type="text" id="value1" value="abc" class="mui-input-clear" />
-      </div>
-      <div class="mui-input-row">
-        <label>key2:</label>
-        <input type="text" id="value2" value="def" class="mui-input-clear" />
-      </div>
-      <div class="mui-input-row">
-        <label>key3:</label>
-        <input type="text" id="value3" value="123" class="mui-input-clear" />
-      </div>
-      <div class="mui-input-row">
-        <label>key4:</label>
-        <input type="text" id="value4" value="456" class="mui-input-clear" />
-      </div>
-      <div class="mui-input-row">
-        <button type="button" class="mui-btn mui-btn-primary" onclick="btnClick()">确定</button>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>scheme:</label>
+            <input type="text" id="syberh-scheme" value="myapp1://openPage" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>key1:</label>
+            <input type="text" id="syberh-value1" value="abc" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>key2:</label>
+            <input type="text" id="syberh-value2" value="def" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>key3:</label>
+            <input type="text" id="syberh-value3" value="123" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>key4:</label>
+            <input type="text" id="syberh-value4" value="456" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>结果:</label>
+            <input type="text" id="syberh-result" readonly/>
+          </div>
+        </form>
       </div>
       <div class="mui-card-footer">
-        <h4>响应信息:</h4>
-        <div id="resultMsg"></div>
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="openSyberh()">确定</button>
       </div>
-    </form>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        打开设置
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>scheme:</label>
+            <input type="text" id="settings-scheme" value="settings://MainPage?operation=1" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>结果:</label>
+            <input type="text" id="open-settings-result" readonly/>
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="openSettings()">确定</button>
+      </div>
+    </div>
+    <div class="mui-card">
+      <div class="mui-card-header">
+        打开设置-声音
+      </div>
+      <div class="mui-card-content">
+        <form class="mui-input-group">
+          <div class="mui-input-row">
+            <label>scheme:</label>
+            <input type="text" id="sound-scheme" value="settings://AppletPage?operation=com.syberos.settings.sound" class="mui-input-clear" />
+          </div>
+          <div class="mui-input-row">
+            <label>结果:</label>
+            <input type="text" id="open-sound-result" readonly/>
+          </div>
+        </form>
+      </div>
+      <div class="mui-card-footer">
+        <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="openSettingsSound()">确定</button>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="../common/mui/mui.js"></script>
   <script type="text/javascript" src="../lib/syberh.min.js"></script>
-  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
   <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
 
   <script>
-
     var vConsole = new VConsole();
 
-    function btnClick() {
-      var scheme = document.getElementById("scheme").value;
-      var value1 = document.getElementById("value1").value;
-      var value2 = document.getElementById("value2").value;
-      var value3 = document.getElementById("value3").value;
-      var value4 = document.getElementById("value4").value;
+    function openSyberh() {
+      var scheme = document.getElementById("syberh-scheme").value;
+      var value1 = document.getElementById("syberh-value1").value;
+      var value2 = document.getElementById("syberh-value2").value;
+      var value3 = document.getElementById("syberh-value3").value;
+      var value4 = document.getElementById("syberh-value4").value;
 
       var params = {};
       if (value1) {
@@ -79,10 +125,36 @@
         scheme: scheme,
         params: params,
         success: function (result) {
-          document.getElementById("resultMsg").innerHTML = result;
+          document.getElementById("syberh-result").innerHTML = result;
         },
         fail: function (error) {
-          document.getElementById("resultMsg").innerHTML = JSON.stringify(error);
+          document.getElementById("syberh-result").innerHTML = JSON.stringify(error);
+        }
+      });
+    }
+
+    function openSettings(){
+      var scheme = document.getElementById('settings-scheme').value;
+      syberh.packages.openUrl({
+        scheme: scheme,
+        success: function (result) {
+          document.getElementById("settings-result").innerHTML = result;
+        },
+        fail: function (error) {
+          document.getElementById("settings-result").innerHTML = JSON.stringify(error);
+        }
+      });
+    }
+
+    function openSettingsSound(){
+      var scheme = document.getElementById('sound-scheme').value;
+      syberh.packages.openUrl({
+        scheme: scheme,
+        success: function (result) {
+          document.getElementById("sound-result").innerHTML = result;
+        },
+        fail: function (error) {
+          document.getElementById("sound-result").innerHTML = JSON.stringify(error);
         }
       });
     }
