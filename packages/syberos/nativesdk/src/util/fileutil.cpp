@@ -22,12 +22,12 @@ RespResult FileUtil::move(const QString &srcPath, const QString &destPath)
 
     RespResult respResult;
     // 判断目标文件是否存在
-    QFileInfo destInfo(destPath);
+/*    QFileInfo destInfo(destPath);
     if (!destInfo.exists()) {
         qDebug() << Q_FUNC_INFO << "判断目标文件是否存在: " << destInfo.exists();
         respResult.code = ErrorInfo::FileNotExists;
         respResult.flag = false;
-        respResult.msg = "目标文件不存在";
+        respResult.msg = ErrorInfo::message(ErrorInfo::FileNotExists, destPath);
         return respResult;
     }
     // 判断目标文件是否是文件夹
@@ -46,7 +46,7 @@ RespResult FileUtil::move(const QString &srcPath, const QString &destPath)
         respResult.msg = ErrorInfo::message(ErrorInfo::InvalidFilePermission, destPath);
         return respResult;
     }
-
+*/
     // 判断文件读写权限
     // 如果文件没有权限，exists 为false
     QFileInfo srcInfo(srcPath);
@@ -303,6 +303,7 @@ RespResult FileUtil::rename(const QString &srcPath, const QString &newName)
 
     RespResult respResult;
 
+    //判断目标文件是否存在
     QFileInfo srcInfo(srcPath);
     if (!srcInfo.exists()) {
         qDebug() << Q_FUNC_INFO << "srcInfo.exists: " << srcInfo.exists();
@@ -330,5 +331,166 @@ RespResult FileUtil::rename(const QString &srcPath, const QString &newName)
     return respResult;
 }
 
+RespResult FileUtil::mkdir(const QString &destPath)
+{
+   qDebug() << Q_FUNC_INFO << "destPath: " << destPath;
+
+   RespResult respResult;
+   QProcess proc;
+   QString cmd;
+
+   cmd="mkdir -p \"" + destPath + "\"";
+   qDebug() << Q_FUNC_INFO << "执行命令: "  << cmd;
+   proc.start(cmd);
+   proc.waitForFinished();
+
+   QString errTmp = proc.readAllStandardError();
+
+   qDebug() << Q_FUNC_INFO << "errTmp: "  << errTmp;
+
+   if (errTmp == "") {
+       respResult.flag = true;
+       return respResult;
+   } else {
+       qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+       respResult.flag = false;
+       respResult.code = ErrorInfo::SystemError;
+       respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+       return respResult;
+   }
+
 }
+
+RespResult FileUtil::mkfile(const QString &destPath)
+{
+    qDebug() << Q_FUNC_INFO << "destPath: " << destPath;
+
+    RespResult respResult;
+    QProcess proc;
+    QString cmd;
+    QFileInfo destInfo(destPath);
+
+    QDir absoluteDir = destInfo.absoluteDir();
+    bool dirFlag = absoluteDir.exists();
+    qDebug() << Q_FUNC_INFO <<"dir:" << absoluteDir << "path:" << destInfo.absoluteFilePath()<< "filename:" << destInfo.fileName()<< "dirFlag: " << dirFlag;
+    if (!dirFlag) {
+        FileUtil::mkdir(absoluteDir.absolutePath());
+    }
+    cmd="touch \"" + destPath + "\"";
+    qDebug() << Q_FUNC_INFO << "执行命令: "  << cmd;
+    proc.start(cmd);
+    proc.waitForFinished();
+
+    QString errTmp = proc.readAllStandardError();
+
+    qDebug() << Q_FUNC_INFO << "errTmp: "  << errTmp;
+
+    if (errTmp == "") {
+        respResult.flag = true;
+        return respResult;
+    } else {
+        qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+        respResult.flag = false;
+        respResult.code = ErrorInfo::SystemError;
+        respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+        return respResult;
+    }
+
+}
+
+RespResult FileUtil::compress(const QString &destName, const QString &destPath)
+{
+   qDebug() << Q_FUNC_INFO << "destPath: " << destPath;
+
+   RespResult respResult;
+   QProcess proc;
+   QString cmd;
+
+   cmd = "tar zcvf " + destName +  " " + destPath;
+   //cmd += "tar zcvf ";
+   //cmd += destName;
+   //cmd += " ";
+   //cmd += destPath;
+
+   qDebug() << Q_FUNC_INFO << "执行命令: "  << cmd;
+   proc.start(cmd);
+   proc.waitForFinished();
+
+   QString errTmp = proc.readAllStandardError();
+
+   qDebug() << Q_FUNC_INFO << "errTmp: "  << errTmp;
+
+   if (errTmp == "") {
+       respResult.flag = true;
+       return respResult;
+   } else {
+       qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+       respResult.flag = false;
+       respResult.code = ErrorInfo::SystemError;
+       respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+       return respResult;
+   }
+
+}
+
+RespResult FileUtil::decompress(const QString &destPath)
+{
+   qDebug() << Q_FUNC_INFO << "destPath: " << destPath;
+
+   RespResult respResult;
+   QProcess proc;
+   QString cmd;
+
+   cmd="tar -xvf " + destPath;
+   qDebug() << Q_FUNC_INFO << "执行命令: "  << cmd;
+   proc.start(cmd);
+   proc.waitForFinished();
+
+   QString errTmp = proc.readAllStandardError();
+
+   qDebug() << Q_FUNC_INFO << "errTmp: "  << errTmp;
+
+   if (errTmp == "") {
+       respResult.flag = true;
+       return respResult;
+   } else {
+       qDebug() << Q_FUNC_INFO << "error : " << errTmp << endl;
+       respResult.flag = false;
+       respResult.code = ErrorInfo::SystemError;
+       respResult.msg = ErrorInfo::message(ErrorInfo::SystemError, errTmp);
+       return respResult;
+   }
+
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

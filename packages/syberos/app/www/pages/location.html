@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Location</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+</head>
+
+<body>
+  <div class="mui-content" style="background-color: #fff">
+    <div class="mui-input-row">
+         <p id="db-result">&nbsp;</p>
+    </div>
+    <div class="mui-button-row">
+      <button type="button" class="mui-btn mui-btn-primary" onclick="curPosition('#db-result')">当前位置</button>
+    </div>
+
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../lib/location.plugin.js"></script>
+  <script>
+    var vConsole = new VConsole()
+
+    syberh.register(LocationPlugin)
+	
+	console.log("syberh",syberh,"Location::  LocationPlugin   :  "  + LocationPlugin);
+
+	function curPosition(rsId){
+	
+	    console.log("Location::  currentPosition   :  "  + rsId);
+
+      syberh.Location.currentPosition({
+        success: function(res){
+			console.log("Location::  success   :  "  + res);
+          Util.showResult(rsId, 'result: ' + JSON.stringify(res))
+        },
+        fail: function(err){
+			console.log("Location::  fail   :  "  + err);
+          Util.showResult(rsId, 'result: ' + JSON.stringify(err))
+        }
+      })
+    }
+
+
+	var Util = {};
+    Util.showResult = function(eid, result){
+      var elem = document.querySelector(eid);
+      if(elem){
+        elem.innerHTML = result;
+      }
+    }
+	
+  </script>
+</body>
+
+</html>

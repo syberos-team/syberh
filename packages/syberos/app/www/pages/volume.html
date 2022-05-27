@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>scan</title>
+  <link rel="stylesheet" href="../common/mui/mui.css" />
+  <link rel="stylesheet" href="../common/common.css" />
+  <style>
+    .pt0 {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mui-content pt0">
+
+      <div class="mui-card">
+        <div class="mui-card-header">
+	<div class="space-left">
+          <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="setVolume()">设置</button>
+          <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" onclick="getVolume()">获取音量</button>
+        </div>
+        </div>
+        <div class="mui-card-content">
+          <form class="mui-input-group">
+            <div class="mui-input-row">
+              <input type="text" value="设置音量" readonly="readonly" />
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="ringingVolume">铃声音量</label>
+              <input type="radio" id="ringingVolume" name="roleName" value="1"   checked="checked" >
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="notificationVolume">通知音量</label>
+              <input type="radio" id="notificationVolume" name="roleName" value="2">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="multimeldiaVolume">多媒体音量</label>
+              <input type="radio" id="multimeldiaVolume" name="roleName" value="3">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="systemVolume">系统音量</label>
+              <input type="radio" id="systemVolume" name="roleName" value="4">
+            </div>
+	    <div class="mui-input-row mui-radio mui-left">
+              <label for="callVolume">通话音量</label>
+              <input type="radio" id="phoneVolume" name="roleName" value="5">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="alermVolume">警告音量</label>
+              <input type="radio" id="alermVolume" name="roleName" value="6">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+              <label for="alermVolume">按键音量</label>
+              <input type="radio" id="keyVolume" name="roleName" value="7">
+            </div>
+
+            <div class="mui-input-row">
+            <label>value：</label>
+            <input type="text" id="setVolume" pattern="value" value="100" class="mui-input-clear" />
+          </div>
+          </form>
+        </div>
+        <div class="mui-card-footer">
+          <label>set-result：</label>
+          <p id="setVolume-result">&nbsp;</p>
+        </div>
+	<div class="mui-card-footer">
+          <label>get-result：</label>
+          <p id="getVolume-result">&nbsp;</p>
+        </div>
+      </div>        
+       
+  </div>
+  <script type="text/javascript" src="../common/mui/mui.js"></script>
+  <script type="text/javascript" src="../lib/syberh.min.js"></script>
+  <script type="text/javascript" src="../lib/vconsole.min.js"></script>
+  <script type="text/javascript" src="../common/common.js"></script>
+  <script type="text/javascript" src="../lib/volume.plugin.js"></script>
+  <style type="text/css">
+  .space-left{
+     justify-content:space-left;
+  }
+  </style>
+  <script>
+    var vConsole = new VConsole()
+    console.log('volume setting')
+
+    syberh.register(VolumePlugin)
+
+
+    function setVolume() {
+
+      var role;
+      var items = document.querySelectorAll("input[name=roleName]");
+      if(items){
+        items.forEach(it => {
+          if(it.checked){
+            role = it.value;
+          }
+        });
+      }
+
+      syberh.Volume.setVolume({
+        volume: document.getElementById('setVolume').value,
+	role: role,
+        success: function (result) {
+          document.getElementById('setVolume-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+    
+    function getVolume() {
+
+      var role;
+      var items = document.querySelectorAll("input[name=roleName]");
+      if(items){
+        items.forEach(it => {
+          if(it.checked){
+            role = it.value;
+          }
+        });
+      }
+
+      syberh.Volume.getVolume({
+	role: role,
+        success: function (result) {
+          document.getElementById('getVolume-result').innerText = JSON.stringify(result)
+        },
+        fail: function (error) {
+          console.info(error)
+          alert(error.msg);
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>

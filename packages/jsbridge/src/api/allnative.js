@@ -32,6 +32,10 @@ import appMixin from './native/app';
 import updateMixin from './native/update';
 import filePreviewMixin from './native/filePreview';
 
+import VolumeMixin from './native/Volume';
+import LocationMixin from './native/Location';
+import StorageSpaceMixin from './native/StorageSpace';
+
 export default function allNative() {
     // 下载模块
     downloadMixin();
@@ -68,4 +72,8 @@ export default function allNative() {
     appMixin();
     updateMixin();
     filePreviewMixin();
+	
+	VolumeMixin();
+	LocationMixin();
+	StorageSpaceMixin();
 }

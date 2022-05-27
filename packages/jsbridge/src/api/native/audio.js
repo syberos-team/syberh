@@ -39,5 +39,19 @@ export default function audioMixin () {
   }, {
     namespace: 'stop',
     os: ['syberos'],
+  }, {
+    namespace: 'getTotalTime',
+    os: ['syberos'],
+	defaultParams: {
+      path: '',
+    },
+    runCode (...rest) {
+      const args = innerUtil.compatibleStringParamsToObject.call(
+        this,
+        rest,
+        'path',
+      );
+      hybridJs.callInner.apply(this, args);
+    },
   }]);
 }

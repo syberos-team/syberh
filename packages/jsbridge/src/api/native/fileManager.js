@@ -41,5 +41,34 @@ export default function fileManagerMixin() {
                 recursive: 0,
             },
         },
+		{
+            namespace: 'mkdir',
+            os: ['syberos'],
+            defaultParams: {
+                destPath: '',
+            },
+        },
+		{
+            namespace: 'mkfile',
+            os: ['syberos'],
+            defaultParams: {
+                destPath: '',
+            },
+        },
+		{
+            namespace: 'compress',
+            os: ['syberos'],
+            defaultParams: {
+				destName: '',
+                destPath: '',
+            },
+        },
+		{
+            namespace: 'decompress',
+            os: ['syberos'],
+            defaultParams: {
+                destPath: '',
+            },
+        },
     ]);
 }

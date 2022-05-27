@@ -113,6 +113,34 @@ public:
      */
     Q_INVOKABLE static RespResult rename(const QString &srcPath, const QString &newName);
 
+    /**
+     * @brief mkdir         创建文件夹
+     * @param destPath      目标路径
+     * @return
+     */
+    Q_INVOKABLE static RespResult mkdir(const QString &destPath);
+
+    /**
+     * @brief mkdir         创建文件
+     * @param destPath      目标路径
+     * @return
+     */
+    Q_INVOKABLE static RespResult mkfile(const QString &destPath);
+
+    /**
+     * @brief compress      压缩文件
+     * @param destName      压缩文件的名字
+     * @param destPath      目标路径
+     * @return
+     */
+    Q_INVOKABLE static RespResult compress(const QString &destName, const QString &destPath);
+
+    /**
+     * @brief decompress    解压文件
+     * @param destPath      目标路径
+     * @return
+     */
+    Q_INVOKABLE static RespResult decompress(const QString &destPath);
 };
 
 }
