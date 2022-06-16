@@ -31,11 +31,11 @@
 				<div class="mui-input-group">
 					<div class="mui-input-row">
 						<label onclick="moveSrcClick()">源文件(点我)</label>
-						<input type="text" class="mui-input-clear" id="move-src" value="/data/data/com.syberos.camera/inbox">
+						<input type="text" class="mui-input-clear" id="move-src" value="/home/user/record">
 					</div>
 					<div class="mui-input-row">
 						<label >目标路径</label>
-						<input type="text" class="mui-input-clear" id="move-dest" value="/data/data/com.syberos.demo/www/pages">
+						<input type="text" class="mui-input-clear" id="move-dest" value="/home/user/record">
 					</div>
 					<div class="mui-button-row">
 						<button type="button" class="mui-btn mui-btn-primary" onclick="move()">移动</button>
@@ -111,6 +111,67 @@
 				</div>
 			</div>
 		</li>
+                <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">创建文件夹</a>
+			<div class="mui-collapse-content">
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label onclick="mkdirSrcClick()">目标路径</label>
+                                                <input type="text" class="mui-input-clear" id="mkdir-src" value="/home/user/">
+					</div>
+					<div class="mui-button-row">
+                                                <button type="button" class="mui-btn mui-btn-primary" onclick="mkdir()">创建</button>
+					</div>
+				</div>
+			</div>
+		</li>
+                <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">创建文件</a>
+                        <div class="mui-collapse-content">
+                                <div class="mui-input-group">
+                                        <div class="mui-input-row">
+                                                <label onclick="mkfileSrcClick()">目标路径</label>
+                                                <input type="text" class="mui-input-clear" id="mkfile-src" value="/home/user/">
+                                        </div>
+                                        <div class="mui-button-row">
+                                                <button type="button" class="mui-btn mui-btn-primary" onclick="mkfile()">创建</button>
+                                        </div>
+                                </div>
+                        </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">压缩文件</a>
+                        <div class="mui-collapse-content">
+                                <div class="mui-input-group">
+                                        <div class="mui-input-row">
+                                                <label onclick="compressSrcClick1()">目标路径</label>
+                                                <input type="text" class="mui-input-clear" id="compress-dest"  value="/data/developer/run">
+                                        </div>
+                                        <div class="mui-input-row">
+                                                <label onclick="compressSrcClick2()">压缩文件名字</label>
+                                                <input type="text" class="mui-input-clear" id="compress-name"  value="/data/developer/ruin.tar">
+                                        </div>
+                                        <div class="mui-button-row">
+                                                <button type="button" class="mui-btn mui-btn-primary" onclick="compress()">压缩</button>
+                                        </div>
+                                </div>
+                        </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">解压文件</a>
+                        <div class="mui-collapse-content">
+                                <div class="mui-input-group">
+                                        <div class="mui-input-row">
+                                                <label onclick="decompressSrcClick()">目标路径</label>
+                                                <input type="text" class="mui-input-clear" id="decompress-src" value="/data/developer/">
+                                        </div>
+                                        <div class="mui-button-row">
+                                                <button type="button" class="mui-btn mui-btn-primary" onclick="decompress()">解压</button>
+                                        </div>
+                                </div>
+                        </div>
+                </li>
+
 	</ul>
 
 	<textarea id="show-rsp" cols="30" rows="10"></textarea>
@@ -177,7 +238,7 @@
         showBack: true,
         success: function (result) {
 			if (result && result.files) {
-				document.getElementById("remove-src").value = result.files[0].path.replace("file://", "");
+                                document.getElementById("").value = result.files[0].path.replace("file://", "");
 			}
         },
         fail: function (error) {
@@ -185,6 +246,22 @@
         }
       })
 	}
+	
+        /*function mkdirSrcClick() {
+		syberh.filepicker.open({
+        title: '文件选择',
+        showBack: true,
+        success: function (result) {
+			if (result && result.files) {
+                                document.getElementById("mkdir-src").value = result.files[0].path.replace("file://", "");
+			}
+        },
+        fail: function (error) {
+          console.log('filepicker open fail', error)
+        }
+      })
+        }*/
+
 
     function move() {
       syberh.fileManager.move({
@@ -252,6 +329,60 @@
 		  document.getElementById("show-rsp").value = "删除：" + JSON.stringify(res);
         }
       })
+    }
+
+    function mkdir() {
+      syberh.fileManager.mkdir({
+        destPath: document.getElementById("mkdir-src").value,
+        //destPath: "/tmp/aaa",
+        success: function(res) {
+		//   console.info(res)
+		  document.getElementById("show-rsp").value = "创建：" + JSON.stringify(res);
+        },
+                fail: function(res){
+                        document.getElementById("show-rsp").value = "创建：" + JSON.stringify(res);
+                }
+      })
+    }
+
+    function mkfile() {
+      syberh.fileManager.mkfile({
+        destPath: document.getElementById("mkfile-src").value,
+        success: function(res) {
+            //   console.info(res)
+              document.getElementById("show-rsp").value = "创建：" + JSON.stringify(res);
+    },
+            fail: function(res){
+                    document.getElementById("show-rsp").value = "创建：" + JSON.stringify(res);
+            }
+  })
+ }
+
+    function compress() {
+     syberh.fileManager.compress({
+        destName: document.getElementById("compress-name").value,
+        destPath: document.getElementById("compress-dest").value,
+        success: function(res) {
+        //   console.info(res)
+            document.getElementById("show-rsp").value = "压缩：" + JSON.stringify(res);
+    },
+            fail: function(res){
+                document.getElementById("show-rsp").value = "压缩：" + JSON.stringify(res);
+        }
+    })
+    }
+
+    function decompress() {
+        syberh.fileManager.decompress({
+            destPath: document.getElementById("decompress-src").value,
+            success: function(res) {
+        //   console.info(res)
+            document.getElementById("show-rsp").value = "解压：" + JSON.stringify(res);
+    },
+            fail: function(res){
+                document.getElementById("show-rsp").value = "解压：" + JSON.stringify(res);
+        }
+    })
     }
   </script>
 </body>

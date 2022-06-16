@@ -49,7 +49,11 @@
 
   <div><button type="button" onclick="selectFile()" class="mui-btn mui-btn-primary">选择音频地址</button>
     <input type="text" id="path" value="" class="mui-text" /></div>
-  <div>指定时间：<input type="text" id="position" value="0" /></div>
+  
+<div><button type="button" onclick="getTotalTime()" class="mui-btn mui-btn-primary">获取音频总时长</button>
+    <input type="text" id="totalTime" value="" class="mui-text" /></div>
+
+<div>指定时间：<input type="text" id="position" value="0" /></div>
   <div id="content"></div>
 
 
@@ -89,6 +93,23 @@
             $("#stop").hide();
             document.getElementById("path").value = result.files[0].path.replace("file://", "");
           }
+        },
+      })
+}
+
+
+    function getTotalTime() {
+	var path = document.getElementById('path').value;
+        console.log('path222', path) 
+     syberh.audio.getTotalTime({
+	path: path,
+        success: function (result) {
+	  console.log('success222', JSON.stringify(result))
+
+	  console.log('totalTime222', result.totalTime)
+          
+            document.getElementById("totalTime").value = result.totalTime;
+          
         },
       })
     }
